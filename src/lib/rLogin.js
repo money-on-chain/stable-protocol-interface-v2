@@ -1,3 +1,9 @@
+import RLogin  from '@rsksmart/rlogin';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
+import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
+import { dcentProviderOptions } from '@rsksmart/rlogin-dcent-provider';
+
 import { config } from '../projects/config';
 const getRLogin = (port) => {
 
@@ -20,24 +26,24 @@ const getRLogin = (port) => {
 
     const supportedChains = Object.keys(rpcUrls).map(Number);
 
-    const rLogin = new window.RLogin.default({
+    const rLogin = new RLogin({
         cacheProvider: false,
         providerOptions: {
             walletconnect: {
-                package: window.WalletConnectProvider.default,
+                package: WalletConnectProvider.default,
                 options: {
                     rpc: rpcUrls
                 }
             },
             'custom-ledger': {
-                ...window.rLoginLedgerProvider.ledgerProviderOptions,
+                ...ledgerProviderOptions,
                 options: {
                   rpcUrl: rpcUrls[parseInt(chainId, 10)],
                   chainId: parseInt(chainId, 10)
                 }
             },
             'custom-dcent': {
-              ...window.rLoginDCentProvider.dcentProviderOptions,
+              ...dcentProviderOptions,
               options: {
                 rpcUrl: rpcUrls[parseInt(chainId)],
                 chainId: parseInt(chainId),
@@ -45,7 +51,7 @@ const getRLogin = (port) => {
               }
             },
             'custom-trezor': {
-                ...window.rLoginTrezorProvider.trezorProviderOptions,
+                ...trezorProviderOptions,
                 options: {
                   rpcUrl: rpcUrls[parseInt(chainId, 10)],
                   chainId: parseInt(chainId, 10),
