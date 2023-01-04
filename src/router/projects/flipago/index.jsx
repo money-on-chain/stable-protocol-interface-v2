@@ -5,7 +5,7 @@ import {config} from "../../../projects/config";
 import NotFound from '../../../pages/NotFound';
 const Skeleton = React.lazy(() => import('../../../layouts/projects/' + config.environment.AppProject.toLowerCase() + '/Skeleton'));
 
-const Home = React.lazy(() => import('../../../pages/v3/Home/index'));
+const Home = React.lazy(() => import('../../../pages/Home/index'));
 
 export default function Router() {
     return useRoutes([
