@@ -1,36 +1,29 @@
-# Stable protocol interface
+# Flipago interface
 
-Open source **decentralized interface** for multi-collateral stable protocol **Money on Chain**
+Open source **decentralized interface** for Flipago contracts
 
 You can:
 
-* Mint / Redeem Pegged Token (TP): Ex.: DoC or RDOC
-* Mint / Redeem Collateral Token (TC): Ex.: BPro or RIFP
-* Mint / Redeem Token X (TX): Ex.: BTCx or RIFx
+* Mint / Redeem Pegged Token (TP): Ex.: GoARS
+* Mint / Redeem Collateral Token (TC): Ex.: GoTurbo
 * Metrics
 * Last operations
-* Claim / Stake TG (MOC)
-* FastBTC Bridge
 
 
-### Money on Chain projects and tokens 
+### Flipago projects and tokens 
 
 **Projects**
 
-* Dollar on Chain (DoC) (Main project - Collateral RBTC) please review the contracts [here](https://github.com/money-on-chain/main-RBTC-contract)
-* RIF on Chain (RoC) (Collateral RIF) please review the contracts [here](https://github.com/money-on-chain/RDOC-Contract) 
+* Flipago RSK Network please review the contracts [here](https://github.com/money-on-chain/main-RBTC-contract)
 
 
-| Token | Token name       | Project | Token Name | Collateral |
-|-------|------------------|---------|------------|------------|
-| TP    | Pegged Token 1:1 | MOC     | DOC        | RBTC       |
-| TC    | Collateral Token | MOC     | BPRO       | RBTC       |
-| TX    | Leverage Token X | MOC     | BTCX       | RBTC       |
-| TG    | Govern Token     | MOC     | MOC        | -          |
-| TP    | Pegged Token 1:1 | ROC     | RDOC       | RIF        |
-| TC    | Collateral Token | ROC     | RIFP       | RIF        |
-| TX    | Leverage Token X | ROC     | RIFX       | RIF        |
-| TG    | Govern Token     | ROC     | MOC        | -          |
+| Token | Token name       | Project | Token Name | Collateral    |
+|-------|------------------|---------|------------|---------------|
+| TP #0 | Pegged Token     | Flipago | Go ARS     | DoC & RDoC    |
+| TP #1 | Pegged Token     | Flipago | Go MXN     | DoC & RDoC    |
+| TC    | Collateral Token | Flipago | Go Turbo   | DoC & RDoC    |
+
+
 
 ### Releases
 
@@ -39,8 +32,6 @@ Each release gets deployed to IPFS automatically.
 Please go to release section, there are several links to [releases](https://github.com/money-on-chain/release) 
 
 **Notes:** The list of operations of the user is get it through an  API. We use an api also for the liquidity mining program, but is not need it to run or to exchange tokens.
-
-
 
 
 ## DEVELOP
@@ -57,9 +48,9 @@ Install packages
 
 Run
 
-`npm run start:moc-testnet`
+`npm run start:flipago-testnet`
 
-**Note:** Start the environment you want to run ex. **"start:moc-testnet"** to start environment Moc Testnet 
+**Note:** Start the environment you want to run ex. **"start:flipago-testnet"** to start environment Flipago Testnet 
 
 
 ### Environment table
@@ -67,14 +58,10 @@ Run
 Environment is our already deployed contracts. 
 **Develop**: npm run start:<environment>
 
-| Name             | Project | Main Gateway                                 | Environment | Network | npm run                 |
-|------------------|---------|----------------------------------------------|-------------|---------|-------------------------|
-| MoC TestnetAlpha | MOC     |                                              | Testnet     | RSK     | start:moc-alpha-testnet |
-| MoC Testnet      | MOC     | [link](https://app-testnet.moneyonchain.com) | Testnet     | RSK     | start:moc-testnet       |
-| MoC Mainnet      | MOC     | [link](https://app.moneyonchain.com)         | Mainnet     | RSK     | start:moc-mainnet       |
-| RoC TestnetAlpha | RIF     |                                              | Testnet     | RSK     | start:roc-alpha-testnet |
-| RoC Testnet      | RIF     | [link](https://app-testnet.rifonchain.com)   | Testnet     | RSK     | start:roc-testnet       |
-| RoC Mainnet      | RIF     | [link](https://app.rifonchain.com)           | Mainnet     | RSK     | start:roc-mainnet       |
+| Name             | Project | Main Gateway                         | Environment | Network | npm run               |
+|------------------|---------|--------------------------------------|-------------|---------|-----------------------|
+| Flipago Testnet  | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipago-testnet |
+
 
 
 ### Faucets
