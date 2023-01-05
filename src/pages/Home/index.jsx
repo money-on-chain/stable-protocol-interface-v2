@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import {Row, Alert } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
-import ListOperations from "../../components/v3/Tables/ListOperations";
+import ListOperations from "../../components/Tables/ListOperations";
 import { config } from '../../projects/config';
 import { useProjectTranslation } from '../../helpers/translations';
 

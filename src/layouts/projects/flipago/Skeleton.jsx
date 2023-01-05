@@ -7,9 +7,9 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import { config } from '../../../projects/config';
 
 
-import SectionHeader from "../../../components/v3/Header";
-import StakingRewards from "../../../components/v3/Dashboards/StakingRewards"
-import Portfolio from "../../../components/v3/Dashboards/Portfolio"
+import SectionHeader from "../../../components/Header";
+import StakingRewards from "../../../components/Dashboards/StakingRewards"
+import Portfolio from "../../../components/Dashboards/Portfolio"
 
 import '../../../assets/css/global.scss';
 

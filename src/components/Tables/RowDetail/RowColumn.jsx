@@ -4,6 +4,7 @@ import { config } from '../../../projects/config';
 
 
 function RowColumn(props) {
+
     const [t, i18n, ns] = useProjectTranslation();
     const AppProject = config.environment.AppProject;
     

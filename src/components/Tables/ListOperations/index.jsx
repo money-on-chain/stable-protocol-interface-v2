@@ -1,3 +1,4 @@
+
 import React, {useContext, useEffect, useState} from 'react';
 import {InfoCircleOutlined} from "@ant-design/icons";
 import {DownCircleOutlined, UpCircleOutlined} from "@ant-design/icons";
@@ -15,11 +16,6 @@ import date from '../../../helpers/date';
 import {AuthenticateContext} from "../../../context/Auth";
 import { useProjectTranslation } from '../../../helpers/translations';
 import RowColumn from "../RowDetail/RowColumn";
-
-import { ReactComponent as LogoIconTP } from './../../../assets/icons/icon-tp.svg';
-import { ReactComponent as LogoIconTC } from './../../../assets/icons/icon-tc.svg';
-import { ReactComponent as LogoIconTX } from './../../../assets/icons/icon-tx.svg';
-import { ReactComponent as LogoIconTG } from './../../../assets/icons/icon-tg.svg';
 
 import './style.scss';
 
@@ -71,15 +67,15 @@ export default function ListOperations(props) {
 
     const transactionsList = (skip, call_table) => {
         if(auth.isLoggedIn){
-            const datas= (token != 'all') ?
+            const datas = (token !== 'all') ?
                 {
                     address: accountData.Owner,
-                    limit:20,
+                    limit:10,
                     skip:(((skip-1)+(skip-1))*10),
                     token: TokenNameNewToOld(token)
                 } : {
                     address: accountData.Owner,
-                    limit:20,
+                    limit:10,
                     skip:(((skip-1)+(skip-1))*10)
                 }
             setTimeout(() => {
@@ -161,35 +157,40 @@ export default function ListOperations(props) {
             title: '',
             dataIndex: 'info',
         },
-
         {
             title: t(`${AppProject}.operations.columns.event`, { ns: ns }),
             dataIndex: 'event',
+            width: 200,
             hidden:eventHidden
         },
         {
             title: t(`${AppProject}.operations.columns.type`, { ns: ns }),
             dataIndex: 'asset',
+            width: 100,
             hidden:assetHidden
         },
         {
             title: t(`${AppProject}.operations.columns.amount`, { ns: ns }),
             dataIndex: 'platform',
+            width: 180,
             hidden:platformHidden
         },
         {
             title: t(`${AppProject}.operations.columns.totalBtc`, { ns: ns }),
             dataIndex: 'wallet',
+            width: 180,
             hidden:walletHidden
         },
         {
             title: t(`${AppProject}.operations.columns.date`, { ns: ns }),
             dataIndex: 'date',
+            width: 220,
             hidden:dateHidden
         },
         {
             title: (!statusLabelHidden)? t(`${AppProject}.operations.columns.status`, { ns: ns }): '',
             dataIndex: 'status',
+            width: 180,
             hidden:statusHidden
         },
     ].filter(item => !item.hidden);
@@ -246,32 +247,32 @@ export default function ListOperations(props) {
         data = [];
 
         json_end.forEach((data_j) => {
-            const datas_response = readJsonTable(data_j,t,i18n)
+            const datas_response = readJsonTable(data_j, t, i18n)
 
             const detail = {
                 event:  datas_response['address'] === config.transfer[0].address ?
-                    config.transfer[0].title : datas_response['set_event']
-                , created: <span><Moment format={(i18n.language === "en") ?
-                    date.DATE_EN : date.DATE_ES}>{datas_response['lastUpdatedAt']}</Moment></span>
-                , details: datas_response['RBTCAmount']
-                , asset: datas_response['set_asset']
-                , confirmation: datas_response['confirmationTime'] ? (true) ?
+                    config.transfer[0].title : datas_response['set_event'],
+                created: <span><Moment format={(i18n.language === "en") ?
+                    date.DATE_EN : date.DATE_ES}>{datas_response['lastUpdatedAt']}</Moment></span>,
+                details: datas_response['RBTCAmount'],
+                asset: datas_response['set_asset'],
+                confirmation: datas_response['confirmationTime'] ? (true) ?
                     <span><Moment format={(i18n.language === "en") ?
                         date.DATE_EN : date.DATE_ES }>{datas_response['confirmationTime']}</Moment></span> :
-                            <span><Moment format="YYYY-MM-DD HH:MM:SS">{datas_response['confirmationTime']}</Moment></span> : ''
-                , address: (datas_response['address']!='--') ?
-                    <Copy textToShow={datas_response['truncate_address']} textToCopy={datas_response['address']} /> : '--'
-                , platform: datas_response['amount']
-                , platform_fee: datas_response['platform_fee_value']
-                , block: datas_response['blockNumber']
-                , wallet: datas_response['wallet_value']
-                , interests: datas_response['interests']
-                , tx_hash_truncate: datas_response['tx_hash_truncate']
-                , tx_hash: datas_response['tx_hash']
-                , leverage: datas_response['leverage']
-                , gas_fee: datas_response['gas_fee']
-                , price: datas_response['price']
-                , comments: '--'
+                            <span><Moment format="YYYY-MM-DD HH:MM:SS">{datas_response['confirmationTime']}</Moment></span> : '',
+                address: (datas_response['address'] !== '--') ?
+                    <Copy textToShow={datas_response['truncate_address']} textToCopy={datas_response['address']} /> : '--',
+                platform: datas_response['amount'],
+                platform_fee: datas_response['platform_fee_value'],
+                block: datas_response['blockNumber'],
+                wallet: datas_response['wallet_value'],
+                interests: datas_response['interests'],
+                tx_hash_truncate: datas_response['tx_hash_truncate'],
+                tx_hash: datas_response['tx_hash'],
+                leverage: datas_response['leverage'],
+                gas_fee: datas_response['gas_fee'],
+                price: datas_response['price'],
+                comments: '--'
             };
 
             data_row_coins2.push({
@@ -295,9 +296,9 @@ export default function ListOperations(props) {
                 case 'TP':
                     asset.push(
                         {
-                            'image': <LogoIconTP className="uk-preserve-width uk-border-circle" alt="avatar" width="32" height="32" /> ,
+                            'image': <i className="icon-token-tp" style={{display: "block"}} />,
                             'color': 'color-token-tp',
-                            'txt': 'DOC'
+                            'txt': 'TP'
                         }
                     );
                     data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TP_code`, { ns: ns });
@@ -305,9 +306,9 @@ export default function ListOperations(props) {
                 case 'TC':
                     asset.push(
                         {
-                            'image': <LogoIconTC className="uk-preserve-width uk-border-circle" alt="avatar" width="32" height="32" /> ,
+                            'image': <i className="icon-token-tc" style={{display: "block"}} />,
                             'color': 'color-token-tc',
-                            'txt': 'BPRO'
+                            'txt': 'TC'
                         }
                     );
                     data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TC_code`, { ns: ns });
@@ -315,9 +316,9 @@ export default function ListOperations(props) {
                 case 'TX':
                     asset.push(
                         {
-                            'image': <LogoIconTX className="uk-preserve-width uk-border-circle" alt="avatar" width="32" height="32" /> ,
+                            'image': <i className="icon-token-tx" style={{display: "block"}} />,
                             'color': 'color-token-tx',
-                            'txt': 'BTCX'
+                            'txt': 'TX'
                         }
                     );
                     data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TX_code`, { ns: ns });
@@ -325,9 +326,9 @@ export default function ListOperations(props) {
                 default:
                     asset.push(
                         {
-                            'image': <LogoIconTP className="uk-preserve-width uk-border-circle" alt="avatar" width="32" height="32" /> ,
+                            'image': <i className="icon-token-tp_0" style={{display: "block"}} />,
                             'color': 'color-token-tp',
-                            'txt': 'DOC'
+                            'txt': 'TP'
                         }
                     );
                     data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TP_code`, { ns: ns });
@@ -396,14 +397,7 @@ export default function ListOperations(props) {
     return (
         <>
             <div className="title">
-                <h1>{t(`${AppProject}.operations.title`, { ns: ns })}</h1>
-                <Tooltip
-                    color={'#404040'}
-                    placement="topLeft"
-                    title={t(`${AppProject}.operations.tooltip.text`, { ns: ns })}
-                    className='Tooltip'>
-                    <InfoCircleOutlined className="Icon" />
-                </Tooltip>
+                <h1 className="title-last-operations">{t(`${AppProject}.operations.title`, { ns: ns })}</h1>
             </div>
             {!loadingSke ? <>
             <Table
@@ -420,15 +414,17 @@ export default function ListOperations(props) {
                         )
                 }}
                 pagination={
-                    {pageSize:20,
+                    {
+                        pageSize:10,
                         position: [top, bottom],
                         defaultCurrent: 1,
                         onChange:onChange ,
-                        total: totalTable }
+                        total: totalTable
+                    }
                 }
                 columns={tableColumns}
                 dataSource={hasData ? (auth.isLoggedIn == true) ? data : null : null}
-                scroll={scroll}
+                scroll={{y: 340}}
             /></>:
                 <Skeleton active={true}  paragraph={{ rows: 4 }}></Skeleton>
             }

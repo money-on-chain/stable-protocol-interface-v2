@@ -25,6 +25,7 @@ export default function SelectCurrency(props) {
   return (
     <div className={`SelectCurrency ${disabled ? 'disabled' : ''}`}>
       <Select
+        className="exchange-select-token"
         size={"large"}
         onChange={onChange}
         disabled={disabled}

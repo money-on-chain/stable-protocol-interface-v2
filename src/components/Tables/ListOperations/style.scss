@@ -1,44 +1,33 @@
-@import '../../../assets/css/config_styling.scss';
+@import '../../../assets/css/config_styling';
 
+/*
 .Card.WalletOperations .title {
   padding: 0;
   margin-bottom: 0;
 }
-
+*/
 .components-table-demo-control-bar .ant-form-item {
   margin-right: 16px;
   margin-bottom: 8px;
 }
 
-
+/*
 .ant-table-thead>tr>th {
   background: #fff !important;
   color: #232222 !important;
   text-transform: uppercase !important;
 }
-
-.MoC-color-token-tp {
+*/
+.color-token-tp {
   color: $color-moc-tp;
 }
 
-.MoC-color-token-tx {
+.color-token-tx {
   color: $color-moc-tx;
 }
 
-.MoC-color-token-tc {
+.color-token-tc {
   color: $color-moc-tc;
-}
-
-.RoC-color-token-tp {
-  color: $color-roc-tp;
-}
-
-.RoC-color-token-tx {
-  color: $color-roc-tx;
-}
-
-.RoC-color-token-tc {
-  color: $color-roc-tc;
 }
 
 .event-action {
