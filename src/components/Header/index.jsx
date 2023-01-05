@@ -21,19 +21,19 @@ export default function SectionHeader() {
                 </div>
 
                 <div className="central-menu">
-                    <a href="src/components/Header/index#" className="menu-nav-item"><i className="logo-home"></i> <span className="menu-nav-item-title">Home</span> </a>
-                    <a href="src/components/Header/index#" className="menu-nav-item"><i className="logo-send"></i> <span className="menu-nav-item-title">Send</span> </a>
+                    <a href="#" className="menu-nav-item"><i className="logo-home"></i> <span className="menu-nav-item-title">Home</span> </a>
+                    <a href="#" className="menu-nav-item"><i className="logo-send"></i> <span className="menu-nav-item-title">Send</span> </a>
                     <ModalExchange />
-                    <a href="src/components/Header/index#" className="menu-nav-item"><i className="logo-performance"></i> <span className="menu-nav-item-title">Staking</span> </a>
-                    <a href="src/components/Header/index#" className="menu-nav-item"><i className="logo-more"></i> <span className="menu-nav-item-title">More Options</span> </a>
+                    <a href="#" className="menu-nav-item"><i className="logo-performance"></i> <span className="menu-nav-item-title">Staking</span> </a>
+                    <a href="#" className="menu-nav-item"><i className="logo-more"></i> <span className="menu-nav-item-title">More Options</span> </a>
                 </div>
 
                 <div className="wallet-user">
                     <div className="wallet-translation">
-                        <a href="src/components/Header/index#"> EN </a> <i className="logo-translation"></i>
+                        <a href="#"> EN </a> <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        <a href="src/components/Header/index#">0xC851…A81b</a> <i className="logo-wallet"></i>
+                        <a href="#">0xC851…A81b</a> <i className="logo-wallet"></i>
                     </div>
                 </div>
 

@@ -21,7 +21,7 @@ export default function ModalExchange() {
 
     return (
         <div>
-            <a href="src/components/Modals/Exchange/index#" onClick={showModal} className="menu-nav-item">
+            <a href="#" onClick={showModal} className="menu-nav-item">
                 <i className="logo-exchange"></i> <span className="menu-nav-item-title">Exchange</span>
             </a>
             <Modal

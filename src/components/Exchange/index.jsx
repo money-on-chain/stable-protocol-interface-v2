@@ -32,7 +32,7 @@ export default function Exchange() {
                     <span className="token-balance-value">
                         Balance: 1234.12
                     </span>
-                    <a href="src/components/Exchange/index#" className="token-balance-add-total">Add total available</a>
+                    <a href="#" className="token-balance-add-total">Add total available</a>
 
                 </div>
 
@@ -59,7 +59,7 @@ export default function Exchange() {
                     <span className="token-balance-value">
                         Balance: 1234.12
                     </span>
-                    <a href="src/components/Exchange/index#" className="token-balance-add-total">Add total available</a>
+                    <a href="#" className="token-balance-add-total">Add total available</a>
                 </div>
 
 
@@ -87,7 +87,7 @@ export default function Exchange() {
                     </div>
                 </div>
                 <div className="balance">
-                    This fee will be deducted from the transaction value transfered. Amounts my be different at transaction confirmation.
+                    This fee will be deducted from the transaction value transferred. Amounts my be different at transaction confirmation.
                 </div>
 
             </div>
