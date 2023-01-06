@@ -1,6 +1,5 @@
 
 import React, {useContext, useEffect, useState} from 'react';
-import {InfoCircleOutlined} from "@ant-design/icons";
 import {DownCircleOutlined, UpCircleOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import {Table, Progress, Tooltip, Skeleton} from 'antd';
@@ -10,7 +9,6 @@ import Moment from 'react-moment';
 import RowDetail from "../RowDetail";
 import api from '../../../services/api';
 import {readJsonTable, myParseDate, TokenNameNewToOld, TokenNameOldToNew} from '../../../helpers/helper'
-//import {config} from '../../../projects/config';
 import Copy from "../../Page/Copy";
 import date from '../../../helpers/date';
 import {AuthenticateContext} from "../../../context/Auth";
@@ -247,7 +245,7 @@ export default function ListOperations(props) {
         data = [];
 
         json_end.forEach((data_j) => {
-            const datas_response = readJsonTable(data_j, t, i18n)
+            const datas_response = readJsonTable(data_j, t, i18n, ns)
 
             const detail = {
                 //event:  datas_response['address'] === config.transfer[0].address ?

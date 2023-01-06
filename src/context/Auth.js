@@ -4,8 +4,6 @@ import Web3 from 'web3';
 import BigNumber from "bignumber.js";
 
 import addressHelper from '../helpers/addressHelper';
-//import FastBtcSocketWrapper from '../lib/fastBTC/FastBtcSocketWrapper';
-//import { config } from '../projects/config';
 
 import { readContracts } from '../lib/integration/contracts';
 import { contractStatus, userBalance } from '../lib/integration/multicall';
@@ -167,7 +165,6 @@ const AuthenticateProvider = ({ children }) => {
             truncatedAddress: ''
         });
         setUserBalanceData(null);
-        //setBalanceRbtc(null);
         setIsLoggedIn(false);
         await window.rLoginDisconnect();
         connect();
@@ -179,10 +176,7 @@ const AuthenticateProvider = ({ children }) => {
             web3,
             contractStatusData,
             userBalanceData,
-            //balanceRbtc,
-            //config,
-            account,
-            //vendorAddress: ''
+            account
         }
 
     }

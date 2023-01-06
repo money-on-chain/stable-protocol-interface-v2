@@ -1,7 +1,5 @@
-//import { config } from '../projects/config';
 import {getDecimals} from "./helper";
 import BigNumber from "bignumber.js";
-//const precisions = config.Precisions;
 
 const formatLocalMap = {
     es: {

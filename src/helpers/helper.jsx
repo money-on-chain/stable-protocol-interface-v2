@@ -3,14 +3,13 @@ import Web3 from "web3";
 import moment from 'moment';
 import BigNumber from "bignumber.js";
 
-//import {config} from '../projects/config';
 import {DetailedLargeNumber, getExplainByEvent} from "../components/LargeNumber";
 import {formatLocalMap2} from "./Formats";
 import settings from '../settings/settings.json'
 
-const ns = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase();
-const AppProject = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT;
+//const ns = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase();
 
+/*
 export function setNumber(number){
     if(number.indexOf(".")!==-1){
         const result = number.indexOf(".");
@@ -20,6 +19,8 @@ export function setNumber(number){
         return number
     }
 }
+
+ */
 /*
 export function getDatasMetrics(auth,i18n=null){
     if (auth.userBalanceData) {
@@ -141,7 +142,7 @@ export function TokenNameNewToOld(tokenName){
 
 
 
-export function readJsonTable(data_j,t, i18n){
+export function readJsonTable(data_j, t, i18n, ns){
 
     var set_event= "TRANSFER";
     if(data_j.event.includes("Mint")){set_event='MINT'}
@@ -428,13 +429,14 @@ export function readJsonTableFastBtcPegOut(data_j){
 
 }
 */
+/*
 export function setToLocaleString(value,fixed,i18n){
     return (Number(value)).toLocaleString(formatLocalMap2[i18n.languages[0]], {
         minimumFractionDigits: fixed,
         maximumFractionDigits: fixed
     });
 }
-
+*/
 
 /*
 export function readJsonClaims(data_j,t, i18n){
