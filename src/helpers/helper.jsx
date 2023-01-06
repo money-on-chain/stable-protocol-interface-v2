@@ -3,7 +3,7 @@
 import moment from 'moment';
 import BigNumber from "bignumber.js";
 import {DetailedLargeNumber, getExplainByEvent} from "../components/LargeNumber";
-import settings from '../settings/settings.json'
+//import settings from '../settings/settings.json'
 
 export function TokenNameOldToNew(tokenName){
     let token = ''
@@ -259,7 +259,7 @@ export const myParseDate = date_string => {
     let [y,M,d,h,m,s] = date_string.split(/[- :T]/);
     return new Date(y,parseInt(M)-1,d,h,parseInt(m),s.replace('Z',''));
 }
-
+/*
 export function getCoinName(coin){
 
     let currencies = {
@@ -275,7 +275,7 @@ export function getCoinName(coin){
 
     return currencies[coin]
 }
-
+*/
 export function getDecimals(coin,AppProject){
     let decimals= {
         'COINBASE': 6,

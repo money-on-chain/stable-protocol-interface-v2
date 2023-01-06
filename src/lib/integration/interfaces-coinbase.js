@@ -8,7 +8,7 @@ const mintTP = async (interfaceContext, reserveAmount, mintSlippage, onTransacti
   // Mint TP with collateral coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // get reserve price from contract
@@ -67,7 +67,7 @@ const redeemTP = async (interfaceContext, tpAmount, mintSlippage, onTransaction,
   // Redeem TP token receiving coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // get reserve price from contract
@@ -117,7 +117,7 @@ const mintTC = async (interfaceContext, reserveAmount, mintSlippage, onTransacti
   // Mint TC token with collateral coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // Price of TC in RESERVE
@@ -171,7 +171,7 @@ const redeemTC = async (interfaceContext, tcAmount, mintSlippage, onTransaction,
   // Redeem TC token receiving coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // Price of TC in RESERVE
@@ -218,7 +218,7 @@ const mintTX = async (interfaceContext, reserveAmount, mintSlippage, onTransacti
   // Mint TX token with collateral coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // Price of TX in coinbase
@@ -284,7 +284,7 @@ const redeemTX = async (interfaceContext, txAmount, mintSlippage, onTransaction,
   // Redeem TX token receiving coin base
 
   const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.integration;
+  const dContracts = window.dContracts;
   const { environment, tokens } = config;
 
   // Price of TX in RESERVE

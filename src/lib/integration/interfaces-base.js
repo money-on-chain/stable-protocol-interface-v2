@@ -7,7 +7,7 @@ import {toContractPrecisionDecimals, getGasPrice} from './utils';
 const AllowanceUseWrapper = async (interfaceContext, token, allow, tokenDecimals, onTransaction, onReceipt) => {
 
     const { web3, account } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
     const MocCAWrapperAddress = dContracts.contracts.MocCAWrapper.options.address
 
     let amountAllowance = new BigNumber('0')

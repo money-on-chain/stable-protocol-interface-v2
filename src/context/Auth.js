@@ -19,10 +19,8 @@ const AuthenticateContext = createContext({
     isLoggedIn: false,
     account: null,
     userBalanceData: null,
-    //balanceRbtc: null,
     contractStatusData: null,
     web3: null,
-    //getAppMode:null,
     connect: () => {},
     interfaceExchangeMethod: async (sourceCurrency, targetCurrency, amount, slippage, onTransaction, onReceipt) => {},
     interfaceMintTC: async (amount, slippage, onTransaction, onReceipt) => {},
@@ -65,7 +63,7 @@ const AuthenticateContext = createContext({
 const AuthenticateProvider = ({ children }) => {
     const [contractStatusData, setContractStatusData] = useState(null);
     const [provider, setProvider] = useState(null);
-    const [web3, setweb3] = useState(null);
+    const [web3, setWeb3] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [account, setAccount] = useState(null);
     const [userBalanceData, setUserBalanceData] = useState(null);
@@ -78,11 +76,6 @@ const AuthenticateProvider = ({ children }) => {
         GasPrice: 0,
         truncatedAddress: ''
     });
-    //let balanceData;
-    // const [transactionReceipt, setTransactionReceipt] = useState(null);
-
-    // Fast BTC socket
-    //const socket = '';
 
     async function loadCss() {
         let css_logout= await import ('../assets/css/logout.scss');
@@ -140,10 +133,9 @@ const AuthenticateProvider = ({ children }) => {
                 window.location.reload();
             })
 
-            setweb3(web3);
-            window.web3 = web3;
+            setWeb3(web3);
+            //window.web3 = web3;
             window.rLoginDisconnect = disconnect;
-            window.nodeManager = {};
 
             // request user's account
             provider.request({ method: 'eth_accounts' }).then(([account]) => {
@@ -315,23 +307,23 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const initContractsConnection = async () => {
-        window.integration = await readContracts(web3);
+        window.dContracts = await readContracts(web3);
         await loadContractsStatusAndUserBalance();
     }
 
     const loadContractsStatusAndUserBalance = async () => {
-        if (!window.integration) return;
+        if (!window.dContracts) return;
 
         // Read info from different contract
-        // in one call throught Multicall
+        // in one call through Multicall
         const dataContractStatus = await contractStatus(
             web3,
-            window.integration
+            window.dContracts
         );
 
         const accountBalance = await userBalance(
             web3,
-            window.integration,
+            window.dContracts,
             account
         );
 
@@ -343,7 +335,7 @@ const AuthenticateProvider = ({ children }) => {
 
     const loadAccountData = async () => {
         const owner = await getAccount();
-        const truncate_address =
+        const truncateAddress =
             owner.substring(0, 6) +
             '...' +
             owner.substring(owner.length - 4, owner.length);
@@ -352,7 +344,7 @@ const AuthenticateProvider = ({ children }) => {
             Owner: owner,
             Balance: await getBalance(account),
             GasPrice: await interfaceGasPrice(),
-            truncatedAddress: truncate_address
+            truncatedAddress: truncateAddress
         };
 
         window.address = owner;
@@ -372,13 +364,6 @@ const AuthenticateProvider = ({ children }) => {
             console.log(e);
         }
     };
-
-    const getMoCBalance = async (address) => {
-        const from = address || account;
-        const dContracts = window.integration;
-        const moctoken = dContracts.contracts.moctoken;
-        return moctoken.methods.balanceOf(from).call();
-    }
 
     const getSpendableBalance = async (address) => {
         const from = address || account;
@@ -585,11 +570,9 @@ const AuthenticateProvider = ({ children }) => {
                 account,
                 accountData,
                 userBalanceData,
-                //balanceRbtc,
                 contractStatusData,
                 isLoggedIn,
                 web3,
-                //getAppMode,
                 connect,
                 disconnect,
                 interfaceExchangeMethod,
