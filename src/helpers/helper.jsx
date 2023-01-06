@@ -90,7 +90,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         amountUSD: data_j.USDAmount ? data_j.USDAmount : 0,
         showUSD: false,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
     //const platform_detail_usd= (platform_detail * config.coin_usd).toFixed(2)
     const platform_detail_usd = 0;
@@ -108,19 +109,22 @@ export function readJsonTable(data_j, t, i18n, ns){
             currencyCode: data_j.tokenInvolved,
             includeCurrency: true,
             t: t,
-            i18n:i18n
+            i18n:i18n,
+            ns:ns
         }),
         amount_rbtc: DetailedLargeNumber({
             amount: data_j.RBTCTotal ? data_j.RBTCTotal : data_j.RBTCAmount,
             currencyCode: 'RESERVE',
             includeCurrency: true,
             t: t,
-            i18n:i18n
+            i18n:i18n,
+            ns:ns
         }),
         status: data_j.status,
         token_involved: t(`Tokens_${data_j.tokenInvolved}_code`, { ns: ns }),
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
     const confirmationTime= data_j.confirmationTime
     const address= (data_j.address !='')? data_j.address : '--'
@@ -133,7 +137,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         amountUSD: data_j.USDAmount ? data_j.USDAmount : 0,
         showUSD: true,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns: ns
     })
 
     const platform_fee_value= DetailedLargeNumber({
@@ -145,7 +150,8 @@ export function readJsonTable(data_j, t, i18n, ns){
          amountUSD: data_j.USDCommission ? data_j.USDCommission : 0,
          showUSD: true,
          t: t,
-         i18n:i18n
+         i18n:i18n,
+         ns:ns
     })
 
     const blockNumber= (data_j.blockNumber!==undefined)? data_j.blockNumber : '--'
@@ -158,7 +164,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         amountUSD: data_j.USDTotal ? data_j.USDTotal : 0,
         showUSD: true,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
 
     const interests= DetailedLargeNumber({
@@ -171,7 +178,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         showSign: data_j.event == 'RiskProxRedeem' ? true : undefined,
         infoDescription: data_j.event == 'RiskProxRedeem' ? 'Credit interest' : undefined,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
     const tx_hash_truncate= (data_j.transactionHash!==undefined)? truncate_txhash : '--'
     const tx_hash= (data_j.transactionHash!==undefined)? data_j.transactionHash : '--'
@@ -183,7 +191,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         amountUSD: data_j.gasFeeUSD ? data_j.gasFeeUSD : 0,
         showUSD: true,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
 
     const price= DetailedLargeNumber({
@@ -191,7 +200,8 @@ export function readJsonTable(data_j, t, i18n, ns){
         currencyCode: 'USD',
         includeCurrency: true,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
 
     const wallet_value_main= DetailedLargeNumber({
@@ -203,14 +213,16 @@ export function readJsonTable(data_j, t, i18n, ns){
         amountUSD: data_j.USDTotal ? data_j.USDTotal : 0,
         showUSD: false,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
     })
 
     const leverage=  DetailedLargeNumber({
-            amount: data_j.leverage,
-            currencyCode: data_j.tokenInvolved,
+        amount: data_j.leverage,
+        currencyCode: data_j.tokenInvolved,
         t: t,
-        i18n:i18n
+        i18n:i18n,
+        ns:ns
         })
 
     return {

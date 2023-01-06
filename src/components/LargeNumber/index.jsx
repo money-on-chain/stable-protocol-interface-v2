@@ -3,51 +3,9 @@ import NumericLabel from 'react-pretty-numbers';
 import { adjustPrecision, formatLocalMap } from '../../helpers/Formats';
 import i18n from 'i18next';
 import DollarOutlined from '@ant-design/icons/DollarOutlined';
-import {getCoinName} from "../../helpers/helper";
-import { useProjectTranslation } from '../../helpers/translations';
 
 const AppProject = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT;
-const ns = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase();
 
-const LargeNumber = ({ amount, currencyCode, includeCurrency, numericLabelParams, className, tooltip }) => {
-
-  const [t, i18n, ns]= useProjectTranslation();
-  if (amount !== null && amount !== '' && !Number.isNaN(amount)) {
-    const { value, decimals } = adjustPrecision(amount, currencyCode,AppProject);
-    const params = Object.assign(
-      {
-          commafy: true,
-          justification: "L",
-          locales: i18n.languages[0],
-          precision: decimals,
-          shortFormat: true,
-          shortFormatMinValue: 1000000,
-          shortFormatPrecision: decimals,
-          title: "",
-          cssClass:['value_usd']
-      },
-      numericLabelParams
-    );
-
-    return (<>
-            { !isNaN(value) &&
-            <Tooltip placement={tooltip ? tooltip : 'top'} title={value === 0 ? '0' : value.toFormat(formatLocalMap[i18n.languages[0]])}>
-                <div className={className}>
-                    {/* <NumericLabel {... {params }}>{amount?.toString()}</NumericLabel> */}
-                    <NumericLabel {... {params }}>{value.toString()}</NumericLabel>
-                    {/*<span className={'number-label'}>{includeCurrency && ` ${t(`${AppProject}.Tokens_${currencyCode}_code`, {ns: 'moc' })}`}</span>*/}
-                    <span className={'number-label'}>{includeCurrency && ` ${getCoinName(currencyCode)}`}</span>
-                </div>
-            </Tooltip>}</>
-    );
-  }
-
-  return (
-    <Tooltip title={t(`general.invalidValueDescription`, {ns: ns})}>
-      {t(`general.invalidValuePlaceholder`, {ns: ns})}
-    </Tooltip>
-  )
-};
 
 const InfoIcon = ({infoDescription}) => {
 
@@ -93,7 +51,8 @@ const USDValueLargeNumber = ({amountUSD, showUSD, numericLabelParams}) => {
 
 }
 
-const DetailedLargeNumber= ({ amount, currencyCode, includeCurrency, isPositive, showSign, showUSD, amountUSD, numericLabelParams, infoDescription, showFlat,t, i18n  }) => {
+const DetailedLargeNumber = ({ amount, currencyCode, includeCurrency, isPositive, showSign, showUSD, amountUSD, numericLabelParams, infoDescription, showFlat, t, i18n, ns  }) => {
+
     var displayCurrencyCode = ''
     if (currencyCode === 'RBTC') {
         displayCurrencyCode = 'RBTC';
@@ -168,7 +127,7 @@ DetailedLargeNumber.defaultProps = {
     infoDescription: ''
 }
 
-const getExplainByEvent = ({ event, amount, amount_rbtc, status, token_involved, t, i18n }) => {
+const getExplainByEvent = ({ event, amount, amount_rbtc, status, token_involved, t, i18n, ns }) => {
     if (status !== 'confirmed') {
         return '--';
     }
@@ -234,5 +193,5 @@ const getExplainByEvent = ({ event, amount, amount_rbtc, status, token_involved,
     return map[event];
 };
 
-export { LargeNumber, DetailedLargeNumber, getExplainByEvent };
+export { DetailedLargeNumber, getExplainByEvent };
 
