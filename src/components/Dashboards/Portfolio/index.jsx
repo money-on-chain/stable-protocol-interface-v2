@@ -1,13 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../../helpers/translations";
-import {config} from "../../../projects/config";
 import TokensList from "../../Tables/Tokens";
 
 
 export default function Portfolio() {
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
 
     return (
         <div className="dashboard-portfolio">

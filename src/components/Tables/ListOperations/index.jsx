@@ -10,7 +10,7 @@ import Moment from 'react-moment';
 import RowDetail from "../RowDetail";
 import api from '../../../services/api';
 import {readJsonTable, myParseDate, TokenNameNewToOld, TokenNameOldToNew} from '../../../helpers/helper'
-import {config} from '../../../projects/config';
+//import {config} from '../../../projects/config';
 import Copy from "../../Page/Copy";
 import date from '../../../helpers/date';
 import {AuthenticateContext} from "../../../context/Auth";
@@ -39,7 +39,7 @@ export default function ListOperations(props) {
     const [xScroll, setXScroll] = useState(undefined);
 
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
+    const AppProject = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT;
     const auth = useContext(AuthenticateContext);
 
     const { accountData = {} } = auth;
@@ -80,7 +80,7 @@ export default function ListOperations(props) {
                 }
             setTimeout(() => {
                 try {
-                    api('get', `${config.environment.api.operations}`+'webapp/transactions/list/', datas)
+                    api('get', `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}`+'webapp/transactions/list/', datas)
                         .then(response => {
                             setDataJson(response);
                             setTotalTable(response.total)
@@ -158,37 +158,37 @@ export default function ListOperations(props) {
             dataIndex: 'info',
         },
         {
-            title: t(`${AppProject}.operations.columns.event`, { ns: ns }),
+            title: t(`operations.columns.event`, { ns: ns }),
             dataIndex: 'event',
             width: 200,
             hidden:eventHidden
         },
         {
-            title: t(`${AppProject}.operations.columns.type`, { ns: ns }),
+            title: t(`operations.columns.type`, { ns: ns }),
             dataIndex: 'asset',
             width: 100,
             hidden:assetHidden
         },
         {
-            title: t(`${AppProject}.operations.columns.amount`, { ns: ns }),
+            title: t(`operations.columns.amount`, { ns: ns }),
             dataIndex: 'platform',
             width: 180,
             hidden:platformHidden
         },
         {
-            title: t(`${AppProject}.operations.columns.totalBtc`, { ns: ns }),
+            title: t(`operations.columns.totalBtc`, { ns: ns }),
             dataIndex: 'wallet',
             width: 180,
             hidden:walletHidden
         },
         {
-            title: t(`${AppProject}.operations.columns.date`, { ns: ns }),
+            title: t(`operations.columns.date`, { ns: ns }),
             dataIndex: 'date',
             width: 220,
             hidden:dateHidden
         },
         {
-            title: (!statusLabelHidden)? t(`${AppProject}.operations.columns.status`, { ns: ns }): '',
+            title: (!statusLabelHidden)? t(`operations.columns.status`, { ns: ns }): '',
             dataIndex: 'status',
             width: 180,
             hidden:statusHidden
@@ -250,8 +250,9 @@ export default function ListOperations(props) {
             const datas_response = readJsonTable(data_j, t, i18n)
 
             const detail = {
-                event:  datas_response['address'] === config.transfer[0].address ?
-                    config.transfer[0].title : datas_response['set_event'],
+                //event:  datas_response['address'] === config.transfer[0].address ?
+                //    config.transfer[0].title : datas_response['set_event'],
+                event:  datas_response['set_event'],
                 created: <span><Moment format={(i18n.language === "en") ?
                     date.DATE_EN : date.DATE_ES}>{datas_response['lastUpdatedAt']}</Moment></span>,
                 details: datas_response['RBTCAmount'],
@@ -278,8 +279,9 @@ export default function ListOperations(props) {
             data_row_coins2.push({
                 key: data_j._id,
                 info: '',
-                event: datas_response['address'] === config.transfer[0].address ?
-                    config.transfer[0].title : datas_response['set_event'],
+                //event: datas_response['address'] === config.transfer[0].address ?
+                //    config.transfer[0].title : datas_response['set_event'],
+                event: datas_response['set_event'],
                 asset: datas_response['set_asset'],
                 platform: datas_response['platform_detail'],
                 wallet: datas_response['wallet_value_main'],
@@ -301,7 +303,7 @@ export default function ListOperations(props) {
                             'txt': 'TP'
                         }
                     );
-                    data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TP_code`, { ns: ns });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, { ns: ns });
                     break;
                 case 'TC':
                     asset.push(
@@ -311,7 +313,7 @@ export default function ListOperations(props) {
                             'txt': 'TC'
                         }
                     );
-                    data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TC_code`, { ns: ns });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TC_code`, { ns: ns });
                     break;
                 case 'TX':
                     asset.push(
@@ -321,7 +323,7 @@ export default function ListOperations(props) {
                             'txt': 'TX'
                         }
                     );
-                    data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TX_code`, { ns: ns });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TX_code`, { ns: ns });
                     break;
                 default:
                     asset.push(
@@ -331,7 +333,7 @@ export default function ListOperations(props) {
                             'txt': 'TP'
                         }
                     );
-                    data_row_coins2[index].detail.asset = t(`${AppProject}.Tokens_TP_code`, { ns: ns });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, { ns: ns });
                     break;
             }
 
@@ -397,7 +399,7 @@ export default function ListOperations(props) {
     return (
         <>
             <div className="title">
-                <h1 className="title-last-operations">{t(`${AppProject}.operations.title`, { ns: ns })}</h1>
+                <h1 className="title-last-operations">{t(`operations.title`, { ns: ns })}</h1>
             </div>
             {!loadingSke ? <>
             <Table

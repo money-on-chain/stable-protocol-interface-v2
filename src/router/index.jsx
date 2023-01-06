@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 
-import {config} from "../projects/config";
-
 const RouterFlipago = React.lazy(() => import('./projects/flipago'));
 
 const Router = () => {
-  switch (config.environment.AppProject.toLowerCase()) {
+  switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
     case 'flipago':
         return RouterFlipago
     default:

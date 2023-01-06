@@ -3,14 +3,12 @@ import { Switch, Button } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../helpers/translations";
-import {config} from "../../projects/config";
 import SelectCurrency from "../SelectCurrency";
 import ModalConfirmOperation from "../Modals/ConfirmOperation";
 
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
 
     return (
     <div className="exchange-content">

@@ -1,5 +1,4 @@
 import { notification } from 'antd';
-import {config} from "../../../projects/config";
 import React from "react";
 
 import IconCopy from './../../../assets/icons/copy2.png';
@@ -17,10 +16,10 @@ export default function Copy(props) {
         });
     };
 
-    let url_set=config.environment.explorerUrl+'/address/'+textToCopy
+    let url_set=process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL+'/address/'+textToCopy
     switch (typeUrl){
         case "tx":
-            url_set=config.environment.explorerUrl+'/tx/'+textToCopy
+            url_set=process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL+'/tx/'+textToCopy
             break;
         default:
             break;

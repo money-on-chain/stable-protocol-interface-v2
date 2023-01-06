@@ -2,7 +2,6 @@ import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../helpers/translations";
-import {config} from "../../projects/config";
 import ModalExchange from "../Modals/Exchange"
 
 const { Header } = Layout;
@@ -10,7 +9,6 @@ const { Header } = Layout;
 
 export default function SectionHeader() {
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
 
     return (
         <Header>

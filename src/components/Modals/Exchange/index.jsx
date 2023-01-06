@@ -2,13 +2,11 @@ import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
 import {useProjectTranslation} from "../../../helpers/translations";
-import {config} from "../../../projects/config";
 import Exchange from "../../Exchange";
 
 
 export default function ModalExchange() {
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {

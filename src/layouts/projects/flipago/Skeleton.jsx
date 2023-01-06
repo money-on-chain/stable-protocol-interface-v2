@@ -4,9 +4,6 @@ import React, { useContext, useState, useEffect } from 'react';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import { config } from '../../../projects/config';
-
-
 import SectionHeader from "../../../components/Header";
 import StakingRewards from "../../../components/Dashboards/StakingRewards"
 import Portfolio from "../../../components/Dashboards/Portfolio"
@@ -18,9 +15,7 @@ const { Content, Footer } = Layout;
 
 export default function Skeleton() {    
 
-    //const { accountData, balanceRbtc } = useContext(AuthenticateContext);
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
     const auth = useContext(AuthenticateContext);
 
     return (

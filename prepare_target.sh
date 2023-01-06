@@ -16,9 +16,13 @@ cp src/assets/projects/$1/icons/ src/assets/ -R
 echo "Copying assets files done!"
 
 # Contracts
-echo "Copying contract files ..."
+echo "Copying contracts files ..."
 cp src/contracts/projects/$1/*.* src/contracts/
-cp src/contracts/projects/$1/omoc/ src/contracts/ -R
-echo "Copying assets files done!"
+echo "Copying contracts files done!"
+
+# Settings
+echo "Copying Settings files ..."
+cp src/settings/projects/$1/*.* src/settings/
+echo "Copying Settings files done!"
 
 echo "Done preparing project! "

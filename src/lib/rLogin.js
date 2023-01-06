@@ -4,7 +4,6 @@ import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
 import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
 import { dcentProviderOptions } from '@rsksmart/rlogin-dcent-provider';
 
-import { config } from '../projects/config';
 const getRLogin = (port) => {
 
     let rpcUrls= {}
@@ -20,7 +19,7 @@ const getRLogin = (port) => {
         };
     }
 
-    const chainId = config.environment.chainId;
+    const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
     var selectedNetwork = {};
     selectedNetwork[parseInt(chainId)] = rpcUrls[parseInt(chainId)];
 

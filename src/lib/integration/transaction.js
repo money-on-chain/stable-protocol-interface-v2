@@ -1,51 +1,30 @@
 import abiDecoder from 'abi-decoder';
 import Web3 from 'web3';
-//import { toContractPrecision, getAppMode } from './utils';
 
-const addABI = (abiContracts, appMode) => {
+const addABI = (abiContracts) => {
 
   // Abi decoder
-  abiDecoder.addABI(abiContracts.MoC.abi)
-  abiDecoder.addABI(abiContracts.MoCState.abi)
-  abiDecoder.addABI(abiContracts.MoCExchange.abi)
-  abiDecoder.addABI(abiContracts.MoCInrate.abi)
-  abiDecoder.addABI(abiContracts.MoCSettlement.abi)
-  abiDecoder.addABI(abiContracts.TP.abi)
-  abiDecoder.addABI(abiContracts.TC.abi)
-  abiDecoder.addABI(abiContracts.TG.abi)
-  abiDecoder.addABI(abiContracts.MoCVendors.abi)
-  if (appMode === 'RRC20') {
-    abiDecoder.addABI(abiContracts.ReserveToken.abi)
-  }
-
-  abiDecoder.addABI(abiContracts.IRegistry.abi)
-  abiDecoder.addABI(abiContracts.IStakingMachine.abi)
-  abiDecoder.addABI(abiContracts.IDelayMachine.abi)
-  abiDecoder.addABI(abiContracts.ISupporters.abi)
-  abiDecoder.addABI(abiContracts.IVestingMachine.abi)
-  abiDecoder.addABI(abiContracts.IVotingMachine.abi)
+  abiDecoder.addABI(abiContracts.WrappedCollateralAsset.abi)
+  abiDecoder.addABI(abiContracts.TokenPegged.abi)
+  abiDecoder.addABI(abiContracts.CollateralTokenCABag.abi)
+  abiDecoder.addABI(abiContracts.MocCABag.abi)
+  abiDecoder.addABI(abiContracts.MocCAWrapper.abi)
 
 }
 
 const renderEventField = (eveName, eveValue) => {
   const formatItemsWei = new Set([
     'amount',
-    'reserveTotal',
-    'reservePrice',
-    'mocCommissionValue',
-    'mocPrice',
-    'commission',
-    'mocCommissionValue',
-    'mocPrice',
-    'btcMarkup',
-    'mocMarkup',
     'interests',
     'leverage',
     'value',
-    'paidMoC',
-    'paidReserveToken',
-    'paidRBTC',
-    'staking'])
+    'qTC_',
+    'qAsset_',
+    'qACfee_',
+    'qAC_',
+    'oldTPema_',
+    'newTPema_',
+    'qTP_'])
 
   if (formatItemsWei.has(eveName)) { eveValue = Web3.utils.fromWei(eveValue) }
 
@@ -66,19 +45,27 @@ const decodeEvents = (receipt) => {
   const decodedLogs = abiDecoder.decodeLogs(receipt.logs)
 
   const filterIncludes = [
-    'StableTokenMint',
-    'StableTokenRedeem',
-    'FreeStableTokenRedeem',
-    'RiskProWithDiscountMint',
-    'RiskProMint',
-    'RiskProRedeem',
-    'RiskProxMint',
-    'RiskProxRedeem',
-    'Transfer',
-    'Approval',
-    'VendorReceivedMarkup',
-    'VendorStakeAdded',
-    'VendorStakeRemoved'
+    'TCMinted',
+    'TCRedeemed',
+    'TPMinted',
+    'TPRedeemed',
+    'TPSwappedForTP',
+    'TPSwappedForTC',
+    'TCSwappedForTP',
+    'TCandTPRedeemed',
+    'TCandTPMinted',
+    'PeggedTokenChange',
+    'SuccessFeeDistributed',
+    'TPemaUpdated',
+    'TCMintedWithWrapper',
+    'TCRedeemedWithWrapper',
+    'TPMintedWithWrapper',
+    'TPRedeemedWithWrapper',
+    'TCandTPMintedWithWrapper',
+    'TCandTPRedeemedWithWrapper',
+    'TPSwappedForTPWithWrapper',
+    'TPSwappedForTCWithWrapper',
+    'TCSwappedForTPWithWrapper'
   ]
 
   const filteredEvents = decodedLogs.filter(event =>

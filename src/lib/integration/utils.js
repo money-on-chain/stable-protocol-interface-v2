@@ -2,15 +2,11 @@
 
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
-//import {setNumber} from "../../helpers/helper";
 
 BigNumber.config({
   ROUNDING_MODE: BigNumber.ROUND_DOWN,
   FORMAT: { decimalSeparator: '.', groupSeparator: ',' }
 })
-
-const BUCKET_X2 = '0x5832000000000000000000000000000000000000000000000000000000000000'
-const BUCKET_C0 = '0x4330000000000000000000000000000000000000000000000000000000000000'
 
 const getGasPrice = async (web3) => {
   try {
@@ -26,46 +22,9 @@ const toContractPrecision = (amount) => {
   return Web3.utils.toWei(BigNumber(amount).toFormat(18, BigNumber.ROUND_DOWN), 'ether')
 }
 
-const getAppMode = () => {
-  const mocEnvironment = `${process.env.MOC_ENVIRONMENT}`
-
-  let appMode
-  switch (mocEnvironment) {
-    case 'mocTestnetAlpha':
-    case 'mocTestnet':
-    case 'mocMainnet2':
-      appMode = 'MoC'
-      break
-    case 'rdocTestnetAlpha':
-    case 'rdocTestnet':
-    case 'rdocMainnet':
-      appMode = 'RRC20'
-      break
-    default:
-      throw new Error('Environment not implemented! Please refer to table list of MoC Environments')
-  }
-  return appMode
-}
-
-const getAppMoCProject = () => {
-  const mocEnvironment = `${process.env.MOC_ENVIRONMENT}`
-
-  let appProject
-  switch (mocEnvironment) {
-    case 'mocTestnetAlpha':
-    case 'mocTestnet':
-    case 'mocMainnet2':
-      appProject = 'MoC'
-      break
-    case 'rdocTestnetAlpha':
-    case 'rdocTestnet':
-    case 'rdocMainnet':
-      appProject = 'RDoC'
-      break
-    default:
-      throw new Error('Environment not implemented! Please refer to table list of MoC Environments')
-  }
-  return appProject
+const toContractPrecisionDecimals = (amount, decimals) => {
+  const result = new BigNumber(amount.toFormat(decimals, BigNumber.ROUND_DOWN)).times(precision(decimals)).toFixed(0)
+  return result
 }
 
 const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
@@ -92,10 +51,7 @@ const formatTimestamp = (timestamp) => {
 export {
   getGasPrice,
   toContractPrecision,
-  getAppMode,
-  getAppMoCProject,
+  toContractPrecisionDecimals,
   formatVisibleValue,
-  formatTimestamp,
-  BUCKET_X2,
-  BUCKET_C0
+  formatTimestamp
 };

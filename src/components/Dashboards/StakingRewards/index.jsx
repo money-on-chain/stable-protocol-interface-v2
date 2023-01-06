@@ -1,12 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../../helpers/translations";
-import {config} from "../../../projects/config";
 
 
 export default function StakingRewards() {
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
 
     return (
         <div className="dashboard-staking-info">

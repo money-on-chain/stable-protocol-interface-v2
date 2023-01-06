@@ -3,12 +3,13 @@ import Web3 from "web3";
 import moment from 'moment';
 import BigNumber from "bignumber.js";
 
-import {config} from '../projects/config';
+//import {config} from '../projects/config';
 import {DetailedLargeNumber, getExplainByEvent} from "../components/LargeNumber";
 import {formatLocalMap2} from "./Formats";
+import settings from '../settings/settings.json'
 
-const ns = config.environment.AppProject.toLowerCase();
-const AppProject = config.environment.AppProject;
+const ns = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase();
+const AppProject = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT;
 
 export function setNumber(number){
     if(number.indexOf(".")!==-1){
@@ -19,7 +20,7 @@ export function setNumber(number){
         return number
     }
 }
-
+/*
 export function getDatasMetrics(auth,i18n=null){
     if (auth.userBalanceData) {
         if (auth.userBalanceData) {
@@ -78,7 +79,7 @@ export function getDatasMetrics(auth,i18n=null){
         };
     }
 }
-
+*/
 export function TokenNameOldToNew(tokenName){
     let token = ''
     switch (tokenName) {
@@ -154,7 +155,8 @@ export function readJsonTable(data_j,t, i18n){
     const set_status_percent= data_j.confirmingPercent;
 
     const wallet_detail= (data_j.userAmount!==undefined)? parseFloat(data_j.userAmount).toFixed(6)  : '--'
-    const wallet_detail_usd= (wallet_detail * config.coin_usd).toFixed(2)
+    const wallet_detail_usd=0;
+    //const wallet_detail_usd= (wallet_detail * config.coin_usd).toFixed(2)
     const platform_detail= DetailedLargeNumber({
         amount: data_j.amount,
         currencyCode: data_j.tokenInvolved,
@@ -166,7 +168,8 @@ export function readJsonTable(data_j,t, i18n){
         t: t,
         i18n:i18n
     })
-    const platform_detail_usd= (platform_detail * config.coin_usd).toFixed(2)
+    //const platform_detail_usd= (platform_detail * config.coin_usd).toFixed(2)
+    const platform_detail_usd = 0;
     const truncate_address= (data_j.address)? data_j.address.substring(0, 6) + '...' + data_j.address.substring(data_j.address.length - 4, data_j.address.length) : '--'
     const truncate_txhash= (data_j.transactionHash!==undefined)? data_j.transactionHash.substring(0, 6) + '...' + data_j.transactionHash.substring(data_j.transactionHash.length - 4, data_j.transactionHash.length) : '--'
 
@@ -191,7 +194,7 @@ export function readJsonTable(data_j,t, i18n){
             i18n:i18n
         }),
         status: data_j.status,
-        token_involved: t(`${AppProject}Tokens_${data_j.tokenInvolved}_code`, { ns: ns }),
+        token_involved: t(`Tokens_${data_j.tokenInvolved}_code`, { ns: ns }),
         t: t,
         i18n:i18n
     })
@@ -315,7 +318,7 @@ export function readJsonTable(data_j,t, i18n){
     }
 
 }
-
+/*
 export const toNumberFormat = (value, decimals = 0) => {
     if (isNaN(Number(value))) value = 0;
     return Number(value).toLocaleString(navigator.language, {
@@ -323,7 +326,7 @@ export const toNumberFormat = (value, decimals = 0) => {
         minimumFractionDigits: decimals,
     });
 }
-
+*/
 /*
 export const set_doc_usd= (auth) =>{
     if (auth.userBalanceData) {
@@ -340,11 +343,12 @@ export const myParseDate = date_string => {
     let [y,M,d,h,m,s] = date_string.split(/[- :T]/);
     return new Date(y,parseInt(M)-1,d,h,parseInt(m),s.replace('Z',''));
 }
-
+/*
 export const dateFU= (date_u)=>{
     return (new Date(date_u * 1000).toISOString().slice(0, 19).replace('T', ' '));
 }
-
+ */
+/*
 const setStatus = (status) => {
     let text = '';
     let colorClass = '';
@@ -380,6 +384,8 @@ const setStatus = (status) => {
     return state;
 };
 
+ */
+/*
 export function readJsonTableFastBtcPegOut(data_j){
 
     const hash_id= (data_j.transferId!==undefined)? data_j.transferId : '--'
@@ -421,7 +427,7 @@ export function readJsonTableFastBtcPegOut(data_j){
     }
 
 }
-
+*/
 export function setToLocaleString(value,fixed,i18n){
     return (Number(value)).toLocaleString(formatLocalMap2[i18n.languages[0]], {
         minimumFractionDigits: fixed,
@@ -430,7 +436,7 @@ export function setToLocaleString(value,fixed,i18n){
 }
 
 
-
+/*
 export function readJsonClaims(data_j,t, i18n){
     const set_asset= 'CLAIM';
     const mocs= DetailedLargeNumber({
@@ -474,7 +480,8 @@ export function readJsonClaims(data_j,t, i18n){
     }
 
 }
-
+*/
+/*
 const StatusReward = ({ state, result }) => {
     let textToRender = '';
     let colorToRender;
@@ -500,7 +507,8 @@ const StatusReward = ({ state, result }) => {
         </div>
     );
 };
-
+*/
+/*
 export function getRewardedToday(daily_moc, user_balance_bproBalance, total_bpro, end_block_dt){
     if (!daily_moc) return {toGetToday: 0.0, toGetNow: 0.0, time_left: 0}
     const set_daily_moc= new BigNumber(Web3.utils.fromWei(daily_moc.toString()))
@@ -521,17 +529,17 @@ export function getRewardedToday(daily_moc, user_balance_bproBalance, total_bpro
 
     return {toGetToday, toGetNow, time_left}
 }
-
+*/
 export function getCoinName(coin){
 
-    let currencies= {
-        'COINBASE':config.tokens.COINBASE.name,
-        'TP':config.tokens.TP.name,
-        'TC':config.tokens.TC.name,
-        'TX':config.tokens.TX.name,
-        'RESERVE':config.tokens.RESERVE.name,
-        'USDPrice':'USD',
-        'TG':config.tokens.TG.name,
+    let currencies = {
+        'COINBASE': settings.tokens.COINBASE.name,
+        'TP': settings.tokens.TP[0].name,
+        'TC': settings.tokens.TC.name,
+        'TX': 'TX',
+        'RESERVE':settings.tokens.COINBASE.name,
+        'USDPrice': 'USD',
+        'TG': 'TG',
         'USD':'USD',
     }
 
@@ -540,23 +548,23 @@ export function getCoinName(coin){
 
 export function getDecimals(coin,AppProject){
     let decimals= {
-        'COINBASE':config.tokens.COINBASE.decimals,
-        'TP':config.tokens.TP.decimals,
-        'TC':config.tokens.TC.decimals,
-        'TX':config.tokens.TX.decimals,
-        'TG':config.tokens.TG.decimals,
-        'USDPrice': (AppProject=='MoC')? 2 : 4,
-        'RESERVE':config.tokens.RESERVE.decimals,
+        'COINBASE': 6,
+        'TP': 2,
+        'TC': 6,
+        'TX': 6,
+        'TG': 2,
+        'USDPrice': 2,
+        'RESERVE': 6,
         'USD':2,
-        'REWARD':config.Precisions.REWARDPrecision.decimals,
+        'REWARD': 6,
         'DOC':2,
-        'TXInterest':config.Precisions.TXInterest.decimals
+        'TXInterest': 6
     }
 
     return decimals[coin]
 
 }
-
+/*
 export function getSelectCoins(appMode){
     switch (appMode) {
         case 'RRC20':
@@ -568,4 +576,4 @@ export function getSelectCoins(appMode){
     }
 
 }
-
+*/

@@ -11,36 +11,26 @@ import './assets/css/components.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
-import {config} from "./projects/config";
+
 import IconWaiting from './assets/icons/status-pending.png';
 import Router from './router'
+
+import es_ES from './settings/es_ES.json'
+import en_US from './settings/en_US.json'
 
 console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
 
 async function loadTranslations() {
     try {
-
-        const langES = await import('./projects/'+config.environment.AppProject.toLowerCase()+'/es/moc.json');
-        const langEN = await import('./projects/'+config.environment.AppProject.toLowerCase()+'/en/moc.json');
-
         await i18next.init({
             interpolation: {escapeValue:false},
             lng: "en",
             resources: {
-                es: {
-                    global: await import('./projects/global-es.json'),
-                    moc: langES,
-                    roc: langES,
-                    flipago: langES
-                },
-                en: {
-                    global: await import('./projects/global-en.json'),
-                    moc: langEN,
-                    roc: langEN,
-                    flipago: langEN
-                },
+                es: {translation: es_ES},
+                en: {translation: en_US},
             }
         })
+        console.log("loadTranslations DONE!")
     } catch (error) {
         console.log(`Something wrong: ${error}`);
     }

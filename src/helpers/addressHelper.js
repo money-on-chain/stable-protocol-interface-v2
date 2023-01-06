@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import rskUtils from 'rskjs-util';
-import { config } from '../projects/config';
 
-const { forceChecksumAddressInput, forceRskIp60Addresses } = config;
-const { chainId } = config.environment;
+const forceChecksumAddressInput = true;
+const forceRskIp60Addresses = true;
+const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
 
 const toWeb3CheckSumAddress = web3 => address => {
   return web3.utils.toChecksumAddress(address);

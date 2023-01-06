@@ -3,8 +3,8 @@ import { config } from "../projects/config";
 
 export const useProjectTranslation = () => {
 
-    const ns = config.environment.AppProject.toLowerCase();
-    const [t, i18n]= useTranslation(["global", ns]);
+    const ns = 'translation';
+    const [t, i18n]= useTranslation();
 
     return [t, i18n, ns]
 

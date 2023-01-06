@@ -4,39 +4,13 @@ import Web3 from 'web3';
 import BigNumber from "bignumber.js";
 
 import addressHelper from '../helpers/addressHelper';
-import FastBtcSocketWrapper from '../lib/fastBTC/FastBtcSocketWrapper';
-import { config } from '../projects/config';
+//import FastBtcSocketWrapper from '../lib/fastBTC/FastBtcSocketWrapper';
+//import { config } from '../projects/config';
+
 import { readContracts } from '../lib/integration/contracts';
 import { contractStatus, userBalance } from '../lib/integration/multicall';
-import { mintTP, redeemTP, mintTC, redeemTC, mintTX, redeemTX } from '../lib/integration/interfaces-coinbase';
-import { AllowanceUseReserveToken,
-    mintTPRRC20,
-    redeemTPRRC20,
-    mintTCRRC20,
-    redeemTCRRC20,
-    mintTXRRC20,
-    redeemTXRRC20 } from '../lib/integration/interfaces-rrc20';
 import { decodeEvents } from '../lib/integration/transaction';
 
-import {
-    transferTPTo,
-    transferTCTo,
-    transferTGTo,
-    transferCoinbaseTo,
-    calcMintInterest,
-    approveTGTokenCommission
-    } from '../lib/integration/interfaces-base';
-import {
-    stackedBalance,
-    lockedBalance,
-    pendingWithdrawals,
-    stakingDeposit,
-    unStake,
-    delayMachineWithdraw,
-    delayMachineCancelWithdraw,
-    approveMoCTokenStaking,
-    getMoCAllowance
-    } from '../lib/integration/interfaces-omoc';
 import { getGasPrice } from '../lib/integration/utils';
 
 const helper = addressHelper(Web3);
@@ -47,10 +21,10 @@ const AuthenticateContext = createContext({
     isLoggedIn: false,
     account: null,
     userBalanceData: null,
-    balanceRbtc: null,
+    //balanceRbtc: null,
     contractStatusData: null,
     web3: null,
-    getAppMode:null,
+    //getAppMode:null,
     connect: () => {},
     interfaceExchangeMethod: async (sourceCurrency, targetCurrency, amount, slippage, onTransaction, onReceipt) => {},
     interfaceMintTC: async (amount, slippage, onTransaction, onReceipt) => {},
@@ -97,14 +71,12 @@ const AuthenticateProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [account, setAccount] = useState(null);
     const [userBalanceData, setUserBalanceData] = useState(null);
-    const [balanceRbtc, setBalanceRbtc] = useState(null);
-    const [getAppMode, seGetAppMode] = useState(config.environment.AppMode);
+    //const [balanceRbtc, setBalanceRbtc] = useState(null);
+    //const [getAppMode, seGetAppMode] = useState(config.environment.AppMode);
     const [accountData, setAccountData] = useState({
         Wallet: '',
         Owner: '',
         Balance: 0,
-        BPROBalance: 0,
-        BTCxBalance: 0,
         GasPrice: 0,
         truncatedAddress: ''
     });
@@ -112,7 +84,7 @@ const AuthenticateProvider = ({ children }) => {
     // const [transactionReceipt, setTransactionReceipt] = useState(null);
 
     // Fast BTC socket
-    const socket = new FastBtcSocketWrapper();
+    //const socket = '';
 
     async function loadCss() {
         let css_logout= await import ('../assets/css/logout.scss');
@@ -121,7 +93,6 @@ const AuthenticateProvider = ({ children }) => {
     useEffect(() => {
         if (!window.rLogin) {
             window.rLogin = getRLogin(process.env.REACT_APP_ENVIRONMENT_CHAIN_ID);
-
             if (window.rLogin.cachedProvider) {
                 connect();
             } else {
@@ -196,7 +167,7 @@ const AuthenticateProvider = ({ children }) => {
             truncatedAddress: ''
         });
         setUserBalanceData(null);
-        setBalanceRbtc(null);
+        //setBalanceRbtc(null);
         setIsLoggedIn(false);
         await window.rLoginDisconnect();
         connect();
@@ -208,18 +179,16 @@ const AuthenticateProvider = ({ children }) => {
             web3,
             contractStatusData,
             userBalanceData,
-            balanceRbtc,
-            config,
+            //balanceRbtc,
+            //config,
             account,
-            vendorAddress: config.environment.vendor.address
+            //vendorAddress: ''
         }
 
     }
 
     const interfaceExchangeMethod = async (sourceCurrency, targetCurrency, amount, slippage, onTransaction, onReceipt) => {
-        const appMode = config.environment.AppMode;
-        const appModeString = `APP_MODE_${appMode}`;
-
+        /*
         const exchangeCurrencyMap = {
             TX: {
                 RESERVE: {
@@ -279,116 +248,102 @@ const AuthenticateProvider = ({ children }) => {
             }
         };
 
-        const exchangeMethod = exchangeCurrencyMap[sourceCurrency][targetCurrency][appModeString].exchangeFunction;
-        return exchangeMethod(amount, slippage, onTransaction, onReceipt);
+         */
+
+        /*const exchangeMethod = exchangeCurrencyMap[sourceCurrency][targetCurrency]['APP_MODE_MoC'].exchangeFunction;
+        return exchangeMethod(amount, slippage, onTransaction, onReceipt);*/
 
     }
 
     const interfaceMintTP = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTP(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTP(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceMintTPRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTP = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTP(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTP(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTPRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceMintTC = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTC(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTC(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceMintTCRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTC = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTC(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTC(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTCRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceMintTX = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTX(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTX(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceMintTXRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await mintTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await mintTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTX = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTX(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTX(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceRedeemTXRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        await redeemTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);
+        /*await redeemTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
     }
 
     const interfaceApproveTGTokenCommission = async (enabled, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
-        return approveTGTokenCommission(interfaceContext, enabled, onTransaction, onReceipt);
+        /*return approveTGTokenCommission(interfaceContext, enabled, onTransaction, onReceipt);*/
     };
 
     const initContractsConnection = async () => {
-        window.integration = await readContracts(web3, config.environment);
+        window.integration = await readContracts(web3);
         await loadContractsStatusAndUserBalance();
     }
 
     const loadContractsStatusAndUserBalance = async () => {
         if (!window.integration) return;
-        const appMode = config.environment.AppMode;
 
-        // Read info from different contract MoCState.sol MoCInrate.sol MoCSettlement.sol MoC.sol
+        // Read info from different contract
         // in one call throught Multicall
         const dataContractStatus = await contractStatus(
             web3,
-            window.integration,
-            appMode
+            window.integration
         );
 
         const accountBalance = await userBalance(
             web3,
             window.integration,
-            account,
-            appMode
+            account
         );
 
         setContractStatusData(dataContractStatus);
         setUserBalanceData(accountBalance);
-        setBalanceRbtc(web3.utils.fromWei(accountBalance?.rbtcBalance));
-
-        const contracts = {
-            bproToken: window.integration.contracts.riskprotoken,
-            docToken: window.integration.contracts.stabletoken,
-            mocState: window.integration.contracts.mocstate,
-            mocInrate: window.integration.contracts.mocinrate,
-            mocExchange: window.integration.contracts.mocexchange,
-            mocSettlement: window.integration.contracts.mocsettlement,
-            moc: window.integration.contracts.moc,
-            mocToken: window.integration.contracts.moctoken
-        };
-
-        window.appMode = 'MoC';
+        //setBalanceRbtc(web3.utils.fromWei(accountBalance?.rbtcBalance));
 
     }
 
@@ -407,7 +362,6 @@ const AuthenticateProvider = ({ children }) => {
         };
 
         window.address = owner;
-
         setAccountData(accountData);
     };
 
@@ -434,28 +388,13 @@ const AuthenticateProvider = ({ children }) => {
 
     const getSpendableBalance = async (address) => {
         const from = address || account;
-        const dContracts = window.integration;
-        const appMode = config.environment.AppMode;
-
-        if (appMode === 'RRC20') {
-            const reservetoken = dContracts.contracts.reservetoken;
-            return reservetoken.methods.balanceOf(from).call();
-        } else {
-            return await web3.eth.getBalance(from);
-        }
+        return await web3.eth.getBalance(from);
 
     }
 
     const getReserveAllowance = async (address) => {
         const from = address || account;
-        const dContracts = window.integration;
-        const appMode = config.environment.AppMode;
-        if (appMode === 'RRC20') {
-            const reservetoken = dContracts.contracts.reservetoken;
-            return reservetoken.methods.allowance(from, dContracts.contracts.moc._address).call();
-        } else {
-            return await web3.eth.getBalance(from);
-        }
+        return await web3.eth.getBalance(from);
 
     }
 
@@ -488,85 +427,85 @@ const AuthenticateProvider = ({ children }) => {
 
     const interfaceStackedBalance = async (address) => {
         const from = address || account;
-        return stackedBalance(from);
+        /*return stackedBalance(from);*/
     };
 
 
     const interfaceGetMoCAllowance = async (address) => {
         const from = address || account;
-        return getMoCAllowance(from);
+        /*return getMoCAllowance(from);*/
     }
 
     const interfaceLockedBalance = async (address) => {
         const from = address || account;
-        return lockedBalance(from);
+        /*return lockedBalance(from);*/
     };
 
     const interfacePendingWithdrawals = async (address) => {
         const from = address || account;
-        return pendingWithdrawals(from);
+        /*return pendingWithdrawals(from);*/
     };
 
     const interfaceStakingDeposit = async (mocs, address, callback) => {
         const from = address || account;
         const interfaceContext = buildInterfaceContext();
-        return stakingDeposit(interfaceContext, mocs, address, callback);
+        /*return stakingDeposit(interfaceContext, mocs, address, callback);*/
     };
 
     const interfaceUnStake = async (mocs, callback) => {
         const interfaceContext = buildInterfaceContext();
-        return unStake(interfaceContext, mocs, callback);
+        /*return unStake(interfaceContext, mocs, callback);*/
     };
 
     const interfaceDelayMachineWithdraw = async (id, callback = () => {}) => {
         const interfaceContext = buildInterfaceContext();
-        return delayMachineWithdraw(interfaceContext, id, callback);
+        /*return delayMachineWithdraw(interfaceContext, id, callback);*/
     };
 
     const interfaceDelayMachineCancelWithdraw = async (id, callback) => {
         const interfaceContext = buildInterfaceContext();
-        return delayMachineCancelWithdraw(interfaceContext, id, callback);
+        /*return delayMachineCancelWithdraw(interfaceContext, id, callback);*/
     };
 
 
     const interfaceApproveMoCTokenStaking = async (enabled, callback = () => {}) => {
         const interfaceContext = buildInterfaceContext();
-        return approveMoCTokenStaking(interfaceContext, enabled, callback);
+        /*return approveMoCTokenStaking(interfaceContext, enabled, callback);*/
     };
 
     const interfaceTransferTPTo = async (to, amount, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
         const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        return transferTPTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);
+        /*return transferTPTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
     };
 
     const interfaceTransferTCTo = async (to, amount, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
         const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        return transferTCTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);
+        /*return transferTCTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
     };
 
     const interfaceTransferTGTo = async (to, amount, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
         const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        return transferTGTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);
+        /*return transferTGTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
     };
 
     const interfaceTransferCoinbaseTo = async (to, amount, onTransaction, onReceipt) => {
         const interfaceContext = buildInterfaceContext();
         const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        return transferCoinbaseTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);
+        /*return transferCoinbaseTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
     }
 
     const interfaceCalcMintInterestValues = async (amount) => {
         const interfaceContext = buildInterfaceContext();
-        const mintInterest = await calcMintInterest(interfaceContext, amount);
-        return mintInterest;
+        /*const mintInterest = await calcMintInterest(interfaceContext, amount);
+        return mintInterest;*/
     };
 
     const interfaceApproveReserve = (address, callback) => {
         const interfaceContext = buildInterfaceContext();
-        return AllowanceUseReserveToken(interfaceContext, true, callback);
+        /*return AllowanceUseReserveToken(interfaceContext, true, callback);*/
     };
 
     const convertToken = (from, to, amount) => {
@@ -652,11 +591,11 @@ const AuthenticateProvider = ({ children }) => {
                 account,
                 accountData,
                 userBalanceData,
-                balanceRbtc,
+                //balanceRbtc,
                 contractStatusData,
                 isLoggedIn,
                 web3,
-                getAppMode,
+                //getAppMode,
                 connect,
                 disconnect,
                 interfaceExchangeMethod,
@@ -689,7 +628,6 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceTransferCoinbaseTo,
                 interfaceCalcMintInterestValues,
                 interfaceApproveReserve,
-                socket,
                 convertToken,
                 getSpendableBalance,
                 getReserveAllowance,

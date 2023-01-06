@@ -2,7 +2,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../helpers/translations";
-import {config} from "../../projects/config";
 import {Collapse, Slider} from "antd";
 import IconStatusPending from "../../assets/icons/status-pending.png";
 import IconStatusSuccess from "../../assets/icons/status-success.png";
@@ -12,7 +11,6 @@ import IconStatusError from "../../assets/icons/status-error.png";
 export default function ConfirmOperation() {
 
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = config.environment.AppProject;
 
     const [status, setStatus] = useState('SUBMIT');
 
