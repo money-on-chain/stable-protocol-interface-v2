@@ -13,7 +13,7 @@ function Home(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const { docBalance = '0', bproBalance = '0', bprox2Balance = '0' } = auth.userBalanceData ? auth.userBalanceData : {};
+    //const { docBalance = '0', bproBalance = '0', bprox2Balance = '0' } = auth.userBalanceData ? auth.userBalanceData : {};
     
     return (
         <Fragment>

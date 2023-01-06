@@ -29,13 +29,16 @@ const toContractPrecisionDecimals = (amount, decimals) => {
 
 const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
 
+/*
 const formatVisibleValue = (amount, decimals) => {
   return BigNumber(amount).div(precision(18)).toFormat(decimals, BigNumber.ROUND_UP, {
     decimalSeparator: '.',
     groupSeparator: ','
   })
 }
+*/
 
+/*
 const formatTimestamp = (timestamp) => {
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -46,12 +49,12 @@ const formatTimestamp = (timestamp) => {
     second: '2-digit'
   }).format(timestamp)
 }
-
+*/
 
 export {
   getGasPrice,
   toContractPrecision,
   toContractPrecisionDecimals,
-  formatVisibleValue,
-  formatTimestamp
+  //formatVisibleValue,
+  //formatTimestamp
 };

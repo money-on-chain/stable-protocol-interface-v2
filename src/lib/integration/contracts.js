@@ -1,4 +1,3 @@
-
 import Multicall2 from '../../contracts/Multicall2.json';
 import WrappedCollateralAsset from '../../contracts/WrappedCollateralAsset.json';
 import TokenPegged from '../../contracts/TokenPegged.json';
@@ -7,11 +6,7 @@ import IPriceProvider from '../../contracts/IPriceProvider.json';
 import MocCABag from '../../contracts/MocCABag.json';
 import MocCAWrapper from '../../contracts/MocCAWrapper.json';
 
-
-
 import { addABI } from './transaction';
-import { connectorAddresses, registryAddresses } from './multicall';
-
 import settings from '../../settings/settings.json'
 
 

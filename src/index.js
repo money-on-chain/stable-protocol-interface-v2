@@ -30,7 +30,6 @@ async function loadTranslations() {
                 en: {translation: en_US},
             }
         })
-        console.log("loadTranslations DONE!")
     } catch (error) {
         console.log(`Something wrong: ${error}`);
     }
