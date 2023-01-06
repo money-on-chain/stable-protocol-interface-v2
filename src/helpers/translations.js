@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { config } from "../projects/config";
+//import { config } from "../projects/config";
 
 export const useProjectTranslation = () => {
 

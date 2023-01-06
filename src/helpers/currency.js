@@ -5,7 +5,7 @@ import { ReactComponent as LogoIconTX } from '../assets/icons/icon-tx.svg';
 import { ReactComponent as LogoIconTG } from '../assets/icons/icon-tg.svg';
 import { ReactComponent as LogoIconRBTC } from '../assets/icons/icon-tg.svg';
 
-
+/*
 const getBalanceAndTransferMethodOfTokenToSend = (userState, currencyCode, auth) => {
   if(!userState) return {};
   switch (currencyCode) {
@@ -33,7 +33,8 @@ const getBalanceAndTransferMethodOfTokenToSend = (userState, currencyCode, auth)
       return {};
   }
 };
-
+*/
+/*
 const getMaxAvailableOfCurrencyCode = (mocState, currencyCode, isRedeem) => {
   switch (currencyCode) {
     case 'TC':
@@ -46,7 +47,7 @@ const getMaxAvailableOfCurrencyCode = (mocState, currencyCode, isRedeem) => {
       return undefined;
   }
 };
-
+*/
 const currencies = [
   { value: 'RESERVE', image: <LogoIconReserve className="currencyImage" /> },
   { value: 'TP', image: <LogoIconTP className="currencyImage" /> },
@@ -63,9 +64,9 @@ const getCurrenciesDetail = () => currencies;
 const getCurrencyDetail = currencyCode => currencies.find(it => it.value === currencyCode);
 
 export {
-  getBalanceAndTransferMethodOfTokenToSend,
+  //getBalanceAndTransferMethodOfTokenToSend,
   currencies,
-  getMaxAvailableOfCurrencyCode,
+  //getMaxAvailableOfCurrencyCode,
   getCurrenciesDetail,
   getCurrencyDetail
 }
