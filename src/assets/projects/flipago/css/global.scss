@@ -1,11 +1,4 @@
 @import '~antd/dist/antd.css';
-//@import './header';
-//@import './sidebar';
-//@import './page';
-//@import './icons';
-//@import './icons-custom';
-//@import './responsive';
-//@import './config_styling.scss';
 
 body, html {
   font-family: "Open Sans", sans-serif;
@@ -732,7 +725,7 @@ body, html {
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-  background: #2e2c2e;
+    background: #2e2c2e;
 }
 
 .ant-table-body::-webkit-scrollbar {
