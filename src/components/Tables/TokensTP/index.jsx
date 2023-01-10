@@ -82,6 +82,15 @@ export default function Tokens(props) {
             settings.tokens.TP[dataItem.key].decimals))
         const balanceUSD = balance.div(price)
 
+        // variation
+        const priceHistory = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.historic.PP_TP[dataItem.key],
+            settings.tokens.TP[dataItem.key].decimals))
+        const priceDelta = price.minus(priceHistory)
+        const variation = priceDelta.abs().div(priceHistory).times(100)
+
+        const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+
         tokensData.push({
             key: dataItem.key,
             name: <div className="item-token"><i className={`icon-token-tp_${dataItem.key}`}></i> <span className="token-description">{t(`portfolio.tokens.TP.0.title`, { ns: ns })}</span></div>,
@@ -95,7 +104,7 @@ export default function Tokens(props) {
                     ns: ns,
                     skipContractConvert: true
                 })}</div>,
-            variation: "+0.00%",
+            variation: `${priceDeltaFormat} (${variationFormat} %)`,
             balance: <div>{
                 PrecisionNumbers({
                     amount: balance,

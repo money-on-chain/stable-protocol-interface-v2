@@ -15,7 +15,8 @@ const contractStatus = async (web3, dContracts) => {
   const CA_0 = dContracts.contracts.CA[0]
   const CA_1 = dContracts.contracts.CA[1]
 
-  const listMethods = [
+  let listMethods
+  listMethods = [
     [MocCABag.options.address, MocCABag.methods.protThrld().encodeABI(), 'uint256'], // 0
     [MocCABag.options.address, MocCABag.methods.liqThrld().encodeABI(), 'uint256'], // 1
     [MocCABag.options.address, MocCABag.methods.liqEnabled().encodeABI(), 'bool'], // 2
@@ -121,6 +122,25 @@ const contractStatus = async (web3, dContracts) => {
   status.getBts = listReturnData[49]
   status.getTokenPrice = listReturnData[50]
   status.getACBalance = [listReturnData[51], listReturnData[52]]
+
+  // History Price (24hs ago)
+  const d24BlockHeights = status.blockHeight - 2880;
+  listMethods = [
+    [PP_TP_0.options.address, PP_TP_0.methods.peek().encodeABI(), 'uint256'], // 0
+    [PP_TP_1.options.address, PP_TP_1.methods.peek().encodeABI(), 'uint256'], // 1
+    [PP_CA_0.options.address, PP_CA_0.methods.peek().encodeABI(), 'uint256'], // 2
+    [PP_CA_1.options.address, PP_CA_1.methods.peek().encodeABI(), 'uint256'], // 3
+  ]
+
+  const cleanListMethodsHistoric = listMethods.map(x => [x[0], x[1]])
+  const multicallResultHistoric = await multicall.methods.tryBlockAndAggregate(false, cleanListMethodsHistoric).call({}, d24BlockHeights)
+  const listReturnDataHistoric = multicallResultHistoric[2].map((item, itemIndex) => web3.eth.abi.decodeParameter(listMethods[itemIndex][2], item.returnData))
+
+  const historic = {}
+  historic.PP_TP = [listReturnDataHistoric[0], listReturnDataHistoric[1]]
+  historic.PP_CA = [listReturnDataHistoric[2], listReturnDataHistoric[3]]
+  historic.blockHeight = d24BlockHeights
+  status.historic = historic
 
   return status
 
