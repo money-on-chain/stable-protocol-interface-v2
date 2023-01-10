@@ -102,7 +102,7 @@ export default function Tokens(props) {
                     i18n: i18n,
                     ns: ns
                 })}</div>,
-            variation: "+0.00%",
+            variation: "--",
             balance: <div>{
                 PrecisionNumbers({
                    amount: auth.userBalanceData.CA[dataItem.key].balance,
@@ -145,41 +145,98 @@ export default function Tokens(props) {
         const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
 
-         const itemIndex = count
+        const itemIndex = count
 
-         tokensData.push({
-             key: itemIndex,
-             name: <div className="item-token"><i className="icon-token-tc"></i> <span className="token-description">{t(`portfolio.tokens.CA.${itemIndex}.title`, { ns: ns })}</span></div>,
-             price: <div>{
-                 PrecisionNumbers({
-                     amount: auth.contractStatusData.getPTCac,
-                     token: settings.tokens.TC,
-                     decimals: 2,
-                     t: t,
-                     i18n: i18n,
-                     ns: ns
-                 })}</div>,
-             variation: `${priceDeltaFormat} (${variationFormat} %)`,
-             balance: <div>{
-                 PrecisionNumbers({
-                     amount: auth.userBalanceData.TC.balance,
-                     token: settings.tokens.TC,
-                     decimals: 2,
-                     t: t,
-                     i18n: i18n,
-                     ns: ns
-                 })}</div>,
-             usd: <div>{
-                 PrecisionNumbers({
-                     amount: balanceUSD,
-                     token: settings.tokens.TC,
-                     decimals: 2,
-                     t: t,
-                     i18n: i18n,
-                     ns: ns,
-                     skipContractConvert: true
-                 })}</div>
-         })
+        tokensData.push({
+         key: itemIndex,
+         name: <div className="item-token"><i className="icon-token-tc"></i> <span className="token-description">{t(`portfolio.tokens.CA.${itemIndex}.title`, { ns: ns })}</span></div>,
+         price: <div>{
+             PrecisionNumbers({
+                 amount: auth.contractStatusData.getPTCac,
+                 token: settings.tokens.TC,
+                 decimals: 2,
+                 t: t,
+                 i18n: i18n,
+                 ns: ns
+             })}</div>,
+         variation: `${priceDeltaFormat} (${variationFormat} %)`,
+         balance: <div>{
+             PrecisionNumbers({
+                 amount: auth.userBalanceData.TC.balance,
+                 token: settings.tokens.TC,
+                 decimals: 2,
+                 t: t,
+                 i18n: i18n,
+                 ns: ns
+             })}</div>,
+         usd: <div>{
+             PrecisionNumbers({
+                 amount: balanceUSD,
+                 token: settings.tokens.TC,
+                 decimals: 2,
+                 t: t,
+                 i18n: i18n,
+                 ns: ns,
+                 skipContractConvert: true
+             })}</div>
+        })
+
+        count += 1
+    }
+
+    // Coinbase
+    if (auth.contractStatusData && auth.userBalanceData) {
+
+        balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.coinbase,
+            settings.tokens.COINBASE.decimals))
+        price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_COINBASE,
+            settings.tokens.COINBASE.decimals))
+        balanceUSD = balance.times(price)
+
+        // variation
+        const priceHistory = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.historic.PP_COINBASE,
+            settings.tokens.COINBASE.decimals))
+        const priceDelta = price.minus(priceHistory)
+        const variation = priceDelta.abs().div(priceHistory).times(100)
+
+        const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+
+        const itemIndex = count
+
+        tokensData.push({
+            key: itemIndex,
+            name: <div className="item-token"><i className="icon-token-coinbase"></i> <span className="token-description">{t(`portfolio.tokens.CA.${itemIndex}.title`, { ns: ns })}</span></div>,
+            price: <div>{
+                PrecisionNumbers({
+                    amount: auth.contractStatusData.PP_COINBASE,
+                    token: settings.tokens.COINBASE,
+                    decimals: 2,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns
+                })}</div>,
+            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            balance: <div>{
+                PrecisionNumbers({
+                    amount: auth.userBalanceData.coinbase,
+                    token: settings.tokens.COINBASE,
+                    decimals: 6,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns
+                })}</div>,
+            usd: <div>{
+                PrecisionNumbers({
+                    amount: balanceUSD,
+                    token: settings.tokens.COINBASE,
+                    decimals: 2,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns,
+                    skipContractConvert: true
+                })}</div>
+        })
     }
 
 

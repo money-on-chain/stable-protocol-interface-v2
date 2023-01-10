@@ -517,7 +517,7 @@ body, html {
 
   /*position: absolute;*/
   width: 1184px;
-  height: 412px;
+  height: 560px;
   /*left: 130px;
   top: 240px;*/
 
@@ -536,7 +536,7 @@ body, html {
   flex-direction: column;
   align-items: flex-start;
   padding: 0px 32px;
-  gap: 24px;
+  gap: 4px;
 
   width: 1184px;
   height: 372px;
@@ -647,7 +647,7 @@ body, html {
 }
 .tokens-list-header-balance-title {
 
-  width: 113px;
+  width: 130px;
   height: 21px;
 
   font-family: 'Chivo';
@@ -732,7 +732,7 @@ body, html {
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-    background: #2e2c2e;
+  background: #2e2c2e;
 }
 
 .ant-table-body::-webkit-scrollbar {
