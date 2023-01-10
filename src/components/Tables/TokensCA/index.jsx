@@ -136,6 +136,15 @@ export default function Tokens(props) {
              settings.tokens.TC.decimals))
          balanceUSD = balance.times(price)
 
+        // variation
+        const priceHistory = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.historic.getPTCac,
+            settings.tokens.TC.decimals))
+        const priceDelta = price.minus(priceHistory)
+        const variation = priceDelta.abs().div(priceHistory).times(100)
+
+        const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
+
          const itemIndex = count
 
          tokensData.push({
@@ -143,24 +152,22 @@ export default function Tokens(props) {
              name: <div className="item-token"><i className="icon-token-tc"></i> <span className="token-description">{t(`portfolio.tokens.CA.${itemIndex}.title`, { ns: ns })}</span></div>,
              price: <div>{
                  PrecisionNumbers({
-                     amount: balance,
+                     amount: auth.contractStatusData.getPTCac,
                      token: settings.tokens.TC,
                      decimals: 2,
                      t: t,
                      i18n: i18n,
-                     ns: ns,
-                     skipContractConvert: true
+                     ns: ns
                  })}</div>,
-             variation: "+0.00%",
+             variation: `${priceDeltaFormat} (${variationFormat} %)`,
              balance: <div>{
                  PrecisionNumbers({
-                     amount: price,
+                     amount: auth.userBalanceData.TC.balance,
                      token: settings.tokens.TC,
                      decimals: 2,
                      t: t,
                      i18n: i18n,
-                     ns: ns,
-                     skipContractConvert: true
+                     ns: ns
                  })}</div>,
              usd: <div>{
                  PrecisionNumbers({

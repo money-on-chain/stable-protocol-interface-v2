@@ -130,6 +130,7 @@ const contractStatus = async (web3, dContracts) => {
     [PP_TP_1.options.address, PP_TP_1.methods.peek().encodeABI(), 'uint256'], // 1
     [PP_CA_0.options.address, PP_CA_0.methods.peek().encodeABI(), 'uint256'], // 2
     [PP_CA_1.options.address, PP_CA_1.methods.peek().encodeABI(), 'uint256'], // 3
+    [MocCABag.options.address, MocCABag.methods.getPTCac().encodeABI(), 'uint256'], // 4
   ]
 
   const cleanListMethodsHistoric = listMethods.map(x => [x[0], x[1]])
@@ -139,6 +140,7 @@ const contractStatus = async (web3, dContracts) => {
   const historic = {}
   historic.PP_TP = [listReturnDataHistoric[0], listReturnDataHistoric[1]]
   historic.PP_CA = [listReturnDataHistoric[2], listReturnDataHistoric[3]]
+  historic.getPTCac = listReturnDataHistoric[4]
   historic.blockHeight = d24BlockHeights
   status.historic = historic
 
