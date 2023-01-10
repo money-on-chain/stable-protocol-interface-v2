@@ -11,6 +11,7 @@ const contractStatus = async (web3, dContracts) => {
   const PP_TP_1 = dContracts.contracts.PP_TP[1]
   const PP_CA_0 = dContracts.contracts.PP_CA[0]
   const PP_CA_1 = dContracts.contracts.PP_CA[1]
+  const PP_COINBASE = dContracts.contracts.PP_COINBASE
   const MocCAWrapper = dContracts.contracts.MocCAWrapper
   const CA_0 = dContracts.contracts.CA[0]
   const CA_1 = dContracts.contracts.CA[1]
@@ -70,6 +71,7 @@ const contractStatus = async (web3, dContracts) => {
     [MocCAWrapper.options.address, MocCAWrapper.methods.getTokenPrice().encodeABI(), 'uint256'], // 50
     [CA_0.options.address, CA_0.methods.balanceOf(MocCAWrapper.options.address).encodeABI(), 'uint256'], // 51
     [CA_1.options.address, CA_1.methods.balanceOf(MocCAWrapper.options.address).encodeABI(), 'uint256'], // 52
+    [PP_COINBASE.options.address, PP_COINBASE.methods.peek().encodeABI(), 'uint256'], // 53
   ]
 
   // Remove decode result parameter
@@ -122,6 +124,7 @@ const contractStatus = async (web3, dContracts) => {
   status.getBts = listReturnData[49]
   status.getTokenPrice = listReturnData[50]
   status.getACBalance = [listReturnData[51], listReturnData[52]]
+  status.PP_COINBASE = listReturnData[53]
 
   // History Price (24hs ago)
   const d24BlockHeights = status.blockHeight - 2880;
@@ -131,6 +134,7 @@ const contractStatus = async (web3, dContracts) => {
     [PP_CA_0.options.address, PP_CA_0.methods.peek().encodeABI(), 'uint256'], // 2
     [PP_CA_1.options.address, PP_CA_1.methods.peek().encodeABI(), 'uint256'], // 3
     [MocCABag.options.address, MocCABag.methods.getPTCac().encodeABI(), 'uint256'], // 4
+    [PP_COINBASE.options.address, PP_COINBASE.methods.peek().encodeABI(), 'uint256'], // 5
   ]
 
   const cleanListMethodsHistoric = listMethods.map(x => [x[0], x[1]])
@@ -141,6 +145,7 @@ const contractStatus = async (web3, dContracts) => {
   historic.PP_TP = [listReturnDataHistoric[0], listReturnDataHistoric[1]]
   historic.PP_CA = [listReturnDataHistoric[2], listReturnDataHistoric[3]]
   historic.getPTCac = listReturnDataHistoric[4]
+  historic.PP_COINBASE = listReturnDataHistoric[5]
   historic.blockHeight = d24BlockHeights
   status.historic = historic
 

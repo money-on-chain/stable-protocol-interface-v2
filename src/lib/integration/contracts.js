@@ -64,6 +64,9 @@ const readContracts = async (web3) => {
 
   dContracts.contracts.PP_CA = [PP_CA_0, PP_CA_1]
 
+  console.log(`Reading Price Provider ${settings.tokens.COINBASE.name} Contract... address: `, process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE)
+  dContracts.contracts.PP_COINBASE = new web3.eth.Contract(IPriceProvider.abi, process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE)
+
   console.log('Reading MocCABag Contract... address: ', process.env.REACT_APP_CONTRACT_MOC_CA)
   dContracts.contracts.MocCABag = new web3.eth.Contract(MocCABag.abi, process.env.REACT_APP_CONTRACT_MOC_CA)
 
