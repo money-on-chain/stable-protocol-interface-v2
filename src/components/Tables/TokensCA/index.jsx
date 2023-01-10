@@ -5,6 +5,8 @@ import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from '../../../helpers/translations';
 import settings from '../../../settings/settings.json'
 import { PrecisionNumbers } from '../../PrecisionNumbers';
+import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 
 const columns = [
     {
@@ -72,6 +74,13 @@ export default function Tokens(props) {
 
     // Rows
     auth.contractStatusData && auth.userBalanceData && data.forEach(function(dataItem) {
+
+        const balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.CA[dataItem.key].balance,
+            settings.tokens.CA[dataItem.key].decimals))
+        const price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[dataItem.key],
+            settings.tokens.CA[dataItem.key].decimals))
+        const balanceUSD = balance.div(price)
+
         tokensData.push({
             key: dataItem.key,
             name: <div className="item-token"><i className={`icon-token-ca_${dataItem.key}`}></i> <span className="token-description">{t(`portfolio.tokens.CA.0.title`, { ns: ns })}</span></div>,
@@ -96,12 +105,13 @@ export default function Tokens(props) {
             })}</div>,
             usd: <div>{
                 PrecisionNumbers({
-                    amount: auth.userBalanceData.CA[dataItem.key].balance,
+                    amount: balanceUSD,
                     token: settings.tokens.CA[0],
                     decimals: 2,
                     t: t,
                     i18n: i18n,
-                    ns: ns
+                    ns: ns,
+                    skipContractConvert: true
                 })}</div>
         })
     });
