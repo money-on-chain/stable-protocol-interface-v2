@@ -83,7 +83,7 @@ export default function Tokens(props) {
 
         tokensData.push({
             key: dataItem.key,
-            name: <div className="item-token"><i className={`icon-token-ca_${dataItem.key}`}></i> <span className="token-description">{t(`portfolio.tokens.CA.0.title`, { ns: ns })}</span></div>,
+            name: <div className="item-token"><i className={`icon-token-ca_${dataItem.key}`}></i> <span className="token-description">{t(`portfolio.tokens.CA.${dataItem.key}.title`, { ns: ns })}</span></div>,
             price: <div>{
                 PrecisionNumbers({
                     amount: auth.contractStatusData.PP_CA[dataItem.key],
