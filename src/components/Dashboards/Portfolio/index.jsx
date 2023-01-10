@@ -3,10 +3,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import {useProjectTranslation} from "../../../helpers/translations";
 import TokensCA from "../../Tables/TokensCA";
 import TokensTP from "../../Tables/TokensTP";
+import { AuthenticateContext } from '../../../context/Auth';
 
 
 export default function Portfolio() {
     const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
+
+
 
     return (
         <div className="dashboard-portfolio">

@@ -36,6 +36,7 @@ const columns = [
     }
 ];
 
+/*
 const data = [
     {
         key: 0,
@@ -54,6 +55,7 @@ const data = [
         usd: "--"
     }
 ];
+*/
 
 export default function Tokens(props) {
 
@@ -72,14 +74,21 @@ export default function Tokens(props) {
         })
     });
 
-    // Rows
-    auth.contractStatusData && auth.userBalanceData && data.forEach(function(dataItem) {
+    // Tokens CA
+    const TokensCA = settings.tokens.CA
+    let balance
+    let price
+    let balanceUSD
 
-        const balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.CA[dataItem.key].balance,
+    // Iterate Tokens CA
+    let count = 0
+    auth.contractStatusData && auth.userBalanceData && TokensCA.forEach(function(dataItem) {
+
+        balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.CA[dataItem.key].balance,
             settings.tokens.CA[dataItem.key].decimals))
-        const price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[dataItem.key],
+        price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[dataItem.key],
             settings.tokens.CA[dataItem.key].decimals))
-        const balanceUSD = balance.div(price)
+        balanceUSD = balance.times(price)
 
         tokensData.push({
             key: dataItem.key,
@@ -114,7 +123,58 @@ export default function Tokens(props) {
                     skipContractConvert: true
                 })}</div>
         })
+        count += 1
     });
+
+
+    // Token TC
+    if (auth.contractStatusData && auth.userBalanceData) {
+
+         balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.TC.balance,
+             settings.tokens.TC.decimals))
+         price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.getPTCac,
+             settings.tokens.TC.decimals))
+         balanceUSD = balance.times(price)
+
+         const itemIndex = count
+
+         tokensData.push({
+             key: itemIndex,
+             name: <div className="item-token"><i className="icon-token-tc"></i> <span className="token-description">{t(`portfolio.tokens.CA.${itemIndex}.title`, { ns: ns })}</span></div>,
+             price: <div>{
+                 PrecisionNumbers({
+                     amount: balance,
+                     token: settings.tokens.TC,
+                     decimals: 2,
+                     t: t,
+                     i18n: i18n,
+                     ns: ns,
+                     skipContractConvert: true
+                 })}</div>,
+             variation: "+0.00%",
+             balance: <div>{
+                 PrecisionNumbers({
+                     amount: price,
+                     token: settings.tokens.TC,
+                     decimals: 2,
+                     t: t,
+                     i18n: i18n,
+                     ns: ns,
+                     skipContractConvert: true
+                 })}</div>,
+             usd: <div>{
+                 PrecisionNumbers({
+                     amount: balanceUSD,
+                     token: settings.tokens.TC,
+                     decimals: 2,
+                     t: t,
+                     i18n: i18n,
+                     ns: ns,
+                     skipContractConvert: true
+                 })}</div>
+         })
+    }
+
 
     return (<Table columns={columnsData} dataSource={tokensData} pagination={false} scroll={{y: 240}} />)
 };
