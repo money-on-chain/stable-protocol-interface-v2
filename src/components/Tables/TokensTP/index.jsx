@@ -1,0 +1,123 @@
+import React, { useContext } from 'react';
+import { Table } from 'antd';
+import BigNumber from "bignumber.js";
+
+import { useProjectTranslation } from '../../../helpers/translations';
+import { AuthenticateContext } from '../../../context/Auth';
+import { PrecisionNumbers } from '../../PrecisionNumbers';
+import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
+import settings from '../../../settings/settings.json';
+
+
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 380,
+    },
+    {
+        title: 'Tokens per USD',
+        dataIndex: 'price',
+        width: 200,
+    },
+    {
+        title: 'Variation 24hs',
+        dataIndex: 'variation',
+        width: 200,
+    },
+    {
+        title: 'Balance',
+        dataIndex: 'balance',
+        width: 190,
+    },
+    {
+        title: 'USD',
+        dataIndex: 'usd'
+        /*width: 190,*/
+    }
+];
+
+const data = [
+    {
+        key: 0,
+        name: "--",
+        price: "--",
+        variation: "--",
+        balance: "--",
+        usd: "--"
+    },
+    {
+        key: 1,
+        name: "--",
+        price: "--",
+        variation: "--",
+        balance: "--",
+        usd: "--"
+    }
+];
+
+
+export default function Tokens(props) {
+
+    const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
+
+    const tokensData = []
+    const columnsData = []
+
+    // Columns
+    columns.forEach(function(dataItem) {
+        columnsData.push({
+            title: t(`portfolio.tokens.TP.columns.${dataItem.dataIndex}`, { ns: ns }),
+            dataIndex: dataItem.dataIndex,
+            width: dataItem.width
+        })
+    });
+
+    // Rows
+    auth.contractStatusData && auth.userBalanceData && data.forEach(function(dataItem) {
+        const balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.TP[dataItem.key],
+            settings.tokens.TP[dataItem.key].decimals))
+        const price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_TP[dataItem.key],
+            settings.tokens.TP[dataItem.key].decimals))
+        const balanceUSD = balance.div(price)
+
+        tokensData.push({
+            key: dataItem.key,
+            name: <div className="item-token"><i className={`icon-token-tp_${dataItem.key}`}></i> <span className="token-description">{t(`portfolio.tokens.TP.0.title`, { ns: ns })}</span></div>,
+            price: <div>{
+                PrecisionNumbers({
+                    amount: price,
+                    token: settings.tokens.TP[0],
+                    decimals: 2,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns,
+                    skipContractConvert: true
+                })}</div>,
+            variation: "+0.00%",
+            balance: <div>{
+                PrecisionNumbers({
+                    amount: balance,
+                    token: settings.tokens.TP[0],
+                    decimals: 2,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns,
+                    skipContractConvert: true
+                })}</div>,
+            usd: <div>{
+                PrecisionNumbers({
+                    amount: balanceUSD,
+                    token: settings.tokens.TP[0],
+                    decimals: 3,
+                    t: t,
+                    i18n: i18n,
+                    ns: ns,
+                    skipContractConvert: true
+                })}</div>
+        })
+    });
+
+    return (<Table columns={columnsData} dataSource={tokensData} pagination={false} scroll={{y: 240}} />)
+};

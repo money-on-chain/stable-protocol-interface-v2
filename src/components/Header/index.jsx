@@ -1,14 +1,16 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
-import {useProjectTranslation} from "../../helpers/translations";
+import { useProjectTranslation } from "../../helpers/translations";
 import ModalExchange from "../Modals/Exchange"
+import { AuthenticateContext } from "../../context/Auth";
 
 const { Header } = Layout;
 
 
 export default function SectionHeader() {
     const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
 
     return (
         <Header>
@@ -31,7 +33,7 @@ export default function SectionHeader() {
                         <a href="#"> EN </a> <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        <a href="#">0xC851…A81b</a> <i className="logo-wallet"></i>
+                        <a href="#">{ auth.accountData.truncatedAddress }</a> <i className="logo-wallet"></i>
                     </div>
                 </div>
 

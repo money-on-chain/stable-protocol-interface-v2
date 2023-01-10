@@ -94,5 +94,39 @@
       "pending": "Pending",
       "failed": "Failed"
     }
+  },
+  "portfolio": {
+    "tokens": {
+      "CA": {
+        "columns": {
+          "name": "Name",
+          "price": "Price in USD",
+          "variation": "Variation 24hs",
+          "balance": "Balance",
+          "usd": "USD"
+        },
+        "0": {
+          "title": "Dollar on Chain (DOC)"
+        },
+        "1": {
+          "title": "Rif on Chain (RDOC)"
+        }
+      },
+      "TP": {
+        "columns": {
+          "name": "Name",
+          "price": "Tokens per USD",
+          "variation": "Variation 24hs",
+          "balance": "Balance",
+          "usd": "USD"
+        },
+        "0": {
+          "title": "Go ARS"
+        },
+        "1": {
+          "title": "Go MXN"
+        }
+      }
+    }
   }
 }

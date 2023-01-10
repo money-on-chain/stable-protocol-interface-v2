@@ -57,9 +57,14 @@ const adjustPrecision = (amount, currencyCode, AppProject) => {
         : { value: new BigNumber(amount), decimals: 2 };
 };
 
+const fromContractPrecisionDecimals = (amount, decimals) => {
+    return new BigNumber(amount).div(new BigNumber(10).exponentiatedBy(decimals))
+}
+
 
 export {
     adjustPrecision,
     precision,
-    formatLocalMap
+    formatLocalMap,
+    fromContractPrecisionDecimals
 };

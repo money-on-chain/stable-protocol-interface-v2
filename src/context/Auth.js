@@ -74,7 +74,7 @@ const AuthenticateProvider = ({ children }) => {
         Owner: '',
         Balance: 0,
         GasPrice: 0,
-        truncatedAddress: ''
+        truncatedAddress: '0x0000..0000'
     });
 
     async function loadCss() {

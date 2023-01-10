@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import {useProjectTranslation} from "../../../helpers/translations";
-import TokensList from "../../Tables/Tokens";
+import TokensCA from "../../Tables/TokensCA";
+import TokensTP from "../../Tables/TokensTP";
 
 
 export default function Portfolio() {
@@ -18,7 +19,8 @@ export default function Portfolio() {
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    <TokensList />
+                    <TokensCA />
+                    <TokensTP />
                 </div>
             </div>
         </div>
