@@ -5,10 +5,18 @@ import React, { useContext, useState, useEffect } from 'react';
 import {useProjectTranslation} from "../../helpers/translations";
 import SelectCurrency from "../SelectCurrency";
 import ModalConfirmOperation from "../Modals/ConfirmOperation";
+import { TokenSettings, TokenBalance, TokenPrice } from '../../helpers/currencies';
+import { tokenExchange, tokenReceive } from '../../helpers/exchange';
+
+
+import settings from '../../settings/settings.json'
 
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
+
+    const [currencyYouExchange, setCurrencyYouExchange] = useState('CA_0');
+    const [currencyYouReceive, setCurrencyYouReceive] = useState('TC');
 
     return (
     <div className="exchange-content">
@@ -19,9 +27,9 @@ export default function Exchange() {
                     className="select-token"
                     disabled={false}
                     inputValueInWei={0.00}
-                    value={'CA_0'}
-                    currencySelected={'CA_0'}
-                    currencyOptions={['CA_0', 'CA_1', 'TC', 'TP_0', 'TP_1']}
+                    value={currencyYouExchange}
+                    currencySelected={currencyYouExchange}
+                    currencyOptions={tokenExchange()}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
@@ -46,9 +54,9 @@ export default function Exchange() {
                     className="select-token"
                     disabled={false}
                     inputValueInWei={0.00}
-                    value={'TC'}
-                    currencySelected={'TC'}
-                    currencyOptions={['TC', 'TP_0', 'TP_1']}
+                    value={currencyYouReceive}
+                    currencySelected={currencyYouReceive}
+                    currencyOptions={tokenReceive(currencyYouExchange)}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
