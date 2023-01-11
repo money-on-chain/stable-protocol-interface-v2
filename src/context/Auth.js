@@ -67,8 +67,6 @@ const AuthenticateProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [account, setAccount] = useState(null);
     const [userBalanceData, setUserBalanceData] = useState(null);
-    //const [balanceRbtc, setBalanceRbtc] = useState(null);
-    //const [getAppMode, seGetAppMode] = useState(config.environment.AppMode);
     const [accountData, setAccountData] = useState({
         Wallet: '',
         Owner: '',
@@ -134,7 +132,6 @@ const AuthenticateProvider = ({ children }) => {
             })
 
             setWeb3(web3);
-            //window.web3 = web3;
             window.rLoginDisconnect = disconnect;
 
             // request user's account
@@ -329,7 +326,6 @@ const AuthenticateProvider = ({ children }) => {
 
         setContractStatusData(dataContractStatus);
         setUserBalanceData(accountBalance);
-        //setBalanceRbtc(web3.utils.fromWei(accountBalance?.rbtcBalance));
 
     }
 

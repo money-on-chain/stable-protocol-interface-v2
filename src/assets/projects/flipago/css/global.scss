@@ -685,6 +685,7 @@ body, html {
   font-size: 16px;
   line-height: 19px;
   /* identical to box height */
+  padding: 16px 0 !important;
 
 
   /* Text/Text Secondary */
@@ -725,7 +726,7 @@ body, html {
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-    background: #2e2c2e;
+  background: #2e2c2e;
 }
 
 .ant-table-body::-webkit-scrollbar {

@@ -12,26 +12,31 @@ const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
+        align: 'left',
         width: 380,
     },
     {
         title: 'Price in USD',
         dataIndex: 'price',
+        align: 'right',
         width: 200,
     },
     {
         title: 'Variation 24hs',
         dataIndex: 'variation',
+        align: 'right',
         width: 200,
     },
     {
         title: 'Balance',
         dataIndex: 'balance',
-        width: 190,
+        align: 'right',
+        width: 190
     },
     {
         title: 'USD',
-        dataIndex: 'usd'
+        dataIndex: 'usd',
+        align: 'right',
         /*width: 190,*/
     }
 ];
@@ -70,6 +75,7 @@ export default function Tokens(props) {
         columnsData.push({
             title: t(`portfolio.tokens.CA.columns.${dataItem.dataIndex}`, { ns: ns }),
             dataIndex: dataItem.dataIndex,
+            align: dataItem.align,
             width: dataItem.width
         })
     });

@@ -13,26 +13,31 @@ const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
+        align: 'left',
         width: 380,
     },
     {
         title: 'Tokens per USD',
         dataIndex: 'price',
+        align: 'right',
         width: 200,
     },
     {
         title: 'Variation 24hs',
         dataIndex: 'variation',
+        align: 'right',
         width: 200,
     },
     {
         title: 'Balance',
         dataIndex: 'balance',
+        align: 'right',
         width: 190,
     },
     {
         title: 'USD',
-        dataIndex: 'usd'
+        dataIndex: 'usd',
+        align: 'right',
         /*width: 190,*/
     }
 ];
@@ -70,6 +75,7 @@ export default function Tokens(props) {
         columnsData.push({
             title: t(`portfolio.tokens.TP.columns.${dataItem.dataIndex}`, { ns: ns }),
             dataIndex: dataItem.dataIndex,
+            align: dataItem.align,
             width: dataItem.width
         })
     });
@@ -88,6 +94,9 @@ export default function Tokens(props) {
         const priceDelta = price.minus(priceHistory)
         const variation = priceDelta.abs().div(priceHistory).times(100)
 
+        let signPriceDelta = ''
+        if (priceDelta.gt(0)) signPriceDelta = '+'
+
         const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP,{decimalSeparator: '.', groupSeparator: ','})
 
@@ -104,7 +113,7 @@ export default function Tokens(props) {
                     ns: ns,
                     skipContractConvert: true
                 })}</div>,
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation: `${signPriceDelta}${priceDeltaFormat} (${variationFormat} %)`,
             balance: <div>{
                 PrecisionNumbers({
                     amount: balance,
