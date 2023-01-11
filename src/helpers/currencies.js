@@ -5,6 +5,8 @@ import { ReactComponent as LogoIconTC } from '../assets/icons/tokens/tc.svg';
 import { ReactComponent as LogoIconTP_0 } from '../assets/icons/tokens/tp_0.svg';
 import { ReactComponent as LogoIconTP_1 } from '../assets/icons/tokens/tp_1.svg';
 import settings from '../settings/settings.json';
+import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from './Formats';
 
 
 const currencies = [
@@ -60,10 +62,10 @@ function TokenBalance(auth, tokenName) {
       balance = auth.userBalanceData.CA[1].balance;
       break;
     case 'TP_0':
-      balance = auth.userBalanceData.TP[0].balance;
+      balance = auth.userBalanceData.TP[0];
       break;
     case 'TP_1':
-      balance = auth.userBalanceData.TP[1].balance;
+      balance = auth.userBalanceData.TP[1];
       break;
     case 'TC':
       balance = auth.userBalanceData.TC.balance;
@@ -107,10 +109,63 @@ function TokenPrice(auth, tokenName) {
   return price
 }
 
+function ConvertBalance(auth, tokenExchange, tokenReceive) {
+  const rawAmount = TokenBalance(auth, tokenExchange)
+  return ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount)
+}
+
+function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount) {
+
+  const tokenExchangeSettings = TokenSettings(tokenExchange)
+  const tokenReceiveSettings = TokenSettings(tokenReceive)
+  let price = new BigNumber(0)
+  const amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenReceiveSettings.decimals))
+  let cAmount = new BigNumber(0)
+
+  // [tokenExchange,tokenReceive]
+  const tokenMap = `${tokenExchange},${tokenReceive}`
+  switch (tokenMap) {
+    case 'CA_0,TC':
+    case 'CA_1,TC':
+      price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals))
+      cAmount = amount.div(price)
+      break
+    case 'TP_0,CA_0':
+    case 'TP_1,CA_0':
+    case 'TP_0,CA_1':
+    case 'TP_1,CA_1':
+      // Redeem Operation
+      price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals))
+      cAmount = amount.div(price)
+      break
+    case 'CA_0,TP_0':
+    case 'CA_1,TP_0':
+    case 'CA_0,TP_1':
+    case 'CA_1,TP_1':
+      // Mint Operation
+      price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals))
+      cAmount = amount.times(price)
+      break
+    case 'TC,CA_0':
+    case 'TC,CA_1':
+      // Redeem Operation
+      price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals))
+      cAmount = amount.times(price)
+      break
+    default:
+      throw new Error('Invalid token name');
+  }
+
+  return cAmount
+
+}
+
 
 export {
   getCurrenciesDetail,
   TokenSettings,
   TokenBalance,
-  TokenPrice
+  TokenPrice,
+  ConvertBalance,
+  ConvertAmount
 }

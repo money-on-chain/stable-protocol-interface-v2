@@ -5,18 +5,33 @@ import React, { useContext, useState, useEffect } from 'react';
 import {useProjectTranslation} from "../../helpers/translations";
 import SelectCurrency from "../SelectCurrency";
 import ModalConfirmOperation from "../Modals/ConfirmOperation";
-import { TokenSettings, TokenBalance, TokenPrice } from '../../helpers/currencies';
+import { TokenSettings, TokenBalance, TokenPrice, ConvertBalance } from '../../helpers/currencies';
 import { tokenExchange, tokenReceive } from '../../helpers/exchange';
 
-
 import settings from '../../settings/settings.json'
+import { PrecisionNumbers } from '../PrecisionNumbers';
+import { AuthenticateContext } from '../../context/Auth';
 
 
 export default function Exchange() {
-    const [t, i18n, ns] = useProjectTranslation();
 
-    const [currencyYouExchange, setCurrencyYouExchange] = useState('CA_0');
-    const [currencyYouReceive, setCurrencyYouReceive] = useState('TC');
+    const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
+
+    const defaultTokenExchange = tokenExchange()[0]
+    const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0]
+
+    const [currencyYouExchange, setCurrencyYouExchange] = useState(defaultTokenExchange);
+    const [currencyYouReceive, setCurrencyYouReceive] = useState(defaultTokenReceive);
+
+    const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
+        setCurrencyYouExchange(newCurrencyYouExchange);
+        setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0])
+    };
+
+    const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
+        setCurrencyYouReceive(newCurrencyYouReceive);
+    };
 
     return (
     <div className="exchange-content">
@@ -30,13 +45,21 @@ export default function Exchange() {
                     value={currencyYouExchange}
                     currencySelected={currencyYouExchange}
                     currencyOptions={tokenExchange()}
+                    onChange={onChangeCurrencyYouExchange}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
 
                 <div className="token-balance">
                     <span className="token-balance-value">
-                        Balance: 1234.12
+                        Balance: {PrecisionNumbers({
+                                    amount: TokenBalance(auth, currencyYouExchange),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals: TokenSettings(currencyYouExchange).visibleDecimals,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}
                     </span>
                     <a href="#" className="token-balance-add-total">Add total available</a>
 
@@ -57,13 +80,22 @@ export default function Exchange() {
                     value={currencyYouReceive}
                     currencySelected={currencyYouReceive}
                     currencyOptions={tokenReceive(currencyYouExchange)}
+                    onChange={onChangeCurrencyYouReceive}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
 
                 <div className="token-balance">
                     <span className="token-balance-value">
-                        Balance: 1234.12
+                        Max: {PrecisionNumbers({
+                        amount: ConvertBalance(auth, currencyYouExchange, currencyYouReceive),
+                        token: TokenSettings(currencyYouReceive),
+                        decimals: TokenSettings(currencyYouReceive).visibleDecimals,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
                     </span>
                     <a href="#" className="token-balance-add-total">Add total available</a>
                 </div>
