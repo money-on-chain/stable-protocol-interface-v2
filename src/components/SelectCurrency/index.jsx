@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Select } from 'antd';
 
-import { getCurrenciesDetail } from '../../helpers/currency';
+import { getCurrenciesDetail } from '../../helpers/currencies';
 import {AuthenticateContext} from "../../context/Auth";
 import { useProjectTranslation } from '../../helpers/translations';
 
@@ -14,10 +14,11 @@ export default function SelectCurrency(props) {
 
   const { value, onChange, currencyOptions, disabled } = props;
   const [t, i18n, ns] = useProjectTranslation();
+
   const options = getCurrenciesDetail().map(it => ({
     value: it.value,
     image: it.image,
-    label: t(it.longNameKey, { ns: 'moc' }),
+    label: t(`exchange.tokens.${it.value}.label`, { ns: ns }),
   }));
   const option = options.find(it => it.value === value);
   const optionsFiltered = options.filter(it => currencyOptions.includes(it.value));
@@ -36,7 +37,8 @@ export default function SelectCurrency(props) {
             {possibleOption.image}
             {possibleOption.label}
           </div>
-        </Option>)}
+        </Option>)
+        }
       </Select>
     </div>
   )

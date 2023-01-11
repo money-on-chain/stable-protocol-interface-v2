@@ -19,9 +19,9 @@ export default function Exchange() {
                     className="select-token"
                     disabled={false}
                     inputValueInWei={0.00}
-                    value={'RESERVE'}
-                    currencySelected={'RESERVE'}
-                    currencyOptions={['RESERVE', 'TC', 'TP']}
+                    value={'CA_0'}
+                    currencySelected={'CA_0'}
+                    currencyOptions={['CA_0', 'CA_1', 'TC', 'TP_0', 'TP_1']}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
@@ -46,9 +46,9 @@ export default function Exchange() {
                     className="select-token"
                     disabled={false}
                     inputValueInWei={0.00}
-                    value={'TP'}
-                    currencySelected={'TP'}
-                    currencyOptions={['RESERVE', 'TC', 'TP']}
+                    value={'TC'}
+                    currencySelected={'TC'}
+                    currencyOptions={['TC', 'TP_0', 'TP_1']}
                 />
 
                 <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />

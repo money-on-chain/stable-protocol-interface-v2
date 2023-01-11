@@ -95,6 +95,25 @@
       "failed": "Failed"
     }
   },
+  "exchange": {
+    "tokens": {
+      "CA_0": {
+        "label": "DOC"
+      },
+      "CA_1": {
+        "label": "RDOC"
+      },
+      "TC": {
+        "label": "Mega"
+      },
+      "TP_0": {
+        "label": "Go ARS"
+      },
+      "TP_1": {
+        "label": "Go MXN"
+      }
+    }
+  },
   "portfolio": {
     "tokens": {
       "CA": {
@@ -113,6 +132,9 @@
         },
         "2": {
           "title": "Mega"
+        },
+        "3": {
+          "title": "RBTC"
         }
       },
       "TP": {
