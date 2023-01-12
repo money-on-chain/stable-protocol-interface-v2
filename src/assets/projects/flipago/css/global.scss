@@ -1422,7 +1422,7 @@ h1.title-last-operations {
 
     }
 
-    input[type='text'].input-value {
+    input[type='number'].input-value {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
@@ -1443,9 +1443,23 @@ h1.title-last-operations {
 
     }
 
-    input[type='text'].input-value::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    input[type='number'].input-value::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: #7F8A99;
       opacity: 1; /* Firefox */
+    }
+
+    // Remove spinner
+
+    /* Chrome, Safari, Edge, Opera */
+    input[type='number'].input-value::-webkit-outer-spin-button,
+    input[type='number'].input-value::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number].input-value {
+      -moz-appearance: textfield;
     }
 
     .token-balance {

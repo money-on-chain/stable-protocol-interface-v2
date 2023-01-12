@@ -114,12 +114,19 @@ function ConvertBalance(auth, tokenExchange, tokenReceive) {
   return ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount)
 }
 
-function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount) {
+function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei=true) {
 
   const tokenExchangeSettings = TokenSettings(tokenExchange)
   const tokenReceiveSettings = TokenSettings(tokenReceive)
   let price = new BigNumber(0)
-  const amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenReceiveSettings.decimals))
+
+  let amount
+  if (amountInWei) {
+    amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenReceiveSettings.decimals))
+  } else {
+    amount = new BigNumber(rawAmount)
+  }
+
   let cAmount = new BigNumber(0)
 
   // [tokenExchange,tokenReceive]
@@ -160,6 +167,28 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount) {
 
 }
 
+const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
+
+const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei=true) => {
+  const tokenSettings = TokenSettings(tokenName)
+
+  let amount
+  if (amountInWei) {
+    amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenSettings.decimals))
+  } else {
+    amount = new BigNumber(rawAmount)
+  }
+  return amount.toFormat(decimals, BigNumber.ROUND_DOWN, {
+    decimalSeparator: '.',
+    groupSeparator: ','
+  })
+
+  /*return BigNumber(amount).div(precision(tokenSettings.decimals)).toFormat(decimals, BigNumber.ROUND_DOWN, {
+    decimalSeparator: '.',
+    groupSeparator: ','
+  })*/
+}
+
 
 export {
   getCurrenciesDetail,
@@ -167,5 +196,6 @@ export {
   TokenBalance,
   TokenPrice,
   ConvertBalance,
-  ConvertAmount
+  ConvertAmount,
+  AmountToVisibleValue
 }

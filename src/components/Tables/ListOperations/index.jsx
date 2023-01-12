@@ -37,11 +37,9 @@ export default function ListOperations(props) {
     const [xScroll, setXScroll] = useState(undefined);
 
     const [t, i18n, ns] = useProjectTranslation();
-    const AppProject = process.env.REACT_APP_ENVIRONMENT_APP_PROJECT;
     const auth = useContext(AuthenticateContext);
 
     const { accountData = {} } = auth;
-    const [currencyCode, setCurrencyCode]=  useState('TG');
     const [dataJson, setDataJson]=  useState([]);
     const [callTable, setCallTable]=  useState(false);
     const [totalTable, setTotalTable]=  useState(0);
@@ -61,7 +59,7 @@ export default function ListOperations(props) {
         setTimeout(() => setLoading(false), timeSke)
     },[auth]);
 
-    window["renderTable"] = function() {transactionsList(1)}
+    //window["renderTable"] = function() {transactionsList(1)}
 
     const transactionsList = (skip, call_table) => {
         if(auth.isLoggedIn){
@@ -338,7 +336,7 @@ export default function ListOperations(props) {
             data.push({
                 key: element.key,
                 info: '',
-                event: <span className={classnames('event-action', `${AppProject}-${asset[0].color}`)}>{element.event}</span>,
+                event: <span className={classnames('event-action', `${asset[0].color}`)}>{element.event}</span>,
                 asset: asset[0].image,
                 // platform: <span className="display-inline CurrencyTx">{element.platform} {asset[0].txt}</span>,
                 platform: <span className="display-inline CurrencyTx">{element.platform}</span>,

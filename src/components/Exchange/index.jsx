@@ -5,12 +5,13 @@ import React, { useContext, useState, useEffect } from 'react';
 import {useProjectTranslation} from "../../helpers/translations";
 import SelectCurrency from "../SelectCurrency";
 import ModalConfirmOperation from "../Modals/ConfirmOperation";
-import { TokenSettings, TokenBalance, TokenPrice, ConvertBalance } from '../../helpers/currencies';
+import { TokenSettings, TokenBalance, TokenPrice, ConvertBalance, ConvertAmount, AmountToVisibleValue } from '../../helpers/currencies';
 import { tokenExchange, tokenReceive } from '../../helpers/exchange';
 
 import settings from '../../settings/settings.json'
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
+import InputAmount from './InputAmount';
 
 
 export default function Exchange() {
@@ -24,6 +25,9 @@ export default function Exchange() {
     const [currencyYouExchange, setCurrencyYouExchange] = useState(defaultTokenExchange);
     const [currencyYouReceive, setCurrencyYouReceive] = useState(defaultTokenReceive);
 
+    const [amountYouExchange, setAmountYouExchange] = useState(0.0);
+    const [amountYouReceive, setAmountYouReceive] = useState(0.0);
+
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         setCurrencyYouExchange(newCurrencyYouExchange);
         setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0])
@@ -31,6 +35,16 @@ export default function Exchange() {
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
         setCurrencyYouReceive(newCurrencyYouReceive);
+    };
+
+    const onChangeAmountYouExchange = (newAmount) => {
+        const convertA = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
+        setAmountYouReceive(AmountToVisibleValue(convertA, currencyYouExchange, 3, false))
+    };
+
+    const onChangeAmountYouReceive = (newAmount) => {
+        const convertA = ConvertAmount(auth, currencyYouReceive, currencyYouExchange, newAmount, false)
+        setAmountYouExchange(AmountToVisibleValue(convertA, currencyYouReceive, 3, false))
     };
 
     return (
@@ -48,7 +62,12 @@ export default function Exchange() {
                     onChange={onChangeCurrencyYouExchange}
                 />
 
-                <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
+                {/*<input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />*/}
+                <InputAmount
+                    InputValue={amountYouExchange}
+                    placeholder={'0.00'}
+                    onValueChange={onChangeAmountYouExchange}
+                />
 
                 <div className="token-balance">
                     <span className="token-balance-value">
@@ -83,7 +102,12 @@ export default function Exchange() {
                     onChange={onChangeCurrencyYouReceive}
                 />
 
-                <input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />
+                {/*<input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />*/}
+                <InputAmount
+                    InputValue={amountYouReceive}
+                    placeholder={'0.00'}
+                    onValueChange={onChangeAmountYouReceive}
+                />
 
                 <div className="token-balance">
                     <span className="token-balance-value">
