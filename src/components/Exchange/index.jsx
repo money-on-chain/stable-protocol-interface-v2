@@ -5,13 +5,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import {useProjectTranslation} from "../../helpers/translations";
 import SelectCurrency from "../SelectCurrency";
 import ModalConfirmOperation from "../Modals/ConfirmOperation";
-import { TokenSettings, TokenBalance, TokenPrice, ConvertBalance, ConvertAmount, AmountToVisibleValue } from '../../helpers/currencies';
+import { TokenSettings, TokenBalance, TokenPrice, ConvertBalance, ConvertAmount, AmountToVisibleValue, CalcCommission } from '../../helpers/currencies';
 import { tokenExchange, tokenReceive } from '../../helpers/exchange';
 
 import settings from '../../settings/settings.json'
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from './InputAmount';
+import BigNumber from 'bignumber.js';
 
 
 export default function Exchange() {
@@ -28,6 +29,8 @@ export default function Exchange() {
     const [amountYouExchange, setAmountYouExchange] = useState('0.0');
     const [amountYouReceive, setAmountYouReceive] = useState('0.0');
 
+    const [commission, setCommission] = useState('0.0');
+    const [commissionPercent, setCommissionPercent] = useState('0.0');
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -50,14 +53,22 @@ export default function Exchange() {
         onChangeAmountYouExchange(0.0)
     };
 
+    const onChangeAmounts = (newAmount) => {
+        const infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
+        setCommission(infoFee.fee)
+        setCommissionPercent(infoFee.percent)
+    };
+
     const onChangeAmountYouExchange = (newAmount) => {
         const convertA = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
         setAmountYouReceive(AmountToVisibleValue(convertA, currencyYouExchange, 3, false))
+        onChangeAmounts(AmountToVisibleValue(newAmount, currencyYouExchange, 3, false))
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
         const convertA = ConvertAmount(auth, currencyYouReceive, currencyYouExchange, newAmount, false)
         setAmountYouExchange(AmountToVisibleValue(convertA, currencyYouReceive, 3, false))
+        onChangeAmounts(AmountToVisibleValue(convertA, currencyYouReceive, 3, false))
     };
 
     const setAddTotalAvailable = () => {
@@ -186,7 +197,31 @@ export default function Exchange() {
             <div className="fees">
                 <div className="frame">
                     <div className="frame-t">
-                        Fee (0.15%) ≈ 0.0000342 rBTC
+                        <span className={'token_exchange'}>Fee (
+                        {PrecisionNumbers({
+                            amount: new BigNumber(commissionPercent),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                            %)
+                        </span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: new BigNumber(commission),
+                                token: TokenSettings(currencyYouExchange),
+                                decimals: 3,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}>{t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}</span>
                     </div>
 
                     {/*<div className="switch">*/}

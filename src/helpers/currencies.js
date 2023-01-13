@@ -183,11 +183,66 @@ const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei=true) 
     groupSeparator: ','
   })
 
-  /*return BigNumber(amount).div(precision(tokenSettings.decimals)).toFormat(decimals, BigNumber.ROUND_DOWN, {
-    decimalSeparator: '.',
-    groupSeparator: ','
-  })*/
 }
+
+function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWei=true) {
+  // rawAmount in CA
+
+  const tokenExchangeSettings = TokenSettings(tokenExchange)
+  const tokenReceiveSettings = TokenSettings(tokenReceive)
+
+  let amount
+  if (amountInWei) {
+    amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenExchangeSettings.decimals))
+  } else {
+    amount = new BigNumber(rawAmount)
+  }
+
+  let feeParam;
+  const tokenMap = `${tokenExchange},${tokenReceive}`
+  switch (tokenMap) {
+    case 'CA_0,TC':
+    case 'CA_1,TC':
+      // Mint TC
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcMintFee, tokenReceiveSettings.decimals))
+      break
+    case 'TP_0,CA_0':
+    case 'TP_0,CA_1':
+      // Redeem TP 0
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFee[0], tokenReceiveSettings.decimals))
+      break
+    case 'TP_1,CA_0':
+    case 'TP_1,CA_1':
+      // Redeem TP 1
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFee[1], tokenReceiveSettings.decimals))
+      break
+    case 'CA_0,TP_0':
+    case 'CA_1,TP_0':
+      // Mint TP 0
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpMintFee[0], tokenReceiveSettings.decimals))
+      break
+    case 'CA_0,TP_1':
+    case 'CA_1,TP_1':
+      // Mint TP 1
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpMintFee[1], tokenReceiveSettings.decimals))
+      break
+    case 'TC,CA_0':
+    case 'TC,CA_1':
+      // Redeem TC
+      feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcRedeemFee, tokenReceiveSettings.decimals))
+      break
+    default:
+      throw new Error('Invalid token name');
+  }
+
+  const feeInfo = {
+    fee: amount.times(feeParam),
+    percent: feeParam.times(100)
+  }
+
+  return feeInfo
+}
+
 
 
 export {
@@ -197,5 +252,6 @@ export {
   TokenPrice,
   ConvertBalance,
   ConvertAmount,
-  AmountToVisibleValue
+  AmountToVisibleValue,
+  CalcCommission
 }
