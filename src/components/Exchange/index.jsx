@@ -25,16 +25,29 @@ export default function Exchange() {
     const [currencyYouExchange, setCurrencyYouExchange] = useState(defaultTokenExchange);
     const [currencyYouReceive, setCurrencyYouReceive] = useState(defaultTokenReceive);
 
-    const [amountYouExchange, setAmountYouExchange] = useState(0.0);
-    const [amountYouReceive, setAmountYouReceive] = useState(0.0);
+    const [amountYouExchange, setAmountYouExchange] = useState('0.0');
+    const [amountYouReceive, setAmountYouReceive] = useState('0.0');
+
+
+    useEffect(() => {
+        setAmountYouExchange(amountYouExchange);
+    }, [amountYouExchange]);
+
+    useEffect(() => {
+        setAmountYouReceive(amountYouReceive);
+    }, [amountYouReceive]);
 
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         setCurrencyYouExchange(newCurrencyYouExchange);
         setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0])
+        onChangeAmountYouReceive(0.0)
+        onChangeAmountYouExchange(0.0)
     };
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
         setCurrencyYouReceive(newCurrencyYouReceive);
+        onChangeAmountYouReceive(0.0)
+        onChangeAmountYouExchange(0.0)
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
@@ -47,6 +60,13 @@ export default function Exchange() {
         setAmountYouExchange(AmountToVisibleValue(convertA, currencyYouReceive, 3, false))
     };
 
+    const setAddTotalAvailable = () => {
+        const totalYouExchange = TokenBalance(auth, currencyYouExchange)
+        const convertA = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, totalYouExchange, true)
+        setAmountYouReceive(AmountToVisibleValue(convertA, currencyYouExchange, 3, false))
+        setAmountYouExchange(AmountToVisibleValue(totalYouExchange, currencyYouReceive, 3, true))
+    };
+
     return (
     <div className="exchange-content">
         <div className="fields">
@@ -54,19 +74,16 @@ export default function Exchange() {
 
                 <SelectCurrency
                     className="select-token"
-                    disabled={false}
-                    inputValueInWei={0.00}
                     value={currencyYouExchange}
-                    currencySelected={currencyYouExchange}
                     currencyOptions={tokenExchange()}
                     onChange={onChangeCurrencyYouExchange}
                 />
 
-                {/*<input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />*/}
                 <InputAmount
                     InputValue={amountYouExchange}
                     placeholder={'0.00'}
                     onValueChange={onChangeAmountYouExchange}
+                    validateError={false}
                 />
 
                 <div className="token-balance">
@@ -80,7 +97,7 @@ export default function Exchange() {
                                     ns: ns
                                 })}
                     </span>
-                    <a href="#" className="token-balance-add-total">Add total available</a>
+                    <a href="#" className="token-balance-add-total" onClick={setAddTotalAvailable}>Add total available</a>
 
                 </div>
 
@@ -94,19 +111,16 @@ export default function Exchange() {
 
                 <SelectCurrency
                     className="select-token"
-                    disabled={false}
-                    inputValueInWei={0.00}
                     value={currencyYouReceive}
-                    currencySelected={currencyYouReceive}
                     currencyOptions={tokenReceive(currencyYouExchange)}
                     onChange={onChangeCurrencyYouReceive}
                 />
 
-                {/*<input className="input-value" type="text" id="select-token-from" name="select-token-from" placeholder="0.00" />*/}
                 <InputAmount
                     InputValue={amountYouReceive}
                     placeholder={'0.00'}
                     onValueChange={onChangeAmountYouReceive}
+                    validateError={false}
                 />
 
                 <div className="token-balance">
@@ -121,7 +135,7 @@ export default function Exchange() {
                         skipContractConvert: true
                     })}
                     </span>
-                    <a href="#" className="token-balance-add-total">Add total available</a>
+                    <a href="#" className="token-balance-add-total" onClick={setAddTotalAvailable}>Add total available</a>
                 </div>
 
 
@@ -141,12 +155,12 @@ export default function Exchange() {
                         Fee (0.15%) ≈ 0.0000342 rBTC
                     </div>
 
-                    <div className="switch">
-                        <Switch
-                            disabled={false}
-                            checked={false}
-                        />
-                    </div>
+                    {/*<div className="switch">*/}
+                    {/*    <Switch*/}
+                    {/*        disabled={false}*/}
+                    {/*        checked={false}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                 </div>
                 <div className="balance">
                     This fee will be deducted from the transaction value transferred. Amounts my be different at transaction confirmation.

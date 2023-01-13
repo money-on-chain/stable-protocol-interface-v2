@@ -1,33 +1,26 @@
 import { DebounceInput } from 'react-debounce-input';
-import React, { useContext, useState } from 'react';
-
-import { useProjectTranslation } from '../../../helpers/translations';
-import { AuthenticateContext } from '../../../context/Auth';
+import React, { Component } from 'react';
 
 
-export default function InputAmount(props) {
+export default class InputAmount extends Component {
 
-    const {
-        InputValue,
-        placeholder = '',
-        validateError = false,
-        onValueChange = (newAmount) => {}
-    } = props;
+    handleValueChange(newAmount) {
+        this.props.onValueChange(newAmount);
+    }
 
-    const handleValueChange = newAmount => {
-        onValueChange(newAmount);
-    };
-
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-
-    return (<DebounceInput
-                placeholder={placeholder}
-                value={InputValue}
-                debounceTimeout={1000}
-                onChange={event => handleValueChange(event.target.value)}
-                className={`input-value ${validateError ? 'input-value-error' : ''}`}
-                type={"number"}
-            />)
+    render() {
+        return (
+            <div>
+                <DebounceInput
+                    placeholder={this.props.placeholder}
+                    value={this.props.InputValue}
+                    debounceTimeout={1000}
+                    onChange={event => this.handleValueChange(event.target.value)}
+                    className={`input-value ${this.props.validateError ? 'input-value-error' : ''}`}
+                    type={"number"}
+                />
+            </div>
+        );
+    }
 
 }
