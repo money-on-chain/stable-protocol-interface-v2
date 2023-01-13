@@ -145,8 +145,42 @@ export default function Exchange() {
 
         <div className="info">
             <div className="prices">
-                <div className="conversion_0">1 FlipMega ≈ 1.0323 Dollar On Chain</div>
-                <div className="conversion_1">1 Dollar On CHain ≈ 0.9323 FlipMega</div>
+                <div className="conversion_0">
+                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}> {PrecisionNumbers({
+                            amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        </span>
+                    <span className={'token_receive_name'}>
+                        {t(`exchange.tokens.${currencyYouReceive}.label`, { ns: ns })}
+                    </span>
+                </div>
+                <div className="conversion_1">
+                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouReceive}.label`, { ns: ns })}</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}> {PrecisionNumbers({
+                            amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
+                            token: TokenSettings(currencyYouReceive),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className={'token_receive_name'}>
+                        {t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}
+                    </span>
+
+
+                </div>
             </div>
 
             <div className="fees">
