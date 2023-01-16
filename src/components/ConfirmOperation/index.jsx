@@ -6,11 +6,26 @@ import {Collapse, Slider} from "antd";
 import IconStatusPending from "../../assets/icons/status-pending.png";
 import IconStatusSuccess from "../../assets/icons/status-success.png";
 import IconStatusError from "../../assets/icons/status-error.png";
+import { PrecisionNumbers } from '../PrecisionNumbers';
+import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
+import { AuthenticateContext } from '../../context/Auth';
+import BigNumber from 'bignumber.js';
 
 
-export default function ConfirmOperation() {
+export default function ConfirmOperation(props) {
+
+    const {
+        currencyYouExchange,
+        currencyYouReceive,
+        exchangingUSD,
+        commission,
+        commissionPercent,
+        amountYouExchangeFee,
+        amountYouReceiveFee
+    } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
 
@@ -62,8 +77,18 @@ export default function ConfirmOperation() {
         <div className="confirm-operation">
             <div className="exchange">
                 <div className="swapFrom">
-                    <span className="value">132.15</span>
-                    <span className="token">FlipMega</span>
+                    <span className="value">
+                        {PrecisionNumbers({
+                            amount: new BigNumber(amountYouExchangeFee),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className="token">{t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
                 </div>
 
                 <div className="swapArrow">
@@ -71,22 +96,92 @@ export default function ConfirmOperation() {
                 </div>
 
                 <div className="swapTo">
-                    <span className="value">132.15</span>
-                    <span className="token">DOC</span>
+                    <span className="value">
+                        {PrecisionNumbers({
+                            amount: new BigNumber(amountYouReceiveFee),
+                            token: TokenSettings(currencyYouReceive),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className="token">{t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
                 </div>
             </div>
 
             <div className="prices">
-                <div className="rate_1">1 FlipMega ≈ 1.0323 Dollar On Chain </div>
-                <div className="rate_2">1 Dollar On Chain ≈ 0.9323 FlipMega </div>
+                <div className="rate_1">
+                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}> {PrecisionNumbers({
+                            amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className={'token_receive_name'}>
+                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}
+                    </span>
+                </div>
+                <div className="rate_2">
+                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}> {PrecisionNumbers({
+                            amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
+                            token: TokenSettings(currencyYouReceive),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className={'token_receive_name'}>
+                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}
+                    </span>
+                </div>
             </div>
 
             <div className="separator"></div>
 
             <div className="fees">
-                <div className="value">Fee (0.15%) ≈ 0.0000342 rBTC</div>
-                <div className="disclaimer">This fee will be deducted from the transaction value transfered.
-                    Amounts my be different at transaction confirmation.</div>
+                <div className="value">
+                    <span className={'token_exchange'}>Fee (
+                        {PrecisionNumbers({
+                            amount: new BigNumber(commissionPercent),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        %)
+                        </span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: new BigNumber(commission),
+                                token: TokenSettings(currencyYouExchange),
+                                decimals: 3,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                    <span className={'token_receive_name'}>{t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                </div>
+                <div className="disclaimer">
+                    This fee will be deducted from the transaction value transferred.
+                    Amounts my be different at transaction confirmation.
+                </div>
             </div>
 
             <div className="separator"></div>
@@ -118,7 +213,22 @@ export default function ConfirmOperation() {
                 </div>
 
                 <div className="cta">
-                    <span className="exchanging">Exchanging ≈ 132.15 USD</span>
+                    <span className="exchanging">
+                        <span className={'token_exchange'}>Exchanging </span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: new BigNumber(exchangingUSD),
+                                token: TokenSettings('CA_0'),
+                                decimals: 3,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}> USD</span>
+                    </span>
                     <button type="primary" className="btn">Send transaction</button>
                 </div>
 

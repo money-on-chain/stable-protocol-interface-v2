@@ -249,6 +249,63 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
   return feeInfo
 }
 
+function AmountsWithCommissions(auth, tokenExchange, tokenReceive, rawAmountYouExchange, rawAmountYouReceive, rawCommissionsValue, amountInWei=true) {
+  // Commissions in CA
+
+  const tokenExchangeSettings = TokenSettings(tokenExchange)
+  const tokenReceiveSettings = TokenSettings(tokenReceive)
+  const commissionsValueSettings = TokenSettings('CA_0')
+
+  let amountYouExchange
+  let amountYouReceive
+  let commissionsValue
+  if (amountInWei) {
+    amountYouExchange = new BigNumber(fromContractPrecisionDecimals(rawAmountYouExchange, tokenExchangeSettings.decimals))
+    amountYouReceive = new BigNumber(fromContractPrecisionDecimals(rawAmountYouReceive, tokenReceiveSettings.decimals))
+    commissionsValue = new BigNumber(fromContractPrecisionDecimals(rawCommissionsValue, commissionsValueSettings.decimals))
+  } else {
+    amountYouExchange = new BigNumber(rawAmountYouExchange)
+    amountYouReceive = new BigNumber(rawAmountYouReceive)
+    commissionsValue = new BigNumber(rawCommissionsValue)
+  }
+
+  console.log("DEBUG>>>")
+  console.log(amountYouExchange.toString())
+  console.log(amountYouReceive.toString())
+  console.log(commissionsValue.toString())
+
+  const tokenMap = `${tokenExchange},${tokenReceive}`
+  switch (tokenMap) {
+    case 'CA_0,TC':
+    case 'CA_1,TC':
+    case 'CA_0,TP_0':
+    case 'CA_1,TP_0':
+    case 'CA_0,TP_1':
+    case 'CA_1,TP_1':
+      // Mint
+      amountYouExchange = amountYouExchange.plus(commissionsValue)
+      break
+    case 'TP_0,CA_0':
+    case 'TP_0,CA_1':
+    case 'TP_1,CA_0':
+    case 'TP_1,CA_1':
+    case 'TC,CA_0':
+    case 'TC,CA_1':
+      // Redeem
+      amountYouReceive = amountYouReceive.minus(commissionsValue)
+      break
+    default:
+      throw new Error('Invalid token name');
+  }
+
+  const amountsInfo = {
+    amountYouExchange: amountYouExchange,
+    amountYouReceive: amountYouReceive
+  }
+
+  return amountsInfo
+}
+
 
 
 export {
@@ -259,5 +316,6 @@ export {
   ConvertBalance,
   ConvertAmount,
   AmountToVisibleValue,
-  CalcCommission
+  CalcCommission,
+  AmountsWithCommissions
 }

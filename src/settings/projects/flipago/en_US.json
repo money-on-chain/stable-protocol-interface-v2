@@ -98,19 +98,24 @@
   "exchange": {
     "tokens": {
       "CA_0": {
-        "label": "DOC"
+        "label": "Dollar on Chain",
+        "abbr": "DOC"
       },
       "CA_1": {
-        "label": "RDOC"
+        "label": "Rif on Chain",
+        "abbr": "RDOC"
       },
       "TC": {
-        "label": "Mega"
+        "label": "Go Turbo",
+        "abbr": "Turbo"
       },
       "TP_0": {
-        "label": "Go ARS"
+        "label": "Go ARS",
+        "abbr": "GoARS"
       },
       "TP_1": {
-        "label": "Go MXN"
+        "label": "Go MXN",
+        "abbr": "GoMXN"
       }
     }
   },

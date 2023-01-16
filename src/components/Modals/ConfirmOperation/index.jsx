@@ -7,7 +7,7 @@ import ConfirmOperation from "../../ConfirmOperation";
 import {Button} from "antd";
 
 
-export default function ModalConfirmOperation() {
+export default function ModalConfirmOperation(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
@@ -35,7 +35,7 @@ export default function ModalConfirmOperation() {
                 footer={null}
                 className="ModalConfirmOperation"
             >
-                <ConfirmOperation/>
+                <ConfirmOperation {...props} />
             </Modal>
         </div>
     )
