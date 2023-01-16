@@ -32,6 +32,8 @@ export default function Exchange() {
     const [commission, setCommission] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
 
+    const [exchanging, setExchanging] = useState('0.0');
+
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
     }, [amountYouExchange]);
@@ -54,9 +56,15 @@ export default function Exchange() {
     };
 
     const onChangeAmounts = (newAmount) => {
+
+        // Set commissions
         const infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
         setCommission(infoFee.fee)
         setCommissionPercent(infoFee.percent)
+
+        // Set exchanging total in USD
+        const convertA = ConvertAmount(auth, currencyYouExchange, 'CA_0', newAmount, false)
+        setExchanging(convertA.plus(infoFee.fee).toString())
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
@@ -239,7 +247,20 @@ export default function Exchange() {
 
             <div className="cta">
                 <span className="exchanging">
-                    Exchanging ≈ 132.15 USD
+                    <span className={'token_exchange'}>Exchanging </span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}>
+                        {PrecisionNumbers({
+                            amount: new BigNumber(exchanging),
+                            token: TokenSettings('CA_0'),
+                            decimals: 3,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className={'token_receive_name'}> USD</span>
                 </span>
 
                 <ModalConfirmOperation />

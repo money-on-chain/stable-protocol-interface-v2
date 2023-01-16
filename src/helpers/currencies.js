@@ -159,6 +159,12 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei
       price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals))
       cAmount = amount.times(price)
       break
+    case 'CA_0,CA_0':
+    case 'CA_1,CA_0':
+    case 'CA_0,CA_1':
+    case 'CA_1,CA_1':
+      cAmount = amount
+      break
     default:
       throw new Error('Invalid token name');
   }
