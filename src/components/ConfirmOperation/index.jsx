@@ -118,7 +118,7 @@ export default function ConfirmOperation(props) {
                     <span className={'token_receive'}> {PrecisionNumbers({
                             amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 3,
+                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -133,7 +133,7 @@ export default function ConfirmOperation(props) {
                     <span className={'token_receive'}> {PrecisionNumbers({
                             amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 3,
+                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,

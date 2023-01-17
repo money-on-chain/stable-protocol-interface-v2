@@ -20,6 +20,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from './InputAmount';
 import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 
 
 export default function Exchange() {
@@ -65,10 +66,30 @@ export default function Exchange() {
         onChangeAmountYouExchange(0.0)
     };
 
-    const onChangeAmounts = (amountExchange, amountReceive) => {
+    const onChangeAmounts = (amountExchange, amountReceive, source) => {
 
-        // Set commissions
-        const infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, amountReceive, false)
+        // set the other input
+        let infoFee
+        let amountsWithFee
+        switch (source) {
+            case 'exchange':
+                infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountReceive, false)
+                amountsWithFee = amountReceive.minus(infoFee.fee)
+                setAmountYouReceive(AmountToVisibleValue(amountsWithFee, currencyYouExchange, 3, false))
+                setAmountYouExchangeFee(amountExchange)
+                setAmountYouReceiveFee(amountsWithFee)
+                break
+            case 'receive':
+                infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, false)
+                amountsWithFee = amountExchange.plus(infoFee.fee)
+                setAmountYouExchange(AmountToVisibleValue(amountsWithFee, currencyYouReceive, 3, false))
+                setAmountYouExchangeFee(amountsWithFee)
+                setAmountYouReceiveFee(amountReceive)
+                break
+            default:
+                throw new Error('Invalid source name');
+        }
+
         setCommission(infoFee.fee)
         setCommissionPercent(infoFee.percent)
 
@@ -81,30 +102,27 @@ export default function Exchange() {
         }
         setExchangingUSD(convertAmountUSD.plus(infoFee.fee).toString())
 
-        // Set amounts with fee
-        const amountsWithFee = AmountsWithCommissions(auth, currencyYouExchange, currencyYouReceive, amountExchange, amountReceive, infoFee.fee, false)
-        setAmountYouExchangeFee(amountsWithFee.amountYouExchange)
-        setAmountYouReceiveFee(amountsWithFee.amountYouReceive)
-
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
         const convertAmountReceive = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
-        setAmountYouReceive(AmountToVisibleValue(convertAmountReceive, currencyYouExchange, 3, false))
-        onChangeAmounts(newAmount, convertAmountReceive)
+        onChangeAmounts( new BigNumber(newAmount), convertAmountReceive, 'exchange')
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
         const convertAmountExchange = ConvertAmount(auth, currencyYouReceive, currencyYouExchange, newAmount, false)
-        setAmountYouExchange(AmountToVisibleValue(convertAmountExchange, currencyYouReceive, 3, false))
-        onChangeAmounts(convertAmountExchange, newAmount)
+        onChangeAmounts(convertAmountExchange,  new BigNumber(newAmount), 'receive')
     };
 
     const setAddTotalAvailable = () => {
-        const totalYouExchange = TokenBalance(auth, currencyYouExchange)
-        const convertA = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, totalYouExchange, true)
-        setAmountYouReceive(AmountToVisibleValue(convertA, currencyYouExchange, 3, false))
-        setAmountYouExchange(AmountToVisibleValue(totalYouExchange, currencyYouReceive, 3, true))
+
+        const tokenSettings = TokenSettings(currencyYouExchange)
+        const totalYouExchange = new BigNumber(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), tokenSettings.decimals))
+        const convertAmountReceive = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, totalYouExchange, false)
+
+        //setAmountYouReceive(AmountToVisibleValue(convertAmountReceive, currencyYouExchange, 3, false))
+        setAmountYouExchange(AmountToVisibleValue(totalYouExchange, currencyYouReceive, 3, false))
+        onChangeAmounts( new BigNumber(totalYouExchange), convertAmountReceive, 'exchange')
     };
 
     return (
@@ -191,7 +209,7 @@ export default function Exchange() {
                     <span className={'token_receive'}> {PrecisionNumbers({
                             amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 3,
+                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -206,7 +224,7 @@ export default function Exchange() {
                     <span className={'token_receive'}> {PrecisionNumbers({
                             amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 3,
+                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,
