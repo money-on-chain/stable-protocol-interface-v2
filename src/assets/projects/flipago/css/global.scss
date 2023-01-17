@@ -1325,6 +1325,7 @@ h1.title-last-operations {
 .icon-swap-arrow {
   width: 32px;
   height: 32px;
+  display: block;
   background-image: url("../icons/SwapArrow.svg");
   background-size: 32px 32px;
   background-repeat:no-repeat;
@@ -1411,7 +1412,7 @@ h1.title-last-operations {
     flex-direction: column;
     align-items: center;
     padding: 0;
-    gap: 24px;
+    gap: 4px;
     width: 320px;
     height: 296px;
     flex: none;
@@ -1516,6 +1517,7 @@ h1.title-last-operations {
     .swap-arrow {
       width: 32px;
       height: 32px;
+      margin-top: 40px;
     }
 
     .swap-to {

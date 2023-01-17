@@ -191,58 +191,68 @@ const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei=true) 
 
 }
 
-function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWei=true) {
-  // rawAmount in CA
+function CalcCommission(auth, tokenExchange, tokenReceive, rawAmountYouExchange, rawAmountYouReceive, amountInWei=true) {
+  // Calc commissions
 
   const tokenExchangeSettings = TokenSettings(tokenExchange)
   const tokenReceiveSettings = TokenSettings(tokenReceive)
 
-  let amount
+  let amountYouExchange
+  let amountYouReceive
   if (amountInWei) {
-    amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenExchangeSettings.decimals))
+    amountYouExchange = new BigNumber(fromContractPrecisionDecimals(rawAmountYouExchange, tokenExchangeSettings.decimals))
+    amountYouReceive = new BigNumber(fromContractPrecisionDecimals(rawAmountYouReceive, tokenReceiveSettings.decimals))
   } else {
-    amount = new BigNumber(rawAmount)
+    amountYouExchange = new BigNumber(rawAmountYouExchange)
+    amountYouReceive = new BigNumber(rawAmountYouReceive)
   }
 
   let feeParam;
+  let feeAmount;
   const tokenMap = `${tokenExchange},${tokenReceive}`
   switch (tokenMap) {
     case 'CA_0,TC':
     case 'CA_1,TC':
       // Mint TC
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcMintFee, tokenReceiveSettings.decimals))
+      feeAmount = amountYouExchange.times(feeParam)
       break
     case 'TP_0,CA_0':
     case 'TP_0,CA_1':
       // Redeem TP 0
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFee[0], tokenReceiveSettings.decimals))
+      feeAmount = amountYouReceive.times(feeParam)
       break
     case 'TP_1,CA_0':
     case 'TP_1,CA_1':
       // Redeem TP 1
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFee[1], tokenReceiveSettings.decimals))
+      feeAmount = amountYouReceive.times(feeParam)
       break
     case 'CA_0,TP_0':
     case 'CA_1,TP_0':
       // Mint TP 0
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpMintFee[0], tokenReceiveSettings.decimals))
+      feeAmount = amountYouExchange.times(feeParam)
       break
     case 'CA_0,TP_1':
     case 'CA_1,TP_1':
       // Mint TP 1
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tpMintFee[1], tokenReceiveSettings.decimals))
+      feeAmount = amountYouExchange.times(feeParam)
       break
     case 'TC,CA_0':
     case 'TC,CA_1':
       // Redeem TC
       feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcRedeemFee, tokenReceiveSettings.decimals))
+      feeAmount = amountYouReceive.times(feeParam)
       break
     default:
       throw new Error('Invalid token name');
   }
 
   const feeInfo = {
-    fee: amount.times(feeParam),
+    fee: feeAmount,
     percent: feeParam.times(100)
   }
 
@@ -268,11 +278,6 @@ function AmountsWithCommissions(auth, tokenExchange, tokenReceive, rawAmountYouE
     amountYouReceive = new BigNumber(rawAmountYouReceive)
     commissionsValue = new BigNumber(rawCommissionsValue)
   }
-
-  console.log("DEBUG>>>")
-  console.log(amountYouExchange.toString())
-  console.log(amountYouReceive.toString())
-  console.log(commissionsValue.toString())
 
   const tokenMap = `${tokenExchange},${tokenReceive}`
   switch (tokenMap) {

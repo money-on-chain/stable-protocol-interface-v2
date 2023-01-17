@@ -81,14 +81,14 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchangeFee),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 3,
+                            decimals: 2,
                             t: t,
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className="token">{t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                    <span className="token"> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
                 </div>
 
                 <div className="swapArrow">
@@ -100,14 +100,14 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouReceiveFee),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 3,
+                            decimals: 2,
                             t: t,
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className="token">{t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
+                    <span className="token"> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
                 </div>
             </div>
 
@@ -125,9 +125,7 @@ export default function ConfirmOperation(props) {
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className={'token_receive_name'}>
-                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}
-                    </span>
+                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
                 </div>
                 <div className="rate_2">
                     <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
@@ -142,9 +140,7 @@ export default function ConfirmOperation(props) {
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className={'token_receive_name'}>
-                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}
-                    </span>
+                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
                 </div>
             </div>
 
@@ -176,7 +172,7 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                    <span className={'token_receive_name'}>{t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
                 </div>
                 <div className="disclaimer">
                     This fee will be deducted from the transaction value transferred.
@@ -220,7 +216,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(exchangingUSD),
                                 token: TokenSettings('CA_0'),
-                                decimals: 3,
+                                decimals: 2,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,

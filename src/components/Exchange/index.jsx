@@ -13,7 +13,7 @@ import {
     AmountToVisibleValue,
     CalcCommission,
     AmountsWithCommissions } from '../../helpers/currencies';
-import { tokenExchange, tokenReceive } from '../../helpers/exchange';
+import { tokenExchange, tokenReceive, isMintOperation } from '../../helpers/exchange';
 
 import settings from '../../settings/settings.json'
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -65,40 +65,39 @@ export default function Exchange() {
         onChangeAmountYouExchange(0.0)
     };
 
-    const onChangeAmounts = (newAmount) => {
+    const onChangeAmounts = (amountExchange, amountReceive) => {
 
         // Set commissions
-        const infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
+        const infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, amountReceive, false)
         setCommission(infoFee.fee)
         setCommissionPercent(infoFee.percent)
 
         // Set exchanging total in USD
-        const convertA = ConvertAmount(auth, currencyYouExchange, 'CA_0', newAmount, false)
-        setExchangingUSD(convertA.plus(infoFee.fee).toString())
+        let convertAmountUSD
+        if (isMintOperation(currencyYouExchange, currencyYouReceive)) {
+            convertAmountUSD = ConvertAmount(auth, currencyYouExchange, 'CA_0', amountExchange, false)
+        } else {
+            convertAmountUSD = ConvertAmount(auth, currencyYouExchange, 'CA_0', amountReceive, false)
+        }
+        setExchangingUSD(convertAmountUSD.plus(infoFee.fee).toString())
+
+        // Set amounts with fee
+        const amountsWithFee = AmountsWithCommissions(auth, currencyYouExchange, currencyYouReceive, amountExchange, amountReceive, infoFee.fee, false)
+        setAmountYouExchangeFee(amountsWithFee.amountYouExchange)
+        setAmountYouReceiveFee(amountsWithFee.amountYouReceive)
 
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
         const convertAmountReceive = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
         setAmountYouReceive(AmountToVisibleValue(convertAmountReceive, currencyYouExchange, 3, false))
-        onChangeAmounts(AmountToVisibleValue(newAmount, currencyYouExchange, 3, false))
-
-        // Change amounts with fee
-        const amountsWithFee = AmountsWithCommissions(auth, currencyYouExchange, currencyYouReceive, newAmount, convertAmountReceive, commission, false)
-        setAmountYouExchangeFee(amountsWithFee.amountYouExchange)
-        setAmountYouReceiveFee(amountsWithFee.amountYouReceive)
-
+        onChangeAmounts(newAmount, convertAmountReceive)
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
         const convertAmountExchange = ConvertAmount(auth, currencyYouReceive, currencyYouExchange, newAmount, false)
         setAmountYouExchange(AmountToVisibleValue(convertAmountExchange, currencyYouReceive, 3, false))
-        onChangeAmounts(AmountToVisibleValue(convertAmountExchange, currencyYouReceive, 3, false))
-
-        // Change amounts with fee
-        const amountsWithFee = AmountsWithCommissions(auth, currencyYouExchange, currencyYouReceive, convertAmountExchange, newAmount, commission, false)
-        setAmountYouExchangeFee(amountsWithFee.amountYouExchange)
-        setAmountYouReceiveFee(amountsWithFee.amountYouReceive)
+        onChangeAmounts(convertAmountExchange, newAmount)
     };
 
     const setAddTotalAvailable = () => {
