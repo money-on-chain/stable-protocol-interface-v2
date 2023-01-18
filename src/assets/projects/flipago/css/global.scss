@@ -930,7 +930,7 @@ h1.title-last-operations {
   flex-direction: column;
   align-items: center;
   padding: 0;
-  gap: 24px;
+  gap: 17px;
 
   width: 451px;
   height: 540px;
@@ -953,7 +953,7 @@ h1.title-last-operations {
       height: 29px;
 
       .value {
-        width: 220px;
+        width: 420px;
         height: 29px;
         font-style: normal;
         font-weight: 400;
@@ -961,6 +961,20 @@ h1.title-last-operations {
         line-height: 29px;
         text-align: left;
         color: #F7F115;
+
+        .limitWarning {
+          display: block;
+          font-family: 'Chivo';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          text-align: left;
+          /* Text/Text Primary */
+          color: #C3CCD9;
+
+        }
+
       }
 
       .token {
@@ -1004,6 +1018,20 @@ h1.title-last-operations {
         line-height: 29px;
         text-align: left;
         color: #F7F115;
+
+        .limitWarning {
+          display: block;
+          font-family: 'Chivo';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          text-align: left;
+          /* Text/Text Primary */
+          color: #C3CCD9;
+
+        }
+
       }
 
       .token {
@@ -1087,33 +1115,49 @@ h1.title-last-operations {
   }
 
   .customize-tolerance {
-    display: flex;
+
+    color: #C3CCD9;
+
+    /*display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px;
     gap: 24px;
     width: 451px;
-    height: 16px;
+    height: 16px;*/
 
     .CollapseTolerance {
 
+      .ant-collapse-content {
+        background-color: #2D313A;
+      }
+
       .PriceVariationSetting {
-        font-style: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /*font-style: normal;
         font-weight: 400;
         font-size: 12px;
         line-height: 14px;
         color: #C3CCD9;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: center;*/
+
+        .SliderText {
+          margin-left: 8px;
+          color: #C3CCD9;
+
+        }
+
       }
 
-      .SliderText {
-        margin-left: 8px;
 
-      }
 
     }
+
+
 
     .ant-collapse {
       background-color: transparent;
@@ -1145,7 +1189,7 @@ h1.title-last-operations {
       line-height: 17px;
       text-align: center;
       color: #FAF515;
-      margin-top: 90px;
+      //margin-top: 90px;
     }
 
     .btn {

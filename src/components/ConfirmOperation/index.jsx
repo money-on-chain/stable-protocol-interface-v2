@@ -1,16 +1,18 @@
-
+import BigNumber from 'bignumber.js';
 import React, { useContext, useState, useEffect } from 'react';
+import {Collapse, Slider} from "antd";
 
 import {useProjectTranslation} from "../../helpers/translations";
-import {Collapse, Slider} from "antd";
 import IconStatusPending from "../../assets/icons/status-pending.png";
 import IconStatusSuccess from "../../assets/icons/status-success.png";
 import IconStatusError from "../../assets/icons/status-error.png";
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
-import BigNumber from 'bignumber.js';
+import { isMintOperation } from '../../helpers/exchange';
 
+
+const { Panel } = Collapse;
 
 export default function ConfirmOperation(props) {
 
@@ -28,6 +30,33 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
+    const [tolerance, setTolerance] = useState(0.1);
+
+    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive)
+
+    const toleranceLimits = (newTolerance) => {
+        let limitExchange
+        let limitReceive
+        if (IS_MINT) {
+            limitExchange = new BigNumber(amountYouExchangeFee).times(new BigNumber(newTolerance)).div(100).plus(new BigNumber(amountYouExchangeFee))
+            limitReceive = amountYouReceiveFee
+        } else {
+            limitExchange = amountYouExchangeFee
+            limitReceive = new BigNumber(amountYouReceiveFee).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceiveFee)).abs()
+        }
+
+        const limits = {
+            exchange: limitExchange,
+            receive: limitReceive
+        }
+
+        return limits
+    };
+
+    const limits = toleranceLimits(tolerance)
+
+    const [amountYouExchangeFeeLimit, setAmountYouExchangeFeeLimit] = useState(limits.exchange);
+    const [amountYouReceiveFeeLimit, setAmountYouReceiveFeeLimit] = useState(limits.receive);
 
     let sentIcon = '';
     let statusLabel = '';
@@ -69,8 +98,10 @@ export default function ConfirmOperation(props) {
     };
 
     const changeTolerance = (newTolerance) => {
-        /*setTolerance(newTolerance);*/
-        /*setShowError(false);*/
+        setTolerance(newTolerance);
+        const limits = toleranceLimits(newTolerance)
+        setAmountYouExchangeFeeLimit(limits.exchange)
+        setAmountYouReceiveFeeLimit(limits.receive)
     };
 
     return (
@@ -87,6 +118,19 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
+                        {IS_MINT && (<span className="limitWarning">Exchanging up to
+                            <span> {PrecisionNumbers({
+                                amount: new BigNumber(amountYouExchangeFeeLimit),
+                                token: TokenSettings(currencyYouExchange),
+                                decimals: 2,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })} </span>
+                            according to variation tolerance
+                        </span>
+                        )}
                     </span>
                     <span className="token"> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
                 </div>
@@ -106,6 +150,19 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
+                        {!IS_MINT && (<span className="limitWarning">Minimum to receive
+                            <span> {PrecisionNumbers({
+                                amount: new BigNumber(amountYouReceiveFeeLimit),
+                                token: TokenSettings(currencyYouReceive),
+                                decimals: 2,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })} </span>
+                            according to price tolerance
+                        </span>
+                        )}
                     </span>
                     <span className="token"> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
                 </div>
@@ -185,18 +242,13 @@ export default function ConfirmOperation(props) {
             { status === 'SUBMIT' && <div className="tx-submit">
 
                 <div className="customize-tolerance">
-                    <Collapse className="CollapseTolerance">
-                        <Collapse.Panel showArrow={false} header={<div className="PriceVariationSetting">
-                            <i className="icon-wheel"></i>
-                            <span
-                                className="SliderText color-08374F font-size-12">{t("global.CustomizePrize_VariationToleranceSettingsTitle")}</span>
-                        </div>}>
+                    <Collapse accordion className="CollapseTolerance">
+                        <Panel showArrow={false} header={<div className="PriceVariationSetting"><i className="icon-wheel"></i><span className="SliderText">Customize price variation tolerance</span></div>} key="1">
                             <div className="PriceVariationContainer">
-                                <h4>{t("global.CustomizePrize_VariationToleranceTitle")}</h4>
                                 <Slider
                                     className="SliderControl"
                                     marks={priceVariationToleranceMarks}
-                                    defaultValue={0.1}
+                                    defaultValue={tolerance}
                                     min={0}
                                     max={10}
                                     step={0.1}
@@ -204,8 +256,9 @@ export default function ConfirmOperation(props) {
                                     onChange={val => changeTolerance(val)}
                                 />
                             </div>
-                        </Collapse.Panel>
+                        </Panel>
                     </Collapse>
+
                 </div>
 
                 <div className="cta">
