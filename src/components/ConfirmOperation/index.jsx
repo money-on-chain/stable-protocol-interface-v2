@@ -118,7 +118,7 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {IS_MINT && (<span className="limitWarning">Exchanging up to
+                        {IS_MINT && (<span className="limitWarning">Up to
                             <span> {PrecisionNumbers({
                                 amount: new BigNumber(amountYouExchangeFeeLimit),
                                 token: TokenSettings(currencyYouExchange),
@@ -128,7 +128,7 @@ export default function ConfirmOperation(props) {
                                 ns: ns,
                                 skipContractConvert: true
                             })} </span>
-                            according to variation tolerance
+                            (see price variation tolerance)
                         </span>
                         )}
                     </span>
@@ -136,7 +136,7 @@ export default function ConfirmOperation(props) {
                 </div>
 
                 <div className="swapArrow">
-                    <i className="icon-swap-arrow"></i>
+                    <i className="icon-arrow-down"></i>
                 </div>
 
                 <div className="swapTo">
@@ -150,7 +150,7 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {!IS_MINT && (<span className="limitWarning">Minimum to receive
+                        {!IS_MINT && (<span className="limitWarning">Minimum
                             <span> {PrecisionNumbers({
                                 amount: new BigNumber(amountYouReceiveFeeLimit),
                                 token: TokenSettings(currencyYouReceive),
@@ -160,7 +160,7 @@ export default function ConfirmOperation(props) {
                                 ns: ns,
                                 skipContractConvert: true
                             })} </span>
-                            according to price tolerance
+                            (see price variation tolerance)
                         </span>
                         )}
                     </span>
@@ -232,7 +232,7 @@ export default function ConfirmOperation(props) {
                     <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
                 </div>
                 <div className="disclaimer">
-                    This fee will be deducted from the transaction value transferred.
+                    This fee will be deducted from the transaction value transferred.<br/>
                     Amounts my be different at transaction confirmation.
                 </div>
             </div>

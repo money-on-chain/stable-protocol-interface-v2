@@ -1010,7 +1010,7 @@ h1.title-last-operations {
       width: 451px;
       height: 29px;
       .value {
-        width: 220px;
+        width: 380px;
         height: 29px;
         font-style: normal;
         font-weight: 400;
@@ -1054,7 +1054,7 @@ h1.title-last-operations {
 
     width: 451px;
     height: 42px;
-    margin-top: 8px;
+    margin-top: 24px;
 
     .rate_1 {
       width: 451px;
@@ -1383,6 +1383,13 @@ h1.title-last-operations {
   background-repeat:no-repeat;
 }
 
+.icon-arrow-down {
+  width: 24px;
+  height: 24px;
+  background-image: url("../icons/ArrowDown.svg");
+  background-size: 24px 24px;
+  background-repeat:no-repeat;
+}
 
 
 
