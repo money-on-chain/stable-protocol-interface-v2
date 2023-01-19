@@ -45,6 +45,8 @@ export default function Exchange() {
 
     const [exchangingUSD, setExchangingUSD] = useState('0.0');
 
+    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive)
+
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
     }, [amountYouExchange]);
@@ -90,17 +92,20 @@ export default function Exchange() {
                 throw new Error('Invalid source name');
         }
 
-        setCommission(infoFee.fee)
-        setCommissionPercent(infoFee.percent)
-
         // Set exchanging total in USD
+        let exchangeCommission
         let convertAmountUSD
-        if (isMintOperation(currencyYouExchange, currencyYouReceive)) {
+        if (IS_MINT) {
+            exchangeCommission = infoFee.fee
             convertAmountUSD = ConvertAmount(auth, currencyYouExchange, 'CA_0', amountExchange, false)
         } else {
-            convertAmountUSD = ConvertAmount(auth, currencyYouExchange, 'CA_0', amountReceive, false)
+            exchangeCommission = ConvertAmount(auth, currencyYouExchange, 'CA_0', infoFee.fee, false)
+            convertAmountUSD = ConvertAmount(auth, 'CA_0', currencyYouReceive, amountReceive, false)
         }
-        setExchangingUSD(convertAmountUSD.plus(infoFee.fee).toString())
+
+        setCommission(exchangeCommission)
+        setCommissionPercent(infoFee.percent)
+        setExchangingUSD(convertAmountUSD.plus(exchangeCommission).toString())
 
     };
 
@@ -264,7 +269,7 @@ export default function Exchange() {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                        <span className={'token_receive_name'}> {(IS_MINT) ? t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns }) : t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
                     </div>
 
                     {/*<div className="switch">*/}

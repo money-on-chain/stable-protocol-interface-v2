@@ -191,6 +191,7 @@ const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei=true) 
 
 }
 
+
 function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWei=true) {
   // Calc commissions
 
@@ -248,6 +249,7 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
 
   return feeInfo
 }
+
 
 /*
 function CalcCommission(auth, tokenExchange, tokenReceive, rawAmountYouExchange, rawAmountYouReceive, amountInWei=true) {
@@ -318,6 +320,7 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmountYouExchange,
   return feeInfo
 }
 */
+
 function AmountsWithCommissions(auth, tokenExchange, tokenReceive, rawAmountYouExchange, rawAmountYouReceive, rawCommissionsValue, amountInWei=true) {
   // Commissions in CA
 
