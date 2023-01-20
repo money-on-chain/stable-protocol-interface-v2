@@ -136,6 +136,9 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei
     case 'CA_1,TC':
       price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals))
       cAmount = amount.div(price)
+      console.log("DEBUG PRICE>>>>")
+      console.log(price.toString())
+      console.log(cAmount.toString())
       break
     case 'TP_0,CA_0':
     case 'TP_1,CA_0':

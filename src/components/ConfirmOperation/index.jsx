@@ -22,8 +22,8 @@ export default function ConfirmOperation(props) {
         exchangingUSD,
         commission,
         commissionPercent,
-        amountYouExchangeFee,
-        amountYouReceiveFee
+        amountYouExchange,
+        amountYouReceive
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -38,11 +38,11 @@ export default function ConfirmOperation(props) {
         let limitExchange
         let limitReceive
         if (IS_MINT) {
-            limitExchange = new BigNumber(amountYouExchangeFee).times(new BigNumber(newTolerance)).div(100).plus(new BigNumber(amountYouExchangeFee))
-            limitReceive = amountYouReceiveFee
+            limitExchange = new BigNumber(amountYouExchange).times(new BigNumber(newTolerance)).div(100).plus(new BigNumber(amountYouExchange))
+            limitReceive = amountYouReceive
         } else {
-            limitExchange = amountYouExchangeFee
-            limitReceive = new BigNumber(amountYouReceiveFee).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceiveFee)).abs()
+            limitExchange = amountYouExchange
+            limitReceive = new BigNumber(amountYouReceive).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceive)).abs()
         }
 
         const limits = {
@@ -110,7 +110,7 @@ export default function ConfirmOperation(props) {
                 <div className="swapFrom">
                     <span className="value">
                         {PrecisionNumbers({
-                            amount: new BigNumber(amountYouExchangeFee),
+                            amount: new BigNumber(amountYouExchange),
                             token: TokenSettings(currencyYouExchange),
                             decimals: 2,
                             t: t,
@@ -142,7 +142,7 @@ export default function ConfirmOperation(props) {
                 <div className="swapTo">
                     <span className="value">
                         {PrecisionNumbers({
-                            amount: new BigNumber(amountYouReceiveFee),
+                            amount: new BigNumber(amountYouReceive),
                             token: TokenSettings(currencyYouReceive),
                             decimals: 2,
                             t: t,
@@ -222,7 +222,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(commission),
                                 token: TokenSettings(currencyYouExchange),
-                                decimals: 3,
+                                decimals: 6,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
@@ -267,7 +267,7 @@ export default function ConfirmOperation(props) {
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>
                             {PrecisionNumbers({
-                                amount: new BigNumber(exchangingUSD),
+                                amount: exchangingUSD,
                                 token: TokenSettings('CA_0'),
                                 decimals: 2,
                                 t: t,
