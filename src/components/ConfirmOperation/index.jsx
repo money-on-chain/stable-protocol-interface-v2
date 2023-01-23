@@ -55,8 +55,8 @@ export default function ConfirmOperation(props) {
 
     const limits = toleranceLimits(tolerance)
 
-    const [amountYouExchangeFeeLimit, setAmountYouExchangeFeeLimit] = useState(limits.exchange);
-    const [amountYouReceiveFeeLimit, setAmountYouReceiveFeeLimit] = useState(limits.receive);
+    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(limits.exchange);
+    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(limits.receive);
 
     let sentIcon = '';
     let statusLabel = '';
@@ -100,8 +100,8 @@ export default function ConfirmOperation(props) {
     const changeTolerance = (newTolerance) => {
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance)
-        setAmountYouExchangeFeeLimit(limits.exchange)
-        setAmountYouReceiveFeeLimit(limits.receive)
+        setAmountYouExchangeLimit(limits.exchange)
+        setAmountYouReceiveLimit(limits.receive)
     };
 
     return (
@@ -110,7 +110,7 @@ export default function ConfirmOperation(props) {
                 <div className="swapFrom">
                     <span className="value">
                         {PrecisionNumbers({
-                            amount: new BigNumber(amountYouExchange),
+                            amount: new BigNumber(amountYouExchangeLimit),
                             token: TokenSettings(currencyYouExchange),
                             decimals: 2,
                             t: t,
@@ -118,9 +118,9 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {IS_MINT && (<span className="limitWarning">Up to
+                        {IS_MINT && (<span className="limitWarning">Starting from
                             <span> {PrecisionNumbers({
-                                amount: new BigNumber(amountYouExchangeFeeLimit),
+                                amount: new BigNumber(amountYouExchange),
                                 token: TokenSettings(currencyYouExchange),
                                 decimals: 2,
                                 t: t,
@@ -150,9 +150,9 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {!IS_MINT && (<span className="limitWarning">Minimum
+                        {!IS_MINT && (<span className="limitWarning">Minimum to receive
                             <span> {PrecisionNumbers({
-                                amount: new BigNumber(amountYouReceiveFeeLimit),
+                                amount: new BigNumber(amountYouReceiveLimit),
                                 token: TokenSettings(currencyYouReceive),
                                 decimals: 2,
                                 t: t,
@@ -229,7 +229,7 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
+                    <span className={'token_receive_name'}> {(IS_MINT) ? t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns }) : t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
                 </div>
                 <div className="disclaimer">
                     This fee will be deducted from the transaction value transferred.<br/>
@@ -255,6 +255,9 @@ export default function ConfirmOperation(props) {
                                     dots={false}
                                     onChange={val => changeTolerance(val)}
                                 />
+                                <div className="warningSlider">
+                                    After the transaction, the unused amount will be returned.
+                                </div>
                             </div>
                         </Panel>
                     </Collapse>

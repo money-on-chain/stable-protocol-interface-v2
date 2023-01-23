@@ -67,8 +67,6 @@ export default function Exchange() {
 
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
 
-        console.log("DEBUG>>>")
-
         // set the other input
         let infoFee
         let amountExchangeFee
@@ -79,16 +77,14 @@ export default function Exchange() {
                 amountExchangeFee = amountExchange
                 amountReceiveFee = amountReceive.minus(infoFee.fee)
                 setAmountYouReceive(amountReceiveFee)
-                //setAmountYouExchangeFee(amountExchange)
-                //setAmountYouReceiveFee(amountsWithFee)
+                setAmountYouExchange(amountExchangeFee)
                 break
             case 'receive':
                 infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, false)
                 amountExchangeFee = amountExchange.plus(infoFee.fee)
                 amountReceiveFee = amountReceive
                 setAmountYouExchange(amountExchangeFee)
-                //setAmountYouExchangeFee(amountsWithFee)
-                //setAmountYouReceiveFee(amountReceive)
+                setAmountYouReceive(amountReceiveFee)
                 break
             default:
                 throw new Error('Invalid source name');

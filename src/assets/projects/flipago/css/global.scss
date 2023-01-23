@@ -933,7 +933,7 @@ h1.title-last-operations {
   gap: 17px;
 
   width: 451px;
-  height: 540px;
+  /*height: 540px;*/
 
   .exchange {
     /* Exchange */
@@ -1132,6 +1132,55 @@ h1.title-last-operations {
         background-color: #2D313A;
       }
 
+      .PriceVariationContainer {
+
+        .warningSlider {
+          font-family: 'Chivo';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          color: #E6EBF2;
+
+        }
+
+        .ant-slider {
+
+          .ant-slider-rail {
+            background-color: #485059;
+          }
+
+          .ant-slider-handle {
+            background-color: #F1EB14;
+            border: solid 2px #F1EB14;
+
+          }
+          .ant-slider-track {
+            background-color: #25282d;
+          }
+
+          .ant-slider-dot-active {
+            border-color: #25282d;
+
+          }
+
+          .ant-slider-mark-text, ant-slider-mark-text-active {
+            color: #C3CCD9 !important;
+          }
+
+
+
+
+        }
+
+
+
+
+      }
+
+
+
+
       .PriceVariationSetting {
         display: flex;
         align-items: center;
@@ -1145,11 +1194,15 @@ h1.title-last-operations {
         flex-direction: row;
         align-items: center;*/
 
+
+
         .SliderText {
           margin-left: 8px;
           color: #C3CCD9;
 
         }
+
+
 
       }
 
