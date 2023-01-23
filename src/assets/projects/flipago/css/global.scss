@@ -1443,6 +1443,26 @@ h1.title-last-operations {
 
 /* Exchange Component */
 
+.ant-select-dropdown {
+  background-color: #26272F;
+  color: #E6EBF2;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: #222;
+  /*font-weight: 600;*/
+  background-color: #F1EB14;
+}
+
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  color: #222;
+  background-color: #F1EB14;
+}
+
+.ant-select-item-option {
+  color: #E6EBF2;
+}
+
 .exchange-content {
 
   font-family: 'Chivo';
@@ -1457,6 +1477,7 @@ h1.title-last-operations {
   flex: none;
   order: 1;
   flex-grow: 0;
+
 
   .fields {
     display: flex;
