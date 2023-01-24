@@ -10,7 +10,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation } from '../../helpers/exchange';
-import ModalConfirmOperation from '../Modals/ConfirmOperation';
+//import ModalConfirmOperation from '../Modals/ConfirmOperation';
 import ModalAllowanceOperation from '../Modals/Allowance';
 
 
@@ -59,6 +59,19 @@ export default function ConfirmOperation(props) {
 
     const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(limits.exchange);
     const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(limits.receive);
+    const [showModalAllowance, setShowModalAllowance] = useState(false);
+
+    const onHideModalAllowance = () => {
+        setShowModalAllowance(false);
+    };
+
+    const onShowModalAllowance = () => {
+        setShowModalAllowance(true);
+    };
+
+    const onSendTransaction = () => {
+        onShowModalAllowance();
+    };
 
     let sentIcon = '';
     let statusLabel = '';
@@ -283,7 +296,7 @@ export default function ConfirmOperation(props) {
                         </span>
                         <span className={'token_receive_name'}> USD</span>
                     </span>
-                    <button type="primary" className="btn">Send transaction</button>
+                    <button type="primary" className="btn" onClick={onSendTransaction}>Send transaction</button>
                 </div>
 
             </div>
@@ -317,7 +330,7 @@ export default function ConfirmOperation(props) {
 
 
 
-            <ModalAllowanceOperation />
+            <ModalAllowanceOperation visible={showModalAllowance} onHideModalAllowance={onHideModalAllowance} />
 
         </div>
     )

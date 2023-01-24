@@ -9,9 +9,15 @@ import {Button} from "antd";
 
 export default function ModalAllowanceOperation(props) {
 
-    const [t, i18n, ns] = useProjectTranslation();
-    const [visible, setVisible] = useState(false);
+    const {
+        visible,
+        onHideModalAllowance
+    } = props;
 
+    const [t, i18n, ns] = useProjectTranslation();
+    //const [visible, setVisible] = useState(showModalAllowance);
+
+    /*
     const showModal = () => {
         setVisible(true);
     };
@@ -19,23 +25,20 @@ export default function ModalAllowanceOperation(props) {
     const hideModal = () => {
         setVisible(false);
     };
+    */
+
 
     return (
         <div className="ShowModalAllowance">
-            <Button
-                type="primary"
-                className="btnConfirm"
-                onClick={showModal}
-            >Allowance</Button>
             <Modal
                 title="Authorize allowance"
                 width={505}
                 visible={visible}
-                onCancel={hideModal}
+                onCancel={onHideModalAllowance}
                 footer={null}
                 className="ModalExchange"
             >
-                <Allowance {...props} />
+                <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>
         </div>
     )

@@ -6,6 +6,10 @@ import { AuthenticateContext } from '../../context/Auth';
 
 export default function AllowanceDialog(props) {
 
+    const {
+        onCloseModal
+    } = props;
+
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
@@ -39,6 +43,10 @@ export default function AllowanceDialog(props) {
         console.log(`checked = ${e.target.checked}`);
     };
 
+    const onClose = () => {
+        onCloseModal();
+    };
+
 
     return (
         <div className="AllowanceDialog">
@@ -49,7 +57,7 @@ export default function AllowanceDialog(props) {
                         <Checkbox className="check-unlimited" onChange={onChange}>Set unlimited allowance. Don’t ask me again.</Checkbox>
                     </div>
                     <div className="actions">
-                        <button type="primary" className="btnClose">Cancel</button>
+                        <button type="primary" className="btnClose" onClick={onClose}>Cancel</button>
                         <button type="primary" className="btnAuthorize">Authorize</button>
                     </div>
                 </div>
@@ -61,7 +69,7 @@ export default function AllowanceDialog(props) {
                         <i className={sentIcon}></i>
                     </div>
                     <div className="actions">
-                        <button type="primary" className="btnClose">Cancel</button>
+                        <button type="primary" className="btnClose" onClick={onClose}>Cancel</button>
                     </div>
                 </div>
                 }
