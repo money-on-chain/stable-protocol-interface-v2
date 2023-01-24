@@ -10,6 +10,8 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation } from '../../helpers/exchange';
+import ModalConfirmOperation from '../Modals/ConfirmOperation';
+import ModalAllowanceOperation from '../Modals/Allowance';
 
 
 const { Panel } = Collapse;
@@ -314,6 +316,8 @@ export default function ConfirmOperation(props) {
             </div>}
 
 
+
+            <ModalAllowanceOperation />
 
         </div>
     )
