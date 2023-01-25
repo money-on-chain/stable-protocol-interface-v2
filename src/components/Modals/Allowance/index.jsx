@@ -1,10 +1,8 @@
-
 import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
 import {useProjectTranslation} from "../../../helpers/translations";
 import Allowance from "../../Allowance";
-import {Button} from "antd";
 
 
 export default function ModalAllowanceOperation(props) {
@@ -15,18 +13,6 @@ export default function ModalAllowanceOperation(props) {
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
-    //const [visible, setVisible] = useState(showModalAllowance);
-
-    /*
-    const showModal = () => {
-        setVisible(true);
-    };
-
-    const hideModal = () => {
-        setVisible(false);
-    };
-    */
-
 
     return (
         <div className="ShowModalAllowance">

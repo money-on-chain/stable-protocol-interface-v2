@@ -7,7 +7,9 @@ import { AuthenticateContext } from '../../context/Auth';
 export default function AllowanceDialog(props) {
 
     const {
-        onCloseModal
+        onCloseModal,
+        currencyYouExchange,
+        currencyYouReceive
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -47,6 +49,10 @@ export default function AllowanceDialog(props) {
         onCloseModal();
     };
 
+    const onAuthorize = () => {
+        onCloseModal();
+    };
+
 
     return (
         <div className="AllowanceDialog">
@@ -58,7 +64,7 @@ export default function AllowanceDialog(props) {
                     </div>
                     <div className="actions">
                         <button type="primary" className="btnClose" onClick={onClose}>Cancel</button>
-                        <button type="primary" className="btnAuthorize">Authorize</button>
+                        <button type="primary" className="btnAuthorize" onClick={onAuthorize}>Authorize</button>
                     </div>
                 </div>
                 }

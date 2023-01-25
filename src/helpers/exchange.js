@@ -1,7 +1,8 @@
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
-import { TokenSettings } from './currencies';
+import { TokenPrice, TokenSettings } from './currencies';
+import { toContractPrecisionDecimals } from '../lib/integration/utils';
 
 const tokenMap = {
     "CA_0": ["TC", "TP_0", "TP_1"],
@@ -40,9 +41,45 @@ function isMintOperation(tokenExchange, tokenReceive) {
 
 }
 
+function TokenAllowance(auth, tokenExchange) {
+
+    const tokenExchangeSettings = TokenSettings(tokenExchange)
+
+    let allowance = 0;
+    switch (tokenExchange) {
+        case 'CA_0':
+            allowance = auth.userBalanceData.CA[0].allowance;
+            break;
+        case 'CA_1':
+            allowance = auth.userBalanceData.CA[1].allowance;
+            break;
+        case 'TP_0':
+            allowance = toContractPrecisionDecimals(Number.MAX_SAFE_INTEGER.toString(), tokenExchangeSettings.decimals);
+            break;
+        case 'TP_1':
+            allowance = toContractPrecisionDecimals(Number.MAX_SAFE_INTEGER.toString(), tokenExchangeSettings.decimals);
+            break;
+        case 'TC':
+            allowance = auth.userBalanceData.TC.allowance;
+            break;
+        default:
+            throw new Error('Invalid token name');
+    }
+
+    return allowance
+}
+
+function UserTokenAllowance(auth, tokenExchange) {
+    const tokenExchangeSettings = TokenSettings(tokenExchange)
+    const allowance = new BigNumber(fromContractPrecisionDecimals(TokenAllowance(auth, tokenExchange), tokenExchangeSettings.decimals))
+    return allowance
+}
+
+
 
 export {
     tokenExchange,
     tokenReceive,
-    isMintOperation
+    isMintOperation,
+    UserTokenAllowance
 }

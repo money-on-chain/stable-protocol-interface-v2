@@ -9,8 +9,7 @@ import IconStatusError from "../../assets/icons/status-error.png";
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
-import { isMintOperation } from '../../helpers/exchange';
-//import ModalConfirmOperation from '../Modals/ConfirmOperation';
+import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
 
 
@@ -69,8 +68,17 @@ export default function ConfirmOperation(props) {
         setShowModalAllowance(true);
     };
 
+    const checkAllowance = () => {
+        const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange)
+        if (amountYouExchangeLimit.lte(tokenAllowance)) {
+            // Not enough allowance please make an allowance
+            onShowModalAllowance();
+        }
+
+    };
+
     const onSendTransaction = () => {
-        onShowModalAllowance();
+        checkAllowance();
     };
 
     let sentIcon = '';
@@ -328,9 +336,14 @@ export default function ConfirmOperation(props) {
 
             </div>}
 
-
-
-            <ModalAllowanceOperation visible={showModalAllowance} onHideModalAllowance={onHideModalAllowance} />
+            <ModalAllowanceOperation
+                visible={showModalAllowance}
+                onHideModalAllowance={onHideModalAllowance}
+                currencyYouExchange={currencyYouExchange}
+                currencyYouReceive={currencyYouReceive}
+                amountYouExchangeLimit={amountYouExchangeLimit}
+                amountYouReceiveLimit={amountYouReceiveLimit}
+            />
 
         </div>
     )
