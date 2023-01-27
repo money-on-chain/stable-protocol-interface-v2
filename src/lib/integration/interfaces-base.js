@@ -4,25 +4,19 @@ import Web3 from 'web3';
 import {toContractPrecisionDecimals, getGasPrice} from './utils';
 
 
-const AllowanceUseWrapper = async (interfaceContext, token, allow, tokenDecimals, onTransaction, onReceipt) => {
+const AllowanceAmount = async (interfaceContext, token, contractAllow, amountAllowance, tokenDecimals, onTransaction, onReceipt) => {
 
     const { web3, account } = interfaceContext;
-    const dContracts = window.dContracts;
-    const MocCAWrapperAddress = dContracts.contracts.MocCAWrapper.options.address
-
-    let amountAllowance = new BigNumber('0')
-    if (allow) {
-        amountAllowance = new BigNumber(1000) //Number.MAX_SAFE_INTEGER.toString()
-    }
+    const contractAllowAddress = contractAllow.options.address
 
     // Calculate estimate gas cost
     const estimateGas = await token.methods
-        .approve(MocCAWrapperAddress, toContractPrecisionDecimals(amountAllowance, tokenDecimals))
+        .approve(contractAllowAddress, toContractPrecisionDecimals(amountAllowance, tokenDecimals))
         .estimateGas({ from: account, value: '0x' })
 
     // Send tx
     const receipt = token.methods
-        .approve(MocCAWrapperAddress, toContractPrecisionDecimals(amountAllowance, tokenDecimals))
+        .approve(contractAllowAddress, toContractPrecisionDecimals(amountAllowance, tokenDecimals))
         .send({
                 from: account,
                 value: '0x',
@@ -37,5 +31,5 @@ const AllowanceUseWrapper = async (interfaceContext, token, allow, tokenDecimals
 }
 
 export {
-    AllowanceUseWrapper
-    };
+    AllowanceAmount
+};

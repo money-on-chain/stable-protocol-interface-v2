@@ -9,7 +9,10 @@ export default function AllowanceDialog(props) {
     const {
         onCloseModal,
         currencyYouExchange,
-        currencyYouReceive
+        currencyYouReceive,
+        amountYouExchangeLimit,
+        amountYouReceiveLimit,
+        onRealSendTransaction
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -50,7 +53,25 @@ export default function AllowanceDialog(props) {
     };
 
     const onAuthorize = () => {
-        onCloseModal();
+        // First change status to sign tx
+        //amountAllowance = new BigNumber(1000) //Number.MAX_SAFE_INTEGER.toString()
+        setStatus('SIGN')
+        auth.interfaceAllowanceAmount(currencyYouExchange, currencyYouReceive, amountYouExchangeLimit, onTransaction, onReceipt).then((value => {
+            onCloseModal();
+        }))
+    };
+
+    const onTransaction = (transactionHash) => {
+        // Tx receipt detected change status to waiting
+        setStatus('WAITING')
+        console.log("On transaction: ", transactionHash)
+    };
+
+    const onReceipt = async (receipt) => {
+        // Tx is mined ok proceed with operation transaction
+        console.log("On receipt: ", receipt)
+        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+        onRealSendTransaction()
     };
 
 

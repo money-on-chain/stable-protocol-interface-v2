@@ -29,6 +29,11 @@ const toContractPrecisionDecimals = (amount, decimals) => {
 
 const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
 
+const fromContractPrecisionDecimals = (amount, decimals) => {
+  return new BigNumber(amount).div(precision(decimals))
+}
+
+
 /*
 const formatVisibleValue = (amount, decimals) => {
   return BigNumber(amount).div(precision(18)).toFormat(decimals, BigNumber.ROUND_UP, {
@@ -55,6 +60,7 @@ export {
   getGasPrice,
   toContractPrecision,
   toContractPrecisionDecimals,
+  fromContractPrecisionDecimals
   //formatVisibleValue,
   //formatTimestamp
 };

@@ -68,17 +68,56 @@ export default function ConfirmOperation(props) {
         setShowModalAllowance(true);
     };
 
-    const checkAllowance = () => {
+    const showAllowance = () => {
         const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange)
-        if (amountYouExchangeLimit.lte(tokenAllowance)) {
-            // Not enough allowance please make an allowance
-            onShowModalAllowance();
-        }
+        console.log("DEBUG>>>")
+        console.log(tokenAllowance.toString())
+        console.log(amountYouExchangeLimit.toString())
+        return !!amountYouExchangeLimit.gte(tokenAllowance);
 
     };
 
     const onSendTransaction = () => {
-        checkAllowance();
+        // Show modal allowance
+        if (showAllowance()) {
+            onShowModalAllowance();
+            return;
+        }
+
+        // If allowance is ok please send real operation transaction
+        onRealSendTransaction()
+
+    };
+
+    const onRealSendTransaction = () => {
+        // Real send transaction
+
+        let tokenAmount
+        let limitAmount
+        if (IS_MINT) {
+            tokenAmount = amountYouReceive
+            limitAmount = amountYouExchangeLimit
+        } else {
+            tokenAmount = amountYouExchange
+            limitAmount = amountYouReceiveLimit
+        }
+        auth.interfaceExchangeMethod(currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt).then((value => {
+            console.log("DONE!")
+        }))
+
+    };
+
+    const onTransaction = (transactionHash) => {
+        // Tx receipt detected change status to waiting
+        //setStatus('WAITING')
+        console.log("On transaction: ", transactionHash)
+    };
+
+    const onReceipt = async (receipt) => {
+        // Tx is mined ok proceed with operation transaction
+        console.log("On receipt: ", receipt)
+        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+        onRealSendTransaction()
     };
 
     let sentIcon = '';
@@ -343,6 +382,7 @@ export default function ConfirmOperation(props) {
                 currencyYouReceive={currencyYouReceive}
                 amountYouExchangeLimit={amountYouExchangeLimit}
                 amountYouReceiveLimit={amountYouReceiveLimit}
+                onRealSendTransaction={onRealSendTransaction}
             />
 
         </div>

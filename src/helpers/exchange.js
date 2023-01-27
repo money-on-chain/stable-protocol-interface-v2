@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 import { TokenPrice, TokenSettings } from './currencies';
 import { toContractPrecisionDecimals } from '../lib/integration/utils';
+import { mintTC } from '../lib/integration/interfaces-collateral-bag';
 
 const tokenMap = {
     "CA_0": ["TC", "TP_0", "TP_1"],
@@ -75,11 +76,89 @@ function UserTokenAllowance(auth, tokenExchange) {
     return allowance
 }
 
+function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
+
+    const tokenExchangeSettings = TokenSettings(tokenExchange)
+
+    const tokenMap = `${tokenExchange},${tokenReceive}`
+    switch (tokenMap) {
+        case 'CA_0,TC':
+        case 'CA_0,TP_0':
+        case 'CA_0,TP_1':
+            return {
+                token: dContracts.contracts.CA[0],
+                contractAllow: dContracts.contracts.MocCAWrapper,
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'CA_1,TC':
+        case 'CA_1,TP_0':
+        case 'CA_1,TP_1':
+            return {
+                token: dContracts.contracts.CA[1],
+                contractAllow: dContracts.contracts.MocCAWrapper,
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TC,CA_0':
+        case 'TC,CA_1':
+            return {
+                token: dContracts.contracts.TC,
+                contractAllow: dContracts.contracts.MocCAWrapper,
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TP_0,CA_0':
+        case 'TP_0,CA_1':
+        case 'TP_1,CA_0':
+        case 'TP_1,CA_1':
+            return {
+                token: null,
+                contractAllow: null,
+                decimals: null
+            }
+        default:
+            throw new Error('Invalid token name');
+    }
+
+}
+
+
+function exchangeMethod(interfaceContext, tokenExchange, tokenReceive, tokenAmount, limitAmount, onTransaction, onReceipt) {
+
+    let caIndex = 0
+    const tokenMap = `${tokenExchange},${tokenReceive}`
+    switch (tokenMap) {
+        case 'CA_0,TC':
+            caIndex = 0
+            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)//.then((value => {
+            //}))
+        case 'CA_1,TC':
+            caIndex = 1
+            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)//.then((value => {
+            //}))
+        case 'CA_0,TP_0':
+        case 'CA_1,TP_0':
+        case 'CA_0,TP_1':
+        case 'CA_1,TP_1':
+        case 'TP_0,CA_0':
+        case 'TP_0,CA_1':
+        case 'TP_1,CA_0':
+        case 'TP_1,CA_1':
+        case 'TC,CA_0':
+        case 'TC,CA_1':
+            // Not available now
+            throw new Error('Invalid Exchange Method. Not available now!');
+        default:
+            throw new Error('Invalid Exchange Method');
+    }
+
+}
+
 
 
 export {
     tokenExchange,
     tokenReceive,
     isMintOperation,
-    UserTokenAllowance
+    UserTokenAllowance,
+    ApproveTokenContract,
+    exchangeMethod
 }

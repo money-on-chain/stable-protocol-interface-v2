@@ -1,68 +1,77 @@
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 
-import { addCommissions, calcMintInterest } from './interfaces-base';
-import { toContractPrecision, getGasPrice, BUCKET_X2 } from './utils';
+import settings from '../../settings/settings.json'
+import { toContractPrecisionDecimals, getGasPrice, fromContractPrecisionDecimals } from './utils';
 
-const mintTP = async (interfaceContext, reserveAmount, mintSlippage, onTransaction, onReceipt) => {
-  // Mint TP with collateral coin base
+const mintTC = async (interfaceContext, caIndex, qTC, limitAmount, onTransaction, onReceipt) => {
 
-  const { web3, contractStatusData, userBalanceData, config, account, vendorAddress } = interfaceContext;
-  const dContracts = window.dContracts;
-  const { environment, tokens } = config;
+    // Mint Collateral token with CA
+    const { web3, contractStatusData, userBalanceData,  account } = interfaceContext;
+    const dContracts = window.dContracts;
 
-  // get reserve price from contract
-  const reservePrice = new BigNumber(Web3.utils.fromWei(contractStatusData.bitcoinPrice))
+    const MocCAWrapper = dContracts.contracts.MocCAWrapper
+    const caToken = dContracts.contracts.CA[caIndex]
+    const caAddress = caToken.options.address
 
-  reserveAmount = new BigNumber(reserveAmount);
 
-  // TP amount in reserve
-  const tpAmount = reserveAmount.times(reservePrice)
+    // Price of TC
+    //const tcPrice = new BigNumber(Web3.utils.fromWei(contractStatusData.getPTCac))
+    //const feeParam = new BigNumber(Web3.utils.fromWei(contractStatusData.tcMintFee))
 
-  let valueToSend = await addCommissions(interfaceContext, reserveAmount, 'DOC', 'MINT')
+    // TC amount in CA
+    //const qCAtc = new BigNumber(qTC).times(tcPrice)
 
-  // Add Slippage plus %
-  const mintSlippageAmount = new BigNumber(mintSlippage).div(100).times(reserveAmount)
+    //const feeOperation = qCAtc.times(feeParam)
+    //const qCAtcwFee = qCAtc.plus(feeOperation)
 
-  valueToSend = new BigNumber(valueToSend).plus(mintSlippageAmount)
+    //console.log(`Operation w/commissions: ${qCAtcwFee.toString()} ${settings.tokens.CA[caIndex].name}`)
+    //console.log(`Commissions: ${feeOperation.toString()} ${settings.tokens.CA[caIndex].name}`)
 
-  console.log(`Mint Slippage using ${mintSlippage} %. Slippage amount: ${mintSlippageAmount.toString()} Total to send: ${valueToSend.toString()}`)
+    // Add Slippage plus %
+    //const qAssetMax = new BigNumber(slippage).div(100).times(qCAtcwFee).plus(qCAtcwFee)
 
-  // Verifications
+    //console.log(`Slippage using ${slippage} %. Total to send: ${qAssetMax.toString()} ${settings.tokens.CA[caIndex].name}`)
 
-  // User have sufficient reserve to pay?
-  console.log(`To mint ${tpAmount} ${tokens.TP.name} you need > ${valueToSend.toString()} ${tokens.RESERVE.name} in your balance`)
-  const userReserveBalance = new BigNumber(Web3.utils.fromWei(userBalanceData.rbtcBalance))
-  if (valueToSend.gt(userReserveBalance)) throw new Error('Insufficient reserve balance')
+    // Verifications
 
-  // There are sufficient TP in the contracts to mint?
-  const tpAvailableToMint = new BigNumber(Web3.utils.fromWei(contractStatusData.docAvailableToMint))
-  if (new BigNumber(tpAmount).gt(tpAvailableToMint)) throw new Error(`Insufficient ${tokens.TP.name} available to mint`)
+    // User have sufficient reserve to pay?
+    console.log(`To mint ${qTC} ${settings.tokens.TC.name} you need > ${limitAmount.toString()} ${settings.tokens.CA[caIndex].name} in your balance`)
+    const userReserveBalance = new BigNumber(fromContractPrecisionDecimals(userBalanceData.CA[caIndex].balance, settings.tokens.CA[caIndex].decimals))
+    if (limitAmount.gt(userReserveBalance)) throw new Error(`Insufficient ${settings.tokens.CA[caIndex].name} balance`)
 
-  const moc = dContracts.contracts.moc
+    // Allowance    reserveAllowance
+    console.log(`Allowance: To mint ${qTC} ${settings.tokens.TC.name} you need > ${limitAmount.toString()} ${settings.tokens.CA[caIndex].name} in your spendable balance`)
+    const userSpendableBalance = new BigNumber(fromContractPrecisionDecimals(userBalanceData.CA[caIndex].allowance, settings.tokens.CA[caIndex].decimals))
+    if (limitAmount.gt(userSpendableBalance)) throw new Error('Insufficient spendable balance... please make an allowance to the MoC contract')
 
-  // Calculate estimate gas cost
-  const estimateGas = await moc.methods
-    .mintDocVendors(toContractPrecision(reserveAmount), vendorAddress)
-    .estimateGas({ from: account, value: toContractPrecision(valueToSend) })
+    // Calculate estimate gas cost
+    const estimateGas = await MocCAWrapper.methods
+        .mintTC(caAddress,
+            toContractPrecisionDecimals(new BigNumber(qTC), settings.tokens.TC.decimals),
+            toContractPrecisionDecimals(limitAmount, settings.tokens.CA[caIndex].decimals)
+        ).estimateGas({ from: account, value: '0x' })
 
-  // Send tx
-  const receipt = moc.methods
-    .mintDocVendors(toContractPrecision(reserveAmount), vendorAddress)
-    .send(
+    // Send tx
+    const receipt = MocCAWrapper.methods
+        .mintTC(caAddress,
+            toContractPrecisionDecimals(new BigNumber(qTC), settings.tokens.TC.decimals),
+            toContractPrecisionDecimals(limitAmount, settings.tokens.CA[caIndex].decimals)
+        ).send(
             {
                 from: account,
-                value: toContractPrecision(valueToSend),
+                value: '0x',
                 gasPrice: await getGasPrice(web3),
                 gas: estimateGas * 2,
                 gasLimit: estimateGas * 2
             }
-        ).on('transactionHash', onTransaction).on('receipt', onReceipt);
+        ).on('transactionHash', onTransaction).on('receipt', onReceipt)
 
-  return receipt
+    return receipt
 
 }
 
+/*
 const redeemTP = async (interfaceContext, tpAmount, mintSlippage, onTransaction, onReceipt) => {
   // Redeem TP token receiving coin base
 
@@ -326,14 +335,9 @@ const redeemTX = async (interfaceContext, txAmount, mintSlippage, onTransaction,
   return receipt
 
 }
-
+*/
 
 
 export {
-  mintTP,
-  redeemTP,
-  mintTC,
-  redeemTC,
-  mintTX,
-  redeemTX
+    mintTC
 };

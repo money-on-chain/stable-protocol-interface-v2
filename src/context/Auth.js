@@ -5,9 +5,13 @@ import BigNumber from "bignumber.js";
 
 import addressHelper from '../helpers/addressHelper';
 
+import { ApproveTokenContract, exchangeMethod } from '../helpers/exchange';
+
+
 import { readContracts } from '../lib/integration/contracts';
 import { contractStatus, userBalance } from '../lib/integration/multicall';
 import { decodeEvents } from '../lib/integration/transaction';
+import { AllowanceAmount } from '../lib/integration/interfaces-base';
 
 import { getGasPrice } from '../lib/integration/utils';
 
@@ -22,7 +26,8 @@ const AuthenticateContext = createContext({
     contractStatusData: null,
     web3: null,
     connect: () => {},
-    interfaceExchangeMethod: async (sourceCurrency, targetCurrency, amount, slippage, onTransaction, onReceipt) => {},
+    interfaceAllowanceAmount: async (currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt) => {},
+    interfaceExchangeMethod: async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {},
     interfaceMintTC: async (amount, slippage, onTransaction, onReceipt) => {},
     interfaceRedeemTC: async (amount, slippage, onTransaction, onReceipt) => {},
     interfaceMintTP: async (amount, slippage, onTransaction, onReceipt) => {},
@@ -170,71 +175,21 @@ const AuthenticateProvider = ({ children }) => {
 
     }
 
-    const interfaceExchangeMethod = async (sourceCurrency, targetCurrency, amount, slippage, onTransaction, onReceipt) => {
-        /*
-        const exchangeCurrencyMap = {
-            TX: {
-                RESERVE: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceRedeemTX
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceRedeemTXRRC20
-                    }
-                }
-            },
-            TC: {
-                RESERVE: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceRedeemTC
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceRedeemTCRRC20
-                    }
-                }
-            },
-            TP: {
-                RESERVE: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceRedeemTP
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceRedeemTPRRC20
-                    }
-                }
-            },
-            RESERVE: {
-                TC: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceMintTC
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceMintTCRRC20
-                    }
-                },
-                TP: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceMintTP
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceMintTPRRC20
-                    }
-                },
-                TX: {
-                    APP_MODE_MoC: {
-                        exchangeFunction: interfaceMintTX
-                    },
-                    APP_MODE_RRC20: {
-                        exchangeFunction: interfaceMintTXRRC20
-                    }
-                }
-            }
-        };
+    const interfaceAllowanceAmount = async (currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt) => {
+        if (!window.dContracts) return;
 
-         */
+        const approveInfo = ApproveTokenContract(window.dContracts, currencyYouExchange, currencyYouReceive)
+        if (approveInfo.token) {
+            const interfaceContext = buildInterfaceContext();
+            await AllowanceAmount(interfaceContext, approveInfo.token, approveInfo.contractAllow, amountAllowance, approveInfo.decimals, onTransaction, onReceipt);
+        }
 
-        /*const exchangeMethod = exchangeCurrencyMap[sourceCurrency][targetCurrency]['APP_MODE_MoC'].exchangeFunction;
-        return exchangeMethod(amount, slippage, onTransaction, onReceipt);*/
+    }
+
+    const interfaceExchangeMethod = async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {
+
+        const interfaceContext = buildInterfaceContext();
+        return exchangeMethod(interfaceContext, currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt)
 
     }
 
@@ -571,6 +526,7 @@ const AuthenticateProvider = ({ children }) => {
                 web3,
                 connect,
                 disconnect,
+                interfaceAllowanceAmount,
                 interfaceExchangeMethod,
                 interfaceMintTC,
                 interfaceRedeemTC,
