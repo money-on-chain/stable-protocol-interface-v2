@@ -91,6 +91,7 @@ export default function ConfirmOperation(props) {
 
     const onRealSendTransaction = () => {
         // Real send transaction
+        setStatus('SIGN')
 
         let tokenAmount
         let limitAmount
@@ -119,6 +120,10 @@ export default function ConfirmOperation(props) {
         const filteredEvents = auth.interfaceDecodeEvents(receipt);
         setStatus('SUCCESS')
 
+        // Refresh user balance
+        auth.loadContractsStatusAndUserBalance().then((value => {
+            console.log("Refresh user balance OK!")
+        }))
     };
 
     let sentIcon = '';
@@ -127,6 +132,10 @@ export default function ConfirmOperation(props) {
         case 'SUBMIT':
             sentIcon = 'icon-tx-waiting rotate';
             statusLabel = 'Wait for transaction confirmation';
+            break;
+        case 'SIGN':
+            sentIcon = 'icon-signifier';
+            statusLabel = 'Sign the transaction';
             break;
         case 'WAITING':
             sentIcon = 'icon-tx-waiting rotate';
@@ -350,17 +359,17 @@ export default function ConfirmOperation(props) {
             </div>
             }
 
-            { (status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR')  && <div className="tx-sent">
+            { (status === 'SIGN' || status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR')  && <div className="tx-sent">
 
                 <div className="status">
 
-                    <div className="transaction-id">
+                    { (status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR')  && <div className="transaction-id">
                         <div className="label">Transaction ID</div>
                         <div className="address-section">
                             <span className="address">oxba8cd957…72ad</span>
                             <i className="icon-copy"></i>
                         </div>
-                    </div>
+                    </div>}
 
                     <div className="tx-logo-status">
                         <i className={sentIcon}></i>

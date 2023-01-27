@@ -14,25 +14,6 @@ const mintTC = async (interfaceContext, caIndex, qTC, limitAmount, onTransaction
     const caToken = dContracts.contracts.CA[caIndex]
     const caAddress = caToken.options.address
 
-
-    // Price of TC
-    //const tcPrice = new BigNumber(Web3.utils.fromWei(contractStatusData.getPTCac))
-    //const feeParam = new BigNumber(Web3.utils.fromWei(contractStatusData.tcMintFee))
-
-    // TC amount in CA
-    //const qCAtc = new BigNumber(qTC).times(tcPrice)
-
-    //const feeOperation = qCAtc.times(feeParam)
-    //const qCAtcwFee = qCAtc.plus(feeOperation)
-
-    //console.log(`Operation w/commissions: ${qCAtcwFee.toString()} ${settings.tokens.CA[caIndex].name}`)
-    //console.log(`Commissions: ${feeOperation.toString()} ${settings.tokens.CA[caIndex].name}`)
-
-    // Add Slippage plus %
-    //const qAssetMax = new BigNumber(slippage).div(100).times(qCAtcwFee).plus(qCAtcwFee)
-
-    //console.log(`Slippage using ${slippage} %. Total to send: ${qAssetMax.toString()} ${settings.tokens.CA[caIndex].name}`)
-
     // Verifications
 
     // User have sufficient reserve to pay?
