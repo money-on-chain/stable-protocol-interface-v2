@@ -34,33 +34,9 @@ const fromContractPrecisionDecimals = (amount, decimals) => {
 }
 
 
-/*
-const formatVisibleValue = (amount, decimals) => {
-  return BigNumber(amount).div(precision(18)).toFormat(decimals, BigNumber.ROUND_UP, {
-    decimalSeparator: '.',
-    groupSeparator: ','
-  })
-}
-*/
-
-/*
-const formatTimestamp = (timestamp) => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  }).format(timestamp)
-}
-*/
-
 export {
   getGasPrice,
   toContractPrecision,
   toContractPrecisionDecimals,
   fromContractPrecisionDecimals
-  //formatVisibleValue,
-  //formatTimestamp
 };

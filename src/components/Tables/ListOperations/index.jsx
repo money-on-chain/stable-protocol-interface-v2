@@ -8,7 +8,7 @@ import Moment from 'react-moment';
 
 import RowDetail from "../RowDetail";
 import api from '../../../services/api';
-import {readJsonTable, myParseDate, TokenNameNewToOld, TokenNameOldToNew} from '../../../helpers/helper'
+import { myParseDate} from '../../../helpers/helper'
 import Copy from "../../Page/Copy";
 import date from '../../../helpers/date';
 import {AuthenticateContext} from "../../../context/Auth";
@@ -68,7 +68,7 @@ export default function ListOperations(props) {
                     address: accountData.Owner,
                     limit:10,
                     skip:(((skip-1)+(skip-1))*10),
-                    token: TokenNameNewToOld(token)
+                    token: ''//TokenNameNewToOld(token)
                 } : {
                     address: accountData.Owner,
                     limit:10,
@@ -78,11 +78,11 @@ export default function ListOperations(props) {
                 try {
                     api('get', `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}`+'webapp/transactions/list/', datas)
                         .then(response => {
-                            setDataJson(response);
+                            /*setDataJson(response);
                             setTotalTable(response.total)
                             if(call_table){
                                 setCallTable(call_table)
-                            }
+                            }*/
                         })
                         .catch((response) => {
                             if(call_table){
@@ -231,7 +231,7 @@ export default function ListOperations(props) {
         var pre_datas = [];
         if(dataJson.transactions!==undefined){
             pre_datas= dataJson.transactions.filter(data_j => {
-                return (token !== 'all') ? TokenNameOldToNew(data_j.tokenInvolved) === token : true;
+                //return (token !== 'all') ? TokenNameOldToNew(data_j.tokenInvolved) === token : true;
             });
         }
         /*******************************end filter by type (token)***********************************/
@@ -243,7 +243,7 @@ export default function ListOperations(props) {
         data = [];
 
         json_end.forEach((data_j) => {
-            const datas_response = readJsonTable(data_j, t, i18n, ns)
+            const datas_response = ''//readJsonTable(data_j, t, i18n, ns)
 
             const detail = {
                 //event:  datas_response['address'] === config.transfer[0].address ?
