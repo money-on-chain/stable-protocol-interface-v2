@@ -28,38 +28,9 @@ const AuthenticateContext = createContext({
     connect: () => {},
     interfaceAllowanceAmount: async (currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt) => {},
     interfaceExchangeMethod: async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {},
-    interfaceMintTC: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTC: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceMintTP: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTP: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceMintTX: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTX: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceMintTCRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTCRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceMintTPRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTPRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceMintTXRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceRedeemTXRRC20: async (amount, slippage, onTransaction, onReceipt) => {},
-    interfaceApproveTGTokenCommission: async (enabled, onTransaction, onReceipt) => {},
     disconnect: () => {},
     getTransactionReceipt: (hash) => {},
     interfaceDecodeEvents: async (receipt) => {},
-    interfaceStackedBalance: async (address) => {},
-    interfaceGetMoCAllowance: async (address) => {},
-    interfaceLockedBalance: async (address) => {},
-    interfaceStakingDeposit: async (mocs, address) => {},
-    interfaceUnStake: async (mocs) => {},
-    interfaceApproveMoCTokenStaking: async (enabled) => {},
-    interfaceDelayMachineWithdraw: async (id) => {},
-    interfaceDelayMachineCancelWithdraw: async (id) => {},
-    interfacePendingWithdrawals: async (address) => {},
-    interfaceTransferTPTo: async (to, amount) => {},
-    interfaceTransferTCTo: async (to, amount) => {},
-    interfaceTransferTGTo: async (to, amount) => {},
-    interfaceTransferCoinbaseTo: async (to, amount) => {},
-    interfaceCalcMintInterestValues: async (amount) => {},
-    interfaceApproveReserve: async (address) => {},
-    convertToken: async (from, to, amount) => {},
     getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (address) => {},
     getReserveAllowance: async (address) => {}
@@ -187,76 +158,9 @@ const AuthenticateProvider = ({ children }) => {
     }
 
     const interfaceExchangeMethod = async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {
-
         const interfaceContext = buildInterfaceContext();
         return exchangeMethod(interfaceContext, currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt)
-
     }
-
-    const interfaceMintTP = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTP(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceMintTPRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTP = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTP(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTPRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTPRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceMintTC = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTC(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceMintTCRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTC = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTC(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTCRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTCRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceMintTX = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTX(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceMintTXRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await mintTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTX = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTX(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceRedeemTXRRC20 = async (amount, slippage, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*await redeemTXRRC20(interfaceContext, amount, slippage, onTransaction, onReceipt);*/
-    }
-
-    const interfaceApproveTGTokenCommission = async (enabled, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return approveTGTokenCommission(interfaceContext, enabled, onTransaction, onReceipt);*/
-    };
 
     const initContractsConnection = async () => {
         window.dContracts = await readContracts(web3);
@@ -355,166 +259,6 @@ const AuthenticateProvider = ({ children }) => {
         return filteredEvents;
     };
 
-    const interfaceStackedBalance = async (address) => {
-        const from = address || account;
-        /*return stackedBalance(from);*/
-    };
-
-
-    const interfaceGetMoCAllowance = async (address) => {
-        const from = address || account;
-        /*return getMoCAllowance(from);*/
-    }
-
-    const interfaceLockedBalance = async (address) => {
-        const from = address || account;
-        /*return lockedBalance(from);*/
-    };
-
-    const interfacePendingWithdrawals = async (address) => {
-        const from = address || account;
-        /*return pendingWithdrawals(from);*/
-    };
-
-    const interfaceStakingDeposit = async (mocs, address, callback) => {
-        const from = address || account;
-        const interfaceContext = buildInterfaceContext();
-        /*return stakingDeposit(interfaceContext, mocs, address, callback);*/
-    };
-
-    const interfaceUnStake = async (mocs, callback) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return unStake(interfaceContext, mocs, callback);*/
-    };
-
-    const interfaceDelayMachineWithdraw = async (id, callback = () => {}) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return delayMachineWithdraw(interfaceContext, id, callback);*/
-    };
-
-    const interfaceDelayMachineCancelWithdraw = async (id, callback) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return delayMachineCancelWithdraw(interfaceContext, id, callback);*/
-    };
-
-
-    const interfaceApproveMoCTokenStaking = async (enabled, callback = () => {}) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return approveMoCTokenStaking(interfaceContext, enabled, callback);*/
-    };
-
-    const interfaceTransferTPTo = async (to, amount, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        /*return transferTPTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
-    };
-
-    const interfaceTransferTCTo = async (to, amount, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        /*return transferTCTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
-    };
-
-    const interfaceTransferTGTo = async (to, amount, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        /*return transferTGTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
-    };
-
-    const interfaceTransferCoinbaseTo = async (to, amount, onTransaction, onReceipt) => {
-        const interfaceContext = buildInterfaceContext();
-        const toWithChecksum = helper.toWeb3CheckSumAddress(to);
-        /*return transferCoinbaseTo(interfaceContext, toWithChecksum, amount, onTransaction, onReceipt);*/
-    }
-
-    const interfaceCalcMintInterestValues = async (amount) => {
-        const interfaceContext = buildInterfaceContext();
-        /*const mintInterest = await calcMintInterest(interfaceContext, amount);
-        return mintInterest;*/
-    };
-
-    const interfaceApproveReserve = (address, callback) => {
-        const interfaceContext = buildInterfaceContext();
-        /*return AllowanceUseReserveToken(interfaceContext, true, callback);*/
-    };
-
-    const convertToken = (from, to, amount) => {
-        if (!contractStatusData) return '';
-
-        const {
-            bitcoinPrice,
-            bproPriceInUsd,
-            bproPriceInRbtc,
-            reservePrecision,
-            bprox2PriceInRbtc,
-            bprox2PriceInBpro,
-            mocPrice
-        } = contractStatusData;
-
-        const convertDocToUsd = (amount) => amount;
-        const convertBproToRbtc = (amount) =>
-            amount.times(bproPriceInRbtc).div(reservePrecision);
-        const convertBproToUsd = (amount) =>
-            amount.times(bproPriceInUsd).div(reservePrecision);
-        const convertDocToRbtc = (amount) =>
-            amount.div(bitcoinPrice).times(reservePrecision);
-        const convertRbtcToUsd = (amount) =>
-            amount.times(bitcoinPrice).div(reservePrecision);
-        const convertRbtcToBpro = (amount) =>
-            amount.div(bproPriceInRbtc).times(reservePrecision);
-        const convertRbtcToDoc = (amount) => convertRbtcToUsd(amount);
-        const convertRbtcToBprox2 = (amount) =>
-            amount.div(bprox2PriceInRbtc).times(reservePrecision);
-        const convertBprox2ToRbtc = (amount) =>
-            amount.times(bprox2PriceInRbtc).div(reservePrecision);
-        const convertBproToBprox2 = (amount) =>
-            amount.div(bprox2PriceInBpro).times(reservePrecision);
-        const convertBprox2ToBpro = (amount) =>
-            amount.times(bprox2PriceInBpro).div(reservePrecision);
-        const convertBprox2ToUsd = (amount) =>
-            amount // RESERVE
-                .times(bprox2PriceInRbtc) // RESERVE * RESERVE
-                .div(reservePrecision) // RESERVE
-                .times(bitcoinPrice) // RESERVE * USD
-                .div(reservePrecision); // USD
-
-        const convertMoCTokenToRbtc = (amount) =>
-            convertDocToRbtc(convertMoCTokenToUsd(amount));
-        const convertMoCTokenToUsd = (amount) =>
-            amount.times(mocPrice).div(reservePrecision);
-        const convertRbtcToMoCToken = (amount) =>
-            convertRbtcToDoc(amount).div(mocPrice).times(reservePrecision);
-
-        const convertMap = {
-            TP: { USD: convertDocToUsd, RESERVE: convertDocToRbtc },
-            TC: {
-                USD: convertBproToUsd,
-                RESERVE: convertBproToRbtc,
-                TX: convertBproToBprox2
-            },
-            TX: {
-                RESERVE: convertBprox2ToRbtc,
-                TC: convertBprox2ToBpro,
-                USD: convertBprox2ToUsd
-            },
-            TG: {
-                RESERVE: convertMoCTokenToRbtc,
-                USD: convertMoCTokenToUsd
-            },
-            RESERVE: {
-                USD: convertRbtcToUsd,
-                TC: convertRbtcToBpro,
-                TP: convertRbtcToDoc,
-                TX: convertRbtcToBprox2,
-                TG: convertRbtcToMoCToken
-            }
-        };
-
-        return from === to
-            ? new BigNumber(amount)
-            : convertMap[from][to](new BigNumber(amount));
-    };
-
     return (
         <AuthenticateContext.Provider
             value={{
@@ -528,36 +272,7 @@ const AuthenticateProvider = ({ children }) => {
                 disconnect,
                 interfaceAllowanceAmount,
                 interfaceExchangeMethod,
-                interfaceMintTC,
-                interfaceRedeemTC,
-                interfaceMintTP,
-                interfaceRedeemTP,
-                interfaceMintTX,
-                interfaceRedeemTX,
-                interfaceMintTCRRC20,
-                interfaceRedeemTCRRC20,
-                interfaceMintTPRRC20,
-                interfaceRedeemTPRRC20,
-                interfaceMintTXRRC20,
-                interfaceRedeemTXRRC20,
-                interfaceApproveTGTokenCommission,
                 getTransactionReceipt,
-                interfaceStackedBalance,
-                interfaceGetMoCAllowance,
-                interfaceLockedBalance,
-                interfaceStakingDeposit,
-                interfaceUnStake,
-                interfaceApproveMoCTokenStaking,
-                interfaceDelayMachineWithdraw,
-                interfaceDelayMachineCancelWithdraw,
-                interfacePendingWithdrawals,
-                interfaceTransferTPTo,
-                interfaceTransferTCTo,
-                interfaceTransferTGTo,
-                interfaceTransferCoinbaseTo,
-                interfaceCalcMintInterestValues,
-                interfaceApproveReserve,
-                convertToken,
                 getSpendableBalance,
                 getReserveAllowance,
                 interfaceDecodeEvents,

@@ -3,9 +3,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import {Collapse, Slider} from "antd";
 
 import {useProjectTranslation} from "../../helpers/translations";
-import IconStatusPending from "../../assets/icons/status-pending.png";
-import IconStatusSuccess from "../../assets/icons/status-success.png";
-import IconStatusError from "../../assets/icons/status-error.png";
+//import IconStatusPending from "../../assets/icons/status-pending.png";
+//import IconStatusSuccess from "../../assets/icons/status-success.png";
+//import IconStatusError from "../../assets/icons/status-error.png";
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
@@ -109,15 +109,16 @@ export default function ConfirmOperation(props) {
 
     const onTransaction = (transactionHash) => {
         // Tx receipt detected change status to waiting
-        //setStatus('WAITING')
+        setStatus('WAITING')
         console.log("On transaction: ", transactionHash)
     };
 
     const onReceipt = async (receipt) => {
-        // Tx is mined ok proceed with operation transaction
+        // Tx is mined ok
         console.log("On receipt: ", receipt)
         const filteredEvents = auth.interfaceDecodeEvents(receipt);
-        onRealSendTransaction()
+        setStatus('SUCCESS')
+
     };
 
     let sentIcon = '';
