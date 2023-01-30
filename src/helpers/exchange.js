@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 import { TokenPrice, TokenSettings } from './currencies';
 import { toContractPrecisionDecimals } from '../lib/integration/utils';
-import { mintTC } from '../lib/integration/interfaces-collateral-bag';
+import { mintTC, redeemTC, mintTP, redeemTP } from '../lib/integration/interfaces-collateral-bag';
 
 const tokenMap = {
     "CA_0": ["TC", "TP_0", "TP_1"],
@@ -124,28 +124,53 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
 function exchangeMethod(interfaceContext, tokenExchange, tokenReceive, tokenAmount, limitAmount, onTransaction, onReceipt) {
 
     let caIndex = 0
+    let tpIndex = 0
     const tokenMap = `${tokenExchange},${tokenReceive}`
     switch (tokenMap) {
         case 'CA_0,TC':
             caIndex = 0
-            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)//.then((value => {
-            //}))
+            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
         case 'CA_1,TC':
             caIndex = 1
-            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)//.then((value => {
-            //}))
-        case 'CA_0,TP_0':
-        case 'CA_1,TP_0':
-        case 'CA_0,TP_1':
-        case 'CA_1,TP_1':
-        case 'TP_0,CA_0':
-        case 'TP_0,CA_1':
-        case 'TP_1,CA_0':
-        case 'TP_1,CA_1':
+            return mintTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
         case 'TC,CA_0':
+            caIndex = 0
+            return redeemTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
         case 'TC,CA_1':
-            // Not available now
-            throw new Error('Invalid Exchange Method. Not available now!');
+            caIndex = 1
+            return redeemTC(interfaceContext, caIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'CA_0,TP_0':
+            caIndex = 0
+            tpIndex = 0
+            return mintTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'CA_1,TP_0':
+            caIndex = 1
+            tpIndex = 0
+            return mintTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'CA_0,TP_1':
+            caIndex = 0
+            tpIndex = 1
+            return mintTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'CA_1,TP_1':
+            caIndex = 1
+            tpIndex = 1
+            return mintTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'TP_0,CA_0':
+            caIndex = 0
+            tpIndex = 0
+            return redeemTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'TP_0,CA_1':
+            caIndex = 1
+            tpIndex = 0
+            return redeemTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'TP_1,CA_0':
+            caIndex = 0
+            tpIndex = 1
+            return redeemTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
+        case 'TP_1,CA_1':
+            caIndex = 1
+            tpIndex = 1
+            return redeemTP(interfaceContext, caIndex, tpIndex, tokenAmount, limitAmount, onTransaction, onReceipt)
         default:
             throw new Error('Invalid Exchange Method');
     }
