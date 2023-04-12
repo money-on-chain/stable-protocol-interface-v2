@@ -1,5 +1,5 @@
 {
-  "name": "flipago-ui",
+  "name": "stable-protocol-interface-v3",
   "version": "3.0.0",
   "private": true,
   "homepage": ".",
@@ -35,7 +35,7 @@
     "react-qr-code": "^2.0.5",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^4.0.3",
-    "recharts": "^2.1.9",
+    "recharts": "^2.5.0",
     "rskjs-util": "^1.0.3",
     "sass": "^1.51.0",
     "satoshi-bitcoin": "^1.0.5",
@@ -85,8 +85,8 @@
     }
   },
   "lint-staged": {
-     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-       "prettier --write"
-     ]
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
   }
 }
