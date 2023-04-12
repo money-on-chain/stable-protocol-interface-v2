@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
 
 const formatLocalMap = {
     es: {
@@ -16,13 +16,10 @@ BigNumber.config({
     FORMAT: formatLocalMap.en
 });
 
-
 const fromContractPrecisionDecimals = (amount, decimals) => {
-    return new BigNumber(amount).div(new BigNumber(10).exponentiatedBy(decimals))
-}
-
-
-export {
-    formatLocalMap,
-    fromContractPrecisionDecimals
+    return new BigNumber(amount).div(
+        new BigNumber(10).exponentiatedBy(decimals)
+    );
 };
+
+export { formatLocalMap, fromContractPrecisionDecimals };

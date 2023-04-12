@@ -1,42 +1,41 @@
-.rlogin-modal-header{
-  background-color: #08374F !important;
+.rlogin-modal-header {
+    background-color: #08374f !important;
 }
 
-.rlogin-modal-body{
-  border: 4px solid #08374F !important;
-  border-bottom-right-radius: 11px !important;
-  border-bottom-left-radius: 11px !important;
+.rlogin-modal-body {
+    border: 4px solid #08374f !important;
+    border-bottom-right-radius: 11px !important;
+    border-bottom-left-radius: 11px !important;
 }
 
-.ant-modal-header{
-  background-color: #08374F !important;
-  /*padding: 8px 24px !important;*/
-  border-radius: 0 0 0 0 !important;
+.ant-modal-header {
+    background-color: #08374f !important;
+    /*padding: 8px 24px !important;*/
+    border-radius: 0 0 0 0 !important;
 }
 
 .ant-modal-close-x {
-  font-size: 21px !important;
+    font-size: 21px !important;
 }
 
-.ant-modal-content{
-  border: 4px solid #08374F !important;
+.ant-modal-content {
+    border: 4px solid #08374f !important;
 }
 
-.ant-modal-title, .ant-modal-close{
-  color: white  !important;
-  text-align: center;
+.ant-modal-title,
+.ant-modal-close {
+    color: white !important;
+    text-align: center;
 }
 
-.ant-select-selector{
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0;
-  color: white !important;
+.ant-select-selector {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0;
+    color: white !important;
 }
-
 
 .ant-table-tbody > tr > td {
-    border-bottom: none!important;
+    border-bottom: none !important;
     padding: 10px 0px !important;
 }
-

@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
-import {useProjectTranslation} from "../../../helpers/translations";
-import Exchange from "../../Exchange";
-
+import { useProjectTranslation } from '../../../helpers/translations';
+import Exchange from '../../Exchange';
 
 export default function ModalExchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -20,7 +19,8 @@ export default function ModalExchange() {
     return (
         <div>
             <a href="#" onClick={showModal} className="menu-nav-item">
-                <i className="logo-exchange"></i> <span className="menu-nav-item-title">Exchange</span>
+                <i className="logo-exchange"></i>{' '}
+                <span className="menu-nav-item-title">Exchange</span>
             </a>
             <Modal
                 title="Exchange"
@@ -30,9 +30,8 @@ export default function ModalExchange() {
                 footer={null}
                 className="ModalExchange"
             >
-                <Exchange/>
-
+                <Exchange />
             </Modal>
         </div>
-    )
+    );
 }

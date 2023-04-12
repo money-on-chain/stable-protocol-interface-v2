@@ -1,16 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
-import {useProjectTranslation} from "../../../helpers/translations";
-import Allowance from "../../Allowance";
-
+import { useProjectTranslation } from '../../../helpers/translations';
+import Allowance from '../../Allowance';
 
 export default function ModalAllowanceOperation(props) {
-
-    const {
-        visible,
-        onHideModalAllowance
-    } = props;
+    const { visible, onHideModalAllowance } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
 
@@ -27,5 +22,5 @@ export default function ModalAllowanceOperation(props) {
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>
         </div>
-    )
+    );
 }

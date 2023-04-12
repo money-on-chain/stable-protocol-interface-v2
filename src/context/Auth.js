@@ -1,12 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import getRLogin from '../lib/rLogin';
 import Web3 from 'web3';
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
 
 import addressHelper from '../helpers/addressHelper';
 
 import { ApproveTokenContract, exchangeMethod } from '../helpers/exchange';
-
 
 import { readContracts } from '../lib/integration/contracts';
 import { contractStatus, userBalance } from '../lib/integration/multicall';
@@ -26,8 +25,21 @@ const AuthenticateContext = createContext({
     contractStatusData: null,
     web3: null,
     connect: () => {},
-    interfaceAllowanceAmount: async (currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt) => {},
-    interfaceExchangeMethod: async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {},
+    interfaceAllowanceAmount: async (
+        currencyYouExchange,
+        currencyYouReceive,
+        amountAllowance,
+        onTransaction,
+        onReceipt
+    ) => {},
+    interfaceExchangeMethod: async (
+        currencyYouExchange,
+        currencyYouReceive,
+        tokenAmount,
+        limitAmount,
+        onTransaction,
+        onReceipt
+    ) => {},
     disconnect: () => {},
     getTransactionReceipt: (hash) => {},
     interfaceDecodeEvents: async (receipt) => {},
@@ -52,12 +64,14 @@ const AuthenticateProvider = ({ children }) => {
     });
 
     async function loadCss() {
-        let css_logout= await import ('../assets/css/logout.scss');
-     }
+        let css_logout = await import('../assets/css/logout.scss');
+    }
 
     useEffect(() => {
         if (!window.rLogin) {
-            window.rLogin = getRLogin(process.env.REACT_APP_ENVIRONMENT_CHAIN_ID);
+            window.rLogin = getRLogin(
+                process.env.REACT_APP_ENVIRONMENT_CHAIN_ID
+            );
             if (window.rLogin.cachedProvider) {
                 connect();
             } else {
@@ -68,9 +82,14 @@ const AuthenticateProvider = ({ children }) => {
     });
 
     const disableLogin = () => {
-        document.querySelectorAll('.rlogin-modal-hitbox')[0].addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); })
-        loadCss()
-    }
+        document
+            .querySelectorAll('.rlogin-modal-hitbox')[0]
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        loadCss();
+    };
 
     useEffect(() => {
         if (account) {
@@ -81,12 +100,12 @@ const AuthenticateProvider = ({ children }) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if(account){
+            if (account) {
                 loadContractsStatusAndUserBalance();
             }
         }, 30000);
         return () => clearInterval(interval);
-    },[account]);
+    }, [account]);
 
     const connect = () =>
         window.rLogin.connect().then((rLoginResponse) => {
@@ -105,7 +124,7 @@ const AuthenticateProvider = ({ children }) => {
             provider.on('chainChanged', function (accounts) {
                 disconnect();
                 window.location.reload();
-            })
+            });
 
             setWeb3(web3);
             window.rLoginDisconnect = disconnect;
@@ -115,7 +134,6 @@ const AuthenticateProvider = ({ children }) => {
                 setAccount(account);
                 setIsLoggedIn(true);
             });
-
         });
 
     const disconnect = async () => {
@@ -142,30 +160,61 @@ const AuthenticateProvider = ({ children }) => {
             contractStatusData,
             userBalanceData,
             account
-        }
+        };
+    };
 
-    }
-
-    const interfaceAllowanceAmount = async (currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt) => {
+    const interfaceAllowanceAmount = async (
+        currencyYouExchange,
+        currencyYouReceive,
+        amountAllowance,
+        onTransaction,
+        onReceipt
+    ) => {
         if (!window.dContracts) return;
 
-        const approveInfo = ApproveTokenContract(window.dContracts, currencyYouExchange, currencyYouReceive)
+        const approveInfo = ApproveTokenContract(
+            window.dContracts,
+            currencyYouExchange,
+            currencyYouReceive
+        );
         if (approveInfo.token) {
             const interfaceContext = buildInterfaceContext();
-            await AllowanceAmount(interfaceContext, approveInfo.token, approveInfo.contractAllow, amountAllowance, approveInfo.decimals, onTransaction, onReceipt);
+            await AllowanceAmount(
+                interfaceContext,
+                approveInfo.token,
+                approveInfo.contractAllow,
+                amountAllowance,
+                approveInfo.decimals,
+                onTransaction,
+                onReceipt
+            );
         }
+    };
 
-    }
-
-    const interfaceExchangeMethod = async (currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt) => {
+    const interfaceExchangeMethod = async (
+        currencyYouExchange,
+        currencyYouReceive,
+        tokenAmount,
+        limitAmount,
+        onTransaction,
+        onReceipt
+    ) => {
         const interfaceContext = buildInterfaceContext();
-        return exchangeMethod(interfaceContext, currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt)
-    }
+        return exchangeMethod(
+            interfaceContext,
+            currencyYouExchange,
+            currencyYouReceive,
+            tokenAmount,
+            limitAmount,
+            onTransaction,
+            onReceipt
+        );
+    };
 
     const initContractsConnection = async () => {
         window.dContracts = await readContracts(web3);
         await loadContractsStatusAndUserBalance();
-    }
+    };
 
     const loadContractsStatusAndUserBalance = async () => {
         if (!window.dContracts) return;
@@ -185,8 +234,7 @@ const AuthenticateProvider = ({ children }) => {
 
         setContractStatusData(dataContractStatus);
         setUserBalanceData(accountBalance);
-
-    }
+    };
 
     const loadAccountData = async () => {
         const owner = await getAccount();
@@ -214,7 +262,7 @@ const AuthenticateProvider = ({ children }) => {
         try {
             let balance = await web3.eth.getBalance(address);
             balance = web3.utils.fromWei(balance);
-            return balance
+            return balance;
         } catch (e) {
             console.log(e);
         }
@@ -223,14 +271,12 @@ const AuthenticateProvider = ({ children }) => {
     const getSpendableBalance = async (address) => {
         const from = address || account;
         return await web3.eth.getBalance(from);
-
-    }
+    };
 
     const getReserveAllowance = async (address) => {
         const from = address || account;
         return await web3.eth.getBalance(from);
-
-    }
+    };
 
     const getTransactionReceipt = async (hash, callback) => {
         //const web3 = new Web3(provider);
@@ -242,9 +288,9 @@ const AuthenticateProvider = ({ children }) => {
         return transactionReceipt;
     };
 
-    const toCheckSumAddress = address => helper.toCheckSumAddress(address);
+    const toCheckSumAddress = (address) => helper.toCheckSumAddress(address);
 
-    const isCheckSumAddress = address => {
+    const isCheckSumAddress = (address) => {
         if (address === undefined) return false;
         return helper.isValidAddressChecksum(address);
     };
@@ -254,7 +300,9 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const interfaceDecodeEvents = async (receipt) => {
-        const txRcp = await web3.eth.getTransactionReceipt(receipt.transactionHash);
+        const txRcp = await web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
         const filteredEvents = decodeEvents(txRcp);
         return filteredEvents;
     };
@@ -283,7 +331,5 @@ const AuthenticateProvider = ({ children }) => {
         </AuthenticateContext.Provider>
     );
 };
-
-
 
 export { AuthenticateContext, AuthenticateProvider };

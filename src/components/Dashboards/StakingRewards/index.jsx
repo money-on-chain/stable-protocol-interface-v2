@@ -1,14 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-import {useProjectTranslation} from "../../../helpers/translations";
-
+import { useProjectTranslation } from '../../../helpers/translations';
 
 export default function StakingRewards() {
     const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <div className="dashboard-staking-info">
-
             {/* Staked */}
             <div className="item-staking first-item">
                 <div className="logo-staking">
@@ -27,7 +25,9 @@ export default function StakingRewards() {
                 </div>
                 <div className="resume-staking">
                     <div className="number-staking">+0.00%</div>
-                    <div className="description-staking">Annualized performance</div>
+                    <div className="description-staking">
+                        Annualized performance
+                    </div>
                 </div>
             </div>
 
@@ -38,7 +38,9 @@ export default function StakingRewards() {
                 </div>
                 <div className="resume-staking">
                     <div className="number-staking">0.00</div>
-                    <div className="description-staking">Flip rewarded today</div>
+                    <div className="description-staking">
+                        Flip rewarded today
+                    </div>
                 </div>
             </div>
 
@@ -49,12 +51,11 @@ export default function StakingRewards() {
                 </div>
                 <div className="resume-staking">
                     <div className="number-staking">0.00</div>
-                    <div className="description-staking">Flip ready to claim</div>
+                    <div className="description-staking">
+                        Flip ready to claim
+                    </div>
                 </div>
             </div>
-
-
-
         </div>
-    )
+    );
 }

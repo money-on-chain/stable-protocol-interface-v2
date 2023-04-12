@@ -1,19 +1,18 @@
-import RLogin  from '@rsksmart/rlogin';
+import RLogin from '@rsksmart/rlogin';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
 import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
 import { dcentProviderOptions } from '@rsksmart/rlogin-dcent-provider';
 
 const getRLogin = (port) => {
+    let rpcUrls = {};
 
-    let rpcUrls= {}
-
-    if( parseInt(port)===31 ){
+    if (parseInt(port) === 31) {
         rpcUrls = {
             31: 'https://public-node.testnet.rsk.co'
         };
     }
-    if( parseInt(port)===30 ){
+    if (parseInt(port) === 30) {
         rpcUrls = {
             30: 'https://public-node.rsk.co'
         };
@@ -37,33 +36,33 @@ const getRLogin = (port) => {
             'custom-ledger': {
                 ...ledgerProviderOptions,
                 options: {
-                  rpcUrl: rpcUrls[parseInt(chainId, 10)],
-                  chainId: parseInt(chainId, 10)
+                    rpcUrl: rpcUrls[parseInt(chainId, 10)],
+                    chainId: parseInt(chainId, 10)
                 }
             },
             'custom-dcent': {
-              ...dcentProviderOptions,
-              options: {
-                rpcUrl: rpcUrls[parseInt(chainId)],
-                chainId: parseInt(chainId),
-                debug: true
-              }
+                ...dcentProviderOptions,
+                options: {
+                    rpcUrl: rpcUrls[parseInt(chainId)],
+                    chainId: parseInt(chainId),
+                    debug: true
+                }
             },
             'custom-trezor': {
                 ...trezorProviderOptions,
                 options: {
-                  rpcUrl: rpcUrls[parseInt(chainId, 10)],
-                  chainId: parseInt(chainId, 10),
-                  manifestEmail: 'info@moneyonchain.com',
-                  manifestAppUrl: 'https://moneyonchain.com/'
+                    rpcUrl: rpcUrls[parseInt(chainId, 10)],
+                    chainId: parseInt(chainId, 10),
+                    manifestEmail: 'info@moneyonchain.com',
+                    manifestAppUrl: 'https://moneyonchain.com/'
                 }
             }
         },
         rpcUrls: selectedNetwork,
-            supportedChains
+        supportedChains
     });
 
     return rLogin;
-}
+};
 
 export default getRLogin;

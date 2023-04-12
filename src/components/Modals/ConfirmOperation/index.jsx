@@ -1,14 +1,11 @@
-
 import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
-import {useProjectTranslation} from "../../../helpers/translations";
-import ConfirmOperation from "../../ConfirmOperation";
-import {Button} from "antd";
-
+import { useProjectTranslation } from '../../../helpers/translations';
+import ConfirmOperation from '../../ConfirmOperation';
+import { Button } from 'antd';
 
 export default function ModalConfirmOperation(props) {
-
     const [t, i18n, ns] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
@@ -22,11 +19,9 @@ export default function ModalConfirmOperation(props) {
 
     return (
         <div className="ShowModalConfirmOperation">
-            <Button
-                type="primary"
-                className="btnConfirm"
-                onClick={showModal}
-            >Exchange</Button>
+            <Button type="primary" className="btnConfirm" onClick={showModal}>
+                Exchange
+            </Button>
             <Modal
                 title="Exchange Details"
                 width={505}
@@ -38,5 +33,5 @@ export default function ModalConfirmOperation(props) {
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
             </Modal>
         </div>
-    )
+    );
 }

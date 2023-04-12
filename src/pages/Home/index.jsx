@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 import { useContext } from 'react';
-import {Row, Alert } from 'antd';
+import { Row, Alert } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
-import ListOperations from "../../components/Tables/ListOperations";
+import ListOperations from '../../components/Tables/ListOperations';
 import { useProjectTranslation } from '../../helpers/translations';
 
 import '../../assets/css/pages.scss';
 
-
 function Home(props) {
-
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 

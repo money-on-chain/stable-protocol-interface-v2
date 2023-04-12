@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext, useState, useEffect } from 'react';
-import {Collapse, Slider} from "antd";
+import { Collapse, Slider } from 'antd';
 
-import {useProjectTranslation} from "../../helpers/translations";
+import { useProjectTranslation } from '../../helpers/translations';
 //import IconStatusPending from "../../assets/icons/status-pending.png";
 //import IconStatusSuccess from "../../assets/icons/status-success.png";
 //import IconStatusError from "../../assets/icons/status-error.png";
@@ -12,11 +12,9 @@ import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
 
-
 const { Panel } = Collapse;
 
 export default function ConfirmOperation(props) {
-
     const {
         currencyYouExchange,
         currencyYouReceive,
@@ -34,31 +32,42 @@ export default function ConfirmOperation(props) {
     const [status, setStatus] = useState('SUBMIT');
     const [tolerance, setTolerance] = useState(0.1);
 
-    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive)
+    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     const toleranceLimits = (newTolerance) => {
-        let limitExchange
-        let limitReceive
+        let limitExchange;
+        let limitReceive;
         if (IS_MINT) {
-            limitExchange = new BigNumber(amountYouExchange).times(new BigNumber(newTolerance)).div(100).plus(new BigNumber(amountYouExchange))
-            limitReceive = amountYouReceive
+            limitExchange = new BigNumber(amountYouExchange)
+                .times(new BigNumber(newTolerance))
+                .div(100)
+                .plus(new BigNumber(amountYouExchange));
+            limitReceive = amountYouReceive;
         } else {
-            limitExchange = amountYouExchange
-            limitReceive = new BigNumber(amountYouReceive).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceive)).abs()
+            limitExchange = amountYouExchange;
+            limitReceive = new BigNumber(amountYouReceive)
+                .times(new BigNumber(newTolerance))
+                .div(100)
+                .minus(new BigNumber(amountYouReceive))
+                .abs();
         }
 
         const limits = {
             exchange: limitExchange,
             receive: limitReceive
-        }
+        };
 
-        return limits
+        return limits;
     };
 
-    const limits = toleranceLimits(tolerance)
+    const limits = toleranceLimits(tolerance);
 
-    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(limits.exchange);
-    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(limits.receive);
+    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(
+        limits.exchange
+    );
+    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(
+        limits.receive
+    );
     const [showModalAllowance, setShowModalAllowance] = useState(false);
 
     const onHideModalAllowance = () => {
@@ -70,12 +79,11 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowance = () => {
-        const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange)
-        console.log("DEBUG>>>")
-        console.log(tokenAllowance.toString())
-        console.log(amountYouExchangeLimit.toString())
+        const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
+        console.log('DEBUG>>>');
+        console.log(tokenAllowance.toString());
+        console.log(amountYouExchangeLimit.toString());
         return !!amountYouExchangeLimit.gte(tokenAllowance);
-
     };
 
     const onSendTransaction = () => {
@@ -86,45 +94,50 @@ export default function ConfirmOperation(props) {
         }
 
         // If allowance is ok please send real operation transaction
-        onRealSendTransaction()
-
+        onRealSendTransaction();
     };
 
     const onRealSendTransaction = () => {
         // Real send transaction
-        setStatus('SIGN')
+        setStatus('SIGN');
 
-        let tokenAmount
-        let limitAmount
+        let tokenAmount;
+        let limitAmount;
         if (IS_MINT) {
-            tokenAmount = amountYouReceive
-            limitAmount = amountYouExchangeLimit
+            tokenAmount = amountYouReceive;
+            limitAmount = amountYouExchangeLimit;
         } else {
-            tokenAmount = amountYouExchange
-            limitAmount = amountYouReceiveLimit
+            tokenAmount = amountYouExchange;
+            limitAmount = amountYouReceiveLimit;
         }
-        auth.interfaceExchangeMethod(currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt).then((value => {
-            console.log("DONE!")
-        }))
-
+        auth.interfaceExchangeMethod(
+            currencyYouExchange,
+            currencyYouReceive,
+            tokenAmount,
+            limitAmount,
+            onTransaction,
+            onReceipt
+        ).then((value) => {
+            console.log('DONE!');
+        });
     };
 
     const onTransaction = (transactionHash) => {
         // Tx receipt detected change status to waiting
-        setStatus('WAITING')
-        console.log("On transaction: ", transactionHash)
+        setStatus('WAITING');
+        console.log('On transaction: ', transactionHash);
     };
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
-        console.log("On receipt: ", receipt)
+        console.log('On receipt: ', receipt);
         const filteredEvents = auth.interfaceDecodeEvents(receipt);
-        setStatus('SUCCESS')
+        setStatus('SUCCESS');
 
         // Refresh user balance
-        auth.loadContractsStatusAndUserBalance().then((value => {
-            console.log("Refresh user balance OK!")
-        }))
+        auth.loadContractsStatusAndUserBalance().then((value) => {
+            console.log('Refresh user balance OK!');
+        });
     };
 
     let sentIcon = '';
@@ -172,14 +185,14 @@ export default function ConfirmOperation(props) {
 
     const changeTolerance = (newTolerance) => {
         setTolerance(newTolerance);
-        const limits = toleranceLimits(newTolerance)
-        setAmountYouExchangeLimit(limits.exchange)
-        setAmountYouReceiveLimit(limits.receive)
+        const limits = toleranceLimits(newTolerance);
+        setAmountYouExchangeLimit(limits.exchange);
+        setAmountYouReceiveLimit(limits.receive);
     };
 
     const onClose = () => {
         setStatus('SUBMIT');
-        onCloseModal()
+        onCloseModal();
     };
 
     return (
@@ -196,21 +209,35 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {IS_MINT && (<span className="limitWarning">Starting from
-                            <span> {PrecisionNumbers({
-                                amount: new BigNumber(amountYouExchange),
-                                token: TokenSettings(currencyYouExchange),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })} </span>
-                            (see price variation tolerance)
-                        </span>
+                        {IS_MINT && (
+                            <span className="limitWarning">
+                                Starting from
+                                <span>
+                                    {' '}
+                                    {PrecisionNumbers({
+                                        amount: new BigNumber(
+                                            amountYouExchange
+                                        ),
+                                        token: TokenSettings(
+                                            currencyYouExchange
+                                        ),
+                                        decimals: 2,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true
+                                    })}{' '}
+                                </span>
+                                (see price variation tolerance)
+                            </span>
                         )}
                     </span>
-                    <span className="token"> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
+                    <span className="token">
+                        {' '}
+                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                            ns: ns
+                        })}{' '}
+                    </span>
                 </div>
 
                 <div className="swapArrow">
@@ -228,30 +255,58 @@ export default function ConfirmOperation(props) {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                        {!IS_MINT && (<span className="limitWarning">Minimum to receive
-                            <span> {PrecisionNumbers({
-                                amount: new BigNumber(amountYouReceiveLimit),
-                                token: TokenSettings(currencyYouReceive),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })} </span>
-                            (see price variation tolerance)
-                        </span>
+                        {!IS_MINT && (
+                            <span className="limitWarning">
+                                Minimum to receive
+                                <span>
+                                    {' '}
+                                    {PrecisionNumbers({
+                                        amount: new BigNumber(
+                                            amountYouReceiveLimit
+                                        ),
+                                        token: TokenSettings(
+                                            currencyYouReceive
+                                        ),
+                                        decimals: 2,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true
+                                    })}{' '}
+                                </span>
+                                (see price variation tolerance)
+                            </span>
                         )}
                     </span>
-                    <span className="token"> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
+                    <span className="token">
+                        {' '}
+                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                            ns: ns
+                        })}{' '}
+                    </span>
                 </div>
             </div>
 
             <div className="prices">
                 <div className="rate_1">
-                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
+                    <span className={'token_exchange'}>
+                        {' '}
+                        1{' '}
+                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                            ns: ns
+                        })}
+                    </span>
                     <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}> {PrecisionNumbers({
-                            amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
+                    <span className={'token_receive'}>
+                        {' '}
+                        {PrecisionNumbers({
+                            amount: ConvertAmount(
+                                auth,
+                                currencyYouExchange,
+                                currencyYouReceive,
+                                1,
+                                false
+                            ),
                             token: TokenSettings(currencyYouExchange),
                             decimals: 6,
                             t: t,
@@ -260,13 +315,32 @@ export default function ConfirmOperation(props) {
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
+                    <span className={'token_receive_name'}>
+                        {' '}
+                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                            ns: ns
+                        })}{' '}
+                    </span>
                 </div>
                 <div className="rate_2">
-                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
+                    <span className={'token_exchange'}>
+                        {' '}
+                        1{' '}
+                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                            ns: ns
+                        })}
+                    </span>
                     <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}> {PrecisionNumbers({
-                            amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
+                    <span className={'token_receive'}>
+                        {' '}
+                        {PrecisionNumbers({
+                            amount: ConvertAmount(
+                                auth,
+                                currencyYouReceive,
+                                currencyYouExchange,
+                                1,
+                                false
+                            ),
                             token: TokenSettings(currencyYouReceive),
                             decimals: 6,
                             t: t,
@@ -275,7 +349,12 @@ export default function ConfirmOperation(props) {
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
+                    <span className={'token_receive_name'}>
+                        {' '}
+                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                            ns: ns
+                        })}{' '}
+                    </span>
                 </div>
             </div>
 
@@ -283,7 +362,8 @@ export default function ConfirmOperation(props) {
 
             <div className="fees">
                 <div className="value">
-                    <span className={'token_exchange'}>Fee (
+                    <span className={'token_exchange'}>
+                        Fee (
                         {PrecisionNumbers({
                             amount: new BigNumber(commissionPercent),
                             token: TokenSettings(currencyYouExchange),
@@ -294,102 +374,142 @@ export default function ConfirmOperation(props) {
                             skipContractConvert: true
                         })}
                         %)
-                        </span>
+                    </span>
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: new BigNumber(commission),
-                                token: TokenSettings(currencyYouExchange),
-                                decimals: 6,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-                        </span>
-                    <span className={'token_receive_name'}> {(IS_MINT) ? t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns }) : t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
+                        {PrecisionNumbers({
+                            amount: new BigNumber(commission),
+                            token: TokenSettings(currencyYouExchange),
+                            decimals: 6,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
+                    <span className={'token_receive_name'}>
+                        {' '}
+                        {IS_MINT
+                            ? t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                                  ns: ns
+                              })
+                            : t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                                  ns: ns
+                              })}{' '}
+                    </span>
                 </div>
                 <div className="disclaimer">
-                    This fee will be deducted from the transaction value transferred.<br/>
+                    This fee will be deducted from the transaction value
+                    transferred.
+                    <br />
                     Amounts my be different at transaction confirmation.
                 </div>
             </div>
 
             <div className="separator"></div>
 
-            { status === 'SUBMIT' && <div className="tx-submit">
+            {status === 'SUBMIT' && (
+                <div className="tx-submit">
+                    <div className="customize-tolerance">
+                        <Collapse accordion className="CollapseTolerance">
+                            <Panel
+                                showArrow={false}
+                                header={
+                                    <div className="PriceVariationSetting">
+                                        <i className="icon-wheel"></i>
+                                        <span className="SliderText">
+                                            Customize price variation tolerance
+                                        </span>
+                                    </div>
+                                }
+                                key="1"
+                            >
+                                <div className="PriceVariationContainer">
+                                    <Slider
+                                        className="SliderControl"
+                                        marks={priceVariationToleranceMarks}
+                                        defaultValue={tolerance}
+                                        min={0}
+                                        max={10}
+                                        step={0.1}
+                                        dots={false}
+                                        onChange={(val) => changeTolerance(val)}
+                                    />
+                                    <div className="warningSlider">
+                                        After the transaction, the unused amount
+                                        will be returned.
+                                    </div>
+                                </div>
+                            </Panel>
+                        </Collapse>
+                    </div>
 
-                <div className="customize-tolerance">
-                    <Collapse accordion className="CollapseTolerance">
-                        <Panel showArrow={false} header={<div className="PriceVariationSetting"><i className="icon-wheel"></i><span className="SliderText">Customize price variation tolerance</span></div>} key="1">
-                            <div className="PriceVariationContainer">
-                                <Slider
-                                    className="SliderControl"
-                                    marks={priceVariationToleranceMarks}
-                                    defaultValue={tolerance}
-                                    min={0}
-                                    max={10}
-                                    step={0.1}
-                                    dots={false}
-                                    onChange={val => changeTolerance(val)}
-                                />
-                                <div className="warningSlider">
-                                    After the transaction, the unused amount will be returned.
+                    <div className="cta">
+                        <span className="exchanging">
+                            <span className={'token_exchange'}>
+                                Exchanging{' '}
+                            </span>
+                            <span className={'symbol'}> ≈ </span>
+                            <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: exchangingUSD,
+                                    token: TokenSettings('CA_0'),
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                            <span className={'token_receive_name'}> USD</span>
+                        </span>
+                        <button
+                            type="primary"
+                            className="btn"
+                            onClick={onSendTransaction}
+                        >
+                            Send transaction
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {(status === 'SIGN' ||
+                status === 'WAITING' ||
+                status === 'SUCCESS' ||
+                status === 'ERROR') && (
+                <div className="tx-sent">
+                    <div className="status">
+                        {(status === 'WAITING' ||
+                            status === 'SUCCESS' ||
+                            status === 'ERROR') && (
+                            <div className="transaction-id">
+                                <div className="label">Transaction ID</div>
+                                <div className="address-section">
+                                    <span className="address">
+                                        oxba8cd957…72ad
+                                    </span>
+                                    <i className="icon-copy"></i>
                                 </div>
                             </div>
-                        </Panel>
-                    </Collapse>
+                        )}
 
-                </div>
-
-                <div className="cta">
-                    <span className="exchanging">
-                        <span className={'token_exchange'}>Exchanging </span>
-                        <span className={'symbol'}> ≈ </span>
-                        <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: exchangingUSD,
-                                token: TokenSettings('CA_0'),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-                        </span>
-                        <span className={'token_receive_name'}> USD</span>
-                    </span>
-                    <button type="primary" className="btn" onClick={onSendTransaction}>Send transaction</button>
-                </div>
-
-            </div>
-            }
-
-            { (status === 'SIGN' || status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR')  && <div className="tx-sent">
-
-                <div className="status">
-
-                    { (status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR')  && <div className="transaction-id">
-                        <div className="label">Transaction ID</div>
-                        <div className="address-section">
-                            <span className="address">oxba8cd957…72ad</span>
-                            <i className="icon-copy"></i>
+                        <div className="tx-logo-status">
+                            <i className={sentIcon}></i>
                         </div>
-                    </div>}
 
-                    <div className="tx-logo-status">
-                        <i className={sentIcon}></i>
+                        <div className="status-label">{statusLabel}</div>
+
+                        <button
+                            type="primary"
+                            className="btnClose"
+                            onClick={onClose}
+                        >
+                            Close
+                        </button>
                     </div>
-
-                    <div className="status-label">
-                        {statusLabel}
-                    </div>
-
-                    <button type="primary" className="btnClose" onClick={onClose}>Close</button>
-
                 </div>
-
-            </div>}
+            )}
 
             <ModalAllowanceOperation
                 visible={showModalAllowance}
@@ -400,7 +520,6 @@ export default function ConfirmOperation(props) {
                 amountYouReceiveLimit={amountYouReceiveLimit}
                 onRealSendTransaction={onRealSendTransaction}
             />
-
         </div>
-    )
+    );
 }

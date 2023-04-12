@@ -1,19 +1,18 @@
-
-import React, {useContext, useEffect, useState} from 'react';
-import {DownCircleOutlined, UpCircleOutlined} from "@ant-design/icons";
+import React, { useContext, useEffect, useState } from 'react';
+import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import {Table, Progress, Tooltip, Skeleton} from 'antd';
+import { Table, Progress, Tooltip, Skeleton } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';
 
-import RowDetail from "../RowDetail";
+import RowDetail from '../RowDetail';
 import api from '../../../services/api';
-import { myParseDate} from '../../../helpers/helper'
-import Copy from "../../Page/Copy";
+import { myParseDate } from '../../../helpers/helper';
+import Copy from '../../Page/Copy';
 import date from '../../../helpers/date';
-import {AuthenticateContext} from "../../../context/Auth";
+import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import RowColumn from "../RowDetail/RowColumn";
+import RowColumn from '../RowDetail/RowColumn';
 
 import './style.scss';
 
@@ -25,7 +24,9 @@ export default function ListOperations(props) {
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({ position: 'bottom' });
     const [size, setSize] = useState('default');
-    const [expandable, setExpandable] = useState({ expandedRowRender: record => <p>{record.description}</p> });
+    const [expandable, setExpandable] = useState({
+        expandedRowRender: (record) => <p>{record.description}</p>
+    });
 
     const [title, setTitle] = useState(undefined);
     const [showHeader, setShowHeader] = useState(true);
@@ -40,9 +41,9 @@ export default function ListOperations(props) {
     const auth = useContext(AuthenticateContext);
 
     const { accountData = {} } = auth;
-    const [dataJson, setDataJson]=  useState([]);
-    const [callTable, setCallTable]=  useState(false);
-    const [totalTable, setTotalTable]=  useState(0);
+    const [dataJson, setDataJson] = useState([]);
+    const [callTable, setCallTable] = useState(false);
+    const [totalTable, setTotalTable] = useState(0);
 
     const [eventHidden, setEventHidden] = useState(false);
     const [assetHidden, setAssetHidden] = useState(false);
@@ -53,31 +54,38 @@ export default function ListOperations(props) {
     const [statusLabelHidden, setStatusLabelHidden] = useState(false);
 
     const [loadingSke, setLoadingSke] = useState(true);
-    const timeSke= 1500
+    const timeSke = 1500;
 
     useEffect(() => {
-        setTimeout(() => setLoading(false), timeSke)
-    },[auth]);
+        setTimeout(() => setLoading(false), timeSke);
+    }, [auth]);
 
     //window["renderTable"] = function() {transactionsList(1)}
 
     const transactionsList = (skip, call_table) => {
-        if(auth.isLoggedIn){
-            const datas = (token !== 'all') ?
-                {
-                    address: accountData.Owner,
-                    limit:10,
-                    skip:(((skip-1)+(skip-1))*10),
-                    token: ''//TokenNameNewToOld(token)
-                } : {
-                    address: accountData.Owner,
-                    limit:10,
-                    skip:(((skip-1)+(skip-1))*10)
-                }
+        if (auth.isLoggedIn) {
+            const datas =
+                token !== 'all'
+                    ? {
+                          address: accountData.Owner,
+                          limit: 10,
+                          skip: (skip - 1 + (skip - 1)) * 10,
+                          token: '' //TokenNameNewToOld(token)
+                      }
+                    : {
+                          address: accountData.Owner,
+                          limit: 10,
+                          skip: (skip - 1 + (skip - 1)) * 10
+                      };
             setTimeout(() => {
                 try {
-                    api('get', `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}`+'webapp/transactions/list/', datas)
-                        .then(response => {
+                    api(
+                        'get',
+                        `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
+                            'webapp/transactions/list/',
+                        datas
+                    )
+                        .then((response) => {
                             /*setDataJson(response);
                             setTotalTable(response.total)
                             if(call_table){
@@ -85,8 +93,8 @@ export default function ListOperations(props) {
                             }*/
                         })
                         .catch((response) => {
-                            if(call_table){
-                                setCallTable(call_table)
+                            if (call_table) {
+                                setCallTable(call_table);
                             }
                         });
                 } catch (error) {
@@ -96,169 +104,228 @@ export default function ListOperations(props) {
         }
     };
 
-    const [width, setWidth]   = useState(window.innerWidth);
+    const [width, setWidth] = useState(window.innerWidth);
     const [height, setHeight] = useState(window.innerHeight);
     const updateDimensions = () => {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
-    }
+    };
     useEffect(() => {
-        window.addEventListener("resize", updateDimensions);
+        window.addEventListener('resize', updateDimensions);
 
-        if( width<992 ){
-            setWalletHidden(true)
-        }else{
-            setWalletHidden(false)
+        if (width < 992) {
+            setWalletHidden(true);
+        } else {
+            setWalletHidden(false);
         }
 
-        if( width<576 ){
-            setEventHidden(true)
-            setDateHidden(true)
+        if (width < 576) {
+            setEventHidden(true);
+            setDateHidden(true);
             setAssetHidden(false);
             setPlatformHidden(false);
             setStatusHidden(false);
-            setStatusLabelHidden(true)
-        }else{
-            if( width>576 && width<=768 ){
+            setStatusLabelHidden(true);
+        } else {
+            if (width > 576 && width <= 768) {
                 setAssetHidden(false);
                 setPlatformHidden(false);
                 setDateHidden(false);
                 setStatusHidden(false);
                 setEventHidden(true);
-                setStatusLabelHidden(false)
-                setStatusLabelHidden(true)
-            }else{
+                setStatusLabelHidden(false);
+                setStatusLabelHidden(true);
+            } else {
                 setEventHidden(false);
                 setAssetHidden(false);
                 setPlatformHidden(false);
                 setDateHidden(false);
                 setStatusHidden(false);
-                setStatusLabelHidden(false)
+                setStatusLabelHidden(false);
             }
         }
     }, [window.innerWidth]);
 
-    const changeStatus= (percent,txt) =>{
-        if (width <= 768){
-            return (<Progress type="circle" percent={percent ? percent : txt === 'confirmed' ? 100 : 0} width={30}/>)
+    const changeStatus = (percent, txt) => {
+        if (width <= 768) {
+            return (
+                <Progress
+                    type="circle"
+                    percent={percent ? percent : txt === 'confirmed' ? 100 : 0}
+                    width={30}
+                />
+            );
         } else {
-            return (<><Progress percent={percent} /><br />
-                <span className={txt === 'confirmed' ? 'color-confirmed conf_title' : 'color-confirming conf_title'}>{txt}</span>
-                </>);
+            return (
+                <>
+                    <Progress percent={percent} />
+                    <br />
+                    <span
+                        className={
+                            txt === 'confirmed'
+                                ? 'color-confirmed conf_title'
+                                : 'color-confirming conf_title'
+                        }
+                    >
+                        {txt}
+                    </span>
+                </>
+            );
         }
-    }
+    };
 
     const columns = [
         {
             title: '',
-            dataIndex: 'info',
+            dataIndex: 'info'
         },
         {
             title: t(`operations.columns.event`, { ns: ns }),
             dataIndex: 'event',
             width: 200,
-            hidden:eventHidden
+            hidden: eventHidden
         },
         {
             title: t(`operations.columns.type`, { ns: ns }),
             dataIndex: 'asset',
             width: 100,
-            hidden:assetHidden
+            hidden: assetHidden
         },
         {
             title: t(`operations.columns.amount`, { ns: ns }),
             dataIndex: 'platform',
             width: 180,
-            hidden:platformHidden
+            hidden: platformHidden
         },
         {
             title: t(`operations.columns.totalBtc`, { ns: ns }),
             dataIndex: 'wallet',
             width: 180,
-            hidden:walletHidden
+            hidden: walletHidden
         },
         {
             title: t(`operations.columns.date`, { ns: ns }),
             dataIndex: 'date',
             width: 220,
-            hidden:dateHidden
+            hidden: dateHidden
         },
         {
-            title: (!statusLabelHidden)? t(`operations.columns.status`, { ns: ns }): '',
+            title: !statusLabelHidden
+                ? t(`operations.columns.status`, { ns: ns })
+                : '',
             dataIndex: 'status',
             width: 180,
-            hidden:statusHidden
-        },
-    ].filter(item => !item.hidden);
+            hidden: statusHidden
+        }
+    ].filter((item) => !item.hidden);
 
     useEffect(() => {
         const interval = setInterval(() => {
             if (accountData.Owner) {
-                transactionsList(current)
+                transactionsList(current);
             }
         }, 30000);
         return () => clearInterval(interval);
-    },[accountData.Owner]);
+    }, [accountData.Owner]);
 
     useEffect(() => {
         if (accountData.Owner) {
-            transactionsList(current)
+            transactionsList(current);
         }
-    },[accountData.Owner]);
+    }, [accountData.Owner]);
 
     var data = [];
 
     const onChange = (page) => {
-        if( accountData!== undefined ){
+        if (accountData !== undefined) {
             setCurrent(page);
             data_row(page);
-            transactionsList(page,true)
+            transactionsList(page, true);
         }
     };
 
     const data_row_coins2 = [];
-    var json_end = []
+    var json_end = [];
     const data_row = () => {
         /*******************************sort descending by date lastUpdatedAt***********************************/
-        if(dataJson.transactions!==undefined){
+        if (dataJson.transactions !== undefined) {
             dataJson.transactions.sort((a, b) => {
-                return myParseDate(b.lastUpdatedAt) - myParseDate(a.lastUpdatedAt)
+                return (
+                    myParseDate(b.lastUpdatedAt) - myParseDate(a.lastUpdatedAt)
+                );
             });
         }
         /*******************************end sort descending by date lastUpdatedAt***********************************/
 
         /*******************************filter by type (token)***********************************/
         var pre_datas = [];
-        if(dataJson.transactions!==undefined){
-            pre_datas= dataJson.transactions.filter(data_j => {
+        if (dataJson.transactions !== undefined) {
+            pre_datas = dataJson.transactions.filter((data_j) => {
                 //return (token !== 'all') ? TokenNameOldToNew(data_j.tokenInvolved) === token : true;
             });
         }
         /*******************************end filter by type (token)***********************************/
 
         /*******************************set json group according to limits***********************************/
-        json_end = pre_datas
+        json_end = pre_datas;
         /*******************************end set json group according to limits***********************************/
 
         data = [];
 
         json_end.forEach((data_j) => {
-            const datas_response = ''//readJsonTable(data_j, t, i18n, ns)
+            const datas_response = ''; //readJsonTable(data_j, t, i18n, ns)
 
             const detail = {
                 //event:  datas_response['address'] === config.transfer[0].address ?
                 //    config.transfer[0].title : datas_response['set_event'],
-                event:  datas_response['set_event'],
-                created: <span><Moment format={(i18n.language === "en") ?
-                    date.DATE_EN : date.DATE_ES}>{datas_response['lastUpdatedAt']}</Moment></span>,
+                event: datas_response['set_event'],
+                created: (
+                    <span>
+                        <Moment
+                            format={
+                                i18n.language === 'en'
+                                    ? date.DATE_EN
+                                    : date.DATE_ES
+                            }
+                        >
+                            {datas_response['lastUpdatedAt']}
+                        </Moment>
+                    </span>
+                ),
                 details: datas_response['RBTCAmount'],
                 asset: datas_response['set_asset'],
-                confirmation: datas_response['confirmationTime'] ? (true) ?
-                    <span><Moment format={(i18n.language === "en") ?
-                        date.DATE_EN : date.DATE_ES }>{datas_response['confirmationTime']}</Moment></span> :
-                            <span><Moment format="YYYY-MM-DD HH:MM:SS">{datas_response['confirmationTime']}</Moment></span> : '',
-                address: (datas_response['address'] !== '--') ?
-                    <Copy textToShow={datas_response['truncate_address']} textToCopy={datas_response['address']} /> : '--',
+                confirmation: datas_response['confirmationTime'] ? (
+                    true ? (
+                        <span>
+                            <Moment
+                                format={
+                                    i18n.language === 'en'
+                                        ? date.DATE_EN
+                                        : date.DATE_ES
+                                }
+                            >
+                                {datas_response['confirmationTime']}
+                            </Moment>
+                        </span>
+                    ) : (
+                        <span>
+                            <Moment format="YYYY-MM-DD HH:MM:SS">
+                                {datas_response['confirmationTime']}
+                            </Moment>
+                        </span>
+                    )
+                ) : (
+                    ''
+                ),
+                address:
+                    datas_response['address'] !== '--' ? (
+                        <Copy
+                            textToShow={datas_response['truncate_address']}
+                            textToCopy={datas_response['address']}
+                        />
+                    ) : (
+                        '--'
+                    ),
                 platform: datas_response['amount'],
                 platform_fee: datas_response['platform_fee_value'],
                 block: datas_response['blockNumber'],
@@ -282,77 +349,122 @@ export default function ListOperations(props) {
                 platform: datas_response['platform_detail'],
                 wallet: datas_response['wallet_value_main'],
                 date: datas_response['lastUpdatedAt'],
-                status: { txt: datas_response['set_status_txt'], percent: datas_response['set_status_percent'] },
-                detail: detail,
+                status: {
+                    txt: datas_response['set_status_txt'],
+                    percent: datas_response['set_status_percent']
+                },
+                detail: detail
             });
-
         });
         data_row_coins2.forEach((element, index) => {
             const asset = [];
 
             switch (element.asset) {
                 case 'TP':
-                    asset.push(
-                        {
-                            'image': <i className="icon-token-tp" style={{display: "block"}} />,
-                            'color': 'color-token-tp',
-                            'txt': 'TP'
-                        }
-                    );
-                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, { ns: ns });
+                    asset.push({
+                        image: (
+                            <i
+                                className="icon-token-tp"
+                                style={{ display: 'block' }}
+                            />
+                        ),
+                        color: 'color-token-tp',
+                        txt: 'TP'
+                    });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, {
+                        ns: ns
+                    });
                     break;
                 case 'TC':
-                    asset.push(
-                        {
-                            'image': <i className="icon-token-tc" style={{display: "block"}} />,
-                            'color': 'color-token-tc',
-                            'txt': 'TC'
-                        }
-                    );
-                    data_row_coins2[index].detail.asset = t(`Tokens_TC_code`, { ns: ns });
+                    asset.push({
+                        image: (
+                            <i
+                                className="icon-token-tc"
+                                style={{ display: 'block' }}
+                            />
+                        ),
+                        color: 'color-token-tc',
+                        txt: 'TC'
+                    });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TC_code`, {
+                        ns: ns
+                    });
                     break;
                 case 'TX':
-                    asset.push(
-                        {
-                            'image': <i className="icon-token-tx" style={{display: "block"}} />,
-                            'color': 'color-token-tx',
-                            'txt': 'TX'
-                        }
-                    );
-                    data_row_coins2[index].detail.asset = t(`Tokens_TX_code`, { ns: ns });
+                    asset.push({
+                        image: (
+                            <i
+                                className="icon-token-tx"
+                                style={{ display: 'block' }}
+                            />
+                        ),
+                        color: 'color-token-tx',
+                        txt: 'TX'
+                    });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TX_code`, {
+                        ns: ns
+                    });
                     break;
                 default:
-                    asset.push(
-                        {
-                            'image': <i className="icon-token-tp_0" style={{display: "block"}} />,
-                            'color': 'color-token-tp',
-                            'txt': 'TP'
-                        }
-                    );
-                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, { ns: ns });
+                    asset.push({
+                        image: (
+                            <i
+                                className="icon-token-tp_0"
+                                style={{ display: 'block' }}
+                            />
+                        ),
+                        color: 'color-token-tp',
+                        txt: 'TP'
+                    });
+                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, {
+                        ns: ns
+                    });
                     break;
             }
 
             data.push({
                 key: element.key,
                 info: '',
-                event: <span className={classnames('event-action', `${asset[0].color}`)}>{element.event}</span>,
+                event: (
+                    <span
+                        className={classnames(
+                            'event-action',
+                            `${asset[0].color}`
+                        )}
+                    >
+                        {element.event}
+                    </span>
+                ),
                 asset: asset[0].image,
                 // platform: <span className="display-inline CurrencyTx">{element.platform} {asset[0].txt}</span>,
-                platform: <span className="display-inline CurrencyTx">{element.platform}</span>,
-                wallet: <span className="display-inline ">{element.wallet} </span>,
+                platform: (
+                    <span className="display-inline CurrencyTx">
+                        {element.platform}
+                    </span>
+                ),
+                wallet: (
+                    <span className="display-inline ">{element.wallet} </span>
+                ),
                 date: <span>{element.date}</span>,
-                status: <div style={{ width: '100%' }}>
-                    {changeStatus(element.status.percent,element.status.txt)}
-                </div>,
-                description: (width<=768)? <RowColumn detail={element.detail} /> : <RowDetail detail={element.detail} />,
+                status: (
+                    <div style={{ width: '100%' }}>
+                        {changeStatus(
+                            element.status.percent,
+                            element.status.txt
+                        )}
+                    </div>
+                ),
+                description:
+                    width <= 768 ? (
+                        <RowColumn detail={element.detail} />
+                    ) : (
+                        <RowDetail detail={element.detail} />
+                    )
             });
+        });
+    };
 
-        })
-
-    }
-
-    data_row(current)
+    data_row(current);
 
     //const { xScroll, yScroll, ...state } = this.state;
 
@@ -364,7 +476,7 @@ export default function ListOperations(props) {
         scroll.x = '100vw';
     }
 
-    const tableColumns = columns.map(item => ({ ...item }));
+    const tableColumns = columns.map((item) => ({ ...item }));
 
     if (xScroll === 'fixed') {
         tableColumns[0].fixed = true;
@@ -385,47 +497,62 @@ export default function ListOperations(props) {
         top,
         bottom,
         yScroll,
-        xScroll,
-    }
+        xScroll
+    };
 
     useEffect(() => {
-        setTimeout(() => setLoadingSke(false), timeSke)
-    },[auth]);
+        setTimeout(() => setLoadingSke(false), timeSke);
+    }, [auth]);
 
     return (
         <>
             <div className="title">
-                <h1 className="title-last-operations">{t(`operations.title`, { ns: ns })}</h1>
+                <h1 className="title-last-operations">
+                    {t(`operations.title`, { ns: ns })}
+                </h1>
             </div>
-            {!loadingSke ? <>
-            <Table
-                {...state}
-                expandable={{
-                    expandedRowRender: record => (
-                        <p style={{ margin: 0 }}>{record.description}</p>
-                    ),
-                    expandIcon: ({ expanded, onExpand, record }) =>
-                        expanded ? (
-                            <UpCircleOutlined onClick={e => onExpand(record, e)} />
-                        ) : (
-                            <DownCircleOutlined onClick={e => onExpand(record, e)} />
-                        )
-                }}
-                pagination={
-                    {
-                        pageSize:10,
-                        position: [top, bottom],
-                        defaultCurrent: 1,
-                        onChange:onChange ,
-                        total: totalTable
-                    }
-                }
-                columns={tableColumns}
-                dataSource={hasData ? (auth.isLoggedIn == true) ? data : null : null}
-                scroll={{y: 340}}
-            /></>:
-                <Skeleton active={true}  paragraph={{ rows: 4 }}></Skeleton>
-            }
+            {!loadingSke ? (
+                <>
+                    <Table
+                        {...state}
+                        expandable={{
+                            expandedRowRender: (record) => (
+                                <p style={{ margin: 0 }}>
+                                    {record.description}
+                                </p>
+                            ),
+                            expandIcon: ({ expanded, onExpand, record }) =>
+                                expanded ? (
+                                    <UpCircleOutlined
+                                        onClick={(e) => onExpand(record, e)}
+                                    />
+                                ) : (
+                                    <DownCircleOutlined
+                                        onClick={(e) => onExpand(record, e)}
+                                    />
+                                )
+                        }}
+                        pagination={{
+                            pageSize: 10,
+                            position: [top, bottom],
+                            defaultCurrent: 1,
+                            onChange: onChange,
+                            total: totalTable
+                        }}
+                        columns={tableColumns}
+                        dataSource={
+                            hasData
+                                ? auth.isLoggedIn == true
+                                    ? data
+                                    : null
+                                : null
+                        }
+                        scroll={{ y: 340 }}
+                    />
+                </>
+            ) : (
+                <Skeleton active={true} paragraph={{ rows: 4 }}></Skeleton>
+            )}
         </>
     );
 }

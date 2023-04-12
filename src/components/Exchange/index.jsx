@@ -1,10 +1,9 @@
-
 import { Switch, Button } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
-import {useProjectTranslation} from "../../helpers/translations";
-import SelectCurrency from "../SelectCurrency";
-import ModalConfirmOperation from "../Modals/ConfirmOperation";
+import { useProjectTranslation } from '../../helpers/translations';
+import SelectCurrency from '../SelectCurrency';
+import ModalConfirmOperation from '../Modals/ConfirmOperation';
 import {
     TokenSettings,
     TokenBalance,
@@ -12,29 +11,36 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-    AmountsWithCommissions } from '../../helpers/currencies';
-import { tokenExchange, tokenReceive, isMintOperation } from '../../helpers/exchange';
+    AmountsWithCommissions
+} from '../../helpers/currencies';
+import {
+    tokenExchange,
+    tokenReceive,
+    isMintOperation
+} from '../../helpers/exchange';
 
-import settings from '../../settings/settings.json'
+import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from './InputAmount';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 
-
 export default function Exchange() {
-
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const defaultTokenExchange = tokenExchange()[0]
-    const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0]
+    const defaultTokenExchange = tokenExchange()[0];
+    const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
-    const [currencyYouExchange, setCurrencyYouExchange] = useState(defaultTokenExchange);
-    const [currencyYouReceive, setCurrencyYouReceive] = useState(defaultTokenReceive);
+    const [currencyYouExchange, setCurrencyYouExchange] =
+        useState(defaultTokenExchange);
+    const [currencyYouReceive, setCurrencyYouReceive] =
+        useState(defaultTokenReceive);
 
-    const [amountYouExchange, setAmountYouExchange] = useState(new BigNumber(0));
+    const [amountYouExchange, setAmountYouExchange] = useState(
+        new BigNumber(0)
+    );
     const [amountYouReceive, setAmountYouReceive] = useState(new BigNumber(0));
 
     const [commission, setCommission] = useState('0.0');
@@ -42,7 +48,7 @@ export default function Exchange() {
 
     const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
 
-    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive)
+    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -54,209 +60,256 @@ export default function Exchange() {
 
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         setCurrencyYouExchange(newCurrencyYouExchange);
-        setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0])
-        onChangeAmountYouReceive(0.0)
-        onChangeAmountYouExchange(0.0)
+        setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0]);
+        onChangeAmountYouReceive(0.0);
+        onChangeAmountYouExchange(0.0);
     };
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
         setCurrencyYouReceive(newCurrencyYouReceive);
-        onChangeAmountYouReceive(0.0)
-        onChangeAmountYouExchange(0.0)
+        onChangeAmountYouReceive(0.0);
+        onChangeAmountYouExchange(0.0);
     };
 
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
-
         // set the other input
-        let infoFee
-        let amountExchangeFee
-        let amountReceiveFee
+        let infoFee;
+        let amountExchangeFee;
+        let amountReceiveFee;
         switch (source) {
             case 'exchange':
-                infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountReceive, false)
-                amountExchangeFee = amountExchange
-                amountReceiveFee = amountReceive.minus(infoFee.fee)
-                setAmountYouReceive(amountReceiveFee)
-                setAmountYouExchange(amountExchangeFee)
-                break
+                infoFee = CalcCommission(
+                    auth,
+                    currencyYouExchange,
+                    currencyYouReceive,
+                    amountReceive,
+                    false
+                );
+                amountExchangeFee = amountExchange;
+                amountReceiveFee = amountReceive.minus(infoFee.fee);
+                setAmountYouReceive(amountReceiveFee);
+                setAmountYouExchange(amountExchangeFee);
+                break;
             case 'receive':
-                infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, false)
-                amountExchangeFee = amountExchange.plus(infoFee.fee)
-                amountReceiveFee = amountReceive
-                setAmountYouExchange(amountExchangeFee)
-                setAmountYouReceive(amountReceiveFee)
-                break
+                infoFee = CalcCommission(
+                    auth,
+                    currencyYouExchange,
+                    currencyYouReceive,
+                    amountExchange,
+                    false
+                );
+                amountExchangeFee = amountExchange.plus(infoFee.fee);
+                amountReceiveFee = amountReceive;
+                setAmountYouExchange(amountExchangeFee);
+                setAmountYouReceive(amountReceiveFee);
+                break;
             default:
                 throw new Error('Invalid source name');
         }
 
         // Set exchanging total in USD
-        let convertAmountUSD
+        let convertAmountUSD;
         if (IS_MINT) {
-            infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountExchange, false)
-            convertAmountUSD = amountExchangeFee
+            infoFee = CalcCommission(
+                auth,
+                currencyYouExchange,
+                currencyYouReceive,
+                amountExchange,
+                false
+            );
+            convertAmountUSD = amountExchangeFee;
         } else {
-            infoFee = CalcCommission(auth, currencyYouExchange, currencyYouReceive, amountReceive, false)
-            convertAmountUSD = amountReceiveFee
+            infoFee = CalcCommission(
+                auth,
+                currencyYouExchange,
+                currencyYouReceive,
+                amountReceive,
+                false
+            );
+            convertAmountUSD = amountReceiveFee;
         }
 
-        setCommission(infoFee.fee)
-        setCommissionPercent(infoFee.percent)
-        setExchangingUSD(convertAmountUSD)
-
+        setCommission(infoFee.fee);
+        setCommissionPercent(infoFee.percent);
+        setExchangingUSD(convertAmountUSD);
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
-        const convertAmountReceive = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, newAmount, false)
-        onChangeAmounts( new BigNumber(newAmount), convertAmountReceive, 'exchange')
+        const convertAmountReceive = ConvertAmount(
+            auth,
+            currencyYouExchange,
+            currencyYouReceive,
+            newAmount,
+            false
+        );
+        onChangeAmounts(
+            new BigNumber(newAmount),
+            convertAmountReceive,
+            'exchange'
+        );
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
-        const convertAmountExchange = ConvertAmount(auth, currencyYouReceive, currencyYouExchange, newAmount, false)
-        onChangeAmounts(convertAmountExchange,  new BigNumber(newAmount), 'receive')
+        const convertAmountExchange = ConvertAmount(
+            auth,
+            currencyYouReceive,
+            currencyYouExchange,
+            newAmount,
+            false
+        );
+        onChangeAmounts(
+            convertAmountExchange,
+            new BigNumber(newAmount),
+            'receive'
+        );
     };
 
     const setAddTotalAvailable = () => {
+        const tokenSettings = TokenSettings(currencyYouExchange);
+        const totalYouExchange = new BigNumber(
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouExchange),
+                tokenSettings.decimals
+            )
+        );
+        const convertAmountReceive = ConvertAmount(
+            auth,
+            currencyYouExchange,
+            currencyYouReceive,
+            totalYouExchange,
+            false
+        );
 
-        const tokenSettings = TokenSettings(currencyYouExchange)
-        const totalYouExchange = new BigNumber(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), tokenSettings.decimals))
-        const convertAmountReceive = ConvertAmount(auth, currencyYouExchange, currencyYouReceive, totalYouExchange, false)
-
-        setAmountYouExchange(totalYouExchange)
-        onChangeAmounts( new BigNumber(totalYouExchange), convertAmountReceive, 'exchange')
+        setAmountYouExchange(totalYouExchange);
+        onChangeAmounts(
+            new BigNumber(totalYouExchange),
+            convertAmountReceive,
+            'exchange'
+        );
     };
 
     return (
-    <div className="exchange-content">
-        <div className="fields">
-            <div className="swap-from">
+        <div className="exchange-content">
+            <div className="fields">
+                <div className="swap-from">
+                    <SelectCurrency
+                        className="select-token"
+                        value={currencyYouExchange}
+                        currencyOptions={tokenExchange()}
+                        onChange={onChangeCurrencyYouExchange}
+                    />
 
-                <SelectCurrency
-                    className="select-token"
-                    value={currencyYouExchange}
-                    currencyOptions={tokenExchange()}
-                    onChange={onChangeCurrencyYouExchange}
-                />
+                    <InputAmount
+                        InputValue={AmountToVisibleValue(
+                            amountYouExchange,
+                            currencyYouReceive,
+                            3,
+                            false
+                        )}
+                        placeholder={'0.00'}
+                        onValueChange={onChangeAmountYouExchange}
+                        validateError={false}
+                    />
 
-                <InputAmount
-                    InputValue={AmountToVisibleValue(amountYouExchange, currencyYouReceive, 3, false)}
-                    placeholder={'0.00'}
-                    onValueChange={onChangeAmountYouExchange}
-                    validateError={false}
-                />
-
-                <div className="token-balance">
-                    <span className="token-balance-value">
-                        Balance: {PrecisionNumbers({
-                                    amount: TokenBalance(auth, currencyYouExchange),
-                                    token: TokenSettings(currencyYouExchange),
-                                    decimals: TokenSettings(currencyYouExchange).visibleDecimals,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns
-                                })}
-                    </span>
-                    <a href="#" className="token-balance-add-total" onClick={setAddTotalAvailable}>Add total available</a>
-
-                </div>
-
-            </div>
-
-            <div className="swap-arrow">
-                <i className="icon-swap-arrow"></i>
-            </div>
-
-            <div className="swap-to">
-
-                <SelectCurrency
-                    className="select-token"
-                    value={currencyYouReceive}
-                    currencyOptions={tokenReceive(currencyYouExchange)}
-                    onChange={onChangeCurrencyYouReceive}
-                />
-
-                <InputAmount
-                    InputValue={AmountToVisibleValue(amountYouReceive, currencyYouReceive, 3, false)}
-                    placeholder={'0.00'}
-                    onValueChange={onChangeAmountYouReceive}
-                    validateError={false}
-                />
-
-                <div className="token-balance">
-                    <span className="token-balance-value">
-                        Max: {PrecisionNumbers({
-                        amount: ConvertBalance(auth, currencyYouExchange, currencyYouReceive),
-                        token: TokenSettings(currencyYouReceive),
-                        decimals: TokenSettings(currencyYouReceive).visibleDecimals,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}
-                    </span>
-                    <a href="#" className="token-balance-add-total" onClick={setAddTotalAvailable}>Add total available</a>
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <div className="info">
-            <div className="prices">
-                <div className="conversion_0">
-                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })}</span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}> {PrecisionNumbers({
-                            amount: ConvertAmount(auth, currencyYouExchange, currencyYouReceive, 1, false),
-                            token: TokenSettings(currencyYouExchange),
-                            decimals: 6,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
+                    <div className="token-balance">
+                        <span className="token-balance-value">
+                            Balance:{' '}
+                            {PrecisionNumbers({
+                                amount: TokenBalance(auth, currencyYouExchange),
+                                token: TokenSettings(currencyYouExchange),
+                                decimals:
+                                    TokenSettings(currencyYouExchange)
+                                        .visibleDecimals,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns
+                            })}
                         </span>
-                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })} </span>
+                        <a
+                            href="#"
+                            className="token-balance-add-total"
+                            onClick={setAddTotalAvailable}
+                        >
+                            Add total available
+                        </a>
+                    </div>
                 </div>
-                <div className="conversion_1">
-                    <span className={'token_exchange'}> 1 {t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}> {PrecisionNumbers({
-                            amount: ConvertAmount(auth, currencyYouReceive, currencyYouExchange, 1, false),
-                            token: TokenSettings(currencyYouReceive),
-                            decimals: 6,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className={'token_receive_name'}> {t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })} </span>
 
+                <div className="swap-arrow">
+                    <i className="icon-swap-arrow"></i>
+                </div>
 
+                <div className="swap-to">
+                    <SelectCurrency
+                        className="select-token"
+                        value={currencyYouReceive}
+                        currencyOptions={tokenReceive(currencyYouExchange)}
+                        onChange={onChangeCurrencyYouReceive}
+                    />
+
+                    <InputAmount
+                        InputValue={AmountToVisibleValue(
+                            amountYouReceive,
+                            currencyYouReceive,
+                            3,
+                            false
+                        )}
+                        placeholder={'0.00'}
+                        onValueChange={onChangeAmountYouReceive}
+                        validateError={false}
+                    />
+
+                    <div className="token-balance">
+                        <span className="token-balance-value">
+                            Max:{' '}
+                            {PrecisionNumbers({
+                                amount: ConvertBalance(
+                                    auth,
+                                    currencyYouExchange,
+                                    currencyYouReceive
+                                ),
+                                token: TokenSettings(currencyYouReceive),
+                                decimals:
+                                    TokenSettings(currencyYouReceive)
+                                        .visibleDecimals,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <a
+                            href="#"
+                            className="token-balance-add-total"
+                            onClick={setAddTotalAvailable}
+                        >
+                            Add total available
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div className="fees">
-                <div className="frame">
-                    <div className="frame-t">
-                        <span className={'token_exchange'}>Fee (
-                        {PrecisionNumbers({
-                            amount: new BigNumber(commissionPercent),
-                            token: TokenSettings(currencyYouExchange),
-                            decimals: 2,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                            %)
+            <div className="info">
+                <div className="prices">
+                    <div className="conversion_0">
+                        <span className={'token_exchange'}>
+                            {' '}
+                            1{' '}
+                            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                                ns: ns
+                            })}
                         </span>
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>
+                            {' '}
                             {PrecisionNumbers({
-                                amount: new BigNumber(commission),
+                                amount: ConvertAmount(
+                                    auth,
+                                    currencyYouExchange,
+                                    currencyYouReceive,
+                                    1,
+                                    false
+                                ),
                                 token: TokenSettings(currencyYouExchange),
                                 decimals: 6,
                                 t: t,
@@ -265,56 +318,136 @@ export default function Exchange() {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}> {(IS_MINT) ? t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns }) : t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}</span>
+                        <span className={'token_receive_name'}>
+                            {' '}
+                            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                                ns: ns
+                            })}{' '}
+                        </span>
                     </div>
-
-                    {/*<div className="switch">*/}
-                    {/*    <Switch*/}
-                    {/*        disabled={false}*/}
-                    {/*        checked={false}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
+                    <div className="conversion_1">
+                        <span className={'token_exchange'}>
+                            {' '}
+                            1{' '}
+                            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                                ns: ns
+                            })}
+                        </span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {' '}
+                            {PrecisionNumbers({
+                                amount: ConvertAmount(
+                                    auth,
+                                    currencyYouReceive,
+                                    currencyYouExchange,
+                                    1,
+                                    false
+                                ),
+                                token: TokenSettings(currencyYouReceive),
+                                decimals: 6,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}>
+                            {' '}
+                            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                                ns: ns
+                            })}{' '}
+                        </span>
+                    </div>
                 </div>
-                <div className="balance">
-                    This fee will be deducted from the transaction value transferred. <br />
-                    Amounts my be different at transaction confirmation.
+
+                <div className="fees">
+                    <div className="frame">
+                        <div className="frame-t">
+                            <span className={'token_exchange'}>
+                                Fee (
+                                {PrecisionNumbers({
+                                    amount: new BigNumber(commissionPercent),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                                %)
+                            </span>
+                            <span className={'symbol'}> ≈ </span>
+                            <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: new BigNumber(commission),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals: 6,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                            <span className={'token_receive_name'}>
+                                {' '}
+                                {IS_MINT
+                                    ? t(
+                                          `exchange.tokens.${currencyYouExchange}.abbr`,
+                                          { ns: ns }
+                                      )
+                                    : t(
+                                          `exchange.tokens.${currencyYouReceive}.abbr`,
+                                          { ns: ns }
+                                      )}
+                            </span>
+                        </div>
+
+                        {/*<div className="switch">*/}
+                        {/*    <Switch*/}
+                        {/*        disabled={false}*/}
+                        {/*        checked={false}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                    </div>
+                    <div className="balance">
+                        This fee will be deducted from the transaction value
+                        transferred. <br />
+                        Amounts my be different at transaction confirmation.
+                    </div>
                 </div>
 
-            </div>
-
-            <div className="cta">
-                <span className="exchanging">
-                    <span className={'token_exchange'}>Exchanging </span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
-                        {PrecisionNumbers({
-                            amount: exchangingUSD,
-                            token: TokenSettings('CA_0'),
-                            decimals: 2,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
+                <div className="cta">
+                    <span className="exchanging">
+                        <span className={'token_exchange'}>Exchanging </span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: exchangingUSD,
+                                token: TokenSettings('CA_0'),
+                                decimals: 2,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}> USD</span>
                     </span>
-                    <span className={'token_receive_name'}> USD</span>
-                </span>
 
-                <ModalConfirmOperation
-                    currencyYouExchange={currencyYouExchange}
-                    currencyYouReceive={currencyYouReceive}
-                    exchangingUSD={exchangingUSD}
-                    commission={commission}
-                    commissionPercent={commissionPercent}
-                    amountYouExchange={amountYouExchange}
-                    amountYouReceive={amountYouReceive}
-                    //amountYouExchangeFee={amountYouExchangeFee}
-                    //amountYouReceiveFee={amountYouReceiveFee}
-                />
-
+                    <ModalConfirmOperation
+                        currencyYouExchange={currencyYouExchange}
+                        currencyYouReceive={currencyYouReceive}
+                        exchangingUSD={exchangingUSD}
+                        commission={commission}
+                        commissionPercent={commissionPercent}
+                        amountYouExchange={amountYouExchange}
+                        amountYouReceive={amountYouReceive}
+                        //amountYouExchangeFee={amountYouExchangeFee}
+                        //amountYouReceiveFee={amountYouReceiveFee}
+                    />
+                </div>
             </div>
         </div>
-
-    </div>
-    )
+    );
 }
