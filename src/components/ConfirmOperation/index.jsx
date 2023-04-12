@@ -24,7 +24,8 @@ export default function ConfirmOperation(props) {
         commission,
         commissionPercent,
         amountYouExchange,
-        amountYouReceive
+        amountYouReceive,
+        onCloseModal
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -174,6 +175,11 @@ export default function ConfirmOperation(props) {
         const limits = toleranceLimits(newTolerance)
         setAmountYouExchangeLimit(limits.exchange)
         setAmountYouReceiveLimit(limits.receive)
+    };
+
+    const onClose = () => {
+        setStatus('SUBMIT');
+        onCloseModal()
     };
 
     return (
@@ -379,7 +385,7 @@ export default function ConfirmOperation(props) {
                         {statusLabel}
                     </div>
 
-                    <button type="primary" className="btnClose">Close</button>
+                    <button type="primary" className="btnClose" onClick={onClose}>Close</button>
 
                 </div>
 

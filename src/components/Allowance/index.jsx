@@ -49,6 +49,7 @@ export default function AllowanceDialog(props) {
     };
 
     const onClose = () => {
+        setStatus('SUBMIT');
         onCloseModal();
     };
 
