@@ -42,6 +42,10 @@ Requires:
 
 * Nodejs > 12
 
+Install nodejs
+
+`nvm use`
+
 Install packages
 
 `npm install`
