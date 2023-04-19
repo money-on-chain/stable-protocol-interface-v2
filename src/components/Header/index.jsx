@@ -1,8 +1,9 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useProjectTranslation } from '../../helpers/translations';
-import ModalExchange from '../Modals/Exchange';
+//import ModalExchange from '../Modals/Exchange';
 import { AuthenticateContext } from '../../context/Auth';
 
 const { Header } = Layout;
@@ -10,6 +11,15 @@ const { Header } = Layout;
 export default function SectionHeader() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const goToExchange = () => {
+        console.log("DEBUG>>>")
+        console.log(location)
+        navigate('/exchange');
+    };
 
     return (
         <Header>
@@ -27,7 +37,11 @@ export default function SectionHeader() {
                         <i className="logo-send"></i>{' '}
                         <span className="menu-nav-item-title">Send</span>{' '}
                     </a>
-                    <ModalExchange />
+                    <a href="#" onClick={goToExchange} className="menu-nav-item">
+                        <i className="logo-exchange"></i>{' '}
+                        <span className="menu-nav-item-title">Exchange</span>
+                    </a>
+                    {/*<ModalExchange />*/}
                     <a href="#" className="menu-nav-item">
                         <i className="logo-performance"></i>{' '}
                         <span className="menu-nav-item-title">Staking</span>{' '}

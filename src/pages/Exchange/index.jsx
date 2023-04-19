@@ -8,9 +8,9 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 import '../../assets/css/pages.scss';
 import StakingRewards from '../../components/Dashboards/StakingRewards';
-import Portfolio from '../../components/Dashboards/Portfolio';
+import Exchange from '../../components/Exchange';
 
-function Home(props) {
+function SectionExchange(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
@@ -20,8 +20,8 @@ function Home(props) {
             {/* Dashboard Staking Rewards */}
             <StakingRewards />
 
-            {/* Portfolio */}
-            <Portfolio />
+            {/* Exchange */}
+            <Exchange />
 
             <div className="content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
@@ -30,4 +30,4 @@ function Home(props) {
     );
 }
 
-export default Home;
+export default SectionExchange;

@@ -5,8 +5,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
-import StakingRewards from '../../../components/Dashboards/StakingRewards';
-import Portfolio from '../../../components/Dashboards/Portfolio';
 
 import '../../../assets/css/global.scss';
 
@@ -31,12 +29,6 @@ export default function Skeleton() {
             <SectionHeader />
             <Content>
                 <div className="content-container">
-                    {/* Dashboard Staking Rewards */}
-                    <StakingRewards />
-
-                    {/* Portfolio */}
-                    <Portfolio />
-
                     {/* Content page*/}
                     <div className="content-page">
                         <Outlet />
