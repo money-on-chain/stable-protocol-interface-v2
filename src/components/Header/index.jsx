@@ -3,7 +3,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useProjectTranslation } from '../../helpers/translations';
-//import ModalExchange from '../Modals/Exchange';
 import { AuthenticateContext } from '../../context/Auth';
 
 const { Header } = Layout;
@@ -15,9 +14,11 @@ export default function SectionHeader() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const goToPortfolio = () => {
+        navigate('/');
+    };
+
     const goToExchange = () => {
-        console.log("DEBUG>>>")
-        console.log(location)
         navigate('/exchange');
     };
 
@@ -29,24 +30,23 @@ export default function SectionHeader() {
                 </div>
 
                 <div className="central-menu">
-                    <a href="#" className="menu-nav-item">
+                    <a onClick={goToPortfolio} className="menu-nav-item">
                         <i className="logo-home"></i>{' '}
-                        <span className="menu-nav-item-title">Home</span>{' '}
+                        <span className="menu-nav-item-title">Portfolio</span>{' '}
                     </a>
-                    <a href="#" className="menu-nav-item">
+                    <a className="menu-nav-item">
                         <i className="logo-send"></i>{' '}
                         <span className="menu-nav-item-title">Send</span>{' '}
                     </a>
-                    <a href="#" onClick={goToExchange} className="menu-nav-item">
+                    <a onClick={goToExchange} className="menu-nav-item">
                         <i className="logo-exchange"></i>{' '}
                         <span className="menu-nav-item-title">Exchange</span>
                     </a>
-                    {/*<ModalExchange />*/}
-                    <a href="#" className="menu-nav-item">
+                    <a className="menu-nav-item">
                         <i className="logo-performance"></i>{' '}
                         <span className="menu-nav-item-title">Staking</span>{' '}
                     </a>
-                    <a href="#" className="menu-nav-item">
+                    <a className="menu-nav-item">
                         <i className="logo-more"></i>{' '}
                         <span className="menu-nav-item-title">
                             More Options

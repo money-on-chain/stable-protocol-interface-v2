@@ -21,7 +21,18 @@ function SectionExchange(props) {
             <StakingRewards />
 
             {/* Exchange */}
-            <Exchange />
+            <div className={'dashboard-exchange'}>
+
+                <div className={'title'}>
+                    <h1>Exchange</h1>
+                </div>
+
+                <div className={'content-body'}>
+                    <Exchange />
+                </div>
+
+            </div>
+
 
             <div className="content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
