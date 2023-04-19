@@ -1407,7 +1407,7 @@ h1.title-last-operations {
 }
 
 /* Modal Exchange */
-
+/*
 .ModalExchange {
     font-family: 'Chivo';
 
@@ -1455,7 +1455,7 @@ h1.title-last-operations {
         padding: 16px 32px 32px 32px;
     }
 }
-
+*/
 /* Exchange Component */
 
 .ant-select-dropdown {
@@ -1476,6 +1476,47 @@ h1.title-last-operations {
 
 .ant-select-item-option {
     color: #e6ebf2;
+}
+
+/* Exchange Section */
+.dashboard-exchange {
+    border-radius: 4px;
+    box-shadow: 0px 1px 4px rgba(0,0,0, 0.149913);
+    opacity: 1;
+    background-color: rgba(28,27,33, 1);
+    margin-top: 23px;
+    margin-bottom: 23px;
+    padding: 32px;
+
+    .title {
+
+        /*padding-top: 32px;
+        padding-left: 32px;*/
+
+        h1 {
+            opacity: 1;
+            color: rgba(195,204,217,1);
+            font-family: "Sora-Bold";
+            font-size: 20px;
+            font-weight: 700;
+            font-style: normal;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+
+
+    }
+
+    .content-body {
+        width: 733px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 32px;
+        padding-right: 32px;
+
+    }
+
+
 }
 
 .exchange-content {
@@ -1751,6 +1792,8 @@ h1.title-last-operations {
         }
     }
 }
+
+/* Confirm Modal */
 
 .ShowModalConfirmOperation {
     .btnConfirm {

@@ -11,6 +11,7 @@ const Skeleton = React.lazy(() =>
 );
 
 const Home = React.lazy(() => import('../../../pages/Home/index'));
+const Exchange = React.lazy(() => import('../../../pages/Exchange/index'));
 
 export default function Router() {
     return useRoutes([
@@ -21,6 +22,10 @@ export default function Router() {
                 {
                     path: '/',
                     element: <Home />
+                },
+                {
+                    path: 'exchange',
+                    element: <Exchange />
                 },
                 { path: '404', element: <NotFound /> },
                 { path: '*', element: <Navigate to="/404" /> }
