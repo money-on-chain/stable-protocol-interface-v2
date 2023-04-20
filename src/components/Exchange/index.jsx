@@ -71,6 +71,10 @@ export default function Exchange() {
         onChangeAmountYouExchange(0.0);
     };
 
+    const onClear = () => {
+        console.log("Clear button")
+    };
+
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
         // set the other input
         let infoFee;
@@ -189,6 +193,7 @@ export default function Exchange() {
     };
 
     return (
+    <div>
         <div className="exchange-content">
             <div className="fields">
                 <div className="swap-from">
@@ -417,37 +422,48 @@ export default function Exchange() {
                     </div>
                 </div>
 
-                <div className="cta">
-                    <span className="exchanging">
-                        <span className={'token_exchange'}>Exchanging </span>
-                        <span className={'symbol'}> ≈ </span>
-                        <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: exchangingUSD,
-                                token: TokenSettings('CA_0'),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-                        </span>
-                        <span className={'token_receive_name'}> USD</span>
-                    </span>
-
-                    <ModalConfirmOperation
-                        currencyYouExchange={currencyYouExchange}
-                        currencyYouReceive={currencyYouReceive}
-                        exchangingUSD={exchangingUSD}
-                        commission={commission}
-                        commissionPercent={commissionPercent}
-                        amountYouExchange={amountYouExchange}
-                        amountYouReceive={amountYouReceive}
-                        //amountYouExchangeFee={amountYouExchangeFee}
-                        //amountYouReceiveFee={amountYouReceiveFee}
-                    />
-                </div>
             </div>
         </div>
+
+        <div className="exchange-footer">
+
+            <div className="exchanging">
+
+                <span className={'token_exchange'}>Exchanging </span>
+                <span className={'symbol'}> ≈ </span>
+                <span className={'token_receive'}>
+                    {PrecisionNumbers({
+                        amount: exchangingUSD,
+                        token: TokenSettings('CA_0'),
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                </span>
+                <span className={'token_receive_name'}> USD</span>
+
+            </div>
+
+            <div className="actions-buttons">
+
+                <ModalConfirmOperation
+                    currencyYouExchange={currencyYouExchange}
+                    currencyYouReceive={currencyYouReceive}
+                    exchangingUSD={exchangingUSD}
+                    commission={commission}
+                    commissionPercent={commissionPercent}
+                    amountYouExchange={amountYouExchange}
+                    amountYouReceive={amountYouReceive}
+                    onClear={onClear}
+                    //amountYouExchangeFee={amountYouExchangeFee}
+                    //amountYouReceiveFee={amountYouReceiveFee}
+                />
+
+            </div>
+
+        </div>
+    </div>
     );
 }

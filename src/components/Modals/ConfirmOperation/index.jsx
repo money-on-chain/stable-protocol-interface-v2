@@ -6,11 +6,20 @@ import ConfirmOperation from '../../ConfirmOperation';
 import { Button } from 'antd';
 
 export default function ModalConfirmOperation(props) {
+
+    const {
+        onClear
+    } = props;
+
     const [t, i18n, ns] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {
         setVisible(true);
+    };
+
+    const clear = () => {
+        onClear();
     };
 
     const hideModal = () => {
@@ -19,7 +28,10 @@ export default function ModalConfirmOperation(props) {
 
     return (
         <div className="ShowModalConfirmOperation">
-            <Button type="primary" className="btnConfirm" onClick={showModal}>
+            <Button type="secondary" className="secondary-button btn-clear" onClick={clear}>
+                Clear
+            </Button>
+            <Button type="primary" className="primary-button btn-confirm" onClick={showModal}>
                 Exchange
             </Button>
             <Modal

@@ -1496,7 +1496,7 @@ h1.title-last-operations {
         h1 {
             opacity: 1;
             color: rgba(195,204,217,1);
-            font-family: "Sora-Bold";
+            font-family: "Chivo";
             font-size: 20px;
             font-weight: 700;
             font-style: normal;
@@ -1525,7 +1525,7 @@ h1.title-last-operations {
     flex-direction: row;
     align-items: flex-start;
     padding: 0;
-    gap: 32px;
+    gap: 40px;
     width: 612px;
     height: 321px;
     border-radius: 8px;
@@ -1565,7 +1565,7 @@ h1.title-last-operations {
             font-size: 24px;
             line-height: 29px;
             text-align: right;
-            color: #f1eb14;
+            color: #FFF383;
         }
 
         input[type='number'].input-value::placeholder {
@@ -1619,7 +1619,7 @@ h1.title-last-operations {
                 font-size: 14px;
                 line-height: 17px;
                 text-align: right;
-                color: #f1eb14;
+                color: #FFF383;
             }
         }
 
@@ -1660,13 +1660,15 @@ h1.title-last-operations {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 0;
+        /*padding: 0;*/
         gap: 32px;
-        width: 260px;
+        width: 284px;
         height: 321px;
         flex: none;
         order: 1;
         flex-grow: 0;
+        border-left: 1px solid #3A3E40;
+        padding-left: 30px;
 
         .prices {
             display: flex;
@@ -1750,7 +1752,7 @@ h1.title-last-operations {
                     }
 
                     .ant-switch-handle::before {
-                        background-color: #f1eb14;
+                        background-color: #FFF383;
                     }
                 }
             }
@@ -1766,37 +1768,82 @@ h1.title-last-operations {
             }
         }
 
-        .cta {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 0;
-            gap: 24px;
-            width: 260px;
-            height: 96px;
-            flex: none;
-            order: 2;
-            align-self: stretch;
-            flex-grow: 0;
-
-            .exchanging {
-                width: 290px;
-                height: 19px;
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 19px;
-                text-align: left;
-                color: #f1eb14;
-            }
-        }
     }
+}
+
+.primary-button {
+    border-radius: 28px;
+    box-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
+    opacity: 1;
+    background-color: rgba(255,243,131, 1);
+    opacity: 1;
+    color: rgba(12,12,8,1);
+    font-family: "Chivo";
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0px;
+    text-align: center;
+    width: 200px;
+    height: 54px;
+}
+
+.secondary-button {
+    border-radius: 28px;
+    border: 2px solid rgba(255,243,131, 1);
+    opacity: 1;
+    background-color: transparent;
+    color: rgba(255,243,131,1);
+    font-family: "OpenSans";
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0px;
+    text-align: center;
+    width: 200px;
+    height: 54px;
+}
+
+.exchange-footer {
+    margin-top: 32px;
+
+    .exchanging {
+        width: 733px;
+        height: 19px;
+
+        opacity: 1;
+        color: rgba(255,243,131,1);
+        font-family: "Chivo";
+        font-size: 16px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: center;
+
+    }
+
+    .actions-buttons {
+
+        margin-top: 32px;
+        width: 733px;
+        text-align: center;
+
+        .btn-clear {
+
+        }
+
+        .btn-confirm {
+            margin-left: 10px;
+        }
+
+    }
+
 }
 
 /* Confirm Modal */
 
 .ShowModalConfirmOperation {
-    .btnConfirm {
+    /*.btnConfirm {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1816,7 +1863,7 @@ h1.title-last-operations {
         line-height: 21px;
         text-align: center;
         color: #0c0c08;
-    }
+    }*/
 }
 
 /*
