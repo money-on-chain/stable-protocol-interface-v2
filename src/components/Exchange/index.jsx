@@ -43,6 +43,9 @@ export default function Exchange() {
     );
     const [amountYouReceive, setAmountYouReceive] = useState(new BigNumber(0));
 
+    const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
+    const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
+
     const [commission, setCommission] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
 
@@ -139,6 +142,14 @@ export default function Exchange() {
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
+        if (newAmount === '0' && amountYouExchange.toString() === '0') {
+            setIsDirtyYouExchange(true);
+            setIsDirtyYouReceive(true);
+        } else {
+            setIsDirtyYouExchange(true);
+            setIsDirtyYouReceive(false);
+        }
+
         const convertAmountReceive = ConvertAmount(
             auth,
             currencyYouExchange,
@@ -154,6 +165,9 @@ export default function Exchange() {
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
+        setIsDirtyYouExchange(false);
+        setIsDirtyYouReceive(true);
+
         const convertAmountExchange = ConvertAmount(
             auth,
             currencyYouReceive,
@@ -205,15 +219,16 @@ export default function Exchange() {
                     />
 
                     <InputAmount
-                        InputValue={AmountToVisibleValue(
+                        InputValue={amountYouExchange.toString() === '0' ? 0 : AmountToVisibleValue(
                             amountYouExchange,
                             currencyYouReceive,
                             3,
                             false
                         )}
-                        placeholder={'0.00'}
+                        placeholder={'0.0'}
                         onValueChange={onChangeAmountYouExchange}
                         validateError={false}
+                        isDirty={isDirtyYouExchange}
                     />
 
                     <div className="token-balance">
@@ -253,15 +268,16 @@ export default function Exchange() {
                     />
 
                     <InputAmount
-                        InputValue={AmountToVisibleValue(
+                        InputValue={amountYouReceive.toString() === '0' ? 0 : AmountToVisibleValue(
                             amountYouReceive,
                             currencyYouReceive,
                             3,
                             false
                         )}
-                        placeholder={'0.00'}
+                        placeholder={'0.0'}
                         onValueChange={onChangeAmountYouReceive}
                         validateError={false}
+                        isDirty={isDirtyYouReceive}
                     />
 
                     <div className="token-balance">
