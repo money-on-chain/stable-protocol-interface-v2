@@ -264,7 +264,7 @@ export default function Exchange() {
                 </div>
 
                 <div className="swap-arrow">
-                    <i className="icon-swap-arrow"></i>
+                    <i className="icon-swap"></i>
                 </div>
 
                 <div className="swap-to">

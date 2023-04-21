@@ -212,7 +212,7 @@ export default function ConfirmOperation(props) {
                     </span>
                     <span className="token">
                         {' '}
-                        {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+                        {t(`exchange.tokens.${currencyYouExchange}.label`, {
                             ns: ns
                         })}{' '}
                     </span>
@@ -260,7 +260,7 @@ export default function ConfirmOperation(props) {
                     </span>
                     <span className="token">
                         {' '}
-                        {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+                        {t(`exchange.tokens.${currencyYouReceive}.label`, {
                             ns: ns
                         })}{' '}
                     </span>
@@ -517,7 +517,7 @@ export default function ConfirmOperation(props) {
 
                         <button
                             type="primary"
-                            className="btnClose"
+                            className="secondary-button-fixed btn-clear"
                             onClick={onClose}
                         >
                             Close
