@@ -35,7 +35,7 @@ export default function ModalConfirmOperation(props) {
                 Exchange
             </Button>
             <Modal
-                title="Exchange Details"
+                title="Confirm Exchange"
                 width={505}
                 visible={visible}
                 onCancel={hideModal}

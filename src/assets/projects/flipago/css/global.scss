@@ -890,15 +890,22 @@ h1.title-last-operations {
         font-weight: 900;
         font-size: 20px;
         line-height: 24px;
+        padding: 24px 24px;
     }
 
     .ant-modal-title {
-        color: #f1eb14 !important;
-        text-align: left !important;
+        opacity: 1;
+        color: rgba(255,243,131,1)  !important;
+        font-family: "Chivo";
+        font-size: 20px  !important;
+        font-weight: 700  !important;
+        font-style: normal  !important;
+        letter-spacing: 0px  !important;
+        text-align: left  !important;
     }
 
     .ant-modal-body {
-        padding: 32px;
+        padding: 14px 32px;
     }
 
     .ant-modal-content {
@@ -932,15 +939,16 @@ h1.title-last-operations {
     padding: 0;
     gap: 17px;
 
-    width: 451px;
+    /*width: 451px;*/
     /*height: 540px;*/
 
     .exchange {
         /* Exchange */
-        gap: 16px;
+        /*gap: 16px;*/
 
-        width: 451px;
-        height: 122px;
+        /*width: 451px;*/
+        width: 380px;
+        /*height: 122px;*/
 
         .swapFrom {
             display: flex;
@@ -948,53 +956,78 @@ h1.title-last-operations {
             justify-content: space-between;
             align-items: center;
             padding: 0;
-            gap: 8px;
+            /*gap: 8px;
             width: 451px;
-            height: 29px;
+            height: 29px;*/
 
             .value {
-                width: 420px;
+                /*width: 420px;
                 height: 29px;
-                font-style: normal;
+                 */
+                /*font-style: normal;
                 font-weight: 400;
                 font-size: 24px;
                 line-height: 29px;
                 text-align: left;
-                color: #f7f115;
+                color: #f7f115;*/
 
-                .limitWarning {
-                    display: block;
-                    font-family: 'Chivo';
-                    font-style: normal;
-                    font-weight: 400;
-                    font-size: 12px;
-                    line-height: 14px;
-                    text-align: left;
-                    /* Text/Text Primary */
-                    color: #c3ccd9;
-                }
+                opacity: 1;
+                color: rgba(195,204,217,1);
+                font-family: "Chivo";
+                font-size: 24px;
+                font-weight: 700;
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+
+
             }
 
             .token {
-                width: 114px;
-                height: 29px;
-                font-style: normal;
+                /*width: 114px;
+                height: 29px;*/
+                /*font-style: normal;
                 font-weight: 400;
                 font-size: 24px;
                 line-height: 29px;
                 color: #c3ccd9;
+                text-align: right;*/
+
+                opacity: 1;
+                color: rgba(127,138,153,1);
+                font-family: "Chivo";
+                font-size: 20px;
+                font-weight: 700;
+                font-style: normal;
+                letter-spacing: 0px;
                 text-align: right;
             }
         }
 
+        .limitSection {
+
+            .limitWarning {
+                display: block;
+                font-family: 'Chivo';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 14px;
+                text-align: left;
+                /* Text/Text Primary */
+                color: #c3ccd9;
+            }
+
+        }
+
         .swapArrow {
-            width: 451px;
-            height: 32px;
+            /*width: 451px;
+            height: 32px;*/
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .swapTo {
@@ -1003,20 +1036,29 @@ h1.title-last-operations {
             justify-content: space-between;
             align-items: center;
             padding: 0;
-            gap: 8px;
+            /*gap: 8px;
             width: 451px;
-            height: 29px;
+            height: 29px;*/
             .value {
-                width: 380px;
-                height: 29px;
-                font-style: normal;
+                /*width: 380px;
+                height: 29px;*/
+                /*font-style: normal;
                 font-weight: 400;
                 font-size: 24px;
                 line-height: 29px;
                 text-align: left;
-                color: #f7f115;
+                color: #f7f115;*/
 
-                .limitWarning {
+                opacity: 1;
+                color: rgba(195,204,217,1);
+                font-family: "Chivo";
+                font-size: 24px;
+                font-weight: 700;
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+
+                /*.limitWarning {
                     display: block;
                     font-family: 'Chivo';
                     font-style: normal;
@@ -1024,20 +1066,30 @@ h1.title-last-operations {
                     font-size: 12px;
                     line-height: 14px;
                     text-align: left;
-                    /* Text/Text Primary */
+
                     color: #c3ccd9;
-                }
+                }*/
             }
 
             .token {
-                width: 104px;
-                height: 29px;
-                font-style: normal;
+                /*width: 104px;
+                height: 29px;*/
+                /*font-style: normal;
                 font-weight: 400;
                 font-size: 24px;
                 line-height: 29px;
                 color: #c3ccd9;
+                text-align: right;*/
+
+                opacity: 1;
+                color: rgba(127,138,153,1);
+                font-family: "Chivo";
+                font-size: 20px;
+                font-weight: 700;
+                font-style: normal;
+                letter-spacing: 0px;
                 text-align: right;
+
             }
         }
     }
@@ -1090,22 +1142,44 @@ h1.title-last-operations {
         .value {
             width: 198px;
             height: 17px;
-            font-style: normal;
+            /*font-style: normal;
             font-weight: 400;
             font-size: 14px;
             line-height: 17px;
-            color: #c3ccd9;
+            color: #c3ccd9;*/
+
+            opacity: 1;
+            color: rgba(195,204,217,1);
+            /*font-family: "OpenSans";*/
+            font-size: 14px;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: 0px;
+            text-align: left;
         }
 
         .disclaimer {
             width: 436px;
             height: 28px;
-            font-style: normal;
+            /*font-style: normal;
             font-weight: 400;
             font-size: 12px;
             line-height: 14px;
-            color: #c3ccd9;
+            color: #c3ccd9;*/
+
+            opacity: 1;
+            color: rgba(127,138,153,1);
+            /*font-family: "OpenSans";*/
+            font-size: 12px;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: 0px;
+            text-align: left;
         }
+    }
+
+    .tx-submit {
+        width: 471px;
     }
 
     .customize-tolerance {
@@ -1126,12 +1200,22 @@ h1.title-last-operations {
 
             .PriceVariationContainer {
                 .warningSlider {
-                    font-family: 'Chivo';
+                    /*font-family: 'Chivo';
                     font-style: normal;
                     font-weight: 400;
                     font-size: 12px;
                     line-height: 14px;
-                    color: #e6ebf2;
+                    color: #e6ebf2;*/
+
+                    opacity: 1;
+                    color: rgba(195,204,217,1);
+                    font-family: "Chivo";
+                    font-size: 12px;
+                    font-weight: 400;
+                    font-style: normal;
+                    letter-spacing: 0px;
+                    text-align: left;
+
                 }
 
                 .ant-slider {
@@ -1162,6 +1246,7 @@ h1.title-last-operations {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                width: 270px;
                 /*font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -1187,8 +1272,8 @@ h1.title-last-operations {
         }
     }
 
-    .cta {
-        display: flex;
+    .exchanging {
+        /*display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -1196,20 +1281,20 @@ h1.title-last-operations {
         gap: 24px;
         width: 451px;
         height: 94px;
+        margin-top: 10px;*/
+
+        opacity: 1;
+        color: rgba(255,243,131,1);
+        font-family: "Chivo";
+        font-size: 16px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: center;
         margin-top: 10px;
 
-        .exchanging {
-            width: 300px;
-            height: 17px;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 17px;
-            text-align: center;
-            color: #faf515;
-            //margin-top: 90px;
-        }
 
+        /*
         .btn {
             display: flex;
             flex-direction: column;
@@ -1230,6 +1315,20 @@ h1.title-last-operations {
             text-align: center;
             color: #0c0c08;
             margin-top: 20px;
+        }*/
+    }
+
+    .actions-buttons {
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+
+        .btn-clear {
+
+        }
+
+        .btn-confirm {
+            margin-left: 10px;
         }
     }
 
@@ -1379,6 +1478,16 @@ h1.title-last-operations {
     background-image: url('../icons/SwapArrow.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+}
+
+.icon-swap-arrow-vertical {
+    width: 32px;
+    height: 32px;
+    display: block;
+    background-image: url('../icons/SwapVertical.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    color: #FFF383;
 }
 
 .icon-wheel {
@@ -1804,6 +1913,41 @@ h1.title-last-operations {
     height: 54px;
 }
 
+.primary-button-fixed {
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
+    opacity: 1;
+    background-color: rgba(255,243,131, 1);
+    color: rgba(12,12,8,1);
+    font-family: "Chivo";
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0px;
+    text-align: center;
+    width: 200px;
+    height: 54px;
+
+}
+
+.secondary-button-fixed {
+    border-radius: 4px;
+    border: 2px solid rgba(255,243,131, 1);
+    opacity: 1;
+    color: rgba(255,243,131,1);
+    background-color: transparent;
+    font-family: "Chivo";
+    /*font-family: "OpenSans-Bold";*/
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0px;
+    text-align: center;
+    width: 200px;
+    height: 54px;
+}
+
+
 .exchange-footer {
     margin-top: 32px;
 
@@ -2135,7 +2279,7 @@ h1.title-last-operations {
 }
 
 .ant-modal-close {
-    top: -7px;
+    /*top: -7px;*/
 }
 
 //.ant-modal-close-x {
