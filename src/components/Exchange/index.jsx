@@ -62,20 +62,25 @@ export default function Exchange() {
     }, [amountYouReceive]);
 
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
+        onClear();
         setCurrencyYouExchange(newCurrencyYouExchange);
         setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0]);
-        onChangeAmountYouReceive(0.0);
-        onChangeAmountYouExchange(0.0);
+        //onChangeAmountYouReceive(0.0);
+        //onChangeAmountYouExchange(0.0);
     };
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
+        onClear();
         setCurrencyYouReceive(newCurrencyYouReceive);
-        onChangeAmountYouReceive(0.0);
-        onChangeAmountYouExchange(0.0);
+        //onChangeAmountYouReceive(0.0);
+        //onChangeAmountYouExchange(0.0);
     };
 
     const onClear = () => {
-        console.log("Clear button")
+        setIsDirtyYouExchange(false);
+        setIsDirtyYouReceive(false);
+        setAmountYouExchange(new BigNumber(0));
+        setAmountYouReceive(new BigNumber(0));
     };
 
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
@@ -183,6 +188,10 @@ export default function Exchange() {
     };
 
     const setAddTotalAvailable = () => {
+
+        setIsDirtyYouExchange(false);
+        setIsDirtyYouReceive(false);
+
         const tokenSettings = TokenSettings(currencyYouExchange);
         const totalYouExchange = new BigNumber(
             fromContractPrecisionDecimals(
@@ -246,7 +255,6 @@ export default function Exchange() {
                             })}
                         </span>
                         <a
-                            href="#"
                             className="token-balance-add-total"
                             onClick={setAddTotalAvailable}
                         >
@@ -300,7 +308,6 @@ export default function Exchange() {
                             })}
                         </span>
                         <a
-                            href="#"
                             className="token-balance-add-total"
                             onClick={setAddTotalAvailable}
                         >
