@@ -66,7 +66,10 @@ export default function AllowanceDialog(props) {
             onReceipt
         ).then((value) => {
             onCloseModal();
-        });
+        }).catch((error) => {
+            console.log('ERROR');
+            setStatus('ERROR');
+        });;
     };
 
     const onTransaction = (transactionHash) => {

@@ -119,6 +119,9 @@ export default function ConfirmOperation(props) {
             onReceipt
         ).then((value) => {
             console.log('DONE!');
+        }).catch((error) => {
+            console.log('ERROR');
+            setStatus('ERROR');
         });
     };
 
@@ -149,7 +152,7 @@ export default function ConfirmOperation(props) {
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
-            statusLabel = 'Sign the transaction';
+            statusLabel = 'Sign the transaction using your wallet';
             break;
         case 'WAITING':
             sentIcon = 'icon-tx-waiting rotate';

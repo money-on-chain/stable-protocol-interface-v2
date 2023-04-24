@@ -41,6 +41,7 @@ export default function ModalConfirmOperation(props) {
                 onCancel={hideModal}
                 footer={null}
                 className="ModalConfirmOperation"
+                closable={false}
             >
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
             </Modal>
