@@ -17,7 +17,7 @@ export default function ModalAllowanceOperation(props) {
                 visible={visible}
                 onCancel={onHideModalAllowance}
                 footer={null}
-                className="ModalExchange"
+                className="ModalAllowance"
             >
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>

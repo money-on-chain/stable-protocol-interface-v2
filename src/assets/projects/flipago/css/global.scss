@@ -1450,7 +1450,7 @@ h1.title-last-operations {
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/tx-waiting.svg');
+    background-image: url('../icons/Signifier-2.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -1458,15 +1458,16 @@ h1.title-last-operations {
 .icon-tx-success {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/tx-success.svg');
+    background-image: url('../icons/Signifier-3.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
 
 .icon-tx-error {
+    display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/tx-error.svg');
+    background-image: url('../icons/Signifier-1.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -1513,6 +1514,9 @@ h1.title-last-operations {
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
+
+
+
 
 /* Modal Exchange */
 /*
@@ -2045,40 +2049,69 @@ h1.title-last-operations {
 
 /* Modal Allowance */
 
+/* Modal Allowance */
+
+.ModalAllowance {
+    font-family: 'Chivo';
+
+    .ant-modal-content {
+        background: linear-gradient(
+                        0deg,
+                        rgba(189, 207, 255, 0.08),
+                        rgba(189, 207, 255, 0.08)
+        ),
+        #131215;
+        box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+        0px 1px 2px rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+    }
+
+    .ant-modal-header {
+        background-color: transparent !important;
+        border-bottom: 0 !important;
+        font-style: italic;
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 24px;
+        padding: 10px 32px 10px 32px;
+    }
+
+    .ant-modal-title {
+        /*color: #f1eb14 !important;*/
+        text-align: left;
+        padding-top: 20px;
+        opacity: 1;
+
+        font-family: "Chivo";
+        font-size: 20px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        color: rgba(255,243,131,1) !important;
+    }
+
+    .ant-modal-content {
+        border: 0 !important;
+    }
+
+    .ant-modal-close-x {
+        color: #c3ccd9;
+    }
+
+    .ant-modal-close {
+        top: 8px;
+    }
+
+    .ant-modal-body {
+        padding: 16px 32px 32px 32px;
+    }
+}
+
+
 /* Allowance Dialog */
 
 .AllowanceDialog {
     font-family: 'Chivo';
-
-    /*
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 32px;
-  gap: 22px;
-  position: relative;
-  width: 488px;
-  height: 285px;
-  background: #26272F;
-  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-
-
-   */
-    /*
-  .Title {
-
-
-    font-style: italic;
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 24px;
-    color: #F1EB14;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-  }
-*/
     .Content {
         display: flex;
         flex-direction: column;
@@ -2190,7 +2223,7 @@ h1.title-last-operations {
             order: 3;
             align-self: stretch;
             flex-grow: 0;
-
+/*
             .btnClose {
                 font-style: normal;
                 font-weight: 400;
@@ -2211,7 +2244,8 @@ h1.title-last-operations {
                 border: 2px solid #f1eb14;
                 border-radius: 4px;
             }
-
+*/
+            /*
             .btnAuthorize {
                 font-style: normal;
                 font-weight: 400;
@@ -2232,6 +2266,8 @@ h1.title-last-operations {
                     0px 1px 3px rgba(0, 0, 0, 0.3);
                 border-radius: 4px;
             }
+
+             */
         }
     }
 }
