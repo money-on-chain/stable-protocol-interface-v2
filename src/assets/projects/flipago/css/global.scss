@@ -1721,6 +1721,17 @@ h1.title-last-operations {
             -moz-appearance: textfield;
         }
 
+        .input-validation-error {
+            opacity: 1;
+            color: rgba(229,74,73,1);
+            font-family: "OpenSans";
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+
         .token-balance {
             display: flex;
             flex-direction: row;

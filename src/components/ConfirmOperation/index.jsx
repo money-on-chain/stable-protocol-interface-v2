@@ -120,6 +120,10 @@ export default function ConfirmOperation(props) {
             tokenAmount = amountYouExchange;
             limitAmount = amountYouReceiveLimit;
         }
+
+        console.log("DEBUG>>>")
+        console.log(tokenAmount.toString())
+        console.log(limitAmount.toString())
         auth.interfaceExchangeMethod(
             currencyYouExchange,
             currencyYouReceive,

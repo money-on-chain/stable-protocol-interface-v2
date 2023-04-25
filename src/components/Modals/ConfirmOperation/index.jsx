@@ -8,7 +8,8 @@ import { Button } from 'antd';
 export default function ModalConfirmOperation(props) {
 
     const {
-        onClear
+        onClear,
+        inputValidationError
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -31,7 +32,7 @@ export default function ModalConfirmOperation(props) {
             <Button type="secondary" className="secondary-button btn-clear" onClick={clear}>
                 Clear
             </Button>
-            <Button type="primary" className="primary-button btn-confirm" onClick={showModal}>
+            <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
                 Exchange
             </Button>
             <Modal

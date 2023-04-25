@@ -51,6 +51,9 @@ export default function Exchange() {
 
     const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
 
+    const [inputValidationErrorText, setInputValidationErrorText] = useState('');
+    const [inputValidationError, setInputValidationError] = useState(false);
+
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
@@ -60,6 +63,12 @@ export default function Exchange() {
     useEffect(() => {
         setAmountYouReceive(amountYouReceive);
     }, [amountYouReceive]);
+
+    useEffect(() => {
+        if (amountYouExchange) {
+            onValidate();
+        }
+    }, [amountYouExchange]);
 
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         onClear();
@@ -81,6 +90,30 @@ export default function Exchange() {
         setIsDirtyYouReceive(false);
         setAmountYouExchange(new BigNumber(0));
         setAmountYouReceive(new BigNumber(0));
+    };
+
+    const onValidate = () => {
+
+        const totalBalance = new BigNumber(
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouExchange),
+                TokenSettings(currencyYouExchange).decimals
+            )
+        );
+
+        console.log("DEBUG")
+        console.log(amountYouExchange.toString())
+        console.log(totalBalance.toString())
+
+        if (amountYouExchange.gt(totalBalance)) {
+            setInputValidationErrorText('Not enough balance in your wallet');
+            setInputValidationError(true);
+            return
+        }
+
+        setInputValidationErrorText('');
+        setInputValidationError(false);
+
     };
 
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
@@ -239,6 +272,7 @@ export default function Exchange() {
                         validateError={false}
                         isDirty={isDirtyYouExchange}
                     />
+                    <div className="input-validation-error">{inputValidationErrorText}</div>
 
                     <div className="token-balance">
                         <span className="token-balance-value">
@@ -480,6 +514,7 @@ export default function Exchange() {
                     amountYouExchange={amountYouExchange}
                     amountYouReceive={amountYouReceive}
                     onClear={onClear}
+                    inputValidationError={inputValidationError}
                     //amountYouExchangeFee={amountYouExchangeFee}
                     //amountYouReceiveFee={amountYouReceiveFee}
                 />
