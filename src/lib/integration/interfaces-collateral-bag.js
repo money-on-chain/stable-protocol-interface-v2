@@ -54,6 +54,7 @@ const mintTC = async (
             settings.tokens.CA[caIndex].name
         } in your spendable balance`
     );
+    /*
     const userSpendableBalance = new BigNumber(
         fromContractPrecisionDecimals(
             userBalanceData.CA[caIndex].allowance,
@@ -64,7 +65,7 @@ const mintTC = async (
         throw new Error(
             'Insufficient spendable balance... please make an allowance to the MoC contract'
         );
-
+    */
     // Calculate estimate gas cost
     const estimateGas = await MocCAWrapper.methods
         .mintTC(
@@ -252,6 +253,7 @@ const mintTP = async (
             settings.tokens.CA[caIndex].name
         } in your spendable balance`
     );
+    /*
     const userSpendableBalance = new BigNumber(
         fromContractPrecisionDecimals(
             userBalanceData.CA[caIndex].allowance,
@@ -262,6 +264,8 @@ const mintTP = async (
         throw new Error(
             'Insufficient spendable balance... please make an allowance to the MoC contract'
         );
+
+     */
 
     // There are sufficient PEGGED in the contracts to mint?
     const tpAvailableToMint = new BigNumber(
