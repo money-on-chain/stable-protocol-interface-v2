@@ -18,6 +18,8 @@ const tokenMap = {
     TP_1: ['CA_0', 'CA_1']
 };
 
+const VERY_HIGH_NUMBER = 100000000000;
+
 const tokenExchange = () => Object.keys(tokenMap);
 const tokenReceive = (tExchange) => tokenMap[tExchange];
 
@@ -58,13 +60,13 @@ function TokenAllowance(auth, tokenExchange) {
             break;
         case 'TP_0':
             allowance = toContractPrecisionDecimals(
-                Number.MAX_SAFE_INTEGER.toString(),
+                new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
             );
             break;
         case 'TP_1':
             allowance = toContractPrecisionDecimals(
-                Number.MAX_SAFE_INTEGER.toString(),
+                new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
             );
             break;
@@ -80,6 +82,7 @@ function TokenAllowance(auth, tokenExchange) {
 
 function UserTokenAllowance(auth, tokenExchange) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
+
     const allowance = new BigNumber(
         fromContractPrecisionDecimals(
             TokenAllowance(auth, tokenExchange),

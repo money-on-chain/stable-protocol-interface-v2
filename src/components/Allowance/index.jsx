@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import React, { useContext, useState, useEffect } from 'react';
 import { Checkbox } from 'antd';
 
@@ -18,6 +19,7 @@ export default function AllowanceDialog(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
+    let infinityAllowance = false;
 
     let sentIcon = '';
     let statusLabel = '';
@@ -47,21 +49,35 @@ export default function AllowanceDialog(props) {
 
     const onChange = (e) => {
         console.log(`checked = ${e.target.checked}`);
+        infinityAllowance = true
+    };
+
+    const reset = () => {
+        setStatus('SUBMIT');
+        infinityAllowance = false
+
     };
 
     const onClose = () => {
-        setStatus('SUBMIT');
+        reset();
         onCloseModal();
     };
 
     const onAuthorize = () => {
         // First change status to sign tx
         //amountAllowance = new BigNumber(1000) //Number.MAX_SAFE_INTEGER.toString()
+        let amountAllowance;
+        if (infinityAllowance) {
+            amountAllowance = new BigNumber(100000000000);
+        } else {
+            amountAllowance = amountYouExchangeLimit;
+        }
+
         setStatus('SIGN');
         auth.interfaceAllowanceAmount(
             currencyYouExchange,
             currencyYouReceive,
-            amountYouExchangeLimit,
+            amountAllowance,
             onTransaction,
             onReceipt
         ).then((value) => {

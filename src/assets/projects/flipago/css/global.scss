@@ -290,7 +290,8 @@ html {
 
     /* Buttons/Button Primary */
 
-    color: #f1eb14;
+    /*color: #f1eb14;*/
+    color: rgba(255,243,131, 1);
 
     width: 128px;
     height: 24px;
@@ -303,7 +304,8 @@ html {
 }
 
 .wallet-address a {
-    color: #f1eb14;
+    /*color: #f1eb14;*/
+    color: rgba(255,243,131, 1);
 }
 
 .logo-wallet {
@@ -1224,8 +1226,9 @@ h1.title-last-operations {
                     }
 
                     .ant-slider-handle {
-                        background-color: #f1eb14;
-                        border: solid 2px #f1eb14;
+                        background-color: rgba(255,243,131, 1);
+                        /*background-color: #f1eb14;*/
+                        border: solid 2px rgba(255,243,131, 1);
                     }
                     .ant-slider-track {
                         background-color: #25282d;
@@ -1594,12 +1597,14 @@ h1.title-last-operations {
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
     color: #222;
     /*font-weight: 600;*/
-    background-color: #f1eb14;
+    /*background-color: #f1eb14;*/
+    background-color: rgba(255,243,131, 1);
 }
 
 .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
     color: #222;
-    background-color: #f1eb14;
+    /*background-color: #f1eb14;*/
+    background-color: rgba(255,243,131, 1);
 }
 
 .ant-select-item-option {
@@ -1903,6 +1908,7 @@ h1.title-last-operations {
     border-radius: 28px;
     box-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
     opacity: 1;
+    border-color: rgba(255,243,131, 1);
     background-color: rgba(255,243,131, 1);
     opacity: 1;
     color: rgba(12,12,8,1);
@@ -1914,6 +1920,13 @@ h1.title-last-operations {
     text-align: center;
     width: 200px;
     height: 54px;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus,
+.ant-btn-secondary:hover, .ant-btn-secondary:focus{
+    color: #fff;
+    border-color: #B9B648;
+    background: #B9B648;
 }
 
 .secondary-button {

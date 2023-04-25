@@ -31,6 +31,7 @@ export default function ConfirmOperation(props) {
 
     const [status, setStatus] = useState('SUBMIT');
     const [tolerance, setTolerance] = useState(0.1);
+    const [txID, setTxID] = useState('');
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
@@ -70,6 +71,13 @@ export default function ConfirmOperation(props) {
     );
     const [showModalAllowance, setShowModalAllowance] = useState(false);
 
+    useEffect(() => {
+        if (amountYouExchange) {
+            const limits = toleranceLimits(tolerance);
+            setAmountYouExchangeLimit(limits.exchange);
+        }
+    }, [amountYouExchange]);
+
     const onHideModalAllowance = () => {
         setShowModalAllowance(false);
     };
@@ -78,11 +86,13 @@ export default function ConfirmOperation(props) {
         setShowModalAllowance(true);
     };
 
+    const truncateTxId = (TxId) => {
+        if (TxId === '') return '';
+        return TxId.substring(0, 6) + '...' + TxId.substring(TxId.length - 4, TxId.length);
+    };
+
     const showAllowance = () => {
         const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
-        console.log('DEBUG>>>');
-        console.log(tokenAllowance.toString());
-        console.log(amountYouExchangeLimit.toString());
         return !!amountYouExchangeLimit.gte(tokenAllowance);
     };
 
@@ -129,6 +139,7 @@ export default function ConfirmOperation(props) {
         // Tx receipt detected change status to waiting
         setStatus('WAITING');
         console.log('On transaction: ', transactionHash);
+        setTxID(transactionHash);
     };
 
     const onReceipt = async (receipt) => {
@@ -505,7 +516,7 @@ export default function ConfirmOperation(props) {
                                 <div className="label">Transaction ID</div>
                                 <div className="address-section">
                                     <span className="address">
-                                        oxba8cd957…72ad
+                                        {truncateTxId(txID)}
                                     </span>
                                     <i className="icon-copy"></i>
                                 </div>
