@@ -358,14 +358,14 @@ const redeemTP = async (
             `Insufficient ${settings.tokens.TP[tpIndex].name}  user balance`
         );
 
-    // There are sufficient Free Pegged Token in the contracts to redeem?
-    const tpAvailableToRedeem = new BigNumber(
-        Web3.utils.fromWei(contractStatusData.getTPAvailableToMint[tpIndex])
-    );
-    if (new BigNumber(qTP).gt(tpAvailableToRedeem))
-        throw new Error(
-            `Insufficient ${settings.tokens.TP[tpIndex].name}  available to redeem in contract`
-        );
+    // // There are sufficient Free Pegged Token in the contracts to redeem?
+    // const tpAvailableToRedeem = new BigNumber(
+    //     Web3.utils.fromWei(contractStatusData.getTPAvailableToMint[tpIndex])
+    // );
+    // if (new BigNumber(qTP).gt(tpAvailableToRedeem))
+    //     throw new Error(
+    //         `Insufficient ${settings.tokens.TP[tpIndex].name}  available to redeem in contract`
+    //     );
 
     // There are sufficient CA in the contract
     const caBalance = new BigNumber(

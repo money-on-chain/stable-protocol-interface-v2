@@ -25,6 +25,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from './InputAmount';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import Web3 from 'web3';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -94,6 +95,7 @@ export default function Exchange() {
 
     const onValidate = () => {
 
+        // 1. User Exchange Token Validation
         const totalBalance = new BigNumber(
             fromContractPrecisionDecimals(
                 TokenBalance(auth, currencyYouExchange),
@@ -101,14 +103,59 @@ export default function Exchange() {
             )
         );
 
-        console.log("DEBUG")
-        console.log(amountYouExchange.toString())
-        console.log(totalBalance.toString())
-
         if (amountYouExchange.gt(totalBalance)) {
             setInputValidationErrorText('Not enough balance in your wallet');
             setInputValidationError(true);
             return
+        }
+
+        let tIndex
+        // 2. MINT TP. User receive available token in contract
+        if (currencyYouReceive === 'TP_0' || currencyYouReceive === 'TP_1') {
+            // There are sufficient PEGGED in the contracts to mint?
+            tIndex = TokenSettings(currencyYouReceive).key
+            const tpAvailableToMint = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.getTPAvailableToMint[tIndex],
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouReceive).gt(tpAvailableToMint)) {
+                setInputValidationErrorText('Insufficient TP to mint in the contract');
+                setInputValidationError(true);
+                return
+            }
+        }
+
+        // 3. REDEEM TC
+        if (currencyYouExchange === 'TC') {
+            // There are sufficient TC in the contracts to redeem?
+            const tcAvailableToRedeem = new BigNumber(
+                Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem)
+            );
+            if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
+                setInputValidationErrorText('Insufficient TC available to redeem in the contract');
+                setInputValidationError(true);
+                return
+            }
+        }
+
+        // 4. REDEEM SUFFICIENT CA IN THE CONTRACT?
+        if (currencyYouReceive === 'CA_0' || currencyYouReceive === 'CA_1') {
+
+            tIndex = TokenSettings(currencyYouReceive).key
+            // There are sufficient CA in the contract
+            const caBalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.getACBalance[tIndex],
+                    settings.tokens.CA[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouReceive).gt(caBalance)) {
+                setInputValidationErrorText(`Not enough CA balance in the contract please try selecting another collateral asset. In contract: ${caBalance} ${settings.tokens.CA[tIndex].name} `);
+                setInputValidationError(true);
+                return                
+            }
         }
 
         setInputValidationErrorText('');
