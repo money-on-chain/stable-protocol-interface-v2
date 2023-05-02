@@ -12,6 +12,9 @@ const Skeleton = React.lazy(() =>
 
 const Home = React.lazy(() => import('../../../pages/Home/index'));
 const Exchange = React.lazy(() => import('../../../pages/Exchange/index'));
+const Send = React.lazy(() => import('../../../pages/Send/index'));
+const Performance = React.lazy(() => import('../../../pages/Performance/index'));
+const Staking = React.lazy(() => import('../../../pages/Staking/index'));
 
 export default function Router() {
     return useRoutes([
@@ -26,6 +29,18 @@ export default function Router() {
                 {
                     path: 'exchange',
                     element: <Exchange />
+                },
+                {
+                    path: 'send',
+                    element: <Send />
+                },
+                {
+                    path: 'performance',
+                    element: <Performance />
+                },
+                {
+                    path: 'staking',
+                    element: <Staking />
                 },
                 { path: '404', element: <NotFound /> },
                 { path: '*', element: <Navigate to="/404" /> }
