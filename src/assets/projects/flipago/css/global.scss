@@ -287,6 +287,18 @@ html {
     flex: none;
     order: 0;
     flex-grow: 0;
+
+    a.translation-selector {
+        opacity: 1;
+        color: rgba(195,204,217,1);
+        font-family: "Open Sans";
+        font-size: 14px;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: right;
+    }
+
 }
 
 .logo-translation {
