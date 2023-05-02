@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
+import ModalAccount from '../Modals/Account';
 
 const { Header } = Layout;
 
@@ -106,7 +107,8 @@ export default function SectionHeader() {
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        <a href="#">{auth.accountData.truncatedAddress}</a>{' '}
+                        {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
+                        <ModalAccount truncatedAddress={auth.accountData.truncatedAddress}></ModalAccount>
                         <i className="logo-wallet"></i>
                     </div>
                 </div>
