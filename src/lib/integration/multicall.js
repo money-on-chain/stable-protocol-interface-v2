@@ -1,3 +1,7 @@
+import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import settings from '../../settings/settings.json';
+
 const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
 
@@ -343,6 +347,15 @@ const contractStatus = async (web3, dContracts) => {
     status.getTokenPrice = listReturnData[50];
     status.getACBalance = [listReturnData[51], listReturnData[52]];
     status.PP_COINBASE = listReturnData[53];
+
+    const calcCtargemaCA = new BigNumber(
+        fromContractPrecisionDecimals(
+            status.calcCtargemaCA,
+            18
+        )
+    );
+
+    status.canOperate = !calcCtargemaCA.gt(1000000);
 
     // History Price (24hs ago)
     const d24BlockHeights = status.blockHeight - 2880;

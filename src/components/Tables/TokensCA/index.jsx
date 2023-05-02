@@ -212,7 +212,7 @@ export default function Tokens(props) {
             ),
             price: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.getPTCac,
                         token: settings.tokens.TC,
                         decimals: 2,
@@ -222,7 +222,7 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation: '--',
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -237,7 +237,7 @@ export default function Tokens(props) {
             ),
             usd: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TC,
                         decimals: 2,

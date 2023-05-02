@@ -74,10 +74,11 @@ export default function Portfolio() {
                 settings.tokens.TC.decimals
             )
         );
-        console.log("DEBUG PRICE GLITCH>>>")
-        console.log(auth.contractStatusData.getPTCac.toString())
-        balanceUSD = balance.times(price);
-        totalUSD = totalUSD.plus(balanceUSD);
+        if (auth.contractStatusData.canOperate) {
+            balanceUSD = balance.times(price);
+            totalUSD = totalUSD.plus(balanceUSD);
+        }
+
     }
 
     // Coinbase
