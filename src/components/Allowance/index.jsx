@@ -81,7 +81,7 @@ export default function AllowanceDialog(props) {
             onTransaction,
             onReceipt
         ).then((value) => {
-            onCloseModal();
+            onClose();
         }).catch((error) => {
             console.log('ERROR');
             setStatus('ERROR');

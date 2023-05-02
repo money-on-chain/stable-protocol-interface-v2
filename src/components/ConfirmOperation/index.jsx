@@ -30,7 +30,7 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
-    const [tolerance, setTolerance] = useState(0.1);
+    const [tolerance, setTolerance] = useState(0.2);
     const [txID, setTxID] = useState('');
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
@@ -78,6 +78,13 @@ export default function ConfirmOperation(props) {
         }
     }, [amountYouExchange]);
 
+    useEffect(() => {
+        if (amountYouReceive) {
+            const limits = toleranceLimits(tolerance);
+            setAmountYouReceiveLimit(limits.receive);
+        }
+    }, [amountYouReceive]);
+
     const onHideModalAllowance = () => {
         setShowModalAllowance(false);
     };
@@ -124,6 +131,8 @@ export default function ConfirmOperation(props) {
         console.log("DEBUG>>>")
         console.log(tokenAmount.toString())
         console.log(limitAmount.toString())
+        console.log(amountYouReceiveLimit)
+        console.log(IS_MINT)
         auth.interfaceExchangeMethod(
             currencyYouExchange,
             currencyYouReceive,
