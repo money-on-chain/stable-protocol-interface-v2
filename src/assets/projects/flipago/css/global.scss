@@ -1565,6 +1565,7 @@ h1.title-last-operations {
     background-image: url('../icons/ArrowDown.svg');
     background-size: 24px 24px;
     background-repeat: no-repeat;
+    display: block;
 }
 
 .icon-signifier {
@@ -2423,6 +2424,264 @@ h1.title-last-operations {
 
 }
 
+/* Exchange Send */
+
+.exchange-send-content {
+
+    font-family: "Chivo";
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+
+    /*font-family: 'Chivo';
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0;
+    gap: 40px;
+    width: 612px;
+    height: 321px;
+    border-radius: 8px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;*/
+
+    .fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        gap: 4px;
+        /*width: 320px;*/
+        height: 296px;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+
+        select .select-token {
+        }
+
+        input[type='number'].input-value {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 11px 16px;
+            gap: 8px;
+            width: 318px;
+            height: 51px;
+            background: #2d313a;
+            border-radius: 4px;
+            border: 0;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            text-align: right;
+            color: #FFF383;
+        }
+
+        input[type='number'].input-value::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #7f8a99;
+            opacity: 1; /* Firefox */
+        }
+
+        // Remove spinner
+
+        /* Chrome, Safari, Edge, Opera */
+        input[type='number'].input-value::-webkit-outer-spin-button,
+        input[type='number'].input-value::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type='number'].input-value {
+            -moz-appearance: textfield;
+        }
+
+        .input-validation-error {
+            opacity: 1;
+            color: rgba(229,74,73,1);
+            font-family: "Open Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+
+        .token-balance {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 0px 0px 4px;
+            gap: 8px;
+            width: 318px;
+            height: 17px;
+            flex: none;
+            order: 2;
+            flex-grow: 0;
+
+            .token-balance-value {
+                width: 177px;
+                height: 17px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 17px;
+                color: #c3ccd9;
+            }
+
+            a.token-balance-add-total {
+                width: 131px;
+                height: 17px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 17px;
+                text-align: right;
+                color: #FFF383;
+            }
+        }
+
+        .swap-from {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0px;
+            gap: 8px;
+            width: 318px;
+            height: 108px;
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+        }
+
+        .swap-arrow {
+            width: 32px;
+            height: 32px;
+            margin-top: 40px;
+        }
+
+        .swap-to {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0px;
+            gap: 8px;
+            width: 318px;
+            height: 108px;
+            flex: none;
+            order: 2;
+            flex-grow: 0;
+
+            input.input-address {
+
+            }
+
+            input[type='text'].input-address {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 11px 16px;
+                gap: 8px;
+                width: 318px;
+                height: 51px;
+                background: #2d313a;
+                border-radius: 4px;
+                border: 0;
+                /*font-style: normal;*/
+                /*font-weight: 400;
+                font-size: 24px;*/
+                line-height: 29px;
+                /*text-align: right;*/
+                color: #FFF383;
+
+                opacity: 1;
+                color: rgba(195,204,217,1);
+                font-family: "Open Sans";
+                font-size: 14px;
+                font-weight: 500;
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+
+            }
+
+            input[type='text'].input-address::placeholder {
+                /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #7f8a99;
+                opacity: 1; /* Firefox */
+            }
+
+            // Remove spinner
+
+            /* Chrome, Safari, Edge, Opera */
+            input[type='text'].input-address::-webkit-outer-spin-button,
+            input[type='text'].input-address::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            input[type='text'].input-address {
+                -moz-appearance: textfield;
+            }
+
+            .caption {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                opacity: 1;
+                color: rgba(195,204,217,1);
+                font-family: "Open Sans";
+                font-size: 14px;
+                font-weight: 400;
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+
+        }
+    }
+
+}
+
+.exchange-send-footer {
+    margin-top: 32px;
+
+    .exchanging {
+        height: 19px;
+        opacity: 1;
+        color: rgba(255,243,131,1);
+        font-family: "Chivo";
+        font-size: 16px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: center;
+
+    }
+
+    .actions-buttons {
+
+        margin-top: 32px;
+        text-align: center;
+
+        .btn-clear {
+
+        }
+
+        .btn-confirm {
+            margin-left: 10px;
+        }
+
+    }
+
+}
 
 .ant-layout-footer {
     padding: 24px 50px;
