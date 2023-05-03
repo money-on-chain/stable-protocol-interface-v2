@@ -18,6 +18,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from '../InputAmount';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import ModalConfirmSend from '../Modals/ConfirmSend';
 
 export default function Send() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -227,12 +228,14 @@ export default function Send() {
 
                 <div className="actions-buttons">
 
-                    <Button type="secondary" className="secondary-button btn-clear" onClick={onClear}>
-                        Clear
-                    </Button>
-                    <Button type="primary" className="primary-button btn-confirm" disabled={(inputValidationError) ? 'disabled': null}>
-                        Send
-                    </Button>
+                    <ModalConfirmSend
+                        currencyYouExchange={currencyYouExchange}
+                        exchangingUSD={exchangingUSD}
+                        amountYouExchange={amountYouExchange}
+                        destinationAddress={destinationAddress}
+                        onClear={onClear}
+                        inputValidationError={inputValidationError}
+                    />
 
                 </div>
 
