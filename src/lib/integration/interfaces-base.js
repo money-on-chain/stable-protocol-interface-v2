@@ -42,4 +42,39 @@ const AllowanceAmount = async (
     return receipt;
 };
 
-export { AllowanceAmount };
+const transferTokenTo = async (
+    interfaceContext,
+    token,
+    tokenDecimals,
+    to,
+    amount,
+    onTransaction,
+    onReceipt
+) => {
+    const { web3, account } = interfaceContext;
+
+    amount = new BigNumber(amount);
+
+    // Calculate estimate gas cost
+    const estimateGas = await token.methods
+        .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
+        .estimateGas({ from: account, value: '0x' });
+
+    // Send tx
+    const receipt = token.methods
+        .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
+        .send({
+            from: account,
+            value: '0x',
+            gasPrice: await getGasPrice(web3),
+            gas: estimateGas * 2,
+            gasLimit: estimateGas * 2
+        })
+        .on('transactionHash', onTransaction)
+        .on('receipt', onReceipt);
+
+    return receipt;
+};
+
+
+export { AllowanceAmount, transferTokenTo };

@@ -134,6 +134,41 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
     }
 }
 
+function TokenContract(dContracts, tokenExchange) {
+    const tokenExchangeSettings = TokenSettings(tokenExchange);
+
+    const tokenMap = `${tokenExchange}`;
+    switch (tokenMap) {
+        case 'CA_0':
+            return {
+                token: dContracts.contracts.CA[0],
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'CA_1':
+            return {
+                token: dContracts.contracts.CA[1],
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TP_0':
+            return {
+                token: dContracts.contracts.TP[0],
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TP_1':
+            return {
+                token: dContracts.contracts.TP[1],
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TC':
+            return {
+                token: dContracts.contracts.TC,
+                decimals: tokenExchangeSettings.decimals
+            }
+        default:
+            throw new Error('Invalid token name');
+    }
+}
+
 function exchangeMethod(
     interfaceContext,
     tokenExchange,
@@ -294,5 +329,6 @@ export {
     isMintOperation,
     UserTokenAllowance,
     ApproveTokenContract,
-    exchangeMethod
+    exchangeMethod,
+    TokenContract
 };

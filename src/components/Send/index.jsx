@@ -53,6 +53,12 @@ export default function Send() {
         }
     }, [amountYouExchange]);
 
+    useEffect(() => {
+        if (destinationAddress) {
+            onValidate();
+        }
+    }, [destinationAddress]);
+
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         onClear();
         setCurrencyYouExchange(newCurrencyYouExchange);
@@ -121,8 +127,6 @@ export default function Send() {
 
     const onChangeDestinationAddress = (event) => {
         setDestinationAddress(event.target.value);
-        // do the validation
-        onValidate();
     };
 
     const setAddTotalAvailable = () => {

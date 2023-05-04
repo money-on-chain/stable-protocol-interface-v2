@@ -5,12 +5,12 @@ import BigNumber from 'bignumber.js';
 
 import addressHelper from '../helpers/addressHelper';
 
-import { ApproveTokenContract, exchangeMethod } from '../helpers/exchange';
+import { ApproveTokenContract, exchangeMethod, TokenContract } from '../helpers/exchange';
 
 import { readContracts } from '../lib/integration/contracts';
 import { contractStatus, userBalance } from '../lib/integration/multicall';
 import { decodeEvents } from '../lib/integration/transaction';
-import { AllowanceAmount } from '../lib/integration/interfaces-base';
+import { AllowanceAmount, transferTokenTo } from '../lib/integration/interfaces-base';
 
 import { getGasPrice } from '../lib/integration/utils';
 
@@ -29,6 +29,13 @@ const AuthenticateContext = createContext({
         currencyYouExchange,
         currencyYouReceive,
         amountAllowance,
+        onTransaction,
+        onReceipt
+    ) => {},
+    interfaceTransferToken: async (
+        currencyYouExchange,
+        amount,
+        destinationAddress,
         onTransaction,
         onReceipt
     ) => {},
@@ -191,6 +198,30 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
+    const interfaceTransferToken = async (
+        currencyYouExchange,
+        amount,
+        destinationAddress,
+        onTransaction,
+        onReceipt
+    ) => {
+        if (!window.dContracts) return;
+
+        const tContract = TokenContract(window.dContracts, currencyYouExchange);
+        if (tContract.token) {
+            const interfaceContext = buildInterfaceContext();
+            await transferTokenTo(
+                interfaceContext,
+                tContract.token,
+                tContract.decimals,
+                destinationAddress,
+                amount,
+                onTransaction,
+                onReceipt
+            );
+        }
+    };
+
     const interfaceExchangeMethod = async (
         currencyYouExchange,
         currencyYouReceive,
@@ -319,6 +350,7 @@ const AuthenticateProvider = ({ children }) => {
                 connect,
                 disconnect,
                 interfaceAllowanceAmount,
+                interfaceTransferToken,
                 interfaceExchangeMethod,
                 getTransactionReceipt,
                 getSpendableBalance,

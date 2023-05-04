@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
@@ -32,22 +32,10 @@ export default function ConfirmSend(props) {
         // Real send transaction
         setStatus('SIGN');
 
-        /*
-        let tokenAmount;
-        let limitAmount;
-        if (IS_MINT) {
-            tokenAmount = amountYouReceive;
-            limitAmount = amountYouExchangeLimit;
-        } else {
-            tokenAmount = amountYouExchange;
-            limitAmount = amountYouReceiveLimit;
-        }
-
-        auth.interfaceExchangeMethod(
+        auth.interfaceTransferToken(
             currencyYouExchange,
-            currencyYouReceive,
-            tokenAmount,
-            limitAmount,
+            amountYouExchange,
+            destinationAddress.toLowerCase(),
             onTransaction,
             onReceipt
         ).then((value) => {
@@ -55,8 +43,9 @@ export default function ConfirmSend(props) {
         }).catch((error) => {
             console.log('ERROR');
             setStatus('ERROR');
+            console.log(error);
         });
-         */
+
     };
 
     const onTransaction = (transactionHash) => {
@@ -140,7 +129,7 @@ export default function ConfirmSend(props) {
 
                 <div className="swapTo">
                     <div className="address">
-                        0xCD8A1c9aCc980ae031456573e34dC05cD7daE6e3
+                        {destinationAddress}
                     </div>
                 </div>
 
