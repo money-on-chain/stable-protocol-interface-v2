@@ -3,8 +3,10 @@ import { useContext } from 'react';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
+import Performance from '../../components/Performance';
 
 import '../../assets/css/pages.scss';
+import StakingRewards from '../../components/Dashboards/StakingRewards';
 
 
 function SectionPerformance(props) {
@@ -14,19 +16,14 @@ function SectionPerformance(props) {
     return (
         <Fragment>
 
-            {/* Send */}
-            <div className={'dashboard-exchange'}>
+            {/* Dashboard Staking Rewards */}
+            <StakingRewards />
 
-                <div className={'title'}>
-                    <h1>Performance</h1>
-                </div>
+            <div className={'content-performance'}>
 
-                <div className={'content-body'}>
-
-                </div>
+                <Performance></Performance>
 
             </div>
-
 
         </Fragment>
     );
