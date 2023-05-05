@@ -95,10 +95,10 @@ export default function SectionHeader() {
                         <i className={`logo-performance ${cssSelector.performance.icon}`}></i>{' '}
                         <span className="menu-nav-item-title">Performance</span>{' '}
                     </a>
-                    <a onClick={goToStaking} className={cssSelector.staking.text}>
-                        <i className={`logo-i-staking ${cssSelector.staking.icon}`}></i>{' '}
-                        <span className="menu-nav-item-title">Staking</span>{' '}
-                    </a>
+                    {/*<a onClick={goToStaking} className={cssSelector.staking.text}>*/}
+                    {/*    <i className={`logo-i-staking ${cssSelector.staking.icon}`}></i>{' '}*/}
+                    {/*    <span className="menu-nav-item-title">Staking</span>{' '}*/}
+                    {/*</a>*/}
                 </div>
 
                 <div className="wallet-user">
