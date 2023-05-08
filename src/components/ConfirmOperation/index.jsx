@@ -11,6 +11,7 @@ import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
+import CopyAddress from '../CopyAddress';
 
 const { Panel } = Collapse;
 
@@ -93,11 +94,6 @@ export default function ConfirmOperation(props) {
         setShowModalAllowance(true);
     };
 
-    const truncateTxId = (TxId) => {
-        if (TxId === '') return '';
-        return TxId.substring(0, 6) + '...' + TxId.substring(TxId.length - 4, TxId.length);
-    };
-
     const showAllowance = () => {
         const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
         return !!amountYouExchangeLimit.gte(tokenAllowance);
@@ -128,11 +124,6 @@ export default function ConfirmOperation(props) {
             limitAmount = amountYouReceiveLimit;
         }
 
-        console.log("DEBUG>>>")
-        console.log(tokenAmount.toString())
-        console.log(limitAmount.toString())
-        console.log(amountYouReceiveLimit)
-        console.log(IS_MINT)
         auth.interfaceExchangeMethod(
             currencyYouExchange,
             currencyYouReceive,
@@ -528,10 +519,11 @@ export default function ConfirmOperation(props) {
                             <div className="transaction-id">
                                 <div className="label">Transaction ID</div>
                                 <div className="address-section">
-                                    <span className="address">
-                                        {truncateTxId(txID)}
-                                    </span>
-                                    <i className="icon-copy"></i>
+                                    <CopyAddress address={txID} type={'tx'}></CopyAddress>
+                                    {/*<span className="address">*/}
+                                    {/*    {truncateTxId(txID)}*/}
+                                    {/*</span>*/}
+                                    {/*<i className="icon-copy"></i>*/}
                                 </div>
                             </div>
                         )}

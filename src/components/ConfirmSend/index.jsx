@@ -6,6 +6,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
+import CopyAddress from '../CopyAddress';
 
 
 export default function ConfirmSend(props) {
@@ -22,11 +23,6 @@ export default function ConfirmSend(props) {
 
     const [status, setStatus] = useState('SUBMIT');
     const [txID, setTxID] = useState('');
-
-    const truncateTxId = (TxId) => {
-        if (TxId === '') return '';
-        return TxId.substring(0, 6) + '...' + TxId.substring(TxId.length - 4, TxId.length);
-    };
 
     const onSendTransaction = () => {
         // Real send transaction
@@ -189,10 +185,11 @@ export default function ConfirmSend(props) {
                             <div className="transaction-id">
                                 <div className="label">Transaction ID</div>
                                 <div className="address-section">
-                                    <span className="address">
-                                        {truncateTxId(txID)}
-                                    </span>
-                                    <i className="icon-copy"></i>
+                                    <CopyAddress address={txID} type={'tx'}></CopyAddress>
+                                    {/*<span className="address">*/}
+                                    {/*    {truncateTxId(txID)}*/}
+                                    {/*</span>*/}
+                                    {/*<i className="icon-copy"></i>*/}
                                 </div>
                             </div>
                         )}

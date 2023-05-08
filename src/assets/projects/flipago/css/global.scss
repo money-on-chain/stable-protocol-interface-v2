@@ -1400,16 +1400,9 @@ h1.title-last-operations {
                     width: 163px;
                     height: 22px;
 
-                    .address {
+                    .address a {
                         width: 136px;
                         height: 17px;
-                        /*
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 17px;
-                        color: #fcf615;*/
-
                         opacity: 1;
                         color: rgba(255,243,131,1);
                         font-size: 14px;
@@ -1484,6 +1477,7 @@ h1.title-last-operations {
     background-image: url('../icons/Outline.svg');
     background-size: 22px 22px;
     background-repeat: no-repeat;
+    display: block;
 }
 
 .icon-tx-waiting {
