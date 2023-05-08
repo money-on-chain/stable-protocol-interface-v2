@@ -62,10 +62,10 @@ function TokenBalance(auth, tokenName) {
             balance = auth.userBalanceData.CA[1].balance;
             break;
         case 'TP_0':
-            balance = auth.userBalanceData.TP[0];
+            balance = auth.userBalanceData.TP[0].balance;
             break;
         case 'TP_1':
-            balance = auth.userBalanceData.TP[1];
+            balance = auth.userBalanceData.TP[1].balance;
             break;
         case 'TC':
             balance = auth.userBalanceData.TC.balance;

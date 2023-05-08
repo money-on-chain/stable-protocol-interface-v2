@@ -46,7 +46,7 @@ export default function Portfolio() {
         settings.tokens.TP.forEach(function (dataItem) {
             balance = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.userBalanceData.TP[dataItem.key],
+                    auth.userBalanceData.TP[dataItem.key].balance,
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );

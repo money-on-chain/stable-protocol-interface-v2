@@ -464,22 +464,36 @@ const userBalance = async (web3, dContracts, userAddress) => {
             'uint256'
         ], // 5
         [
+            TP_0.options.address,
+            TP_0.methods
+                .allowance(userAddress, MocCAWrapper.options.address)
+                .encodeABI(),
+            'uint256'
+        ], // 6
+        [
             TP_1.options.address,
             TP_1.methods.balanceOf(userAddress).encodeABI(),
             'uint256'
-        ], // 6
+        ], // 7
+        [
+            TP_1.options.address,
+            TP_1.methods
+                .allowance(userAddress, MocCAWrapper.options.address)
+                .encodeABI(),
+            'uint256'
+        ], // 8
         [
             CollateralTokenCABag.options.address,
             CollateralTokenCABag.methods.balanceOf(userAddress).encodeABI(),
             'uint256'
-        ], // 7
+        ], // 9
         [
             CollateralTokenCABag.options.address,
             CollateralTokenCABag.methods
                 .allowance(userAddress, MocCAWrapper.options.address)
                 .encodeABI(),
             'uint256'
-        ] // 8
+        ] // 10
     ];
 
     // Remove decode result parameter
@@ -504,10 +518,19 @@ const userBalance = async (web3, dContracts, userAddress) => {
             allowance: listReturnData[4]
         }
     ];
-    userBalance.TP = [listReturnData[5], listReturnData[6]];
+    userBalance.TP = [
+        {
+            balance: listReturnData[5],
+            allowance: listReturnData[6]
+        },
+        {
+            balance: listReturnData[7],
+            allowance: listReturnData[8]
+        },
+    ];
     userBalance.TC = {
-        balance: listReturnData[7],
-        allowance: listReturnData[8]
+        balance: listReturnData[9],
+        allowance: listReturnData[10]
     };
 
     return userBalance;

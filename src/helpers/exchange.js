@@ -59,16 +59,19 @@ function TokenAllowance(auth, tokenExchange) {
             allowance = auth.userBalanceData.CA[1].allowance;
             break;
         case 'TP_0':
-            allowance = toContractPrecisionDecimals(
+            /*allowance = toContractPrecisionDecimals(
                 new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
-            );
+            );*/
+            allowance = auth.userBalanceData.TP[0].allowance;
             break;
         case 'TP_1':
+            /*
             allowance = toContractPrecisionDecimals(
                 new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
-            );
+            );*/
+            allowance = auth.userBalanceData.TP[1].allowance;
             break;
         case 'TC':
             allowance = auth.userBalanceData.TC.allowance;
@@ -122,12 +125,17 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
             };
         case 'TP_0,CA_0':
         case 'TP_0,CA_1':
+            return {
+                token: dContracts.contracts.TP[0],
+                contractAllow: dContracts.contracts.MocCAWrapper,
+                decimals: tokenExchangeSettings.decimals
+            };
         case 'TP_1,CA_0':
         case 'TP_1,CA_1':
             return {
-                token: null,
-                contractAllow: null,
-                decimals: null
+                token: dContracts.contracts.TP[1],
+                contractAllow: dContracts.contracts.MocCAWrapper,
+                decimals: tokenExchangeSettings.decimals
             };
         default:
             throw new Error('Invalid token name');

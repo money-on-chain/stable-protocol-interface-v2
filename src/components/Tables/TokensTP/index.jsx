@@ -85,7 +85,7 @@ export default function Tokens(props) {
         data.forEach(function (dataItem) {
             const balance = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.userBalanceData.TP[dataItem.key],
+                    auth.userBalanceData.TP[dataItem.key].balance,
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
