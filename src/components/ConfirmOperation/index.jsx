@@ -221,7 +221,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchangeLimit),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 2,
+                            decimals: 4,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -248,7 +248,7 @@ export default function ConfirmOperation(props) {
                                         token: TokenSettings(
                                             currencyYouExchange
                                         ),
-                                        decimals: 2,
+                                        decimals: 4,
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
@@ -269,7 +269,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouReceive),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 2,
+                            decimals: 4,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -296,7 +296,7 @@ export default function ConfirmOperation(props) {
                                         token: TokenSettings(
                                             currencyYouReceive
                                         ),
-                                        decimals: 2,
+                                        decimals: 4,
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
@@ -480,7 +480,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: exchangingUSD,
                                 token: TokenSettings('CA_0'),
-                                decimals: 2,
+                                decimals: 4,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
