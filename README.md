@@ -1,6 +1,8 @@
-# Flipago interface
+# Stable Protocol Interface v2
 
-Open source **decentralized interface** for Flipago contracts
+## Warning: This is only for version 2 of the main contracts.
+
+Open source **decentralized interface** for v2 contracts
 
 You can:
 
@@ -10,11 +12,11 @@ You can:
 * Last operations
 
 
-### Flipago projects and tokens 
+### Projects and tokens 
 
 **Projects**
 
-* Flipago RSK Network please review the contracts [here](https://github.com/money-on-chain/main-RBTC-contract)
+* Please review the contracts [here](https://github.com/money-on-chain/main-sc-protocol)
 
 
 | Token | Token name       | Project | Token Name | Collateral    |
@@ -78,4 +80,4 @@ In testnet you may need some test tRIF o tRBTC
 
 ### Integration
 
-If you want to integrate Money on Chain protocols please review our Integration repository:  [https://github.com/money-on-chain/moc-integration-js](https://github.com/money-on-chain/moc-integration-js)
+If you want to integrate Money on Chain protocols please review our Integration repository:  [https://github.com/money-on-chain/stable-protocol-backend-v2](https://github.com/money-on-chain/stable-protocol-backend-v2)
