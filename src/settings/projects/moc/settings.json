@@ -1,0 +1,47 @@
+{
+    "tokens": {
+        "COINBASE": {
+            "name": "RBTC",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "CA": [
+            {
+                "key": 0,
+                "name": "DOC",
+                "decimals": 18,
+                "visibleDecimals": 6
+            },
+            {
+                "key": 1,
+                "name": "RDOC",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TP": [
+            {
+                "key": 0,
+                "name": "GoARS",
+                "decimals": 18,
+                "visibleDecimals": 6
+            },
+            {
+                "key": 1,
+                "name": "GoMXN",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TC": {
+            "name": "GoTURBO",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "TG": {
+            "name": "FLIP",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }
+    }
+}
