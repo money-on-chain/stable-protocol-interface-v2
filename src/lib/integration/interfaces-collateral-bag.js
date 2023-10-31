@@ -24,6 +24,7 @@ const mintTC = async (
     const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
+    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
 
     // Verifications
 
@@ -68,7 +69,7 @@ const mintTC = async (
     */
     // Calculate estimate gas cost
     const estimateGas = await MocCAWrapper.methods
-        .mintTC(
+        .mintTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
@@ -77,13 +78,14 @@ const mintTC = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = MocCAWrapper.methods
-        .mintTC(
+        .mintTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
@@ -92,7 +94,8 @@ const mintTC = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .send({
             from: account,
@@ -124,6 +127,7 @@ const redeemTC = async (
     const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
+    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
 
     // Verifications
 
@@ -166,7 +170,7 @@ const redeemTC = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MocCAWrapper.methods
-        .redeemTC(
+        .redeemTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
@@ -175,13 +179,14 @@ const redeemTC = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = MocCAWrapper.methods
-        .redeemTC(
+        .redeemTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
@@ -190,7 +195,8 @@ const redeemTC = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .send({
             from: account,
@@ -223,6 +229,7 @@ const mintTP = async (
     const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
+    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
 
     // Verifications
 
@@ -281,7 +288,7 @@ const mintTP = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MocCAWrapper.methods
-        .mintTP(
+        .mintTPViaVendor(
             caAddress,
             tpIndex,
             toContractPrecisionDecimals(
@@ -291,13 +298,14 @@ const mintTP = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = MocCAWrapper.methods
-        .mintTP(
+        .mintTPViaVendor(
             caAddress,
             tpIndex,
             toContractPrecisionDecimals(
@@ -307,7 +315,8 @@ const mintTP = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .send({
             from: account,
@@ -340,6 +349,7 @@ const redeemTP = async (
     const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
+    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
 
     // Verifications
 
@@ -381,7 +391,7 @@ const redeemTP = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MocCAWrapper.methods
-        .redeemTP(
+        .redeemTPViaVendor(
             caAddress,
             tpIndex,
             toContractPrecisionDecimals(
@@ -391,13 +401,14 @@ const redeemTP = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = MocCAWrapper.methods
-        .redeemTP(
+        .redeemTPViaVendor(
             caAddress,
             tpIndex,
             toContractPrecisionDecimals(
@@ -407,7 +418,8 @@ const redeemTP = async (
             toContractPrecisionDecimals(
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
-            )
+            ),
+            vendorAddress
         )
         .send({
             from: account,
