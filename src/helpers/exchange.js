@@ -29,15 +29,15 @@ function loadTokenMap() {
         lReceive.push('TC')
         // TP
         for (let t = 0; t < settings.tokens.TP.length; t++) {
-            lReceive.push(`TP_$t`)
+            lReceive.push(`TP_${t}`)
         }
-        tMap[`CA_$i`] = lReceive
+        tMap[`CA_${i}`] = lReceive
     }
 
     // Exchange TC
     lReceive = []
     for (let i = 0; i < settings.tokens.CA.length; i++) {
-        lReceive.push(`CA_$i`)
+        lReceive.push(`CA_${i}`)
     }
     tMap['TC'] = lReceive
 
@@ -46,9 +46,9 @@ function loadTokenMap() {
     for (let i = 0; i < settings.tokens.TP.length; i++) {
         // CA
         for (let a = 0; a < settings.tokens.CA.length; a++) {
-            lReceive.push(`CA_$a`)
+            lReceive.push(`CA_${a}`)
         }
-        tMap[`TP_$i`] = lReceive
+        tMap[`TP_${i}`] = lReceive
     }
 
     return tMap
@@ -105,14 +105,14 @@ function TokenAllowance(auth, tokenExchange) {
     let allowance = 0;
     switch (aTokenExchange[0]) {
         case 'CA':
-            allowance = auth.userBalanceData.CA[aTokenExchange[1]].allowance;
+            allowance = auth.userBalanceData.CA[parseInt(aTokenExchange[1])].allowance;
             break;
         case 'TP':
             /*allowance = toContractPrecisionDecimals(
                 new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
             );*/
-            allowance = auth.userBalanceData.TP[aTokenExchange[1]].allowance;
+            allowance = auth.userBalanceData.TP[parseInt(aTokenExchange[1])].allowance;
             break;
         case 'TC':
             allowance = auth.userBalanceData.TC.allowance;
@@ -147,7 +147,7 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
         case 'CA,TC':
         case 'CA,TP':
             return {
-                token: dContracts.contracts.CA[aTokenExchange[1]],
+                token: dContracts.contracts.CA[parseInt(aTokenExchange[1])],
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
@@ -159,7 +159,7 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
             };
         case 'TP,CA':
             return {
-                token: dContracts.contracts.TP[aTokenReceive[1]],
+                token: dContracts.contracts.TP[parseInt(aTokenReceive[1])],
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
@@ -177,12 +177,12 @@ function TokenContract(dContracts, tokenExchange) {
     switch (aTokenMap[0]) {
         case 'CA':
             return {
-                token: dContracts.contracts.CA[aTokenMap[1]],
+                token: dContracts.contracts.CA[parseInt(aTokenMap[1])],
                 decimals: tokenExchangeSettings.decimals
             }
         case 'TP':
             return {
-                token: dContracts.contracts.TP[aTokenMap[1]],
+                token: dContracts.contracts.TP[parseInt(aTokenMap[1])],
                 decimals: tokenExchangeSettings.decimals
             }
         case 'TC':
@@ -213,7 +213,7 @@ function exchangeMethod(
 
     switch (aTokenMap) {
         case 'CA,TC':
-            caIndex = aTokenExchange[1];
+            caIndex = parseInt(aTokenExchange[1]);
             return mintTC(
                 interfaceContext,
                 tokenAmount,
@@ -222,7 +222,7 @@ function exchangeMethod(
                 onReceipt
             );
         case 'TC,CA':
-            caIndex = aTokenReceive[1];
+            caIndex = parseInt(aTokenReceive[1]);
             return redeemTC(
                 interfaceContext,
                 tokenAmount,
@@ -231,8 +231,8 @@ function exchangeMethod(
                 onReceipt
             );
         case 'CA,TP':
-            caIndex = aTokenExchange[1];
-            tpIndex = aTokenReceive[1];
+            caIndex = parseInt(aTokenExchange[1]);
+            tpIndex = parseInt(aTokenReceive[1]);
             return mintTP(
                 interfaceContext,
                 tpIndex,
@@ -242,8 +242,8 @@ function exchangeMethod(
                 onReceipt
             );
         case 'TP,CA':
-            tpIndex = aTokenExchange[1];
-            caIndex = aTokenReceive[1];
+            tpIndex = parseInt(aTokenExchange[1]);
+            caIndex = parseInt(aTokenReceive[1]);
             return redeemTP(
                 interfaceContext,
                 tpIndex,
