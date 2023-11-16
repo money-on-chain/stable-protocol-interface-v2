@@ -1,28 +1,33 @@
 import abiDecoder from 'abi-decoder';
 import Web3 from 'web3';
+import settings from '../../settings/settings.json';
 
 const addABI = (abiContracts) => {
     // Abi decoder
-    abiDecoder.addABI(abiContracts.WrappedCollateralAsset.abi);
     abiDecoder.addABI(abiContracts.TokenPegged.abi);
-    abiDecoder.addABI(abiContracts.CollateralTokenCABag.abi);
-    abiDecoder.addABI(abiContracts.MocCABag.abi);
-    abiDecoder.addABI(abiContracts.MocCAWrapper.abi);
+    abiDecoder.addABI(abiContracts.CollateralToken.abi);
+    abiDecoder.addABI(abiContracts.Moc.abi);
+
+    if (settings.collateral === 'bag') {
+        abiDecoder.addABI(abiContracts.MocWrapper.abi)
+        abiDecoder.addABI(abiContracts.WrappedCollateralAsset.abi)
+    }
 };
 
 const renderEventField = (eveName, eveValue) => {
     const formatItemsWei = new Set([
-        'amount',
-        'interests',
-        'leverage',
-        'value',
         'qTC_',
         'qAsset_',
         'qACfee_',
         'qAC_',
         'oldTPema_',
         'newTPema_',
-        'qTP_'
+        'qTP_',
+        'TokenMigrated',
+        'qFeeToken_',
+        'qACVendorMarkup_',
+        'qFeeTokenVendorMarkup_',
+        'value'
     ]);
 
     if (formatItemsWei.has(eveName)) {
@@ -45,6 +50,8 @@ const decodeEvents = (receipt) => {
     const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
 
     const filterIncludes = [
+        'Transfer',
+        'Approval',
         'TCMinted',
         'TCRedeemed',
         'TPMinted',
@@ -65,7 +72,16 @@ const decodeEvents = (receipt) => {
         'TCandTPRedeemedWithWrapper',
         'TPSwappedForTPWithWrapper',
         'TPSwappedForTCWithWrapper',
-        'TCSwappedForTPWithWrapper'
+        'TCSwappedForTPWithWrapper',
+        'BeaconUpgraded',
+        'ContractLiquidated',
+        'Paused',
+        'PeggedTokenChange',
+        'SettlementExecuted',
+        'SuccessFeeDistributed',
+        'TCInterestPayment',
+        'AssetModified',
+        'VendorMarkupChanged'
     ];
 
     const filteredEvents = decodedLogs.filter((event) =>

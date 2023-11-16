@@ -1,4 +1,5 @@
 {
+    "collateral": "rc20",
     "tokens": {
         "COINBASE": {
             "name": "RBTC",
@@ -9,12 +10,6 @@
             {
                 "key": 0,
                 "name": "DOC",
-                "decimals": 18,
-                "visibleDecimals": 6
-            },
-            {
-                "key": 1,
-                "name": "USDRIF",
                 "decimals": 18,
                 "visibleDecimals": 6
             }

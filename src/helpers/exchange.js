@@ -2,30 +2,66 @@ import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 import { TokenPrice, TokenSettings } from './currencies';
-import { toContractPrecisionDecimals } from '../lib/integration/utils';
+import { toContractPrecisionDecimals } from '../lib/backend/utils';
 import {
     mintTC,
     redeemTC,
     mintTP,
     redeemTP
-} from '../lib/integration/interfaces-collateral-bag';
+} from '../lib/backend/moc-rc20';
 
+/*
 const tokenMap = {
     CA_0: ['TC', 'TP_0', 'TP_1'],
     CA_1: ['TC', 'TP_0', 'TP_1'],
     TC: ['CA_0', 'CA_1'],
     TP_0: ['CA_0', 'CA_1'],
     TP_1: ['CA_0', 'CA_1']
-};
+};*/
+
+function loadTokenMap() {
+
+    const tMap = {}
+    let lReceive = []
+
+    // Exchange CA
+    for (let i = 0; i < settings.tokens.CA.length; i++) {
+        lReceive.push('TC')
+        // TP
+        for (let t = 0; t < settings.tokens.TP.length; t++) {
+            lReceive.push(`TP_$t`)
+        }
+        tMap[`CA_$i`] = lReceive
+    }
+
+    // Exchange TC
+    lReceive = []
+    for (let i = 0; i < settings.tokens.CA.length; i++) {
+        lReceive.push(`CA_$i`)
+    }
+    tMap['TC'] = lReceive
+
+    // Exchange TP
+    lReceive = []
+    for (let i = 0; i < settings.tokens.TP.length; i++) {
+        // CA
+        for (let a = 0; a < settings.tokens.CA.length; a++) {
+            lReceive.push(`CA_$a`)
+        }
+        tMap[`TP_$i`] = lReceive
+    }
+
+    return tMap
+}
 
 const VERY_HIGH_NUMBER = 100000000000;
 
+const tokenMap = loadTokenMap()
 const tokenExchange = () => Object.keys(tokenMap);
 const tokenReceive = (tExchange) => tokenMap[tExchange];
 
 function isMintOperation(tokenExchange, tokenReceive) {
-    const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
+    /*
         case 'CA_0,TC':
         case 'CA_1,TC':
         case 'CA_0,TP_0':
@@ -42,36 +78,41 @@ function isMintOperation(tokenExchange, tokenReceive) {
         case 'TC,CA_1':
             // Redeem
             return false;
+    }
+     */
+
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+    switch (aTokenMap) {
+        case 'CA,TC':
+        case 'CA,TP':
+            // Mint
+            return true;
+        case 'TP,CA':
+        case 'TC,CA':
+            // Redeem
+            return false;
         default:
             throw new Error('Invalid token name');
     }
 }
 
 function TokenAllowance(auth, tokenExchange) {
+    // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     const tokenExchangeSettings = TokenSettings(tokenExchange);
-
+    const aTokenExchange = tokenExchange.split('_')
     let allowance = 0;
-    switch (tokenExchange) {
-        case 'CA_0':
-            allowance = auth.userBalanceData.CA[0].allowance;
+    switch (aTokenExchange[0]) {
+        case 'CA':
+            allowance = auth.userBalanceData.CA[aTokenExchange[1]].allowance;
             break;
-        case 'CA_1':
-            allowance = auth.userBalanceData.CA[1].allowance;
-            break;
-        case 'TP_0':
+        case 'TP':
             /*allowance = toContractPrecisionDecimals(
                 new BigNumber(VERY_HIGH_NUMBER),
                 tokenExchangeSettings.decimals
             );*/
-            allowance = auth.userBalanceData.TP[0].allowance;
-            break;
-        case 'TP_1':
-            /*
-            allowance = toContractPrecisionDecimals(
-                new BigNumber(VERY_HIGH_NUMBER),
-                tokenExchangeSettings.decimals
-            );*/
-            allowance = auth.userBalanceData.TP[1].allowance;
+            allowance = auth.userBalanceData.TP[aTokenExchange[1]].allowance;
             break;
         case 'TC':
             allowance = auth.userBalanceData.TC.allowance;
@@ -98,43 +139,28 @@ function UserTokenAllowance(auth, tokenExchange) {
 function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
 
-    const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
-        case 'CA_0,TC':
-        case 'CA_0,TP_0':
-        case 'CA_0,TP_1':
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
+    switch (aTokenMap) {
+        case 'CA,TC':
+        case 'CA,TP':
             return {
-                token: dContracts.contracts.CA[0],
-                contractAllow: dContracts.contracts.MocCAWrapper,
+                token: dContracts.contracts.CA[aTokenExchange[1]],
+                contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
-        case 'CA_1,TC':
-        case 'CA_1,TP_0':
-        case 'CA_1,TP_1':
-            return {
-                token: dContracts.contracts.CA[1],
-                contractAllow: dContracts.contracts.MocCAWrapper,
-                decimals: tokenExchangeSettings.decimals
-            };
-        case 'TC,CA_0':
-        case 'TC,CA_1':
+        case 'TC,CA':
             return {
                 token: dContracts.contracts.TC,
-                contractAllow: dContracts.contracts.MocCAWrapper,
+                contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
-        case 'TP_0,CA_0':
-        case 'TP_0,CA_1':
+        case 'TP,CA':
             return {
-                token: dContracts.contracts.TP[0],
-                contractAllow: dContracts.contracts.MocCAWrapper,
-                decimals: tokenExchangeSettings.decimals
-            };
-        case 'TP_1,CA_0':
-        case 'TP_1,CA_1':
-            return {
-                token: dContracts.contracts.TP[1],
-                contractAllow: dContracts.contracts.MocCAWrapper,
+                token: dContracts.contracts.TP[aTokenReceive[1]],
+                contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
         default:
@@ -143,28 +169,20 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
 }
 
 function TokenContract(dContracts, tokenExchange) {
+    // Ex. aTokenMap = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     const tokenExchangeSettings = TokenSettings(tokenExchange);
 
     const tokenMap = `${tokenExchange}`;
-    switch (tokenMap) {
-        case 'CA_0':
+    const aTokenMap = tokenMap.split('_')
+    switch (aTokenMap[0]) {
+        case 'CA':
             return {
-                token: dContracts.contracts.CA[0],
+                token: dContracts.contracts.CA[aTokenMap[1]],
                 decimals: tokenExchangeSettings.decimals
             }
-        case 'CA_1':
+        case 'TP':
             return {
-                token: dContracts.contracts.CA[1],
-                decimals: tokenExchangeSettings.decimals
-            }
-        case 'TP_0':
-            return {
-                token: dContracts.contracts.TP[0],
-                decimals: tokenExchangeSettings.decimals
-            }
-        case 'TP_1':
-            return {
-                token: dContracts.contracts.TP[1],
+                token: dContracts.contracts.TP[aTokenMap[1]],
                 decimals: tokenExchangeSettings.decimals
             }
         case 'TC':
@@ -188,138 +206,46 @@ function exchangeMethod(
 ) {
     let caIndex = 0;
     let tpIndex = 0;
-    const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
-        case 'CA_0,TC':
-            caIndex = 0;
+
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
+    switch (aTokenMap) {
+        case 'CA,TC':
+            caIndex = aTokenExchange[1];
             return mintTC(
                 interfaceContext,
-                caIndex,
                 tokenAmount,
                 limitAmount,
                 onTransaction,
                 onReceipt
             );
-        case 'CA_1,TC':
-            caIndex = 1;
-            return mintTC(
-                interfaceContext,
-                caIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'TC,CA_0':
-            caIndex = 0;
+        case 'TC,CA':
+            caIndex = aTokenReceive[1];
             return redeemTC(
                 interfaceContext,
-                caIndex,
                 tokenAmount,
                 limitAmount,
                 onTransaction,
                 onReceipt
             );
-        case 'TC,CA_1':
-            caIndex = 1;
-            return redeemTC(
-                interfaceContext,
-                caIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'CA_0,TP_0':
-            caIndex = 0;
-            tpIndex = 0;
+        case 'CA,TP':
+            caIndex = aTokenExchange[1];
+            tpIndex = aTokenReceive[1];
             return mintTP(
                 interfaceContext,
-                caIndex,
                 tpIndex,
                 tokenAmount,
                 limitAmount,
                 onTransaction,
                 onReceipt
             );
-        case 'CA_1,TP_0':
-            caIndex = 1;
-            tpIndex = 0;
-            return mintTP(
-                interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'CA_0,TP_1':
-            caIndex = 0;
-            tpIndex = 1;
-            return mintTP(
-                interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'CA_1,TP_1':
-            caIndex = 1;
-            tpIndex = 1;
-            return mintTP(
-                interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'TP_0,CA_0':
-            caIndex = 0;
-            tpIndex = 0;
+        case 'TP,CA':
+            tpIndex = aTokenExchange[1];
+            caIndex = aTokenReceive[1];
             return redeemTP(
                 interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'TP_0,CA_1':
-            caIndex = 1;
-            tpIndex = 0;
-            return redeemTP(
-                interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'TP_1,CA_0':
-            caIndex = 0;
-            tpIndex = 1;
-            return redeemTP(
-                interfaceContext,
-                caIndex,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
-        case 'TP_1,CA_1':
-            caIndex = 1;
-            tpIndex = 1;
-            return redeemTP(
-                interfaceContext,
-                caIndex,
                 tpIndex,
                 tokenAmount,
                 limitAmount,

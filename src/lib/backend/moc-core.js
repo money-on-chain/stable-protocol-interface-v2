@@ -8,6 +8,8 @@ import {
     fromContractPrecisionDecimals
 } from './utils';
 
+// NOTE: Only Support collateral RC20
+
 const mintTC = async (
     interfaceContext,
     caIndex,
@@ -21,10 +23,10 @@ const mintTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
 
-    const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const MoCContract = dContracts.contracts.Moc
 
     // Verifications
 
@@ -68,7 +70,7 @@ const mintTC = async (
         );
     */
     // Calculate estimate gas cost
-    const estimateGas = await MocCAWrapper.methods
+    const estimateGas = await MoCContract.methods
         .mintTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
@@ -84,7 +86,7 @@ const mintTC = async (
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
-    const receipt = MocCAWrapper.methods
+    const receipt = MoCContract.methods
         .mintTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
@@ -124,10 +126,10 @@ const redeemTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
 
-    const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const MoCContract = dContracts.contracts.Moc
 
     // Verifications
 
@@ -169,7 +171,7 @@ const redeemTC = async (
     const valueToSend = null;
 
     // Calculate estimate gas cost
-    const estimateGas = await MocCAWrapper.methods
+    const estimateGas = await MoCContract.methods
         .redeemTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
@@ -185,7 +187,7 @@ const redeemTC = async (
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
-    const receipt = MocCAWrapper.methods
+    const receipt = MoCContract.methods
         .redeemTCViaVendor(
             caAddress,
             toContractPrecisionDecimals(
@@ -226,10 +228,10 @@ const mintTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
 
-    const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const MoCContract = dContracts.contracts.Moc
 
     // Verifications
 
@@ -287,7 +289,7 @@ const mintTP = async (
         );
 
     // Calculate estimate gas cost
-    const estimateGas = await MocCAWrapper.methods
+    const estimateGas = await MoCContract.methods
         .mintTPViaVendor(
             caAddress,
             tpIndex,
@@ -304,7 +306,7 @@ const mintTP = async (
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
-    const receipt = MocCAWrapper.methods
+    const receipt = MoCContract.methods
         .mintTPViaVendor(
             caAddress,
             tpIndex,
@@ -346,10 +348,10 @@ const redeemTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
 
-    const MocCAWrapper = dContracts.contracts.MocCAWrapper;
     const caToken = dContracts.contracts.CA[caIndex];
     const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const MoCContract = dContracts.contracts.Moc
 
     // Verifications
 
@@ -390,7 +392,7 @@ const redeemTP = async (
         );
 
     // Calculate estimate gas cost
-    const estimateGas = await MocCAWrapper.methods
+    const estimateGas = await MoCContract.methods
         .redeemTPViaVendor(
             caAddress,
             tpIndex,
@@ -407,7 +409,7 @@ const redeemTP = async (
         .estimateGas({ from: account, value: '0x' });
 
     // Send tx
-    const receipt = MocCAWrapper.methods
+    const receipt = MoCContract.methods
         .redeemTPViaVendor(
             caAddress,
             tpIndex,
