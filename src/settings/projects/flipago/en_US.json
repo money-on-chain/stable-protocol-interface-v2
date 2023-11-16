@@ -101,10 +101,6 @@
                 "label": "Dollar on Chain",
                 "abbr": "DOC"
             },
-            "CA_1": {
-                "label": "USDRIF",
-                "abbr": "USDRIF"
-            },
             "TC": {
                 "label": "Go Turbo",
                 "abbr": "Turbo"
@@ -133,12 +129,9 @@
                     "title": "Dollar on Chain (DOC)"
                 },
                 "1": {
-                    "title": "USD RIF (USDRIF)"
-                },
-                "2": {
                     "title": "Go Turbo"
                 },
-                "3": {
+                "2": {
                     "title": "RBTC"
                 }
             },
