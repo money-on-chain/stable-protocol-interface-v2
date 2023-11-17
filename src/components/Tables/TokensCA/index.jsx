@@ -122,7 +122,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: auth.contractStatusData.PP_CA[dataItem.key],
-                            token: settings.tokens.CA[0],
+                            token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -136,7 +136,7 @@ export default function Tokens(props) {
                         {PrecisionNumbers({
                             amount: auth.userBalanceData.CA[dataItem.key]
                                 .balance,
-                            token: settings.tokens.CA[0],
+                            token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -148,7 +148,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: balanceUSD,
-                            token: settings.tokens.CA[0],
+                            token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,

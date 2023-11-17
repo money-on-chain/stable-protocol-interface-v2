@@ -193,11 +193,10 @@ const contractStatus = async (web3, dContracts) => {
 
     if (collateral === 'bag') {
         status.getTokenPrice = listReturnData[last_index + 1]
+        last_index = last_index + 1
     } else {
         status.getTokenPrice = new BigNumber('0')
     }
-
-    last_index = last_index + 1
 
     const calcCtargemaCA = new BigNumber(
         fromContractPrecisionDecimals(
@@ -238,16 +237,16 @@ const contractStatus = async (web3, dContracts) => {
 
     const historic = {};
 
+    last_index = 1
     PP_TP = []
-    last_index = 2 // this is the last used array index
     for (let i = 0; i < settings.tokens.TP.length; i++) {
-        PP_TP.push(listReturnData[last_index + 1])
+        PP_TP.push(listReturnDataHistoric[last_index + 1])
         last_index = last_index + 1
     }
 
     PP_CA = []
     for (let i = 0; i < settings.tokens.CA.length; i++) {
-        PP_CA.push(listReturnData[last_index + 1])
+        PP_CA.push(listReturnDataHistoric[last_index + 1])
         last_index = last_index + 1
     }
 
