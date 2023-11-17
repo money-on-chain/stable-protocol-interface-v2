@@ -5,41 +5,13 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
-import settings from '../../settings/settings.json';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import CollateralAssets from './collateral';
+import TokensPegged from './tokenspegged';
 
 export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
-    const totalPeggedInUSD = () => {
-
-        let totalUSD = new BigNumber(0);
-
-        // Tokens TPs
-        auth.contractStatusData &&
-        settings.tokens.TP.forEach(function (dataItem) {
-            const balance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.pegContainer[dataItem.key],
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            const price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_TP[dataItem.key],
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            const balanceUSD = balance.div(price);
-            totalUSD = totalUSD.plus(balanceUSD);
-        });
-
-        return totalUSD;
-    };
-
 
     return (
         <div className="Performance">
@@ -111,7 +83,7 @@ export default function Performance(props) {
                     <div className="card-tc">
 
                         <div className="title">
-                            <h1><i className="icon-token-tc display-block"></i> Go Turbo</h1>
+                            <h1><i className="icon-token-tc display-block"></i> {t(`exchange.tokens.TC.label`, {ns: ns})}</h1>
                         </div>
 
                         <div className="card-content">
@@ -230,53 +202,7 @@ export default function Performance(props) {
 
                             <div className="row-2">
 
-                                <div className="list-tokens">
-
-                                    <div className="row-token">
-
-                                        <div className="coll-1">
-                                            <div className="token"> <i className="icon-token-ca_0 display-block"></i> Dollar On Chain (DOC)</div>
-                                        </div>
-                                        <div className="coll-2">
-                                            <div className="amount-token">
-                                                {PrecisionNumbers({
-                                                    amount: auth.contractStatusData.getACBalance[0],
-                                                    token: TokenSettings('CA_0'),
-                                                    decimals: 2,
-                                                    t: t,
-                                                    i18n: i18n,
-                                                    ns: ns,
-                                                    skipContractConvert: false
-                                                })}
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="row-token">
-
-                                        <div className="coll-1">
-                                            <div className="token"> <i className="icon-token-ca_1 display-block"></i> RIF On Chain (DOC)</div>
-                                        </div>
-                                        <div className="coll-2">
-                                            <div className="amount-token">
-                                                {PrecisionNumbers({
-                                                    amount: auth.contractStatusData.getACBalance[1],
-                                                    token: TokenSettings('CA_1'),
-                                                    decimals: 2,
-                                                    t: t,
-                                                    i18n: i18n,
-                                                    ns: ns,
-                                                    skipContractConvert: false
-                                                })}
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-
+                                <CollateralAssets />
 
                             </div>
 
@@ -290,88 +216,8 @@ export default function Performance(props) {
 
             <Row gutter={24} className="row-section">
                 <Col span={12}>
-                    <div className="card-tps">
 
-                        <div className="title">
-                            <h1>Tokens pegged</h1>
-                        </div>
-
-                        <div className="card-content">
-
-                            <div className="row-1">
-
-                                <div className="coll-1">
-                                    <div className="amount">
-                                        {PrecisionNumbers({
-                                            amount: totalPeggedInUSD(),
-                                            token: TokenSettings('CA_0'),
-                                            decimals: 2,
-                                            t: t,
-                                            i18n: i18n,
-                                            ns: ns,
-                                            skipContractConvert: true
-                                        })}
-                                    </div>
-                                    <div className="caption">Total supply in USD</div>
-                                </div>
-
-                            </div>
-
-                            <div className="row-2">
-
-                                <div className="list-tokens">
-
-                                    <div className="row-token">
-
-                                        <div className="coll-1">
-                                            <div className="token"> <i className="icon-token-tp_0 display-block"></i> Peso Argentino (FARS)</div>
-                                        </div>
-                                        <div className="coll-2">
-                                            <div className="amount-token">
-                                                {PrecisionNumbers({
-                                                    amount: auth.contractStatusData.pegContainer[0],
-                                                    token: TokenSettings('TP_0'),
-                                                    decimals: 2,
-                                                    t: t,
-                                                    i18n: i18n,
-                                                    ns: ns,
-                                                    skipContractConvert: false
-                                                })}
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="row-token">
-
-                                        <div className="coll-1">
-                                            <div className="token"> <i className="icon-token-tp_1 display-block"></i> Peso Mexicano (FMXN)</div>
-                                        </div>
-                                        <div className="coll-2">
-                                            <div className="amount-token">
-                                                {PrecisionNumbers({
-                                                    amount: auth.contractStatusData.pegContainer[1],
-                                                    token: TokenSettings('TP_1'),
-                                                    decimals: 2,
-                                                    t: t,
-                                                    i18n: i18n,
-                                                    ns: ns,
-                                                    skipContractConvert: false
-                                                })}
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
+                    <TokensPegged />
 
                 </Col>
 
