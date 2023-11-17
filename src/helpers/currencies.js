@@ -279,9 +279,43 @@ function CalcCommission(
             throw new Error('Invalid token name');
     }
 
+    // Fee Paying with Token
+    const feeTokenPrice = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.PP_FeeToken,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const feeTokenPct = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.feeTokenPct,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const qFeeToken = amount.times(feeParam.times(feeTokenPct)).div(feeTokenPrice)
+
+    // Markup Vendors
+    const vendorMarkup = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.vendorMarkup,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const markOperation = amount.times(vendorMarkup)
+    const markOperationToken = amount.times(vendorMarkup).div(feeTokenPrice)
+
+    // Total fee token
+    const totalFeeToken = qFeeToken.plus(markOperationToken)
+
     const feeInfo = {
-        fee: amount.times(feeParam),
-        percent: feeParam.times(100)
+        fee: amount.times(feeParam).plus(markOperation),
+        percent: feeParam.times(100),
+        markup: vendorMarkup,
+        markOperation: markOperation,
+        markOperationToken: markOperationToken,
+        feeTokenPrice: feeTokenPrice,
+        feeTokenPct: feeTokenPct,
+        totalFeeToken: totalFeeToken
     };
 
     return feeInfo;

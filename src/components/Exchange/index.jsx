@@ -111,7 +111,8 @@ export default function Exchange() {
 
         let tIndex
         // 2. MINT TP. User receive available token in contract
-        if (currencyYouReceive === 'TP_0' || currencyYouReceive === 'TP_1') {
+        const arrCurrencyYouReceive = currencyYouReceive.split('_')
+        if (arrCurrencyYouReceive[0] === 'TP') {
             // There are sufficient PEGGED in the contracts to mint?
             tIndex = TokenSettings(currencyYouReceive).key
             const tpAvailableToMint = new BigNumber(
@@ -141,7 +142,7 @@ export default function Exchange() {
         }
 
         // 4. REDEEM SUFFICIENT CA IN THE CONTRACT?
-        if (currencyYouReceive === 'CA_0' || currencyYouReceive === 'CA_1') {
+        if (arrCurrencyYouReceive[0] === 'CA') {
 
             tIndex = TokenSettings(currencyYouReceive).key
             // There are sufficient CA in the contract

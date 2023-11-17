@@ -22,9 +22,6 @@ const mintTC = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-
-    const caToken = dContracts.contracts.CA[caIndex];
-    const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
 
@@ -69,10 +66,10 @@ const mintTC = async (
             'Insufficient spendable balance... please make an allowance to the MoC contract'
         );
     */
+
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTCViaVendor(
-            caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -88,7 +85,6 @@ const mintTC = async (
     // Send tx
     const receipt = MoCContract.methods
         .mintTCViaVendor(
-            caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -125,9 +121,6 @@ const redeemTC = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-
-    const caToken = dContracts.contracts.CA[caIndex];
-    const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
 
@@ -173,7 +166,6 @@ const redeemTC = async (
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .redeemTCViaVendor(
-            caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -189,7 +181,6 @@ const redeemTC = async (
     // Send tx
     const receipt = MoCContract.methods
         .redeemTCViaVendor(
-            caAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -227,9 +218,6 @@ const mintTP = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-
-    const caToken = dContracts.contracts.CA[caIndex];
-    const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
 
@@ -291,7 +279,6 @@ const mintTP = async (
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTPViaVendor(
-            caAddress,
             tpIndex,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -308,7 +295,6 @@ const mintTP = async (
     // Send tx
     const receipt = MoCContract.methods
         .mintTPViaVendor(
-            caAddress,
             tpIndex,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -347,9 +333,6 @@ const redeemTP = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-
-    const caToken = dContracts.contracts.CA[caIndex];
-    const caAddress = caToken.options.address;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
 
@@ -394,7 +377,6 @@ const redeemTP = async (
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .redeemTPViaVendor(
-            caAddress,
             tpIndex,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -411,7 +393,6 @@ const redeemTP = async (
     // Send tx
     const receipt = MoCContract.methods
         .redeemTPViaVendor(
-            caAddress,
             tpIndex,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
