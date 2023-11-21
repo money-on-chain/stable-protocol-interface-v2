@@ -6,7 +6,7 @@ const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
 
     const collateral = settings.collateral
-    const vendorAddress = `${process.env.REACT_APP_VENDOR_ADDRESS}`.toLowerCase()
+    const vendorAddress = `${process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS}`.toLowerCase()
 
     console.log('Reading contract status ...');
 

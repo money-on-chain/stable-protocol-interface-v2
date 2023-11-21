@@ -153,7 +153,7 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
             };
         case 'TC,CA':
             return {
-                token: dContracts.contracts.TC,
+                token: dContracts.contracts.CollateralToken,
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
@@ -187,7 +187,7 @@ function TokenContract(dContracts, tokenExchange) {
             }
         case 'TC':
             return {
-                token: dContracts.contracts.TC,
+                token: dContracts.contracts.CollateralToken,
                 decimals: tokenExchangeSettings.decimals
             }
         default:
