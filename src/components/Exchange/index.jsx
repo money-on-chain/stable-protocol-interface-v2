@@ -224,6 +224,14 @@ export default function Exchange() {
 
         setCommission(infoFee.fee);
         setCommissionPercent(infoFee.percent);
+
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+        convertAmountUSD = convertAmountUSD.times(priceCA);
         setExchangingUSD(convertAmountUSD);
     };
 
