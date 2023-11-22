@@ -107,7 +107,7 @@ export default function Tokens(props) {
                     <div className="item-token">
                         <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
                         <span className="token-description">
-                            {t(`portfolio.tokens.TP.${dataItem.key}.title`, {
+                            {t(`portfolio.tokens.TP.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>

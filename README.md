@@ -19,15 +19,15 @@ You can:
 * Please review the contracts [here](https://github.com/money-on-chain/main-sc-protocol)
 
 
-| Token    | Token name       | Project | Token Name | Collateral |
-|----------|------------------|---------|------------|------------|
-| TP #0    | Pegged Token     | Flipago | Go ARS     | DoC        |
-| TP #1    | Pegged Token     | Flipago | Go MXN     | DoC        |
-| TC       | Collateral Token | Flipago | Go Turbo   | DoC        |
-| FeeToken | Fee Token        | Flipago | Flip       | -          |
-| TP       | Pegged Token     | RoC     | USDRIF     | RIF        |
-| TC       | Collateral Token | RoC     | RIFP       | RIF        |
-| FeeToken | Fee Token        | RoC     | MOC        | -          |
+| Token | Token name       | Project | Token Name | Collateral |
+|-------|------------------|---------|------------|------------|
+| TP #0 | Pegged Token     | Flipago | Go ARS     | DoC        |
+| TP #1 | Pegged Token     | Flipago | Go MXN     | DoC        |
+| TC    | Collateral Token | Flipago | Go Turbo   | DoC        |
+| TF    | Fee Token        | Flipago | Flip       | -          |
+| TP    | Pegged Token     | RoC     | USDRIF     | RIF        |
+| TC    | Collateral Token | RoC     | RIFP       | RIF        |
+| TF    | Fee Token        | RoC     | MOC        | -          |
 
 
 

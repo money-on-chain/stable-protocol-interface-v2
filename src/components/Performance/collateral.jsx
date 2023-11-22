@@ -19,7 +19,7 @@ export default function CollateralAssets() {
                         <div className="coll-1">
                             <div className="token">
                                 <i className={`icon-token-ca_${i} display-block`}></i>
-                                {t(`portfolio.tokens.CA.${i}.title`, {ns: ns})}
+                                {t(`portfolio.tokens.CA.rows.${i}.title`, {ns: ns})}
                             </div>
                         </div>
                         <div className="coll-2">
