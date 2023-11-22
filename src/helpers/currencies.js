@@ -25,19 +25,15 @@ const currencies = [
 const getCurrenciesDetail = () => currencies;
 
 function TokenSettings(tokenName) {
+    // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
+    const aTokenName = tokenName.split('_')
     let token = settings.tokens.CA[0];
-    switch (tokenName) {
-        case 'CA_0':
-            token = settings.tokens.CA[0];
+    switch (aTokenName[0]) {
+        case 'CA':
+            token = settings.tokens.CA[parseInt(aTokenName[1])];
             break;
-        case 'CA_1':
-            token = settings.tokens.CA[1];
-            break;
-        case 'TP_0':
-            token = settings.tokens.TP[0];
-            break;
-        case 'TP_1':
-            token = settings.tokens.TP[1];
+        case 'TP':
+            token = settings.tokens.TP[parseInt(aTokenName[1])];
             break;
         case 'TC':
             token = settings.tokens.TC;
@@ -53,19 +49,15 @@ function TokenSettings(tokenName) {
 }
 
 function TokenBalance(auth, tokenName) {
+    // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let balance = 0;
-    switch (tokenName) {
-        case 'CA_0':
-            balance = auth.userBalanceData.CA[0].balance;
+    const aTokenName = tokenName.split('_')
+    switch (aTokenName[0]) {
+        case 'CA':
+            balance = auth.userBalanceData.CA[parseInt(aTokenName[1])].balance;
             break;
-        case 'CA_1':
-            balance = auth.userBalanceData.CA[1].balance;
-            break;
-        case 'TP_0':
-            balance = auth.userBalanceData.TP[0].balance;
-            break;
-        case 'TP_1':
-            balance = auth.userBalanceData.TP[1].balance;
+        case 'TP':
+            balance = auth.userBalanceData.TP[parseInt(aTokenName[1])].balance;
             break;
         case 'TC':
             balance = auth.userBalanceData.TC.balance;
@@ -81,19 +73,15 @@ function TokenBalance(auth, tokenName) {
 }
 
 function TokenPrice(auth, tokenName) {
+    // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let price = 0;
-    switch (tokenName) {
-        case 'CA_0':
-            price = auth.contractStatusData.PP_CA[0];
+    const aTokenName = tokenName.split('_')
+    switch (aTokenName[0]) {
+        case 'CA':
+            price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])];
             break;
-        case 'CA_1':
-            price = auth.contractStatusData.PP_CA[1];
-            break;
-        case 'TP_0':
-            price = auth.contractStatusData.PP_TP[0];
-            break;
-        case 'TP_1':
-            price = auth.contractStatusData.PP_TP[1];
+        case 'TP':
+            price = auth.contractStatusData.PP_TP[parseInt(aTokenName[1])];
             break;
         case 'TC':
             price = auth.contractStatusData.getPTCac;
@@ -139,10 +127,13 @@ function ConvertAmount(
     let cAmount = new BigNumber(0);
 
     // [tokenExchange,tokenReceive]
-    const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
-        case 'CA_0,TC':
-        case 'CA_1,TC':
+    //const tokenMap = `${tokenExchange},${tokenReceive}`;
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
+    switch (aTokenMap) {
+        case 'CA,TC':
             price = new BigNumber(
                 fromContractPrecisionDecimals(
                     TokenPrice(auth, tokenReceive),
@@ -151,10 +142,7 @@ function ConvertAmount(
             );
             cAmount = amount.div(price);
             break;
-        case 'TP_0,CA_0':
-        case 'TP_1,CA_0':
-        case 'TP_0,CA_1':
-        case 'TP_1,CA_1':
+        case 'TP,CA':
             // Redeem Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -164,10 +152,7 @@ function ConvertAmount(
             );
             cAmount = amount.div(price);
             break;
-        case 'CA_0,TP_0':
-        case 'CA_1,TP_0':
-        case 'CA_0,TP_1':
-        case 'CA_1,TP_1':
+        case 'CA,TP':
             // Mint Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -177,8 +162,7 @@ function ConvertAmount(
             );
             cAmount = amount.times(price);
             break;
-        case 'TC,CA_0':
-        case 'TC,CA_1':
+        case 'TC,CA':
             // Redeem Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -188,10 +172,7 @@ function ConvertAmount(
             );
             cAmount = amount.times(price);
             break;
-        case 'CA_0,CA_0':
-        case 'CA_1,CA_0':
-        case 'CA_0,CA_1':
-        case 'CA_1,CA_1':
+        case 'CA,CA':
             cAmount = amount;
             break;
         default:
@@ -251,10 +232,14 @@ function CalcCommission(
     }
 
     let feeParam;
+
     const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
-        case 'CA_0,TC':
-        case 'CA_1,TC':
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
+    switch (aTokenMap) {
+        case 'CA,TC':
             // Mint TC
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -263,48 +248,25 @@ function CalcCommission(
                 )
             );
             break;
-        case 'TP_0,CA_0':
-        case 'TP_0,CA_1':
-            // Redeem TP 0
+        case 'TP,CA':
+            // Redeem TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpRedeemFee[0],
+                    auth.contractStatusData.tpRedeemFee[parseInt(aTokenExchange[1])],
                     tokenReceiveSettings.decimals
                 )
             );
             break;
-        case 'TP_1,CA_0':
-        case 'TP_1,CA_1':
-            // Redeem TP 1
+        case 'CA,TP':
+            // Mint TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpRedeemFee[1],
+                    auth.contractStatusData.tpMintFee[parseInt(aTokenReceive[1])],
                     tokenReceiveSettings.decimals
                 )
             );
             break;
-        case 'CA_0,TP_0':
-        case 'CA_1,TP_0':
-            // Mint TP 0
-            feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpMintFee[0],
-                    tokenReceiveSettings.decimals
-                )
-            );
-            break;
-        case 'CA_0,TP_1':
-        case 'CA_1,TP_1':
-            // Mint TP 1
-            feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpMintFee[1],
-                    tokenReceiveSettings.decimals
-                )
-            );
-            break;
-        case 'TC,CA_0':
-        case 'TC,CA_1':
+        case 'TC,CA':
             // Redeem TC
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -317,9 +279,43 @@ function CalcCommission(
             throw new Error('Invalid token name');
     }
 
+    // Fee Paying with Token
+    const feeTokenPrice = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.PP_FeeToken,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const feeTokenPct = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.feeTokenPct,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const qFeeToken = amount.times(feeParam.times(feeTokenPct)).div(feeTokenPrice)
+
+    // Markup Vendors
+    const vendorMarkup = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.vendorMarkup,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const markOperation = amount.times(vendorMarkup)
+    const markOperationToken = amount.times(vendorMarkup).div(feeTokenPrice)
+
+    // Total fee token
+    const totalFeeToken = qFeeToken.plus(markOperationToken)
+
     const feeInfo = {
-        fee: amount.times(feeParam),
-        percent: feeParam.times(100)
+        fee: amount.times(feeParam).plus(markOperation),
+        percent: feeParam.times(100),
+        markup: vendorMarkup,
+        markOperation: markOperation,
+        markOperationToken: markOperationToken,
+        feeTokenPrice: feeTokenPrice,
+        feeTokenPct: feeTokenPct,
+        totalFeeToken: totalFeeToken
     };
 
     return feeInfo;
@@ -439,22 +435,18 @@ function AmountsWithCommissions(
     }
 
     const tokenMap = `${tokenExchange},${tokenReceive}`;
-    switch (tokenMap) {
-        case 'CA_0,TC':
-        case 'CA_1,TC':
-        case 'CA_0,TP_0':
-        case 'CA_1,TP_0':
-        case 'CA_0,TP_1':
-        case 'CA_1,TP_1':
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
+    switch (aTokenMap) {
+        case 'CA,TC':
+        case 'CA,TP':
             // Mint
             amountYouExchange = amountYouExchange.plus(commissionsValue);
             break;
-        case 'TP_0,CA_0':
-        case 'TP_0,CA_1':
-        case 'TP_1,CA_0':
-        case 'TP_1,CA_1':
-        case 'TC,CA_0':
-        case 'TC,CA_1':
+        case 'TP,CA':
+        case 'TC,CA':
             // Redeem
             amountYouReceive = amountYouReceive.minus(commissionsValue);
             break;

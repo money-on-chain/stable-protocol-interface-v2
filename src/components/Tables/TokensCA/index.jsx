@@ -41,26 +41,6 @@ const columns = [
     }
 ];
 
-/*
-const data = [
-    {
-        key: 0,
-        name: "--",
-        price: "--",
-        variation: "--",
-        balance: "--",
-        usd: "--"
-    },
-    {
-        key: 1,
-        name: "--",
-        price: "--",
-        variation: "--",
-        balance: "--",
-        usd: "--"
-    }
-];
-*/
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -106,13 +86,32 @@ export default function Tokens(props) {
             );
             balanceUSD = balance.times(price);
 
+            // variation
+            const priceHistory = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.historic.PP_CA[dataItem.key],
+                    settings.tokens.CA[dataItem.key].decimals
+                )
+            );
+            const priceDelta = price.minus(priceHistory);
+            const variation = priceDelta.abs().div(priceHistory).times(100);
+
+            const priceDeltaFormat = priceDelta.toFormat(t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`), BigNumber.ROUND_UP, {
+                decimalSeparator: '.',
+                groupSeparator: ','
+            });
+            const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
+                decimalSeparator: '.',
+                groupSeparator: ','
+            });
+
             tokensData.push({
                 key: dataItem.key,
                 name: (
                     <div className="item-token">
                         <i className={`icon-token-ca_${dataItem.key}`}></i>{' '}
                         <span className="token-description">
-                            {t(`portfolio.tokens.CA.${dataItem.key}.title`, {
+                            {t(`portfolio.tokens.CA.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>
@@ -122,21 +121,21 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: auth.contractStatusData.PP_CA[dataItem.key],
-                            token: settings.tokens.CA[0],
-                            decimals: 2,
+                            token: settings.tokens.CA[dataItem.key],
+                            decimals: t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
                             t: t,
                             i18n: i18n,
                             ns: ns
                         })}
                     </div>
                 ),
-                variation: '--',
+                variation: `${priceDeltaFormat} (${variationFormat} %)`,
                 balance: (
                     <div>
                         {PrecisionNumbers({
                             amount: auth.userBalanceData.CA[dataItem.key]
                                 .balance,
-                            token: settings.tokens.CA[0],
+                            token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -148,7 +147,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: balanceUSD,
-                            token: settings.tokens.CA[0],
+                            token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -169,12 +168,19 @@ export default function Tokens(props) {
                 settings.tokens.TC.decimals
             )
         );
-        price = new BigNumber(
+        const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
                 settings.tokens.TC.decimals
             )
         );
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+        price = priceTEC.times(priceCA);
         balanceUSD = balance.times(price);
 
         // variation
@@ -182,6 +188,94 @@ export default function Tokens(props) {
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.getPTCac,
                 settings.tokens.TC.decimals
+            )
+        );
+        const priceDelta = price.minus(priceHistory);
+        const variation = priceDelta.abs().div(priceHistory).times(100);
+
+        const itemIndex = count;
+
+        const priceDeltaFormat = priceDelta.toFormat(t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`), BigNumber.ROUND_UP, {
+            decimalSeparator: '.',
+            groupSeparator: ','
+        });
+        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
+            decimalSeparator: '.',
+            groupSeparator: ','
+        });
+
+        tokensData.push({
+            key: itemIndex,
+            name: (
+                <div className="item-token">
+                    <i className="icon-token-tc"></i>{' '}
+                    <span className="token-description">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                </div>
+            ),
+            price: (
+                <div>
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
+                        amount: price,
+                        token: settings.tokens.TC,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                </div>
+            ),
+            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            balance: (
+                <div>
+                    {PrecisionNumbers({
+                        amount: auth.userBalanceData.TC.balance,
+                        token: settings.tokens.TC,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns
+                    })}
+                </div>
+            ),
+            usd: (
+                <div>
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
+                        amount: balanceUSD,
+                        token: settings.tokens.TC,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                </div>
+            )
+        });
+
+        count += 1;
+    }
+
+    // Token TP only in Roc
+    if (auth.contractStatusData && auth.userBalanceData && settings.project === 'roc') {
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.TP[0].balance,
+                settings.tokens.TP[0].decimals
+            )
+        );
+        price = new BigNumber(1);
+        balanceUSD = balance.times(price);
+
+        // variation
+        const priceHistory = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.historic.PP_TP[0],
+                settings.tokens.TP[0].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -202,9 +296,9 @@ export default function Tokens(props) {
             key: itemIndex,
             name: (
                 <div className="item-token">
-                    <i className="icon-token-tc"></i>{' '}
+                    <i className="icon-token-tp_0"></i>{' '}
                     <span className="token-description">
-                        {t(`portfolio.tokens.CA.${itemIndex}.title`, {
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
@@ -213,12 +307,13 @@ export default function Tokens(props) {
             price: (
                 <div>
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                        amount: auth.contractStatusData.getPTCac,
-                        token: settings.tokens.TC,
-                        decimals: 2,
+                        amount: price,
+                        token: settings.tokens.TP[0],
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
+                        skipContractConvert: true
                     })}
                 </div>
             ),
@@ -226,8 +321,8 @@ export default function Tokens(props) {
             balance: (
                 <div>
                     {PrecisionNumbers({
-                        amount: auth.userBalanceData.TC.balance,
-                        token: settings.tokens.TC,
+                        amount: auth.userBalanceData.TP[0].balance,
+                        token: settings.tokens.TP[0],
                         decimals: 2,
                         t: t,
                         i18n: i18n,
@@ -239,7 +334,7 @@ export default function Tokens(props) {
                 <div>
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
-                        token: settings.tokens.TC,
+                        token: settings.tokens.TP[0],
                         decimals: 2,
                         t: t,
                         i18n: i18n,
@@ -279,7 +374,9 @@ export default function Tokens(props) {
         const priceDelta = price.minus(priceHistory);
         const variation = priceDelta.abs().div(priceHistory).times(100);
 
-        const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP, {
+        const itemIndex = count;
+
+        const priceDeltaFormat = priceDelta.toFormat(t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`), BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
         });
@@ -288,15 +385,13 @@ export default function Tokens(props) {
             groupSeparator: ','
         });
 
-        const itemIndex = count;
-
         tokensData.push({
             key: itemIndex,
             name: (
                 <div className="item-token">
                     <i className="icon-token-coinbase"></i>{' '}
                     <span className="token-description">
-                        {t(`portfolio.tokens.CA.${itemIndex}.title`, {
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
@@ -307,7 +402,7 @@ export default function Tokens(props) {
                     {PrecisionNumbers({
                         amount: auth.contractStatusData.PP_COINBASE,
                         token: settings.tokens.COINBASE,
-                        decimals: 2,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
                         t: t,
                         i18n: i18n,
                         ns: ns

@@ -41,25 +41,6 @@ const columns = [
     }
 ];
 
-const data = [
-    {
-        key: 0,
-        name: '--',
-        price: '--',
-        variation: '--',
-        balance: '--',
-        usd: '--'
-    },
-    {
-        key: 1,
-        name: '--',
-        price: '--',
-        variation: '--',
-        balance: '--',
-        usd: '--'
-    }
-];
-
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -82,7 +63,7 @@ export default function Tokens(props) {
     // Rows
     auth.contractStatusData &&
         auth.userBalanceData &&
-        data.forEach(function (dataItem) {
+        settings.tokens.TP.forEach(function (dataItem) {
             const balance = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.userBalanceData.TP[dataItem.key].balance,
@@ -126,7 +107,7 @@ export default function Tokens(props) {
                     <div className="item-token">
                         <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
                         <span className="token-description">
-                            {t(`portfolio.tokens.TP.${dataItem.key}.title`, {
+                            {t(`portfolio.tokens.TP.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>
@@ -136,7 +117,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: price,
-                            token: settings.tokens.TP[0],
+                            token: settings.tokens.TP[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -150,7 +131,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: balance,
-                            token: settings.tokens.TP[0],
+                            token: settings.tokens.TP[dataItem.key],
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -163,7 +144,7 @@ export default function Tokens(props) {
                     <div>
                         {PrecisionNumbers({
                             amount: balanceUSD,
-                            token: settings.tokens.TP[0],
+                            token: settings.tokens.TP[dataItem.key],
                             decimals: 3,
                             t: t,
                             i18n: i18n,

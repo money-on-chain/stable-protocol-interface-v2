@@ -7,12 +7,12 @@ import addressHelper from '../helpers/addressHelper';
 
 import { ApproveTokenContract, exchangeMethod, TokenContract } from '../helpers/exchange';
 
-import { readContracts } from '../lib/integration/contracts';
-import { contractStatus, userBalance } from '../lib/integration/multicall';
-import { decodeEvents } from '../lib/integration/transaction';
-import { AllowanceAmount, transferTokenTo } from '../lib/integration/interfaces-base';
+import { readContracts } from '../lib/backend/contracts';
+import { contractStatus, userBalance } from '../lib/backend/multicall';
+import { decodeEvents } from '../lib/backend/transaction';
+import { AllowanceAmount, transferTokenTo } from '../lib/backend/moc-base';
 
-import { getGasPrice } from '../lib/integration/utils';
+import { getGasPrice } from '../lib/backend/utils';
 
 const helper = addressHelper(Web3);
 

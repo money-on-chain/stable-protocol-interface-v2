@@ -101,10 +101,6 @@
                 "label": "Dollar on Chain",
                 "abbr": "DOC"
             },
-            "CA_1": {
-                "label": "Rif on Chain",
-                "abbr": "RDOC"
-            },
             "TC": {
                 "label": "Go Turbo",
                 "abbr": "Turbo"
@@ -129,17 +125,19 @@
                     "balance": "Balance",
                     "usd": "USD"
                 },
-                "0": {
-                    "title": "Dollar on Chain (DOC)"
-                },
-                "1": {
-                    "title": "Rif on Chain (RDOC)"
-                },
-                "2": {
-                    "title": "Go Turbo"
-                },
-                "3": {
-                    "title": "RBTC"
+                "rows": {
+                    "0": {
+                        "title": "Dollar on Chain (DOC)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go Turbo",
+                        "price_decimals": 2
+                    },
+                    "2": {
+                        "title": "RBTC",
+                        "price_decimals": 2
+                    }
                 }
             },
             "TP": {
@@ -150,11 +148,15 @@
                     "balance": "Balance",
                     "usd": "USD"
                 },
-                "0": {
-                    "title": "Go ARS"
-                },
-                "1": {
-                    "title": "Go MXN"
+                "rows": {
+                    "0": {
+                        "title": "Go ARS",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go MXN",
+                        "price_decimals": 2
+                    }
                 }
             }
         }

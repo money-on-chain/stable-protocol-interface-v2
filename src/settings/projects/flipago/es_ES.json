@@ -94,5 +94,71 @@
             "pending": "Pending",
             "failed": "Failed"
         }
+    },
+    "exchange": {
+        "tokens": {
+            "CA_0": {
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
+            },
+            "TC": {
+                "label": "Go Turbo",
+                "abbr": "Turbo"
+            },
+            "TP_0": {
+                "label": "Go ARS",
+                "abbr": "GoARS"
+            },
+            "TP_1": {
+                "label": "Go MXN",
+                "abbr": "GoMXN"
+            }
+        }
+    },
+    "portfolio": {
+        "tokens": {
+            "CA": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Price in USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "Dollar on Chain (DOC)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go Turbo",
+                        "price_decimals": 2
+                    },
+                    "2": {
+                        "title": "RBTC",
+                        "price_decimals": 2
+                    }
+                }
+            },
+            "TP": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Tokens per USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "Go ARS",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go MXN",
+                        "price_decimals": 2
+                    }
+                }
+            }
+        }
     }
 }
