@@ -121,14 +121,23 @@
                     "balance": "Balance",
                     "usd": "USD"
                 },
-                "0": {
-                    "title": "RIF"
-                },
-                "1": {
-                    "title": "RIF Pro"
-                },
-                "2": {
-                    "title": "RBTC"
+                "rows": {
+                    "0": {
+                        "title": "Rootstock (RIF)",
+                        "price_decimals": 4
+                    },
+                    "1": {
+                        "title": "RIF Pro (RIFP)",
+                        "price_decimals": 4
+                    },
+                    "2": {
+                        "title": "RIF Dollar (USDRIF)",
+                        "price_decimals": 2
+                    },
+                    "3": {
+                        "title": "RBTC",
+                        "price_decimals": 2
+                    }
                 }
             },
             "TP": {
@@ -139,9 +148,7 @@
                     "balance": "Balance",
                     "usd": "USD"
                 },
-                "0": {
-                    "title": "RIF Dollar"
-                }
+                "rows": {}
             }
         }
     }

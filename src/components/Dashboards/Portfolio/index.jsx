@@ -124,7 +124,7 @@ export default function Portfolio() {
                 </div>
                 <div className="tokens-list-table">
                     <TokensCA />
-                    <TokensTP />
+                    {(settings.project !== 'roc') && (<TokensTP />)}
                 </div>
             </div>
         </div>

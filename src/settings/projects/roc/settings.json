@@ -1,5 +1,6 @@
 {
     "collateral": "rc20",
+    "project": "roc",
     "tokens": {
         "COINBASE": {
             "name": "RBTC",
