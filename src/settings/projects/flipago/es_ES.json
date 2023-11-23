@@ -112,6 +112,10 @@
             "TP_1": {
                 "label": "Go MXN",
                 "abbr": "GoMXN"
+            },
+            "TF": {
+                "label": "FLIP",
+                "abbr": "FLIP"
             }
         }
     },

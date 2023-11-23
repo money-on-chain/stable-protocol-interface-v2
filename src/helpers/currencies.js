@@ -306,16 +306,18 @@ function CalcCommission(
 
     // Total fee token
     const totalFeeToken = qFeeToken.plus(markOperationToken)
+    const totalFeeTokenPercent = feeParam.times(feeTokenPct).plus(vendorMarkup.times(feeTokenPct))
 
     const feeInfo = {
         fee: amount.times(feeParam).plus(markOperation),
-        percent: feeParam.times(100),
+        percent: feeParam.plus(vendorMarkup).times(100),
         markup: vendorMarkup,
         markOperation: markOperation,
         markOperationToken: markOperationToken,
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
-        totalFeeToken: totalFeeToken
+        totalFeeToken: totalFeeToken,
+        totalFeeTokenPercent: totalFeeTokenPercent.times(100)
     };
 
     return feeInfo;

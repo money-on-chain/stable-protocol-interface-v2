@@ -1,5 +1,7 @@
 import { Switch, Button } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import { Input, Radio, Space } from 'antd';
+import  { RadioChangeEvent } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -49,6 +51,10 @@ export default function Exchange() {
 
     const [commission, setCommission] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
+    const [commissionFeeToken, setCommissionFeeToken] = useState('0.0');
+    const [commissionPercentFeeToken, setCommissionPercentFeeToken] = useState('0.0');
+
+    const [feePaymentOption, setFeePaymentOption] = useState(1);
 
     const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
 
@@ -224,6 +230,8 @@ export default function Exchange() {
 
         setCommission(infoFee.fee);
         setCommissionPercent(infoFee.percent);
+        setCommissionFeeToken(infoFee.totalFeeToken);
+        setCommissionPercentFeeToken(infoFee.totalFeeTokenPercent);
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
@@ -302,6 +310,11 @@ export default function Exchange() {
             convertAmountReceive,
             'exchange'
         );
+    };
+
+    const onChangeFeePaymentOption = (e) => {
+        console.log('radio checked', e.target.value);
+        setFeePaymentOption(e.target.value);
     };
 
     return (
@@ -481,22 +494,27 @@ export default function Exchange() {
 
                 <div className="fees">
                     <div className="frame">
-                        <div className="frame-t">
-                            <span className={'token_exchange'}>
-                                Fee (
-                                {PrecisionNumbers({
-                                    amount: new BigNumber(commissionPercent),
-                                    token: TokenSettings(currencyYouExchange),
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                                %)
-                            </span>
-                            <span className={'symbol'}> ≈ </span>
-                            <span className={'token_receive'}>
+
+                        <Radio.Group onChange={onChangeFeePaymentOption} value={feePaymentOption}>
+                            <Space direction="vertical">
+
+                                <Radio value={1}>
+                                    <div className="frame-t">
+                                        <span className={'token_exchange'}>
+                                    Fee (
+                                    {PrecisionNumbers({
+                                        amount: new BigNumber(commissionPercent),
+                                        token: TokenSettings(currencyYouExchange),
+                                        decimals: 2,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true
+                                    })}
+                                    %)
+                                </span>
+                                        <span className={'symbol'}> ≈ </span>
+                                        <span className={'token_receive'}>
                                 {PrecisionNumbers({
                                     amount: new BigNumber(commission),
                                     token: TokenSettings(currencyYouExchange),
@@ -507,19 +525,61 @@ export default function Exchange() {
                                     skipContractConvert: true
                                 })}
                             </span>
-                            <span className={'token_receive_name'}>
-                                {' '}
-                                {IS_MINT
-                                    ? t(
-                                          `exchange.tokens.${currencyYouExchange}.abbr`,
-                                          { ns: ns }
-                                      )
-                                    : t(
-                                          `exchange.tokens.${currencyYouReceive}.abbr`,
-                                          { ns: ns }
-                                      )}
+                                        <span className={'token_receive_name'}>
+                                    {' '}
+                                                {IS_MINT
+                                                    ? t(
+                                                        `exchange.tokens.${currencyYouExchange}.abbr`,
+                                                        { ns: ns }
+                                                    )
+                                                    : t(
+                                                        `exchange.tokens.${currencyYouReceive}.abbr`,
+                                                        { ns: ns }
+                                                    )}
+                                </span>
+                                    </div>
+                                </Radio>
+
+                                <Radio value={2}>
+                                    <div className="frame-t fee-token">
+                                        <span className={'token_exchange'}>
+                                Fee (
+                                {PrecisionNumbers({
+                                    amount: new BigNumber(commissionPercentFeeToken),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                                %)
                             </span>
-                        </div>
+                                        <span className={'symbol'}> ≈ </span>
+                                        <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: new BigNumber(commissionFeeToken),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals: 6,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                                        <span className={'token_receive_name'}>
+                                {' '}
+                                            {t(
+                                                `exchange.tokens.TF.abbr`,
+                                                { ns: ns }
+                                            )}
+                            </span>
+                                    </div>
+                                </Radio>
+
+                            </Space>
+                        </Radio.Group>
+
 
                         {/*<div className="switch">*/}
                         {/*    <Switch*/}
@@ -567,6 +627,8 @@ export default function Exchange() {
                     exchangingUSD={exchangingUSD}
                     commission={commission}
                     commissionPercent={commissionPercent}
+                    commissionFeeToken={commissionFeeToken}
+                    commissionPercentFeeToken={commissionPercentFeeToken}
                     amountYouExchange={amountYouExchange}
                     amountYouReceive={amountYouReceive}
                     onClear={onClear}
