@@ -134,7 +134,7 @@ export default function ConfirmOperation(props) {
         ).then((value) => {
             console.log('DONE!');
         }).catch((error) => {
-            console.log('ERROR');
+            console.log(error)
             setStatus('ERROR');
         });
     };
