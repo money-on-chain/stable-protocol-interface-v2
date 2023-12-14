@@ -257,6 +257,25 @@ function exchangeMethod(
     }
 }
 
+function executionFeeMap(tokenExchange, tokenReceive, auth) {
+    const aTokenExchange = tokenExchange.split('_')
+    const aTokenReceive = tokenReceive.split('_')
+    const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+    switch (aTokenMap) {
+        case 'CA,TC':
+            return auth.contractStatusData.tcMintExecFee
+        case 'CA,TP':
+            return auth.contractStatusData.tpMintExecFee
+        case 'TP,CA':
+            return auth.contractStatusData.tpRedeemExecFee
+        case 'TC,CA':
+            return auth.contractStatusData.tcRedeemExecFee
+        default:
+            throw new Error('Invalid token name');
+    }
+}
+
+
 export {
     tokenExchange,
     tokenReceive,
@@ -264,5 +283,6 @@ export {
     UserTokenAllowance,
     ApproveTokenContract,
     exchangeMethod,
-    TokenContract
+    TokenContract,
+    executionFeeMap
 };

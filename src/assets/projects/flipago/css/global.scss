@@ -1204,9 +1204,9 @@ h1.title-last-operations {
         width: 451px;
         height: 61px;
 
-        .value {
-            width: 198px;
-            height: 17px;
+        .value, .execution-fee {
+            /*width: 198px;
+            height: 17px;*/
             /*font-style: normal;
             font-weight: 400;
             font-size: 14px;

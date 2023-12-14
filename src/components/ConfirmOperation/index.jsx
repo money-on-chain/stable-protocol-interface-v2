@@ -24,7 +24,8 @@ export default function ConfirmOperation(props) {
         commissionPercent,
         amountYouExchange,
         amountYouReceive,
-        onCloseModal
+        onCloseModal,
+        executionFee
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -385,6 +386,28 @@ export default function ConfirmOperation(props) {
             <div className="separator"></div>
 
             <div className="fees">
+                <div className={'execution-fee'}>
+                    <span className={'token_exchange'}>Execution fee</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: executionFee,
+                                    token: TokenSettings('COINBASE'),
+                                    decimals: 6,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                    <span className={'token_receive_name'}>
+                                {' '}
+                        {t(`exchange.tokens.COINBASE.abbr`, {
+                            ns: ns
+                        })}{' '}
+                            </span>
+
+                </div>
                 <div className="value">
                     <span className={'token_exchange'}>
                         Fee (

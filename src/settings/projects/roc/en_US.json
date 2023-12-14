@@ -108,6 +108,10 @@
             "TP_0": {
                 "label": "RIF Dollar",
                 "abbr": "USDRIF"
+            },
+            "COINBASE": {
+                "label": "rBTC",
+                "abbr": "RBTC"
             }
         }
     },
