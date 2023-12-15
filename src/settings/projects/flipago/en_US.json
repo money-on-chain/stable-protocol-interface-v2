@@ -112,6 +112,10 @@
             "TP_1": {
                 "label": "Go MXN",
                 "abbr": "GoMXN"
+            },
+            "COINBASE": {
+                "label": "rBTC",
+                "abbr": "RBTC"
             }
         }
     },

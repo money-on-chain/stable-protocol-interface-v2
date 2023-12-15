@@ -7,11 +7,8 @@ const addABI = (abiContracts) => {
     abiDecoder.addABI(abiContracts.TokenPegged.abi);
     abiDecoder.addABI(abiContracts.CollateralToken.abi);
     abiDecoder.addABI(abiContracts.Moc.abi);
-
-    if (settings.collateral === 'bag') {
-        abiDecoder.addABI(abiContracts.MocWrapper.abi)
-        abiDecoder.addABI(abiContracts.WrappedCollateralAsset.abi)
-    }
+    abiDecoder.addABI(abiContracts.MocVendors.abi);
+    abiDecoder.addABI(abiContracts.MocQueue.abi);
 };
 
 const renderEventField = (eveName, eveValue) => {
@@ -64,15 +61,6 @@ const decodeEvents = (receipt) => {
         'PeggedTokenChange',
         'SuccessFeeDistributed',
         'TPemaUpdated',
-        'TCMintedWithWrapper',
-        'TCRedeemedWithWrapper',
-        'TPMintedWithWrapper',
-        'TPRedeemedWithWrapper',
-        'TCandTPMintedWithWrapper',
-        'TCandTPRedeemedWithWrapper',
-        'TPSwappedForTPWithWrapper',
-        'TPSwappedForTCWithWrapper',
-        'TCSwappedForTPWithWrapper',
         'BeaconUpgraded',
         'ContractLiquidated',
         'Paused',
@@ -81,7 +69,13 @@ const decodeEvents = (receipt) => {
         'SuccessFeeDistributed',
         'TCInterestPayment',
         'AssetModified',
-        'VendorMarkupChanged'
+        'VendorMarkupChanged',
+        'OperationError',
+        'UnhandledError',
+        'OperationQueued',
+        'OperationExecuted',
+        'LiqTPRedeemed',
+        'PeggedTokenChange'
     ];
 
     const filteredEvents = decodedLogs.filter((event) =>

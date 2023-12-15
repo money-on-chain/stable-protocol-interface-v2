@@ -16,7 +16,8 @@ import {
 import {
     tokenExchange,
     tokenReceive,
-    isMintOperation
+    isMintOperation,
+    executionFeeMap
 } from '../../helpers/exchange';
 
 import settings from '../../settings/settings.json';
@@ -49,6 +50,7 @@ export default function Exchange() {
 
     const [commission, setCommission] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
+    const [executionFee, setExecutionFee] = useState(new BigNumber(0));
 
     const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
 
@@ -233,6 +235,17 @@ export default function Exchange() {
         );
         convertAmountUSD = convertAmountUSD.times(priceCA);
         setExchangingUSD(convertAmountUSD);
+
+        // Execution fee load
+        setExecutionFee(
+            new BigNumber(
+                fromContractPrecisionDecimals(
+                    executionFeeMap(currencyYouExchange, currencyYouReceive, auth),
+                    settings.tokens.COINBASE.decimals
+                )
+            )
+        )
+
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
@@ -481,6 +494,28 @@ export default function Exchange() {
 
                 <div className="fees">
                     <div className="frame">
+                        <div className={'execution-fee'}>
+                            <span className={'token_exchange'}>Execution fee</span>
+                            <span className={'symbol'}> ≈ </span>
+                            <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: executionFee,
+                                    token: TokenSettings('COINBASE'),
+                                    decimals: 6,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                            <span className={'token_receive_name'}>
+                                {' '}
+                                {t(`exchange.tokens.COINBASE.abbr`, {
+                                    ns: ns
+                                })}{' '}
+                            </span>
+
+                        </div>
                         <div className="frame-t">
                             <span className={'token_exchange'}>
                                 Fee (
@@ -571,6 +606,7 @@ export default function Exchange() {
                     amountYouReceive={amountYouReceive}
                     onClear={onClear}
                     inputValidationError={inputValidationError}
+                    executionFee={executionFee}
                     //amountYouExchangeFee={amountYouExchangeFee}
                     //amountYouReceiveFee={amountYouReceiveFee}
                 />

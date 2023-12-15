@@ -1,5 +1,5 @@
 import Multicall2 from '../../contracts/Multicall2.json';
-import WrappedCollateralAsset from '../../contracts/WrappedCollateralAsset.json';
+import CollateralAsset from '../../contracts/CollateralAsset.json';
 import TokenPegged from '../../contracts/TokenPegged.json';
 import CollateralToken from '../../contracts/CollateralToken.json';
 import IPriceProvider from '../../contracts/IPriceProvider.json';
@@ -7,6 +7,8 @@ import Moc from '../../contracts/Moc.json';
 import MocWrapper from '../../contracts/MocWrapper.json';
 import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
+import MocQueue from '../../contracts/MocQueue.json';
+
 
 import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
@@ -21,7 +23,7 @@ const readContracts = async (web3) => {
     // Add to abi decoder
     const abiContracts = {};
     abiContracts.Multicall2 = Multicall2;
-    abiContracts.WrappedCollateralAsset = WrappedCollateralAsset;
+    abiContracts.CollateralAsset = CollateralAsset;
     abiContracts.TokenPegged = TokenPegged;
     abiContracts.CollateralToken = CollateralToken;
     abiContracts.IPriceProvider = IPriceProvider;
@@ -29,6 +31,7 @@ const readContracts = async (web3) => {
     abiContracts.MocWrapper = MocWrapper;
     abiContracts.MocVendors = MocVendors
     abiContracts.FeeToken = FeeToken
+    abiContracts.MocQueue = MocQueue
 
     addABI(abiContracts);
 
@@ -52,7 +55,7 @@ const readContracts = async (web3) => {
     const contractCA = process.env.REACT_APP_CONTRACT_CA.split(",")
     for (let i = 0; i < settings.tokens.CA.length; i++) {
         console.log(`Reading ${settings.tokens.CA[i].name} Token Contract... address: `, contractCA[i])
-        dContracts.contracts.CA.push(new web3.eth.Contract(WrappedCollateralAsset.abi, contractCA[i]))
+        dContracts.contracts.CA.push(new web3.eth.Contract(CollateralAsset.abi, contractCA[i]))
     }
 
     dContracts.contracts.PP_TP = []
@@ -106,6 +109,15 @@ const readContracts = async (web3) => {
     );
 
     console.log(
+        'Reading MocQueue Contract... address: ',
+        process.env.REACT_APP_CONTRACT_MOC_QUEUE
+    );
+    dContracts.contracts.MocQueue = new web3.eth.Contract(
+        MocQueue.abi,
+        process.env.REACT_APP_CONTRACT_MOC_QUEUE
+    );
+
+    console.log(
         'Reading FeeToken Contract... address: ',
         process.env.REACT_APP_CONTRACT_FEE_TOKEN
     );
@@ -123,7 +135,26 @@ const readContracts = async (web3) => {
         process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_FEE_TOKEN
     );
 
+    console.log(
+        'Reading FC_MAX_ABSOLUTE_OP_PROVIDER Contract... address: ',
+        process.env.REACT_APP_CONTRACT_FC_MAX_ABSOLUTE_OP_PROVIDER
+    );
+    dContracts.contracts.FC_MAX_ABSOLUTE_OP_PROVIDER = new web3.eth.Contract(
+        IPriceProvider.abi,
+        process.env.REACT_APP_CONTRACT_FC_MAX_ABSOLUTE_OP_PROVIDER
+    );
+
+    console.log(
+        'Reading FC_MAX_OP_DIFFERENCE_PROVIDER Contract... address: ',
+        process.env.REACT_APP_CONTRACT_FC_MAX_OP_DIFFERENCE_PROVIDER
+    );
+    dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER = new web3.eth.Contract(
+        IPriceProvider.abi,
+        process.env.REACT_APP_CONTRACT_FC_MAX_OP_DIFFERENCE_PROVIDER
+    );
+
     // Note: Collateral Bag Not Supported!
+    /*
     if (settings.collateral === 'bag') {
         console.log(
             'Reading MocWrapper Contract... address: ',
@@ -133,7 +164,7 @@ const readContracts = async (web3) => {
             MocWrapper.abi,
             process.env.REACT_APP_CONTRACT_MOC_WRAPPER
         );
-    }
+    }*/
 
 
     return dContracts;

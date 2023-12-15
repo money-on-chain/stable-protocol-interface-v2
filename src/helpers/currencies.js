@@ -252,7 +252,7 @@ function CalcCommission(
             // Redeem TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpRedeemFee[parseInt(aTokenExchange[1])],
+                    auth.contractStatusData.tpRedeemFees[parseInt(aTokenExchange[1])],
                     tokenReceiveSettings.decimals
                 )
             );
@@ -261,7 +261,7 @@ function CalcCommission(
             // Mint TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpMintFee[parseInt(aTokenReceive[1])],
+                    auth.contractStatusData.tpMintFees[parseInt(aTokenReceive[1])],
                     tokenReceiveSettings.decimals
                 )
             );
