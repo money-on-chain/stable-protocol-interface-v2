@@ -11,72 +11,31 @@ import Copy from '../../Page/Copy';
 import date from '../../../helpers/date';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import RowColumn from '../RowDetail/RowColumn';
-//import response from "./resp.json"
 import './style.scss';
 import Web3 from 'web3';
 import settings from "../../../settings/settings.json"
 export default function ListOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
-    const [bordered, setBordered] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [pagination, setPagination] = useState({ position: 'bottom' });
-    const [size, setSize] = useState('default');
-    const [expandable, setExpandable] = useState({
-        expandedRowRender: (record) => <p>{record.description}</p>
-    });
-
-    const [title, setTitle] = useState(undefined);
-    const [showHeader, setShowHeader] = useState(true);
-    const [hasData, setHasData] = useState(true);
-    const [tableLayout, setTableLayout] = useState(undefined);
-    const [top, setTop] = useState('none');
-    const [bottom, setBottom] = useState('bottomRight');
-    const [yScroll, setYScroll] = useState(undefined);
-    const [xScroll, setXScroll] = useState(undefined);
-
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
     const { accountData = {} } = auth;
     const [dataJson, setDataJson] = useState([]);
-    const [callTable, setCallTable] = useState(false);
     const [totalTable, setTotalTable] = useState(0);
-
-    const [eventHidden, setEventHidden] = useState(false);
-    const [assetHidden, setAssetHidden] = useState(false);
-    const [platformHidden, setPlatformHidden] = useState(false);
-    const [walletHidden, setWalletHidden] = useState(false);
-    const [dateHidden, setDateHidden] = useState(false);
-    const [statusHidden, setStatusHidden] = useState(false);
-    const [statusLabelHidden, setStatusLabelHidden] = useState(false);
     const [loadingSke, setLoadingSke] = useState(true);
     const timeSke = 1500;
     var data = [];
     const received_row = [];
     var txList = [];
-    useEffect(() => {
-        setTimeout(() => setLoading(false), timeSke);
-    }, [auth]);
-
-    const transactionsList = (skip, call_table) => {
+    const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
             const datas =
-                token !== 'all'
-   ? {
-                          address: "0xCD8A1c9aCc980ae031456573e34dC05cD7daE6e3",
-                          limit: 10,
-                          skip: (skip - 1 + (skip - 1)) * 10,
-                          token: ''
-                      }
-                    : {
-                          address: "0xCD8A1c9aCc980ae031456573e34dC05cD7daE6e3",
-                          limit: 10,
-                          skip: (skip - 1 + (skip - 1)) * 10
-                      };
+                {
+                    address: accountData.Owner,
+                    limit: 10,
+                    skip: (skip - 1 + (skip - 1)) * 10
+                };
             setTimeout(() => {
-                    
                     api(
                         'get',
                         `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
@@ -85,94 +44,37 @@ export default function ListOperations(props) {
                     )
                         .then((response) => {
                             setDataJson(response);
-                            setTotalTable(response.transactions.length)
-                            if(call_table){
-                                setCallTable(call_table)
-                            }
+                            setTotalTable(response.total)
                         })
                         .catch((response) => {
-                            if (call_table) {
-                                setCallTable(call_table);
-                            }
-                        });
-                        /*
-                        setDataJson(response);
-                        setTotalTable(response.operations.length)
-                        if(call_table){
-                            setCallTable(call_table)
-                        }
-                        */
-               
-                
+                            console.log(response)
+                        });          
             }, 500);
         }
     };
-    ////////////////////////////////////
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
-    const updateDimensions = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-    };
-    useEffect(() => {
-        /*
-        window.addEventListener('resize', updateDimensions);
-        if (width < 992) {
-            setWalletHidden(true);
-        } else {
-            setWalletHidden(false);
-        }
-
-        if (width < 576) {
-            setEventHidden(true);
-            setDateHidden(true);
-            setAssetHidden(false);
-            setPlatformHidden(false);
-            setStatusHidden(false);
-            setStatusLabelHidden(true);
-        } else {
-            if (width > 576 && width <= 768) {
-                setAssetHidden(false);
-                setPlatformHidden(false);
-                setDateHidden(false);
-                setStatusHidden(false);
-                setEventHidden(true);
-                setStatusLabelHidden(false);
-                setStatusLabelHidden(true);
-            } else {
-                setEventHidden(false);
-                setAssetHidden(false);
-                setPlatformHidden(false);
-                setDateHidden(false);
-                setStatusHidden(false);
-                setStatusLabelHidden(false);
-            }
-        }
-        */
-    }, [window.innerWidth]);
     const columns = [
         {
             dataIndex: 'event',
             width: 200,
-            hidden: eventHidden,
+            hidden: false,
             className: "table-border-single"
         },
         {
             dataIndex: 'platform',
             width: 360,
-            hidden: platformHidden,
+            hidden: false,
             className: "table-border-single"
         },
         {
             dataIndex: 'date',
             width: 220,
-            hidden: dateHidden,
+            hidden: false,
             className: "table-border-single"
         },
         {
             dataIndex: 'status',
             width: 180,
-            hidden: statusHidden,
+            hidden: false,
         }
     ].filter((item) => !item.hidden);
     useEffect(() => {
@@ -191,9 +93,6 @@ export default function ListOperations(props) {
             transactionsList(page, true);
         }
     };
-    ////////////////////////////////////
-
-
     function determineAsset(operation){
         if(operation == "TCMint"){
             return { from: {icon: "ca_0", name: settings.tokens.CA[0].name}, to: {icon:"tc", name: settings.tokens.TC.name}}
@@ -202,7 +101,6 @@ export default function ListOperations(props) {
         }else if(operation == "TPMint"){
             return { from: {icon: "ca_0", name: settings.tokens.CA[0].name} , to:{icon: "tp_0", name: settings.tokens.TP[0].name}}
         }else{
-            console.log(operation)
             console.log("CAN'T OPERATE: " + operation.operation)
         }
     }
@@ -361,7 +259,7 @@ export default function ListOperations(props) {
 
         });
 
-        received_row.forEach((element, index) => {
+        received_row.forEach((element) => {
             const asset = [];
             asset.push(determineAsset(element.detail.event).from.name)
             data.push({
@@ -385,29 +283,16 @@ export default function ListOperations(props) {
                 status: (
                     <span style={{display: "flex", width: "100%", paddingLeft: "2rem"}}>{element.status}</span>
                 ),
-                description:
-                    width <= 768 ? (
-                        <RowColumn detail={element.detail} />
-                    ) : (
-                        <RowDetail detail={element.detail} />
-                    )
+                description: <RowDetail detail={element.detail} />
             });
         });
     };
 
     data_row(current);
-    const scroll = {};
-    if (yScroll) scroll.y = 240;
-    if (xScroll) scroll.x = '100vw';
     const tableColumns = columns.map((item) => ({ ...item }));
-    if (xScroll === 'fixed') {
-        tableColumns[0].fixed = true;
-        tableColumns[tableColumns.length - 1].fixed = 'right';
-    }
     useEffect(() => {
         setTimeout(() => setLoadingSke(false), timeSke);
     }, [auth]);
-
     function TruncatedAddress( address, length = 6 ) {
         return address.substring(0, length + 2) + "…" + address.substring(address.length - length)
     }      
@@ -477,8 +362,7 @@ export default function ListOperations(props) {
                         txt: 'TC'
                     };
             default:
-                console.log("ERROR, UNROCOGNISED TOKEN: ")
-               console.log(name)
+                console.log("UNROCOGNISED TOKEN: " + name)
                 return{
                     image: (
                         <i
@@ -491,22 +375,7 @@ export default function ListOperations(props) {
                 };
         }
     }
-    const state = {
-        bordered,
-        loading,
-        pagination,
-        size,
-        expandable,
-        title,
-        showHeader,
-        scroll,
-        hasData,
-        tableLayout,
-        top,
-        bottom,
-        yScroll,
-        xScroll
-    };
+
     return (
         <>
             <div className="title">
@@ -518,11 +387,10 @@ export default function ListOperations(props) {
                 <>
                     <Table
                         className="vertical-middle custom-border-spacing-table custom-table"
-                        {...state}
                         showHeader={false}
                         expandable={{
                             expandedRowRender: (record) => (
-                                <div style={{ paddingLeft: "2rem", fontWeight: "100"}}>
+                                <div  className='table-expanded-row'>
                                     {record.description}
                                 </div>
                             ),
@@ -542,18 +410,16 @@ export default function ListOperations(props) {
                         }}
                         pagination={{
                             pageSize: 10,
-                            position: [top, bottom],
+                            position: ['none', 'bottomRight'],
                             defaultCurrent: 1,
                             onChange: onChange,
                             total: totalTable
                         }}
                         columns={tableColumns}
                         dataSource={
-                            hasData
-                                ? auth.isLoggedIn == true
+                            auth.isLoggedIn == true
                                     ? data
                                     : null
-                                : null
                         }
                         scroll={{ y: 340 }}
                     />
