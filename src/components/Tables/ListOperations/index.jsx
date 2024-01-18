@@ -35,21 +35,24 @@ export default function ListOperations(props) {
                     limit: 10,
                     skip: (skip - 1 + (skip - 1)) * 10
                 };
-            setTimeout(() => {
-                    api(
-                        'get',
-                        `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
-                            'operations/list/',
-                        datas
-                    )
+                setTimeout(() => {
+                    const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
+                    const queryParams = new URLSearchParams({
+                        recipient: accountData.Owner,
+                        limit: 20,
+                        skip: 0
+                    }).toString();
+                    const url = `${baseUrl}?${queryParams}`;
+                
+                    api('get', url)
                         .then((response) => {
                             setDataJson(response);
                             setTotalTable(response.total)
                         })
-                        .catch((response) => {
-                            console.log(response)
+                        .catch((error) => {
+                            console.error(error);
                         });          
-            }, 500);
+                }, 500);                
         }
     };
     const columns = [

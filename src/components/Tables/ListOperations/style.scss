@@ -26,6 +26,14 @@
 .custom-table .ant-table-tbody > tr:nth-child(n+2) > td {
     border-bottom: 2px solid #2e3238 !important;
 }
+.ant-empty-description{
+    color: white;
+}
+.ant-table-placeholder{
+    :hover{
+        background: transparent !important;
+    }
+}
 
 .table-status-icon{
     font-size: 12px;
