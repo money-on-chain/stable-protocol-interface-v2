@@ -53,10 +53,9 @@ export default function Copy(props) {
                         }}
                     />
                 )}
-                <span style={{ display: fastBTC && 'flex', fontSize: '12px' }}>
+                <span style={{ display: fastBTC && 'flex' }}>
                     <a
                         style={{
-                            color: '#09c199',
                             flexGrow: '1',
                             fontweight: 'bold'
                         }}

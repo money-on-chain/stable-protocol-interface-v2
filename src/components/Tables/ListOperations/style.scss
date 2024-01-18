@@ -1,3 +1,42 @@
+
+.tx-status-icon-0 {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/icons/tx-status-0.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+}
+
+.tx-status-icon-1 {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/icons/tx-status-1.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+}
+
+.tx-status-icon--1 {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/icons/tx-status--1.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(n+2) > td {
+    border-bottom: 2px solid #2e3238 !important;
+}
+
+.table-status-icon{
+    font-size: 12px;
+    color: #2CBF12;
+    //font-family: "Open Sans";
+    font-weight: 800;
+    line-height: 11px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
 .components-table-demo-control-bar .ant-form-item {
     margin-right: 16px;
     margin-bottom: 8px;
@@ -8,18 +47,160 @@
     font-size: 15px;
 }
 
-.CurrencyTx {
+.ant-table-expanded-row {
+    padding: 1rem !important;
+}
+
+.ant-table-expanded-row > td, .ant-table-expanded-row:hover > td {
+    background: #2E2B2E !important;
+}
+
+.currency-tx {
     font-weight: 600;
     div {
         display: inline-block;
     }
 }
 
-.ant-descriptions-item-label-th {
-    font-weight: 600;
+.ant-pagination-item {
+    background-color: transparent;
+    color: white;
+    border: none;
 }
-.ant-descriptions-border-bottom {
-    border-bottom: 1px solid #f0f0f0;
+
+.ant-pagination-item a {
+    color: #CBD4DA;
+}
+
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.ant-pagination-item-active a{
+    color: white;
+}
+
+.ant-pagination-item-active{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.table-asset-name{
+    padding-top: 4px;
+    font-family: Open Sans;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 11px;
+    letter-spacing: 0.3499999940395355px;
+    text-align: center;
+}
+
+.table-event-name{
+    font-family: Open Sans;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 1.2000000476837158px;
+    text-align: right;    
+    font-size: 12px;
+    color: #7F8999;
+
+}
+
+.table-status-icon-green{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 11px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2CBF12;
+}
+
+.table-status-icon-red{
+    color: #E54A48!important;
+}
+
+.table-icon-name{
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center';
+    min-width: 4rem;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.table-date-name{
+    font-family: Open Sans;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    color: #7F8999;
+}
+
+.table-date{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.icon-token-modif{
+    display: block !important;
+    margin: auto !important; 
+    width: 32px !important;
+    height: 32px !important;
+    background-size: 32px 32px !important;
+    background-repeat: no-repeat !important;
+}
+
+.table-amount{
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0.612500011920929px;
+    text-align: right;
+
+}
+
+.table-border-single::after, .ant-table-row-expand-icon-cell::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    width: 2px;
+    background-color: #CBD4DA;
+}
+
+.custom-border-spacing-table .ant-table table {
+    border-spacing: 0 10px;
+}
+  
+.ant-descriptions-item-content{
+    color: white;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+.ant-descriptions-item-label-th {
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 50;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
 }
 
 .ant-descriptions-a {
