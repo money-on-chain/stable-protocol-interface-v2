@@ -4,4 +4,5 @@ build
 public
 src/contracts
 .DS_Store
-src/assets
+src/assets/icons
+src/assets/css
