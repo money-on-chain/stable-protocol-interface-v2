@@ -16,39 +16,40 @@ export default function SectionHeader() {
     const location = useLocation();
 
     const cssSelector = {
-        'home': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'exchange': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'send': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'performance': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'staking': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-    }
+        home: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        exchange: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        send: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        performance: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        staking: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        header: { text: 'header-container', icon: 'color-filter-invert' }
+    };
 
     switch (location.pathname) {
         case '/':
         case '/home':
-            cssSelector.home.text += ' menu-nav-item-selected'
-            cssSelector.home.icon = 'color-filter-disabled'
-            break
+            cssSelector.home.text += ' menu-nav-item-selected';
+            cssSelector.home.icon = 'color-filter-disabled';
+            break;
         case '/exchange':
-            cssSelector.exchange.text += ' menu-nav-item-selected'
-            cssSelector.exchange.icon = 'color-filter-disabled'
-            break
+            cssSelector.exchange.text += ' menu-nav-item-selected';
+            cssSelector.exchange.icon = 'color-filter-disabled';
+            break;
         case '/send':
-            cssSelector.send.text += ' menu-nav-item-selected'
-            cssSelector.send.icon = 'color-filter-disabled'
-            break
+            cssSelector.send.text += ' menu-nav-item-selected';
+            cssSelector.send.icon = 'color-filter-disabled';
+            break;
         case '/performance':
-            cssSelector.performance.text += ' menu-nav-item-selected'
-            cssSelector.performance.icon = 'color-filter-disabled'
-            break
+            cssSelector.performance.text += ' menu-nav-item-selected';
+            cssSelector.performance.icon = 'color-filter-disabled';
+            break;
         case '/staking':
-            cssSelector.staking.text += ' menu-nav-item-selected'
-            cssSelector.staking.icon = 'color-filter-disabled'
-            break
+            cssSelector.staking.text += ' menu-nav-item-selected';
+            cssSelector.staking.icon = 'color-filter-disabled';
+            break;
         default:
-            cssSelector.home.text += ' menu-nav-item-selected'
-            cssSelector.home.icon = 'color-filter-disabled'
-            break
+            cssSelector.home.text += ' menu-nav-item-selected';
+            cssSelector.home.icon = 'color-filter-disabled';
+            break;
     }
 
     const goToPortfolio = () => {
@@ -78,8 +79,8 @@ export default function SectionHeader() {
                     <div className="logo-app"></div>
                 </div>
 
-                <div className="central-menu">
-                    <a onClick={goToPortfolio} className={cssSelector.home.text}>
+                {/*<div className="central-menu">*/}
+                {/*<a onClick={goToPortfolio} className={cssSelector.home.text}>
                         <i className={`logo-home ${cssSelector.home.icon}`}></i>{' '}
                         <span className="menu-nav-item-title">Portfolio</span>{' '}
                     </a>
@@ -96,22 +97,50 @@ export default function SectionHeader() {
                         <span className="menu-nav-item-title">Performance</span>{' '}
                     </a>
                     {/*<a onClick={goToStaking} className={cssSelector.staking.text}>*/}
-                    {/*    <i className={`logo-i-staking ${cssSelector.staking.icon}`}></i>{' '}*/}
-                    {/*    <span className="menu-nav-item-title">Staking</span>{' '}*/}
-                    {/*</a>*/}
+                {/*    <i className={`logo-i-staking ${cssSelector.staking.icon}`}></i>{' '}*/}
+                {/*    <span className="menu-nav-item-title">Staking</span>{' '}*/}
+                {/*</a>*/}
+                {/*</div>*/}
+                <div>
+                    <div className="lang-container">
+                        <div className="lang-inner-container">
+                            <div className="lang-icon-container">
+                                <i className="logo-eng-flag"></i>
+                                <div className="lang-text">ENG</div>
+                            </div>
+                        </div>
+                        <div className="logo-arrow-down-lang"></div>
+                    </div>
+                    <div className="wallet-container">
+                        <div className="lang-inner-container">
+                            <div className="lang-icon-container">
+                                <i className="logo-wallet"></i>
+                                <ModalAccount
+                                    truncatedAddress={
+                                        auth.accountData.truncatedAddress
+                                    }
+                                ></ModalAccount>
+                            </div>
+                        </div>
+                        <div className="close-icon"></div>
+                    </div>
                 </div>
-
-                <div className="wallet-user">
+                {/*<div className="wallet-user">
                     <div className="wallet-translation">
-                        <a href="#" className="translation-selector"> English </a>{' '}
+                        <a href="#" className="translation-selector">
+                            {' '}
+                            English{' '}
+                        </a>{' '}
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
-                        <ModalAccount truncatedAddress={auth.accountData.truncatedAddress}></ModalAccount>
+                        <a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}
+                        <ModalAccount
+                            truncatedAddress={auth.accountData.truncatedAddress}
+                        ></ModalAccount>
                         <i className="logo-wallet"></i>
                     </div>
-                </div>
+                </div>*/}
             </div>
         </Header>
     );
