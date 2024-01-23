@@ -164,7 +164,8 @@ export default function ConfirmOperation(props) {
             return
         }
 
-        const apiUrl = 'http://localhost:8000/v1/operations/oper_id/'
+        const apiUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
+            'operations/oper_id/'
         axios.get(apiUrl, {
             params: {
                 oper_id: opID
@@ -271,7 +272,7 @@ export default function ConfirmOperation(props) {
             statusLabel = 'Operation confirming';
             break;
         case 'SUCCESS':
-            sentIcon = 'icon-operation-tx-confirmed';
+            sentIcon = 'icon-tx-success';
             statusLabel = 'Operation executed';
             break;
         case 'ERROR':
