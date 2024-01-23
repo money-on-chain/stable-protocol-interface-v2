@@ -192,6 +192,15 @@ export default function ConfirmOperation(props) {
 
                     console.log("Operation Status: OK Executed.")
 
+                } else if (response.data.status === 1) {
+
+                    setStatus('ERROR');
+
+                    // Remove Op ID
+                    setOpID(null);
+
+                    console.log("Operation Status: Error! Status: ", response.data.status)
+
                 }
             }
 
