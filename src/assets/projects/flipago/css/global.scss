@@ -1505,6 +1505,53 @@ h1.title-last-operations {
     background-repeat: no-repeat;
 }
 
+/* Status operation */
+
+.icon-operation-tx-queuing {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/status-operation/Queuing.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.icon-operation-tx-queued {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/status-operation/Queued.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.icon-operation-tx-confirming {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/status-operation/Confirming.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.icon-operation-tx-confirmed {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/status-operation/Confirmed.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
+.icon-operation-tx-failed {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/status-operation/Failed.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+}
+
 .icon-swap-arrow {
     width: 32px;
     height: 32px;
