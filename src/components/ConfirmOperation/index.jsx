@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext, useState, useEffect } from 'react';
 import { Button, Collapse, Slider } from 'antd';
+import axios from 'axios';
 
 import { useProjectTranslation } from '../../helpers/translations';
 //import IconStatusPending from "../../assets/icons/status-pending.png";
@@ -12,6 +13,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
 import CopyAddress from '../CopyAddress';
+import settings from '../../settings/settings.json';
 
 const { Panel } = Collapse;
 
@@ -34,6 +36,7 @@ export default function ConfirmOperation(props) {
     const [status, setStatus] = useState('SUBMIT');
     const [tolerance, setTolerance] = useState(0.2);
     const [txID, setTxID] = useState('');
+    const [opID, setOpID] = useState(null);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
@@ -86,6 +89,13 @@ export default function ConfirmOperation(props) {
             setAmountYouReceiveLimit(limits.receive);
         }
     }, [amountYouReceive]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            opStatus();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [opID]);
 
     const onHideModalAllowance = () => {
         setShowModalAllowance(false);
@@ -142,21 +152,109 @@ export default function ConfirmOperation(props) {
 
     const onTransaction = (transactionHash) => {
         // Tx receipt detected change status to waiting
-        setStatus('WAITING');
+        setStatus('QUEUING');
         console.log('On transaction: ', transactionHash);
         setTxID(transactionHash);
     };
+
+    const opStatus = () => {
+
+        if (!opID) {
+            console.log("Operation Status: Checking... NO.")
+            return
+        }
+
+        const apiUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
+            'operations/oper_id/'
+        axios.get(apiUrl, {
+            params: {
+                oper_id: opID
+            },
+            timeout: 10000
+        }).then((response) => {
+            if (response.status === 200) {
+                if (response.data.status === 0) {
+                    // Pending executed
+                    console.log("Operation Status: OK Pending execute.")
+
+                } else if (response.data.status === 1) {
+                    // executed operation is finished
+
+                    setStatus('SUCCESS');
+
+                    // Remove Op ID
+                    setOpID(null)
+
+                    // Refresh user balance
+                    auth.loadContractsStatusAndUserBalance().then((value) => {
+                        console.log('Refresh user balance OK!');
+                    });
+
+                    console.log("Operation Status: OK Executed.")
+
+                } else if (response.data.status === 1) {
+
+                    setStatus('ERROR');
+
+                    // Remove Op ID
+                    setOpID(null);
+
+                    console.log("Operation Status: Error! Status: ", response.data.status)
+
+                }
+            }
+
+
+        }).catch((error) => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+
+                if (error.response.status===404) {
+                    // No problem if is 404 error mean is not indexed
+                }
+            }
+            //setStatus('ERROR');
+        });
+
+    }
+
+    const onQueued = (filteredEvents) => {
+
+        let operId = 0
+        filteredEvents.then((results) => {
+            results.forEach(function (events) {
+                if (events.name === 'OperationQueued') {
+                    // Is the event operation queue
+                    events.events.forEach(function (field) {
+                        if (field.name === 'operId_') {
+                            operId = parseInt(field.value);
+                        }
+                    })
+                }
+            })
+
+            if (operId > 0) {
+                console.log("Setting operation ID:", operId)
+                setOpID(operId)
+                //setOpID(33)
+                setStatus('QUEUED');
+            }
+
+        }).catch((error) => {
+            console.log(error)
+        });
+
+    }
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
         console.log('On receipt: ', receipt);
         const filteredEvents = auth.interfaceDecodeEvents(receipt);
-        setStatus('SUCCESS');
+        //setStatus('SUCCESS');
 
-        // Refresh user balance
-        auth.loadContractsStatusAndUserBalance().then((value) => {
-            console.log('Refresh user balance OK!');
-        });
+        // on Queue
+        onQueued(filteredEvents)
     };
 
     let sentIcon = '';
@@ -170,13 +268,21 @@ export default function ConfirmOperation(props) {
             sentIcon = 'icon-signifier';
             statusLabel = 'Sign the transaction using your wallet';
             break;
-        case 'WAITING':
+        case 'QUEUING':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel = 'Queuing operation...';
+            break;
+        case 'QUEUED':
+            sentIcon = 'icon-tx-waiting rotate';
+            statusLabel = 'Operation queued... waiting for operation execution';
+            break;
+        case 'CONFIRMING':
+            sentIcon = 'icon-operation-tx-confirming rotate';
+            statusLabel = 'Operation confirming';
             break;
         case 'SUCCESS':
             sentIcon = 'icon-tx-success';
-            statusLabel = 'Operation Successful';
+            statusLabel = 'Operation executed';
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
@@ -530,13 +636,18 @@ export default function ConfirmOperation(props) {
                 </div>
             )}
 
-            {(status === 'SIGN' ||
-                status === 'WAITING' ||
+            {(
+                status === 'SIGN' ||
+                status === 'QUEUING' ||
+                status === 'QUEUED' ||
+                status === 'CONFIRMING' ||
                 status === 'SUCCESS' ||
                 status === 'ERROR') && (
                 <div className="tx-sent">
                     <div className="status">
-                        {(status === 'WAITING' ||
+                        {(status === 'QUEUING' ||
+                            status === 'QUEUED' ||
+                            status === 'CONFIRMING' ||
                             status === 'SUCCESS' ||
                             status === 'ERROR') && (
                             <div className="transaction-id">
