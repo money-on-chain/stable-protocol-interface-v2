@@ -127,6 +127,7 @@ export default function ListOperations(props) {
         data = [];
 
         txList.forEach((data) => {
+            if(!data['executed']) return
             if(!data['executed']['qTC_']) return
             var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
             const detail = {
