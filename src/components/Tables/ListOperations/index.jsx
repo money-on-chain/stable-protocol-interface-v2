@@ -284,14 +284,10 @@ export default function ListOperations(props) {
                     ) : (
                         '--'
                     ),
-                //platform: "+" + Web3.utils.fromWei(tokenAmount) + " " + determineAsset(data.operation).from.name,
-                //platform_fee: data['platform_fee_value'] || "--",
                 block: data['blockNumber'] || "--",
-                //wallet: data['wallet_value'] || "--",
                 tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 tx_hash: data['hash'] || "--",
                 gas_fee: data['gas_fee'] ||  data['gasFeeRBTC'] || "--",
-                //price: data['price'] || "--",
                 gas: data['gas'] || "--",
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
@@ -423,6 +419,10 @@ export default function ListOperations(props) {
     }
     function getStatus(status){
         switch(status){
+            case -3:
+                return "FAILED"
+            case -2:
+                return "FAILED"
             case -1:
                 return "FAILED"
             case 0:
