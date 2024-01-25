@@ -423,12 +423,7 @@ html {
 
     height: 80px;
 
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    background: #FFF;
     /* M3/Elevation Dark/1 */
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
@@ -476,7 +471,7 @@ html {
 
     /* Backgrounds/Background Level 3 */
 
-    background: #1f2125;
+    // background: #1f2125;
     border-radius: 4px;
 
     /* Inside auto layout */
@@ -489,7 +484,7 @@ html {
 .icon-staked {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/ChartBar.svg');
+    background-image: url('../icons/stakingBlack.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 8px;
@@ -499,7 +494,7 @@ html {
 .icon-gauge {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Gauge.svg');
+    background-image: url('../icons/performanceBlack.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -546,7 +541,7 @@ html {
     width: 115px;
     height: 29px;
 
-    font-family: 'Chivo';
+    font-family: 'Sora';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -558,7 +553,7 @@ html {
 
     /* Text/Text Secondary */
 
-    color: #7f8a99;
+    color: #000;
 
     /* Inside auto layout */
 
