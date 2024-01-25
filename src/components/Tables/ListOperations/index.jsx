@@ -29,6 +29,7 @@ export default function ListOperations(props) {
     var txList = [];
     const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
+            console.log("Loading table ...")
             const datas =
                 {
                     address: accountData.Owner,
@@ -127,9 +128,19 @@ export default function ListOperations(props) {
         data = [];
 
         txList.forEach((data) => {
-            if(!data['executed']) return
-            if(!data['executed']['qTC_']) return
-            var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
+
+            let tokenAmount = 0;
+            if (data['executed']) {
+                if (data['executed']['qTC_']) tokenAmount = data['executed']['qTC_']
+                else if (data['executed']['qTP_']) tokenAmount = data['executed']['qTP_']
+            } else if (data['params']) {
+                if (data['params']['qTC']) tokenAmount = data['params']['qTC']
+                else if (data['params']['qTP']) tokenAmount = data['params']['qTP']
+            }
+
+            //if(!data['executed']) return
+            //if(!data['executed']['qTC_']) return
+            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
             const detail = {
                 event: data['operation'],
                 created: (
@@ -145,7 +156,7 @@ export default function ListOperations(props) {
                         </Moment>
                     </span>
                 ),
-                details: data['executed']['qTC_'] || "--",
+                details: "--", //data['executed']['qTC_'] || "--",
                 asset: determineAsset(data.operation).from.name,
                 confirmation: data['confirmationTime'] ? (
                     true ? (
@@ -179,7 +190,7 @@ export default function ListOperations(props) {
                     ) : (
                         '--'
                     ),
-                platform: "+" + Web3.utils.fromWei(amount) + " " + determineAsset(data.operation).from.name,
+                platform: "+" + Web3.utils.fromWei(tokenAmount) + " " + determineAsset(data.operation).from.name,
                 platform_fee: data['platform_fee_value'] || "--",
                 block: data['blockNumber'] || "--",
                 wallet: data['wallet_value'] || "--",
@@ -192,7 +203,7 @@ export default function ListOperations(props) {
                 comments: '--',
           
             };
-            var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
+            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
 
             received_row.push({
                 key: data._id,
@@ -201,7 +212,7 @@ export default function ListOperations(props) {
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
                         <div style={{ textAlign: 'right', marginRight: '8px' }}>
                             <div className='table-event-name'>{EventNameOldToNew(data['operation'])}</div>
-                            <div className='table-amount' >+{parseFloat(Web3.utils.fromWei(amount)).toFixed(3)}</div>
+                            <div className='table-amount' >+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
                         </div>
                         <div className='table-icon-name' >
                             {getAsset(determineAsset(data.operation).from.icon).image}
@@ -214,7 +225,7 @@ export default function ListOperations(props) {
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
                         <div style={{ textAlign: 'right', marginRight: '8px' }}>
                             <div className='table-event-name'>{EventNameOpposite(EventNameOldToNew(data['operation']))}</div><br></br>
-                            <div className='table-amount'>+{parseFloat(Web3.utils.fromWei(amount)).toFixed(3)}</div>
+                            <div className='table-amount'>+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
                         </div>
                         <div className='table-icon-name' >
                             {getAsset(determineAsset(data.operation).to.icon).image}
