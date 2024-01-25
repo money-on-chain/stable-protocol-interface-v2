@@ -1,78 +1,152 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Layout } from 'antd';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
 
 const { Header } = Layout;
 
 export default function SectionHeader() {
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-
     const navigate = useNavigate();
     const location = useLocation();
-
-    const cssSelector = {
-        home: { text: 'menu-nav-item', icon: 'color-filter-invert' },
-        exchange: { text: 'menu-nav-item', icon: 'color-filter-invert' },
-        send: { text: 'menu-nav-item', icon: 'color-filter-invert' },
-        performance: { text: 'menu-nav-item', icon: 'color-filter-invert' },
-        staking: { text: 'menu-nav-item', icon: 'color-filter-invert' },
-        more : { text: 'menu-nav-item-more', icon: 'color-filter-invert' },
-    };
-
-    switch (location.pathname) {
-        case '/':
-        case '/home':
-            cssSelector.home.text += ' menu-nav-item-selected';
-            cssSelector.home.icon = 'color-filter-disabled';
-            break;
-        case '/exchange':
-            cssSelector.exchange.text += ' menu-nav-item-selected';
-            cssSelector.exchange.icon = 'color-filter-disabled';
-            break;
-        case '/send':
-            cssSelector.send.text += ' menu-nav-item-selected';
-            cssSelector.send.icon = 'color-filter-disabled';
-            break;
-        case '/performance':
-            cssSelector.performance.text += ' menu-nav-item-selected';
-            cssSelector.performance.icon = 'color-filter-disabled';
-            break;
-        case '/staking':
-            cssSelector.staking.text += ' menu-nav-item-selected';
-            cssSelector.staking.icon = 'color-filter-disabled';
-            break;
-        default:
-            cssSelector.home.text += ' menu-nav-item-selected';
-            cssSelector.home.icon = 'color-filter-disabled';
-            break;
-    }
-
+    const auth = useContext(AuthenticateContext);
+    const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const goToPortfolio = () => {
+        setShowMoreDropdown(false);
         navigate('/');
     };
 
     const goToExchange = () => {
+        setShowMoreDropdown(false);
         navigate('/exchange');
     };
 
     const goToSend = () => {
+        setShowMoreDropdown(false);
         navigate('/send');
     };
 
     const goToPerformance = () => {
+        setShowMoreDropdown(false);
         navigate('/performance');
     };
-
     const goToStaking = () => {
+        swapMenuOptions("Staking");
+        setShowMoreDropdown(false);
         navigate('/staking');
     };
-    const onMore = () => {};
+    const goToLiquidityMining = () => {
+        swapMenuOptions("Liquidity Mining");
+        setShowMoreDropdown(false);
+        navigate('/liquidity-mining');
+    }
+    const goToVesting = () => {
+        swapMenuOptions("Vesting");
+        setShowMoreDropdown(false);
+        navigate('/vesting');
+    }
+    const menu = {
+        mainMenu: [
+            {
+                name: "Portfolio",
+                action: goToPortfolio
+            },
+            {
+                name: "Send",
+                action: goToSend
+            },
+            {
+                name: "Exchange",
+                action: goToExchange
+            },
+            {
+                name: "Performance",
+                action: goToPerformance
+            },
+            {
+                name: "Staking",
+                action: goToStaking
+            }
+        ],
+        dropdownMenu: [
+            {
+                name: "Liquidity Mining",
+                action: goToLiquidityMining
+            },
+            {
+                name: "Vesting",
+                action: goToVesting
+            }
+        ]
+    }
+    const [menuOptions, setMenuOptions] = useState(menu);
+    const swapMenuOptions = (optionName) => {
+        setMenuOptions(prevState => {
+            const dropdownIndex = prevState.dropdownMenu.findIndex(item => item.name === optionName);
+            if (dropdownIndex !== -1) {
+                const foundInDropdown = prevState.dropdownMenu[dropdownIndex];
+                const lastElementInMain = prevState.mainMenu[prevState.mainMenu.length - 1];
+
+                const newMainMenu = [...prevState.mainMenu];
+                newMainMenu[newMainMenu.length - 1] = foundInDropdown;
+
+                const newDropdownMenu = [...prevState.dropdownMenu];
+                newDropdownMenu[dropdownIndex] = lastElementInMain;
+
+                return {
+                    mainMenu: newMainMenu.map(item => updateMenuItemClasses(item)),
+                    dropdownMenu: newDropdownMenu.map(item => updateMenuItemClasses(item))
+                };
+            } else {
+                return prevState;
+            }
+        });
+    };
+
+    const updateMenuItemClasses = (menuItem) => {
+        const pathMap = {
+            "Portfolio": ['/', '/home'],
+            "Send": ['/send'],
+            "Exchange": ['/exchange'],
+            "Performance": ['/performance'],
+            "Staking": ['/staking'],
+            "Liquidity Mining": ['/liquidity-mining'],
+            "Vesting": ['/vesting']
+        };
+
+        const isActive = pathMap[menuItem.name]?.includes(location.pathname);
+        return {
+            ...menuItem,
+            containerClassName: isActive ? 'menu-nav-item menu-nav-item-selected' : 'menu-nav-item',
+            iClassName: `logo-${menuItem.name.toLowerCase().replace(" ", "-")} ${isActive ? 'color-filter-disabled' : 'color-filter-invert'}`
+        };
+    };
+
+    const getMenuItemClasses = (itemName) => {
+        let containerClassName = 'menu-nav-item';
+        let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")} color-filter-invert`;
+
+        const pathMap = {
+            "Portfolio": ['/', '/home'],
+            "Send": ['/send'],
+            "Exchange": ['/exchange'],
+            "Performance": ['/performance'],
+            "Staking": ['/staking'],
+            "Liquidity Mining": ['/liquidity-mining'],
+            "Vesting": ['/vesting']
+        };
+
+        if (pathMap[itemName]?.includes(location.pathname)) {
+            containerClassName += ' menu-nav-item-selected';
+            iconClassName = iconClassName.replace('color-filter-invert', 'color-filter-disabled');
+        }
+
+        return { containerClassName, iconClassName };
+    };
+
     return (
         <Header>
             <div className="header-container">
@@ -81,54 +155,38 @@ export default function SectionHeader() {
                 </div>
 
                 <div className="central-menu">
-                    <a
-                        onClick={goToPortfolio}
-                        className={cssSelector.home.text}
-                    >
-                        <i className={`logo-home ${cssSelector.home.icon}`}></i>{' '}
-                        <span className="menu-nav-item-title">Portfolio</span>{' '}
+                    {menuOptions.mainMenu.map((option) => {
+                        const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
+                        return (
+                            <a
+                                onClick={option.action}
+                                className={containerClassName}
+                                key={option.name}
+                            >
+                                <i className={iconClassName}></i>
+                                <span className="menu-nav-item-title">{option.name}</span>
+                            </a>
+                        );
+                    })}
+                    <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                        <i className='logo-more color-filter-invert'></i>
+                        <span className="menu-nav-item-title-more">More</span>
                     </a>
-                    <a onClick={goToSend} className={cssSelector.send.text}>
-                        <i className={`logo-send ${cssSelector.send.icon}`}></i>{' '}
-                        <span className="menu-nav-item-title">Send</span>{' '}
-                    </a>
-                    <a
-                        onClick={goToExchange}
-                        className={cssSelector.exchange.text}
-                    >
-                        <i
-                            className={`logo-exchange ${cssSelector.exchange.icon}`}
-                        ></i>{' '}
-                        <span className="menu-nav-item-title">Exchange</span>
-                    </a>
-                    <a
-                        onClick={goToPerformance}
-                        className={cssSelector.performance.text}
-                    >
-                        <i
-                            className={`logo-performance ${cssSelector.performance.icon}`}
-                        ></i>{' '}
-                        <span className="menu-nav-item-title">Performance</span>{' '}
-                    </a>
-                    <a
-                        onClick={goToStaking}
-                        className={cssSelector.staking.text}
-                    >
-                        <i
-                            className={`logo-i-staking ${cssSelector.staking.icon}`}
-                        ></i>{' '}
-                        <span className="menu-nav-item-title">Staking</span>{' '}
-                    </a>
-                    <a
-                        onClick={onMore}
-                        className={cssSelector.more.text}
-                    >
-                        <i
-                            className={`logo-more ${cssSelector.staking.icon}`}
-                        ></i>{' '}
-                        <span className="menu-nav-item-title-more">More</span>{' '}
-                    </a>
-                    
+                    <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
+                        {menuOptions.dropdownMenu.map((option) => {
+                            const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
+                            return (
+                                <a
+                                    onClick={option.action}
+                                    className={containerClassName}
+                                    key={option.name}
+                                >
+                                    <i className={iconClassName}></i>
+                                    <span className="menu-nav-item-title">{option.name}</span>
+                                </a>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation">
