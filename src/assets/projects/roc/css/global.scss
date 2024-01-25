@@ -231,12 +231,7 @@ html {
     height: 80px;
     margin-left: 31px;
     line-height: 80px;
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    background: #FFFFFF;
     /* M3/Elevation Dark/1 */
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
@@ -257,7 +252,7 @@ html {
 
     /* Text/Text Secondary */
 
-    color: #7f8a99;
+    color: #000;
 
     display: flex;
     flex-direction: row;
@@ -277,7 +272,7 @@ html {
 
     a.translation-selector {
         opacity: 1;
-        color: rgba(195,204,217,1);
+        color: #000;
         font-family: "Open Sans";
         font-size: 14px;
         font-weight: 400;
@@ -320,7 +315,7 @@ html {
     /* Buttons/Button Primary */
 
     /*color: #f1eb14;*/
-    color: rgba(255,243,131, 1);
+    color: #000;
 
     width: 128px;
     height: 24px;
@@ -334,7 +329,7 @@ html {
 
 .wallet-address a {
     /*color: #f1eb14;*/
-    color: rgba(255,243,131, 1);
+    color: #000;
 }
 
 .logo-wallet {
