@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -16,39 +17,40 @@ export default function SectionHeader() {
     const location = useLocation();
 
     const cssSelector = {
-        'home': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'exchange': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'send': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'performance': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'staking': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-    }
+        home: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        exchange: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        send: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        performance: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        staking: { text: 'menu-nav-item', icon: 'color-filter-invert' },
+        more : { text: 'menu-nav-item-more', icon: 'color-filter-invert' },
+    };
 
     switch (location.pathname) {
         case '/':
         case '/home':
-            cssSelector.home.text += ' menu-nav-item-selected'
-            cssSelector.home.icon = 'color-filter-disabled'
-            break
+            cssSelector.home.text += ' menu-nav-item-selected';
+            cssSelector.home.icon = 'color-filter-disabled';
+            break;
         case '/exchange':
-            cssSelector.exchange.text += ' menu-nav-item-selected'
-            cssSelector.exchange.icon = 'color-filter-disabled'
-            break
+            cssSelector.exchange.text += ' menu-nav-item-selected';
+            cssSelector.exchange.icon = 'color-filter-disabled';
+            break;
         case '/send':
-            cssSelector.send.text += ' menu-nav-item-selected'
-            cssSelector.send.icon = 'color-filter-disabled'
-            break
+            cssSelector.send.text += ' menu-nav-item-selected';
+            cssSelector.send.icon = 'color-filter-disabled';
+            break;
         case '/performance':
-            cssSelector.performance.text += ' menu-nav-item-selected'
-            cssSelector.performance.icon = 'color-filter-disabled'
-            break
+            cssSelector.performance.text += ' menu-nav-item-selected';
+            cssSelector.performance.icon = 'color-filter-disabled';
+            break;
         case '/staking':
-            cssSelector.staking.text += ' menu-nav-item-selected'
-            cssSelector.staking.icon = 'color-filter-disabled'
-            break
+            cssSelector.staking.text += ' menu-nav-item-selected';
+            cssSelector.staking.icon = 'color-filter-disabled';
+            break;
         default:
-            cssSelector.home.text += ' menu-nav-item-selected'
-            cssSelector.home.icon = 'color-filter-disabled'
-            break
+            cssSelector.home.text += ' menu-nav-item-selected';
+            cssSelector.home.icon = 'color-filter-disabled';
+            break;
     }
 
     const goToPortfolio = () => {
@@ -70,7 +72,7 @@ export default function SectionHeader() {
     const goToStaking = () => {
         navigate('/staking');
     };
-
+    const onMore = () => {};
     return (
         <Header>
             <div className="header-container">
@@ -79,7 +81,10 @@ export default function SectionHeader() {
                 </div>
 
                 <div className="central-menu">
-                    <a onClick={goToPortfolio} className={cssSelector.home.text}>
+                    <a
+                        onClick={goToPortfolio}
+                        className={cssSelector.home.text}
+                    >
                         <i className={`logo-home ${cssSelector.home.icon}`}></i>{' '}
                         <span className="menu-nav-item-title">Portfolio</span>{' '}
                     </a>
@@ -87,28 +92,57 @@ export default function SectionHeader() {
                         <i className={`logo-send ${cssSelector.send.icon}`}></i>{' '}
                         <span className="menu-nav-item-title">Send</span>{' '}
                     </a>
-                    <a onClick={goToExchange} className={cssSelector.exchange.text}>
-                        <i className={`logo-exchange ${cssSelector.exchange.icon}`}></i>{' '}
+                    <a
+                        onClick={goToExchange}
+                        className={cssSelector.exchange.text}
+                    >
+                        <i
+                            className={`logo-exchange ${cssSelector.exchange.icon}`}
+                        ></i>{' '}
                         <span className="menu-nav-item-title">Exchange</span>
                     </a>
-                    <a onClick={goToPerformance} className={cssSelector.performance.text}>
-                        <i className={`logo-performance ${cssSelector.performance.icon}`}></i>{' '}
+                    <a
+                        onClick={goToPerformance}
+                        className={cssSelector.performance.text}
+                    >
+                        <i
+                            className={`logo-performance ${cssSelector.performance.icon}`}
+                        ></i>{' '}
                         <span className="menu-nav-item-title">Performance</span>{' '}
                     </a>
-                    {/*<a onClick={goToStaking} className={cssSelector.staking.text}>*/}
-                    {/*    <i className={`logo-i-staking ${cssSelector.staking.icon}`}></i>{' '}*/}
-                    {/*    <span className="menu-nav-item-title">Staking</span>{' '}*/}
-                    {/*</a>*/}
+                    <a
+                        onClick={goToStaking}
+                        className={cssSelector.staking.text}
+                    >
+                        <i
+                            className={`logo-i-staking ${cssSelector.staking.icon}`}
+                        ></i>{' '}
+                        <span className="menu-nav-item-title">Staking</span>{' '}
+                    </a>
+                    <a
+                        onClick={onMore}
+                        className={cssSelector.more.text}
+                    >
+                        <i
+                            className={`logo-more ${cssSelector.staking.icon}`}
+                        ></i>{' '}
+                        <span className="menu-nav-item-title-more">More</span>{' '}
+                    </a>
+                    
                 </div>
-
                 <div className="wallet-user">
                     <div className="wallet-translation">
-                        <a href="#" className="translation-selector"> English </a>{' '}
+                        <a href="#" className="translation-selector">
+                            {' '}
+                            English{' '}
+                        </a>{' '}
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
                         {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
-                        <ModalAccount truncatedAddress={auth.accountData.truncatedAddress}></ModalAccount>
+                        <ModalAccount
+                            truncatedAddress={auth.accountData.truncatedAddress}
+                        ></ModalAccount>
                         <i className="logo-wallet"></i>
                     </div>
                 </div>
