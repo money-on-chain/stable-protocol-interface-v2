@@ -136,6 +136,7 @@ export default function ListOperations(props) {
 
             return {
                 exchange: {
+                    action: "TCMint",
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
@@ -143,6 +144,7 @@ export default function ListOperations(props) {
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
+                    action: "TCMint",
                     amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
@@ -154,6 +156,7 @@ export default function ListOperations(props) {
 
             return {
                 exchange: {
+                    action: "TCRedeem",
                     amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
@@ -161,6 +164,7 @@ export default function ListOperations(props) {
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
+                    action: "TCRedeem",
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
@@ -175,6 +179,7 @@ export default function ListOperations(props) {
 
             return {
                 exchange: {
+                    action: "TPMint",
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
@@ -182,6 +187,7 @@ export default function ListOperations(props) {
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
+                    action: "TPMint",
                     amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
@@ -196,6 +202,7 @@ export default function ListOperations(props) {
 
             return {
                 exchange: {
+                    action: "TPRedeem",
                     amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
@@ -203,6 +210,7 @@ export default function ListOperations(props) {
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
+                    action: "TPRedeem",
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
@@ -211,16 +219,19 @@ export default function ListOperations(props) {
                 }
             }
         } else if (row_operation['operation']  === "Transfer") {
+            let token = row_operation['params']['token']
             return {
                 exchange: {
-                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qAC'],
+                    action: "Transfer",
+                    amount: row_operation['params']['amount'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "tp_0",
                     title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 },
                 receive: {
-                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qAC'],
+                    action: "Transfer",
+                    amount: row_operation['params']['amount'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
