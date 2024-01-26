@@ -18,6 +18,8 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
+
+
 export default function ListOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
@@ -429,53 +431,65 @@ export default function ListOperations(props) {
     }
     function getFee(row_operation){
 
-        let qACfee = null
-        let qFeeToken = null
+        const fee = {amount: null, token: null, decimals: null}
 
         if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
-            qACfee = row_operation['executed']['qACfee_']
+
+            const qACfee = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACfee_'],
+                    settings.tokens.CA[0].decimals
+                )
+            )
+
+            const qACVendorMarkup = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACVendorMarkup_'],
+                    settings.tokens.CA[0].decimals
+                )
+            )
+
+            fee['amount'] = qACfee.plus(qACVendorMarkup)
+            fee['token'] = 'CA_0'
+            fee['decimals'] = settings.tokens.CA[0].decimals
+
+        } else if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
+
+            const qFeeToken = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeToken'],
+                    settings.tokens.FeeToken.decimals
+                )
+            )
+
+            const qFeeTokenVendorMarkup = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeTokenVendorMarkup'],
+                    settings.tokens.FeeToken.decimals
+                )
+            )
+
+            fee['amount'] = qFeeToken.plus(qFeeTokenVendorMarkup)
+            fee['token'] = 'FeeToken'
+            fee['decimals'] = settings.tokens.FeeToken.decimals
         }
 
-        if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
-            qFeeToken = row_operation['executed']['qFeeToken_']
-        }
-
-        if (qACfee!=null) {
+        if (fee['amount'] != null) {
             return (<div>
                 <span className="value">
                     {PrecisionNumbers({
-                        amount: new BigNumber(qACfee),
-                        token: TokenSettings('CA_0'),
+                        amount: new BigNumber(fee['amount']),
+                        token: TokenSettings(fee['token']),
                         decimals: 6,
                         t: t,
                         i18n: i18n,
                         ns: ns,
-                        skipContractConvert: false
+                        skipContractConvert: true
                     })}
                 </span>
                 <span className="token">
                         {' '}
-                    {t('exchange.tokens.CA_0.abbr', {
-                        ns: ns
-                    })}{' '}
-                </span>
-            </div>)
-        } else if (qFeeToken!=null) {
-            return (<div>
-                <span className="value">
-                    {PrecisionNumbers({
-                        amount: new BigNumber(qFeeToken),
-                        token: TokenSettings('FeeToken'),
-                        decimals: 6,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: false
-                    })}
-                </span>
-                <span className="token">
-                        {' '}
-                    {t('exchange.tokens.FeeToken.abbr', {
+                    {t(`exchange.tokens.${fee['token']}.abbr`, {
                         ns: ns
                     })}{' '}
                 </span>
