@@ -170,7 +170,8 @@ export default function ListOperations(props) {
             }
         } else if (row_operation['operation']  === "TPMint") {
 
-            const tp_index = row_operation[status]['tpIndex_']
+            let tp_index = row_operation[status]['tpIndex_']
+            if (tp_index === undefined) tp_index = 0
 
             return {
                 exchange: {
@@ -190,7 +191,8 @@ export default function ListOperations(props) {
             }
         } else if (row_operation['operation']  === "TPRedeem") {
 
-            const tp_index = row_operation[status]['tpIndex_']
+            let tp_index = row_operation[status]['tpIndex_']
+            if (tp_index === undefined) tp_index = 0
 
             return {
                 exchange: {
