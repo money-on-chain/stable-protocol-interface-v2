@@ -15,6 +15,9 @@ import './style.scss';
 import Web3 from 'web3';
 import settings from "../../../settings/settings.json"
 import { PrecisionNumbers } from '../../PrecisionNumbers';
+import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
+import BigNumber from 'bignumber.js';
+import { TokenSettings } from '../../../helpers/currencies';
 export default function ListOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
@@ -101,7 +104,7 @@ export default function ListOperations(props) {
 
     function tokenExchange(row_operation){
 
-        let status = null
+        let status = ''
         if (row_operation['executed']) {
             status = 'executed'
         } else if (row_operation['params']) {
@@ -127,89 +130,97 @@ export default function ListOperations(props) {
             }
         }
 
-        if (row_operation['operation'] === "TCMint"){
+        if (row_operation['operation'] === "TCMint") {
+
             return {
                 exchange: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
-                    title: "EXCHANGED"
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
-                    amount: row_operation[status]['qTC_'],
+                    amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: "tc",
-                    title: "RECEIVED"
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
-        } else if(row_operation['operation']  === "TCRedeem"){
+        } else if (row_operation['operation']  === "TCRedeem") {
+
             return {
                 exchange: {
-                    amount: row_operation[status]['qTC_'],
+                    amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: "tc",
-                    title: "EXCHANGED"
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
-                    title: "RECEIVED"
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
-        } else if(row_operation['operation']  === "TPMint"){
+        } else if (row_operation['operation']  === "TPMint") {
+
+            const tp_index = row_operation[status]['tpIndex'] || 0
+
             return {
                 exchange: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
-                    title: "EXCHANGED"
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
-                    amount: row_operation[status]['qTP_'],
-                    name: settings.tokens.TP[0].name,
-                    token: settings.tokens.TP[0],
-                    icon: "tp_0",
-                    title: "RECEIVED"
+                    amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    name: settings.tokens.TP[tp_index].name,
+                    token: settings.tokens.TP[tp_index],
+                    icon: `tp_${tp_index}`,
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
-        } else if(row_operation['operation']  === "TPRedeem"){
+        } else if (row_operation['operation']  === "TPRedeem") {
+
+            const tp_index = row_operation[status]['tpIndex'] || 0
+
             return {
                 exchange: {
-                    amount: row_operation[status]['qTP_'],
-                    name: settings.tokens.TP[0].name,
-                    token: settings.tokens.TP[0],
-                    icon: "tp_0",
-                    title: "EXCHANGED"
+                    amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    name: settings.tokens.TP[tp_index].name,
+                    token: settings.tokens.TP[tp_index],
+                    icon: `tp_${tp_index}`,
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
-                    title: "RECEIVED"
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
-        } else if(row_operation['operation']  === "Transfer"){
+        } else if (row_operation['operation']  === "Transfer") {
             return {
                 exchange: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qAC'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "tp_0",
-                    title: "TRANSFERRED"
+                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 },
                 receive: {
-                    amount: row_operation[status]['qAC_'],
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qAC'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "ca_0",
-                    title: "TRANSFERRED"
+                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 }
             }
         } else {
@@ -297,8 +308,7 @@ export default function ListOperations(props) {
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
                 status: getStatus(data['status']) || "--",
-                qac_fee: (data['executed'] && data['executed']['qACfee_']) ? data['executed']['qACfee_'] : '--',
-                qfee_token: (data['executed'] && data['executed']['qFeeToken_']) ? data['executed']['qFeeToken_'] : '--'
+                fee: getFee(data) || "--"
             };
 
             received_row.push({
@@ -417,6 +427,64 @@ export default function ListOperations(props) {
     function TruncatedAddress( address, length = 6 ) {
         return address.substring(0, length + 2) + "…" + address.substring(address.length - length)
     }
+    function getFee(row_operation){
+
+        let qACfee = new BigNumber(0)
+        let qFeeToken = new BigNumber(0)
+
+        if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
+            qACfee = fromContractPrecisionDecimals(row_operation['executed']['qACfee_'], 2)
+        }
+
+        if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
+            qFeeToken = fromContractPrecisionDecimals(row_operation['executed']['qFeeToken_'], 2)
+        }
+
+        if (qACfee.gt(0)) {
+            return (<div>
+                <span className="value">
+                    {PrecisionNumbers({
+                        amount: new BigNumber(qACfee),
+                        token: TokenSettings('CA_0'),
+                        decimals: 4,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: false
+                    })}
+                </span>
+                <span className="token">
+                        {' '}
+                    {t('exchange.tokens.CA_0.abbr', {
+                        ns: ns
+                    })}{' '}
+                </span>
+            </div>)
+        } else if (qFeeToken.gt(0)) {
+            return (<div>
+                <span className="value">
+                    {PrecisionNumbers({
+                        amount: new BigNumber(qFeeToken),
+                        token: TokenSettings('FeeToken'),
+                        decimals: 4,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: false
+                    })}
+                </span>
+                <span className="token">
+                        {' '}
+                    {t('exchange.tokens.FeeToken.abbr', {
+                        ns: ns
+                    })}{' '}
+                </span>
+            </div>)
+        } else {
+            return '--'
+        }
+
+    }
     function getStatus(status){
         switch(status){
             case -3:
@@ -464,8 +532,18 @@ export default function ListOperations(props) {
                         color: 'color-token-tc',
                         txt: 'TC'
                     };
+                case 'tp_1':
+                    return{
+                        image: (
+                            <i
+                                className="icon-token-tp_1 icon-token-modif"
+                            />
+                        ),
+                        color: 'color-token-tc',
+                        txt: 'TP'
+                    };
             default:
-                console.log("UNROCOGNISED TOKEN: " + name)
+                console.log("UNRECOGNIZED TOKEN: " + name)
                 return{
                     image: (
                         <i

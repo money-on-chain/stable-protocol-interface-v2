@@ -72,18 +72,15 @@
             "error_code": "Error Code",
             "block": "Block Nº",
             "executed_tx": "Executed",
-            "qac_fee": "Fee CA",
             "tx": "TX Hash",
-            "qfee_token": "Fee Token",
+            "fee": "Fee",
             "gas": "Gas Fee",
-            "memo": "Comments",
-            "reserve_price": "Reserve Price",
             "txRequest": "TX Request",
             "txSent": "TX Sent",
-            "amount": "Amount",
             "gasCost": "Gas Cost",
             "transaction": "Transaction",
-            "mocPrice": "Moc Price"
+            "msg": "msg",
+            "reason": "reason"
         },
         "status": {
             "open": "Open",

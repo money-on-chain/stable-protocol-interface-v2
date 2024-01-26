@@ -147,24 +147,13 @@ function RowDetail(props) {
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {t(`operations.columns_detailed.qac_fee`, { ns: ns })}
+                        {t(`operations.columns_detailed.fee`, { ns: ns })}
                     </th>
                     <td
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        <span>
-
-                            {PrecisionNumbers({
-                                amount: props.detail.qac_fee,
-                                token: settings.tokens.CA[0],
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns
-                            })}
-
-                        </span>
+                        {props.detail.fee}
                     </td>
                     <th
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
@@ -190,26 +179,26 @@ function RowDetail(props) {
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {t(`operations.columns_detailed.qfee_token`, { ns: ns })}
+                        {t(`operations.columns_detailed.msg`, { ns: ns })}
                     </th>
                     <td
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        <span>{props.detail.qfee_token} </span>
+                        <span>{props.detail.msg} </span>
                     </td>
-                    {/*<th*/}
-                    {/*    className="ant-descriptions-item-label-th ant-descriptions-border-bottom"*/}
-                    {/*    colSpan="1"*/}
-                    {/*>*/}
-                    {/*    {t(`operations.columns_detailed.gas`, { ns: ns })}*/}
-                    {/*</th>*/}
-                    {/*<td*/}
-                    {/*    className="ant-descriptions-item-content ant-descriptions-border-bottom"*/}
-                    {/*    colSpan="1"*/}
-                    {/*>*/}
-                    {/*    {props.detail.gas_fee}*/}
-                    {/*</td>*/}
+                    <th
+                        className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
+                        colSpan="1"
+                    >
+                        {t(`operations.columns_detailed.reason`, { ns: ns })}
+                    </th>
+                    <td
+                        className="ant-descriptions-item-content ant-descriptions-border-bottom"
+                        colSpan="1"
+                    >
+                        {props.detail.reason}
+                    </td>
                     {/*<th*/}
                     {/*    className="ant-descriptions-item-label-th ant-descriptions-border-bottom"*/}
                     {/*    colSpan="1"*/}
