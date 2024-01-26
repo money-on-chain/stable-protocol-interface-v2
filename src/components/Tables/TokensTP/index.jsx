@@ -13,7 +13,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         align: 'left',
-        width: 380
+        width: 280
     },
     {
         title: 'Tokens per USD',
@@ -31,7 +31,14 @@ const columns = [
         title: 'Balance',
         dataIndex: 'balance',
         align: 'right',
-        width: 190
+        width: 150
+    },
+    {
+        title: 'RIF',
+        //TODO change to the correct dataIndex
+        dataIndex: 'balance',
+        align: 'right',
+        width: 150
     },
     {
         title: 'USD',

@@ -294,9 +294,9 @@ html {
 }
 .logo-staking {
     width: 32px;
-    height: 32px;
+    height: 27px;
     background-image: url('../icons/stakingWhite.svg');
-    background-size: 32px 32px;
+    background-size: 40px 44px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
@@ -646,12 +646,7 @@ html {
     /*left: 130px;
   top: 240px;*/
 
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    background: #FFF;
     /* M3/Elevation Dark/1 */
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
@@ -706,16 +701,15 @@ html {
 
     /* Card Contents/Card Title */
 
-    font-family: 'Chivo';
-    font-style: italic;
-    font-weight: 900;
+    font-family: 'Sora';
+    font-weight: 700;
     font-size: 20px;
     line-height: 24px;
     /* identical to box height */
 
     /* Text/Text Primary */
 
-    color: #c3ccd9;
+    color: #000;
 
     /* Inside auto layout */
 
@@ -747,18 +741,18 @@ html {
     width: 141px;
     height: 24px;
 
-    font-family: 'Chivo';
+    font-family: 'Sora';
     font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: normal;
     /* identical to box height */
 
     text-align: right;
 
     /* Text/Text Primary */
 
-    color: #c3ccd9;
+    color: #000;
 
     /* Inside auto layout */
 
@@ -770,16 +764,16 @@ html {
     width: 130px;
     height: 21px;
 
-    font-family: 'Chivo';
+    font-family: 'Open Sans';
     font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: normal;
     text-align: right;
-
+    letter-spacing: 1.2px;
     /* Text/Text Secondary */
-
-    color: #7f8a99;
+    text-transform: uppercase;
+    color: #7F8A99;
 
     /* Inside auto layout */
 
@@ -801,7 +795,7 @@ html {
 
 /* Table tokens */
 .ant-table-thead > tr > th {
-    font-family: 'Chivo';
+    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -812,12 +806,7 @@ html {
     /* Text/Text Secondary */
 
     color: #7f8a99;
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    background: rgba(255, 255, 255, 0.70);
 }
 
 .ant-table {
@@ -832,13 +821,8 @@ html {
 
     /* Text/Text Primary */
 
-    color: #c3ccd9;
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    color: #000;
+    background: #FFF;
 }
 
 .ant-table-container table > thead > tr:first-child th:last-child {
@@ -850,12 +834,12 @@ html {
 }
 
 .ant-table-thead > tr > th {
-    border-bottom: 1px solid #2e3238;
+    border-bottom: 1px solid #CBD4DA;
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-    background: #2e2c2e;
+    background: #d0d0d0;
 }
 
 .ant-table-body::-webkit-scrollbar {
@@ -973,12 +957,7 @@ html {
     margin-top: 24px;
     padding: 32px;
 
-    background: linear-gradient(
-            0deg,
-            rgba(189, 207, 255, 0.05),
-            rgba(189, 207, 255, 0.05)
-        ),
-        #131215;
+    background: #FFF;
     /* M3/Elevation Dark/1 */
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
@@ -996,15 +975,15 @@ html {
 }
 
 h1.title-last-operations {
-    font-family: 'Chivo';
-    font-style: italic;
-    font-weight: 900;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 700;
     font-size: 20px;
-    line-height: 24px;
+    line-height: normal;
     /* identical to box height */
 
     /* Text/Text Primary */
-    color: #c3ccd9;
+    color: #000;
 }
 
 /* Modal Confirm operation */
@@ -1036,7 +1015,7 @@ h1.title-last-operations {
 
     .ant-modal-title {
         opacity: 1;
-        color: rgba(255,243,131,1)  !important;
+        color: rgb(82, 80, 69)  !important;
         font-family: "Chivo";
         font-size: 20px  !important;
         font-weight: 700  !important;
@@ -3238,7 +3217,7 @@ h1.title-last-operations {
     padding: 24px 50px;
     color: rgba(0, 0, 0, 0.85);
     font-size: 14px;
-    background: #131215;
+    background: #ffffff;
 }
 
 //.rlogin-modal-header{
