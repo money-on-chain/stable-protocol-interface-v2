@@ -44,7 +44,7 @@ export default function ListOperations(props) {
                     const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
                     const queryParams = new URLSearchParams({
                         recipient: accountData.Owner,
-                        limit: 20,
+                        limit: 1000,
                         skip: 0
                     }).toString();
                     const url = `${baseUrl}?${queryParams}`;
@@ -88,7 +88,7 @@ export default function ListOperations(props) {
     useEffect(() => {
         const interval = setInterval(() => {
             transactionsList(current);
-        }, 30000);
+        }, 15000);
         return () => clearInterval(interval);
     }, [accountData.Owner]);
     useEffect(() => {
@@ -429,24 +429,24 @@ export default function ListOperations(props) {
     }
     function getFee(row_operation){
 
-        let qACfee = new BigNumber(0)
-        let qFeeToken = new BigNumber(0)
+        let qACfee = null
+        let qFeeToken = null
 
         if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
-            qACfee = fromContractPrecisionDecimals(row_operation['executed']['qACfee_'], 2)
+            qACfee = row_operation['executed']['qACfee_']
         }
 
         if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
-            qFeeToken = fromContractPrecisionDecimals(row_operation['executed']['qFeeToken_'], 2)
+            qFeeToken = row_operation['executed']['qFeeToken_']
         }
 
-        if (qACfee.gt(0)) {
+        if (qACfee!=null) {
             return (<div>
                 <span className="value">
                     {PrecisionNumbers({
                         amount: new BigNumber(qACfee),
                         token: TokenSettings('CA_0'),
-                        decimals: 4,
+                        decimals: 6,
                         t: t,
                         i18n: i18n,
                         ns: ns,
@@ -460,13 +460,13 @@ export default function ListOperations(props) {
                     })}{' '}
                 </span>
             </div>)
-        } else if (qFeeToken.gt(0)) {
+        } else if (qFeeToken!=null) {
             return (<div>
                 <span className="value">
                     {PrecisionNumbers({
                         amount: new BigNumber(qFeeToken),
                         token: TokenSettings('FeeToken'),
-                        decimals: 4,
+                        decimals: 6,
                         t: t,
                         i18n: i18n,
                         ns: ns,
