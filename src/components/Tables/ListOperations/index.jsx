@@ -119,14 +119,14 @@ export default function ListOperations(props) {
                     amount: 0,
                     name: '',
                     token: '',
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: "EXCHANGED"
                 },
                 receive: {
                     amount: 0,
                     name: '',
                     token: '',
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: "RECEIVED"
                 }
             }
@@ -140,7 +140,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
@@ -148,7 +148,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
-                    icon: "tc",
+                    icon: "TC",
                     title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
@@ -160,7 +160,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
-                    icon: "tc",
+                    icon: "TC",
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
@@ -168,7 +168,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
@@ -183,7 +183,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
@@ -191,7 +191,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
-                    icon: `tp_${tp_index}`,
+                    icon: `TP_${tp_index}`,
                     title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
@@ -206,7 +206,7 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
-                    icon: `tp_${tp_index}`,
+                    icon: `TP_${tp_index}`,
                     title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
                 },
                 receive: {
@@ -214,27 +214,28 @@ export default function ListOperations(props) {
                     amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
-                    icon: "ca_0",
+                    icon: "CA_0",
                     title: status === "executed" ? "RECEIVED" : "RECEIVE"
                 }
             }
         } else if (row_operation['operation']  === "Transfer") {
             let token = row_operation['params']['token']
+            const token_info = getTokenInfo(token)
             return {
                 exchange: {
                     action: "Transfer",
                     amount: row_operation['params']['amount'],
-                    name: settings.tokens.CA[0].name,
-                    token: settings.tokens.CA[0],
-                    icon: "tp_0",
+                    name: token_info.name,
+                    token: token_info.token,
+                    icon: "TP_0",
                     title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 },
                 receive: {
                     action: "Transfer",
                     amount: row_operation['params']['amount'],
-                    name: settings.tokens.CA[0].name,
-                    token: settings.tokens.CA[0],
-                    icon: "ca_0",
+                    name: token_info.name,
+                    token: token_info.token,
+                    icon: "CA_0",
                     title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 }
             }
@@ -352,7 +353,7 @@ export default function ListOperations(props) {
                 ),
                 receive: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                        {token.receive.action !== "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
                             <div className='table-event-name'>{token.receive.title}</div><br></br>
                             <div className='table-amount'>
                                 {PrecisionNumbers({
@@ -364,7 +365,11 @@ export default function ListOperations(props) {
                                     ns: ns
                                 })}
                             </div>
-                        </div>
+                        </div>)}
+                        {token.receive.action === "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
+                            <div className='table-event-name'>{getTransferAction(data)}</div><br></br>
+                            <div className='table-amount'>{getTransferAddress(data)}</div>
+                        </div>)}
                         <div className='table-icon-name' >
                             {getAsset(token.receive.icon).image}
                             <div className='table-asset-name'>{token.receive.name}</div>
@@ -512,8 +517,30 @@ export default function ListOperations(props) {
         }
 
     }
+    function getTransferAction(row_operation){
+        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+            return "SENT"
+        } else {
+            return "RECEIVED"
+        }
+
+    }
+    function truncateAddress(address) {
+        if (address === '') return '';
+        return address.substring(0, 6) + '...' + address.substring(address.length - 4, address.length);
+    }
+    function getTransferAddress(row_operation){
+        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+            return truncateAddress(row_operation['params']['recipient'].toLowerCase())
+        } else {
+            return truncateAddress(row_operation['params']['sender'].toLowerCase())
+        }
+
+    }
     function getStatus(status){
         switch(status){
+            case -4:
+                return "REVERT"
             case -3:
                 return "FAILED"
             case -2:
@@ -525,10 +552,39 @@ export default function ListOperations(props) {
             case 1:
                 return "CONFIRMED"
         }
+
+    }
+
+    function getTokenInfo(token){
+        switch (token) {
+            case "CA_0":
+                return {
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0]
+                }
+            case "TC":
+                return {
+                    name: settings.tokens.TC.name,
+                    token: settings.tokens.TC
+                }
+            case "TP_0":
+                return {
+                    name: settings.tokens.TP[0].name,
+                    token: settings.tokens.TP
+                }
+            case "TP_1":
+                return {
+                    name: settings.tokens.TP[1].name,
+                    token: settings.tokens.TP
+                }
+            default:
+                console.log("UNRECOGNIZED TOKEN: " + token)
+        }
+
     }
     function getAsset(name){
         switch (name) {
-            case "ca_0":
+            case "CA_0":
                 return {
                     image: (
                         <i
@@ -538,7 +594,7 @@ export default function ListOperations(props) {
                     color: 'color-token-tp',
                     txt: 'TP'
                 }
-            case 'tc':
+            case 'TC':
                     return{
                         image: (
                             <i
@@ -549,26 +605,26 @@ export default function ListOperations(props) {
                         color: 'color-token-tc',
                         txt: 'TC'
                     };
-                case 'tp_0':
-                    return{
-                        image: (
-                            <i
-                                className="icon-token-tp_0 icon-token-modif"
-                            />
-                        ),
-                        color: 'color-token-tc',
-                        txt: 'TC'
-                    };
-                case 'tp_1':
-                    return{
-                        image: (
-                            <i
-                                className="icon-token-tp_1 icon-token-modif"
-                            />
-                        ),
-                        color: 'color-token-tc',
-                        txt: 'TP'
-                    };
+            case 'TP_0':
+                return{
+                    image: (
+                        <i
+                            className="icon-token-tp_0 icon-token-modif"
+                        />
+                    ),
+                    color: 'color-token-tc',
+                    txt: 'TC'
+                };
+            case 'TP_1':
+                return{
+                    image: (
+                        <i
+                            className="icon-token-tp_1 icon-token-modif"
+                        />
+                    ),
+                    color: 'color-token-tc',
+                    txt: 'TP'
+                };
             default:
                 console.log("UNRECOGNIZED TOKEN: " + name)
                 return{
