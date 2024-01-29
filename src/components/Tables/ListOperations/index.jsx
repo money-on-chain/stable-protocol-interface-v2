@@ -14,6 +14,12 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import './style.scss';
 import Web3 from 'web3';
 import settings from "../../../settings/settings.json"
+import { PrecisionNumbers } from '../../PrecisionNumbers';
+import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
+import BigNumber from 'bignumber.js';
+import { TokenSettings } from '../../../helpers/currencies';
+
+
 export default function ListOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
@@ -40,7 +46,7 @@ export default function ListOperations(props) {
                     const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
                     const queryParams = new URLSearchParams({
                         recipient: accountData.Owner,
-                        limit: 20,
+                        limit: 1000,
                         skip: 0
                     }).toString();
                     const url = `${baseUrl}?${queryParams}`;
@@ -58,13 +64,13 @@ export default function ListOperations(props) {
     };
     const columns = [
         {
-            dataIndex: 'event',
+            dataIndex: 'exchange',
             width: 200,
             hidden: false,
             className: "table-border-single"
         },
         {
-            dataIndex: 'platform',
+            dataIndex: 'receive',
             width: 360,
             hidden: false,
             className: "table-border-single"
@@ -84,7 +90,7 @@ export default function ListOperations(props) {
     useEffect(() => {
         const interval = setInterval(() => {
             transactionsList(current);
-        }, 30000);
+        }, 15000);
         return () => clearInterval(interval);
     }, [accountData.Owner]);
     useEffect(() => {
@@ -97,16 +103,146 @@ export default function ListOperations(props) {
             transactionsList(page, true);
         }
     };
-    function determineAsset(operation){
-        if(operation == "TCMint"){
-            return { from: {icon: "ca_0", name: settings.tokens.CA[0].name}, to: {icon:"tc", name: settings.tokens.TC.name}}
-        } else if(operation== "TCRedeem"){
-            return { from: {icon: "tc", name: settings.tokens.TC.name}, to: {icon:"ca_0", name: settings.tokens.CA[0].name}}
-        }else if(operation == "TPMint"){
-            return { from: {icon: "ca_0", name: settings.tokens.CA[0].name} , to:{icon: "tp_0", name: settings.tokens.TP[0].name}}
-        }else{
-            console.log("CAN'T OPERATE: " + operation.operation)
+
+    function tokenExchange(row_operation){
+
+        let status = ''
+        if (row_operation['executed']) {
+            status = 'executed'
+        } else if (row_operation['params']) {
+            status = 'params'
         }
+
+        if (!status) {
+            return {
+                exchange: {
+                    amount: 0,
+                    name: '',
+                    token: '',
+                    icon: "CA_0",
+                    title: "EXCHANGED"
+                },
+                receive: {
+                    amount: 0,
+                    name: '',
+                    token: '',
+                    icon: "CA_0",
+                    title: "RECEIVED"
+                }
+            }
+        }
+
+        if (row_operation['operation'] === "TCMint") {
+
+            return {
+                exchange: {
+                    action: "TCMint",
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                },
+                receive: {
+                    action: "TCMint",
+                    amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
+                    name: settings.tokens.TC.name,
+                    token: settings.tokens.TC,
+                    icon: "TC",
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                }
+            }
+        } else if (row_operation['operation']  === "TCRedeem") {
+
+            return {
+                exchange: {
+                    action: "TCRedeem",
+                    amount: status === "executed" ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
+                    name: settings.tokens.TC.name,
+                    token: settings.tokens.TC,
+                    icon: "TC",
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                },
+                receive: {
+                    action: "TCRedeem",
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                }
+            }
+        } else if (row_operation['operation']  === "TPMint") {
+
+            let tp_index = row_operation[status]['tpIndex_']
+            if (tp_index === undefined) tp_index = 0
+
+            return {
+                exchange: {
+                    action: "TPMint",
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                },
+                receive: {
+                    action: "TPMint",
+                    amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    name: settings.tokens.TP[tp_index].name,
+                    token: settings.tokens.TP[tp_index],
+                    icon: `TP_${tp_index}`,
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                }
+            }
+        } else if (row_operation['operation']  === "TPRedeem") {
+
+            let tp_index = row_operation[status]['tpIndex_']
+            if (tp_index === undefined) tp_index = 0
+
+            return {
+                exchange: {
+                    action: "TPRedeem",
+                    amount: status === "executed" ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    name: settings.tokens.TP[tp_index].name,
+                    token: settings.tokens.TP[tp_index],
+                    icon: `TP_${tp_index}`,
+                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                },
+                receive: {
+                    action: "TPRedeem",
+                    amount: status === "executed" ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                }
+            }
+        } else if (row_operation['operation']  === "Transfer") {
+            let token = row_operation['params']['token']
+            const token_info = getTokenInfo(token)
+            return {
+                exchange: {
+                    action: "Transfer",
+                    amount: row_operation['params']['amount'],
+                    name: token_info.name,
+                    token: token_info.token,
+                    icon: "TP_0",
+                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
+                },
+                receive: {
+                    action: "Transfer",
+                    amount: row_operation['params']['amount'],
+                    name: token_info.name,
+                    token: token_info.token,
+                    icon: "CA_0",
+                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
+                }
+            }
+        } else {
+            console.log("CAN'T OPERATE: " + row_operation.operation)
+        }
+
     }
     const data_row = () => {
         /*******************************sort descending by date lastUpdatedAt***********************************/
@@ -129,20 +265,13 @@ export default function ListOperations(props) {
 
         txList.forEach((data) => {
 
-            let tokenAmount = 0;
-            if (data['executed']) {
-                if (data['executed']['qTC_']) tokenAmount = data['executed']['qTC_']
-                else if (data['executed']['qTP_']) tokenAmount = data['executed']['qTP_']
-            } else if (data['params']) {
-                if (data['params']['qTC']) tokenAmount = data['params']['qTC']
-                else if (data['params']['qTP']) tokenAmount = data['params']['qTP']
-            }
+            const token = tokenExchange(data)
 
-            //if(!data['executed']) return
-            //if(!data['executed']['qTC_']) return
-            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
             const detail = {
                 event: data['operation'],
+                oper_id: data['operId_'],
+                exchange: token.exchange,
+                receive: token.receive,
                 created: (
                     <span>
                         <Moment
@@ -152,14 +281,12 @@ export default function ListOperations(props) {
                                     : date.DATE_ES
                             }
                         >
-                            {data['lastUpdatedAt']}
+                            {data['createdAt']}
                         </Moment>
                     </span>
                 ),
-                details: "--", //data['executed']['qTC_'] || "--",
-                asset: determineAsset(data.operation).from.name,
                 confirmation: data['confirmationTime'] ? (
-                    true ? (
+                    (
                         <span>
                             <Moment
                                 format={
@@ -171,70 +298,84 @@ export default function ListOperations(props) {
                                 {data['confirmationTime']}
                             </Moment>
                         </span>
-                    ) : (
-                        <span>
-                            <Moment format="YYYY-MM-DD HH:MM:SS">
-                                {data['confirmationTime']}
-                            </Moment>
-                        </span>
                     )
                 ) : (
                     '--'
                 ),
-                address:
-                    data['address'] !== '--' ? (
+                recipient:
+                    data['params']['recipient'] !== '--' ? (
                         <Copy
                             textToShow={TruncatedAddress(data['params']['recipient'])}
-                            textToCopy={data['address']}
+                            textToCopy={data['params']['recipient']}
                         />
                     ) : (
                         '--'
                     ),
-                platform: "+" + Web3.utils.fromWei(tokenAmount) + " " + determineAsset(data.operation).from.name,
-                platform_fee: data['platform_fee_value'] || "--",
                 block: data['blockNumber'] || "--",
-                wallet: data['wallet_value'] || "--",
-                interests: data['interests'] || "--",
                 tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 tx_hash: data['hash'] || "--",
-                leverage: data['leverage']|| "--",
                 gas_fee: data['gas_fee'] ||  data['gasFeeRBTC'] || "--",
-                price: data['price'] || "--",
-                comments: '--',
-          
+                gas: data['gas'] || "--",
+                gas_price: data['gasPrice'] || "--",
+                gas_used: data['gasUsed'] || "--",
+                error_code: data['errorCode_'] || "--",
+                msg: data['msg_'] || "--",
+                reason: data['reason_'] || "--",
+                executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
+                executed_tx_hash: data['hash'] || "--",
+                status: getStatus(data['status']) || "--",
+                fee: getFee(data) || "--"
             };
-            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
 
             received_row.push({
                 key: data._id,
                 info: '',
-                event: (
+                exchange: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
                         <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                            <div className='table-event-name'>{EventNameOldToNew(data['operation'])}</div>
-                            <div className='table-amount' >+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
+                            <div className='table-event-name'>{token.exchange.title}</div>
+                            <div className='table-amount' >
+                                {PrecisionNumbers({
+                                    amount: token.exchange.amount,
+                                    token: token.exchange.token,
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}
+                            </div>
                         </div>
                         <div className='table-icon-name' >
-                            {getAsset(determineAsset(data.operation).from.icon).image}
-                            <div className='table-asset-name'>{determineAsset(data.operation).from.name}</div>
+                            {getAsset(token.exchange.icon).image}
+                            <div className='table-asset-name'>{token.exchange.name}</div>
                         </div>
                     </div>
                 ),
-
-                platform: (
+                receive: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                            <div className='table-event-name'>{EventNameOpposite(EventNameOldToNew(data['operation']))}</div><br></br>
-                            <div className='table-amount'>+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
-                        </div>
+                        {token.receive.action !== "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
+                            <div className='table-event-name'>{token.receive.title}</div><br></br>
+                            <div className='table-amount'>
+                                {PrecisionNumbers({
+                                    amount: token.receive.amount,
+                                    token: token.receive.token,
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}
+                            </div>
+                        </div>)}
+                        {token.receive.action === "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
+                            <div className='table-event-name'>{getTransferAction(data)}</div><br></br>
+                            <div className='table-amount'>{getTransferAddress(data)}</div>
+                        </div>)}
                         <div className='table-icon-name' >
-                            {getAsset(determineAsset(data.operation).to.icon).image}
-                            <div className='table-asset-name'>{determineAsset(data.operation).to.name}</div>
+                            {getAsset(token.receive.icon).image}
+                            <div className='table-asset-name'>{token.receive.name}</div>
                         </div>
                     </div>
-                ),  
-                
-                        
+                ),
                 date:( 
                     <div style={{paddingLeft: "25%"}}>
                       <div className='table-date-name' >
@@ -275,23 +416,18 @@ export default function ListOperations(props) {
         });
 
         received_row.forEach((element) => {
-            const asset = [];
-            asset.push(determineAsset(element.detail.event).from.name)
             data.push({
                 key: element.key,
                 info: '',
-                event: (
+                exchange: (
                     <span
-                        className={classnames(
-                            'event-action',
-                            `${asset[0].color}`
-                        )}>
-                        {element.event}
+                        className={classnames('event-action')}>
+                        {element.exchange}
                     </span>
                 ),
-                platform: (
+                receive: (
                     <span className="display-inline currency-tx">
-                        {element.platform}
+                        {element.receive}
                     </span>
                 ),
                 date: <span>{element.date}</span>,
@@ -310,42 +446,145 @@ export default function ListOperations(props) {
     }, [auth]);
     function TruncatedAddress( address, length = 6 ) {
         return address.substring(0, length + 2) + "…" + address.substring(address.length - length)
-    }      
-    function EventNameOpposite(name) {
-        switch (name) {
-            case "Transfer":
-                return "RECEIVED";
-            case "SENT": 
-                return "DESTINATION"
-            case "EXCHANGED":
-                return "RECEIVED"
-            default:
-                return "Exchanged";
-        }
     }
-    function EventNameOldToNew(name) {
-        switch (name) {
-            case "Transfer":
-                return "SENT";
-            case "TCMint" || "TPMint" || "TCRedeem":
-                return "EXCHANGED"
-            default:
-                return "EXCHANGED";
+    function getFee(row_operation){
+
+        const fee = {amount: null, token: null, decimals: null}
+
+        if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
+
+            const qACfee = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACfee_'],
+                    settings.tokens.CA[0].decimals
+                )
+            )
+
+            const qACVendorMarkup = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACVendorMarkup_'],
+                    settings.tokens.CA[0].decimals
+                )
+            )
+
+            fee['amount'] = qACfee.plus(qACVendorMarkup)
+            fee['token'] = 'CA_0'
+            fee['decimals'] = settings.tokens.CA[0].decimals
+
+        } else if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
+
+            const qFeeToken = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeToken'],
+                    settings.tokens.FeeToken.decimals
+                )
+            )
+
+            const qFeeTokenVendorMarkup = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeTokenVendorMarkup'],
+                    settings.tokens.FeeToken.decimals
+                )
+            )
+
+            fee['amount'] = qFeeToken.plus(qFeeTokenVendorMarkup)
+            fee['token'] = 'FeeToken'
+            fee['decimals'] = settings.tokens.FeeToken.decimals
         }
+
+        if (fee['amount'] != null) {
+            return (<div>
+                <span className="value">
+                    {PrecisionNumbers({
+                        amount: new BigNumber(fee['amount']),
+                        token: TokenSettings(fee['token']),
+                        decimals: 6,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                </span>
+                <span className="token">
+                        {' '}
+                    {t(`exchange.tokens.${fee['token']}.abbr`, {
+                        ns: ns
+                    })}{' '}
+                </span>
+            </div>)
+        } else {
+            return '--'
+        }
+
+    }
+    function getTransferAction(row_operation){
+        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+            return "SENT"
+        } else {
+            return "RECEIVED"
+        }
+
+    }
+    function truncateAddress(address) {
+        if (address === '') return '';
+        return address.substring(0, 6) + '...' + address.substring(address.length - 4, address.length);
+    }
+    function getTransferAddress(row_operation){
+        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+            return truncateAddress(row_operation['params']['recipient'].toLowerCase())
+        } else {
+            return truncateAddress(row_operation['params']['sender'].toLowerCase())
+        }
+
     }
     function getStatus(status){
         switch(status){
+            case -4:
+                return "REVERT"
+            case -3:
+                return "FAILED"
+            case -2:
+                return "FAILED"
             case -1:
                 return "FAILED"
             case 0:
-                    return "QUEUED"
+                return "QUEUED"
             case 1:
                 return "CONFIRMED"
         }
+
+    }
+
+    function getTokenInfo(token){
+        switch (token) {
+            case "CA_0":
+                return {
+                    name: settings.tokens.CA[0].name,
+                    token: settings.tokens.CA[0]
+                }
+            case "TC":
+                return {
+                    name: settings.tokens.TC.name,
+                    token: settings.tokens.TC
+                }
+            case "TP_0":
+                return {
+                    name: settings.tokens.TP[0].name,
+                    token: settings.tokens.TP
+                }
+            case "TP_1":
+                return {
+                    name: settings.tokens.TP[1].name,
+                    token: settings.tokens.TP
+                }
+            default:
+                console.log("UNRECOGNIZED TOKEN: " + token)
+        }
+
     }
     function getAsset(name){
         switch (name) {
-            case "ca_0":
+            case "CA_0":
                 return {
                     image: (
                         <i
@@ -355,7 +594,7 @@ export default function ListOperations(props) {
                     color: 'color-token-tp',
                     txt: 'TP'
                 }
-            case 'tc':
+            case 'TC':
                     return{
                         image: (
                             <i
@@ -366,18 +605,28 @@ export default function ListOperations(props) {
                         color: 'color-token-tc',
                         txt: 'TC'
                     };
-                case 'tp_0':
-                    return{
-                        image: (
-                            <i
-                                className="icon-token-tp_0 icon-token-modif"
-                            />
-                        ),
-                        color: 'color-token-tc',
-                        txt: 'TC'
-                    };
+            case 'TP_0':
+                return{
+                    image: (
+                        <i
+                            className="icon-token-tp_0 icon-token-modif"
+                        />
+                    ),
+                    color: 'color-token-tc',
+                    txt: 'TC'
+                };
+            case 'TP_1':
+                return{
+                    image: (
+                        <i
+                            className="icon-token-tp_1 icon-token-modif"
+                        />
+                    ),
+                    color: 'color-token-tc',
+                    txt: 'TP'
+                };
             default:
-                console.log("UNROCOGNISED TOKEN: " + name)
+                console.log("UNRECOGNIZED TOKEN: " + name)
                 return{
                     image: (
                         <i
