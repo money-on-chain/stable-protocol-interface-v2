@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { Table, Progress, Tooltip, Skeleton } from 'antd';
+import { Table, Skeleton } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';
-
 import RowDetail from '../RowDetail';
 import api from '../../../services/api';
 import { myParseDate } from '../../../helpers/helper';
@@ -12,230 +11,85 @@ import Copy from '../../Page/Copy';
 import date from '../../../helpers/date';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import RowColumn from '../RowDetail/RowColumn';
-
 import './style.scss';
-
+import Web3 from 'web3';
+import settings from "../../../settings/settings.json"
 export default function ListOperations(props) {
     const { token } = props;
-
     const [current, setCurrent] = useState(1);
-    const [bordered, setBordered] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [pagination, setPagination] = useState({ position: 'bottom' });
-    const [size, setSize] = useState('default');
-    const [expandable, setExpandable] = useState({
-        expandedRowRender: (record) => <p>{record.description}</p>
-    });
-
-    const [title, setTitle] = useState(undefined);
-    const [showHeader, setShowHeader] = useState(true);
-    const [hasData, setHasData] = useState(true);
-    const [tableLayout, setTableLayout] = useState(undefined);
-    const [top, setTop] = useState('none');
-    const [bottom, setBottom] = useState('bottomRight');
-    const [yScroll, setYScroll] = useState(undefined);
-    const [xScroll, setXScroll] = useState(undefined);
-
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
     const { accountData = {} } = auth;
     const [dataJson, setDataJson] = useState([]);
-    const [callTable, setCallTable] = useState(false);
     const [totalTable, setTotalTable] = useState(0);
-
-    const [eventHidden, setEventHidden] = useState(false);
-    const [assetHidden, setAssetHidden] = useState(false);
-    const [platformHidden, setPlatformHidden] = useState(false);
-    const [walletHidden, setWalletHidden] = useState(false);
-    const [dateHidden, setDateHidden] = useState(false);
-    const [statusHidden, setStatusHidden] = useState(false);
-    const [statusLabelHidden, setStatusLabelHidden] = useState(false);
-
     const [loadingSke, setLoadingSke] = useState(true);
     const timeSke = 1500;
-
-    useEffect(() => {
-        setTimeout(() => setLoading(false), timeSke);
-    }, [auth]);
-
-    //window["renderTable"] = function() {transactionsList(1)}
-
-    const transactionsList = (skip, call_table) => {
+    var data = [];
+    const received_row = [];
+    var txList = [];
+    const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
+            console.log("Loading table ...")
             const datas =
-                token !== 'all'
-                    ? {
-                          address: accountData.Owner,
-                          limit: 10,
-                          skip: (skip - 1 + (skip - 1)) * 10,
-                          token: '' //TokenNameNewToOld(token)
-                      }
-                    : {
-                          address: accountData.Owner,
-                          limit: 10,
-                          skip: (skip - 1 + (skip - 1)) * 10
-                      };
-            setTimeout(() => {
-                try {
-                    api(
-                        'get',
-                        `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
-                            'webapp/transactions/list/',
-                        datas
-                    )
+                {
+                    address: accountData.Owner,
+                    limit: 10,
+                    skip: (skip - 1 + (skip - 1)) * 10
+                };
+                setTimeout(() => {
+                    const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
+                    const queryParams = new URLSearchParams({
+                        recipient: accountData.Owner,
+                        limit: 20,
+                        skip: 0
+                    }).toString();
+                    const url = `${baseUrl}?${queryParams}`;
+                
+                    api('get', url)
                         .then((response) => {
-                            /*setDataJson(response);
+                            setDataJson(response);
                             setTotalTable(response.total)
-                            if(call_table){
-                                setCallTable(call_table)
-                            }*/
                         })
-                        .catch((response) => {
-                            if (call_table) {
-                                setCallTable(call_table);
-                            }
-                        });
-                } catch (error) {
-                    console.error({ error });
-                }
-            }, 500);
+                        .catch((error) => {
+                            console.error(error);
+                        });          
+                }, 500);                
         }
     };
-
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
-    const updateDimensions = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-    };
-    useEffect(() => {
-        window.addEventListener('resize', updateDimensions);
-
-        if (width < 992) {
-            setWalletHidden(true);
-        } else {
-            setWalletHidden(false);
-        }
-
-        if (width < 576) {
-            setEventHidden(true);
-            setDateHidden(true);
-            setAssetHidden(false);
-            setPlatformHidden(false);
-            setStatusHidden(false);
-            setStatusLabelHidden(true);
-        } else {
-            if (width > 576 && width <= 768) {
-                setAssetHidden(false);
-                setPlatformHidden(false);
-                setDateHidden(false);
-                setStatusHidden(false);
-                setEventHidden(true);
-                setStatusLabelHidden(false);
-                setStatusLabelHidden(true);
-            } else {
-                setEventHidden(false);
-                setAssetHidden(false);
-                setPlatformHidden(false);
-                setDateHidden(false);
-                setStatusHidden(false);
-                setStatusLabelHidden(false);
-            }
-        }
-    }, [window.innerWidth]);
-
-    const changeStatus = (percent, txt) => {
-        if (width <= 768) {
-            return (
-                <Progress
-                    type="circle"
-                    percent={percent ? percent : txt === 'confirmed' ? 100 : 0}
-                    width={30}
-                />
-            );
-        } else {
-            return (
-                <>
-                    <Progress percent={percent} />
-                    <br />
-                    <span
-                        className={
-                            txt === 'confirmed'
-                                ? 'color-confirmed conf_title'
-                                : 'color-confirming conf_title'
-                        }
-                    >
-                        {txt}
-                    </span>
-                </>
-            );
-        }
-    };
-
     const columns = [
         {
-            title: '',
-            dataIndex: 'info'
-        },
-        {
-            title: t(`operations.columns.event`, { ns: ns }),
             dataIndex: 'event',
             width: 200,
-            hidden: eventHidden
+            hidden: false,
+            className: "table-border-single"
         },
         {
-            title: t(`operations.columns.type`, { ns: ns }),
-            dataIndex: 'asset',
-            width: 100,
-            hidden: assetHidden
-        },
-        {
-            title: t(`operations.columns.amount`, { ns: ns }),
             dataIndex: 'platform',
-            width: 180,
-            hidden: platformHidden
+            width: 360,
+            hidden: false,
+            className: "table-border-single"
         },
         {
-            title: t(`operations.columns.totalBtc`, { ns: ns }),
-            dataIndex: 'wallet',
-            width: 180,
-            hidden: walletHidden
-        },
-        {
-            title: t(`operations.columns.date`, { ns: ns }),
             dataIndex: 'date',
             width: 220,
-            hidden: dateHidden
+            hidden: false,
+            className: "table-border-single"
         },
         {
-            title: !statusLabelHidden
-                ? t(`operations.columns.status`, { ns: ns })
-                : '',
             dataIndex: 'status',
             width: 180,
-            hidden: statusHidden
+            hidden: false,
         }
     ].filter((item) => !item.hidden);
-
     useEffect(() => {
         const interval = setInterval(() => {
-            if (accountData.Owner) {
-                transactionsList(current);
-            }
+            transactionsList(current);
         }, 30000);
         return () => clearInterval(interval);
     }, [accountData.Owner]);
-
     useEffect(() => {
-        if (accountData.Owner) {
-            transactionsList(current);
-        }
+        transactionsList(current);
     }, [accountData.Owner]);
-
-    var data = [];
-
     const onChange = (page) => {
         if (accountData !== undefined) {
             setCurrent(page);
@@ -243,42 +97,52 @@ export default function ListOperations(props) {
             transactionsList(page, true);
         }
     };
-
-    const data_row_coins2 = [];
-    var json_end = [];
+    function determineAsset(operation){
+        if(operation == "TCMint"){
+            return { from: {icon: "ca_0", name: settings.tokens.CA[0].name}, to: {icon:"tc", name: settings.tokens.TC.name}}
+        } else if(operation== "TCRedeem"){
+            return { from: {icon: "tc", name: settings.tokens.TC.name}, to: {icon:"ca_0", name: settings.tokens.CA[0].name}}
+        }else if(operation == "TPMint"){
+            return { from: {icon: "ca_0", name: settings.tokens.CA[0].name} , to:{icon: "tp_0", name: settings.tokens.TP[0].name}}
+        }else{
+            console.log("CAN'T OPERATE: " + operation.operation)
+        }
+    }
     const data_row = () => {
         /*******************************sort descending by date lastUpdatedAt***********************************/
-        if (dataJson.transactions !== undefined) {
-            dataJson.transactions.sort((a, b) => {
+        if (dataJson.operations !== undefined) {
+            dataJson.operations.sort((a, b) => {
                 return (
                     myParseDate(b.lastUpdatedAt) - myParseDate(a.lastUpdatedAt)
                 );
             });
         }
-        /*******************************end sort descending by date lastUpdatedAt***********************************/
-
         /*******************************filter by type (token)***********************************/
         var pre_datas = [];
-        if (dataJson.transactions !== undefined) {
-            pre_datas = dataJson.transactions.filter((data_j) => {
-                //return (token !== 'all') ? TokenNameOldToNew(data_j.tokenInvolved) === token : true;
+        if (dataJson.operations !== undefined) {
+            pre_datas = dataJson.operations.filter((data_j) => {
+                return (token !== 'all') ? data_j.tokenInvolved === token : true;
             });
         }
-        /*******************************end filter by type (token)***********************************/
-
-        /*******************************set json group according to limits***********************************/
-        json_end = pre_datas;
-        /*******************************end set json group according to limits***********************************/
-
+        txList = pre_datas;
         data = [];
 
-        json_end.forEach((data_j) => {
-            const datas_response = ''; //readJsonTable(data_j, t, i18n, ns)
+        txList.forEach((data) => {
 
+            let tokenAmount = 0;
+            if (data['executed']) {
+                if (data['executed']['qTC_']) tokenAmount = data['executed']['qTC_']
+                else if (data['executed']['qTP_']) tokenAmount = data['executed']['qTP_']
+            } else if (data['params']) {
+                if (data['params']['qTC']) tokenAmount = data['params']['qTC']
+                else if (data['params']['qTP']) tokenAmount = data['params']['qTP']
+            }
+
+            //if(!data['executed']) return
+            //if(!data['executed']['qTC_']) return
+            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
             const detail = {
-                //event:  datas_response['address'] === config.transfer[0].address ?
-                //    config.transfer[0].title : datas_response['set_event'],
-                event: datas_response['set_event'],
+                event: data['operation'],
                 created: (
                     <span>
                         <Moment
@@ -288,13 +152,13 @@ export default function ListOperations(props) {
                                     : date.DATE_ES
                             }
                         >
-                            {datas_response['lastUpdatedAt']}
+                            {data['lastUpdatedAt']}
                         </Moment>
                     </span>
                 ),
-                details: datas_response['RBTCAmount'],
-                asset: datas_response['set_asset'],
-                confirmation: datas_response['confirmationTime'] ? (
+                details: "--", //data['executed']['qTC_'] || "--",
+                asset: determineAsset(data.operation).from.name,
+                confirmation: data['confirmationTime'] ? (
                     true ? (
                         <span>
                             <Moment
@@ -304,124 +168,115 @@ export default function ListOperations(props) {
                                         : date.DATE_ES
                                 }
                             >
-                                {datas_response['confirmationTime']}
+                                {data['confirmationTime']}
                             </Moment>
                         </span>
                     ) : (
                         <span>
                             <Moment format="YYYY-MM-DD HH:MM:SS">
-                                {datas_response['confirmationTime']}
+                                {data['confirmationTime']}
                             </Moment>
                         </span>
                     )
                 ) : (
-                    ''
+                    '--'
                 ),
                 address:
-                    datas_response['address'] !== '--' ? (
+                    data['address'] !== '--' ? (
                         <Copy
-                            textToShow={datas_response['truncate_address']}
-                            textToCopy={datas_response['address']}
+                            textToShow={TruncatedAddress(data['params']['recipient'])}
+                            textToCopy={data['address']}
                         />
                     ) : (
                         '--'
                     ),
-                platform: datas_response['amount'],
-                platform_fee: datas_response['platform_fee_value'],
-                block: datas_response['blockNumber'],
-                wallet: datas_response['wallet_value'],
-                interests: datas_response['interests'],
-                tx_hash_truncate: datas_response['tx_hash_truncate'],
-                tx_hash: datas_response['tx_hash'],
-                leverage: datas_response['leverage'],
-                gas_fee: datas_response['gas_fee'],
-                price: datas_response['price'],
-                comments: '--'
+                platform: "+" + Web3.utils.fromWei(tokenAmount) + " " + determineAsset(data.operation).from.name,
+                platform_fee: data['platform_fee_value'] || "--",
+                block: data['blockNumber'] || "--",
+                wallet: data['wallet_value'] || "--",
+                interests: data['interests'] || "--",
+                tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
+                tx_hash: data['hash'] || "--",
+                leverage: data['leverage']|| "--",
+                gas_fee: data['gas_fee'] ||  data['gasFeeRBTC'] || "--",
+                price: data['price'] || "--",
+                comments: '--',
+          
             };
+            //var amount = data['executed']['qTC_'] ? data['executed']['qTC_'] : data['executed']['qTP_']
 
-            data_row_coins2.push({
-                key: data_j._id,
+            received_row.push({
+                key: data._id,
                 info: '',
-                //event: datas_response['address'] === config.transfer[0].address ?
-                //    config.transfer[0].title : datas_response['set_event'],
-                event: datas_response['set_event'],
-                asset: datas_response['set_asset'],
-                platform: datas_response['platform_detail'],
-                wallet: datas_response['wallet_value_main'],
-                date: datas_response['lastUpdatedAt'],
-                status: {
-                    txt: datas_response['set_status_txt'],
-                    percent: datas_response['set_status_percent']
-                },
-                detail: detail
+                event: (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
+                        <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                            <div className='table-event-name'>{EventNameOldToNew(data['operation'])}</div>
+                            <div className='table-amount' >+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
+                        </div>
+                        <div className='table-icon-name' >
+                            {getAsset(determineAsset(data.operation).from.icon).image}
+                            <div className='table-asset-name'>{determineAsset(data.operation).from.name}</div>
+                        </div>
+                    </div>
+                ),
+
+                platform: (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
+                        <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                            <div className='table-event-name'>{EventNameOpposite(EventNameOldToNew(data['operation']))}</div><br></br>
+                            <div className='table-amount'>+{parseFloat(Web3.utils.fromWei(tokenAmount)).toFixed(3)}</div>
+                        </div>
+                        <div className='table-icon-name' >
+                            {getAsset(determineAsset(data.operation).to.icon).image}
+                            <div className='table-asset-name'>{determineAsset(data.operation).to.name}</div>
+                        </div>
+                    </div>
+                ),  
+                
+                        
+                date:( 
+                    <div style={{paddingLeft: "25%"}}>
+                      <div className='table-date-name' >
+                        <span>DATE</span>
+                      </div>
+                      <div className='table-date'>
+                        {new Date(data['lastUpdatedAt']).toLocaleString('sv-SE', {
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false
+                        }).replace(',', '')}
+                      </div>
+                    </div>
+                  ),                  
+                  status: (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div className={`tx-status-icon-${data['status']}`} 
+                           style={{
+                             margin: '0.5rem',
+                             marginTop: '3px',
+                             marginRight: '1rem',
+                             cursor: 'pointer',
+                             flexGrow: 0
+                           }}
+                      >
+                      </div>
+                       <span className={`table-status-icon ${getStatus(data['status']) === "FAILED" && "table-status-icon-red"}`}>
+                       {getStatus(data['status'])}
+                      </span>
+                    </div>
+                  ),                  
+                detail: detail || "--"
             });
+
         });
-        data_row_coins2.forEach((element, index) => {
+
+        received_row.forEach((element) => {
             const asset = [];
-
-            switch (element.asset) {
-                case 'TP':
-                    asset.push({
-                        image: (
-                            <i
-                                className="icon-token-tp"
-                                style={{ display: 'block' }}
-                            />
-                        ),
-                        color: 'color-token-tp',
-                        txt: 'TP'
-                    });
-                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, {
-                        ns: ns
-                    });
-                    break;
-                case 'TC':
-                    asset.push({
-                        image: (
-                            <i
-                                className="icon-token-tc"
-                                style={{ display: 'block' }}
-                            />
-                        ),
-                        color: 'color-token-tc',
-                        txt: 'TC'
-                    });
-                    data_row_coins2[index].detail.asset = t(`Tokens_TC_code`, {
-                        ns: ns
-                    });
-                    break;
-                case 'TX':
-                    asset.push({
-                        image: (
-                            <i
-                                className="icon-token-tx"
-                                style={{ display: 'block' }}
-                            />
-                        ),
-                        color: 'color-token-tx',
-                        txt: 'TX'
-                    });
-                    data_row_coins2[index].detail.asset = t(`Tokens_TX_code`, {
-                        ns: ns
-                    });
-                    break;
-                default:
-                    asset.push({
-                        image: (
-                            <i
-                                className="icon-token-tp_0"
-                                style={{ display: 'block' }}
-                            />
-                        ),
-                        color: 'color-token-tp',
-                        txt: 'TP'
-                    });
-                    data_row_coins2[index].detail.asset = t(`Tokens_TP_code`, {
-                        ns: ns
-                    });
-                    break;
-            }
-
+            asset.push(determineAsset(element.detail.event).from.name)
             data.push({
                 key: element.key,
                 info: '',
@@ -430,79 +285,111 @@ export default function ListOperations(props) {
                         className={classnames(
                             'event-action',
                             `${asset[0].color}`
-                        )}
-                    >
+                        )}>
                         {element.event}
                     </span>
                 ),
-                asset: asset[0].image,
-                // platform: <span className="display-inline CurrencyTx">{element.platform} {asset[0].txt}</span>,
                 platform: (
-                    <span className="display-inline CurrencyTx">
+                    <span className="display-inline currency-tx">
                         {element.platform}
                     </span>
                 ),
-                wallet: (
-                    <span className="display-inline ">{element.wallet} </span>
-                ),
                 date: <span>{element.date}</span>,
                 status: (
-                    <div style={{ width: '100%' }}>
-                        {changeStatus(
-                            element.status.percent,
-                            element.status.txt
-                        )}
-                    </div>
+                    <span style={{display: "flex", width: "100%", paddingLeft: "2rem"}}>{element.status}</span>
                 ),
-                description:
-                    width <= 768 ? (
-                        <RowColumn detail={element.detail} />
-                    ) : (
-                        <RowDetail detail={element.detail} />
-                    )
+                description: <RowDetail detail={element.detail} />
             });
         });
     };
 
     data_row(current);
-
-    //const { xScroll, yScroll, ...state } = this.state;
-
-    const scroll = {};
-    if (yScroll) {
-        scroll.y = 240;
-    }
-    if (xScroll) {
-        scroll.x = '100vw';
-    }
-
     const tableColumns = columns.map((item) => ({ ...item }));
-
-    if (xScroll === 'fixed') {
-        tableColumns[0].fixed = true;
-        tableColumns[tableColumns.length - 1].fixed = 'right';
-    }
-
-    const state = {
-        bordered,
-        loading,
-        pagination,
-        size,
-        expandable,
-        title,
-        showHeader,
-        scroll,
-        hasData,
-        tableLayout,
-        top,
-        bottom,
-        yScroll,
-        xScroll
-    };
-
     useEffect(() => {
         setTimeout(() => setLoadingSke(false), timeSke);
     }, [auth]);
+    function TruncatedAddress( address, length = 6 ) {
+        return address.substring(0, length + 2) + "…" + address.substring(address.length - length)
+    }      
+    function EventNameOpposite(name) {
+        switch (name) {
+            case "Transfer":
+                return "RECEIVED";
+            case "SENT": 
+                return "DESTINATION"
+            case "EXCHANGED":
+                return "RECEIVED"
+            default:
+                return "Exchanged";
+        }
+    }
+    function EventNameOldToNew(name) {
+        switch (name) {
+            case "Transfer":
+                return "SENT";
+            case "TCMint" || "TPMint" || "TCRedeem":
+                return "EXCHANGED"
+            default:
+                return "EXCHANGED";
+        }
+    }
+    function getStatus(status){
+        switch(status){
+            case -1:
+                return "FAILED"
+            case 0:
+                    return "QUEUED"
+            case 1:
+                return "CONFIRMED"
+        }
+    }
+    function getAsset(name){
+        switch (name) {
+            case "ca_0":
+                return {
+                    image: (
+                        <i
+                            className="icon-token-ca_0 icon-token-modif"                 
+                        />
+                    ),
+                    color: 'color-token-tp',
+                    txt: 'TP'
+                }
+            case 'tc':
+                    return{
+                        image: (
+                            <i
+                                className="icon-token-tc icon-token-modif"
+                                
+                            />
+                        ),
+                        color: 'color-token-tc',
+                        txt: 'TC'
+                    };
+                case 'tp_0':
+                    return{
+                        image: (
+                            <i
+                                className="icon-token-tp_0 icon-token-modif"
+                            />
+                        ),
+                        color: 'color-token-tc',
+                        txt: 'TC'
+                    };
+            default:
+                console.log("UNROCOGNISED TOKEN: " + name)
+                return{
+                    image: (
+                        <i
+                            className="icon-token-MOC"
+                            style={{ display: 'block', margin: "auto" }}
+                        />
+                    ),
+                    color: 'color-token-tp',
+                    txt: 'TP'
+                };
+        }
+    }
 
     return (
         <>
@@ -514,38 +401,40 @@ export default function ListOperations(props) {
             {!loadingSke ? (
                 <>
                     <Table
-                        {...state}
+                        className="vertical-middle custom-border-spacing-table custom-table"
+                        showHeader={false}
                         expandable={{
                             expandedRowRender: (record) => (
-                                <p style={{ margin: 0 }}>
+                                <div  className='table-expanded-row'>
                                     {record.description}
-                                </p>
+                                </div>
                             ),
+   
                             expandIcon: ({ expanded, onExpand, record }) =>
                                 expanded ? (
                                     <UpCircleOutlined
+                                        style={{fontSize: "26px"}}
                                         onClick={(e) => onExpand(record, e)}
                                     />
                                 ) : (
                                     <DownCircleOutlined
+                                        style={{fontSize: "26px"}}
                                         onClick={(e) => onExpand(record, e)}
                                     />
                                 )
                         }}
                         pagination={{
                             pageSize: 10,
-                            position: [top, bottom],
+                            position: ['none', 'bottomRight'],
                             defaultCurrent: 1,
                             onChange: onChange,
                             total: totalTable
                         }}
                         columns={tableColumns}
                         dataSource={
-                            hasData
-                                ? auth.isLoggedIn == true
+                            auth.isLoggedIn == true
                                     ? data
                                     : null
-                                : null
                         }
                         scroll={{ y: 340 }}
                     />
@@ -556,3 +445,4 @@ export default function ListOperations(props) {
         </>
     );
 }
+

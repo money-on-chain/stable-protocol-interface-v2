@@ -19,7 +19,7 @@
     "Tokens_USDPrice_code": "USD",
     "Tokens_USDPrice_name": "Dollar",
     "operations": {
-        "title": "Last Confirmed Operations",
+        "title": "Last Operations",
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
