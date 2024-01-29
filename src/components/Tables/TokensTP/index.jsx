@@ -7,46 +7,7 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import settings from '../../../settings/settings.json';
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        align: 'left',
-        width: 280
-    },
-    {
-        title: 'Tokens per USD',
-        dataIndex: 'price',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Variation 24hs',
-        dataIndex: 'variation',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Balance',
-        dataIndex: 'balance',
-        align: 'right',
-        width: 150
-    },
-    {
-        title: 'RIF',
-        //TODO change to the correct dataIndex
-        dataIndex: 'balance',
-        align: 'right',
-        width: 150
-    },
-    {
-        title: 'USD',
-        dataIndex: 'usd',
-        align: 'right'
-        /*width: 190,*/
-    }
-];
+import { ProvideColumnsTP } from '../../../helpers/tokensTables';
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -56,7 +17,7 @@ export default function Tokens(props) {
     const columnsData = [];
 
     // Columns
-    columns.forEach(function (dataItem) {
+    ProvideColumnsTP().forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.TP.columns.${dataItem.dataIndex}`, {
                 ns: ns

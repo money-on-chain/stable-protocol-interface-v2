@@ -48,37 +48,57 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
+    const getIsActive = (optionName) => {
+        switch (optionName) {
+            case "Staking":
+                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
+            case "Liquidity Mining":
+                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
+            case "Vesting":
+                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
+            default:
+                return true;
+                //Add other future options here
+        }
+    }
     const menu = {
         mainMenu: [
             {
                 name: "Portfolio",
-                action: goToPortfolio
+                action: goToPortfolio,
+                isActive : true
             },
             {
                 name: "Send",
-                action: goToSend
+                action: goToSend,
+                isActive : true
             },
             {
                 name: "Exchange",
-                action: goToExchange
+                action: goToExchange,
+                isActive : true
             },
             {
                 name: "Performance",
-                action: goToPerformance
+                action: goToPerformance,
+                isActive : true
             },
             {
                 name: "Staking",
-                action: goToStaking
+                action: goToStaking,
+                isActive : getIsActive("Staking")
             }
         ],
         dropdownMenu: [
             {
                 name: "Liquidity Mining",
-                action: goToLiquidityMining
+                action: goToLiquidityMining,
+                isActive : getIsActive("Liquidity Mining")
             },
             {
                 name: "Vesting",
-                action: goToVesting
+                action: goToVesting,
+                isActive : getIsActive("Vesting")
             }
         ]
     }
@@ -157,7 +177,7 @@ export default function SectionHeader() {
                 <div className="central-menu">
                     {menuOptions.mainMenu.map((option) => {
                         const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                        return (
+                        if (option.isActive) {return (
                             <a
                                 onClick={option.action}
                                 className={containerClassName}
@@ -166,27 +186,32 @@ export default function SectionHeader() {
                                 <i className={iconClassName}></i>
                                 <span className="menu-nav-item-title">{option.name}</span>
                             </a>
-                        );
+                        );}
+                        else return null;
                     })}
-                    <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
-                        <i className='logo-more color-filter-invert'></i>
-                        <span className="menu-nav-item-title-more">More</span>
-                    </a>
-                    <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
-                        {menuOptions.dropdownMenu.map((option) => {
-                            const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                            return (
-                                <a
-                                    onClick={option.action}
-                                    className={containerClassName}
-                                    key={option.name}
-                                >
-                                    <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{option.name}</span>
-                                </a>
-                            );
-                        })}
-                    </div>
+                    {process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' &&
+                        <>
+                            <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                                <i className='logo-more color-filter-invert'></i>
+                                <span className="menu-nav-item-title-more">More</span>
+                            </a>
+                            <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
+                                {menuOptions.dropdownMenu.map((option) => {
+                                    const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
+                                    return (
+                                        <a
+                                            onClick={option.action}
+                                            className={containerClassName}
+                                            key={option.name}
+                                        >
+                                            <i className={iconClassName}></i>
+                                            <span className="menu-nav-item-title">{option.name}</span>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </>
+                    }
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation">

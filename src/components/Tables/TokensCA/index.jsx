@@ -7,46 +7,7 @@ import settings from '../../../settings/settings.json';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        align: 'left',
-        width: 280
-    },
-    {
-        title: 'Price in USD',
-        dataIndex: 'price',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Variation 24hs',
-        dataIndex: 'variation',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Balance',
-        dataIndex: 'balance',
-        align: 'right',
-        width: 150
-    },
-    {
-        title: 'RIF',
-        //TODO change to the correct dataIndex
-        dataIndex: 'balance',
-        align: 'right',
-        width: 150
-    },
-    {
-        title: 'USD',
-        dataIndex: 'usd',
-        align: 'right'
-        /*width: 190,*/
-    }
-];
+import { ProvideColumnsCA } from '../../../helpers/tokensTables';
 
 
 export default function Tokens(props) {
@@ -57,7 +18,7 @@ export default function Tokens(props) {
     const columnsData = [];
 
     // Columns
-    columns.forEach(function (dataItem) {
+    ProvideColumnsCA().forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.CA.columns.${dataItem.dataIndex}`, {
                 ns: ns
