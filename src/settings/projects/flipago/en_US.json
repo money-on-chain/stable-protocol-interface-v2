@@ -67,15 +67,18 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar on Chain (DOC)",
+                        "title": "Dollar on Chain",
+                        "symbol": " (DOC)",
                         "price_decimals": 2
                     },
                     "1": {
                         "title": "Go Turbo",
+                        "symbol": " (TURBO)",
                         "price_decimals": 2
                     },
                     "2": {
                         "title": "RBTC",
+                        "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
                 }

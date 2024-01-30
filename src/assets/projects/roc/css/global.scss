@@ -797,12 +797,11 @@ html {
 .ant-table-thead > tr > th {
     font-family: 'Open Sans';
     font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
     padding: 16px 0 !important;
-
+    font-weight: 700;
     /* Text/Text Secondary */
 
     color: #7f8a99;
@@ -948,7 +947,14 @@ html {
     background-size: 16px 16px;
     background-repeat: no-repeat;
 }
-
+.token-symbol {
+    color: #7F8A99;
+    font-family: Sora;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
 
 /* Last operations */
 

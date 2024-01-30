@@ -59,23 +59,28 @@
                     "price": "Price in USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "Rootstock (RIF)",
+                        "title": "RIF",
+                        "symbol": " (RIF)",
                         "price_decimals": 4
                     },
                     "1": {
-                        "title": "RIF Pro (RIFP)",
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
                         "price_decimals": 4
                     },
                     "2": {
-                        "title": "RIF Dollar (USDRIF)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "RBTC",
+                        "title": "rBTC",
+                        "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
                 }
@@ -86,6 +91,7 @@
                     "price": "Tokens per USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {}

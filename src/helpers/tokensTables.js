@@ -32,34 +32,34 @@ const columnsFlipagoCA = [
 ];
 const columnsFlipagoTP = [
   {
-      title: 'Name',
-      dataIndex: 'name',
-      align: 'left',
-      width: 380
+    title: 'Name',
+    dataIndex: 'name',
+    align: 'left',
+    width: 380
   },
   {
-      title: 'Tokens per USD',
-      dataIndex: 'price',
-      align: 'right',
-      width: 200
+    title: 'Tokens per USD',
+    dataIndex: 'price',
+    align: 'right',
+    width: 200
   },
   {
-      title: 'Variation 24hs',
-      dataIndex: 'variation',
-      align: 'right',
-      width: 200
+    title: 'Variation 24hs',
+    dataIndex: 'variation',
+    align: 'right',
+    width: 200
   },
   {
-      title: 'Balance',
-      dataIndex: 'balance',
-      align: 'right',
-      width: 190
+    title: 'Balance',
+    dataIndex: 'balance',
+    align: 'right',
+    width: 190
   },
   {
-      title: 'USD',
-      dataIndex: 'usd',
-      align: 'right'
-      /*width: 190,*/
+    title: 'USD',
+    dataIndex: 'usd',
+    align: 'right'
+    /*width: 190,*/
   }
 ];
 const columnsRocCA = [
@@ -67,7 +67,7 @@ const columnsRocCA = [
     title: 'Name',
     dataIndex: 'name',
     align: 'left',
-    width: 280
+    width: 250
   },
   {
     title: 'Price in USD',
@@ -85,15 +85,14 @@ const columnsRocCA = [
     title: 'Balance',
     dataIndex: 'balance',
     align: 'right',
-    width: 150
+    width: 200
   },
-  {
-    title: 'RIF',
-    //TODO change to the correct dataIndex
-    dataIndex: 'balance',
-    align: 'right',
-    width: 150
-  },
+  // {
+  //   title: 'RIF',
+  //   dataIndex: 'rif',
+  //   align: 'right',
+  //   width: 175
+  // },
   {
     title: 'USD',
     dataIndex: 'usd',
@@ -103,41 +102,40 @@ const columnsRocCA = [
 ];
 const columnsRocTP = [
   {
-      title: 'Name',
-      dataIndex: 'name',
-      align: 'left',
-      width: 280
+    title: 'Name',
+    dataIndex: 'name',
+    align: 'left',
+    width: 200
   },
   {
-      title: 'Tokens per USD',
-      dataIndex: 'price',
-      align: 'right',
-      width: 200
+    title: 'Tokens per USD',
+    dataIndex: 'price',
+    align: 'right',
+    width: 200
   },
   {
-      title: 'Variation 24hs',
-      dataIndex: 'variation',
-      align: 'right',
-      width: 200
+    title: 'Variation 24hs',
+    dataIndex: 'variation',
+    align: 'right',
+    width: 200
   },
   {
-      title: 'Balance',
-      dataIndex: 'balance',
-      align: 'right',
-      width: 150
+    title: 'Balance',
+    dataIndex: 'balance',
+    align: 'right',
+    width: 150
   },
+  // {
+  //   title: 'RIF',
+  //   dataIndex: 'balance',
+  //   align: 'right',
+  //   width: 150
+  // },
   {
-      title: 'RIF',
-      //TODO change to the correct dataIndex
-      dataIndex: 'balance',
-      align: 'right',
-      width: 150
-  },
-  {
-      title: 'USD',
-      dataIndex: 'usd',
-      align: 'right'
-      /*width: 190,*/
+    title: 'USD',
+    dataIndex: 'usd',
+    align: 'right'
+    /*width: 190,*/
   }
 ];
 export const ProvideColumnsCA = () => {

@@ -34,7 +34,7 @@ export default function Tokens(props) {
     let balance;
     let price;
     let balanceUSD;
-
+    let balanceRIF;
     // Iterate Tokens CA
     let count = 0;
     auth.contractStatusData &&
@@ -53,6 +53,8 @@ export default function Tokens(props) {
                 )
             );
             balanceUSD = balance.times(price);
+            //TODO fetch the correct value when defined if include or not
+            //balanceRIF = balanceUSD * 0.1;
 
             // variation
             const priceHistory = new BigNumber(
@@ -80,6 +82,11 @@ export default function Tokens(props) {
                         <i className={`icon-token-ca_${dataItem.key}`}></i>{' '}
                         <span className="token-description">
                             {t(`portfolio.tokens.CA.rows.${dataItem.key}.title`, {
+                                ns: ns
+                            })}
+                        </span>
+                        <span className="token-symbol">
+                            {t(`portfolio.tokens.CA.rows.${dataItem.key}.symbol`, {
                                 ns: ns
                             })}
                         </span>
@@ -111,6 +118,18 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
+                // rif : (
+                //     <div>
+                //         {PrecisionNumbers({
+                //             amount: balanceRIF,
+                //             token: settings.tokens.CA[dataItem.key],
+                //             decimals: 6,
+                //             t: t,
+                //             i18n: i18n,
+                //             ns: ns
+                //         })}
+                //     </div>
+                // ),
                 usd: (
                     <div>
                         {PrecisionNumbers({
@@ -179,6 +198,11 @@ export default function Tokens(props) {
                     <i className="icon-token-tc"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
@@ -267,6 +291,11 @@ export default function Tokens(props) {
                     <i className="icon-token-tp_0"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
@@ -360,6 +389,11 @@ export default function Tokens(props) {
                     <i className="icon-token-coinbase"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
