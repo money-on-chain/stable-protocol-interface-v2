@@ -294,9 +294,9 @@ html {
 }
 .logo-staking {
     width: 32px;
-    height: 27px;
+    height: 32px;
     background-image: url('../icons/stakingWhite.svg');
-    background-size: 40px 44px;
+    background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
@@ -501,7 +501,7 @@ html {
     flex-grow: 0;
 }
 
-.logo-staking {
+.logo-staking-panel {
     /* Auto layout */
 
     display: flex;

@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Layout } from 'antd';
 import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -125,18 +123,16 @@ export default function SectionHeader() {
             }
         });
     };
-
+    const pathMap = {
+        "Portfolio": ['/', '/home'],
+        "Send": ['/send'],
+        "Exchange": ['/exchange'],
+        "Performance": ['/performance'],
+        "Staking": ['/staking'],
+        "Liquidity Mining": ['/liquidity-mining'],
+        "Vesting": ['/vesting']
+    };
     const updateMenuItemClasses = (menuItem) => {
-        const pathMap = {
-            "Portfolio": ['/', '/home'],
-            "Send": ['/send'],
-            "Exchange": ['/exchange'],
-            "Performance": ['/performance'],
-            "Staking": ['/staking'],
-            "Liquidity Mining": ['/liquidity-mining'],
-            "Vesting": ['/vesting']
-        };
-
         const isActive = pathMap[menuItem.name]?.includes(location.pathname);
         return {
             ...menuItem,
@@ -148,17 +144,6 @@ export default function SectionHeader() {
     const getMenuItemClasses = (itemName) => {
         let containerClassName = 'menu-nav-item';
         let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")} color-filter-invert`;
-
-        const pathMap = {
-            "Portfolio": ['/', '/home'],
-            "Send": ['/send'],
-            "Exchange": ['/exchange'],
-            "Performance": ['/performance'],
-            "Staking": ['/staking'],
-            "Liquidity Mining": ['/liquidity-mining'],
-            "Vesting": ['/vesting']
-        };
-
         if (pathMap[itemName]?.includes(location.pathname)) {
             containerClassName += ' menu-nav-item-selected';
             iconClassName = iconClassName.replace('color-filter-invert', 'color-filter-disabled');
