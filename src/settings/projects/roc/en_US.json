@@ -48,6 +48,10 @@
             "COINBASE": {
                 "label": "rBTC",
                 "abbr": "RBTC"
+            },
+            "FeeToken": {
+                "label": "MoC",
+                "abbr": "MoC"
             }
         }
     },

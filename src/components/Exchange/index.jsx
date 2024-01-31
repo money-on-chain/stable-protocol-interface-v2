@@ -1,4 +1,4 @@
-import { Switch, Button } from 'antd';
+import { Input, Radio, Space } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
 import { useProjectTranslation } from '../../helpers/translations';
@@ -50,6 +50,10 @@ export default function Exchange() {
 
     const [commission, setCommission] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
+
+    const [commissionFeeToken, setCommissionFeeToken] = useState('0.0');
+    const [commissionPercentFeeToken, setCommissionPercentFeeToken] = useState('0.0');
+
     const [executionFee, setExecutionFee] = useState(new BigNumber(0));
 
     const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
@@ -58,6 +62,9 @@ export default function Exchange() {
     const [inputValidationError, setInputValidationError] = useState(false);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
+
+    const [radioSelectFee, setRadioSelectFee] = useState(0);
+    const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -161,6 +168,24 @@ export default function Exchange() {
             }
         }
 
+        // 5. HAVE TO PAY COMMISSIONS WITH FEE TOKEN?
+        const feeTokenBalance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.FeeToken.balance,
+                settings.tokens.TF.decimals
+            )
+        );
+
+        if (feeTokenBalance.gt(commissionFeeToken)) {
+            // Set as default to pay fee with token
+            setRadioSelectFeeTokenDisabled(false)
+            setRadioSelectFee(1)
+        } else {
+            setRadioSelectFeeTokenDisabled(true)
+            setRadioSelectFee(0)
+        }
+
+        // No Validations Errors
         setInputValidationErrorText('');
         setInputValidationError(false);
 
@@ -224,8 +249,13 @@ export default function Exchange() {
             convertAmountUSD = amountReceiveFee;
         }
 
+        // Commission
         setCommission(infoFee.fee);
         setCommissionPercent(infoFee.percent);
+
+        // Fee Token Commission
+        setCommissionFeeToken(infoFee.totalFeeToken);
+        setCommissionPercentFeeToken(infoFee.feeTokenPercent);
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
@@ -315,6 +345,11 @@ export default function Exchange() {
             convertAmountReceive,
             'exchange'
         );
+    };
+
+    const onChangeFee = (e) => {
+        console.log('radio checked', e.target.value);
+        setRadioSelectFee(e.target.value);
     };
 
     return (
@@ -516,22 +551,26 @@ export default function Exchange() {
                             </span>
 
                         </div>
-                        <div className="frame-t">
-                            <span className={'token_exchange'}>
+
+                        <div className={'radio-fee'}>
+                            <Radio.Group onChange={onChangeFee} value={radioSelectFee}>
+                                <Space direction="vertical">
+                                    <Radio value={0} >
+                                        <span className={'token_exchange'}>
                                 Fee (
-                                {PrecisionNumbers({
-                                    amount: new BigNumber(commissionPercent),
-                                    token: TokenSettings(currencyYouExchange),
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                                %)
+                                            {PrecisionNumbers({
+                                                amount: new BigNumber(commissionPercent),
+                                                token: TokenSettings(currencyYouExchange),
+                                                decimals: 2,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                            %)
                             </span>
-                            <span className={'symbol'}> ≈ </span>
-                            <span className={'token_receive'}>
+                                        <span className={'symbol'}> ≈ </span>
+                                        <span className={'token_receive'}>
                                 {PrecisionNumbers({
                                     amount: new BigNumber(commission),
                                     token: TokenSettings(currencyYouExchange),
@@ -542,26 +581,58 @@ export default function Exchange() {
                                     skipContractConvert: true
                                 })}
                             </span>
-                            <span className={'token_receive_name'}>
+                                        <span className={'token_receive_name'}>
                                 {' '}
-                                {IS_MINT
-                                    ? t(
-                                          `exchange.tokens.${currencyYouExchange}.abbr`,
-                                          { ns: ns }
-                                      )
-                                    : t(
-                                          `exchange.tokens.${currencyYouReceive}.abbr`,
-                                          { ns: ns }
-                                      )}
+                                            {IS_MINT
+                                                ? t(
+                                                    `exchange.tokens.${currencyYouExchange}.abbr`,
+                                                    { ns: ns }
+                                                )
+                                                : t(
+                                                    `exchange.tokens.${currencyYouReceive}.abbr`,
+                                                    { ns: ns }
+                                                )}
                             </span>
+                                    </Radio>
+                                    <Radio value={1} disabled={radioSelectFeeTokenDisabled}>
+                                        <span className={'token_exchange'}>
+                                            Fee (
+                                                {PrecisionNumbers({
+                                                    amount: new BigNumber(commissionPercentFeeToken),
+                                                    token: TokenSettings(currencyYouExchange),
+                                                    decimals: 2,
+                                                    t: t,
+                                                    i18n: i18n,
+                                                    ns: ns,
+                                                    skipContractConvert: true
+                                                })}
+                                                %)
+                                        </span>
+                                        <span className={'symbol'}> ≈ </span>
+                                        <span className={'token_receive'}>
+                                            {PrecisionNumbers({
+                                                amount: new BigNumber(commissionFeeToken),
+                                                token: TokenSettings(currencyYouExchange),
+                                                decimals: 6,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                        </span>
+                                        <span className={'token_receive_name'}>
+                                            {' '}
+                                            {t(
+                                                `exchange.tokens.FeeToken.abbr`,
+                                                { ns: ns }
+                                            )}
+                                        </span>
+                                    </Radio>
+                                </Space>
+                            </Radio.Group>
                         </div>
 
-                        {/*<div className="switch">*/}
-                        {/*    <Switch*/}
-                        {/*        disabled={false}*/}
-                        {/*        checked={false}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
+
                     </div>
                     <div className="balance">
                         This fee will be deducted from the transaction value
@@ -607,6 +678,9 @@ export default function Exchange() {
                     onClear={onClear}
                     inputValidationError={inputValidationError}
                     executionFee={executionFee}
+                    commissionFeeToken={commissionFeeToken}
+                    commissionPercentFeeToken={commissionPercentFeeToken}
+                    radioSelectFee={radioSelectFee}
                     //amountYouExchangeFee={amountYouExchangeFee}
                     //amountYouReceiveFee={amountYouReceiveFee}
                 />
