@@ -375,7 +375,7 @@ export default function ConfirmOperation(props) {
         commissionPAY = commissionFeeToken
         commissionPercentPAY = commissionPercentFeeToken
         commissionSettings = TokenSettings('TF')
-        commissionTokenName = t(`exchange.tokens.FeeToken.abbr`, {
+        commissionTokenName = t(`exchange.tokens.TF.abbr`, {
             ns: ns
         })
     }
@@ -744,7 +744,7 @@ export default function ConfirmOperation(props) {
             />
 
             <ModalAllowanceOperation
-                title={`Authorize to use ${t(`exchange.tokens.FeeToken.abbr`, {ns: ns})}`}
+                title={`Authorize to use ${t(`exchange.tokens.TF.abbr`, {ns: ns})}`}
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
                 currencyYouExchange={'TF'}

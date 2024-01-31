@@ -49,7 +49,7 @@
                 "label": "rBTC",
                 "abbr": "RBTC"
             },
-            "FeeToken": {
+            "TF": {
                 "label": "MoC",
                 "abbr": "MoC"
             }

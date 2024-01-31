@@ -623,7 +623,7 @@ export default function Exchange() {
                                         <span className={'token_receive_name'}>
                                             {' '}
                                             {t(
-                                                `exchange.tokens.FeeToken.abbr`,
+                                                `exchange.tokens.TF.abbr`,
                                                 { ns: ns }
                                             )}
                                         </span>

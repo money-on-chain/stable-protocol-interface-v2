@@ -451,7 +451,27 @@ export default function ListOperations(props) {
 
         const fee = {amount: null, token: null, decimals: null}
 
-        if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
+        if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
+
+            const qFeeToken = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeToken_'],
+                    settings.tokens.TF.decimals
+                )
+            )
+
+            const qFeeTokenVendorMarkup = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeTokenVendorMarkup_'],
+                    settings.tokens.TF.decimals
+                )
+            )
+
+            fee['amount'] = qFeeToken.plus(qFeeTokenVendorMarkup)
+            fee['token'] = 'TF'
+            fee['decimals'] = settings.tokens.TF.decimals
+
+        } else if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
 
             const qACfee = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -471,25 +491,6 @@ export default function ListOperations(props) {
             fee['token'] = 'CA_0'
             fee['decimals'] = settings.tokens.CA[0].decimals
 
-        } else if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
-
-            const qFeeToken = new BigNumber(
-                fromContractPrecisionDecimals(
-                    row_operation['executed']['qFeeToken'],
-                    settings.tokens.FeeToken.decimals
-                )
-            )
-
-            const qFeeTokenVendorMarkup = new BigNumber(
-                fromContractPrecisionDecimals(
-                    row_operation['executed']['qFeeTokenVendorMarkup'],
-                    settings.tokens.FeeToken.decimals
-                )
-            )
-
-            fee['amount'] = qFeeToken.plus(qFeeTokenVendorMarkup)
-            fee['token'] = 'FeeToken'
-            fee['decimals'] = settings.tokens.FeeToken.decimals
         }
 
         if (fee['amount'] != null) {

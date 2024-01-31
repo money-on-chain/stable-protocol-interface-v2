@@ -53,7 +53,7 @@
                 "label": "rBTC",
                 "abbr": "RBTC"
             },
-            "FeeToken": {
+            "TF": {
                 "label": "Flip",
                 "abbr": "FLIP"
             }
