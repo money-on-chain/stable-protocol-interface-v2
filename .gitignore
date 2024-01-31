@@ -6,3 +6,6 @@ src/contracts
 .DS_Store
 src/assets/icons
 src/assets/css
+src/settings/en_US.json
+src/settings/es_ES.json
+src/settings/settings.json

@@ -34,7 +34,7 @@ export default function Tokens(props) {
     let balance;
     let price;
     let balanceUSD;
-    let balanceRIF;
+    // let balanceRIF;
     // Iterate Tokens CA
     let count = 0;
     auth.contractStatusData &&
@@ -53,6 +53,7 @@ export default function Tokens(props) {
                 )
             );
             balanceUSD = balance.times(price);
+
             //TODO fetch the correct value when defined if include or not
             //balanceRIF = balanceUSD * 0.1;
 
@@ -70,6 +71,15 @@ export default function Tokens(props) {
                 decimalSeparator: '.',
                 groupSeparator: ','
             });
+            const getSign = () => {
+                if (priceDelta.isZero()) {
+                    return '';
+                }
+                if (priceDelta.isPositive()) {
+                    return '+';
+                }
+                return '-';
+            };
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: '.',
                 groupSeparator: ','
@@ -104,7 +114,16 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
-                variation: `${priceDeltaFormat} (${variationFormat} %)`,
+                variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
                 balance: (
                     <div>
                         {PrecisionNumbers({
@@ -186,6 +205,15 @@ export default function Tokens(props) {
             decimalSeparator: '.',
             groupSeparator: ','
         });
+        const getSign = () => {
+            if (priceDelta.isZero()) {
+                return '';
+            }
+            if (priceDelta.isPositive()) {
+                return '+';
+            }
+            return '-';
+        };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -221,7 +249,16 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -314,7 +351,11 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: '--',
+            variation:
+                    <div>
+                        {'0,00 %'}
+                        <span className={'variation-indicator neutral-indicator'}></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -377,6 +418,15 @@ export default function Tokens(props) {
             decimalSeparator: '.',
             groupSeparator: ','
         });
+        const getSign = () => {
+            if (priceDelta.isZero()) {
+                return '';
+            }
+            if (priceDelta.isPositive()) {
+                return '+';
+            }
+            return '-';
+        };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -411,7 +461,16 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({

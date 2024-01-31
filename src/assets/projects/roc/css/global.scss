@@ -17,6 +17,7 @@ html {
     width: 1184px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 32px;
 }
 
 .ant-layout-content {
@@ -49,7 +50,6 @@ html {
     /* M3/Elevation Dark/1 */
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 
     line-height: 80px;
 }
@@ -80,7 +80,6 @@ html {
     /* M3/Elevation Dark/1 */
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 }
 
 .menu-nav-item {
@@ -346,7 +345,6 @@ html {
     /* M3/Elevation Dark/1 */
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 }
 
 .wallet-translation {
@@ -473,7 +471,6 @@ html {
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 }
 
 .first-item {
@@ -524,6 +521,7 @@ html {
     flex: none;
     order: 0;
     flex-grow: 0;
+    background-color: #BBBED81A;
 }
 
 .icon-staked {
@@ -588,7 +586,7 @@ html {
 
     font-family: 'Sora';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 24px;
     line-height: 29px;
     /* identical to box height */
@@ -651,7 +649,6 @@ html {
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 }
 
 .tokens-card-content {
@@ -956,6 +953,28 @@ html {
     line-height: normal;
 }
 
+.variation-indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 4px;
+}
+
+.positive-indicator {
+    background-color: #2CBF12;
+}
+
+.negative-indicator {
+    background-color: #E54A49;
+}
+
+.neutral-indicator {
+    background-color: #B5B5B5;
+}
+
+
 /* Last operations */
 
 .content-last-operations {
@@ -968,7 +987,6 @@ html {
 
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
         0px 1px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
 
     /*
   display: flex;
