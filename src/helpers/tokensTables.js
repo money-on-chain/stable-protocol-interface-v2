@@ -67,7 +67,7 @@ const columnsRocCA = [
     title: 'Name',
     dataIndex: 'name',
     align: 'left',
-    width: 250
+    width: 380
   },
   {
     title: 'Price in USD',

@@ -255,9 +255,19 @@ html {
 .logo-portfolio {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/house2.svg');
+    background-image: url('../icons/PortfolioOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-portfolio-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/PortfolioFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -265,9 +275,19 @@ html {
 .logo-send {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/sendWhite.svg');
+    background-image: url('../icons/SendOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-send-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/SendFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -275,9 +295,19 @@ html {
 .logo-exchange {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/exchangeWhite.svg');
+    background-image: url('../icons/ExchangeOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-exchange-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/ExchangeFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -285,39 +315,83 @@ html {
 .logo-performance {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/performanceWhite.svg');
+    background-image: url('../icons/PerformanceOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
+.logo-performance-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/PerformanceFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
 .logo-staking {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/stakingWhite.svg');
+    background-image: url('../icons/StakeOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
+.logo-staking-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/StakeFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
 .logo-liquidity-mining {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/liquidityWhite.svg');
+    background-image: url('../icons/LiquidityMiningOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
+.logo-liquidity-mining-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/LiquidityMiningFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
 .logo-vesting {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/vestingWhite.svg');
+    background-image: url('../icons/VestingOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
+.logo-vesting-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/VestingFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
 .logo-more {
     width: 24px;
     height: 24px;
@@ -838,6 +912,7 @@ html {
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
     background: #d0d0d0;
+    padding-left: 8px !important;
 }
 
 .ant-table-body::-webkit-scrollbar {
@@ -865,7 +940,7 @@ html {
     padding: 0px;
     gap: 8px;
 
-    width: 216px;
+    width: 90%;
     height: 32px;
 
     /* Inside auto layout */

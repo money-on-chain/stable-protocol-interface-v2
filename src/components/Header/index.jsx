@@ -144,12 +144,13 @@ export default function SectionHeader() {
 
     const getMenuItemClasses = (itemName) => {
         let containerClassName = 'menu-nav-item';
-        let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")} color-filter-invert`;
-        if (pathMap[itemName]?.includes(location.pathname)) {
+        const isSelected = pathMap[itemName]?.includes(location.pathname);
+        let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
+        
+        if (isSelected) {
             containerClassName += ' menu-nav-item-selected';
-            iconClassName = iconClassName.replace('color-filter-invert', 'color-filter-disabled');
         }
-
+    
         return { containerClassName, iconClassName };
     };
 
