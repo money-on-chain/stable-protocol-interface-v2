@@ -64,6 +64,15 @@ export default function Tokens(props) {
                 BigNumber.ROUND_UP,
                 { decimalSeparator: '.', groupSeparator: ',' }
             );
+            const getSign = () => {
+                if (priceDelta.isZero()) {
+                    return '';
+                }
+                if (priceDelta.isPositive()) {
+                    return '+';
+                }
+                return '-';
+            };
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: '.',
                 groupSeparator: ','
@@ -79,6 +88,11 @@ export default function Tokens(props) {
                                 ns: ns
                             })}
                         </span>
+                        <span className="token-symbol">
+                        {t(`portfolio.tokens.TP.rows.${dataItem.key}.symbol`, {
+                            ns: ns
+                        })}
+                    </span>
                     </div>
                 ),
                 price: (
@@ -94,7 +108,16 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
-                variation: `${signPriceDelta}${priceDeltaFormat} (${variationFormat} %)`,
+                variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
                 balance: (
                     <div>
                         {PrecisionNumbers({

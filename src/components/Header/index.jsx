@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Layout } from 'antd';
 import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -56,7 +57,7 @@ export default function SectionHeader() {
                 return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
             default:
                 return true;
-                //Add other future options here
+            //Add other future options here
         }
     }
     const menu = {
@@ -64,39 +65,39 @@ export default function SectionHeader() {
             {
                 name: "Portfolio",
                 action: goToPortfolio,
-                isActive : true
+                isActive: true
             },
             {
                 name: "Send",
                 action: goToSend,
-                isActive : true
+                isActive: true
             },
             {
                 name: "Exchange",
                 action: goToExchange,
-                isActive : true
+                isActive: true
             },
             {
                 name: "Performance",
                 action: goToPerformance,
-                isActive : true
+                isActive: true
             },
             {
                 name: "Staking",
                 action: goToStaking,
-                isActive : getIsActive("Staking")
+                isActive: true
             }
         ],
         dropdownMenu: [
             {
                 name: "Liquidity Mining",
                 action: goToLiquidityMining,
-                isActive : getIsActive("Liquidity Mining")
+                isActive: true
             },
             {
                 name: "Vesting",
                 action: goToVesting,
-                isActive : getIsActive("Vesting")
+                isActive: true
             }
         ]
     }
@@ -162,41 +163,39 @@ export default function SectionHeader() {
                 <div className="central-menu">
                     {menuOptions.mainMenu.map((option) => {
                         const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                        if (option.isActive) {return (
-                            <a
-                                onClick={option.action}
-                                className={containerClassName}
-                                key={option.name}
-                            >
-                                <i className={iconClassName}></i>
-                                <span className="menu-nav-item-title">{option.name}</span>
-                            </a>
-                        );}
+                        if (option.isActive) {
+                            return (
+                                <a
+                                    onClick={option.action}
+                                    className={containerClassName}
+                                    key={option.name}
+                                >
+                                    <i className={iconClassName}></i>
+                                    <span className="menu-nav-item-title">{option.name}</span>
+                                </a>
+                            );
+                        }
                         else return null;
                     })}
-                    {process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' &&
-                        <>
-                            <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
-                                <i className='logo-more color-filter-invert'></i>
-                                <span className="menu-nav-item-title-more">More</span>
-                            </a>
-                            <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
-                                {menuOptions.dropdownMenu.map((option) => {
-                                    const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                                    return (
-                                        <a
-                                            onClick={option.action}
-                                            className={containerClassName}
-                                            key={option.name}
-                                        >
-                                            <i className={iconClassName}></i>
-                                            <span className="menu-nav-item-title">{option.name}</span>
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </>
-                    }
+                    <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                        <i className='logo-more color-filter-invert'></i>
+                        <span className="menu-nav-item-title-more">More</span>
+                    </a>
+                    <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
+                        {menuOptions.dropdownMenu.map((option) => {
+                            const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
+                            return (
+                                <a
+                                    onClick={option.action}
+                                    className={containerClassName}
+                                    key={option.name}
+                                >
+                                    <i className={iconClassName}></i>
+                                    <span className="menu-nav-item-title">{option.name}</span>
+                                </a>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation">

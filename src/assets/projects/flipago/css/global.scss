@@ -17,6 +17,7 @@ html {
     width: 1184px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 32px;
 }
 
 .ant-layout-content {
@@ -122,6 +123,36 @@ html {
     flex-grow: 0;
     color: #7f8a99;
 }
+.menu-nav-item-more {
+    /* Nav Item */
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 15px;
+    gap: 4px;
+
+    width: 60px;
+    height: 80px;
+
+    /* Surface/Surface at +1 */
+
+    background: linear-gradient(
+            0deg,
+            rgba(189, 207, 255, 0.05),
+            rgba(189, 207, 255, 0.05)
+        ),
+        #131215;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    color: #7f8a99;
+}
 
 .menu-nav-item:hover {
     border-bottom: 3px solid rgba(255,243,131, 1);
@@ -137,6 +168,14 @@ html {
 .menu-nav-item:hover i.color-filter-invert {
     filter: none !important;
 }
+.menu-nav-item-more:hover i.color-filter-invert {
+    filter: none !important;
+}
+.menu-nav-item-more:hover {
+    border-bottom: 3px solid rgba(255,243,131, 1);
+    color: rgba(255,243,131, 1);
+    filter: none;
+}
 
 .color-filter-invert {
     filter: brightness(0) saturate(100%) invert(61%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
@@ -147,7 +186,7 @@ html {
 }
 
 .menu-nav-item-title {
-    width: 97px;
+    width: 110px;
     height: 17px;
 
     /* Button Text */
@@ -172,6 +211,56 @@ html {
     flex-grow: 0;
 }
 
+.menu-nav-item-title-more {
+    width: 40px;
+    height: 20px;
+
+    /* Button Text */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: normal;
+    /* identical to box height */
+
+    text-align: center;
+
+    /* Text/Text Secondary */
+
+    /*color: #7f8a99;*/
+    color: inherit;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    padding-top: 8px;
+}
+
+/*Dropdown menu section*/
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 290px;
+    top: 82px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+/*Dropdown menu section*/
+
 .logo-portfolio {
     width: 32px;
     height: 32px;
@@ -185,7 +274,7 @@ html {
 .logo-send {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/PaperPlaneTilt2.svg');
+    background-image: url('../icons/sendYellow.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
@@ -205,7 +294,7 @@ html {
 .logo-performance {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Gauge2.svg');
+    background-image: url('../icons/performanceYellow.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
@@ -214,18 +303,35 @@ html {
 .logo-staking {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/staking.svg');
+    background-image: url('../icons/stakingYellow.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
-
-.logo-more {
+.logo-liquidity-mining {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/More.svg');
+    background-image: url('../icons/liquidityYellow.svg');
     background-size: 32px 32px;
+    background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-vesting {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/vestingYellow.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-more {
+    width: 24px;
+    height: 24px;
+    background-image: url('../icons/moreYellow.svg');
+    background-size: 24px 24px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
@@ -428,7 +534,7 @@ html {
 
     /* Backgrounds/Background Level 3 */
 
-    background: #1f2125;
+    // background: #1f2125;
     border-radius: 4px;
 
     /* Inside auto layout */
@@ -436,12 +542,13 @@ html {
     flex: none;
     order: 0;
     flex-grow: 0;
+    background-color: #BBBED81A;
 }
 
 .icon-staked {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/ChartBar.svg');
+    background-image: url('../icons/stakingGray.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 8px;
@@ -451,7 +558,7 @@ html {
 .icon-gauge {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Gauge.svg');
+    background-image: url('../icons/performanceGray.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -619,8 +726,7 @@ html {
     /* Card Contents/Card Title */
 
     font-family: 'Chivo';
-    font-style: italic;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 20px;
     line-height: 24px;
     /* identical to box height */
@@ -653,6 +759,7 @@ html {
     flex: none;
     order: 1;
     flex-grow: 0;
+    margin-top: 30px;
 }
 
 .tokens-list-header-balance-number {
@@ -709,6 +816,7 @@ html {
     flex: none;
     order: 1;
     flex-grow: 0;
+    margin-top: 30px;
 }
 
 /* Table tokens */
@@ -869,6 +977,7 @@ html {
     background-repeat: no-repeat;
 }
 
+
 .icon-status-success {
     width: 16px;
     height: 16px;
@@ -878,11 +987,32 @@ html {
 }
 .token-symbol {
     color: #7F8A99;
-    font-family: Sora;
+    font-family: Chivo;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+.variation-indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 4px;
+}
+
+.positive-indicator {
+    background-color: #2CBF12;
+}
+
+.negative-indicator {
+    background-color: #E54A49;
+}
+
+.neutral-indicator {
+    background-color: #B5B5B5;
 }
 
 /* Last operations */

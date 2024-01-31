@@ -152,11 +152,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
+                        "title": "GoARS",
+                        "symbol": " (GOARS)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
+                        "title": "GoMXN",
+                        "symbol": " (GOMXN)",
                         "price_decimals": 2
                     }
                 }
