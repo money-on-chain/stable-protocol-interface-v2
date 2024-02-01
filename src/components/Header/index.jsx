@@ -93,12 +93,12 @@ export default function SectionHeader() {
             {
                 name: "Liquidity Mining",
                 action: goToLiquidityMining,
-                isActive: true
+                isActive: false
             },
             {
                 name: "Vesting",
                 action: goToVesting,
-                isActive: true
+                isActive: false
             }
         ]
     }
@@ -109,6 +109,11 @@ export default function SectionHeader() {
                 activeTabs++;
             }
         });
+        menu.dropdownMenu.forEach(item => {
+            if (item.isActive) {
+                activeTabs++;
+            }
+        })
         return activeTabs;
     }
     const [menuOptions, setMenuOptions] = useState(menu);
