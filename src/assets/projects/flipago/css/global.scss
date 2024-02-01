@@ -901,8 +901,7 @@ html {
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
-    padding: 16px 0 !important;
-
+    padding: 3px 8px !important;
     /* Text/Text Secondary */
 
     color: #7f8a99;
@@ -912,6 +911,7 @@ html {
             rgba(189, 207, 255, 0.05)
         ),
         #131215;
+    border-bottom: 1px solid #CBD4DA;
 }
 
 .ant-table {
@@ -943,10 +943,6 @@ html {
     box-shadow: none;
 }
 
-.ant-table-thead > tr > th {
-    border-bottom: 1px solid #2e3238;
-}
-
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
     background: #2e2c2e;
@@ -974,7 +970,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
+    padding-left: 8px;
     gap: 8px;
 
     width: 216px;
@@ -986,7 +982,9 @@ html {
     order: 0;
     flex-grow: 0;
 }
-
+.item-usd {
+    padding-right: 8px;
+}
 .icon-token-coinbase {
     width: 24px;
     height: 24px;

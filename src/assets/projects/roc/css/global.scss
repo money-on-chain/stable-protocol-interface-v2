@@ -873,12 +873,13 @@ html {
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
-    padding: 16px 0 !important;
+    padding: 3px 8px !important;
     font-weight: 700;
     /* Text/Text Secondary */
 
     color: #7f8a99;
     background: rgba(255, 255, 255, 0.70);
+    border-bottom: 1px solid #CBD4DA;
 }
 
 .ant-table {
@@ -903,10 +904,6 @@ html {
 
 .ant-table-cell-scrollbar:not([rowspan]) {
     box-shadow: none;
-}
-
-.ant-table-thead > tr > th {
-    border-bottom: 1px solid #CBD4DA;
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td,
@@ -936,7 +933,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
+    padding-left: 8px;
     gap: 8px;
 
     width: 90%;
@@ -948,7 +945,9 @@ html {
     order: 0;
     flex-grow: 0;
 }
-
+.item-usd {
+    padding-right: 8px;
+}
 .icon-token-coinbase {
     width: 24px;
     height: 24px;

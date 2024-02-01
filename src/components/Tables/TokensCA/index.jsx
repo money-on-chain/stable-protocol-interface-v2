@@ -150,7 +150,7 @@ export default function Tokens(props) {
                 //     </div>
                 // ),
                 usd: (
-                    <div>
+                    <div className="item-usd">
                         {PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.CA[dataItem.key],
@@ -272,7 +272,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TC,
@@ -369,7 +369,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TP[0],
@@ -484,7 +484,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.COINBASE,

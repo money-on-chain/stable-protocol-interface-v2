@@ -132,7 +132,7 @@ export default function Tokens(props) {
                     </div>
                 ),
                 usd: (
-                    <div>
+                    <div className="item-usd">
                         {PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.TP[dataItem.key],
