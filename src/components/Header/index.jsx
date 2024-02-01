@@ -188,7 +188,7 @@ export default function SectionHeader() {
                         }
                         else return null;
                     })}
-                    {getActiveTabsNumber() > 4 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                    {getActiveTabsNumber() > 5 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
                         <i className='logo-more color-filter-invert'></i>
                         <span className="menu-nav-item-title-more">More</span>
                     </a>}
