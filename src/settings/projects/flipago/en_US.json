@@ -79,6 +79,10 @@
                         "price_decimals": 2
                     },
                     "2": {
+                        "title": "Flip",
+                        "price_decimals": 2
+                    },
+                    "3": {
                         "title": "RBTC",
                         "price_decimals": 2
                     }

@@ -348,6 +348,97 @@ export default function Tokens(props) {
         count += 1;
     }
 
+    // TF
+    if (auth.contractStatusData && auth.userBalanceData) {
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.FeeToken.balance,
+                settings.tokens.TF.decimals
+            )
+        );
+        price = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_FeeToken,
+                settings.tokens.TF.decimals
+            )
+        );
+        balanceUSD = balance.times(price);
+
+        // variation
+        const priceHistory = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.historic.PP_FeeToken,
+                settings.tokens.TF.decimals
+            )
+        );
+        const priceDelta = price.minus(priceHistory);
+        const variation = priceDelta.abs().div(priceHistory).times(100);
+
+        const itemIndex = count;
+
+        const priceDeltaFormat = priceDelta.toFormat(t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`), BigNumber.ROUND_UP, {
+            decimalSeparator: '.',
+            groupSeparator: ','
+        });
+        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
+            decimalSeparator: '.',
+            groupSeparator: ','
+        });
+
+        tokensData.push({
+            key: itemIndex,
+            name: (
+                <div className="item-token">
+                    <i className="icon-token-tf"></i>{' '}
+                    <span className="token-description">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                </div>
+            ),
+            price: (
+                <div>
+                    {PrecisionNumbers({
+                        amount: auth.contractStatusData.PP_FeeToken,
+                        token: settings.tokens.TF,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
+                        t: t,
+                        i18n: i18n,
+                        ns: ns
+                    })}
+                </div>
+            ),
+            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            balance: (
+                <div>
+                    {PrecisionNumbers({
+                        amount: auth.userBalanceData.FeeToken.balance,
+                        token: settings.tokens.TF,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns
+                    })}
+                </div>
+            ),
+            usd: (
+                <div>
+                    {PrecisionNumbers({
+                        amount: balanceUSD,
+                        token: settings.tokens.TF,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                </div>
+            )
+        });
+        count += 1;
+    }
+
     // Coinbase
     if (auth.contractStatusData && auth.userBalanceData) {
         balance = new BigNumber(
