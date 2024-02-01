@@ -47,6 +47,7 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
+    //Function to customize if the option needs to be active or not in roc or flipago
     const getIsActive = (optionName) => {
         switch (optionName) {
             case "Staking":
@@ -85,7 +86,7 @@ export default function SectionHeader() {
             {
                 name: "Staking",
                 action: goToStaking,
-                isActive: true
+                isActive: false
             }
         ],
         dropdownMenu: [
@@ -100,6 +101,15 @@ export default function SectionHeader() {
                 isActive: true
             }
         ]
+    }
+    const getActiveTabsNumber = () => {
+        let activeTabs = 0;
+        menu.mainMenu.forEach(item => {
+            if (item.isActive) {
+                activeTabs++;
+            }
+        });
+        return activeTabs;
     }
     const [menuOptions, setMenuOptions] = useState(menu);
     const swapMenuOptions = (optionName) => {
@@ -178,10 +188,10 @@ export default function SectionHeader() {
                         }
                         else return null;
                     })}
-                    <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                    {getActiveTabsNumber() > 4 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
                         <i className='logo-more color-filter-invert'></i>
                         <span className="menu-nav-item-title-more">More</span>
-                    </a>
+                    </a>}
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
                         {menuOptions.dropdownMenu.map((option) => {
                             const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
