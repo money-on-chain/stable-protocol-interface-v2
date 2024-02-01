@@ -912,7 +912,6 @@ html {
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
     background: #d0d0d0;
-    padding-left: 8px !important;
 }
 
 .ant-table-body::-webkit-scrollbar {
@@ -1036,7 +1035,7 @@ html {
     border-radius: 50%;
     display: inline-block;
     margin-left: 5px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .positive-indicator {
