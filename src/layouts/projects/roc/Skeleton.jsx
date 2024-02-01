@@ -35,9 +35,9 @@ export default function Skeleton() {
                     </div>
                 </div>
             </Content>
-            <Footer>
+            {/* <Footer>
                 <div className="footer-container"></div>
-            </Footer>
+            </Footer>*/}
         </Layout>
     );
 }
