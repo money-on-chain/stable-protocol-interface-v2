@@ -48,6 +48,10 @@
             "COINBASE": {
                 "label": "rBTC",
                 "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "MoC",
+                "abbr": "MoC"
             }
         }
     },
@@ -75,6 +79,10 @@
                         "price_decimals": 2
                     },
                     "3": {
+                        "title": "MoC",
+                        "price_decimals": 2
+                    },
+                    "4": {
                         "title": "RBTC",
                         "price_decimals": 2
                     }

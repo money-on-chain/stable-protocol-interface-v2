@@ -12,7 +12,8 @@ export default function AllowanceDialog(props) {
         currencyYouReceive,
         amountYouExchangeLimit,
         amountYouReceiveLimit,
-        onRealSendTransaction
+        onRealSendTransaction,
+        disAllowance
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -71,6 +72,11 @@ export default function AllowanceDialog(props) {
             amountAllowance = new BigNumber(100000000000);
         } else {
             amountAllowance = amountYouExchangeLimit;
+        }
+
+        if (disAllowance) {
+            // Disallow to use the Token with amount 0
+            amountAllowance = new BigNumber(0);
         }
 
         setStatus('SIGN');

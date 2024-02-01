@@ -99,7 +99,7 @@ function isMintOperation(tokenExchange, tokenReceive) {
 }
 
 function TokenAllowance(auth, tokenExchange) {
-    // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
+    // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC, COINBASE, TF
     const tokenExchangeSettings = TokenSettings(tokenExchange);
     const aTokenExchange = tokenExchange.split('_')
     let allowance = 0;
@@ -116,6 +116,9 @@ function TokenAllowance(auth, tokenExchange) {
             break;
         case 'TC':
             allowance = auth.userBalanceData.TC.allowance;
+            break;
+        case 'TF':
+            allowance = auth.userBalanceData.FeeToken.allowance;
             break;
         default:
             throw new Error('Invalid token name');
@@ -163,13 +166,19 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
+        case 'TF,TF':
+            return {
+                token: dContracts.contracts.FeeToken,
+                contractAllow: dContracts.contracts.Moc,
+                decimals: tokenExchangeSettings.decimals
+            };
         default:
             throw new Error('Invalid token name');
     }
 }
 
 function TokenContract(dContracts, tokenExchange) {
-    // Ex. aTokenMap = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
+    // Ex. aTokenMap = CA_0, CA_1, TP_0, TP_1, TC, COINBASE, TF
     const tokenExchangeSettings = TokenSettings(tokenExchange);
 
     const tokenMap = `${tokenExchange}`;
@@ -188,6 +197,11 @@ function TokenContract(dContracts, tokenExchange) {
         case 'TC':
             return {
                 token: dContracts.contracts.CollateralToken,
+                decimals: tokenExchangeSettings.decimals
+            }
+        case 'TF':
+            return {
+                token: dContracts.contracts.FeeToken,
                 decimals: tokenExchangeSettings.decimals
             }
         default:

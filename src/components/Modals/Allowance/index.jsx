@@ -5,14 +5,14 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import Allowance from '../../Allowance';
 
 export default function ModalAllowanceOperation(props) {
-    const { visible, onHideModalAllowance } = props;
+    const { visible, onHideModalAllowance, title } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <div className="ShowModalAllowance">
             <Modal
-                title="Authorize allowance"
+                title={title}
                 width={505}
                 visible={visible}
                 onCancel={onHideModalAllowance}
