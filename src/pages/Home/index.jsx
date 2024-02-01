@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useContext } from 'react';
 import { Row, Alert } from 'antd';
-
+import favicon from '../../assets/icons/favicon.ico'
 import { AuthenticateContext } from '../../context/Auth';
 import ListOperations from '../../components/Tables/ListOperations';
 import { useProjectTranslation } from '../../helpers/translations';
@@ -17,8 +17,9 @@ function Home(props) {
     return (
         <Fragment>
 
-            {/* Dashboard Staking Rewards */}
-            <StakingRewards />
+            {/* Dashboard Staking Rewards  
+            //TODO Hidden while developing the backend information
+            <StakingRewards />*/}
 
             {/* Portfolio */}
             <Portfolio />
