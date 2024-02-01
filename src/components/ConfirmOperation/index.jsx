@@ -78,8 +78,8 @@ export default function ConfirmOperation(props) {
         limits.receive
     );
     const [showModalAllowance, setShowModalAllowance] = useState(false);
-
     const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
+    const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
 
     useEffect(() => {
         if (amountYouExchange) {
@@ -124,12 +124,19 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowanceFeeToken = () => {
-        // Only show if selected to pay with fee token
-        if (radioSelectFee > 0) {
-            const tokenAllowance = UserTokenAllowance(auth, 'TF');
+
+        const tokenAllowance = UserTokenAllowance(auth, 'TF');
+
+        if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
+            // if we select not to pay with fee token, please disallow to use Fee token
+            setDisAllowanceFeeToken(true)
+            // show allowance window
+            return true
+        } else if (radioSelectFee > 0) {
             return !!commissionFeeToken.gte(tokenAllowance);
         }
 
+        return false
     };
 
     const onSendTransactionAllowFeeToken = () => {
@@ -741,6 +748,7 @@ export default function ConfirmOperation(props) {
                 amountYouExchangeLimit={amountYouExchangeLimit}
                 amountYouReceiveLimit={amountYouReceiveLimit}
                 onRealSendTransaction={onRealSendTransaction}
+                disAllowance={false}
             />
 
             <ModalAllowanceOperation
@@ -752,6 +760,7 @@ export default function ConfirmOperation(props) {
                 amountYouExchangeLimit={commissionFeeToken}
                 amountYouReceiveLimit={commissionFeeToken}
                 onRealSendTransaction={onSendTransaction}
+                disAllowance={disAllowanceFeeToken}
             />
 
         </div>

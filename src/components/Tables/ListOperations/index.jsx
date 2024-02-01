@@ -449,7 +449,7 @@ export default function ListOperations(props) {
     }
     function getFee(row_operation){
 
-        const fee = {amount: null, token: null, decimals: null}
+        const fee = {amount: new BigNumber(0), token: null, decimals: 18}
 
         if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
 
@@ -471,7 +471,9 @@ export default function ListOperations(props) {
             fee['token'] = 'TF'
             fee['decimals'] = settings.tokens.TF.decimals
 
-        } else if (row_operation['executed'] && row_operation['executed']['qACfee_']) {
+        }
+
+        if (row_operation['executed'] && row_operation['executed']['qACfee_'] && fee['amount'].eq(0)) {
 
             const qACfee = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -493,7 +495,7 @@ export default function ListOperations(props) {
 
         }
 
-        if (fee['amount'] != null) {
+        if (fee['amount'].gt(0)) {
             return (<div>
                 <span className="value">
                     {PrecisionNumbers({
