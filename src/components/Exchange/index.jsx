@@ -104,6 +104,13 @@ export default function Exchange() {
 
     const onValidate = () => {
 
+        // 0. Not Wallet connected
+        if (!auth.userBalanceData) {
+            setInputValidationErrorText('Please connect your wallet');
+            setInputValidationError(true);
+            return
+        }
+
         // 1. User Exchange Token Validation
         const totalBalance = new BigNumber(
             fromContractPrecisionDecimals(

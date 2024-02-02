@@ -16,6 +16,8 @@ export default function TokensPegged() {
 
         let totalUSD = new BigNumber(0);
 
+        if (!auth.contractStatusData) { return totalUSD }
+
         // Tokens TPs
         auth.contractStatusData &&
         settings.tokens.TP.forEach(function (dataItem) {

@@ -54,6 +54,9 @@ function TokenSettings(tokenName) {
 function TokenBalance(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let balance = 0;
+
+    if (!auth.userBalanceData) return balance
+
     const aTokenName = tokenName.split('_')
     switch (aTokenName[0]) {
         case 'CA':
@@ -78,6 +81,9 @@ function TokenBalance(auth, tokenName) {
 function TokenPrice(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let price = 0;
+
+    if (!auth.contractStatusData) return 0
+
     const aTokenName = tokenName.split('_')
     switch (aTokenName[0]) {
         case 'CA':
