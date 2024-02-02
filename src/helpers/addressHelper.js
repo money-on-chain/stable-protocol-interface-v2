@@ -1,5 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
-import rskUtils from 'rskjs-util';
+//import rskUtils from 'rskjs-util';
 
 const forceChecksumAddressInput = true;
 const forceRskIp60Addresses = true;
@@ -11,18 +10,18 @@ const toWeb3CheckSumAddress = (web3) => (address) => {
 
 const toCheckSumAddress = (web3) => (address) => {
     if (!forceChecksumAddressInput) return address;
-    if (forceRskIp60Addresses) {
+    /*if (forceRskIp60Addresses) {
         return rskUtils.toChecksumAddress(address, chainId);
-    }
+    }*/
     return web3.utils.toChecksumAddress(address);
 };
 
 const isValidAddressChecksum = (web3) => (address) => {
     if (!forceChecksumAddressInput) return true;
     if (isPlainAddress(address)) return true;
-    if (forceRskIp60Addresses) {
+    /*if (forceRskIp60Addresses) {
         return rskUtils.isValidChecksumAddress(address, chainId);
-    }
+    }*/
 
     return web3.utils.checkAddressChecksum(address);
 };

@@ -6,3 +6,19 @@ src/contracts
 .DS_Store
 src/assets/icons
 src/assets/css
+
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
