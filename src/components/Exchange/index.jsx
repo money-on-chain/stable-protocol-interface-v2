@@ -141,7 +141,7 @@ export default function Exchange() {
         if (currencyYouExchange === 'TC') {
             // There are sufficient TC in the contracts to redeem?
             const tcAvailableToRedeem = new BigNumber(
-                Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem)
+                Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem, "ether")
             );
             if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
                 setInputValidationErrorText('Insufficient TC available to redeem in the contract');

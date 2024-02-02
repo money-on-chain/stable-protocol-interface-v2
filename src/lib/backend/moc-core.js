@@ -144,7 +144,7 @@ const redeemTC = async (
 
     // There are sufficient TC in the contracts to redeem?
     const tcAvailableToRedeem = new BigNumber(
-        Web3.utils.fromWei(contractStatusData.getTCAvailableToRedeem)
+        Web3.utils.fromWei(contractStatusData.getTCAvailableToRedeem, "ether")
     );
     if (new BigNumber(qTC).gt(tcAvailableToRedeem))
         throw new Error(
