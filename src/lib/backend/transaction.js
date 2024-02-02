@@ -28,7 +28,7 @@ const renderEventField = (eveName, eveValue) => {
     ]);
 
     if (formatItemsWei.has(eveName)) {
-        eveValue = Web3.utils.fromWei(eveValue);
+        eveValue = Web3.utils.fromWei(eveValue, "ether");
     }
 
     console.log('\x1b[32m%s\x1b[0m', `${eveName}: ${eveValue}`);
@@ -38,7 +38,15 @@ const renderEvent = (evente) => {
     console.log('');
     console.log('\x1b[35m%s\x1b[0m', `Event: ${evente.name}`);
     console.log('');
-    evente.events.forEach((eve) => renderEventField(eve.name, eve.value));
+
+    evente.events.forEach(function (eve) {
+
+        if (eve) {
+            renderEventField(eve.name, eve.value);
+        }
+    })
+
+
 };
 
 const decodeEvents = (receipt) => {
