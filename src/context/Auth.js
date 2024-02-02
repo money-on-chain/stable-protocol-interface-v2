@@ -292,7 +292,7 @@ const AuthenticateProvider = ({ children }) => {
     const getBalance = async (address) => {
         try {
             let balance = await web3.eth.getBalance(address);
-            balance = web3.utils.fromWei(balance);
+            balance = web3.utils.fromWei(balance, "ether");
             return balance;
         } catch (e) {
             console.log(e);
