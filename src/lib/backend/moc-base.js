@@ -31,10 +31,10 @@ const AllowanceAmount = async (
         )
         .send({
             from: account,
-            value: '0x',
+            value: 0,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * 2,
-            gasLimit: estimateGas * 2
+            gas: estimateGas * BigInt(2),
+            gasLimit: estimateGas * BigInt(2)
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -65,10 +65,10 @@ const transferTokenTo = async (
         .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
         .send({
             from: account,
-            value: '0x',
+            value: 0,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * 2,
-            gasLimit: estimateGas * 2
+            gas: estimateGas * BigInt(2),
+            gasLimit: estimateGas * BigInt(2)
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);

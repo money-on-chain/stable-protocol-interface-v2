@@ -1,8 +1,3 @@
-import RLogin from '@rsksmart/rlogin';
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import { trezorProviderOptions } from '@rsksmart/rlogin-trezor-provider';
-import { ledgerProviderOptions } from '@rsksmart/rlogin-ledger-provider';
-import { dcentProviderOptions } from '@rsksmart/rlogin-dcent-provider';
 
 const getRLogin = (port) => {
     let rpcUrls = {};
@@ -24,24 +19,27 @@ const getRLogin = (port) => {
 
     const supportedChains = Object.keys(rpcUrls).map(Number);
 
-    const rLogin = new RLogin({
+    const rLogin = new window.RLogin.default({
         cacheProvider: false,
         providerOptions: {
             walletconnect: {
-                package: WalletConnectProvider.default,
+                package: window.rLoginWalletConnect2Provider.WalletConnect2Provider,
                 options: {
-                    rpc: rpcUrls
+                    projectId: process.env.REACT_APP_RLOGIN_WALLETCONNECT2_PROJECTID,
+                    chains: [parseInt(chainId, 10)],
+                    showQrModal: true,
+                    rpcMap: rpcUrls
                 }
             },
             'custom-ledger': {
-                ...ledgerProviderOptions,
+                ...window.rLoginLedgerProvider.ledgerProviderOptions,
                 options: {
                     rpcUrl: rpcUrls[parseInt(chainId, 10)],
                     chainId: parseInt(chainId, 10)
                 }
             },
             'custom-dcent': {
-                ...dcentProviderOptions,
+                ...window.rLoginDCentProvider.dcentProviderOptions,
                 options: {
                     rpcUrl: rpcUrls[parseInt(chainId)],
                     chainId: parseInt(chainId),
@@ -49,7 +47,7 @@ const getRLogin = (port) => {
                 }
             },
             'custom-trezor': {
-                ...trezorProviderOptions,
+                ...window.rLoginTrezorProvider.trezorProviderOptions,
                 options: {
                     rpcUrl: rpcUrls[parseInt(chainId, 10)],
                     chainId: parseInt(chainId, 10),

@@ -17,8 +17,8 @@ function Home(props) {
         <Fragment>
 
             {/* Dashboard Staking Rewards  
-            //TODO Hidden while developing the backend information
-            <StakingRewards />*/}
+            TODO to hide while developing the backend information*/}
+            <StakingRewards />
 
             {/* Portfolio */}
             <Portfolio />

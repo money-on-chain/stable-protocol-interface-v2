@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Layout } from 'antd';
 import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -86,19 +85,19 @@ export default function SectionHeader() {
             {
                 name: "Staking",
                 action: goToStaking,
-                isActive: false
+                isActive: true
             }
         ],
         dropdownMenu: [
             {
                 name: "Liquidity Mining",
                 action: goToLiquidityMining,
-                isActive: false
+                isActive: true
             },
             {
                 name: "Vesting",
                 action: goToVesting,
-                isActive: false
+                isActive: true
             }
         ]
     }

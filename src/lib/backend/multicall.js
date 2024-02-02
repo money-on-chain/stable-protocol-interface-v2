@@ -239,10 +239,11 @@ const contractStatus = async (web3, dContracts) => {
     status.canOperate = !calcCtargemaCA.gt(1000000);
 
     // History Price (24hs ago)
-    const d24BlockHeights = status.blockHeight - 2880;
+    const d24BlockHeights = status.blockHeight - BigInt(2880);
     listMethods = []
     listMethods.push([Moc.options.address, Moc.methods.getPTCac().encodeABI(), 'uint256']) // 0
     listMethods.push([PP_COINBASE.options.address, PP_COINBASE.methods.peek().encodeABI(), 'uint256']) // 1
+    listMethods.push([PP_FeeToken.options.address, PP_FeeToken.methods.peek().encodeABI(), 'uint256']) // 2
 
     for (let i = 0; i < settings.tokens.TP.length; i++) {
         PP_TP = dContracts.contracts.PP_TP[i]
@@ -269,7 +270,7 @@ const contractStatus = async (web3, dContracts) => {
     const historic = {};
 
     PP_TP = []
-    last_index = 1
+    last_index = 2
     for (let i = 0; i < settings.tokens.TP.length; i++) {
         PP_TP.push(listReturnDataHistoric[last_index + 1])
         last_index = last_index + 1
@@ -284,6 +285,7 @@ const contractStatus = async (web3, dContracts) => {
     historic.blockHeight = d24BlockHeights;
     historic.getPTCac = listReturnDataHistoric[0];
     historic.PP_COINBASE = listReturnDataHistoric[1];
+    historic.PP_FeeToken = listReturnDataHistoric[2];
     historic.PP_TP = PP_TP;
     historic.PP_CA = PP_CA;
     status.historic = historic;

@@ -27,7 +27,10 @@ export default function ConfirmOperation(props) {
         amountYouExchange,
         amountYouReceive,
         onCloseModal,
-        executionFee
+        executionFee,
+        commissionFeeToken,
+        commissionPercentFeeToken,
+        radioSelectFee
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
@@ -75,6 +78,8 @@ export default function ConfirmOperation(props) {
         limits.receive
     );
     const [showModalAllowance, setShowModalAllowance] = useState(false);
+    const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
+    const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
 
     useEffect(() => {
         if (amountYouExchange) {
@@ -108,6 +113,41 @@ export default function ConfirmOperation(props) {
     const showAllowance = () => {
         const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
         return !!amountYouExchangeLimit.gte(tokenAllowance);
+    };
+
+    const onHideModalAllowanceFeeToken = () => {
+        setShowModalAllowanceFeeToken(false);
+    };
+
+    const onShowModalAllowanceFeeToken = () => {
+        setShowModalAllowanceFeeToken(true);
+    };
+
+    const showAllowanceFeeToken = () => {
+
+        const tokenAllowance = UserTokenAllowance(auth, 'TF');
+
+        if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
+            // if we select not to pay with fee token, please disallow to use Fee token
+            setDisAllowanceFeeToken(true)
+            // show allowance window
+            return true
+        } else if (radioSelectFee > 0) {
+            return !!commissionFeeToken.gte(tokenAllowance);
+        }
+
+        return false
+    };
+
+    const onSendTransactionAllowFeeToken = () => {
+        // Show modal allowance
+        if (showAllowanceFeeToken()) {
+            onShowModalAllowanceFeeToken();
+            return;
+        }
+
+        // If allowance is ok please send real operation transaction
+        onSendTransaction();
     };
 
     const onSendTransaction = () => {
@@ -320,6 +360,33 @@ export default function ConfirmOperation(props) {
         onCloseModal();
     };
 
+    // Commission Select Radio
+
+    let commissionPAY = commission
+    let commissionPercentPAY = commissionPercent
+    let commissionSettings = TokenSettings(currencyYouExchange)
+    let commissionTokenName
+
+    if (IS_MINT) {
+        commissionTokenName = t(`exchange.tokens.${currencyYouExchange}.abbr`, {
+            ns: ns
+        })
+    } else {
+        commissionTokenName = t(`exchange.tokens.${currencyYouReceive}.abbr`, {
+            ns: ns
+        })
+    }
+
+    if (radioSelectFee > 0) {
+        // Pay with Fee Token
+        commissionPAY = commissionFeeToken
+        commissionPercentPAY = commissionPercentFeeToken
+        commissionSettings = TokenSettings('TF')
+        commissionTokenName = t(`exchange.tokens.TF.abbr`, {
+            ns: ns
+        })
+    }
+
     return (
         <div className="confirm-operation">
             <div className="exchange">
@@ -518,8 +585,8 @@ export default function ConfirmOperation(props) {
                     <span className={'token_exchange'}>
                         Fee (
                         {PrecisionNumbers({
-                            amount: new BigNumber(commissionPercent),
-                            token: TokenSettings(currencyYouExchange),
+                            amount: new BigNumber(commissionPercentPAY),
+                            token: commissionSettings,
                             decimals: 2,
                             t: t,
                             i18n: i18n,
@@ -531,8 +598,8 @@ export default function ConfirmOperation(props) {
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
                         {PrecisionNumbers({
-                            amount: new BigNumber(commission),
-                            token: TokenSettings(currencyYouExchange),
+                            amount: new BigNumber(commissionPAY),
+                            token: commissionSettings,
                             decimals: 6,
                             t: t,
                             i18n: i18n,
@@ -541,14 +608,7 @@ export default function ConfirmOperation(props) {
                         })}
                     </span>
                     <span className={'token_receive_name'}>
-                        {' '}
-                        {IS_MINT
-                            ? t(`exchange.tokens.${currencyYouExchange}.abbr`, {
-                                  ns: ns
-                              })
-                            : t(`exchange.tokens.${currencyYouReceive}.abbr`, {
-                                  ns: ns
-                              })}{' '}
+                        {commissionTokenName}
                     </span>
                 </div>
                 <div className="disclaimer">
@@ -627,7 +687,7 @@ export default function ConfirmOperation(props) {
                         <button
                             type="primary"
                             className="primary-button-fixed btn-confirm"
-                            onClick={onSendTransaction}
+                            onClick={onSendTransactionAllowFeeToken}
                         >
                             Confirm
                         </button>
@@ -680,6 +740,7 @@ export default function ConfirmOperation(props) {
             )}
 
             <ModalAllowanceOperation
+                title={`Authorize to use ${t(`exchange.tokens.CA_0.abbr`, {ns: ns})}`}
                 visible={showModalAllowance}
                 onHideModalAllowance={onHideModalAllowance}
                 currencyYouExchange={currencyYouExchange}
@@ -687,7 +748,21 @@ export default function ConfirmOperation(props) {
                 amountYouExchangeLimit={amountYouExchangeLimit}
                 amountYouReceiveLimit={amountYouReceiveLimit}
                 onRealSendTransaction={onRealSendTransaction}
+                disAllowance={false}
             />
+
+            <ModalAllowanceOperation
+                title={`Authorize to use ${t(`exchange.tokens.TF.abbr`, {ns: ns})}`}
+                visible={showModalAllowanceFeeToken}
+                onHideModalAllowance={onHideModalAllowanceFeeToken}
+                currencyYouExchange={'TF'}
+                currencyYouReceive={'TF'}
+                amountYouExchangeLimit={commissionFeeToken}
+                amountYouReceiveLimit={commissionFeeToken}
+                onRealSendTransaction={onSendTransaction}
+                disAllowance={disAllowanceFeeToken}
+            />
+
         </div>
     );
 }

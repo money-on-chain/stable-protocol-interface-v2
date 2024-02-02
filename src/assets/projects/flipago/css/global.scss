@@ -2145,8 +2145,8 @@ h1.title-last-operations {
                 align-items: flex-start;
                 padding: 0px;
                 gap: 8px;
-                width: 245px;
-                height: 47px;
+                /*width: 245px;
+                height: 47px;*/
 
                 .frame-t {
                     width: 198px;
@@ -2156,6 +2156,16 @@ h1.title-last-operations {
                     font-size: 14px;
                     line-height: 17px;
                     color: #c3ccd9;
+                }
+
+                .radio-fee {
+                    .ant-radio-wrapper {
+                        color: #C3CCD9;
+                    }
+
+                    .ant-radio-disabled + span {
+                        color: #C3CCD9;
+                    }
                 }
 
                 .switch {

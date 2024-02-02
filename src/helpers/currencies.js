@@ -41,6 +41,9 @@ function TokenSettings(tokenName) {
         case 'COINBASE':
             token = settings.tokens.COINBASE;
             break;
+        case 'TF':
+            token = settings.tokens.TF;
+            break;
         default:
             throw new Error('Invalid token name');
     }
@@ -309,13 +312,15 @@ function CalcCommission(
 
     const feeInfo = {
         fee: amount.times(feeParam).plus(markOperation),
-        percent: feeParam.times(100),
+        percent: feeParam.plus(vendorMarkup).times(100),
         markup: vendorMarkup,
         markOperation: markOperation,
         markOperationToken: markOperationToken,
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
-        totalFeeToken: totalFeeToken
+        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100),
+        totalFeeToken: totalFeeToken,
+        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice)
     };
 
     return feeInfo;
