@@ -7,6 +7,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import CollateralAssets from './collateral';
 import TokensPegged from './tokenspegged';
+import BigNumber from 'bignumber.js';
 
 export default function Performance(props) {
 
@@ -29,12 +30,11 @@ export default function Performance(props) {
 
                             <div className="coll-1">
                                 <div className="stat-text">The system is in optimal condition</div>
-                                <div className="detailed-view"> <a href="#">See detailed view</a></div>
                             </div>
                             <div className="coll-2">
 
                                 <div className="stat-icon"> <i className="icon-status-success display-block"></i> Fully Operational</div>
-                                <div className="block-info">Showing block {auth.contractStatusData.blockHeight}</div>
+                                <div className="block-info">Showing block {auth.contractStatusData ? auth.contractStatusData.blockHeight : '--'}</div>
 
                             </div>
 
@@ -54,7 +54,7 @@ export default function Performance(props) {
 
                             <div className="big-number">
                                 {PrecisionNumbers({
-                                    amount: auth.contractStatusData.nACcb,
+                                    amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
                                     token: TokenSettings('CA_0'),
                                     decimals: 2,
                                     t: t,
@@ -92,7 +92,7 @@ export default function Performance(props) {
                                 <div className="coll-1">
                                     <div className="amount">
                                         {PrecisionNumbers({
-                                            amount: auth.contractStatusData.getPTCac,
+                                            amount: auth.contractStatusData ? auth.contractStatusData.getPTCac : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 8,
                                             t: t,
@@ -106,7 +106,7 @@ export default function Performance(props) {
                                 <div className="coll-2">
                                     <div className="amount">
                                         {PrecisionNumbers({
-                                            amount: auth.contractStatusData.getLeverageTC,
+                                            amount: auth.contractStatusData ? auth.contractStatusData.getLeverageTC : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 8,
                                             t: t,
@@ -124,7 +124,7 @@ export default function Performance(props) {
                                 <div className="coll-1">
                                     <div className="amount">
                                         {PrecisionNumbers({
-                                            amount: auth.contractStatusData.nTCcb,
+                                            amount: auth.contractStatusData ? auth.contractStatusData.nTCcb : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 2,
                                             t: t,
@@ -138,7 +138,7 @@ export default function Performance(props) {
                                 <div className="coll-2">
                                     <div className="amount">
                                         {PrecisionNumbers({
-                                            amount: auth.contractStatusData.getTCAvailableToRedeem,
+                                            amount: auth.contractStatusData ? auth.contractStatusData.getTCAvailableToRedeem : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 2,
                                             t: t,
@@ -173,7 +173,7 @@ export default function Performance(props) {
 
                                 <div className="coll-1">
                                     <div className="amount">{PrecisionNumbers({
-                                        amount: auth.contractStatusData.nACcb,
+                                        amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
                                         token: TokenSettings('CA_0'),
                                         decimals: 2,
                                         t: t,
@@ -186,7 +186,7 @@ export default function Performance(props) {
                                 <div className="coll-2">
                                     <div className="amount">
                                         {PrecisionNumbers({
-                                            amount: auth.contractStatusData.getCglb,
+                                            amount: auth.contractStatusData ? auth.contractStatusData.getCglb : new BigNumber(0),
                                             token: TokenSettings('CA_0'),
                                             decimals: 6,
                                             t: t,

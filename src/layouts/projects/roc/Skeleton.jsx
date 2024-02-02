@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Layout, Menu, Image, Drawer, Button, Alert } from 'antd';
-import React, { useContext, useState, useEffect } from 'react';
+import { Layout, Alert } from 'antd';
+import React, { useContext } from 'react';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -17,13 +17,7 @@ export default function Skeleton() {
     return (
         <Layout>
             {!auth.isLoggedIn && (
-                <Alert
-                    message={t('global.NoConnection_alertTitle')}
-                    description={t('global.NoConnection_alertPleaseConnect')}
-                    type="error"
-                    showIcon
-                    className="AlertNoConnection"
-                />
+                <Alert message="Please connect your wallet!" type="error" />
             )}
 
             <SectionHeader />

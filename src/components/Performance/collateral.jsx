@@ -5,6 +5,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
+import BigNumber from 'bignumber.js';
 
 export default function CollateralAssets() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -25,7 +26,7 @@ export default function CollateralAssets() {
                         <div className="coll-2">
                             <div className="amount-token">
                                 {PrecisionNumbers({
-                                    amount: auth.contractStatusData.getACBalance[i],
+                                    amount: auth.contractStatusData ? auth.contractStatusData.getACBalance[i] : new BigNumber(0),
                                     token: TokenSettings(`CA_${i}`),
                                     decimals: 2,
                                     t: t,
