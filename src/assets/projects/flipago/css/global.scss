@@ -982,6 +982,12 @@ html {
     order: 0;
     flex-grow: 0;
 }
+.token-description {
+    cursor :default;
+}
+.token-symbol{
+    cursor :default;
+}
 .item-usd {
     padding-right: 8px;
 }

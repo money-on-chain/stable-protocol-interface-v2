@@ -133,7 +133,7 @@ html {
     color: #000;
 }
 .menu-nav-item:hover {
-    border-bottom: 3px solid #7F8A99;
+    //border-bottom: 3px solid #7F8A99;
     color: #7F8A99;
     // filter: none;
 }
@@ -690,6 +690,7 @@ html {
     font-size: 14px;
     line-height: 17px;
     /* identical to box height */
+
     /* Text/Text Secondary */
 
     color: #7f8a99;
@@ -901,6 +902,8 @@ html {
     border-top-right-radius: 0;
 }
 
+.ant-table-cell::before {visibility: hidden;}
+
 .ant-table-cell-scrollbar:not([rowspan]) {
     box-shadow: none;
 }
@@ -943,6 +946,12 @@ html {
     flex: none;
     order: 0;
     flex-grow: 0;
+}
+.token-description {
+    cursor :default;
+}
+.token-symbol{
+    cursor :default;
 }
 .item-usd {
     padding-right: 8px;
