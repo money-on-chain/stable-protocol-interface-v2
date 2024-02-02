@@ -5,13 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@rsksmart/rlogin": "^1.4.0",
-    "@rsksmart/rlogin-dcent-provider": "^1.0.2-beta.6",
-    "@rsksmart/rlogin-ledger-provider": "^1.0.2",
-    "@rsksmart/rlogin-trezor-provider": "^1.0.2",
-    "@rsksmart/rns": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.2",
-    "@walletconnect/web3-provider": "^1.7.8",
     "abi-decoder": "^2.4.0",
     "antd": "^4.19.3",
     "axios": "^0.27.2",
