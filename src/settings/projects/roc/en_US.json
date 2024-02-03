@@ -88,7 +88,8 @@
                         "price_decimals": 2
                     },
                     "4": {
-                        "title": "RBTC",
+                        "title": "rBTC",
+                        "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
                 }

@@ -442,6 +442,11 @@ export default function Tokens(props) {
                             ns: ns
                         })}
                     </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
+                            ns: ns
+                        })}
+                    </span>
                 </div>
             ),
             price: (
@@ -479,7 +484,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TF,
