@@ -66,8 +66,14 @@
     padding: 1rem !important;
 }
 
-.ant-table-expanded-row > td, .ant-table-expanded-row:hover > td {
+.custom-table .ant-table-expanded-row > td,
+.custom-table .ant-table-expanded-row:hover > td {
     background: #2E2B2E !important;
+}
+
+.custom-table-light .ant-table-expanded-row > td,
+.custom-table-light .ant-table-expanded-row:hover > td {
+    background: #FFFFFF !important;
 }
 
 .currency-tx {

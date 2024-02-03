@@ -82,6 +82,7 @@
                     },
                     "2": {
                         "title": "Flip",
+                        "symbol": " (GOFLIP)",
                         "price_decimals": 2
                     },
                     "3": {

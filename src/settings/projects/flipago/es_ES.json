@@ -136,6 +136,11 @@
                         "price_decimals": 2
                     },
                     "2": {
+                        "title": "Flip",
+                        "symbol": " (GOFLIP)",
+                        "price_decimals": 2
+                    },
+                    "3": {
                         "title": "RBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
