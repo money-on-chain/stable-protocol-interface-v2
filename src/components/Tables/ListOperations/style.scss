@@ -73,7 +73,8 @@
 
 .custom-table-light .ant-table-expanded-row > td,
 .custom-table-light .ant-table-expanded-row:hover > td {
-    background: #FFFFFF !important;
+    background: #fafafafa !important;
+    box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
 
 .currency-tx {
