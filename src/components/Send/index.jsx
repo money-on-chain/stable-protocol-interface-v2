@@ -186,6 +186,7 @@ export default function Send() {
                                 })
                             }
                             setAddTotalAvailable={setAddTotalAvailable}
+                            action={'SENDING'}
                         />
                         <div className="input-validation-error">{inputValidationErrorText}</div>
                     </div>

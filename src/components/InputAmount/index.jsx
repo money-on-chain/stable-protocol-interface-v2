@@ -16,7 +16,7 @@ export default class InputAmount extends Component {
         return (
             <div className="input-amount-container">
                 <div className="title-balance-container">
-                    <div className="input-title">{'Exchanging'}</div>
+                    <div className="input-title">{this.props.action}</div>
                     <span className="input-balance">
                         Balance:{' '}
                         {this.props.balance}

@@ -609,7 +609,7 @@ html {
     border: none;
     cursor: pointer;
     overflow: hidden;
-    font-family: 'Sora';
+    font-family: var(--brand-font);
     font-weight: 700;
     font-size: 18px;
 }
@@ -737,7 +737,7 @@ html {
     width: 115px;
     height: 29px;
 
-    font-family: 'Sora';
+    font-family: var(--brand-font);
     font-style: normal;
     font-weight: 400;
     font-size: 22px;
@@ -848,7 +848,7 @@ html {
 
     /* Card Contents/Card Title */
 
-    font-family: 'Sora';
+    font-family: var(--brand-font);
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
@@ -1153,7 +1153,7 @@ html {
 }
 
 h1.title-last-operations {
-    font-family: 'Sora';
+    font-family: var(--brand-font);
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -1166,7 +1166,7 @@ h1.title-last-operations {
 
 /* Modal Important Notice*/
 .ModalImportantNotice {
-    font-family: 'Sora';
+    font-family: var(--brand-font);
 
     .ant-modal-content {
         background: rgb(248, 248, 249);
@@ -1237,7 +1237,7 @@ h1.title-last-operations {
 /* Modal Confirm operation */
 
 .ModalConfirmOperation {
-    font-family: 'Sora';
+    font-family: var(--brand-font);
 
     .ant-modal-content {
         background: white;
@@ -1293,7 +1293,7 @@ h1.title-last-operations {
 }
 
 .confirm-operation {
-    font-family: 'Sora';
+    font-family: var(--brand-font);
 
     display: flex;
     flex-direction: column;
@@ -1972,25 +1972,25 @@ h1.title-last-operations {
 /* Exchange Component */
 
 .ant-select-dropdown {
-    background-color: #26272f;
-    color: #e6ebf2;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    color: #222;
+    color: #ffffff;
     /*font-weight: 600;*/
     /*background-color: #f1eb14;*/
-    background-color: rgba(255,243,131, 1);
+    background-color: rgb(0, 0, 0);
 }
 
 .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    color: #222;
+    color: #ffffff;
     /*background-color: #f1eb14;*/
-    background-color: rgba(255,243,131, 1);
+    background-color: rgb(0, 0, 0);
 }
 
 .ant-select-item-option {
-    color: #e6ebf2;
+    color: #000000;
 }
 
 /* Exchange Section */
@@ -2037,7 +2037,7 @@ h1.title-last-operations {
 }
 
 .exchange-content {
-    font-family: 'Chivo';
+    font-family: var(--brand-font);
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -2065,23 +2065,21 @@ h1.title-last-operations {
         }
 
         input[type='number'].input-value {
-            display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-items: center;
             padding: 11px 16px;
             gap: 8px;
-            width: 318px;
-            height: 51px;
-            background: #2d313a;
+            width: 250px;
+            height: 29px;
             border-radius: 4px;
             border: 0;
             font-style: normal;
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 29px;
-            text-align: right;
-            color: #FFF383;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25.2px;
+            text-align: left;
+            color: #000000;
         }
 
         input[type='number'].input-value::placeholder {
@@ -2743,7 +2741,7 @@ h1.title-last-operations {
 
 .exchange-send-content {
 
-    font-family: "Sora";
+    font-family: var(--brand-font);
     align-items: center;
     flex-direction: column;
     display: flex;

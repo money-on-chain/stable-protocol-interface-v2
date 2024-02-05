@@ -13,7 +13,10 @@ export default function NotificationTab(props) {
             <div className="notification-text">
                 {msg}
             </div>
-            <button className="notification-button" onClick={() => setIsOpen(!isOpen)}>
+            <button 
+            type="primary"
+            className="primary-button-roc btn-confirm"
+            onClick={() => setIsOpen(!isOpen)}>
                 Swap Now
             </button>
             <ModalImportantNotice 
