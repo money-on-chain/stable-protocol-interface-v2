@@ -5,12 +5,19 @@ import BigNumber from 'bignumber.js';
 
 import addressHelper from '../helpers/addressHelper';
 
-import { ApproveTokenContract, exchangeMethod, TokenContract } from '../helpers/exchange';
+import {
+    ApproveTokenContract,
+    exchangeMethod,
+    TokenContract } from '../helpers/exchange';
 
 import { readContracts } from '../lib/backend/contracts';
 import { contractStatus, userBalance } from '../lib/backend/multicall';
 import { decodeEvents } from '../lib/backend/transaction';
-import { AllowanceAmount, transferTokenTo } from '../lib/backend/moc-base';
+import {
+    AllowanceAmount,
+    transferTokenTo,
+    MigrateToken,
+    AllowUseTokenMigrator } from '../lib/backend/moc-base';
 
 import { getGasPrice } from '../lib/backend/utils';
 
@@ -52,7 +59,9 @@ const AuthenticateContext = createContext({
     interfaceDecodeEvents: async (receipt) => {},
     getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (address) => {},
-    getReserveAllowance: async (address) => {}
+    getReserveAllowance: async (address) => {},
+    interfaceAllowUseTokenMigrator: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -242,6 +251,16 @@ const AuthenticateProvider = ({ children }) => {
         );
     };
 
+    const interfaceAllowUseTokenMigrator = async (amount, onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return AllowUseTokenMigrator(interfaceContext, amount, onTransaction, onReceipt, onError);
+    };
+
+    const interfaceMigrateToken = async (onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return MigrateToken(interfaceContext, onTransaction, onReceipt, onError);
+    };
+
     const initContractsConnection = async () => {
         window.dContracts = await readContracts(web3);
         await loadContractsStatusAndUserBalance();
@@ -356,7 +375,9 @@ const AuthenticateProvider = ({ children }) => {
                 getSpendableBalance,
                 getReserveAllowance,
                 interfaceDecodeEvents,
-                loadContractsStatusAndUserBalance
+                loadContractsStatusAndUserBalance,
+                interfaceAllowUseTokenMigrator,
+                interfaceMigrateToken
             }}
         >
             {children}

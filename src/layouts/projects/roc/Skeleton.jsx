@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
+import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 
 import '../../../assets/css/global.scss';
 
@@ -25,6 +26,7 @@ export default function Skeleton() {
                 <div className="content-container">
                     {/* Content page*/}
                     <div className="content-page">
+                        <ModalTokenMigration />
                         <Outlet />
                     </div>
                 </div>

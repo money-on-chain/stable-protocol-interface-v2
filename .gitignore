@@ -2,7 +2,6 @@ node_modules
 .idea
 build
 public
-src/contracts
 .DS_Store
 src/assets/icons
 src/assets/css
