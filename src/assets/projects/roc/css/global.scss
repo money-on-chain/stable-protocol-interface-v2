@@ -48,7 +48,7 @@ html {
     width: 1184px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 32px;
+    padding-bottom: 32px;
 }
 
 .ant-layout-content {
@@ -3400,8 +3400,8 @@ h1.title-last-operations {
         .title {
             h1 {
                 opacity: 1;
-                color: rgba(195,204,217,1);
-                font-family: "Chivo";
+                color: rgb(0, 0, 0);
+                font-family: var(--brand-font);
                 font-size: 20px;
                 font-weight: 700;
                 font-style: normal;
