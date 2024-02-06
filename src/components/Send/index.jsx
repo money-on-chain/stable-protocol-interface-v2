@@ -210,7 +210,7 @@ export default function Send() {
 
                 <div className="exchanging">
 
-                    <span className={'token_exchange'}>Exchanging </span>
+                    <span className={'token_exchange'}>Sending </span>
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
                     {PrecisionNumbers({
