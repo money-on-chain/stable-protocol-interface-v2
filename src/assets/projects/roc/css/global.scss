@@ -2,8 +2,10 @@
 
 body,
 html {
+    // Variables
     --card-border-radius: 0px;
     --card-padding: 32px;
+
     --surface-color-0: #F5F5F5;
     --surface-color-1:rgba(255,255,255,0.7);
     --surface-shadow-1: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
@@ -18,13 +20,41 @@ html {
     --color-controls-foreground-on: #3B3B3B;
 
     --dividers: #CBD4DA;
+ 
+    --color-button-primary: #000000;
+    --color-button-secondary: #000000;
+    --color-button-text-primary: #000000;
+    --color-button-text-secondary: #000000;
 
+    // hover & active should be brand color
+    --color-button-hover: #000000;
+    --color-button-active: #000000;
+
+
+    // Main navigation colors
+    --color-navigation-background-default: transparent;
+    --color-navigation-text-default: #000000;
+    --color-navigation-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-navigation-background-hover: transparent;
+    --color-navigation-text-hover: #000000;
+    --color-navigation-icon-filter-hover: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-navigation-background-active: #000000;
+    --color-navigation-text-active: #ffffff; //over hover color
+    --color-navigation-icon-filter-active: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-navigation-background-disabled: transparent;
+    --color-navigation-text-disabled: #E0E0E0; //over hover color
+    --color-navigation-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+
+    // Text colors & fonts
     --color-text-primary: #000000;
     --color-text-secondary: #7F8A99;
     --brand-font: 'Sora', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 
-
+    // html css
     font-family: var(--main-font);
     background-color: (var--surface-color-0);
     background-image: url('./Oval.svg');
@@ -34,6 +64,7 @@ html {
 }
 
 html {
+    // Scrollbars customization
     scrollbar-gutter: stable both-edges;
     scrollbar-width: thin;
     scrollbar-color: var(--color-controls-foreground-on) transparent;
@@ -59,10 +90,9 @@ html {
 .ant-layout-header {
     height: 80px;
     padding: 0;
-    color: rgba(0, 0, 0, 0.85);
+    color: var(--color-text-primary);
+    background-color: var(--surface-color-0);
     line-height: 0;
-    background: #F5F5F5;
-    background-color: transparent;
     margin-top: 32px;
 }
 
@@ -124,17 +154,16 @@ html {
     width: 132px;
     height: 80px;
 
-    /* Surface/Surface at +1 */
-
-    background: #FFFFFF;
+    background-color: var(--surface-color-1);
 
     /* Inside auto layout */
-
+    // Menu text color
     flex: none;
     order: 0;
     flex-grow: 0;
-    color: #000;
+    color: var(--color-navigation-text-default);
     position: relative;
+
 }
 .menu-nav-item-more {
     /* Nav Item */
@@ -150,17 +179,16 @@ html {
     width: 60px;
     height: 80px;
 
-    /* Surface/Surface at +1 */
-
-    background: #FFFFFF;
+    background-color: var(--surface-color-1);
 
     /* Inside auto layout */
 
     flex: none;
     order: 0;
     flex-grow: 0;
-    color: #000;
+    color: var(--color-navigation-text-default);
     position: relative;
+
 }
 
 .menu-nav-item::after, .menu-nav-item-more::after {
@@ -175,50 +203,55 @@ html {
 }
 
 .menu-nav-item:hover::after, .menu-nav-item-more:hover::after {
-    background-color: black; /* Color de la línea al hacer hover */
+    background-color: var(--color-navigation-text-hover); /* Color de la línea al hacer hover */
 }
 
 
 .menu-nav-item:hover {
     //border-bottom: 3px solid #7F8A99;
-    color: black;
+    color: var(--color-navigation-text-hover);
     // filter: none;
 }
 .menu-nav-item-more:hover {
     // border-bottom: 3px solid #7F8A99;
-    color: #000000;
+    color: var(--color-navigation-text-hover);
     // filter: none;
 }
 .menu-nav-item-selected {
     //border-bottom: 3px solid #FFF !important;
-    color: #FFF !important;
-    background-color: #131215;
+    color: var(--color-navigation-text-active) !important;
+    background-color: var(--color-navigation-background-active);
     position: relative;
 }
 
 .menu-nav-item-selected::after {
+    // Line below active option
     content: '';
     position: absolute;
     bottom: 4px;
     left: 4px;
     right: 4px;
     height: 2px;
-    background-color: white;
+    background-color: var(--color-navigation-text-active);
 }
 
 .menu-nav-item:hover i.color-filter-invert {
     // filter: brightness(0) saturate(100%) invert(60%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
-
+    filter: var(--color-navigation-icon-filter-hover);
+    
 }
 .menu-nav-item-more:hover i.color-filter-invert {
     // filter: brightness(0) saturate(100%) invert(60%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
+    filter: var(--color-navigation-icon-filter-hover);
 }
 .color-filter-invert {
-    filter: brightness(0) saturate(100%) invert(10%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
+    // Navigation default color
+    // filter: brightness(0) saturate(100%) invert(10%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
+    filter: var(--color-hover-icon-filter);
 }
 
 .color-filter-disabled {
-    filter: none;
+    filter: var(--color-navigation-icon-filter-disabled);
 }
 
 .menu-nav-item-title {
@@ -226,7 +259,7 @@ html {
     height: 17px;
 
     /* Button Text */
-    font-family: 'Open Sans';
+    font-family: var(--main-font);
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -251,7 +284,7 @@ html {
     height: 20px;
 
     /* Button Text */
-    font-family: 'Open Sans';
+    font-family: var(--main-font);
     font-style: normal;
     font-weight: 700;
     font-size: 10px;
@@ -443,7 +476,7 @@ html {
 .logo-more {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/moreWhite.svg');
+    background-image: url('../icons/OverflowOutline.svg');
     background-size: 24px 24px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
@@ -890,7 +923,7 @@ html {
     height: 24px;
 
     font-family: var(--brand-font);
-    font-weight: 400;
+    font-weight: 600;
     font-size: 18px;
     text-align: right;
     color: var(--color-text-primary);
@@ -914,6 +947,8 @@ html {
     letter-spacing: 1.2px;
     text-align: right;
     text-transform: uppercase;
+    line-height: 16px;
+
     color: (var(--color-text-secondary));
 
     /* Inside auto layout */
