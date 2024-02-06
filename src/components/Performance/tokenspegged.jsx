@@ -87,6 +87,72 @@ export default function TokensPegged() {
             </div>
         )
     });
+    tokensData.push({
+        key: 2,
+        name: (
+            <div className="item-token">
+                <i className="icon-token-tp_0"></i>{' '}
+                <span className="token-description">
+                    {'RIF Dollar'}
+                </span>
+                <span className="token-symbol">
+                    {'USDRIF'}
+                </span>
+            </div>
+        ),
+        price: (
+            <div>
+                {'1.00'}
+            </div>
+        ),
+        variation:
+            <div>
+                {'33,434,330,20'}
+            </div>,
+        balance: (
+            <div>
+                {'33,434,330,20'}
+            </div>
+        ),
+        usd: (
+            <div className="item-usd">
+                {'4.00'}
+            </div>
+        )
+    });
+    tokensData.push({
+        key: 2,
+        name: (
+            <div className="item-token">
+                <i className="icon-token-tp_0"></i>{' '}
+                <span className="token-description">
+                    {'RIF Dollar'}
+                </span>
+                <span className="token-symbol">
+                    {'USDRIF'}
+                </span>
+            </div>
+        ),
+        price: (
+            <div>
+                {'1.00'}
+            </div>
+        ),
+        variation:
+            <div>
+                {'33,434,330,20'}
+            </div>,
+        balance: (
+            <div>
+                {'33,434,330,20'}
+            </div>
+        ),
+        usd: (
+            <div className="item-usd">
+                {'4.00'}
+            </div>
+        )
+    });
     const totalPeggedInUSD = () => {
 
         let totalUSD = new BigNumber(0);
