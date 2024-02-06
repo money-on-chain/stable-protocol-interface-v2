@@ -93,7 +93,7 @@ export default function Send() {
         if (destinationAddress === '') {
             setInputValidationAddressErrorText('Address field cannot be empty');
             addressInputError = true
-        } else if (!Web3.utils.isAddress(destinationAddress)) {
+        } else if (destinationAddress.length < 42) {
             setInputValidationAddressErrorText('Address is not valid');
             addressInputError = true
         }
