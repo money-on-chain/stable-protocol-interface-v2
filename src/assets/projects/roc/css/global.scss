@@ -2165,6 +2165,7 @@ h1.title-last-operations {
             width: 32px;
             height: 32px;
             margin-top: 40px;
+            margin-bottom: 40px;
         }
 
         .swap-to {
@@ -2216,7 +2217,7 @@ h1.title-last-operations {
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 17px;
-                color: #c3ccd9;
+                color: #000000;
             }
 
             .conversion_1 {
@@ -2226,7 +2227,7 @@ h1.title-last-operations {
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 17px;
-                color: #c3ccd9;
+                color: #000000;
             }
         }
 
@@ -2264,11 +2265,11 @@ h1.title-last-operations {
 
                 .radio-fee {
                     .ant-radio-wrapper {
-                        color: #C3CCD9;
+                        color: #000000;
                     }
 
                     .ant-radio-disabled + span {
-                        color: #C3CCD9;
+                        color: #515151;
                     }
                 }
 
@@ -2300,7 +2301,7 @@ h1.title-last-operations {
                 font-weight: 400;
                 font-size: 12px;
                 line-height: 14px;
-                color: #c3ccd9;
+                color: rgba(158, 158, 158, 1);
             }
         }
 
@@ -2453,7 +2454,7 @@ h1.title-last-operations {
         height: 19px;
 
         opacity: 1;
-        color: rgba(255,243,131,1);
+        color: rgb(0, 0, 0);
         font-family: "Chivo";
         font-size: 16px;
         font-weight: 700;
@@ -3624,3 +3625,10 @@ h1.title-last-operations {
     }
     
     
+    .ant-radio-checked .ant-radio-inner {
+        border-color: #000000;
+    }
+
+    .ant-radio-inner::after {
+        background-color: #000000;
+    }
