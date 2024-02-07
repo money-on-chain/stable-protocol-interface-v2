@@ -409,30 +409,7 @@ export default function ConfirmOperation(props) {
                         })}{' '}
                     </span>
                 </div>
-                <div className="limitSection">
-                    {IS_MINT && (
-                        <span className="limitWarning">
-                                Starting from
-                                <span>
-                                    {' '}
-                                    {PrecisionNumbers({
-                                        amount: new BigNumber(
-                                            amountYouExchange
-                                        ),
-                                        token: TokenSettings(
-                                            currencyYouExchange
-                                        ),
-                                        decimals: 4,
-                                        t: t,
-                                        i18n: i18n,
-                                        ns: ns,
-                                        skipContractConvert: true
-                                    })}{' '}
-                                </span>
-                                (see price variation tolerance)
-                            </span>
-                    )}
-                </div>
+                
 
                 <div className="swapArrow">
                     <i className="icon-arrow-down"></i>
