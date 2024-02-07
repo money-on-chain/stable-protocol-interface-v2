@@ -215,7 +215,7 @@ export default function Performance(props) {
             </Row>
 
             <Row gutter={24} className="row-section">
-                <Col span={12}>
+                <Col span={24}>
 
                     <TokensPegged />
 

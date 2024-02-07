@@ -1,5 +1,6 @@
 import { Button, Input } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -70,7 +71,8 @@ export default function Send() {
     };
 
     const onValidate = () => {
-
+        console.log('onValidate');
+        console.log(destinationAddress);
         let amountInputError = false
         let addressInputError = false
 
@@ -90,6 +92,9 @@ export default function Send() {
         // 2. Input address valid
         if (destinationAddress === '') {
             setInputValidationAddressErrorText('Address field cannot be empty');
+            addressInputError = true
+        } else if (destinationAddress.length < 42) {
+            setInputValidationAddressErrorText('Address is not valid');
             addressInputError = true
         }
 
@@ -168,30 +173,22 @@ export default function Send() {
                             onValueChange={onChangeAmountYouExchange}
                             validateError={false}
                             isDirty={isDirtyYouExchange}
+                            balance={
+                                PrecisionNumbers({
+                                    amount: TokenBalance(auth, currencyYouExchange),
+                                    token: TokenSettings(currencyYouExchange),
+                                    decimals:
+                                    TokenSettings(currencyYouExchange)
+                                        .visibleDecimals,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })
+                            }
+                            setAddTotalAvailable={setAddTotalAvailable}
+                            action={'SENDING'}
                         />
                         <div className="input-validation-error">{inputValidationErrorText}</div>
-
-                        <div className="token-balance">
-                        <span className="token-balance-value">
-                            Balance:{' '}
-                            {PrecisionNumbers({
-                                amount: TokenBalance(auth, currencyYouExchange),
-                                token: TokenSettings(currencyYouExchange),
-                                decimals:
-                                TokenSettings(currencyYouExchange)
-                                    .visibleDecimals,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns
-                            })}
-                        </span>
-                            <a
-                                className="token-balance-add-total"
-                                onClick={setAddTotalAvailable}
-                            >
-                                Add total available
-                            </a>
-                        </div>
                     </div>
 
                     <div className="swap-arrow">
@@ -213,7 +210,7 @@ export default function Send() {
 
                 <div className="exchanging">
 
-                    <span className={'token_exchange'}>Exchanging </span>
+                    <span className={'token_exchange'}>Sending </span>
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
                     {PrecisionNumbers({

@@ -9,7 +9,7 @@ export default function StakingRewards() {
         <div className="dashboard-staking-info">
             {/* Staked */}
             <div className="item-staking first-item">
-                <div className="logo-staking">
+                <div className="logo-staking-panel">
                     <div className="icon-staked"></div>
                 </div>
                 <div className="resume-staking">
@@ -20,7 +20,7 @@ export default function StakingRewards() {
 
             {/* Performance */}
             <div className="item-staking second-item">
-                <div className="logo-staking">
+                <div className="logo-staking-panel">
                     <div className="icon-gauge"></div>
                 </div>
                 <div className="resume-staking">
@@ -33,7 +33,7 @@ export default function StakingRewards() {
 
             {/* Rewarded today */}
             <div className="item-staking second-item">
-                <div className="logo-staking">
+                <div className="logo-staking-panel">
                     <div className="icon-calendar"></div>
                 </div>
                 <div className="resume-staking">
@@ -46,7 +46,7 @@ export default function StakingRewards() {
 
             {/* Ready to claim */}
             <div className="item-staking second-item">
-                <div className="logo-staking">
+                <div className="logo-staking-panel">
                     <div className="icon-calendar-check"></div>
                 </div>
                 <div className="resume-staking">

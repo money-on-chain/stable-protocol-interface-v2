@@ -24,10 +24,17 @@
 }
 
 .custom-table .ant-table-tbody > tr:nth-child(n+2) > td {
-    border-bottom: 2px solid #2e3238 !important;
+    // border-bottom: 2px solid #2e3238 !important;
+    background-color: rgb(33, 33, 40);
+}
+.custom-table-light .ant-table-tbody > tr:nth-child(n+2) > td {
+    background-color: rgb(255, 255, 255);
 }
 .ant-empty-description{
     color: white;
+}
+.custom-table-light .ant-empty-description {
+    color: black;
 }
 .ant-table-placeholder{
     :hover{
@@ -59,8 +66,15 @@
     padding: 1rem !important;
 }
 
-.ant-table-expanded-row > td, .ant-table-expanded-row:hover > td {
+.custom-table .ant-table-expanded-row > td,
+.custom-table .ant-table-expanded-row:hover > td {
     background: #2E2B2E !important;
+}
+
+.custom-table-light .ant-table-expanded-row > td,
+.custom-table-light .ant-table-expanded-row:hover > td {
+    background: #fafafafa !important;
+    box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
 
 .currency-tx {
@@ -70,14 +84,22 @@
     }
 }
 
-.ant-pagination-item {
+.custom-table .ant-pagination-item {
     background-color: transparent;
     color: white;
+    border: none;
+}
+.custom-table-light .ant-pagination-item {
+    background-color: transparent;
+    color: rgb(0, 0, 0);
     border: none;
 }
 
 .ant-pagination-item a {
     color: #CBD4DA;
+}
+.custom-table-light .ant-pagination-item a {
+    color: #000000;
 }
 
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link{
@@ -85,9 +107,17 @@
     color: white;
     border: none;
 }
+.custom-table-light .ant-pagination-prev .ant-pagination-item-link, .custom-table-light .ant-pagination-next .ant-pagination-item-link{
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+}
 
 .ant-pagination-item-active a{
     color: white;
+}
+.custom-table-light .ant-pagination-item-active a{
+    color: rgb(0, 0, 0);
 }
 
 .ant-pagination-item-active{
@@ -95,6 +125,12 @@
     color: white;
     border: none;
 }
+.custom-table-light .ant-pagination-item-active{
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+}
+
 .table-expanded-row{
     padding-left: 2rem;
     font-weight: 100;
@@ -193,7 +229,7 @@
 }
 
 .custom-border-spacing-table .ant-table table {
-    border-spacing: 0 10px;
+    border-spacing: 0 4px;
 }
   
 .ant-descriptions-item-content{
@@ -226,6 +262,7 @@
 .color-confirming {
     color: #1890ff;
 }
+
 
 .ant-table-thead
     > tr

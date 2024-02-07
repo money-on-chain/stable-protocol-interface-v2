@@ -17,6 +17,7 @@ html {
     width: 1184px;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 32px;
 }
 
 .ant-layout-content {
@@ -122,6 +123,36 @@ html {
     flex-grow: 0;
     color: #7f8a99;
 }
+.menu-nav-item-more {
+    /* Nav Item */
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 15px;
+    gap: 4px;
+
+    width: 60px;
+    height: 80px;
+
+    /* Surface/Surface at +1 */
+
+    background: linear-gradient(
+            0deg,
+            rgba(189, 207, 255, 0.05),
+            rgba(189, 207, 255, 0.05)
+        ),
+        #131215;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    color: #7f8a99;
+}
 
 .menu-nav-item:hover {
     border-bottom: 3px solid rgba(255,243,131, 1);
@@ -137,6 +168,14 @@ html {
 .menu-nav-item:hover i.color-filter-invert {
     filter: none !important;
 }
+.menu-nav-item-more:hover i.color-filter-invert {
+    filter: none !important;
+}
+.menu-nav-item-more:hover {
+    border-bottom: 3px solid rgba(255,243,131, 1);
+    color: rgba(255,243,131, 1);
+    filter: none;
+}
 
 .color-filter-invert {
     filter: brightness(0) saturate(100%) invert(61%) sepia(8%) saturate(680%) hue-rotate(175deg) brightness(88%) contrast(87%);
@@ -147,7 +186,7 @@ html {
 }
 
 .menu-nav-item-title {
-    width: 97px;
+    width: 110px;
     height: 17px;
 
     /* Button Text */
@@ -172,12 +211,72 @@ html {
     flex-grow: 0;
 }
 
-.logo-home {
+.menu-nav-item-title-more {
+    width: 40px;
+    height: 20px;
+
+    /* Button Text */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: normal;
+    /* identical to box height */
+
+    text-align: center;
+
+    /* Text/Text Secondary */
+
+    /*color: #7f8a99;*/
+    color: inherit;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    padding-top: 8px;
+}
+
+/*Dropdown menu section*/
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 290px;
+    top: 82px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+/*Dropdown menu section*/
+
+.logo-portfolio {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/house2.svg');
+    background-image: url('../icons/PortfolioOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-portfolio-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/PortfolioFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -185,9 +284,19 @@ html {
 .logo-send {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/PaperPlaneTilt2.svg');
+    background-image: url('../icons/SendOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-send-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/SendFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -195,9 +304,19 @@ html {
 .logo-exchange {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/ArrowsLeftRight2.svg');
+    background-image: url('../icons/ExchangeOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-exchange-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/ExchangeFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
@@ -205,27 +324,88 @@ html {
 .logo-performance {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Gauge2.svg');
+    background-image: url('../icons/PerformanceOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
-.logo-i-staking {
+.logo-performance-selected {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/staking.svg');
+    background-image: url('../icons/PerformanceFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
+.logo-staking {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/StakeOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-staking-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/StakeFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
+    /*margin-left: 32px;
+    margin-top: 19px;*/
+}
+
+.logo-liquidity-mining {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/LiquidityMiningOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-liquidity-mining-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/LiquidityMiningFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+
+.logo-vesting {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/VestingOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    /*margin-left: 32px;
+  margin-top: 19px;*/
+}
+.logo-vesting-selected {
+    width: 32px;
+    height: 32px;
+    background-image: url('../icons/VestingFilled.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: invert(92%) sepia(24%) saturate(825%) hue-rotate(344deg) brightness(103%) contrast(104%);
     /*margin-left: 32px;
   margin-top: 19px;*/
 }
 
 .logo-more {
-    width: 32px;
-    height: 32px;
-    background-image: url('../icons/More.svg');
-    background-size: 32px 32px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../icons/moreYellow.svg');
+    background-size: 24px 24px;
     background-repeat: no-repeat;
     /*margin-left: 32px;
   margin-top: 19px;*/
@@ -347,7 +527,7 @@ html {
 
 .wallet-address a {
     /*color: #f1eb14;*/
-    color: rgba(255,243,131, 1);
+    color: #fff383;
 }
 
 .logo-wallet {
@@ -413,7 +593,7 @@ html {
     flex-grow: 0;
 }
 
-.logo-staking {
+.logo-staking-panel {
     /* Auto layout */
 
     display: flex;
@@ -428,7 +608,7 @@ html {
 
     /* Backgrounds/Background Level 3 */
 
-    background: #1f2125;
+    // background: #1f2125;
     border-radius: 4px;
 
     /* Inside auto layout */
@@ -436,12 +616,13 @@ html {
     flex: none;
     order: 0;
     flex-grow: 0;
+    background-color: #BBBED81A;
 }
 
 .icon-staked {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/ChartBar.svg');
+    background-image: url('../icons/stakingGray.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     /*margin-left: 8px;
@@ -451,7 +632,7 @@ html {
 .icon-gauge {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Gauge.svg');
+    background-image: url('../icons/PerformanceOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -619,8 +800,7 @@ html {
     /* Card Contents/Card Title */
 
     font-family: 'Chivo';
-    font-style: italic;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 20px;
     line-height: 24px;
     /* identical to box height */
@@ -653,6 +833,7 @@ html {
     flex: none;
     order: 1;
     flex-grow: 0;
+    margin-top: 30px;
 }
 
 .tokens-list-header-balance-number {
@@ -709,6 +890,7 @@ html {
     flex: none;
     order: 1;
     flex-grow: 0;
+    margin-top: 30px;
 }
 
 /* Table tokens */
@@ -719,8 +901,7 @@ html {
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
-    padding: 16px 0 !important;
-
+    padding: 3px 8px !important;
     /* Text/Text Secondary */
 
     color: #7f8a99;
@@ -730,6 +911,7 @@ html {
             rgba(189, 207, 255, 0.05)
         ),
         #131215;
+    border-bottom: 1px solid #CBD4DA;
 }
 
 .ant-table {
@@ -761,10 +943,6 @@ html {
     box-shadow: none;
 }
 
-.ant-table-thead > tr > th {
-    border-bottom: 1px solid #2e3238;
-}
-
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
     background: #2e2c2e;
@@ -792,7 +970,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
+    padding-left: 8px;
     gap: 8px;
 
     width: 216px;
@@ -804,7 +982,15 @@ html {
     order: 0;
     flex-grow: 0;
 }
-
+.token-description {
+    cursor :default;
+}
+.token-symbol{
+    cursor :default;
+}
+.item-usd {
+    padding-right: 8px;
+}
 .icon-token-coinbase {
     width: 24px;
     height: 24px;
@@ -869,6 +1055,7 @@ html {
     background-repeat: no-repeat;
 }
 
+
 .icon-status-success {
     width: 16px;
     height: 16px;
@@ -876,7 +1063,35 @@ html {
     background-size: 16px 16px;
     background-repeat: no-repeat;
 }
+.token-symbol {
+    color: #7F8A99;
+    font-family: Chivo;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
 
+.variation-indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+
+.positive-indicator {
+    background-color: #2CBF12;
+}
+
+.negative-indicator {
+    background-color: #E54A49;
+}
+
+.neutral-indicator {
+    background-color: #B5B5B5;
+}
 
 /* Last operations */
 
