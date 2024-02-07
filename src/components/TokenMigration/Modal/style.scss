@@ -1,40 +1,26 @@
 .NotificationMigration {
   padding: 20px;
-  background-color: #4B5CF0;
-  color: white;
-  border-radius: 10px;
-
+  margin-bottom: 24px;
+  
+  background-color: var(--surface-color-1);
+  box-shadow: var(--surface-shadow-1);
+  color: var(--color-text-primary);
+  justify-content: space-between;
+  
   display: flex;
   align-items: center;
 
   width: 100%;
-
-  .Important {
-    max-width: 180px;
-    font-size: 22px;
-    font-weight: 700;
-  }
+  height: 86px;
 
   .Information {
-    margin-left: 15px;
-    margin-right: 15px;
-    font-size: 13px;
+    font-family: var(--main-font);
+    font-size: 14px;
+    width: 860px;
+    font-weight: 700;
   }
-
-  .Action {
-    max-width: 100px;
-
-    .btnSwap {
-      color: #4982ff;
-      background-color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .ant-btn {
-      border: solid 1px #4982ff;
-      border-radius: 65px;
-    }
-
-  }
+}
+.swapNow {
+  font-weight: bold;
+  text-decoration: underline;
 }

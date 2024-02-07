@@ -1,14 +1,19 @@
 .Content {
-  color: #2e2c2e;
-
+  color: var(--color-text-primary);
   .Title {
     font-size: 16px;
-    font-weight: 600;
-    text-align: center;
+    font-weight: 700;
+    text-align: left;
+    font-family: var(--brand-font);
   }
 
   .Body {
     margin-top: 20px;
+
+    font-family: var(--main-font);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
 
     .Center {text-align: center}
 
@@ -156,8 +161,8 @@
     margin-right: auto;
     margin-top: 30px;
 
-    .ConfirmBtn {
-      margin-left: 30px;
+    .btn-confirm {
+      margin-left: 16px;
     }
 
   }
