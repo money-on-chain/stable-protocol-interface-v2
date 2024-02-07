@@ -79,14 +79,15 @@ const SwapToken = (props) => {
         // First change status to sign tx
 
         setStatus('ALLOWANCE-SIGN')
-        const maxAllowanceAmount = new BigNumber('2').pow(256).minus(1);
-        const allowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"));
-        const oldAllowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.allowance, "ether"));
+
+        const allowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"))
+        const oldAllowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.allowance, "ether"))
+
         if (oldAllowanceAmount.gte(allowanceAmount)) {
             onTokenMigration();
         } else {
             auth.interfaceAllowUseTokenMigrator(
-                maxAllowanceAmount,
+                allowanceAmount,
                 onTransactionAuthorize,
                 onReceiptAuthorize,
                 onErrorAuthorize).then((value => {
