@@ -536,28 +536,6 @@ export default function ConfirmOperation(props) {
             <div className="separator"></div>
 
             <div className="fees">
-                <div className={'execution-fee'}>
-                    <span className={'token_exchange'}>Execution fee</span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
-                                {PrecisionNumbers({
-                                    amount: executionFee,
-                                    token: TokenSettings('COINBASE'),
-                                    decimals: 6,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                            </span>
-                    <span className={'token_receive_name'}>
-                                {' '}
-                        {t(`exchange.tokens.COINBASE.abbr`, {
-                            ns: ns
-                        })}{' '}
-                            </span>
-
-                </div>
                 <div className="value">
                     <span className={'token_exchange'}>
                         Fee (
@@ -617,6 +595,9 @@ export default function ConfirmOperation(props) {
                                 key="1"
                             >
                                 <div className="PriceVariationContainer">
+                                    <div className="warningSlider">
+                                    Price Variation Tolerance
+                                    </div>
                                     <Slider
                                         className="SliderControl"
                                         marks={priceVariationToleranceMarks}
@@ -627,10 +608,7 @@ export default function ConfirmOperation(props) {
                                         dots={false}
                                         onChange={(val) => changeTolerance(val)}
                                     />
-                                    <div className="warningSlider">
-                                        After the transaction, the unused amount
-                                        will be returned.
-                                    </div>
+                                    
                                 </div>
                             </Panel>
                         </Collapse>
@@ -658,12 +636,12 @@ export default function ConfirmOperation(props) {
                     </div>
 
                     <div className="actions-buttons">
-                        <Button type="secondary" className="secondary-button-fixed btn-clear" onClick={onClose}>
+                        <Button type="secondary" className="secondary-button-fixed-roc btn-clear" onClick={onClose}>
                             Cancel
                         </Button>
                         <button
                             type="primary"
-                            className="primary-button-fixed btn-confirm"
+                            className="primary-button-roc btn-confirm"
                             onClick={onSendTransactionAllowFeeToken}
                         >
                             Confirm

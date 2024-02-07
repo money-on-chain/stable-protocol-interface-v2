@@ -41,7 +41,7 @@
   height: 17px;
   width: 39px;
   background-color: transparent; /* Ajusta según sea necesario */
-  border: 1px solid var(--color-button-secondary);
+  border: 1px solid var(--color-button-secondary-text-default);
   border-radius: 4px;
   cursor: pointer;
   margin-left: 15px;
@@ -52,7 +52,7 @@
   line-height: 13px;
   letter-spacing: 0px;
   text-align: center;
-  color: var(--color-button-text-secondary);
+  color: var(--color-button-secondary-text-default);
 }
 
 .input-balance {
