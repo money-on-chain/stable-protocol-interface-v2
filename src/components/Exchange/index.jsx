@@ -94,7 +94,17 @@ export default function Exchange() {
         //onChangeAmountYouReceive(0.0);
         //onChangeAmountYouExchange(0.0);
     };
+    const handleSwapCurrencies = () => {
+        // Intercambia las monedas
+        const tempCurrency = currencyYouExchange;
+        setCurrencyYouExchange(currencyYouReceive);
+        setCurrencyYouReceive(tempCurrency);
+    
+        const tempAmount = amountYouExchange;
+        setAmountYouExchange(amountYouReceive);
+        setAmountYouReceive(tempAmount);
 
+    };
     const onClear = () => {
         setIsDirtyYouExchange(false);
         setIsDirtyYouReceive(false);
@@ -400,7 +410,7 @@ export default function Exchange() {
                     <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
 
-                <div className="swap-arrow">
+                <div className="swap-arrow" onClick={handleSwapCurrencies}>
                     <i className="icon-swap"></i>
                 </div>
 
