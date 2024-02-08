@@ -5,24 +5,36 @@ html {
     // Variables
     --card-border-radius: 0px;
     --card-padding: 32px;
+    --modals-padding: 16px 16px 16px 16px;
+    --modals-border-radius: 0px;
 
     --surface-color-0: #F5F5F5;
     --surface-color-1:rgba(255,255,255,0.7);
     --surface-shadow-1: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
     --surface-color-2:rgba(255,255,255,0.8);
     --surface-shadow-2: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
-    --surface-color-3:#f5f5f5;
+    --surface-color-3:#ffffff;
     --surface-shadow-3: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
+    --surface-color-inset: #fafafafa;
+    --surface-shadow-inset: inset 0px 2px 4px 0px rgba(0,0,0,0.1);
 
+
+    // Token icons
     --icon-token-size: 32px;
 
+    // Dashboard icons background color
+    --icon-background-color: #BBBED81A;
+
+    // UI controls
+
     --color-controls-background: #F2F2F2;
-    --color-controls-disabled: #D7D7D7;
+    --color-controls-foreground-disabled: #D7D7D7;
     --color-controls-foreground-off: #8C8C89;
     --color-controls-foreground-on: #3B3B3B;
 
     --dividers: #CBD4DA;
  
+
     // Buttons - common
 
     --button-radius: 28px;
@@ -64,12 +76,16 @@ html {
 
     --color-button-secondary-background-default-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
 
+
     // Semantic
+
     --color-semantic-negative:#E54A49;
     --color-semantic-neutral: #B5B5B5;
     --color-semantic-positive: #2CBF12;
 
+
     // Main navigation colors
+
     --color-navigation-background-default: transparent;
     --color-navigation-text-default: #000000;
     --color-navigation-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
@@ -90,7 +106,8 @@ html {
     --color-text-primary: #000000;
     --color-text-secondary: #7F8A99;
     --color-text-highlight: #4B5CF0;
-    --color-text-highlight: #4B5CF0;
+    --color-text-link: #4B5CF0;
+    --color-icon-link-filter: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
     --brand-font: 'Sora', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 
