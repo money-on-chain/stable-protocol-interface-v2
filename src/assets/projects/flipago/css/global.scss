@@ -172,6 +172,12 @@ html {
     flex-grow: 0;
 }
 
+.disable-nav-item {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
 .logo-home {
     width: 32px;
     height: 32px;

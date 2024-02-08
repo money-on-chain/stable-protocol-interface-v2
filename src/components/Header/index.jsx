@@ -11,16 +11,29 @@ const { Header } = Layout;
 export default function SectionHeader() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [disableSections, setDisableSections] = useState(true);
 
     const navigate = useNavigate();
     const location = useLocation();
 
+    useEffect(() => {
+        if (auth.isLoggedIn &&
+            auth.contractStatusData &&
+            auth.userBalanceData) {
+                setDisableSections(false);
+        }
+    }, [auth]);
+
+    let css_disable = 'disable-nav-item';
+    if (!disableSections) {css_disable=''}
+
     const cssSelector = {
-        'home': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'exchange': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'send': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'performance': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
-        'staking': {'text': 'menu-nav-item', 'icon': 'color-filter-invert'},
+
+        'home': {'text': `menu-nav-item ${css_disable}`, 'icon': 'color-filter-invert'},
+        'exchange': {'text': `menu-nav-item ${css_disable}`, 'icon': 'color-filter-invert'},
+        'send': {'text': `menu-nav-item ${css_disable}`, 'icon': 'color-filter-invert'},
+        'performance': {'text': `menu-nav-item ${css_disable}`, 'icon': 'color-filter-invert'},
+        'staking': {'text': `menu-nav-item ${css_disable}`, 'icon': 'color-filter-invert'},
     }
 
     switch (location.pathname) {
