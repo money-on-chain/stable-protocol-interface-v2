@@ -7,39 +7,7 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import settings from '../../../settings/settings.json';
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        align: 'left',
-        width: 380
-    },
-    {
-        title: 'Tokens per USD',
-        dataIndex: 'price',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Variation 24hs',
-        dataIndex: 'variation',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Balance',
-        dataIndex: 'balance',
-        align: 'right',
-        width: 190
-    },
-    {
-        title: 'USD',
-        dataIndex: 'usd',
-        align: 'right'
-        /*width: 190,*/
-    }
-];
+import { ProvideColumnsTP } from '../../../helpers/tokensTables';
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -49,7 +17,7 @@ export default function Tokens(props) {
     const columnsData = [];
 
     // Columns
-    columns.forEach(function (dataItem) {
+    ProvideColumnsTP().forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.TP.columns.${dataItem.dataIndex}`, {
                 ns: ns
@@ -96,6 +64,15 @@ export default function Tokens(props) {
                 BigNumber.ROUND_UP,
                 { decimalSeparator: '.', groupSeparator: ',' }
             );
+            const getSign = () => {
+                if (priceDelta.isZero()) {
+                    return '';
+                }
+                if (priceDelta.isPositive()) {
+                    return '+';
+                }
+                return '-';
+            };
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: '.',
                 groupSeparator: ','
@@ -111,6 +88,11 @@ export default function Tokens(props) {
                                 ns: ns
                             })}
                         </span>
+                        <span className="token-symbol">
+                        {t(`portfolio.tokens.TP.rows.${dataItem.key}.symbol`, {
+                            ns: ns
+                        })}
+                    </span>
                     </div>
                 ),
                 price: (
@@ -126,7 +108,16 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
-                variation: `${signPriceDelta}${priceDeltaFormat} (${variationFormat} %)`,
+                variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
                 balance: (
                     <div>
                         {PrecisionNumbers({
@@ -141,7 +132,7 @@ export default function Tokens(props) {
                     </div>
                 ),
                 usd: (
-                    <div>
+                    <div className="item-usd">
                         {PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.TP[dataItem.key],

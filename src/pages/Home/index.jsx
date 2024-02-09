@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useContext } from 'react';
+import { Row, Alert } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ListOperations from '../../components/Tables/ListOperations';
@@ -12,13 +13,12 @@ import Portfolio from '../../components/Dashboards/Portfolio';
 function Home(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
     return (
         <Fragment>
 
-            {/* Dashboard Staking Rewards */}
+            {/* Dashboard Staking Rewards  
+            TODO to hide while developing the backend information*/}
             <StakingRewards />
-
             {/* Portfolio */}
             <Portfolio />
 

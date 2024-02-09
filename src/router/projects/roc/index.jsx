@@ -15,6 +15,8 @@ const Exchange = React.lazy(() => import('../../../pages/Exchange/index'));
 const Send = React.lazy(() => import('../../../pages/Send/index'));
 const Performance = React.lazy(() => import('../../../pages/Performance/index'));
 const Staking = React.lazy(() => import('../../../pages/Staking/index'));
+const LiquidityMining = React.lazy(() => import('../../../pages/LiquidityMining/index'));
+const Vesting = React.lazy(() => import('../../../pages/Vesting/index'));
 
 export default function Router() {
     return useRoutes([
@@ -41,6 +43,14 @@ export default function Router() {
                 {
                     path: 'staking',
                     element: <Staking />
+                },
+                {
+                    path: 'liquidity-mining',
+                    element: <LiquidityMining />
+                },
+                {
+                    path: 'vesting',
+                    element: <Vesting />
                 },
                 { path: '404', element: <NotFound /> },
                 { path: '*', element: <Navigate to="/404" /> }

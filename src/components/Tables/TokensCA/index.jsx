@@ -7,39 +7,7 @@ import settings from '../../../settings/settings.json';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        align: 'left',
-        width: 380
-    },
-    {
-        title: 'Price in USD',
-        dataIndex: 'price',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Variation 24hs',
-        dataIndex: 'variation',
-        align: 'right',
-        width: 200
-    },
-    {
-        title: 'Balance',
-        dataIndex: 'balance',
-        align: 'right',
-        width: 190
-    },
-    {
-        title: 'USD',
-        dataIndex: 'usd',
-        align: 'right'
-        /*width: 190,*/
-    }
-];
+import { ProvideColumnsCA } from '../../../helpers/tokensTables';
 
 
 export default function Tokens(props) {
@@ -50,7 +18,7 @@ export default function Tokens(props) {
     const columnsData = [];
 
     // Columns
-    columns.forEach(function (dataItem) {
+    ProvideColumnsCA().forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.CA.columns.${dataItem.dataIndex}`, {
                 ns: ns
@@ -66,7 +34,7 @@ export default function Tokens(props) {
     let balance;
     let price;
     let balanceUSD;
-
+    // let balanceRIF;
     // Iterate Tokens CA
     let count = 0;
     auth.contractStatusData &&
@@ -86,6 +54,9 @@ export default function Tokens(props) {
             );
             balanceUSD = balance.times(price);
 
+            //TODO fetch the correct value when defined if include or not
+            //balanceRIF = balanceUSD * 0.1;
+
             // variation
             const priceHistory = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -100,6 +71,15 @@ export default function Tokens(props) {
                 decimalSeparator: '.',
                 groupSeparator: ','
             });
+            const getSign = () => {
+                if (priceDelta.isZero()) {
+                    return '';
+                }
+                if (priceDelta.isPositive()) {
+                    return '+';
+                }
+                return '-';
+            };
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: '.',
                 groupSeparator: ','
@@ -112,6 +92,11 @@ export default function Tokens(props) {
                         <i className={`icon-token-ca_${dataItem.key}`}></i>{' '}
                         <span className="token-description">
                             {t(`portfolio.tokens.CA.rows.${dataItem.key}.title`, {
+                                ns: ns
+                            })}
+                        </span>
+                        <span className="token-symbol">
+                            {t(`portfolio.tokens.CA.rows.${dataItem.key}.symbol`, {
                                 ns: ns
                             })}
                         </span>
@@ -129,7 +114,16 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
-                variation: `${priceDeltaFormat} (${variationFormat} %)`,
+                variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
                 balance: (
                     <div>
                         {PrecisionNumbers({
@@ -143,8 +137,20 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
+                // rif : (
+                //     <div>
+                //         {PrecisionNumbers({
+                //             amount: balanceRIF,
+                //             token: settings.tokens.CA[dataItem.key],
+                //             decimals: 6,
+                //             t: t,
+                //             i18n: i18n,
+                //             ns: ns
+                //         })}
+                //     </div>
+                // ),
                 usd: (
-                    <div>
+                    <div className="item-usd">
                         {PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.CA[dataItem.key],
@@ -199,6 +205,15 @@ export default function Tokens(props) {
             decimalSeparator: '.',
             groupSeparator: ','
         });
+        const getSign = () => {
+            if (priceDelta.isZero()) {
+                return '';
+            }
+            if (priceDelta.isPositive()) {
+                return '+';
+            }
+            return '-';
+        };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -211,6 +226,11 @@ export default function Tokens(props) {
                     <i className="icon-token-tc"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
@@ -229,7 +249,16 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -243,7 +272,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TC,
@@ -302,6 +331,11 @@ export default function Tokens(props) {
                             ns: ns
                         })}
                     </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
+                            ns: ns
+                        })}
+                    </span>
                 </div>
             ),
             price: (
@@ -317,7 +351,11 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: '--',
+            variation:
+                    <div>
+                        {'0,00 %'}
+                        <span className={'variation-indicator neutral-indicator'}></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -331,7 +369,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TP[0],
@@ -380,6 +418,15 @@ export default function Tokens(props) {
             decimalSeparator: '.',
             groupSeparator: ','
         });
+        const getSign = () => {
+            if (priceDelta.isZero()) {
+                return '';
+            }
+            if (priceDelta.isPositive()) {
+                return '+';
+            }
+            return '-';
+        };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -392,6 +439,11 @@ export default function Tokens(props) {
                     <i className="icon-token-tf"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
@@ -409,7 +461,16 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -423,7 +484,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TF,
@@ -471,6 +532,15 @@ export default function Tokens(props) {
             decimalSeparator: '.',
             groupSeparator: ','
         });
+        const getSign = () => {
+            if (priceDelta.isZero()) {
+                return '';
+            }
+            if (priceDelta.isPositive()) {
+                return '+';
+            }
+            return '-';
+        };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -483,6 +553,11 @@ export default function Tokens(props) {
                     <i className="icon-token-coinbase"></i>{' '}
                     <span className="token-description">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
+                            ns: ns
+                        })}
+                    </span>
+                    <span className="token-symbol">
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
                     </span>
@@ -500,7 +575,16 @@ export default function Tokens(props) {
                     })}
                 </div>
             ),
-            variation: `${priceDeltaFormat} (${variationFormat} %)`,
+            variation:
+                    <div>
+                        {`${getSign()} ${variationFormat} %`}
+                        <span className={
+                            `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
+                                getSign() === '-' ? 'negative-indicator' :
+                                    'neutral-indicator'
+                            }`
+                        }></span>
+                    </div>,
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -514,7 +598,7 @@ export default function Tokens(props) {
                 </div>
             ),
             usd: (
-                <div>
+                <div className="item-usd">
                     {PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.COINBASE,

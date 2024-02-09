@@ -5,6 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 
 import './index.css';
+import './assets/css/customization.scss';
 import './assets/css/global.scss';
 import './assets/css/components.scss';
 

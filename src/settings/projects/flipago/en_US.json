@@ -71,19 +71,23 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar on Chain (DOC)",
+                        "title": "Dollar on Chain",
+                        "symbol": " (DOC)",
                         "price_decimals": 2
                     },
                     "1": {
                         "title": "Go Turbo",
+                        "symbol": " (TURBO)",
                         "price_decimals": 2
                     },
                     "2": {
                         "title": "Flip",
+                        "symbol": " (GOFLIP)",
                         "price_decimals": 2
                     },
                     "3": {
                         "title": "RBTC",
+                        "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
                 }
@@ -98,11 +102,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
+                        "title": "GoARS",
+                        "symbol": " (GOARS)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
+                        "title": "GoMXN",
+                        "symbol": " (GOMXN)",
                         "price_decimals": 2
                     }
                 }

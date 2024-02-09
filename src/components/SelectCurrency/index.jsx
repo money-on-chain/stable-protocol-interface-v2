@@ -16,7 +16,8 @@ export default function SelectCurrency(props) {
     const options = getCurrenciesDetail().map((it) => ({
         value: it.value,
         image: it.image,
-        label: t(`exchange.tokens.${it.value}.label`, { ns: ns })
+        label: t(`exchange.tokens.${it.value}.label`, { ns: ns }),
+        abbr : t(`exchange.tokens.${it.value}.abbr`, { ns: ns })
     }));
     const option = options.find((it) => it.value === value);
     const optionsFiltered = options.filter((it) =>
@@ -41,6 +42,7 @@ export default function SelectCurrency(props) {
                             {possibleOption.image}
                             {possibleOption.label}
                         </div>
+                        <div className="currencyOption-abbr">{`(${possibleOption.abbr})`}</div>
                     </Option>
                 ))}
             </Select>
