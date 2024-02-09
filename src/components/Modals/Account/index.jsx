@@ -25,11 +25,13 @@ export default function ModalAccount(props) {
             <Modal
                 title="Connected wallet"
                 width={505}
-                visible={visible}
+                open={visible}
                 onCancel={hideModal}
                 footer={null}
                 closable={false}
                 className="ModalAccount"
+                centered={true}
+                maskStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(5px)' }}
             >
                 <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
             </Modal>
