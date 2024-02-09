@@ -38,7 +38,7 @@ export default function Performance(props) {
                             <div className="coll-2">
 
                                 <div className="stat-icon"> <i className="icon-status-success display-block"></i> Fully Operational</div>
-                                <div className="block-info">Showing block {auth.contractStatusData ? auth.contractStatusData.blockHeight : '--'}</div>
+                                <div className="block-info">Showing block {auth.contractStatusData ? BigInt(auth.contractStatusData.blockHeight).toString() : '--'}</div>
 
                             </div>
 
