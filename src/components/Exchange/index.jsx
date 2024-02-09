@@ -192,6 +192,39 @@ export default function Exchange() {
             setRadioSelectFee(0)
         }
 
+        // 6. MINT TP. Flux capacitor maxQACToMintTP
+        if (arrCurrencyYouReceive[0] === 'TP') {
+            tIndex = TokenSettings(currencyYouReceive).key
+            const maxQACToMintTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToMintTP,
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
+                setInputValidationErrorText('Flux Capacitor: Insufficient TP to mint in the contract, please try again later...');
+                setInputValidationError(true);
+                return
+            }
+        }
+
+        // 7. Redeem TP. Flux capacitor maxQACToRedeemTP
+        const arrCurrencyYouExchange = currencyYouExchange.split('_')
+        if (arrCurrencyYouExchange[0] === 'TP') {
+            tIndex = TokenSettings(currencyYouReceive).key
+            const maxQACToRedeemTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToRedeemTP,
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
+                setInputValidationErrorText('Flux Capacitor: Insufficient TP to redeem in the contract, please try again later...');
+                setInputValidationError(true);
+                return
+            }
+        }
+
         // No Validations Errors
         setInputValidationErrorText('');
         setInputValidationError(false);
