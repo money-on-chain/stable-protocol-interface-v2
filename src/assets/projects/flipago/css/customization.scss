@@ -1,0 +1,130 @@
+@import '~antd/dist/antd.css';
+
+body,
+html {
+    // Variables
+    --card-border-radius: 4px;
+    --card-padding: 32px;
+    --modals-padding: 16px 16px 16px 16px;
+    --modals-border-radius: 4px;
+
+    --surface-color-0: #131215;
+    --surface-color-1:#1C1B21;
+    --surface-shadow-1: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
+    --surface-color-2: #212128;
+    --surface-shadow-2: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
+    --surface-color-3:#212128;
+    --surface-shadow-3: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
+    --surface-color-inset: #26272F;
+    --surface-shadow-inset: inset 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
+
+
+    // Token icons
+    --icon-token-size: 32px;
+
+    // Dashboard icons background color
+    --icon-background-color: #2B2E34;
+
+    // UI controls
+
+    --color-controls-background: #26272F;
+    --color-controls-foreground-disabled: #D7D7D7;
+    --color-controls-foreground-off: #8C8C89;
+    --color-controls-foreground-on: #7F8A99;
+    
+    --dividers: #3A3E40;
+ 
+
+    // Buttons - common
+
+    --button-radius: 28px;
+    --button-width: 200px;
+    --button-height: 54px;
+    --button-transition: 0.3s;
+    
+
+    // Buttons - Primary
+   
+    --color-button-primary-background-default: #FFF383;
+    --color-button-primary-text-default: #0C0C08;
+
+    --color-button-primary-background-hover: #B9B648;
+    --color-button-primary-text-hover: #0C0C08;
+
+    --color-button-primary-background-active: #B9B648;
+    --color-button-primary-text-active: #0C0C08;
+
+    --color-button-primary-background-disabled: #D5D5D5;
+    --color-button-primary-text-disabled: #959595;
+
+    --color-button-primary-background-default-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
+
+
+    // Buttons - Secondary
+
+    --color-button-secondary-background-default: transparent;
+    --color-button-secondary-text-default: #FFF383;
+
+    --color-button-secondary-background-hover: transparent;
+    --color-button-secondary-text-hover: #B9B648;
+
+    --color-button-secondary-background-active: transparent;
+    --color-button-secondary-text-active: #B9B648;
+
+    --color-button-secondary-background-disabled: #000000;
+    --color-button-secondary-text-disabled: #000000;
+
+    --color-button-secondary-background-default-shadow: 0px 4px 8px rgba(147,144,25, 0.2);
+
+
+    // Semantic
+
+    --color-semantic-negative:#E95E5D;
+    --color-semantic-neutral: #B5B5B5;
+    --color-semantic-positive: #69E453;
+
+
+    // Main navigation colors
+
+    --color-navigation-background-default: transparent;
+    --color-navigation-text-default: #7F8A99;
+    --color-navigation-icon-filter-default: invert(57%) sepia(8%) saturate(592%) hue-rotate(175deg) brightness(93%) contrast(92%);
+
+    --color-navigation-background-hover: transparent;
+    --color-navigation-text-hover: #FFF383;
+    --color-navigation-icon-filter-hover: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    --color-navigation-background-active: #202028;
+    --color-navigation-text-active: #FFF383; //over hover color
+    --color-navigation-icon-filter-active: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    --color-navigation-background-disabled: transparent;
+    --color-navigation-text-disabled: #E0E0E0; //over hover color
+    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+
+    // Text colors & fonts
+
+    --color-text-primary: #C3CCD9;
+    --color-text-secondary: #667180;
+    --color-text-highlight: #FFF383;
+    --color-text-link: #FFF383;
+    --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --brand-font: 'Chivo', sans-serif;
+    --main-font: 'Open Sans', sans-serif;
+
+    // html css
+    font-family: var(--main-font);
+    background-color: (var--surface-color-0);
+    background-image: url('./Oval.svg');
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+html {
+    // Scrollbars customization
+    scrollbar-gutter: stable both-edges;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-controls-foreground-on) transparent;
+}

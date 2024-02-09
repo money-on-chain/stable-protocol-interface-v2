@@ -55,7 +55,7 @@ export default function TokensPegged() {
         });
     });
     tokensData.push({
-        key: 2,
+        key: 0,
         name: (
             <div className="item-token">
                 <i className="icon-token-tp_0"></i>{' '}
@@ -88,7 +88,7 @@ export default function TokensPegged() {
         )
     });
     tokensData.push({
-        key: 2,
+        key: 1,
         name: (
             <div className="item-token">
                 <i className="icon-token-tp_0"></i>{' '}

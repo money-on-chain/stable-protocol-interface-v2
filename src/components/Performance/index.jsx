@@ -13,10 +13,6 @@ export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    useEffect(() => {
-      console.log('block height', auth.contractStatusData.blockHeight);
-      console.log('auth contract', auth.contractStatusData);
-    }, [auth])
     
     return (
         <div className="Performance">

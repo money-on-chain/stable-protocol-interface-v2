@@ -16,7 +16,7 @@ export default function CollateralAssets() {
 
             { settings.tokens.CA.map(function (token, i) {
                 return (
-                    <div className="row-token">
+                    <div className="row-token" key={i}>
                         <div className="coll-1">
                             <div className="token">
                                 <i className={`icon-token-ca_${i} display-block`}></i>

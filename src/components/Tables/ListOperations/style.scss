@@ -25,7 +25,7 @@
 
 .custom-table .ant-table-tbody > tr:nth-child(n+2) > td {
     // border-bottom: 2px solid #2e3238 !important;
-    background-color: rgb(33, 33, 40);
+    background-color: var(--surface-color-2);
 }
 .custom-table-light .ant-table-tbody > tr:nth-child(n+2) > td {
     background-color: rgb(255, 255, 255);
@@ -44,8 +44,8 @@
 
 .table-status-icon{
     font-size: 12px;
-    color: #2CBF12;
-    //font-family: "Open Sans";
+    color: var(--color-semantic-positive);
+    font-family: var(--main-font);
     font-weight: 800;
     line-height: 11px;
     letter-spacing: 0px;
@@ -68,7 +68,7 @@
 
 .custom-table .ant-table-expanded-row > td,
 .custom-table .ant-table-expanded-row:hover > td {
-    background: #2E2B2E !important;
+    // background: #2E2B2E !important;
 }
 
 .custom-table-light .ant-table-expanded-row > td,
@@ -86,7 +86,7 @@
 
 .custom-table .ant-pagination-item {
     background-color: transparent;
-    color: white;
+    color: var(--color-text-secondary);
     border: none;
 }
 .custom-table-light .ant-pagination-item {
@@ -96,7 +96,7 @@
 }
 
 .ant-pagination-item a {
-    color: #CBD4DA;
+    color: var(--color-text-secondary);
 }
 .custom-table-light .ant-pagination-item a {
     color: #000000;
@@ -104,7 +104,7 @@
 
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link{
     background-color: transparent;
-    color: white;
+    color: var(--color-text-secondary);
     border: none;
 }
 .custom-table-light .ant-pagination-prev .ant-pagination-item-link, .custom-table-light .ant-pagination-next .ant-pagination-item-link{
@@ -114,7 +114,7 @@
 }
 
 .ant-pagination-item-active a{
-    color: white;
+    color: var(--color-text-primary);
 }
 .custom-table-light .ant-pagination-item-active a{
     color: rgb(0, 0, 0);
@@ -135,9 +135,10 @@
     padding-left: 2rem;
     font-weight: 100;
 }
+
 .table-asset-name{
     padding-top: 4px;
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 12px;
     font-weight: 600;
     line-height: 11px;
@@ -146,7 +147,7 @@
 }
 
 .table-event-name{
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-weight: 600;
     line-height: 14px;
     letter-spacing: 1.2000000476837158px;
@@ -167,7 +168,7 @@
 }
 
 .table-status-icon-red{
-    color: #E54A48!important;
+    color: var(--color-semantic-negative)!important;
 }
 
 .table-icon-name{
@@ -180,7 +181,7 @@
 }
 
 .table-date-name{
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 12px;
     font-weight: 600;
     line-height: 19px;
@@ -190,7 +191,7 @@
 }
 
 .table-date{
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 14px;
     font-weight: 600;
     line-height: 19px;
@@ -208,7 +209,7 @@
 }
 
 .table-amount{
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 14px;
     font-weight: 600;
     line-height: 19px;
@@ -225,7 +226,7 @@
     transform: translateY(-50%);
     height: 70%;
     width: 2px;
-    background-color: #CBD4DA;
+    background-color: var(--dividers);
 }
 
 .custom-border-spacing-table .ant-table table {
@@ -234,7 +235,7 @@
   
 .ant-descriptions-item-content{
     color: var(--color-text-primary);
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 14px;
     font-weight: 400;
     line-height: 19px;
@@ -242,7 +243,7 @@
     text-align: left;
 }
 .ant-descriptions-item-label-th {
-    font-family: Open Sans;
+    font-family: var(--main-font);
     font-size: 14px;
     font-weight: 50;
     line-height: 19px;
