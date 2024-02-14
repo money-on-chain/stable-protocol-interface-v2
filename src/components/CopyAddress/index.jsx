@@ -41,7 +41,7 @@ export default function CopyAddress(props) {
                         {truncateAddress(address)}
                     </a>
                 </span>
-                <a onClick={onClick} ><i className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? "icon-copy-light" : "icon-copy"}></i></a>
+                <a onClick={onClick} ><i className="icon-copy"></i></a>
             </div>
         </>
     );

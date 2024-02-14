@@ -1744,19 +1744,11 @@ h1.title-last-operations {
 .icon-copy {
     width: 22px;
     height: 22px;
-    background-image: url('../icons/Outline.svg');
+    background-image: url('../icons/Copy.svg');
     background-size: 22px 22px;
     background-repeat: no-repeat;
     display: block;
-}
-.icon-copy-light {
-    width: 22px;
-    height: 22px;
-    background-image: url('../icons/Outline.svg');
-    background-size: 22px 22px;
-    background-repeat: no-repeat;
-    display: block;
-    filter: invert(100%);
+    filter: var(--color-icon-link-filter);
 }
 
 .icon-tx-waiting {
@@ -2650,11 +2642,12 @@ h1.title-last-operations {
     .address {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
+        justify-content: space-between;
+        align-items: center;
         margin-top: 26px;
         margin-bottom: 26px;
-
+        margin-left: 37px;
+        margin-right: 37px;
         .caption {
             opacity: 1;
             color: var(--color-text-primary);
@@ -2664,9 +2657,7 @@ h1.title-last-operations {
             font-style: normal;
             letter-spacing: 0px;
             text-align: left;
-
         }
-
         .truncate-address {
             opacity: 1;
             color: var(--color-text-link);
@@ -2676,9 +2667,13 @@ h1.title-last-operations {
             letter-spacing: 0px;
             text-align: right;
             text-decoration: underline;
+            margin-right: 14px;
         }
     }
-
+    .address-info {
+        display: flex; 
+        align-items: center; 
+    }
     .actions {
         display: flex;
         flex-direction: row;
