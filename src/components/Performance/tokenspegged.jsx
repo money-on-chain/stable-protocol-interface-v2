@@ -72,12 +72,12 @@ export default function TokensPegged() {
                 <div className="item-token">
                     <i className="icon-token-tp_0"></i>{' '}
                     <span className="token-description">
-                        {t(`portfolio.tokens.TP.rows.${dataItem.key}.title`, {
+                        {t(`exchange.tokens.TP_${dataItem.key}.label`, {
                             ns: ns
                         })}
                     </span>
                     <span className="token-symbol">
-                        {t(`portfolio.tokens.TP.rows.${dataItem.key}.symbol`, {
+                        {t(`exchange.tokens.TP_${dataItem.key}.abbr`, {
                             ns: ns
                         })}
                     </span>
@@ -85,7 +85,7 @@ export default function TokensPegged() {
             ),
             tokens_per_usd: (
                 <div>
-                    {PrecisionNumbers({
+                    {settings.project !== 'roc' ? PrecisionNumbers({
                         amount: auth.contractStatusData.PP_TP[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 3,
@@ -93,7 +93,7 @@ export default function TokensPegged() {
                         i18n: i18n,
                         ns: ns,
                         skipContractConvert: false
-                    })}
+                    }) : 1}
                 </div>
             ),
             minted:
