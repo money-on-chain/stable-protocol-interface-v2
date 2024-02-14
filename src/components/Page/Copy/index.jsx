@@ -1,7 +1,7 @@
 import { notification } from 'antd';
 import React from 'react';
 
-import IconCopy from './../../../assets/icons/copy2.png';
+import IconCopy from './../../../assets/icons/CopyOutline.svg';
 
 export default function Copy(props) {
     const {
