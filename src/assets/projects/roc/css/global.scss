@@ -3607,3 +3607,7 @@ h1.title-last-operations {
         color: var(--color-text-primary);
 
     }
+
+    .ant-table-thead .ant-table-cell-scrollbar {
+        display: none;
+    }
