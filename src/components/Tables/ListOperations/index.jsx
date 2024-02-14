@@ -50,7 +50,7 @@ export default function ListOperations(props) {
                         skip: 0
                     }).toString();
                     const url = `${baseUrl}?${queryParams}`;
-                
+
                     api('get', url)
                         .then((response) => {
                             setDataJson(response);
@@ -58,8 +58,8 @@ export default function ListOperations(props) {
                         })
                         .catch((error) => {
                             console.error(error);
-                        });          
-                }, 500);                
+                        });
+                }, 500);
         }
     };
     const columns = [
@@ -376,7 +376,7 @@ export default function ListOperations(props) {
                         </div>
                     </div>
                 ),
-                date:( 
+                date:(
                     <div style={{paddingLeft: "25%"}}>
                       <div className='table-date-name' >
                         <span>DATE</span>
@@ -392,10 +392,10 @@ export default function ListOperations(props) {
                         }).replace(',', '')}
                       </div>
                     </div>
-                  ),                  
+                  ),
                   status: (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div className={`tx-status-icon-${data['status']}`} 
+                      <div className={`tx-status-icon-${data['status']}`}
                            style={{
                              margin: '0.5rem',
                              marginTop: '3px',
@@ -409,7 +409,7 @@ export default function ListOperations(props) {
                        {getStatus(data['status'])}
                       </span>
                     </div>
-                  ),                  
+                  ),
                 detail: detail || "--"
             });
 
@@ -591,7 +591,7 @@ export default function ListOperations(props) {
                 return {
                     image: (
                         <i
-                            className="icon-token-ca_0 icon-token-modif"                 
+                            className="icon-token-ca_0 icon-token-modif"
                         />
                     ),
                     color: 'color-token-tp',
@@ -602,7 +602,7 @@ export default function ListOperations(props) {
                         image: (
                             <i
                                 className="icon-token-tc icon-token-modif"
-                                
+
                             />
                         ),
                         color: 'color-token-tc',
@@ -642,6 +642,16 @@ export default function ListOperations(props) {
                 };
         }
     }
+    const getClassName = () => {
+        switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
+            case 'flipago':
+                return 'custom-table';
+            case 'roc':
+                return 'custom-table-light';
+            default:
+                return 'custom-table';
+        }
+    }
 
     return (
         <>
@@ -653,7 +663,7 @@ export default function ListOperations(props) {
             {!loadingSke ? (
                 <>
                     <Table
-                        className="vertical-middle custom-border-spacing-table custom-table"
+                        className={`vertical-middle custom-border-spacing-table ${getClassName()}`}
                         showHeader={false}
                         expandable={{
                             expandedRowRender: (record) => (
@@ -661,7 +671,7 @@ export default function ListOperations(props) {
                                     {record.description}
                                 </div>
                             ),
-   
+
                             expandIcon: ({ expanded, onExpand, record }) =>
                                 expanded ? (
                                     <UpCircleOutlined
@@ -689,6 +699,9 @@ export default function ListOperations(props) {
                                     : null
                         }
                         scroll={{ y: 340 }}
+                        style={{    
+                            
+                        }}
                     />
                 </>
             ) : (

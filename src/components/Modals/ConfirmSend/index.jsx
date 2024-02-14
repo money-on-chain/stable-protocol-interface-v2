@@ -19,30 +19,32 @@ export default function ModalConfirmSend(props) {
         setVisible(true);
     };
 
-    const clear = () => {
-        onClear();
-    };
-
     const hideModal = () => {
         setVisible(false);
     };
 
     return (
         <div className="ShowModalConfirmSend">
-            <Button type="secondary" className="secondary-button btn-clear" onClick={clear}>
-                Clear
-            </Button>
-            <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
+            <Button
+                type="primary"
+                className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ?
+                    "primary-button-roc btn-confirm" :
+                    "primary-button btn-confirm"}
+                onClick={showModal}
+                disabled={(inputValidationError) ? 'disabled' : null}
+            >
                 Send
             </Button>
             <Modal
                 title="Confirm Send"
                 width={505}
-                visible={visible}
+                open={visible}
                 onCancel={hideModal}
                 footer={null}
                 className="ModalConfirmOperation"
                 closable={false}
+                centered={true}
+                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <ConfirmSend {...props} onCloseModal={hideModal} />
             </Modal>

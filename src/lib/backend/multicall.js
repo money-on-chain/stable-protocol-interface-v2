@@ -330,6 +330,14 @@ const userBalance = async (web3, dContracts, userAddress) => {
         listMethods.push([CA.options.address, CA.methods.allowance(userAddress, MoCContract.options.address).encodeABI(), 'uint256'])
     }
 
+    // Token migrator
+    if (dContracts.contracts.tp_legacy) {
+        const tpLegacy = dContracts.contracts.tp_legacy
+        const tokenMigrator = dContracts.contracts.token_migrator
+        listMethods.push([tpLegacy.options.address, tpLegacy.methods.balanceOf(userAddress).encodeABI(), 'uint256'])
+        listMethods.push([tpLegacy.options.address, tpLegacy.methods.allowance(userAddress, tokenMigrator.options.address).encodeABI(), 'uint256'])
+    }
+
     // Remove decode result parameter
     const cleanListMethods = listMethods.map((x) => [x[0], x[1]]);
     const multicallResult = await multicall.methods
@@ -366,6 +374,13 @@ const userBalance = async (web3, dContracts, userAddress) => {
         last_index = last_index + 2
     }
     userBalance.CA = CA
+
+    // Token migrator
+    if (dContracts.contracts.tp_legacy) {
+        userBalance.tpLegacy = {balance: listReturnData[last_index + 1], allowance: listReturnData[last_index + 2]}
+        //userBalance.tpLegacyBalance = listReturnData[last_index + 1];
+        //userBalance.tpLegacyAllowance = listReturnData[last_index + 2];
+    }
 
     return userBalance;
 };

@@ -8,6 +8,7 @@ import MocWrapper from '../../contracts/MocWrapper.json';
 import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
 import MocQueue from '../../contracts/MocQueue.json';
+import TokenMigrator from '../../contracts/TokenMigrator.json';
 
 
 import { addABI } from './transaction';
@@ -32,6 +33,7 @@ const readContracts = async (web3) => {
     abiContracts.MocVendors = MocVendors
     abiContracts.FeeToken = FeeToken
     abiContracts.MocQueue = MocQueue
+    abiContracts.TokenMigrator = TokenMigrator;
 
     addABI(abiContracts);
 
@@ -165,6 +167,18 @@ const readContracts = async (web3) => {
             process.env.REACT_APP_CONTRACT_MOC_WRAPPER
         );
     }*/
+
+    // Token migrator & Legacy token
+    if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {
+
+        const tpLegacy = new web3.eth.Contract(TokenPegged.abi, process.env.REACT_APP_CONTRACT_LEGACY_TP)
+        dContracts.contracts.tp_legacy = tpLegacy
+
+        if (!process.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR) console.log("Error: Please set token migrator address!")
+
+        const tokenMigrator = new web3.eth.Contract(TokenMigrator.abi, process.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
+        dContracts.contracts.token_migrator = tokenMigrator
+    }
 
 
     return dContracts;

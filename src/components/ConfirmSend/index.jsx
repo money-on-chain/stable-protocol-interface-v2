@@ -131,7 +131,6 @@ export default function ConfirmSend(props) {
 
             </div>
 
-            <div className="separator"></div>
 
             {status === 'SUBMIT' && (
                 <div className="tx-submit">
@@ -158,12 +157,12 @@ export default function ConfirmSend(props) {
                     </div>
 
                     <div className="actions-buttons">
-                        <Button type="secondary" className="secondary-button-fixed btn-clear" onClick={onClose}>
+                        <Button type="secondary" className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? "secondary-button-fixed-roc btn-clear" : "secondary-button-fixed btn-clear"} onClick={onClose}>
                             Cancel
                         </Button>
                         <button
                             type="primary"
-                            className="primary-button-fixed btn-confirm"
+                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? `primary-button-roc btn-confirm` : `primary-button-fixed btn-confirm`}
                             onClick={onSendTransaction}
                         >
                             Confirm
@@ -202,7 +201,7 @@ export default function ConfirmSend(props) {
 
                         <button
                             type="primary"
-                            className="secondary-button-fixed btn-clear"
+                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? "secondary-button-fixed-roc btn-clear" : "secondary-button-fixed btn-clear"}
                             onClick={onClose}
                         >
                             Close

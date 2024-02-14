@@ -94,7 +94,17 @@ export default function Exchange() {
         //onChangeAmountYouReceive(0.0);
         //onChangeAmountYouExchange(0.0);
     };
+    const handleSwapCurrencies = () => {
+        // Intercambia las monedas
+        const tempCurrency = currencyYouExchange;
+        setCurrencyYouExchange(currencyYouReceive);
+        setCurrencyYouReceive(tempCurrency);
+    
+        const tempAmount = amountYouExchange;
+        setAmountYouExchange(amountYouReceive);
+        setAmountYouReceive(tempAmount);
 
+    };
     const onClear = () => {
         setIsDirtyYouExchange(false);
         setIsDirtyYouReceive(false);
@@ -419,33 +429,25 @@ export default function Exchange() {
                         onValueChange={onChangeAmountYouExchange}
                         validateError={false}
                         isDirty={isDirtyYouExchange}
-                    />
-                    <div className="input-validation-error">{inputValidationErrorText}</div>
-
-                    <div className="token-balance">
-                        <span className="token-balance-value">
-                            Balance:{' '}
-                            {PrecisionNumbers({
+                        balance={
+                            PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouExchange),
                                 token: TokenSettings(currencyYouExchange),
                                 decimals:
-                                    TokenSettings(currencyYouExchange)
-                                        .visibleDecimals,
+                                TokenSettings(currencyYouExchange)
+                                    .visibleDecimals,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns
-                            })}
-                        </span>
-                        <a
-                            className="token-balance-add-total"
-                            onClick={setAddTotalAvailable}
-                        >
-                            Add total available
-                        </a>
-                    </div>
+                            })
+                        }
+                        setAddTotalAvailable={setAddTotalAvailable}
+                        action={'EXCHANGING'}
+                    />
+                    <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
 
-                <div className="swap-arrow">
+                <div className="swap-arrow" onClick={handleSwapCurrencies}>
                     <i className="icon-swap"></i>
                 </div>
 
@@ -468,34 +470,24 @@ export default function Exchange() {
                         onValueChange={onChangeAmountYouReceive}
                         validateError={false}
                         isDirty={isDirtyYouReceive}
+                        balance={PrecisionNumbers({
+                            amount: ConvertBalance(
+                                auth,
+                                currencyYouExchange,
+                                currencyYouReceive
+                            ),
+                            token: TokenSettings(currencyYouReceive),
+                            decimals:
+                                TokenSettings(currencyYouReceive)
+                                    .visibleDecimals,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        setAddTotalAvailable={setAddTotalAvailable}
+                        action={'RECEIVING'}
                     />
-
-                    <div className="token-balance">
-                        <span className="token-balance-value">
-                            Max:{' '}
-                            {PrecisionNumbers({
-                                amount: ConvertBalance(
-                                    auth,
-                                    currencyYouExchange,
-                                    currencyYouReceive
-                                ),
-                                token: TokenSettings(currencyYouReceive),
-                                decimals:
-                                    TokenSettings(currencyYouReceive)
-                                        .visibleDecimals,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-                        </span>
-                        <a
-                            className="token-balance-add-total"
-                            onClick={setAddTotalAvailable}
-                        >
-                            Add total available
-                        </a>
-                    </div>
                 </div>
             </div>
 
@@ -573,29 +565,6 @@ export default function Exchange() {
 
                 <div className="fees">
                     <div className="frame">
-                        <div className={'execution-fee'}>
-                            <span className={'token_exchange'}>Execution fee</span>
-                            <span className={'symbol'}> ≈ </span>
-                            <span className={'token_receive'}>
-                                {PrecisionNumbers({
-                                    amount: executionFee,
-                                    token: TokenSettings('COINBASE'),
-                                    decimals: 6,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                            </span>
-                            <span className={'token_receive_name'}>
-                                {' '}
-                                {t(`exchange.tokens.COINBASE.abbr`, {
-                                    ns: ns
-                                })}{' '}
-                            </span>
-
-                        </div>
-
                         <div className={'radio-fee'}>
                             <Radio.Group onChange={onChangeFee} value={radioSelectFee}>
                                 <Space direction="vertical">

@@ -13,7 +13,7 @@ export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
+    
     return (
         <div className="Performance">
 
@@ -215,7 +215,7 @@ export default function Performance(props) {
             </Row>
 
             <Row gutter={24} className="row-section">
-                <Col span={12}>
+                <Col span={24}>
 
                     <TokensPegged />
 
