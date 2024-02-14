@@ -201,6 +201,8 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
+            console.log("maxQACToMintTP: ", maxQACToMintTP.toString())
+            console.log("amountYouExchange: ", new BigNumber(amountYouExchange).toString())
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
                 setInputValidationErrorText('Flux Capacitor: Insufficient TP to mint in the contract, please try again later...');
                 setInputValidationError(true);
@@ -218,6 +220,8 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
+            console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
+            console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
                 setInputValidationErrorText('Flux Capacitor: Insufficient TP to redeem in the contract, please try again later...');
                 setInputValidationError(true);
