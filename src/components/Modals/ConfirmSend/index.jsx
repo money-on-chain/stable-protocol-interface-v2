@@ -38,11 +38,13 @@ export default function ModalConfirmSend(props) {
             <Modal
                 title="Confirm Send"
                 width={505}
-                visible={visible}
+                open={visible}
                 onCancel={hideModal}
                 footer={null}
                 className="ModalConfirmOperation"
                 closable={false}
+                centered={true}
+                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <ConfirmSend {...props} onCloseModal={hideModal} />
             </Modal>

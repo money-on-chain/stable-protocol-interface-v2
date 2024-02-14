@@ -33,7 +33,7 @@ export default function ModalImportantNotice(props) {
             className="ModalImportantNotice"
             closable={false}
             centered={true}
-            maskStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(5px)' }}
+            maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
         >
             <div className="notice-container">
                 <div className="notice-body">

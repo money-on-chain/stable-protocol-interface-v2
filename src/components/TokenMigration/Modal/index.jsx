@@ -45,7 +45,7 @@ export default function ModalTokenMigration(props) {
                 footer={null}
                 className="ModalTokenMigration"
                 centered={true}
-                maskStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(5px)' }}
+                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <Swap {...props} onCloseModal={hideModal} />
             </Modal>

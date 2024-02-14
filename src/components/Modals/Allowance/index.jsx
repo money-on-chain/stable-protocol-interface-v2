@@ -14,11 +14,13 @@ export default function ModalAllowanceOperation(props) {
             <Modal
                 title={title}
                 width={505}
-                visible={visible}
+                open={visible}
                 onCancel={onHideModalAllowance}
                 footer={null}
                 closable={false}
                 className="ModalAllowance"
+                centered={true}
+                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>
