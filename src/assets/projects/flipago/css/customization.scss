@@ -3,11 +3,16 @@
 body,
 html {
     // Variables
+
+    // Cards
     --card-border-radius: 4px;
     --card-padding: 32px;
+
+    // Borders
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
 
+    //Surfaces
     --surface-color-0: #131215;
     --surface-color-1:#1C1B21;
     --surface-shadow-1: 0px 1px 4px rgba(0,0,0, 0.1499125874125874);
@@ -113,7 +118,20 @@ html {
     --brand-font: 'Chivo', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 
+
+    // rLogin
+
+    --rlogin-themeswitcher-display: none;
+    --rlogin-title-background-color: black;
+    --rlogin-content-title-color: black;
+    --rlogin-content-background-color: white;
+    --rlogin-content-border-color: black;
+    --rlogin-border-radius: 0px;
+    --rlogin-poweredby-color: white;
+    --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
+
     // html css
+
     font-family: var(--main-font);
     background-color: (var--surface-color-0);
     background-image: url('./Oval.svg');

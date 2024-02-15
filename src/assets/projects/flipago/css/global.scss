@@ -1751,16 +1751,6 @@ h1.title-last-operations {
     filter: var(--color-icon-link-filter);
 }
 
-.icon-copy-light {
-    width: 22px;
-    height: 22px;
-    background-image: url('../icons/Outline.svg');
-    background-size: 22px 22px;
-    background-repeat: no-repeat;
-    display: block;
-    filter: invert(100%);
-}
-
 .icon-tx-waiting {
     display: block;
     width: 32px;
@@ -3617,6 +3607,7 @@ h1.title-last-operations {
         color: var(--color-text-primary);
 
     }
+
     .ant-table-thead .ant-table-cell-scrollbar {
         display: none;
     }

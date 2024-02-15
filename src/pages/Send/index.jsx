@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import { useContext } from 'react';
 
 import { AuthenticateContext } from '../../context/Auth';
+import ListOperations from '../../components/Tables/ListOperations';
 import { useProjectTranslation } from '../../helpers/translations';
 import Send from '../../components/Send';
 
 import '../../assets/css/pages.scss';
-import ListOperations from '../../components/Tables/ListOperations';
 
 
 function SectionSend(props) {
@@ -17,7 +17,7 @@ function SectionSend(props) {
         <Fragment>
 
             {/* Send */}
-            <div className={'dashboard-exchange'}>
+            <div className='dashboard-exchange'>
 
                 <div className={'title'}>
                     <h1>Send</h1>
@@ -31,7 +31,7 @@ function SectionSend(props) {
 
             <div className="content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
-            </div>
+            </div> 
 
 
         </Fragment>
