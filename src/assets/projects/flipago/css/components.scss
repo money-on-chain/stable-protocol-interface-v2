@@ -1,34 +1,74 @@
-#theme-switcher {
-    display: var(--rlogin-themeswitcher-display) !important;
-}
-.rlogin-modal-header {
-    background-color: var(--rlogin-title-background-color) !important;
-    border-radius: var(--rlogin-border-radius) var(--rlogin-border-radius) 0 0 !important;
+.rlogin-modal-container {
 
-    .sc-jJEKmz.jtUgPh {
-        color: var(--rlogin-poweredby-color);
+    // Hide theme switcher
+    #theme-switcher {
+        display: var(--rlogin-themeswitcher-display) !important;
     }
-    .sc-hiSbEG.fFKpiV {
-        filter: var(--rlogin-logo-filter-color) !important;
+
+    // Title bar (powerded by + RIF logo)
+    .rlogin-modal-header {
+        background-color: var(--rlogin-title-background-color) !important;
+        border-radius: var(--rlogin-border-radius) var(--rlogin-border-radius) 0 0 !important;
+
+        .sc-jJEKmz.jtUgPh {
+            color: var(--rlogin-poweredby-color);
+        }
+        .sc-hiSbEG.fFKpiV {
+            filter: var(--rlogin-logo-filter-color) !important;
+        }
     }
-}
 
-.rlogin-modal-card {
-    background-color: var(--rlogin-content-background-color) !important;
-    backdrop-filter: blur(10px);
-    background-color: var(--rlogin-content-background-color) !important;
-    border-radius: var(--rlogin-border-radius)  !important;
-
-    .rlogin-header2 {
-        color: var(--rlogin-content-title-color) !important;
+    // Provider buttons
+    .rlogin-provider-container {
+        background-color: var(--rlogin-provider-background-color) !important;
+        box-shadow: var(--rlogin-provider-border-shadow);
+        
+        // Providers name
+        .rlogin-header3 {
+            color: var(--rlogin-content-text-color) !important;
+            font-family: var(--main-font) !important;
+            font-weight: 600 !important;
+        }
     }
-}
+    
+    // display none to avoid an margin
+    // ONLY if there is NO custodial wallet support
+    .rlogin-providers-custodial {
+        display: none;
+    }
 
-.rlogin-modal-body {
-    border: 4px solid var(--rlogin-content-border-color) !important;
-    border-radius: 0 0 var(--rlogin-border-radius) var(--rlogin-border-radius) !important;
-}
+    // Language dropdown
+    #languages {
+        background-color: transparent !important;
+    }
 
+    // Content card
+    .rlogin-modal-card {
+        background-color: var(--rlogin-content-background-color) !important;
+        backdrop-filter: blur(10px);
+        background-color: var(--rlogin-content-background-color) !important;
+        border-radius: var(--rlogin-border-radius)  !important;
+
+        // Title
+        .rlogin-header2 {
+            margin: 24px 0 24px 0;
+            color: var(--rlogin-content-title-color) !important;
+            font-family: var(--brand-font) !important;
+            font-weight: 600 !important;
+        }
+    }
+
+    .rlogin-modal-body {
+        border: 4px solid var(--rlogin-content-border-color) !important;
+        border-radius: 0 0 var(--rlogin-border-radius) var(--rlogin-border-radius) !important;
+        box-shadow: var(--rlogin-content-shadow-inset) !important;
+    }
+
+    .cUGxCk {
+        color: var(--rlogin-spinner-color) !important;
+    }
+
+}
 // .ant-modal-header {
 //     background-color: #08374f !important;
 //     /*padding: 8px 24px !important;*/

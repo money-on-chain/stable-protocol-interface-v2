@@ -122,15 +122,22 @@ html {
     // rLogin
 
     --rlogin-themeswitcher-display: none;
-    --rlogin-title-background-color: black;
-    --rlogin-content-title-color: black;
-    --rlogin-content-background-color: white;
-    --rlogin-content-border-color: black;
-    --rlogin-border-radius: 0px;
+    --rlogin-title-background-color: #212128;
+    --rlogin-content-title-color: var(--color-text-primary);
+    --rlogin-content-background-color: #26272F;
+    --rlogin-content-shadow-inset: inset 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
+    --rlogin-content-border-color: #212128;
+    --rlogin-content-text-color: var(--color-text-primary);
+    --rlogin-provider-background-color: #3e424a;
+    --rlogin-provider-border-color: #FFF383;
+    --rlogin-provider-border-shadow: 0px 4px 4px rgba(17, 17, 16, 0.618);
+    --rlogin-spinner-color: #FFF383;
+    
+    --rlogin-border-radius: 4px;
     --rlogin-poweredby-color: white;
-    --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
-
-    // html css
+    --rlogin-logo-filter-color: invert(93%) sepia(0%) saturate(7472%) hue-rotate(130deg) brightness(107%) contrast(109%);
+    
+    // body + html css
 
     font-family: var(--main-font);
     background-color: (var--surface-color-0);

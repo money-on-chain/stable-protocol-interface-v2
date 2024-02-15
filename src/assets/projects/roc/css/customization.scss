@@ -112,9 +112,9 @@ html {
     
     --color-text-primary: #000000;
     --color-text-secondary: #7F8A99;
-    --color-text-highlight: #4B5CF0;
-    --color-text-link: #4B5CF0;
-    --color-icon-link-filter: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
+    --color-text-highlight: #000000;
+    --color-text-link: #000000;
+    --color-icon-link-filter: invert(0%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
     --brand-font: 'Sora', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 
@@ -125,12 +125,19 @@ html {
     --rlogin-title-background-color: black;
     --rlogin-content-title-color: black;
     --rlogin-content-background-color: white;
+    --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0,0,0,0.1);
     --rlogin-content-border-color: black;
+    --rlogin-content-text-color: var(--color-text-primary);
+    --rlogin-provider-background-color: #F2F2F2;
+    --rlogin-provider-border-color: #FFF383;
+    --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
+    --rlogin-spinner-color: #4B5CF0;
+
     --rlogin-border-radius: 0px;
     --rlogin-poweredby-color: white;
     --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
 
-    // html css
+    // body + html css
 
     font-family: var(--main-font);
     background-color: (var--surface-color-0);

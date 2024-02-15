@@ -436,7 +436,7 @@
     align-items: flex-end;
     padding: 8px 16px;
     gap: 8px;
-
+    border-radius: var(--card-border-radius);
     width: 192px;
     height: 80px;
     margin-left: 31px;
@@ -2216,7 +2216,8 @@ h1.title-last-operations {
 
                 .radio-fee {
                     .ant-radio-wrapper {
-                        color: var(--color-controls-foreground-off);
+                        color: var(--color-text-primary);
+                        line-height: 14px;
                     }
 
                     .ant-radio-disabled + span {
@@ -2270,11 +2271,11 @@ h1.title-last-operations {
     font-family: var(--main-font);
     font-size: 18px;
     font-weight: 700;
-    font-style: normal;
-    letter-spacing: 0px;
     text-align: center;
-    width: 200px;
-    height: 54px;
+    width: var(--button-width);
+    height: var(--button-height);
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 .primary-button-roc {
     border-radius: var(--button-radius);
@@ -2295,6 +2296,11 @@ h1.title-last-operations {
 }
 
 .primary-button-roc:hover {
+    color: var(--color-button-primary-text-hover);
+    border-color: var(--color-button-primary-text-hover);
+    background: var(--color-button-primary-background-hover);
+}
+.primary-button:hover {
     color: var(--color-button-primary-text-hover);
     border-color: var(--color-button-primary-text-hover);
     background: var(--color-button-primary-background-hover);

@@ -72,7 +72,7 @@ export default function AccountDialog(props) {
                 </button>
                 <button
                     type="primary"
-                    className="primary-button-fixed btn-confirm"
+                    className="primary-button btn-confirm"
                     onClick={onClose}
                 >
                     Close
