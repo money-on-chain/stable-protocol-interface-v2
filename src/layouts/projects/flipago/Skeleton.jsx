@@ -7,6 +7,7 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
 
 import '../../../assets/css/global.scss';
+import StakingRewards from '../../../components/Dashboards/StakingRewards';
 
 const { Content, Footer } = Layout;
 
@@ -25,6 +26,9 @@ export default function Skeleton() {
                 <div className="content-container">
                     {/* Content page*/}
                     <div className="content-page">
+                        {/* Dashboard Staking Rewards  
+                            TODO to hide while developing the backend information
+                            <StakingRewards />*/}
                         <Outlet />
                     </div>
                 </div>
