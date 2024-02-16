@@ -12,13 +12,13 @@ const ProvideColumnsTP = [
       title: 'Name',
       dataIndex: 'name',
       align: 'left',
-      width: 240
+      width: 210
     },
     {
-      title: 'Token x USD',
+      title: 'Tokens per USD',
       dataIndex: 'tokens_per_usd',
       align: 'right',
-      width: 140
+      width: 160
     },
     {
       title: 'Minted',
@@ -43,7 +43,7 @@ const ProvideColumnsTP = [
       title: 'EMA',
       dataIndex: 'ema',
       align: 'right',
-      width: 120
+      width: 100
     },
     {
       title: 'Ctargema',
