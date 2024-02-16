@@ -84,6 +84,8 @@ const contractStatus = async (web3, dContracts) => {
     listMethods.push([MocQueue.options.address, MocQueue.methods.execFee(5).encodeABI(), 'uint256']) // 61 mintTCandTP
     listMethods.push([FC_MAX_ABSOLUTE_OP_PROVIDER.options.address, FC_MAX_ABSOLUTE_OP_PROVIDER.methods.peek().encodeABI(), 'uint256']) // 62
     listMethods.push([FC_MAX_OP_DIFFERENCE_PROVIDER.options.address, FC_MAX_OP_DIFFERENCE_PROVIDER.methods.peek().encodeABI(), 'uint256']) // 63
+    listMethods.push([Moc.options.address, Moc.methods.maxQACToMintTP().encodeABI(), 'uint256']) // 64
+    listMethods.push([Moc.options.address, Moc.methods.maxQACToRedeemTP().encodeABI(), 'uint256']) // 65
 
     let PP_TP
     let tpAddress
@@ -183,6 +185,8 @@ const contractStatus = async (web3, dContracts) => {
     status.mintTCandTPExecFee = listReturnData[61]
     status.FC_MAX_ABSOLUTE_OP = listReturnData[62]
     status.FC_MAX_OP_DIFFERENCE = listReturnData[63]
+    status.maxQACToMintTP = listReturnData[64]
+    status.maxQACToRedeemTP = listReturnData[65]
 
     const tpMintFees = []
     const tpRedeemFees = []
@@ -193,7 +197,7 @@ const contractStatus = async (web3, dContracts) => {
     const getTPAvailableToMint = []
     const tpEma = []
 
-    let last_index = 63 // this is the last used array index
+    let last_index = 65 // this is the last used array index
     for (let i = 0; i < settings.tokens.TP.length; i++) {
         tpMintFees.push(listReturnData[last_index + 1])
         tpRedeemFees.push(listReturnData[last_index + 2])
