@@ -8,6 +8,7 @@ import './index.css';
 import './assets/css/customization.scss';
 import './assets/css/global.scss';
 import './assets/css/components.scss';
+import './assets/css/navigation.scss';
 
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
@@ -50,8 +51,7 @@ ReactDOM.render(
                                     position: 'fixed',
                                     left: '50%',
                                     top: '50%',
-                                    transform:
-                                        'translateX(-50%) translateY(-50%)'
+                                    transform: 'translateX(-50%) translateY(-50%)'
                                 }}
                                 width={50}
                                 height={50}

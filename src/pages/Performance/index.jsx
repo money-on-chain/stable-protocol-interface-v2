@@ -3,11 +3,12 @@ import { useContext } from 'react';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
+import ListOperations from '../../components/Tables/ListOperations';
+
 import Performance from '../../components/Performance';
 
-import '../../assets/css/pages.scss';
 import StakingRewards from '../../components/Dashboards/StakingRewards';
-
+import '../../assets/css/pages.scss';
 
 function SectionPerformance(props) {
     const [t, i18n, ns] = useProjectTranslation();

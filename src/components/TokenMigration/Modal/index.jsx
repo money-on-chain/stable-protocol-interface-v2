@@ -31,7 +31,7 @@ export default function ModalTokenMigration(props) {
                 <div className="Action">
                     <button
                         type="primary"
-                        className="primary-button-roc btn-confirm"
+                        className="primary-button btn-confirm"
                         onClick={showModal}>
                         Swap Now
                     </button>
