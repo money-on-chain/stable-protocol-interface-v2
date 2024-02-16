@@ -1067,9 +1067,28 @@
 .icon-status-success {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/StatusSuccess.svg');
+    background-image: url('../icons/SuccessOutline.svg');
     background-size: 24px 24px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
+}
+
+.icon-status-warning {
+    width: 24px;
+    height: 24px;
+    background-image: url('../icons/WarningOutline.svg');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-negative);
+}
+
+.icon-status-alert {
+    width: 24px;
+    height: 24px;
+    background-image: url('../icons/AttentionOutline.svg');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-negative);
 }
 
 
