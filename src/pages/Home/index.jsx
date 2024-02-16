@@ -9,13 +9,8 @@ import Portfolio from '../../components/Dashboards/Portfolio';
 function Home(props) {
     return (
         <Fragment>
-
-            {/* Dashboard Staking Rewards  
-            TODO to hide while developing the backend information*/}
-            <StakingRewards />
             {/* Portfolio */}
             <Portfolio />
-
             <div className="content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
             </div>

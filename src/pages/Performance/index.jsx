@@ -16,16 +16,9 @@ function SectionPerformance(props) {
 
     return (
         <Fragment>
-
-            {/* Dashboard Staking Rewards */}
-            <StakingRewards />
-
             <div className={'content-performance'}>
-
                 <Performance></Performance>
-
             </div>
-
         </Fragment>
     );
 }
