@@ -42,12 +42,12 @@ export default function ModalImportantNotice(props) {
                     </p>
                 </div>
                 <div className="notice-buttons">
-                    <Button type="secondary" className="secondary-button-fixed-roc btn-clear" onClick={hideModal}>
+                    <Button type="secondary" className="secondary-button btn-clear" onClick={hideModal}>
                         Cancel
                     </Button>
                     <button
                         type="primary"
-                        className="primary-button-roc btn-confirm"
+                        className="primary-button btn-confirm"
                         onClick={openAction}
                     >
                         Confirm

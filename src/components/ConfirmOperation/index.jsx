@@ -636,12 +636,12 @@ export default function ConfirmOperation(props) {
                     </div>
 
                     <div className="actions-buttons">
-                        <Button type="secondary" className="secondary-button-fixed-roc btn-clear" onClick={onClose}>
+                        <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
                             Cancel
                         </Button>
                         <button
                             type="primary"
-                            className="primary-button-roc btn-confirm"
+                            className="primary-button btn-confirm"
                             onClick={onSendTransactionAllowFeeToken}
                         >
                             Confirm
@@ -685,7 +685,7 @@ export default function ConfirmOperation(props) {
 
                         <button
                             type="primary"
-                            className="secondary-button-fixed btn-clear"
+                            className="secondary-button btn-clear"
                             onClick={onClose}
                         >
                             Close

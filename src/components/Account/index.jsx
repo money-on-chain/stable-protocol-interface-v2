@@ -65,7 +65,7 @@ export default function AccountDialog(props) {
             <div className="actions">
                 <button
                     type="secondary"
-                    className="secondary-button-fixed btn-clear"
+                    className="secondary-button btn-clear"
                     onClick={onDisconnect}
                 >
                     Disconnect

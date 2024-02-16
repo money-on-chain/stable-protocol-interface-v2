@@ -28,7 +28,7 @@ export default function ModalConfirmSend(props) {
             <Button
                 type="primary"
                 className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ?
-                    "primary-button-roc btn-confirm" :
+                    "primary-button btn-confirm" :
                     "primary-button btn-confirm"}
                 onClick={showModal}
                 disabled={(inputValidationError) ? 'disabled' : null}
