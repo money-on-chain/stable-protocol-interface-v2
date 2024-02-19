@@ -323,7 +323,7 @@ export default function ListOperations(props) {
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
-                status: getStatus(data['status']) || "--",
+                status: getStatus(data) || "--",
                 fee: getFee(data) || "--"
             };
 
@@ -405,8 +405,8 @@ export default function ListOperations(props) {
                            }}
                       >
                       </div>
-                       <span className={`table-status-icon ${getStatus(data['status']) === "FAILED" && "table-status-icon-red"}`}>
-                       {getStatus(data['status'])}
+                       <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
+                       {getStatus(data)}
                       </span>
                     </div>
                   ),
@@ -540,8 +540,10 @@ export default function ListOperations(props) {
         }
 
     }
-    function getStatus(status){
-        switch(status){
+    function getStatus(row_operation){
+        const confirmedBlocks = BigInt(10)
+
+        switch(row_operation['status']){
             case -4:
                 return "REVERT"
             case -3:
@@ -551,9 +553,16 @@ export default function ListOperations(props) {
             case -1:
                 return "FAILED"
             case 0:
-                return "QUEUED"
+                if (row_operation['params'] && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['params']['blockNumber']) + confirmedBlocks)
+                        return "QUEUING"
+                else return "QUEUED"
             case 1:
-                return "CONFIRMED"
+                if (row_operation['executed'] && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks)
+                        return "CONFIRMING"
+
+                else return "CONFIRMED"
         }
 
     }
