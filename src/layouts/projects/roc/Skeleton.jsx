@@ -8,6 +8,7 @@ import SectionHeader from '../../../components/Header';
 import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 
 import '../../../assets/css/global.scss';
+import StakingRewards from '../../../components/Dashboards/StakingRewards';
 
 const { Content, Footer } = Layout;
 
@@ -27,6 +28,9 @@ export default function Skeleton() {
                     {/* Content page*/}
                     <div className="content-page">
                         <ModalTokenMigration />
+                        {/* Dashboard Staking Rewards  
+                            TODO to hide while developing the backend information
+                            <StakingRewards />*/}
                         <Outlet />
                     </div>
                 </div>

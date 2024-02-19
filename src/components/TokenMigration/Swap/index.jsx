@@ -288,11 +288,11 @@ const SwapToken = (props) => {
                   status !== 'ALLOWANCE-WAITING' &&
                   status !== 'TOKEN-MIGRATION-WAITING' &&
                   status !== 'TOKEN-MIGRATION-ERROR' &&
-                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button-fixed-roc btn-clear" onClick={onClose}>Cancel</Button>)}
+                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>Cancel</Button>)}
                 {(status === 'SUBMIT' ||
                   status === 'CONFIRM')  && (
                         <Button
-                            className="primary-button-roc btn-confirm"
+                            className="primary-button btn-confirm"
                             type="primary"
                             disabled={btnDisable}
                             onClick={onConfirm}
@@ -301,7 +301,7 @@ const SwapToken = (props) => {
                         </Button>)}
                 {(status === 'TOKEN-MIGRATION-SUCCESS') && (
                     <Button
-                        className="primary-button-roc btn-confirm"
+                        className="primary-button btn-confirm"
                         type="primary"
                         disabled={btnDisable}
                         onClick={onConfirm}

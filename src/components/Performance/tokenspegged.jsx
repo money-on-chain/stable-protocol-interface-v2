@@ -12,7 +12,7 @@ const ProvideColumnsTP = [
       title: 'Name',
       dataIndex: 'name',
       align: 'left',
-      width: 340
+      width: 210
     },
     {
       title: 'Tokens per USD',
@@ -24,7 +24,7 @@ const ProvideColumnsTP = [
       title: 'Minted',
       dataIndex: 'minted',
       align: 'right',
-      width: 160
+      width: 140
     },
     {
       title: 'Mintable',
@@ -36,13 +36,20 @@ const ProvideColumnsTP = [
       title: 'T. Coverage',
       dataIndex: 'coverage',
       align: 'right',
-      width: 160
+      width: 140
 
     },
     {
       title: 'EMA',
       dataIndex: 'ema',
-      align: 'right'
+      align: 'right',
+      width: 100
+    },
+    {
+      title: 'Ctargema',
+      dataIndex: 'ctargema',
+      align: 'right',
+      width: 140
     }
   ];
 
@@ -138,6 +145,19 @@ export default function TokensPegged() {
                 <div>
                     {PrecisionNumbers({
                         amount: auth.contractStatusData.tpEma[dataItem.key],
+                        token: settings.tokens.TP[dataItem.key],
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: false
+                    })}
+                </div>
+            ),
+            ctargema: (
+                <div>
+                    {PrecisionNumbers({
+                        amount: auth.contractStatusData.calcCtargemaCA,
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
                         t: t,

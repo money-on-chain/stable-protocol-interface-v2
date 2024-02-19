@@ -128,14 +128,14 @@ export default function AllowanceDialog(props) {
                         <div className="actions">
                             <button
                                 type="secondary"
-                                className="secondary-button-fixed btn-clear"
+                                className="secondary-button btn-clear"
                                 onClick={onClose}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="primary"
-                                className="primary-button-fixed btn-confirm"
+                                className="primary-button btn-confirm"
                                 onClick={onAuthorize}
                             >
                                 Authorize
@@ -155,7 +155,7 @@ export default function AllowanceDialog(props) {
                         <div className="actions">
                             <button
                                 type="primary"
-                                className="secondary-button-fixed btn-clear"
+                                className="secondary-button btn-clear"
                                 onClick={onClose}
                             >
                                 Cancel

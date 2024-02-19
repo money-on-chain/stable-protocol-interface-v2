@@ -56,20 +56,6 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
-    //Function to customize if the option needs to be active or not in roc or flipago
-    const getIsActive = (optionName) => {
-        switch (optionName) {
-            case "Staking":
-                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
-            case "Liquidity Mining":
-                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
-            case "Vesting":
-                return process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc';
-            default:
-                return true;
-            //Add other future options here
-        }
-    }
     const menu = {
         mainMenu: [
             {
@@ -95,19 +81,19 @@ export default function SectionHeader() {
             {
                 name: "Staking",
                 action: goToStaking,
-                isActive: true
+                isActive: false
             }
         ],
         dropdownMenu: [
             {
                 name: "Liquidity Mining",
                 action: goToLiquidityMining,
-                isActive: true
+                isActive: false
             },
             {
                 name: "Vesting",
                 action: goToVesting,
-                isActive: true
+                isActive: false
             }
         ]
     }

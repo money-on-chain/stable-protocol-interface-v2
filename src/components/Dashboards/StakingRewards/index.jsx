@@ -1,9 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-
-import { useProjectTranslation } from '../../../helpers/translations';
+import React from 'react';
 
 export default function StakingRewards() {
-    const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <div className="dashboard-staking-info">
