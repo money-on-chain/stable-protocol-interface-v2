@@ -104,7 +104,10 @@ html {
         padding: 10px 0px !important;
     }
 }
-
+.ant-table-tbody > tr > td {
+    border-bottom: none !important;
+    padding: 10px 0px !important;
+}
 .NotificationMigration {
     border-radius: var(--card-border-radius);
 }

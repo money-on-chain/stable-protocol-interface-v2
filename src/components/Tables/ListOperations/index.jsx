@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import { Table, Skeleton } from 'antd';
@@ -323,7 +323,7 @@ export default function ListOperations(props) {
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
-                status: getStatus(data['status']) || "--",
+                status: getStatus(data) || "--",
                 fee: getFee(data) || "--"
             };
 
@@ -353,27 +353,36 @@ export default function ListOperations(props) {
                 ),
                 receive: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        {token.receive.action !== "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
-                            <div className='table-event-name'>{token.receive.title}</div><br></br>
-                            <div className='table-amount'>
-                                {PrecisionNumbers({
-                                    amount: token.receive.amount,
-                                    token: token.receive.token,
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns
-                                })}
-                            </div>
-                        </div>)}
-                        {token.receive.action === "Transfer" && (<div style={{ textAlign: 'right', marginRight: '8px' }}>
-                            <div className='table-event-name'>{getTransferAction(data)}</div><br></br>
-                            <div className='table-amount'>{getTransferAddress(data)}</div>
-                        </div>)}
-                        <div className='table-icon-name' >
-                            {getAsset(token.receive.icon).image}
-                            <div className='table-asset-name'>{token.receive.name}</div>
-                        </div>
+                        {token.receive.action !== "Transfer" && (
+                            <Fragment>
+                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                                    <div className='table-event-name'>{token.receive.title}</div><br></br>
+                                    <div className='table-amount'>
+                                        {PrecisionNumbers({
+                                            amount: token.receive.amount,
+                                            token: token.receive.token,
+                                            decimals: 2,
+                                            t: t,
+                                            i18n: i18n,
+                                            ns: ns
+                                        })}
+                                    </div>
+                                </div>
+                                <div className='table-icon-name' >
+                                    {getAsset(token.receive.icon).image}
+                                    <div className='table-asset-name'>{token.receive.name}</div>
+                                </div>
+                            </Fragment>
+                        )}
+                        {token.receive.action === "Transfer" && (
+                            <Fragment>
+                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                                    <div className='table-event-name'>{getTransferAction(data)}</div><br></br>
+                                    <div className='table-amount'>{getTransferAddress(data)}</div>
+                                </div>
+                                
+                            </Fragment>
+                        )}
                     </div>
                 ),
                 date:(
@@ -405,8 +414,8 @@ export default function ListOperations(props) {
                            }}
                       >
                       </div>
-                       <span className={`table-status-icon ${getStatus(data['status']) === "FAILED" && "table-status-icon-red"}`}>
-                       {getStatus(data['status'])}
+                       <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
+                       {getStatus(data)}
                       </span>
                     </div>
                   ),
@@ -522,7 +531,7 @@ export default function ListOperations(props) {
     }
     function getTransferAction(row_operation){
         if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
-            return "SENT"
+            return "DESTINATION"
         } else {
             return "RECEIVED"
         }
@@ -534,14 +543,17 @@ export default function ListOperations(props) {
     }
     function getTransferAddress(row_operation){
         if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
-            return truncateAddress(row_operation['params']['recipient'].toLowerCase())
+            // return truncateAddress(row_operation['params']['recipient'].toLowerCase())
+            return row_operation['params']['recipient'].toLowerCase();
         } else {
             return truncateAddress(row_operation['params']['sender'].toLowerCase())
         }
 
     }
-    function getStatus(status){
-        switch(status){
+    function getStatus(row_operation){
+        const confirmedBlocks = BigInt(10)
+
+        switch(row_operation['status']){
             case -4:
                 return "REVERT"
             case -3:
@@ -551,9 +563,16 @@ export default function ListOperations(props) {
             case -1:
                 return "FAILED"
             case 0:
-                return "QUEUED"
+                if (row_operation['params'] && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['params']['blockNumber']) + confirmedBlocks)
+                        return "QUEUING"
+                else return "QUEUED"
             case 1:
-                return "CONFIRMED"
+                if (row_operation['executed'] && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks)
+                        return "CONFIRMING"
+
+                else return "CONFIRMED"
         }
 
     }
