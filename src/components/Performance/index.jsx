@@ -8,12 +8,72 @@ import { TokenSettings } from '../../helpers/currencies';
 import CollateralAssets from './collateral';
 import TokensPegged from './tokenspegged';
 import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import settings from '../../settings/settings.json';
 
 export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    
+
+    const globalCoverage = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.getCglb,
+            settings.tokens.CA[0].decimals
+        )
+    );
+
+    const calcCtargemaCA = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.calcCtargemaCA,
+            settings.tokens.CA[0].decimals
+        )
+    );
+
+    const liqThrld = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.liqThrld,
+            settings.tokens.CA[0].decimals
+        )
+    );
+
+    const protThrld = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.protThrld,
+            settings.tokens.CA[0].decimals
+        )
+    );
+
+    let statusIcon = '';
+    let statusLabel = '--';
+    let statusText = '--';
+
+    if (globalCoverage.gt(calcCtargemaCA)) {
+        statusIcon = 'icon-status-success';
+        statusLabel = 'Fully Operational';
+        statusText = 'The system is in optimal condition';
+    } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
+        statusIcon = 'icon-status-warning';
+        statusLabel = 'Partially Operational';
+        statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
+    } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
+        statusIcon = 'icon-status-alert';
+        statusLabel = 'Protected Mode';
+        statusText = 'No operations allowed';
+    }
+
+    if (auth.contractStatusData.liquidated) {
+        statusIcon = 'icon-status-alert';
+        statusLabel = 'Liquidated';
+        statusText = 'No operations allowed';
+    }
+
+    if (auth.contractStatusData.paused) {
+        statusIcon = 'icon-status-alert';
+        statusLabel = 'Paused';
+        statusText = 'The contract is paused. No operations allowed';
+    }
+
     return (
         <div className="Performance">
 
@@ -29,11 +89,11 @@ export default function Performance(props) {
                         <div className="card-content">
 
                             <div className="coll-1">
-                                <div className="stat-text">The system is in optimal condition</div>
+                                <div className="stat-text">{statusText}</div>
                             </div>
                             <div className="coll-2">
 
-                                <div className="stat-icon"> <i className="icon-status-success display-block"></i> Fully Operational</div>
+                                <div className="stat-icon"> <i className={`${statusIcon} display-block`}></i> {statusLabel}</div>
                                 <div className="block-info">Showing block {auth.contractStatusData ? BigInt(auth.contractStatusData.blockHeight).toString() : '--'}</div>
 
                             </div>
