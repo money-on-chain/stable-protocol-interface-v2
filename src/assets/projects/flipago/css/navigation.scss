@@ -87,65 +87,65 @@
 
 .menu-nav-item:hover {
     color: var(--color-navigation-text-hover);
-  
+
     // filter: none;
     .logo-portfolio {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/PortfolioFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/PortfolioFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-send {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/SendFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/SendFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-exchange {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/ExchangeFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/ExchangeFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-performance {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/PerformanceFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/PerformanceFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-staking {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/StakeFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/StakeFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-liquidity-mining {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/LiquidityMiningFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/LiquidityMiningFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
     .logo-vesting {
-      width: 32px;
-      height: 32px;
-      background-image: url('../icons/VestingFilled.svg');
-      background-size: 32px 32px;
-      background-repeat: no-repeat;
-      filter: var(--color-navigation-icon-filter-default);
+        width: 32px;
+        height: 32px;
+        background-image: url('../icons/VestingFilled.svg');
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        filter: var(--color-navigation-icon-filter-default);
     }
-  }
+}
 .menu-nav-item-more:hover {
     color: var(--color-navigation-text-hover);
     // filter: none;
@@ -267,6 +267,7 @@
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
 }
+
 .logo-portfolio-selected {
     width: 32px;
     height: 32px;
@@ -276,7 +277,7 @@
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-send {
@@ -287,8 +288,9 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
+
 .logo-send-selected {
     width: 32px;
     height: 32px;
@@ -298,7 +300,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-exchange {
@@ -309,7 +311,7 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 .logo-exchange-selected {
     width: 32px;
@@ -320,7 +322,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-performance {
@@ -331,7 +333,7 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 .logo-performance-selected {
     width: 32px;
@@ -342,7 +344,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-staking {
@@ -353,7 +355,7 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 .logo-staking-selected {
     width: 32px;
@@ -364,7 +366,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-liquidity-mining {
@@ -375,7 +377,7 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 .logo-liquidity-mining-selected {
     width: 32px;
@@ -386,7 +388,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-vesting {
@@ -397,7 +399,7 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 .logo-vesting-selected {
     width: 32px;
@@ -408,7 +410,7 @@ margin-top: 19px;*/
     // filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(112deg) brightness(101%) contrast(101%);
     filter: var(--color-navigation-icon-filter-active);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }
 
 .logo-more {
@@ -419,5 +421,5 @@ margin-top: 19px;*/
     background-repeat: no-repeat;
     filter: var(--color-navigation-icon-filter-default);
     /*margin-left: 32px;
-margin-top: 19px;*/
+  margin-top: 19px;*/
 }

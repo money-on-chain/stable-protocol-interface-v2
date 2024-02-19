@@ -112,16 +112,24 @@
         }
 
         .wallet-address a {
-            color: var(--color-text-link);
+            color: var(--color-icon-link-filter);
         }
 
         .logo-wallet {
             width: 24px;
             height: 24px;
-            background-image: url('../icons/Wallet.svg');
+            background-image: url('../icons/WalletOutline.svg');
             background-size: 24px 24px;
             background-repeat: no-repeat;
-            filter: var(--color-icon-link-filter);
+            filter: var(--color-navigation-icon-filter-default);
+        }
+        .wallet-address:hover {
+            .logo-wallet {
+                width: 24px;
+                height: 24px;
+                background-image: url('../icons/WalletFilled.svg');
+                filter: var(--color-navigation-icon-filter-hover);
+            }
         }
     }
 
@@ -134,7 +142,6 @@
         gap: 8px;
         width: 80px;
         height: 24px;
-        /* Inside auto layout */
         flex: none;
         order: 0;
         flex-grow: 0;
@@ -152,10 +159,16 @@
         .logo-translation {
             width: 24px;
             height: 24px;
-            background-image: url('../icons/Globe.svg');
+            background-image: url('../icons/GlobeOutline.svg');
             background-size: 24px 24px;
             background-repeat: no-repeat;
             filter: var(--color-navigation-icon-filter-default);
+        }
+    }
+    .wallet-translation:hover {
+        .logo-translation {
+            background-image: url('../icons/GlobeFilled.svg');
+            filter: var(--color-navigation-icon-filter-hover);
         }
     }
 }
@@ -2965,8 +2978,26 @@ h1.title-last-operations {
     /*top: -7px;*/
 }
 
-.content-last-operations .ant-table-measure-row {
-    display: none;
+.content-last-operations {
+    .ant-table-measure-row {
+        display: none; // Hide header spacer (not used) to make scrollbar taller
+    }
+    .table-expanded-row {
+        img {
+            filter: var(--color-icon-link-filter);
+        }
+
+        a:link {
+            color: var(--color-text-link);
+        }
+        a:visited {
+            color: var(--color-text-link);
+        }
+
+        a:hover {
+            text-decoration: underline !important;
+        }
+    }
 }
 
 .content-last-operations .table-event-name,
