@@ -370,7 +370,7 @@ export default function ListOperations(props) {
                             <div className='table-event-name'>{getTransferAction(data)}</div><br></br>
                             <div className='table-amount'>{getTransferAddress(data)}</div>
                         </div>)}
-                        <div className='table-icon-name' >
+                        <div className={`table-icon-name ${(token.receive.action === "Transfer") ? 'table-icon-hide' : ''} `} >
                             {getAsset(token.receive.icon).image}
                             <div className='table-asset-name'>{token.receive.name}</div>
                         </div>
