@@ -2950,6 +2950,151 @@ h1.title-last-operations {
     }
 }
 
+/* Staking */
+.Staking  {
+    .row-section {
+        margin-top: 24px;
+    }
+    .card-system-status {
+        border-radius: var(--card-border-radius);
+        background-color: var(--surface-color-1);
+        box-shadow: var(--surface-shadow-1);
+        height: 442px;
+        padding: var(--card-padding);
+
+        .title {
+            h1 {
+                opacity: 1;
+                color: var(--color-text-primary);
+                font-family: var(--brand-font);
+                font-size: 20px;
+                font-weight: 700;
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+        .tab-button {
+            color: var(--color-text-primary);
+            font-family: var(--main-font);
+            font-weight: 700;
+            margin-right: 5px;
+            padding: 5px 5px;
+            border: none;
+            background-color: var(--surface-color-1);
+            cursor: pointer;
+        }
+        .tab-button.active {
+            border-bottom: 4px solid var(--divider-card);
+        }
+        .tab-divider {
+            height: 1px; 
+            background-color: var(--divider-card); 
+            margin: 0 -var(--card-padding);
+            }
+            
+            .staked-text {
+                color: var(--color-text-primary);
+                font-family: var(--main-font);
+                font-size: 14px;
+                font-weight: 400;
+                text-align: left;
+                margin-top: 22px;
+            }
+            
+            .action-section {
+                display: flex;
+                margin-top: 20px;
+            }
+            
+            .left-column,
+            .right-column {
+                flex: 1;
+            }
+            
+            .left-column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .title {
+                    color: var(--color-text-primary);
+                    font-family: var(--brand-font);
+                    font-size: 17px;
+                    font-weight: 700;
+                    text-align: left;
+                    line-height: 20px;
+                    margin-left: 13px;
+                }
+            }
+            
+            .right-column {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                height: 103px;
+                width: 198px;
+                .note-text {
+                    color: var(--color-text-secondary);
+                    font-family: var(--main-font);
+                    font-size: 12px;
+                    font-weight: 400;
+                    text-align: left;
+                    line-height: 16px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    .card-tvl {
+        border-radius: var(--card-border-radius);
+        background-color: var(--surface-color-1);
+        box-shadow: var(--surface-shadow-1);
+        padding: var(--card-padding);
+        height: 161px;
+
+        .title {
+            h1 {
+                opacity: 1;
+                color: var(--color-text-primary);
+                font-family: var(--brand-font);
+                font-size: 20px;
+                font-weight: 700; //Bold
+                font-style: normal;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+        }
+
+        .card-content {
+            .big-number {
+                color: var(--color-text-primary);
+                font-family: var(--brand-font);
+                font-size: 40px;
+                font-weight: 700; //Bold
+                letter-spacing: 0px;
+                text-align: left;
+            }
+
+            .caption {
+                color: var(--color-text-secondary);
+                font-family: var(--main-font);
+                font-size: 10px;
+                font-weight: 700; //Bold
+                letter-spacing: 0.5px;
+                text-align: left;
+                text-transform: uppercase;
+                line-height: 0px;
+            }
+        }
+    }
+}
+
+
 .ant-layout-footer {
     padding: 24px 50px;
     // color: rgba(0, 0, 0, 0.85);
