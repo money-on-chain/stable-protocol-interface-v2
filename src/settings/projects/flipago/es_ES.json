@@ -177,6 +177,18 @@
             "tab2": "Retirar Stack",
             "staked": "En Stake",
             "note": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'."
+        },
+        "distribution": {
+            "title": "Distribución de MOC",
+            "graph": {
+                "balance": "Balance (libre)",
+                "processingUnstake": "Unstake en proceso",
+                "readyWithdraw": "Listo para retirar",
+                "staked": "En stake"
+            },
+            "bar" : {
+                "desc": "Desempeño del stake anual de MOC"
+            }
         }
     }
 }

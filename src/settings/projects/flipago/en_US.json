@@ -122,6 +122,18 @@
             "tab2": "Unstaking",
             "staked": "Staked",
             "note": "You will be able to unstake at any time with a release delay of 30 days (no rewards received during this period). After this period you will be able to 'Withdraw'."
+        },
+        "distribution": {
+            "title": "MOC Distribution",
+            "graph": {
+                "balance": "Balance (free)",
+                "processingUnstake": "Processing unstake",
+                "readyWithdraw": "Ready for withdraw",
+                "staked": "Staked"
+            },
+            "bar" : {
+                "desc": "MOC staking annualized performance"
+            }
         }
     }
 }

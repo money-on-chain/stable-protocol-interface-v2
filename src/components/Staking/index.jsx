@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Col, Row } from 'antd';
 import { useProjectTranslation } from '../../helpers/translations';
 import Stake from './Stake';
+import PieChartComponent from './PieChart';
+import PerformanceChart from '../PerformanceChart';
 
 export default function Staking(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -31,32 +33,22 @@ export default function Staking(props) {
                     </div>
                 </Col>
                 <Col span={7}>
-                    <div className="card-tvl">
+                    <div className="card-system-status">
                         <div className="title">
-                            <h1>Total Value Lock</h1>
+                            <h1>{t('staking.distribution.title')}</h1>
                         </div>
-
-                        <div className="card-content">
-                            <div className="big-number">
-                                {'1000000'}
-                            </div>
-
-                            <div className="caption">Expressed in USD</div>
+                        <div className="tab-content">
+                            <PieChartComponent />
                         </div>
                     </div>
                 </Col>
                 <Col span={6}>
-                    <div className="card-tvl">
+                    <div className="card-system-status">
                         <div className="title">
-                            <h1>Total Value Lock</h1>
+                            <h1>{t('staking.distribution.title')}</h1>
                         </div>
-
-                        <div className="card-content">
-                            <div className="big-number">
-                                {'1000000'}
-                            </div>
-
-                            <div className="caption">Expressed in USD</div>
+                        <div className="tab-content">
+                            <PerformanceChart />
                         </div>
                     </div>
                 </Col>
