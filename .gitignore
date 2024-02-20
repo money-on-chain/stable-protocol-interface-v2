@@ -3,11 +3,19 @@ node_modules
 build
 public
 .DS_Store
+
+# assets
 src/assets/icons
 src/assets/css
+src/assets/img
+
+# settings
 src/settings/en_US.json
 src/settings/es_ES.json
 src/settings/settings.json
+
+# contracts
+src/contracts/*.json
 
 /.pnp
 .pnp.js
