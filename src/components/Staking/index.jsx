@@ -56,9 +56,7 @@ export default function Staking(props) {
             </Row>
             <Row gutter={24} className="row-section">
                 <Col span={24}>
-                    <div className="card-system-status">
                         <Withdraw />
-                    </div>
                 </Col>
             </Row>
         </div>
