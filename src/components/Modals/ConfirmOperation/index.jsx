@@ -41,6 +41,7 @@ export default function ModalConfirmOperation(props) {
                 className="ModalConfirmOperation"
                 closable={false}
                 centered={true}
+                maskClosable={false}
                 maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
