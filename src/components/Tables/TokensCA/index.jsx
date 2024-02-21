@@ -195,16 +195,14 @@ export default function Tokens(props) {
                 auth.contractStatusData.historic.getPTCac,
                 settings.tokens.TC.decimals
             )
-        );
+        ).times(priceCA);
+
         const priceDelta = price.minus(priceHistory);
-        const variation = priceDelta.abs().div(priceHistory).times(100);
+
+        const variation = price.minus(priceHistory).div(priceHistory).times(100);
 
         const itemIndex = count;
 
-        const priceDeltaFormat = priceDelta.toFormat(t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`), BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
-        });
         const getSign = () => {
             if (priceDelta.isZero()) {
                 return '';
@@ -214,7 +212,7 @@ export default function Tokens(props) {
             }
             return '-';
         };
-        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
+        const variationFormat = variation.abs().toFormat(2, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
         });
