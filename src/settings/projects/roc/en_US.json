@@ -126,6 +126,15 @@
             "bar" : {
                 "desc": "MOC staking annualized performance"
             }
+        },
+        "performance" : {
+            "title": "Staking Performance",
+            "bar" : {
+                "desc": "MOC staking annualized performance"
+            }
+        },
+        "withdraw" : {
+            "title": "Withdraw"
         }
     }
 }

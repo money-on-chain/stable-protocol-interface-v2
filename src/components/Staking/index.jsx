@@ -4,6 +4,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 import Stake from './Stake';
 import PieChartComponent from './PieChart';
 import PerformanceChart from '../PerformanceChart';
+import Withdraw from './Withdraw';
 
 export default function Staking(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -12,7 +13,7 @@ export default function Staking(props) {
     return (
         <div className="Staking">
             <Row gutter={24} className="row-section">
-                <Col span={11}>
+                <Col span={10}>
                     <div className="card-system-status">
                         <div className="title">
                             <h1>{t('staking.title')}</h1>
@@ -42,14 +43,21 @@ export default function Staking(props) {
                         </div>
                     </div>
                 </Col>
-                <Col span={6}>
+                <Col span={7}>
                     <div className="card-system-status">
                         <div className="title">
-                            <h1>{t('staking.distribution.title')}</h1>
+                            <h1>{t('staking.performance.title')}</h1>
                         </div>
                         <div className="tab-content">
                             <PerformanceChart />
                         </div>
+                    </div>
+                </Col>
+            </Row>
+            <Row gutter={24} className="row-section">
+                <Col span={24}>
+                    <div className="card-system-status">
+                        <Withdraw />
                     </div>
                 </Col>
             </Row>

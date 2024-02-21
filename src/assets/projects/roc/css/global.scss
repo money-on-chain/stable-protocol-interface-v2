@@ -3065,6 +3065,88 @@ h1.title-last-operations {
             justify-content: space-between;
             margin-bottom: 1px;
         }
+        .ChartContainer {
+            display: flex;
+            align-items: flex-end;
+            height: 340px;
+            padding-bottom: 25px;
+            padding-left: 0px;
+
+            .ChartGraphic {
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                column-gap: 10px;
+                justify-items: center;
+                width: 120px;
+                margin: 0 auto;
+                margin-right: 20px;
+                .ChartColumn {
+                    display: flex;
+                    flex-direction: column;
+                    flex-basis: 50%;
+
+                    .Bar {
+                        background: #d5d5d5;
+                        flex-grow: 1;
+                        position: relative;
+
+                        div {
+                            color: #000000;
+                            font-size: 8px;
+                            bottom: 5px;
+                            position: absolute;
+                            text-align: center;
+                            line-height: 12px;
+                            width: 100%;
+                            font-weight: bold;
+                        }
+
+                        &.Percent {
+                            flex-grow: 0;
+                            height: 0;
+                            transition: ease all 0.5s;
+                            background: #959595;
+                            padding-bottom: 50px;
+                            &.Hidden {
+                                background: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .ChartText {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                margin-top: 10px;
+                width: 86px;
+                margin-right: 20px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-left: 0;
+
+                .percent {
+                    color: var(--color-text-primary);
+                    font-family: var(--brand-font);
+                    font-size: 20px;
+                    font-weight: 700;
+                    letter-spacing: 0px;
+                    text-align: left;
+                }
+
+                .percent-note {
+                    color: var(--color-text-primary);
+                    font-family: var(--brand-font);
+                    font-size: 14px;
+                    font-weight: 400;
+                    letter-spacing: 0px;
+                    text-align: left;
+                    width: 100%;
+                }
+            }
+        }
     }
 
     .card-tvl {
@@ -3108,6 +3190,14 @@ h1.title-last-operations {
                 line-height: 0px;
             }
         }
+    }
+    .item-data {
+        font-family: var(--main-font);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.61px;
+        line-height: 19px;
     }
 }
 

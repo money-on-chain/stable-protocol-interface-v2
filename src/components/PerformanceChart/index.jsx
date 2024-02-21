@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Row, Col, Tabs } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
-import './style.scss';
 
 export default function PerformanceChart(props) {
     const [percent, setPercent] = useState(0);
@@ -19,10 +18,10 @@ export default function PerformanceChart(props) {
         <div className="ChartContainer">
             <div className="ChartText">
                 <Col xs={24}>
-                    <h1>{percent > 0 && `${percent}%`}</h1>
-                    <h4>
+                    <div className='percent'>{percent > 0 && `${percent}%`}</div>
+                    <div className='percent-note'>
                         MoC Staking Annualized Performance
-                    </h4>
+                    </div>
                 </Col>
             </div>
             <div className="ChartGraphic">

@@ -177,6 +177,15 @@
             "bar" : {
                 "desc": "Desempeño del stake anual de MOC"
             }
+        },
+        "performance" : {
+            "title": "Desempeño del Staking",
+            "bar" : {
+                "desc": "Desempeño del stake anual de MOC"
+            }
+        },
+        "withdraw" : {
+            "title": "Retiros"
         }
     }
 }
