@@ -46,8 +46,8 @@
                 "abbr": "GoARS"
             },
             "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "Go COP",
+                "abbr": "GoCOP"
             },
             "COINBASE": {
                 "label": "rBTC",
@@ -107,8 +107,8 @@
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "GoMXN",
-                        "symbol": " (GOMXN)",
+                        "title": "GoCOP",
+                        "symbol": " (GOCOP)",
                         "price_decimals": 2
                     }
                 }

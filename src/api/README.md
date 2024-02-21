@@ -130,7 +130,7 @@ Example API operations
 
 ### Token Pegged (TP):
 
-* **Flipago:** FARS, FMXN
+* **Flipago:** Go ARS, Go COP
 * **RoC:** USDRIF
 
 
