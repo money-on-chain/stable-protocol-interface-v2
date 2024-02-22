@@ -121,6 +121,13 @@ export default function Exchange() {
             return
         }
 
+        // 0. Amount > 0
+        if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
+            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationError(true);
+            return
+        }
+
         // 1. User Exchange Token Validation
         const totalBalance = new BigNumber(
             fromContractPrecisionDecimals(
