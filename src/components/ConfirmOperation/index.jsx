@@ -695,7 +695,7 @@ export default function ConfirmOperation(props) {
             )}
 
             <ModalAllowanceOperation
-                title={`Authorize to use ${t(`exchange.tokens.CA_0.abbr`, {ns: ns})}`}
+                title={`Authorize to use ${t(`exchange.tokens.${currencyYouExchange}.label`, {ns: ns})}`}
                 visible={showModalAllowance}
                 onHideModalAllowance={onHideModalAllowance}
                 currencyYouExchange={currencyYouExchange}
