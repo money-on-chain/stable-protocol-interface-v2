@@ -50,7 +50,7 @@ export default function Portfolio() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price = new BigNumber(
+            price = settings.project === 'roc' ? 1 : new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.PP_TP[dataItem.key],
                     settings.tokens.TP[dataItem.key].decimals
@@ -58,6 +58,7 @@ export default function Portfolio() {
             );
             balanceUSD = balance.div(price);
             totalUSD = totalUSD.plus(balanceUSD);
+
         });
 
     // Token TC
@@ -68,13 +69,21 @@ export default function Portfolio() {
                 settings.tokens.TC.decimals
             )
         );
-        price = new BigNumber(
+        const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
                 settings.tokens.TC.decimals
             )
         );
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+
         if (auth.contractStatusData.canOperate) {
+            price = priceTEC.times(priceCA);
             balanceUSD = balance.times(price);
             totalUSD = totalUSD.plus(balanceUSD);
         }
@@ -93,6 +102,25 @@ export default function Portfolio() {
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_COINBASE,
                 settings.tokens.COINBASE.decimals
+            )
+        );
+        balanceUSD = balance.times(price);
+        totalUSD = totalUSD.plus(balanceUSD);
+
+    }
+
+    // Fee Token (TF)
+    if (auth.contractStatusData && auth.userBalanceData) {
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.FeeToken.balance,
+                settings.tokens.TF.decimals
+            )
+        );
+        price = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_FeeToken,
+                settings.tokens.TF.decimals
             )
         );
         balanceUSD = balance.times(price);
