@@ -162,7 +162,7 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
             };
         case 'TP,CA':
             return {
-                token: dContracts.contracts.TP[parseInt(aTokenReceive[1])],
+                token: dContracts.contracts.TP[parseInt(aTokenExchange[1])],
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
