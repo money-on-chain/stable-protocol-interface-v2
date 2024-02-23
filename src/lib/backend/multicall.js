@@ -121,6 +121,7 @@ const contractStatus = async (web3, dContracts) => {
     // const multicallResult = await multicall.methods.tryBlockAndAggregate(false, cleanListMethods).call({}, 3807699)
     const multicallResult = await multicall.methods.tryBlockAndAggregate(false, cleanListMethods).call()
 
+    status.canOperate = true
     const listReturnData = []
     multicallResult.returnData.forEach(function (item, itemIndex) {
         // Ok success
