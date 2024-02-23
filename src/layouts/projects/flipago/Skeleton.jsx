@@ -28,7 +28,7 @@ export default function Skeleton() {
             {auth.contractStatusData && !auth.contractStatusData.canOperate && (
                 <Alert
                     message="Warning"
-                    description="Cannot operate with the current contract status."
+                    description="One or more contracts are temporarily unavailable. Please try again later.."
                     type="error"
                     showIcon
                 />

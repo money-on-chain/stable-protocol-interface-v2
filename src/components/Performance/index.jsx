@@ -77,7 +77,7 @@ export default function Performance(props) {
     if (!auth.contractStatusData.canOperate) {
         statusIcon = 'icon-status-alert';
         statusLabel = 'Cannot operate';
-        statusText = 'Cannot operate with the current contract status';
+        statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
     }
 
     return (
