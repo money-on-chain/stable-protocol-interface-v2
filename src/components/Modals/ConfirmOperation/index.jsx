@@ -33,7 +33,7 @@ export default function ModalConfirmOperation(props) {
                 Exchange
             </Button>
             <Modal
-                title="Confirm Exchange"
+                title={t('exchange.modalTitle')}
                 width={505}
                 open={visible}
                 onCancel={hideModal}
@@ -41,7 +41,7 @@ export default function ModalConfirmOperation(props) {
                 className="ModalConfirmOperation"
                 closable={false}
                 centered={true}
-                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                maskStyle={{  }}
             >
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
             </Modal>

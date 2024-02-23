@@ -80,53 +80,31 @@
     }
 }
 
-.custom-table .ant-pagination-item {
+.ant-pagination-item {
     background-color: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-}
-.custom-table-light .ant-pagination-item {
-    background-color: transparent;
-    color: rgb(0, 0, 0);
     border: none;
 }
 
 .ant-pagination-item a {
     color: var(--color-text-secondary);
 }
-.custom-table-light .ant-pagination-item a {
-    color: #000000;
-}
-
-.ant-pagination-prev .ant-pagination-item-link,
-.ant-pagination-next .ant-pagination-item-link {
-    background-color: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-}
-.custom-table-light .ant-pagination-prev .ant-pagination-item-link,
-.custom-table-light .ant-pagination-next .ant-pagination-item-link {
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    border: none;
-}
 
 .ant-pagination-item-active a {
     color: var(--color-text-primary);
 }
-.custom-table-light .ant-pagination-item-active a {
-    color: rgb(0, 0, 0);
+
+.ant-pagination a:hover {
+    color: var(--color-text-link) !important;
 }
 
-.ant-pagination-item-active {
-    background-color: transparent;
-    color: white;
-    border: none;
+.ant-pagination-item-link {
+    color: var(--color-text-secondary) !important;
+    background-color: transparent !important;
+    border: none !important;
 }
-.custom-table-light .ant-pagination-item-active {
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    border: none;
+
+.ant-pagination-item-link:hover {
+    color: var(--color-text-highlight) !important;
 }
 
 .table-expanded-row {

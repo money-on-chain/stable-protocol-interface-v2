@@ -20,7 +20,7 @@ export default function ModalAllowanceOperation(props) {
                 closable={false}
                 className="ModalAllowance"
                 centered={true}
-                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                maskStyle={{ }}
             >
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>

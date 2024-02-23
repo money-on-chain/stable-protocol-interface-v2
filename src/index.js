@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
@@ -16,8 +16,8 @@ import { AuthenticateProvider } from './context/Auth';
 import IconWaiting from './assets/icons/status-pending.png';
 import Router from './router';
 
-import es_ES from './settings/es_ES.json';
-import en_US from './settings/en_US.json';
+import es_ES from './settings/locale/es_ES.json';
+import en_US from './settings/locale/en_US.json';
 
 console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
 
@@ -25,7 +25,7 @@ async function loadTranslations() {
     try {
         await i18next.init({
             interpolation: { escapeValue: false },
-            lng: 'en',
+            lng: 'es',
             resources: {
                 es: { translation: es_ES },
                 en: { translation: en_US }
@@ -38,7 +38,7 @@ async function loadTranslations() {
 
 loadTranslations();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>

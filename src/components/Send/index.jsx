@@ -85,16 +85,16 @@ export default function Send() {
         );
 
         if (amountYouExchange.gt(totalBalance)) {
-            setInputValidationErrorText('Not enough balance in your wallet');
+            setInputValidationErrorText(t('send.infoNoBalance'));
             amountInputError = true
         }
 
         // 2. Input address valid
         if (destinationAddress === '') {
-            setInputValidationAddressErrorText('Address field cannot be empty');
+            setInputValidationAddressErrorText(t('send.infoAddressEmpty'));
             addressInputError = true
         } else if (destinationAddress.length < 42) {
-            setInputValidationAddressErrorText('Address is not valid');
+            setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
             addressInputError = true
         }
 
@@ -197,7 +197,7 @@ export default function Send() {
 
                     <div className="swap-to">
 
-                        <div className="caption">Destination Address</div>
+                        <div className="caption">{t('send.labelSending')} </div>
                         <Input type="text" placeholder="Destination address" className="input-address" onChange={onChangeDestinationAddress} />
                         <div className="input-validation-error">{inputValidationAddressErrorText}</div>
 
@@ -210,8 +210,8 @@ export default function Send() {
 
                 <div className="exchanging">
 
-                    <span className={'token_exchange'}>Sending </span>
-                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
+                    <span className={'symbol'}> {t('send.sendingSign')} </span>
                     <span className={'token_receive'}>
                     {PrecisionNumbers({
                         amount: exchangingUSD,
@@ -223,7 +223,7 @@ export default function Send() {
                         skipContractConvert: true
                     })}
                 </span>
-                    <span className={'token_receive_name'}> USD</span>
+                    <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
 
                 </div>
 

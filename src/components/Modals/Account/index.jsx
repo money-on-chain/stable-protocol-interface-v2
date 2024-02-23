@@ -31,7 +31,7 @@ export default function ModalAccount(props) {
                 closable={false}
                 className="ModalAccount"
                 centered={true}
-                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                maskStyle={{}}
             >
                 <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
             </Modal>

@@ -667,7 +667,7 @@ export default function ListOperations(props) {
         <>
             <div className="title">
                 <h1 className="title-last-operations">
-                    {t(`operations.title`, { ns: ns })}
+                    {t(`operations.sectionTitle`, { ns: ns })}
                 </h1>
             </div>
             {!loadingSke ? (

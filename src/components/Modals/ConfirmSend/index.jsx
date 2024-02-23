@@ -33,10 +33,10 @@ export default function ModalConfirmSend(props) {
                 onClick={showModal}
                 disabled={(inputValidationError) ? 'disabled' : null}
             >
-                Send
+                {t('send.buttonPrimary')}
             </Button>
             <Modal
-                title="Confirm Send"
+                title={t('send.modalTitle')}
                 width={505}
                 open={visible}
                 onCancel={hideModal}
@@ -44,7 +44,7 @@ export default function ModalConfirmSend(props) {
                 className="ModalConfirmOperation"
                 closable={false}
                 centered={true}
-                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                maskStyle={{  }}
             >
                 <ConfirmSend {...props} onCloseModal={hideModal} />
             </Modal>

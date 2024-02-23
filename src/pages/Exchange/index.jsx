@@ -23,7 +23,7 @@ function SectionExchange(props) {
             <div className={'dashboard-exchange'}>
 
                 <div className={'title'}>
-                    <h1>Exchange</h1>
+                    <h1>{t('exchange.cardTitle')}</h1>
                 </div>
 
                 <div className={'content-body'}>

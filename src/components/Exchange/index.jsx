@@ -486,7 +486,7 @@ export default function Exchange() {
                             skipContractConvert: true
                         })}
                         setAddTotalAvailable={setAddTotalAvailable}
-                        action={'RECEIVING'}
+                        action={t('exchange.labelReceiving')}
                     />
                 </div>
             </div>
@@ -648,9 +648,10 @@ export default function Exchange() {
 
                     </div>
                     <div className="balance">
-                        This fee will be deducted from the transaction value
-                        transferred. <br />
-                        Amounts my be different at transaction confirmation.
+                    {t('exchange.fee.disclaimer1')}
+                    <br />
+                    {t('exchange.fee.disclaimer2')}
+
                     </div>
                 </div>
 
@@ -661,8 +662,8 @@ export default function Exchange() {
 
             <div className="exchanging">
 
-                <span className={'token_exchange'}>Exchanging </span>
-                <span className={'symbol'}> ≈ </span>
+                <span className={'token_exchange'}> {t('exchange.exchangingSummary')} </span>
+                <span className={'symbol'}> {t('exchange.exchangingSign')} </span>
                 <span className={'token_receive'}>
                     {PrecisionNumbers({
                         amount: exchangingUSD,
@@ -674,7 +675,7 @@ export default function Exchange() {
                         skipContractConvert: true
                     })}
                 </span>
-                <span className={'token_receive_name'}> USD</span>
+                <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
 
             </div>
 

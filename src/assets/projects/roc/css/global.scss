@@ -1910,6 +1910,8 @@ h1.title-last-operations {
     width: var(--button-width);
     height: var(--button-height);
     cursor: pointer;
+    outline: 1px solid outset red !important;
+
     transition:
         background-color 0.3s,
         color 0.3s,
@@ -1923,20 +1925,27 @@ h1.title-last-operations {
     box-shadow: none;
 }
 
+.primary-button:focus {
+    outline: 1px solid var(--color-button-primary-background-default);
+    outline-offset: 2px;
+    background-color: var(--color-button-primary-background-default);
+    color: var(--color-button-primary-text-default);
+}
+
 .primary-button:hover {
     color: var(--color-button-primary-text-hover);
     border-color: var(--color-button-primary-text-hover);
     background: var(--color-button-primary-background-hover);
 }
 
-.secondary-button:hover,
-.secondarybutton:focus {
+.secondary-button:hover {
     color: var(--color-button-secondary-text-hover);
     border-color: var(--color-button-secondary-text-hover);
     background: var(--color-button-primary-secondary-hover);
 }
 
-.secondary-button {
+.secondary-button,
+.secondarybutton:focus {
     border-radius: var(--button-radius);
     border: 2px solid var(--color-button-secondary-text-default);
     background-color: var(--color-button-secondary-background-default);
@@ -1950,7 +1959,12 @@ h1.title-last-operations {
     width: 200px;
     height: 54px;
 }
-
+.secondary-button:focus {
+    outline: 1px solid var(--color-button-secondary-text-default);
+    outline-offset: 2px;
+    background-color: var(--color-button-secondary-background-default);
+    color: var(--color-button-secondary-text-default);
+}
 .exchange-footer {
     margin-top: 64px;
 

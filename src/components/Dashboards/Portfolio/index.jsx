@@ -23,7 +23,7 @@ export default function Portfolio() {
     // Tokens CA
     auth.contractStatusData &&
         auth.userBalanceData &&
-        settings.tokens.CA.forEach(function (dataItem) {
+        settings.tokens.CA.forEach(function (dataItem) {","
             balance = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.userBalanceData.CA[dataItem.key].balance,
@@ -103,7 +103,7 @@ export default function Portfolio() {
         <div className="dashboard-portfolio">
             <div className="tokens-card-content">
                 <div className="tokens-list-header">
-                    <div className="tokens-list-header-title">Portfolio</div>
+                    <div className="tokens-list-header-title">{t('portfolio.sectionTitle')}</div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
                             {PrecisionNumbers({
@@ -118,7 +118,7 @@ export default function Portfolio() {
                             USD
                         </div>
                         <div className="tokens-list-header-balance-title">
-                            Total balance
+                            {t('portfolio.totalBalance')}
                         </div>
                     </div>
                 </div>

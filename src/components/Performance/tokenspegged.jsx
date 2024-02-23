@@ -7,54 +7,54 @@ import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
 
 
+
+export default function TokensPegged() {
+const [t, i18n, ns] = useProjectTranslation();
 const ProvideColumnsTP = [
     {
-      title: 'Name',
+      title: t("performance.pegged.colName"),
       dataIndex: 'name',
       align: 'left',
       width: 210
     },
     {
-      title: 'Tokens per USD',
+      title: t("performance.pegged.colTokensPer"),
       dataIndex: 'tokens_per_usd',
       align: 'right',
       width: 160
     },
     {
-      title: 'Minted',
+      title: t("performance.pegged.colMinted"),
       dataIndex: 'minted',
       align: 'right',
       width: 140
     },
     {
-      title: 'Mintable',
+      title: t("performance.pegged.colMintable"),
       dataIndex: 'mintable',
       align: 'right',
       width: 160
     },
     {
-      title: 'T. Coverage',
+      title: t("performance.pegged.colTargetCoverage"),
       dataIndex: 'coverage',
       align: 'right',
       width: 140
 
     },
     {
-      title: 'EMA',
+      title: t("performance.pegged.colEMA"),
       dataIndex: 'ema',
       align: 'right',
       width: 100
     },
     {
-      title: 'Ctargema',
+      title: t("performance.pegged.colTargetEMA"),
       dataIndex: 'ctargema',
       align: 'right',
       width: 140
     }
   ];
-
-export default function TokensPegged() {
-    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const tokensData = [];
     const columnsData = [];
@@ -175,7 +175,7 @@ export default function TokensPegged() {
         <div className="card-tps">
 
             <div className="title">
-                <h1>Pegged Tokens performance</h1>
+                <h1>{t("performance.pegged.cardTitle")}</h1>
             </div>
 
             <Table

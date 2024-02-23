@@ -263,3 +263,13 @@ html {
         padding: 10px 0px !important;
     }
 }
+
+/*
+    --- MODALS ---
+*/
+
+.ant-modal-wrap {
+    // Backround & background blur for modals
+    background-color: var(--modals-backdrop-color);
+    backdrop-filter: blur(var(--modals-backdrop-blur));
+}

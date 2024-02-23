@@ -1,0 +1,249 @@
+{
+    "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
+    "NoConnection_alertTitle": "¡Billetera no conectada!",
+    "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
+    "invalidValueDescription": "No value to display",
+    "invalidValuePlaceholder": "--",
+    "operations": {
+        "sectionTitle": "Últimas Operaciones",
+        "tooltip": {
+            "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
+        },
+        "empty": "No operations",
+        "headers": {
+            "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
+        },
+        "columns_detailed": {
+            "event": "Evento",
+            "created": "Creado",
+            "gas_used": "Gas Usado",
+            "oper_id": "ID Operación",
+            "confirmation": "Confirmación",
+            "recipient": "Destinatario",
+            "status": "Estado",
+            "error_code": "Código de error",
+            "block": "Bloque Nº",
+            "executed_tx": "Ejecutado",
+            "tx": "TX Hash",
+            "fee": "Fee",
+            "gas": "Fee Gas",
+            "msg": "Mensaje",
+            "reason": "Motivo"
+        }
+    },
+
+    "exchange": {
+        "tokens": {
+            "CA_0": {
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
+            },
+            "TC": {
+                "label": "Go Turbo",
+                "abbr": "Turbo"
+            },
+            "TP_0": {
+                "label": "Go ARS",
+                "abbr": "GoARS"
+            },
+            "TP_1": {
+                "label": "Go MXN",
+                "abbr": "GoMXN"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "Flip",
+                "abbr": "FLIP"
+            }
+        },
+
+        "limit": {
+            "minimumToReceive": "Mínimo a recibir",
+            "seeVariationTolarance": "Ver Tolerancia de Variación de Precio"
+        },
+
+        "fee": {
+            "disclaimer1": "Este fee será restado del monto a ser transferido.",
+            "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
+        },
+
+        "confirm": {
+            "submit": "Espera la confirmación de la transacción",
+            "sign": "Firma la transacción en tu billetera",
+            "queuing": "Encolando la transacción…",
+            "queued": "Operación encolada. Esperando ejecución…",
+            "confirming": "Operación en confirmación",
+            "success": "Operación exitosa",
+            "error": "La operación falló",
+            "default": "Espera la confirmación de la transacción"
+        },
+
+        "priceVariation": {
+            "title": "Personalizar Tolerancia de Variación de Precio",
+            "sliderLabel" : "Tolerancia de Variación de Precio"
+        },
+        "exchangingSummary": "Cambiando",
+        "exchangingSign": "≈", 
+        "exchangingCurrency": "USD",
+        "cardTitle": "Cambiar",
+        "labelSending": "cambiando",
+        "labelBalance": "balance",
+        "labelReceiving": "Recibiendo",
+        "labelTransactionID": "ID de transacción",
+        "placeholder": "Dirección",
+        "sendingSummary": "Enviando",
+        "sendingSign": " ",
+        "sendingCurrency": "USD",
+        "buttonPrimary": "Enviar",
+        "modalTitle": "Confirmar Cambio",
+        "buttonCancel": "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "buttonClose": "Cerrar",
+        "infoNoBalance": "Saldo insuficiente",
+        "infoAddressEmpty": "Falta la dirección de destino",
+        "infoAddressInvalid": "Dirección de destino inválida"
+
+    },
+    "portfolio": {
+        "tokens": {
+            "CA": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Price in USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "Dollar On Chain",
+                        "symbol": " (DOC)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go Turbo",
+                        "symbol": " (TURBO)",
+                        "price_decimals": 2
+                    },
+                    "2": {
+                        "title": "Flip",
+                        "symbol": " (GOFLIP)",
+                        "price_decimals": 2
+                    },
+                    "3": {
+                        "title": "Smart Bitcoin",
+                        "symbol": " (RBTC)",
+                        "price_decimals": 2
+                    }
+                }
+            },
+            "TP": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Tokens per USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "Go ARS",
+                        "symbol": " (GOARS)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go MXN",
+                        "symbol": " (GOMXN)",
+                        "price_decimals": 2
+                    }
+                }
+            }
+        },
+        "sectionTitle": "Portafolio",
+        "totalBalance": "Balance Total"
+   
+    },
+    "performance": {
+        "sectionTitle": "Desempeño",
+        "status": {
+            "cardTitle": "Estado del Sistema",
+
+            "statusTitleFull": "Totalmente Operativo",
+            "statusDescriptionFull": "The system is in optimal condition",
+
+            "stuatuTitleWarning": "Parcialmente Operativo",
+            "statusDescriptionWarning": "Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+
+            "statusTitleAlert": "Modo Protegido",
+            "StatusDescriptionAlert": "No hay operaciones permitidas",
+
+            "statusTitleLiquidated": "Liquidado",
+            "StatusDescriptionLiquidated": "No hay operaciones permitidas",
+            
+            "statusTitlePaused": "Pausado",
+            "StatusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
+
+            "showingBlock": "Mostrando bloque"
+
+        },
+        "tvl": {
+            "cardTitle": "Valor Total Bloqueado",
+            "expressedIn": "Expresado en USD"
+        },
+
+        "tc": {
+            "priceIn": "Precio en USD",
+            "currentLeverage": "Apalancamiento actual",
+            "totalInSystem": "Total en el sistema",
+            "redeemable" : "Disponible para redimir"
+         },
+
+         "collateral": {
+            "cardTitle": "Colateral",
+            "totalIn": "Colateral total en USD",
+            "globalCoverage": "Cobertura Global"
+         },
+
+         "pegged": {
+            "cardTitle": "Performance de Tokens Pegged",
+            "colName": "Nombre",
+            "colTokensPer": "Tokens por USD",
+            "colMinted": "Minteados",
+            "colMintable": "Minteables",
+            "colTargetCoverage": "Cobertura Obj.",
+            "colEMA": "EMA",
+            "colTargetEMA": "EMA Objetivo"
+         }
+    },
+
+    "send": {
+        "cardTitle": "Enviar",
+        "labelSending": "enviando",
+        "labelBalance": "balance",
+        "labelDestination": "Dirección de destino",
+        "labelTransactionID": "ID de transacción",
+        "placeholder": "Dirección",
+        "sendingSummary": "Enviando",
+        "sendingSign": " ",
+        "sendingCurrency": "USD",
+        "buttonPrimary": "Enviar",
+        "modalTitle": "Confirmar Envío",
+        "buttonCancel": "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "buttonClose": "Cerrar",
+        "infoNoBalance": "Saldo insuficiente",
+        "infoAddressEmpty": "Falta la dirección de destino",
+        "infoAddressInvalid": "Dirección de destino inválida",
+        "confirm": {
+            "submit": "Espera la confirmación de la transacción",
+            "sign": "Firma la transacción en tu billetera",
+            "waiting": "Espera la confirmación de la transacción",
+            "success": "Operación exitosa",
+            "error": "La operación falló",
+            "default": "Espera la confirmación de la transacción"
+        }
+     }
+}
