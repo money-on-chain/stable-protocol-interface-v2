@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import settings from '../../settings/settings.json';
+import configOmoc from './omoc.json';
 
 const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
@@ -387,4 +388,66 @@ const userBalance = async (web3, dContracts, userAddress) => {
     return userBalance;
 };
 
-export { contractStatus, userBalance };
+const registryAddresses = async (web3, dContracts) => {
+    if (!dContracts) return;
+    const multicall = dContracts.contracts.multicall;
+    const iregistry = dContracts.contracts.iregistry;
+
+    const listMethods = [
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.MOC_STAKING_MACHINE)
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.SUPPORTERS_ADDR)
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.MOC_DELAY_MACHINE)
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.MOC_VESTING_MACHINE)
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.MOC_VOTING_MACHINE)
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(
+                    configOmoc.RegistryConstants.MOC_PRICE_PROVIDER_REGISTRY
+                )
+                .encodeABI()
+        ],
+        [
+            iregistry.options.address,
+            iregistry.methods
+                .getAddress(configOmoc.RegistryConstants.ORACLE_MANAGER_ADDR)
+                .encodeABI()
+        ]
+    ];
+
+    const multicallResult = await multicall.methods
+        .tryBlockAndAggregate(false, listMethods)
+        .call();
+
+    const listReturnData = multicallResult[2].map((x) =>
+        web3.eth.abi.decodeParameter('address', x.returnData)
+    );
+
+    return listReturnData;
+};
+export { contractStatus, userBalance, registryAddresses};

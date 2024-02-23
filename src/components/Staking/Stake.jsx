@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment, useEffect } from 'react'
 import BigNumber from 'bignumber.js';
 import { Button } from 'antd';
 
@@ -9,79 +9,159 @@ import { tokenExchange } from '../../helpers/exchange';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import InputAmount from '../InputAmount';
 import SelectCurrency from '../SelectCurrency';
-const Stake = () => {
+import {tokenStake} from '../../helpers/staking';
+import {fromContractPrecisionDecimals} from '../../helpers/Formats';
+const Stake = (props) => {
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
-  const defaultTokenExchange = tokenExchange()[0];
-  const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
+  const defaultTokenExchange = tokenStake()[0];
+  const [mocBalance, setMocBalance] = useState('0');
+  const [isDirtyYouExchange, setIsDirtyYouStake] = useState(false);
   const [inputValidationErrorText, setInputValidationErrorText] = useState('');
-  const [currencyYouExchange, setCurrencyYouExchange] = useState(defaultTokenExchange);
-  const [amountYouExchange, setAmountYouExchange] = useState(
+  const [lockedBalance, setLockedBalance] = useState('0');
+  const [stakedBalance, setStakedBalance] = useState('0');
+  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
+  const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
+  const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
+  const [currencyYouStake, setCurrencyYouExchange] = useState(defaultTokenExchange);
+  const [amountYouStake, setAmountYouStake] = useState(
     new BigNumber(0)
   );
+
+  useEffect(() => {
+    setStakingBalances();
+  }, [auth]);
+
+  const setStakingBalances = async () => {
+    try {
+      let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
+        '0',
+        '0',
+        []
+      ];
+      if (props.UserBalanceData) {
+        setMocBalance(props.UserBalanceData.TP[0].balance);
+        [_stakedBalance, _lockedBalance, _pendingWithdrawals] =
+          await Promise.all([
+            auth.interfaceStackedBalance(),
+            auth.interfaceLockedBalance(),
+            auth.interfacePendingWithdrawals()
+          ]);
+      }
+      const pendingWithdrawalsFormatted = _pendingWithdrawals
+        .filter((withdrawal) => withdrawal.expiration)
+        .map((withdrawal) => {
+          const status =
+            new Date(parseInt(withdrawal.expiration) * 1000) >
+              new Date()
+              ? withdrawalStatus.pending
+              : withdrawalStatus.available;
+
+          return {
+            ...withdrawal,
+            status
+          };
+        });
+      let pendingExpirationAmount = '0';
+      let readyToWithdrawAmount = '0';
+      console.log('Pending Withdrawals', pendingWithdrawalsFormatted);
+      pendingWithdrawalsFormatted.forEach(({ status, amount }) => {
+        if (status === withdrawalStatus.pending) {
+          pendingExpirationAmount = BigNumber.sum(
+            pendingExpirationAmount,
+            amount
+          ).toFixed(0);
+        } else {
+          readyToWithdrawAmount = BigNumber.sum(
+            readyToWithdrawAmount,
+            amount
+          ).toFixed(0);
+        }
+      });
+      const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
+        return b.id - a.id;
+      });
+      setLockedBalance(_lockedBalance);
+      console.log('Staked balance', _stakedBalance );
+      setStakedBalance(_stakedBalance);
+      setTotalPendingExpiration(pendingExpirationAmount);
+      setTotalAvailableToWithdraw(readyToWithdrawAmount);
+      setPendingWithdrawals(arrayDes);
+      console.log('Staking balances', _stakedBalance, _lockedBalance, _pendingWithdrawals);
+    } catch (error) {
+      console.log('Error getting staking balances', error);
+    }
+  };
+
+  const clickButtonStake = (amountInputValue) => {
+    if (amountInputValue > 0) {
+      setModalAmount(amountInputValue);
+      setModalMode('staking');
+    } else {
+      alert('Please fill amount you want to stake');
+    }
+  };
   const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
     onClear();
     setCurrencyYouExchange(newCurrencyYouExchange);
   };
   const onClear = () => {
-    setIsDirtyYouExchange(false);
-    setAmountYouExchange(new BigNumber(0));
+    setIsDirtyYouStake(false);
+    setAmountYouStake(new BigNumber(0));
   };
-  const onChangeAmountYouExchange = (newAmount) => {
-
-    setIsDirtyYouExchange(true);
-    setAmountYouExchange(new BigNumber(newAmount));
-
-    const usdAmount = ConvertAmount(
-      auth,
-      currencyYouExchange,
-      'CA_0',
-      newAmount,
-      false
-    );
-    setExchangingUSD(usdAmount);
-
+  const onChangeAmountYouStake = (newAmount) => {
+    setIsDirtyYouStake(true);
+    setAmountYouStake(new BigNumber(newAmount));
   };
   const setAddTotalAvailable = () => {
-
-    setIsDirtyYouExchange(false);
-
-    const tokenSettings = TokenSettings(currencyYouExchange);
-    const totalYouExchange = new BigNumber(
+    setIsDirtyYouStake(false);
+    const tokenSettings = TokenSettings(currencyYouStake);
+    const totalYouStake = new BigNumber(
       fromContractPrecisionDecimals(
-        TokenBalance(auth, currencyYouExchange),
+        TokenBalance(auth, currencyYouStake),
         tokenSettings.decimals
       )
     );
-    setAmountYouExchange(totalYouExchange);
+    setAmountYouStake(totalYouStake);
   };
+  console.log('precision', PrecisionNumbers({
+    amount: stakedBalance,
+    token: TokenSettings(currencyYouStake),
+    decimals:
+      TokenSettings(currencyYouStake)
+        .visibleDecimals,
+    t: t,
+    i18n: i18n,
+    ns: ns
+  }));
   return (
     <Fragment>
       <div className="swap-from">
         <SelectCurrency
           className="select-token"
-          value={currencyYouExchange}
-          currencyOptions={tokenExchange()}
+          value={currencyYouStake}
+          currencyOptions={tokenStake()}
           onChange={onChangeCurrencyYouExchange}
+          action={'staking'}
         />
 
         <InputAmount
-          InputValue={amountYouExchange.toString() === '0' ? 0 : AmountToVisibleValue(
-            amountYouExchange,
-            currencyYouExchange,
+          InputValue={amountYouStake.toString() === '0' ? 0 : AmountToVisibleValue(
+            amountYouStake,
+            currencyYouStake,
             3,
             false
           )}
           placeholder={'0.0'}
-          onValueChange={onChangeAmountYouExchange}
+          onValueChange={onChangeAmountYouStake}
           validateError={false}
           isDirty={isDirtyYouExchange}
           balance={
             PrecisionNumbers({
-              amount: TokenBalance(auth, currencyYouExchange),
-              token: TokenSettings(currencyYouExchange),
+              amount: mocBalance,
+              token: TokenSettings(currencyYouStake),
               decimals:
-                TokenSettings(currencyYouExchange)
+                TokenSettings(currencyYouStake)
                   .visibleDecimals,
               t: t,
               i18n: i18n,
@@ -93,14 +173,14 @@ const Stake = () => {
         />
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
-      <div className='staked-text'>{`${t('staking.staking.staked')}: 12345 MOC`}</div>
+      <div className='staked-text'>{`${t('staking.staking.staked')}: ${stakedBalance} ${TokenSettings(currencyYouStake).name}`}</div>
       <div className="action-section">
         <div className="left-column">
-          <div className="title">Staking = 132 MOC</div>
+          <div className="title">{`Staking = ${amountYouStake} MOC`}</div>
           <Button
             type="primary"
             className={"primary-button btn-confirm"}
-            onClick={() => {}}
+            onClick={() => { }}
           >
             Stake
           </Button>

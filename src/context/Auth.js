@@ -17,8 +17,19 @@ import {
     AllowanceAmount,
     transferTokenTo,
     MigrateToken,
-    AllowUseTokenMigrator } from '../lib/backend/moc-base';
-
+    AllowUseTokenMigrator 
+} from '../lib/backend/moc-base';
+import {
+    stackedBalance,
+    lockedBalance,
+    pendingWithdrawals,
+    stakingDeposit,
+    unStake,
+    delayMachineWithdraw,
+    delayMachineCancelWithdraw,
+    approveMoCTokenStaking,
+    getMoCAllowance
+} from '../lib/backend/interfaces-omoc';
 import { getGasPrice } from '../lib/backend/utils';
 
 const helper = addressHelper(Web3);
@@ -62,6 +73,10 @@ const AuthenticateContext = createContext({
     getReserveAllowance: async (address) => {},
     interfaceAllowUseTokenMigrator: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
+    //OMOC methods
+    interfaceStackedBalance: async (address) => {},
+    interfaceLockedBalance: async (address) => {},
+    interfacePendingWithdrawals: async (address) => {},
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -356,6 +371,21 @@ const AuthenticateProvider = ({ children }) => {
         const filteredEvents = decodeEvents(txRcp);
         return filteredEvents;
     };
+    //OMOC methods
+    const interfaceStackedBalance = async (address) => {
+        const from = address || account;
+        return stackedBalance(from);
+    };
+
+    const interfaceLockedBalance = async (address) => {
+        const from = address || account;
+        return lockedBalance(from);
+    };
+
+    const interfacePendingWithdrawals = async (address) => {
+        const from = address || account;
+        return pendingWithdrawals(from);
+    };
 
     return (
         <AuthenticateContext.Provider
@@ -377,7 +407,10 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceDecodeEvents,
                 loadContractsStatusAndUserBalance,
                 interfaceAllowUseTokenMigrator,
-                interfaceMigrateToken
+                interfaceMigrateToken,
+                interfaceStackedBalance,
+                interfaceLockedBalance,
+                interfacePendingWithdrawals,
             }}
         >
             {children}

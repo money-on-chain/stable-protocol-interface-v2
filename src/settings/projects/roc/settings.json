@@ -32,6 +32,11 @@
             "name": "MOC",
             "decimals": 18,
             "visibleDecimals": 6
-        }
+        },
+        "TG": [{
+            "name": "ROC",
+            "decimals": 2,
+            "visibleDecimals": 6
+        }]
     }
 }

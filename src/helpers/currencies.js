@@ -4,6 +4,7 @@ import { ReactComponent as LogoIconCOINBASE } from '../assets/icons/tokens/coinb
 import { ReactComponent as LogoIconTC } from '../assets/icons/tokens/tc.svg';
 import { ReactComponent as LogoIconTP_0 } from '../assets/icons/tokens/tp_0.svg';
 import { ReactComponent as LogoIconTP_1 } from '../assets/icons/tokens/tp_1.svg';
+import { ReactComponent as LogoIconTG_0 } from '../assets/icons/tokens/tg_0.svg';
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
@@ -17,7 +18,8 @@ const currencies = [
         image: <LogoIconCOINBASE className="currencyImage" />
     },
     { value: 'TP_0', image: <LogoIconTP_0 className="currencyImage" /> },
-    { value: 'TP_1', image: <LogoIconTP_1 className="currencyImage" /> }
+    { value: 'TP_1', image: <LogoIconTP_1 className="currencyImage" /> },
+    { value: 'TF', image: <LogoIconTG_0 className="currencyImage" /> }
 ].map((it) => ({
     ...it
 }));
@@ -70,6 +72,9 @@ function TokenBalance(auth, tokenName) {
             break;
         case 'COINBASE':
             balance = auth.userBalanceData.coinbase;
+            break;
+        case 'TF':
+            balance = auth.userBalanceData.TP[0].balance;
             break;
         default:
             throw new Error('Invalid token name');
@@ -200,6 +205,7 @@ const AmountToVisibleValue = (
     decimals,
     amountInWei = true
 ) => {
+    console.log('tokenname is ', tokenName);
     const tokenSettings = TokenSettings(tokenName);
 
     let amount;

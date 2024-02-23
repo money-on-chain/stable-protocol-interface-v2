@@ -416,6 +416,7 @@ export default function Exchange() {
                         value={currencyYouExchange}
                         currencyOptions={tokenExchange()}
                         onChange={onChangeCurrencyYouExchange}
+                        action={'exchange'}
                     />
 
                     <InputAmount
@@ -457,6 +458,7 @@ export default function Exchange() {
                         value={currencyYouReceive}
                         currencyOptions={tokenReceive(currencyYouExchange)}
                         onChange={onChangeCurrencyYouReceive}
+                        action={'exchange'}
                     />
 
                     <InputAmount

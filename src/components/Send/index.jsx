@@ -160,6 +160,7 @@ export default function Send() {
                             value={currencyYouExchange}
                             currencyOptions={tokenExchange()}
                             onChange={onChangeCurrencyYouExchange}
+                            action={'exchange'}
                         />
 
                         <InputAmount
