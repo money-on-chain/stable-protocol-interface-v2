@@ -4,9 +4,6 @@ import { Button, Collapse, Slider } from 'antd';
 import axios from 'axios';
 
 import { useProjectTranslation } from '../../helpers/translations';
-//import IconStatusPending from "../../assets/icons/status-pending.png";
-//import IconStatusSuccess from "../../assets/icons/status-success.png";
-//import IconStatusError from "../../assets/icons/status-error.png";
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
