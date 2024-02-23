@@ -74,6 +74,12 @@ export default function Performance(props) {
         statusText = 'The contract is paused. No operations allowed';
     }
 
+    if (!auth.contractStatusData.canOperate) {
+        statusIcon = 'icon-status-alert';
+        statusLabel = 'Cannot operate';
+        statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
+    }
+
     return (
         <div className="Performance">
 
@@ -113,7 +119,7 @@ export default function Performance(props) {
                         <div className="card-content">
 
                             <div className="big-number">
-                                {PrecisionNumbers({
+                                {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                     amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
                                     token: TokenSettings('CA_0'),
                                     decimals: 2,
@@ -151,7 +157,7 @@ export default function Performance(props) {
                             <div className="row-1">
                                 <div className="coll-1">
                                     <div className="amount">
-                                        {PrecisionNumbers({
+                                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                             amount: auth.contractStatusData ? auth.contractStatusData.getPTCac : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 8,
@@ -165,7 +171,7 @@ export default function Performance(props) {
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
-                                        {PrecisionNumbers({
+                                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                             amount: auth.contractStatusData ? auth.contractStatusData.getLeverageTC : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 8,
@@ -183,7 +189,7 @@ export default function Performance(props) {
 
                                 <div className="coll-1">
                                     <div className="amount">
-                                        {PrecisionNumbers({
+                                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                             amount: auth.contractStatusData ? auth.contractStatusData.nTCcb : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 2,
@@ -197,7 +203,7 @@ export default function Performance(props) {
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
-                                        {PrecisionNumbers({
+                                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                             amount: auth.contractStatusData ? auth.contractStatusData.getTCAvailableToRedeem : new BigNumber(0),
                                             token: TokenSettings('TC'),
                                             decimals: 2,
@@ -232,7 +238,7 @@ export default function Performance(props) {
                             <div className="row-1">
 
                                 <div className="coll-1">
-                                    <div className="amount">{PrecisionNumbers({
+                                    <div className="amount">{(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                         amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
                                         token: TokenSettings('CA_0'),
                                         decimals: 2,
@@ -245,7 +251,7 @@ export default function Performance(props) {
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
-                                        {PrecisionNumbers({
+                                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                             amount: auth.contractStatusData ? auth.contractStatusData.getCglb : new BigNumber(0),
                                             token: TokenSettings('CA_0'),
                                             decimals: 6,

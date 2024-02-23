@@ -112,15 +112,42 @@ const contractStatus = async (web3, dContracts) => {
         listMethods.push([PP_CA.options.address, PP_CA.methods.peek().encodeABI(), 'uint256'])
     }
 
+    // Status
+    const status = {}
+
     // Remove decode result parameter
     const cleanListMethods = listMethods.map(x => [x[0], x[1]])
 
     // const multicallResult = await multicall.methods.tryBlockAndAggregate(false, cleanListMethods).call({}, 3807699)
     const multicallResult = await multicall.methods.tryBlockAndAggregate(false, cleanListMethods).call()
 
-    const listReturnData = multicallResult[2].map((item, itemIndex) => web3.eth.abi.decodeParameter(listMethods[itemIndex][2], item.returnData))
+    status.canOperate = true
+    const listReturnData = []
+    multicallResult.returnData.forEach(function (item, itemIndex) {
+        // Ok success
+        if (item.success) {
+            listReturnData.push(web3.eth.abi.decodeParameter(
+                listMethods[itemIndex][2],
+                item.returnData)
+            )
+        } else {
 
-    const status = {}
+            // Not Ok Error on calling
+            if (listMethods[itemIndex][2] === 'uint256') {
+                listReturnData.push(0)
+            } else if (listMethods[itemIndex][2] === 'address') {
+                listReturnData.push('0x')
+            } else if (listMethods[itemIndex][2] === 'bool') {
+                listReturnData.push(false)
+            }
+
+            // If there are any problems can not operate
+            status.canOperate = false
+            console.warn("WARN: Cannot operate!")
+        }
+
+    })
+
     status.blockHeight = multicallResult[0]
     status.protThrld = listReturnData[0]
     status.liqThrld = listReturnData[1]
@@ -235,14 +262,16 @@ const contractStatus = async (web3, dContracts) => {
 
     last_index = last_index + 1
 
+    // If calcCtargemaCA is a big number cannot operate
     const calcCtargemaCA = new BigNumber(
         fromContractPrecisionDecimals(
             status.calcCtargemaCA,
             18
         )
     );
-
-    status.canOperate = !calcCtargemaCA.gt(1000000);
+    if (calcCtargemaCA.gt(1000000)) {
+        status.canOperate = false
+    }
 
     // History Price (24hs ago)
     const d24BlockHeights = status.blockHeight - BigInt(2880);
@@ -261,19 +290,39 @@ const contractStatus = async (web3, dContracts) => {
         listMethods.push([PP_CA.options.address, PP_CA.methods.peek().encodeABI(), 'uint256'])
     }
 
+    const historic = {};
+
     const cleanListMethodsHistoric = listMethods.map((x) => [x[0], x[1]]);
     const multicallResultHistoric = await multicall.methods
         .tryBlockAndAggregate(false, cleanListMethodsHistoric)
         .call({}, d24BlockHeights);
-    const listReturnDataHistoric = multicallResultHistoric[2].map(
-        (item, itemIndex) =>
-            web3.eth.abi.decodeParameter(
-                listMethods[itemIndex][2],
-                item.returnData
-            )
-    );
 
-    const historic = {};
+    status.canHistoric = true
+    const listReturnDataHistoric = []
+    multicallResultHistoric.returnData.forEach(function (item, itemIndex) {
+        // Ok success
+        if (item.success) {
+            listReturnDataHistoric.push(web3.eth.abi.decodeParameter(
+                listMethods[itemIndex][2],
+                item.returnData)
+            )
+        } else {
+
+            // Not Ok Error on calling
+            if (listMethods[itemIndex][2] === 'uint256') {
+                listReturnDataHistoric.push(0)
+            } else if (listMethods[itemIndex][2] === 'address') {
+                listReturnDataHistoric.push('0x')
+            } else if (listMethods[itemIndex][2] === 'bool') {
+                listReturnDataHistoric.push(false)
+            }
+
+            // If there are any problems can not have historic data
+            status.canHistoric = false
+            console.warn("WARN: Cannot have historic data!")
+        }
+
+    })
 
     PP_TP = []
     last_index = 2
@@ -340,16 +389,41 @@ const userBalance = async (web3, dContracts, userAddress) => {
         listMethods.push([tpLegacy.options.address, tpLegacy.methods.allowance(userAddress, tokenMigrator.options.address).encodeABI(), 'uint256'])
     }
 
+    const userBalance = {}
+
     // Remove decode result parameter
     const cleanListMethods = listMethods.map((x) => [x[0], x[1]]);
     const multicallResult = await multicall.methods
         .tryBlockAndAggregate(false, cleanListMethods)
         .call();
-    const listReturnData = multicallResult[2].map((item, itemIndex) =>
-        web3.eth.abi.decodeParameter(listMethods[itemIndex][2], item.returnData)
-    );
 
-    const userBalance = {}
+    userBalance.canBalance = true
+    const listReturnData = []
+    multicallResult.returnData.forEach(function (item, itemIndex) {
+        // Ok success
+        if (item.success) {
+            listReturnData.push(web3.eth.abi.decodeParameter(
+                listMethods[itemIndex][2],
+                item.returnData)
+            )
+        } else {
+
+            // Not Ok Error on calling
+            if (listMethods[itemIndex][2] === 'uint256') {
+                listReturnData.push(0)
+            } else if (listMethods[itemIndex][2] === 'address') {
+                listReturnData.push('0x')
+            } else if (listMethods[itemIndex][2] === 'bool') {
+                listReturnData.push(false)
+            }
+
+            // If there are any problems can not operate
+            userBalance.canBalance = false
+            console.warn("WARN: Cannot have balance of the user!")
+        }
+
+    })
+
     userBalance.blockHeight = multicallResult[0]
     userBalance.coinbase = listReturnData[0]
 

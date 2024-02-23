@@ -121,6 +121,20 @@ export default function Exchange() {
             return
         }
 
+        // 0. Cannot operate
+        if (!auth.contractStatusData.canOperate) {
+            setInputValidationErrorText('Cannot operate with the current contract status');
+            setInputValidationError(true);
+            return
+        }
+
+        // 0. Amount > 0
+        if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
+            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationError(true);
+            return
+        }
+
         // 1. User Exchange Token Validation
         const totalBalance = new BigNumber(
             fromContractPrecisionDecimals(
@@ -430,7 +444,7 @@ export default function Exchange() {
                         validateError={false}
                         isDirty={isDirtyYouExchange}
                         balance={
-                            PrecisionNumbers({
+                            (!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouExchange),
                                 token: TokenSettings(currencyYouExchange),
                                 decimals:
@@ -470,7 +484,7 @@ export default function Exchange() {
                         onValueChange={onChangeAmountYouReceive}
                         validateError={false}
                         isDirty={isDirtyYouReceive}
-                        balance={PrecisionNumbers({
+                        balance={(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                             amount: ConvertBalance(
                                 auth,
                                 currencyYouExchange,
@@ -504,7 +518,7 @@ export default function Exchange() {
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>
                             {' '}
-                            {PrecisionNumbers({
+                            {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                 amount: ConvertAmount(
                                     auth,
                                     currencyYouExchange,
@@ -538,7 +552,7 @@ export default function Exchange() {
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>
                             {' '}
-                            {PrecisionNumbers({
+                            {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                 amount: ConvertAmount(
                                     auth,
                                     currencyYouReceive,
@@ -571,7 +585,7 @@ export default function Exchange() {
                                     <Radio value={0} >
                                         <span className={'token_exchange'}>
                                 Fee (
-                                            {PrecisionNumbers({
+                                            {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                                 amount: new BigNumber(commissionPercent),
                                                 token: TokenSettings(currencyYouExchange),
                                                 decimals: 2,
@@ -584,7 +598,7 @@ export default function Exchange() {
                             </span>
                                         <span className={'symbol'}> ≈ </span>
                                         <span className={'token_receive'}>
-                                {PrecisionNumbers({
+                                {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                     amount: new BigNumber(commission),
                                     token: TokenSettings(currencyYouExchange),
                                     decimals: 6,
@@ -610,7 +624,7 @@ export default function Exchange() {
                                     <Radio value={1} disabled={radioSelectFeeTokenDisabled}>
                                         <span className={'token_exchange'}>
                                             Fee (
-                                                {PrecisionNumbers({
+                                                {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                                     amount: new BigNumber(commissionPercentFeeToken),
                                                     token: TokenSettings(currencyYouExchange),
                                                     decimals: 2,
@@ -623,7 +637,7 @@ export default function Exchange() {
                                         </span>
                                         <span className={'symbol'}> ≈ </span>
                                         <span className={'token_receive'}>
-                                            {PrecisionNumbers({
+                                            {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                                 amount: new BigNumber(commissionFeeToken),
                                                 token: TokenSettings(currencyYouExchange),
                                                 decimals: 6,
@@ -664,7 +678,7 @@ export default function Exchange() {
                 <span className={'token_exchange'}>Exchanging </span>
                 <span className={'symbol'}> ≈ </span>
                 <span className={'token_receive'}>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: exchangingUSD,
                         token: TokenSettings('CA_0'),
                         decimals: 2,

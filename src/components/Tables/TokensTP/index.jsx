@@ -97,7 +97,7 @@ export default function Tokens(props) {
                 ),
                 price: (
                     <div>
-                        {PrecisionNumbers({
+                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                             amount: price,
                             token: settings.tokens.TP[dataItem.key],
                             decimals: 2,
@@ -109,6 +109,7 @@ export default function Tokens(props) {
                     </div>
                 ),
                 variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {`${getSign()} ${variationFormat} %`}
                         <span className={
@@ -117,7 +118,7 @@ export default function Tokens(props) {
                                     'neutral-indicator'
                             }`
                         }></span>
-                    </div>,
+                    </div>),
                 balance: (
                     <div>
                         {PrecisionNumbers({
@@ -133,7 +134,7 @@ export default function Tokens(props) {
                 ),
                 usd: (
                     <div className="item-usd">
-                        {PrecisionNumbers({
+                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.TP[dataItem.key],
                             decimals: 3,

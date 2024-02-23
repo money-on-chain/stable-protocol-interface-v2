@@ -118,14 +118,14 @@ export default function ListOperations(props) {
                 exchange: {
                     amount: 0,
                     name: '',
-                    token: '',
+                    token: settings.tokens.CA[0],
                     icon: "CA_0",
                     title: "EXCHANGED"
                 },
                 receive: {
                     amount: 0,
                     name: '',
-                    token: '',
+                    token: settings.tokens.CA[0],
                     icon: "CA_0",
                     title: "RECEIVED"
                 }
@@ -239,6 +239,27 @@ export default function ListOperations(props) {
                     title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
                 }
             }
+        } else if (row_operation['operation']  === "ERROR") {
+
+            return {
+                exchange: {
+                    action: "Error",
+                    amount: 0,
+                    name: "",
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: "Revert"
+                },
+                receive: {
+                    action: "Error",
+                    amount: 0,
+                    name: "",
+                    token: settings.tokens.CA[0],
+                    icon: "CA_0",
+                    title: "Revert"
+                }
+            }
+
         } else {
             console.log("CAN'T OPERATE: " + row_operation.operation)
         }
@@ -332,28 +353,42 @@ export default function ListOperations(props) {
                 info: '',
                 exchange: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                            <div className='table-event-name'>{token.exchange.title}</div>
-                            <div className='table-amount' >
-                                {PrecisionNumbers({
-                                    amount: token.exchange.amount,
-                                    token: token.exchange.token,
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns
-                                })}
-                            </div>
-                        </div>
-                        <div className='table-icon-name' >
-                            {getAsset(token.exchange.icon).image}
-                            <div className='table-asset-name'>{token.exchange.name}</div>
-                        </div>
+                        {token.receive.action !== "Error" && (
+                            <Fragment>
+                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                                    <div className='table-event-name'>{token.exchange.title}</div>
+                                    <div className='table-amount' >
+                                        {PrecisionNumbers({
+                                            amount: token.exchange.amount,
+                                            token: token.exchange.token,
+                                            decimals: 2,
+                                            t: t,
+                                            i18n: i18n,
+                                            ns: ns
+                                        })}
+                                    </div>
+                                </div>
+                                <div className='table-icon-name' >
+                                    {getAsset(token.exchange.icon).image}
+                                    <div className='table-asset-name'>{token.exchange.name}</div>
+                                </div>
+                            </Fragment>
+                        )}
+                        {token.receive.action === "Error" && (
+                            <Fragment>
+                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                                    <div className='table-event-name'>{token.exchange.title}</div>
+                                    <div className='table-amount' >--</div>
+                                </div>
+                                <div className='table-icon-name' >
+                                </div>
+                            </Fragment>
+                        )}
                     </div>
                 ),
                 receive: (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        {token.receive.action !== "Transfer" && (
+                        {token.receive.action !== "Transfer" && token.receive.action !== "Error" && (
                             <Fragment>
                                 <div style={{ textAlign: 'right', marginRight: '8px' }}>
                                     <div className='table-event-name'>{token.receive.title}</div><br></br>
@@ -381,6 +416,17 @@ export default function ListOperations(props) {
                                     <div className='table-amount'>{getTransferAddress(data)}</div>
                                 </div>
                                 
+                            </Fragment>
+                        )}
+                        {token.receive.action === "Error" && (
+                            <Fragment>
+                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
+                                    <div className='table-event-name'>{token.receive.title}</div><br></br>
+                                    <div className='table-amount'> -- </div>
+                                </div>
+                                <div className='table-icon-name' >
+                                </div>
+
                             </Fragment>
                         )}
                     </div>
@@ -555,7 +601,7 @@ export default function ListOperations(props) {
 
         switch(row_operation['status']){
             case -4:
-                return "REVERT"
+                return "FAILED"
             case -3:
                 return "FAILED"
             case -2:

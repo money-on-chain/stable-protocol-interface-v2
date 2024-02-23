@@ -4,9 +4,6 @@ import { Button, Collapse, Slider } from 'antd';
 import axios from 'axios';
 
 import { useProjectTranslation } from '../../helpers/translations';
-//import IconStatusPending from "../../assets/icons/status-pending.png";
-//import IconStatusSuccess from "../../assets/icons/status-success.png";
-//import IconStatusError from "../../assets/icons/status-error.png";
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
@@ -695,7 +692,7 @@ export default function ConfirmOperation(props) {
             )}
 
             <ModalAllowanceOperation
-                title={`Authorize to use ${t(`exchange.tokens.CA_0.abbr`, {ns: ns})}`}
+                title={`Authorize to use ${t(`exchange.tokens.${currencyYouExchange}.label`, {ns: ns})}`}
                 visible={showModalAllowance}
                 onHideModalAllowance={onHideModalAllowance}
                 currencyYouExchange={currencyYouExchange}
