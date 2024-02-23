@@ -134,7 +134,7 @@ export default function Portfolio() {
                     <div className="tokens-list-header-title">Portfolio</div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
-                            {PrecisionNumbers({
+                            {(auth.contractStatusData && !auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                 amount: totalUSD,
                                 token: settings.tokens.COINBASE,
                                 decimals: 2,

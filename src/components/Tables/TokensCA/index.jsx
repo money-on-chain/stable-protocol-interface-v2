@@ -104,7 +104,7 @@ export default function Tokens(props) {
                 ),
                 price: (
                     <div>
-                        {PrecisionNumbers({
+                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                             amount: auth.contractStatusData.PP_CA[dataItem.key],
                             token: settings.tokens.CA[dataItem.key],
                             decimals: t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
@@ -115,6 +115,7 @@ export default function Tokens(props) {
                     </div>
                 ),
                 variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {`${getSign()} ${variationFormat} %`}
                         <span className={
@@ -123,7 +124,7 @@ export default function Tokens(props) {
                                     'neutral-indicator'
                             }`
                         }></span>
-                    </div>,
+                    </div>),
                 balance: (
                     <div>
                         {PrecisionNumbers({
@@ -151,7 +152,7 @@ export default function Tokens(props) {
                 // ),
                 usd: (
                     <div className="item-usd">
-                        {PrecisionNumbers({
+                        {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                             amount: balanceUSD,
                             token: settings.tokens.CA[dataItem.key],
                             decimals: 2,
@@ -248,6 +249,7 @@ export default function Tokens(props) {
                 </div>
             ),
             variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {`${getSign()} ${variationFormat} %`}
                         <span className={
@@ -256,7 +258,7 @@ export default function Tokens(props) {
                                     'neutral-indicator'
                             }`
                         }></span>
-                    </div>,
+                    </div>),
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -350,10 +352,11 @@ export default function Tokens(props) {
                 </div>
             ),
             variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {'0,00 %'}
                         <span className={'variation-indicator neutral-indicator'}></span>
-                    </div>,
+                    </div>),
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -449,7 +452,7 @@ export default function Tokens(props) {
             ),
             price: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.PP_FeeToken,
                         token: settings.tokens.TF,
                         decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
@@ -460,6 +463,7 @@ export default function Tokens(props) {
                 </div>
             ),
             variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {`${getSign()} ${variationFormat} %`}
                         <span className={
@@ -468,7 +472,7 @@ export default function Tokens(props) {
                                     'neutral-indicator'
                             }`
                         }></span>
-                    </div>,
+                    </div>),
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -483,7 +487,7 @@ export default function Tokens(props) {
             ),
             usd: (
                 <div className="item-usd">
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.TF,
                         decimals: 2,
@@ -563,7 +567,7 @@ export default function Tokens(props) {
             ),
             price: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.PP_COINBASE,
                         token: settings.tokens.COINBASE,
                         decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
@@ -574,6 +578,7 @@ export default function Tokens(props) {
                 </div>
             ),
             variation:
+                    (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
                         {`${getSign()} ${variationFormat} %`}
                         <span className={
@@ -582,7 +587,7 @@ export default function Tokens(props) {
                                     'neutral-indicator'
                             }`
                         }></span>
-                    </div>,
+                    </div>),
             balance: (
                 <div>
                     {PrecisionNumbers({
@@ -597,7 +602,7 @@ export default function Tokens(props) {
             ),
             usd: (
                 <div className="item-usd">
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: balanceUSD,
                         token: settings.tokens.COINBASE,
                         decimals: 2,
