@@ -33,10 +33,13 @@
             "decimals": 18,
             "visibleDecimals": 6
         },
-        "TG": [{
-            "name": "ROC",
-            "decimals": 2,
-            "visibleDecimals": 6
-        }]
+        "TG": [
+            {
+                "key": 0,
+                "name": "ROC",
+                "decimals": 2,
+                "visibleDecimals": 6
+            }
+        ]
     }
 }

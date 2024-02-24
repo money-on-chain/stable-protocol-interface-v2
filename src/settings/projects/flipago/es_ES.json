@@ -143,6 +143,12 @@
         },
         "withdraw" : {
             "title": "Retiros"
+        },
+        "tokens" : {
+            "TF": {
+                "label": "Flip",
+                "abbr": "FLIP"
+            }
         }
     }
 }

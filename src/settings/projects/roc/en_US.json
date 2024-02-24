@@ -135,6 +135,12 @@
         },
         "withdraw" : {
             "title": "Withdraw"
+        },
+        "tokens" : {
+            "TF": {
+                "label": "MoC",
+                "abbr": "MoC"
+            }
         }
     }
 }

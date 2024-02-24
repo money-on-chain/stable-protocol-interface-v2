@@ -9,8 +9,8 @@ import { tokenExchange } from '../../helpers/exchange';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import InputAmount from '../InputAmount';
 import SelectCurrency from '../SelectCurrency';
-import {tokenStake} from '../../helpers/staking';
-import {fromContractPrecisionDecimals} from '../../helpers/Formats';
+import { tokenStake } from '../../helpers/staking';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 const Stake = (props) => {
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
@@ -82,7 +82,7 @@ const Stake = (props) => {
         return b.id - a.id;
       });
       setLockedBalance(_lockedBalance);
-      console.log('Staked balance', _stakedBalance );
+      console.log('Staked balance', _stakedBalance);
       setStakedBalance(_stakedBalance);
       setTotalPendingExpiration(pendingExpirationAmount);
       setTotalAvailableToWithdraw(readyToWithdrawAmount);
@@ -143,6 +143,7 @@ const Stake = (props) => {
           currencyOptions={tokenStake()}
           onChange={onChangeCurrencyYouExchange}
           action={'staking'}
+          disabled={true}
         />
 
         <InputAmount
@@ -169,7 +170,7 @@ const Stake = (props) => {
             })
           }
           setAddTotalAvailable={setAddTotalAvailable}
-          action={'STAKING'}
+          action={'To Stake'}
         />
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>

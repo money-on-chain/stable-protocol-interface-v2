@@ -6,22 +6,15 @@ import { useProjectTranslation } from '../../helpers/translations';
 export default function PerformanceChart(props) {
   const [percent, setPercent] = useState(0);
   const [t, i18n, ns] = useProjectTranslation();
-  const [height, setHeight] = useState(0);
-  useEffect(() => {
-    readPercent();
-  }, [])
-  const readPercent = async () => {
-      fetch(
+  
+  let height = percent && percent > 0 ? (percent * 190) / 100 : 0;
+    fetch(
         'https://api.moneyonchain.com/api/calculated/moc_last_block_performance'
-      ).then(async (response) => {
+    ).then(async (response) => {
         const data = await response.json();
         setPercent(data.annualized_value.toFixed(2));
-        console.log('height is', percent && percent > 0 ? (percent * 190) / 100 : 0);
-        setHeight(percent && percent > 0 ? (percent * 190) / 100 : 0);
-      }).catch((error) => {
-        console.log('Error:', error);
-      });
-  }
+    });
+
   return (
     <div className="ChartContainer">
       <div className="ChartText">

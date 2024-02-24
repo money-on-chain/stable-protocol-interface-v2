@@ -186,6 +186,12 @@
         },
         "withdraw" : {
             "title": "Retiros"
+        },
+        "tokens" : {
+            "TF": {
+                "label": "MoC",
+                "abbr": "MoC"
+            }
         }
     }
 }
