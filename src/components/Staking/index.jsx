@@ -35,14 +35,11 @@ export default function Staking(props) {
                             <div className="tab-divider"></div>
                             {/* Contenido del Tab */}
                             <div className="tab-content">
-                                {activeTab === 'tab1' ? (
-                                    <Stake
-                                        AccountData={auth.accountData}
-                                        UserBalanceData={auth.userBalanceData}
-                                    />
-                                ) : (
-                                    <div>Contenido del Tab 2</div>
-                                )}
+                                <Stake
+                                    AccountData={auth.accountData}
+                                    UserBalanceData={auth.userBalanceData}
+                                    activeTab={activeTab}
+                                />
                             </div>
                         </div>
                     </Col>

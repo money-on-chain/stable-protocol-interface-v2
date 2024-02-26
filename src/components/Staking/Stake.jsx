@@ -14,23 +14,32 @@ import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 const Stake = (props) => {
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
-  const defaultTokenExchange = tokenStake()[0];
+  const [isUnstaking, setIsUnstaking] = useState(false);
+  const [isDirtyYouStake, setIsDirtyYouStake] = useState(false);
+  const [isDirtyYouUnstake, setIsDirtyYouUnstake] = useState(false);
+  const defaultTokenStake = tokenStake()[0];
   const [mocBalance, setMocBalance] = useState('0');
-  const [isDirtyYouExchange, setIsDirtyYouStake] = useState(false);
   const [inputValidationErrorText, setInputValidationErrorText] = useState('');
   const [lockedBalance, setLockedBalance] = useState('0');
   const [stakedBalance, setStakedBalance] = useState('0');
   const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
   const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
-  const [currencyYouStake, setCurrencyYouExchange] = useState(defaultTokenExchange);
+  const [currencyYouStake, setCurrencyYouStake] = useState(defaultTokenStake);
+  const [currencyYouUnstake, setCurrencyYouUnstake] = useState(defaultTokenStake);
   const [amountYouStake, setAmountYouStake] = useState(
+    new BigNumber(0)
+  );
+  const [amountYouUnstake, setAmountYouUnstake] = useState(
     new BigNumber(0)
   );
 
   useEffect(() => {
+    setIsUnstaking(props.activeTab === 'tab2');
     setStakingBalances();
-  }, [auth]);
+    setAmountYouStake(new BigNumber(0));
+    setAmountYouUnstake(new BigNumber(0));
+  }, [auth, props.activeTab]);
 
   const setStakingBalances = async () => {
     try {
@@ -40,7 +49,7 @@ const Stake = (props) => {
         []
       ];
       if (props.UserBalanceData) {
-        setMocBalance(props.UserBalanceData.TP[0].balance);
+        setMocBalance(props.UserBalanceData.FeeToken.balance);
         [_stakedBalance, _lockedBalance, _pendingWithdrawals] =
           await Promise.all([
             auth.interfaceStackedBalance(),
@@ -103,7 +112,7 @@ const Stake = (props) => {
   };
   const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
     onClear();
-    setCurrencyYouExchange(newCurrencyYouExchange);
+    setCurrencyYouStake(newCurrencyYouExchange);
   };
   const onClear = () => {
     setIsDirtyYouStake(false);
@@ -111,7 +120,19 @@ const Stake = (props) => {
   };
   const onChangeAmountYouStake = (newAmount) => {
     setIsDirtyYouStake(true);
+    if (newAmount === '') {
+      setAmountYouStake(new BigNumber(0));
+      return;
+    }
     setAmountYouStake(new BigNumber(newAmount));
+  };
+  const onChangeAmountYouUnstake = (newAmount) => {
+    setIsDirtyYouUnstake(true);
+    if (newAmount === '' ) {
+      setAmountYouUnstake(new BigNumber(0));
+      return;
+    }
+    setAmountYouUnstake(new BigNumber(newAmount));
   };
   const setAddTotalAvailable = () => {
     setIsDirtyYouStake(false);
@@ -124,22 +145,29 @@ const Stake = (props) => {
     );
     setAmountYouStake(totalYouStake);
   };
-  console.log('precision', PrecisionNumbers({
-    amount: stakedBalance,
-    token: TokenSettings(currencyYouStake),
-    decimals:
-      TokenSettings(currencyYouStake)
-        .visibleDecimals,
-    t: t,
-    i18n: i18n,
-    ns: ns
-  }));
+  const getAmount = () => {
+    if (isUnstaking) {
+      if (amountYouUnstake.toString() === '0') {
+        return 0;
+      }
+    } else {
+      if (amountYouStake.toString() === '0') {
+        return 0;
+      }
+    }
+    return AmountToVisibleValue(
+      isUnstaking ? amountYouUnstake : amountYouStake,
+      isUnstaking ? currencyYouUnstake : currencyYouStake,
+      4,
+      false
+    )
+  }
   return (
     <Fragment>
       <div className="swap-from">
         <SelectCurrency
           className="select-token"
-          value={currencyYouStake}
+          value={isUnstaking ? currencyYouUnstake : currencyYouStake}
           currencyOptions={tokenStake()}
           onChange={onChangeCurrencyYouExchange}
           action={'staking'}
@@ -147,22 +175,17 @@ const Stake = (props) => {
         />
 
         <InputAmount
-          InputValue={amountYouStake.toString() === '0' ? 0 : AmountToVisibleValue(
-            amountYouStake,
-            currencyYouStake,
-            3,
-            false
-          )}
+          InputValue={getAmount()}
           placeholder={'0.0'}
-          onValueChange={onChangeAmountYouStake}
+          onValueChange={isUnstaking ? onChangeAmountYouUnstake : onChangeAmountYouStake}
           validateError={false}
-          isDirty={isDirtyYouExchange}
+          isDirty={isUnstaking ? isDirtyYouUnstake : isDirtyYouStake}
           balance={
             PrecisionNumbers({
-              amount: mocBalance,
-              token: TokenSettings(currencyYouStake),
+              amount: isUnstaking? stakedBalance : mocBalance,
+              token: TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake),
               decimals:
-                TokenSettings(currencyYouStake)
+                TokenSettings(isUnstaking ? currencyYouUnstake: currencyYouStake )
                   .visibleDecimals,
               t: t,
               i18n: i18n,
@@ -170,20 +193,22 @@ const Stake = (props) => {
             })
           }
           setAddTotalAvailable={setAddTotalAvailable}
-          action={'To Stake'}
+          action={isUnstaking ? 'To UnStake' : 'To Stake'}
         />
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
       <div className='staked-text'>{`${t('staking.staking.staked')}: ${stakedBalance} ${TokenSettings(currencyYouStake).name}`}</div>
       <div className="action-section">
         <div className="left-column">
-          <div className="title">{`Staking = ${amountYouStake} MOC`}</div>
+          <div className="title">
+            {isUnstaking ? `Unstaking = ${amountYouUnstake} MOC` : `Staking = ${amountYouStake} MOC`}
+          </div>
           <Button
             type="primary"
             className={"primary-button btn-confirm"}
             onClick={() => { }}
           >
-            Stake
+            {isUnstaking ? "Unstake" : "Stake"}
           </Button>
         </div>
         <div className="right-column">
