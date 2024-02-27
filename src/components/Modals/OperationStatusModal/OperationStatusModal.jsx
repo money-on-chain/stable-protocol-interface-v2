@@ -66,7 +66,7 @@ const OperationStatusModal = ({
                 </div>
             </div>
             <a
-                href={`www.test.com`}
+                href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${txHash}`}
                 target="_blank"
             >
                 {t('staking.modal.RewardsClaimButton_Modal_ViewOnExplorer')}

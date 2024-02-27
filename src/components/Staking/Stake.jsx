@@ -1,6 +1,7 @@
 import React, { useState, useContext, Fragment, useEffect } from 'react'
 import BigNumber from 'bignumber.js';
 import { Button } from 'antd';
+import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { TokenSettings, TokenBalance, AmountToVisibleValue } from '../../helpers/currencies';
@@ -74,14 +75,10 @@ const Stake = (props) => {
   };
   const setAddTotalAvailable = () => {
     setIsDirtyYouStake(false);
-    const tokenSettings = TokenSettings(currencyYouStake);
-    const totalYouStake = new BigNumber(
-      fromContractPrecisionDecimals(
-        TokenBalance(auth, currencyYouStake),
-        tokenSettings.decimals
-      )
-    );
-    setAmountYouStake(totalYouStake);
+    const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
+    const total = formatBigNumber(isUnstaking ? stakedBalance : mocBalance , tokenSettings.decimals);
+    if(isUnstaking) setAmountYouUnstake(total);
+    else setAmountYouStake(total);
   };
   const getAmount = () => {
     if (isUnstaking) {
@@ -126,7 +123,15 @@ const Stake = (props) => {
     setIsOperationModalVisible(true);
     resetBalancesAndValues();
   };
-
+  const formatBigNumber = (balance, decimals) => {
+    const total = new BigNumber(
+      fromContractPrecisionDecimals(
+        balance,
+        decimals
+      )
+    );
+    return total;
+  }
   return (
     <Fragment>
       <div className="swap-from">
@@ -138,7 +143,6 @@ const Stake = (props) => {
           action={'staking'}
           disabled={true}
         />
-
         <InputAmount
           InputValue={getAmount()}
           placeholder={'0.0'}
@@ -162,11 +166,13 @@ const Stake = (props) => {
         />
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
-      <div className='staked-text'>{`${t('staking.staking.staked')}: ${stakedBalance} ${TokenSettings(currencyYouStake).name}`}</div>
+      <div className='staked-text'>
+        {`${t('staking.staking.staked')}: ${parseFloat(Web3.utils.fromWei(stakedBalance, 'ether')).toFixed(4)} ${TokenSettings(currencyYouStake).name}`}
+      </div>
       <div className="action-section">
         <div className="left-column">
           <div className="title">
-            {isUnstaking ? `Unstaking = ${amountYouUnstake} MOC` : `Staking = ${amountYouStake} MOC`}
+            {isUnstaking ? `Unstaking = ${amountYouUnstake.toFixed(4)} MOC` : `Staking = ${(amountYouStake).toFixed(4)} MOC`}
           </div>
           <Button
             type="primary"
