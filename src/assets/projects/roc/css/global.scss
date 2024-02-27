@@ -436,7 +436,7 @@
     gap: 311px;
 
     width: 1120px;
-    height: 49px;
+    height: 80px;
 
     /* Inside auto layout */
 
@@ -498,9 +498,8 @@
 }
 
 .tokens-list-header-balance-number {
-    width: 141px;
+    width: 600px;
     height: 24px;
-
     font-family: var(--brand-font);
     font-weight: 600;
     font-size: 18px;
@@ -515,7 +514,7 @@
 }
 
 .tokens-list-header-balance-title {
-    width: 130px;
+    width: 600px;
     height: 21px;
 
     font-family: var(--main-font);
