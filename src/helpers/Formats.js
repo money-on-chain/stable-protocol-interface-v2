@@ -22,4 +22,13 @@ const fromContractPrecisionDecimals = (amount, decimals) => {
     );
 };
 
-export { formatLocalMap, fromContractPrecisionDecimals };
+const formatLocalMap2 = {
+    es: 'es',
+    en: 'en'
+};
+
+export { 
+    formatLocalMap, 
+    fromContractPrecisionDecimals, 
+    formatLocalMap2 
+};

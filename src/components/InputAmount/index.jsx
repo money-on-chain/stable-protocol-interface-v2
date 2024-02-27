@@ -5,8 +5,10 @@ import './style.scss';
 export default class InputAmount extends Component {
 
     handleValueChange(newAmount) {
-        console.log('newAmount', newAmount);
-        // Comprobar si el valor es numérico antes de llamar a this.props.onValueChange
+        if (newAmount.length === 0) {
+            this.props.onValueChange(0);
+            return;
+        }
         const isNumeric = !isNaN(parseFloat(newAmount)) && isFinite(newAmount);
         if (isNumeric) {
             this.props.onValueChange(newAmount);

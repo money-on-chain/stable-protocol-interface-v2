@@ -179,6 +179,10 @@
             "RewardsClaimButton_Modal_TxStatus_failed": "Failed",
             "RewardsClaimButton_Modal_TxStatus_pending": "Pending",
             "RewardsClaimButton_Modal_TxStatus_error": "Error"
-        }
+        },
+        "Error_numericField": "This field should be numeric",
+        "Error_separateDecimals": "Use point to separate decimals",
+        "Error_numberTooSmall": "The number is too small",
+        "Error_maxExceeded": "The number exceeds the maximum allowed"
     }
 }
