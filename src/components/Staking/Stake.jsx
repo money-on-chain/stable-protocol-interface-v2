@@ -11,105 +11,43 @@ import InputAmount from '../InputAmount';
 import SelectCurrency from '../SelectCurrency';
 import { tokenStake } from '../../helpers/staking';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
+
 const Stake = (props) => {
+  const {
+    activeTab,
+    mocBalance,
+    stakedBalance,
+    setStakingBalances,
+  } = props;
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [isDirtyYouStake, setIsDirtyYouStake] = useState(false);
   const [isDirtyYouUnstake, setIsDirtyYouUnstake] = useState(false);
   const defaultTokenStake = tokenStake()[0];
-  const [mocBalance, setMocBalance] = useState('0');
   const [inputValidationErrorText, setInputValidationErrorText] = useState('');
-  const [lockedBalance, setLockedBalance] = useState('0');
-  const [stakedBalance, setStakedBalance] = useState('0');
-  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
-  const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
-  const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
   const [currencyYouStake, setCurrencyYouStake] = useState(defaultTokenStake);
   const [currencyYouUnstake, setCurrencyYouUnstake] = useState(defaultTokenStake);
+  const [modalMode, setModalMode] = useState(null);
+  const [withdrawalId, setWithdrawalId] = useState('0');
+  const [modalAmount, setModalAmount] = useState('0');
+  const [blockedWithdrawals, setBlockedWithdrawals] = useState([]);
+  const [operationModalInfo, setOperationModalInfo] = useState({});
+  const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
+  const [cleanInputCount, setUntouchCount] = useState(0);
   const [amountYouStake, setAmountYouStake] = useState(
     new BigNumber(0)
   );
   const [amountYouUnstake, setAmountYouUnstake] = useState(
     new BigNumber(0)
   );
-
   useEffect(() => {
-    setIsUnstaking(props.activeTab === 'tab2');
-    setStakingBalances();
+    setIsUnstaking(activeTab === 'tab2');
     setAmountYouStake(new BigNumber(0));
     setAmountYouUnstake(new BigNumber(0));
-  }, [auth, props.activeTab]);
+  }, [auth, activeTab]);
 
-  const setStakingBalances = async () => {
-    try {
-      let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
-        '0',
-        '0',
-        []
-      ];
-      if (props.UserBalanceData) {
-        setMocBalance(props.UserBalanceData.FeeToken.balance);
-        [_stakedBalance, _lockedBalance, _pendingWithdrawals] =
-          await Promise.all([
-            auth.interfaceStackedBalance(),
-            auth.interfaceLockedBalance(),
-            auth.interfacePendingWithdrawals()
-          ]);
-      }
-      const pendingWithdrawalsFormatted = _pendingWithdrawals
-        .filter((withdrawal) => withdrawal.expiration)
-        .map((withdrawal) => {
-          const status =
-            new Date(parseInt(withdrawal.expiration) * 1000) >
-              new Date()
-              ? withdrawalStatus.pending
-              : withdrawalStatus.available;
-
-          return {
-            ...withdrawal,
-            status
-          };
-        });
-      let pendingExpirationAmount = '0';
-      let readyToWithdrawAmount = '0';
-      console.log('Pending Withdrawals', pendingWithdrawalsFormatted);
-      pendingWithdrawalsFormatted.forEach(({ status, amount }) => {
-        if (status === withdrawalStatus.pending) {
-          pendingExpirationAmount = BigNumber.sum(
-            pendingExpirationAmount,
-            amount
-          ).toFixed(0);
-        } else {
-          readyToWithdrawAmount = BigNumber.sum(
-            readyToWithdrawAmount,
-            amount
-          ).toFixed(0);
-        }
-      });
-      const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
-        return b.id - a.id;
-      });
-      setLockedBalance(_lockedBalance);
-      console.log('Staked balance', _stakedBalance);
-      setStakedBalance(_stakedBalance);
-      setTotalPendingExpiration(pendingExpirationAmount);
-      setTotalAvailableToWithdraw(readyToWithdrawAmount);
-      setPendingWithdrawals(arrayDes);
-      console.log('Staking balances', _stakedBalance, _lockedBalance, _pendingWithdrawals);
-    } catch (error) {
-      console.log('Error getting staking balances', error);
-    }
-  };
-
-  const clickButtonStake = (amountInputValue) => {
-    if (amountInputValue > 0) {
-      setModalAmount(amountInputValue);
-      setModalMode('staking');
-    } else {
-      alert('Please fill amount you want to stake');
-    }
-  };
   const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
     onClear();
     setCurrencyYouStake(newCurrencyYouExchange);
@@ -128,7 +66,7 @@ const Stake = (props) => {
   };
   const onChangeAmountYouUnstake = (newAmount) => {
     setIsDirtyYouUnstake(true);
-    if (newAmount === '' ) {
+    if (newAmount === '') {
       setAmountYouUnstake(new BigNumber(0));
       return;
     }
@@ -162,6 +100,33 @@ const Stake = (props) => {
       false
     )
   }
+  const onStakeButton = () => {
+    if (getAmount() > 0) {
+      setModalAmount(getAmount());
+      setModalMode('staking');
+    } else {
+      alert('Please fill amount you want to stake');
+    }
+  }
+
+  const resetBalancesAndValues = () => {
+    setStakingBalances();
+    setAmountYouUnstake(new BigNumber(0));
+    setAmountYouStake(new BigNumber(0));
+
+    setUntouchCount((prev) => prev + 1);
+  };
+  const onStakingModalConfirm = (operationStatus, txHash) => {
+    const operationInfo = {
+      operationStatus,
+      txHash
+    };
+
+    setOperationModalInfo(operationInfo);
+    setIsOperationModalVisible(true);
+    resetBalancesAndValues();
+  };
+
   return (
     <Fragment>
       <div className="swap-from">
@@ -182,10 +147,10 @@ const Stake = (props) => {
           isDirty={isUnstaking ? isDirtyYouUnstake : isDirtyYouStake}
           balance={
             PrecisionNumbers({
-              amount: isUnstaking? stakedBalance : mocBalance,
+              amount: isUnstaking ? stakedBalance : mocBalance,
               token: TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake),
               decimals:
-                TokenSettings(isUnstaking ? currencyYouUnstake: currencyYouStake )
+                TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake)
                   .visibleDecimals,
               t: t,
               i18n: i18n,
@@ -206,7 +171,7 @@ const Stake = (props) => {
           <Button
             type="primary"
             className={"primary-button btn-confirm"}
-            onClick={() => { }}
+            onClick={onStakeButton}
           >
             {isUnstaking ? "Unstake" : "Stake"}
           </Button>
@@ -215,6 +180,22 @@ const Stake = (props) => {
           <div className="note-text">{t('staking.staking.note')}</div>
         </div>
       </div>
+      {modalMode !== null && <StakingOptionsModal
+        mode={modalMode}
+        visible={modalMode !== null}
+        onClose={() => setModalMode(null)}
+        withdrawalId={withdrawalId}
+        amount={modalAmount}
+        onConfirm={onStakingModalConfirm}
+        setBlockedWithdrawals={setBlockedWithdrawals}
+        currencyYouStake={currencyYouStake}
+      />}
+      {isOperationModalVisible && <OperationStatusModal
+        visible={isOperationModalVisible}
+        onCancel={() => setIsOperationModalVisible(false)}
+        operationStatus={operationModalInfo.operationStatus}
+        txHash={operationModalInfo.txHash}
+      />}
     </Fragment>
   )
 }

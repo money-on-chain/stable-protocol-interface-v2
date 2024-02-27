@@ -149,6 +149,25 @@
                 "label": "MoC",
                 "abbr": "MoC"
             }
+        },
+        "modal": {
+            "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
+            "StakingOptions_PendingExpiration": "Processing unstake",
+            "StakingOptions_WithdrawAll": "Withdraw all available",
+            "StakingOptions_Restake": "Restake",
+            "StakingOptions_Withdraw": "Withdraw",
+
+            "StakingOptionsModal_SetAllowance": "Set Allowance",
+            "StakingOptionsModal_ReviewYourWallet": "Wallet",
+            "StakingOptionsModal_ReviewYourWalletDescription": "Please review your wallet",
+            "StakingOptionsModal_Authorize": "Authorize",
+            "StakingOptionsModal_AllowanceDescription": "Before continuing with the staking you must set the allowance so that the staking system can access the tokens. This has to be done only once and it doesn't lock any tokens from your wallet.",
+            "StakingOptionsModal_ProccessingAllowance": "Processing Allowance, please wait.",
+            "StakingOptionsModal_StakingDescription": "Staked MoCs will receive rewards from the MoC Staking Rewards Program. You can unstake your MoC's whenever you want, the withdraw process will take 30 days",
+            "StakingOptionsModal_AmountToStake": "Amount to Stake",
+            "StakingOptionsModal_Title": "Stake",
+            "StakingOptionsModal_Comfirm": "Confirm",
+            "StakingOptionsModal_Cancel": "Cancel"
         }
     }
 }

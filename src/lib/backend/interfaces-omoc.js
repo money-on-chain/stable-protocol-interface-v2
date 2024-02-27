@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
-
-import { toContractPrecision, getGasPrice } from './utils';
+import settings from '../../settings/settings.json';
+import { toContractPrecision, getGasPrice, toContractPrecisionDecimals } from './utils';
 
 const stackedBalance = async (address) => {
     const dContracts = window.dContracts;
@@ -34,7 +34,7 @@ const pendingWithdrawals = async (address) => {
 
 const stakingDeposit = async (interfaceContext, amount, address, callback) => {
     const { web3, account, userBalanceData } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
 
     const istakingmachine = dContracts.contracts.istakingmachine;
 
@@ -52,8 +52,8 @@ const stakingDeposit = async (interfaceContext, amount, address, callback) => {
             {
                 from: account,
                 gasPrice: await getGasPrice(web3),
-                gas: estimateGas * 2,
-                gasLimit: estimateGas * 2
+                gas: estimateGas * BigInt(2),
+                gasLimit: estimateGas * BigInt(2)
             },
             callback
         );
@@ -63,7 +63,7 @@ const stakingDeposit = async (interfaceContext, amount, address, callback) => {
 
 const unStake = async (interfaceContext, amount, callback) => {
     const { web3, account } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
 
     const istakingmachine = dContracts.contracts.istakingmachine;
 
@@ -72,7 +72,7 @@ const unStake = async (interfaceContext, amount, callback) => {
     // Calculate estimate gas cost
     const estimateGas = await istakingmachine.methods
         .withdraw(toContractPrecision(amount))
-        .estimateGas({ from: account});
+        .estimateGas({ from: account });
 
     // Send tx
     const receipt = istakingmachine.methods
@@ -92,14 +92,14 @@ const unStake = async (interfaceContext, amount, callback) => {
 
 const delayMachineWithdraw = async (interfaceContext, id, callback) => {
     const { web3, account } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
 
     const idelaymachine = dContracts.contracts.idelaymachine;
 
     // Calculate estimate gas cost
     const estimateGas = await idelaymachine.methods
         .withdraw(id)
-        .estimateGas({ from: account});
+        .estimateGas({ from: account });
 
     // Send tx
     const receipt = idelaymachine.methods.withdraw(id).send(
@@ -117,14 +117,14 @@ const delayMachineWithdraw = async (interfaceContext, id, callback) => {
 
 const delayMachineCancelWithdraw = async (interfaceContext, id, callback) => {
     const { web3, account } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
 
     const idelaymachine = dContracts.contracts.idelaymachine;
 
     // Calculate estimate gas cost
     const estimateGas = await idelaymachine.methods
         .cancel(id)
-        .estimateGas({ from: account});
+        .estimateGas({ from: account });
 
     // Send tx
     const receipt = idelaymachine.methods.cancel(id).send(
@@ -142,37 +142,44 @@ const delayMachineCancelWithdraw = async (interfaceContext, id, callback) => {
 
 const approveMoCTokenStaking = async (interfaceContext, enabled, callback) => {
     const { web3, account } = interfaceContext;
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
 
     const stakingAddress = dContracts.contracts.istakingmachine._address;
     const tg = dContracts.contracts.tg;
 
     const newAllowance = enabled
-        ? Web3.utils.toWei(Number.MAX_SAFE_INTEGER.toString())
+        ? new BigNumber(1000000000000000)
         : 0;
 
-    // Calculate estimate gas cost
     const estimateGas = await tg.methods
-        .approve(stakingAddress, newAllowance)
-        .estimateGas({ from: account });
-
+        .approve(
+            stakingAddress,
+            toContractPrecisionDecimals(newAllowance, settings.tokens.TF.decimals)
+        )
+        .estimateGas({ from: account, value: '0x' });
+    console.log('estimateGas', estimateGas);
     // Send tx
-    const receipt = tg.methods.approve(stakingAddress, newAllowance).send(
+    const receipt = tg.methods.approve(
+        stakingAddress,
+        toContractPrecisionDecimals(newAllowance, settings.tokens.TF.decimals)
+    ).send(
         {
             from: account,
+            value: 0,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * 2,
-            gasLimit: estimateGas * 2
+            gas: estimateGas * BigInt(2),
+            gasLimit: estimateGas * BigInt(2)
         },
         callback
     );
-
+    console.log('receipt', receipt);
     return receipt;
 };
 
 const getMoCAllowance = async (address) => {
-    const dContracts = window.integration;
+    const dContracts = window.dContracts;
     const tg = dContracts.contracts.tg;
+    console.log('tg', tg);
     const stakingAddress = dContracts.contracts.istakingmachine._address;
     return await tg.methods.allowance(Web3.utils.toChecksumAddress(address), stakingAddress).call();
 };

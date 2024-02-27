@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useProjectTranslation } from '../../helpers/translations';
 import { PieChart } from '@opd/g2plot-react'
 
+const PieChartComponent = (props) => {
+  const [t ] = useProjectTranslation();
 
+  useEffect(() => {
+    readData();
+  }, [])
 
-const PieChartComponent = () => {
-  const [t, i18n, ns] = useProjectTranslation();
+  const readData = async () => {
+    
+  }
+
   const data = [
     { type: t('staking.distribution.graph.balance'), value: 27 },
     { type: t('staking.distribution.graph.processingUnstake'), value: 25 },
@@ -35,12 +42,9 @@ const PieChartComponent = () => {
       visible: false,
       position: 'bottom',
     },
-    height : 230
+    height: 230
   };
-  
-  const getTotalValue = (data) => {
-    return data.reduce((acc, item) => acc + item.value, 0);
-  }
+
   return (
     <div >
       <PieChart {...config} />

@@ -77,6 +77,9 @@ const AuthenticateContext = createContext({
     interfaceStackedBalance: async (address) => {},
     interfaceLockedBalance: async (address) => {},
     interfacePendingWithdrawals: async (address) => {},
+    interfaceApproveMoCTokenStaking: async (enabled) => {},
+    interfaceStakingDeposit: async (mocs, address) => {},
+    interfaceGetMoCAllowance: async (address) => {},
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -386,6 +389,22 @@ const AuthenticateProvider = ({ children }) => {
         const from = address || account;
         return pendingWithdrawals(from);
     };
+    const interfaceApproveMoCTokenStaking = async (
+        enabled,
+        callback = () => {}
+    ) => {
+        const interfaceContext = buildInterfaceContext();
+        return approveMoCTokenStaking(interfaceContext, enabled, callback);
+    };
+    const interfaceStakingDeposit = async (mocs, address, callback) => {
+        const from = address || account;
+        const interfaceContext = buildInterfaceContext();
+        return stakingDeposit(interfaceContext, mocs, address, callback);
+    };
+    const interfaceGetMoCAllowance = async (address) => {
+        const from = address || account;
+        return getMoCAllowance(from);
+    };
 
     return (
         <AuthenticateContext.Provider
@@ -411,6 +430,9 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceStackedBalance,
                 interfaceLockedBalance,
                 interfacePendingWithdrawals,
+                interfaceApproveMoCTokenStaking,
+                interfaceStakingDeposit,
+                interfaceGetMoCAllowance,
             }}
         >
             {children}
