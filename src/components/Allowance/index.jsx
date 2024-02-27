@@ -91,7 +91,7 @@ export default function AllowanceDialog(props) {
         }).catch((error) => {
             console.log('ERROR');
             setStatus('ERROR');
-        });;
+        });
     };
 
     const onTransaction = (transactionHash) => {

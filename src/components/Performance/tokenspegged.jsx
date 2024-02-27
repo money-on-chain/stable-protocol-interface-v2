@@ -92,7 +92,7 @@ export default function TokensPegged() {
             ),
             tokens_per_usd: (
                 <div>
-                    {settings.project !== 'roc' ? PrecisionNumbers({
+                    {settings.project !== 'roc' ? (!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.PP_TP[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 3,
@@ -105,7 +105,7 @@ export default function TokensPegged() {
             ),
             minted:
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.pegContainer[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
@@ -117,7 +117,7 @@ export default function TokensPegged() {
                 </div>,
             mintable: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.getTPAvailableToMint[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
@@ -130,7 +130,7 @@ export default function TokensPegged() {
             ),
             coverage: (
                 <div className="item-usd">
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.tpCtarg[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
@@ -143,7 +143,7 @@ export default function TokensPegged() {
             ),
             ema: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.tpEma[dataItem.key],
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
@@ -156,7 +156,7 @@ export default function TokensPegged() {
             ),
             ctargema: (
                 <div>
-                    {PrecisionNumbers({
+                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                         amount: auth.contractStatusData.calcCtargemaCA,
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 2,

@@ -19,7 +19,28 @@ export default function Skeleton() {
     return (
         <Layout>
             {!auth.isLoggedIn && (
-                <Alert message="Please connect your wallet!" type="error" />
+                <Alert
+                    message="Warning"
+                    description="Please connect your wallet!."
+                    type="error"
+                    showIcon
+                />
+            )}
+            {auth.contractStatusData && !auth.contractStatusData.canOperate && (
+                <Alert
+                    message="Warning"
+                    description="One or more contracts are temporarily unavailable. Please try again later."
+                    type="error"
+                    showIcon
+                />
+            )}
+            {auth.contractStatusData && auth.contractStatusData.paused && (
+                <Alert
+                    message="Warning"
+                    description="The contract is paused. No operations allowed."
+                    type="error"
+                    showIcon
+                />
             )}
 
             <SectionHeader />

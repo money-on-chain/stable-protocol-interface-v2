@@ -25,7 +25,7 @@ export default function CollateralAssets() {
                         </div>
                         <div className="coll-2">
                             <div className="amount-token">
-                                {PrecisionNumbers({
+                                {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
                                     amount: auth.contractStatusData ? auth.contractStatusData.getACBalance[i] : new BigNumber(0),
                                     token: TokenSettings(`CA_${i}`),
                                     decimals: 2,
