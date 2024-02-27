@@ -167,7 +167,18 @@
             "StakingOptionsModal_AmountToStake": "Amount to Stake",
             "StakingOptionsModal_Title": "Stake",
             "StakingOptionsModal_Comfirm": "Confirm",
-            "StakingOptionsModal_Cancel": "Cancel"
+            "StakingOptionsModal_Cancel": "Cancel",
+
+            "RewardsClaimButton_Claim": "Claim",
+            "RewardsClaimButton_Modal_Title": "Operation details",
+            "RewardsClaimButton_Modal_TxStatus": "Transaction status",
+            "RewardsClaimButton_Modal_Hash": "Hash",
+            "RewardsClaimButton_Modal_ViewOnExplorer": "View on the explorer",
+            "RewardsClaimButton_Modal_Close": "Close",
+            "RewardsClaimButton_Modal_TxStatus_success": "Success",
+            "RewardsClaimButton_Modal_TxStatus_failed": "Failed",
+            "RewardsClaimButton_Modal_TxStatus_pending": "Pending",
+            "RewardsClaimButton_Modal_TxStatus_error": "Error"
         }
     }
 }

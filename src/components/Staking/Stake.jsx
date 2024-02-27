@@ -12,7 +12,7 @@ import SelectCurrency from '../SelectCurrency';
 import { tokenStake } from '../../helpers/staking';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
-
+import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal'
 const Stake = (props) => {
   const {
     activeTab,

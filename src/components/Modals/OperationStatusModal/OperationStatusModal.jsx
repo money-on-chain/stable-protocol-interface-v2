@@ -1,9 +1,8 @@
-import Modal from 'antd/lib/modal/Modal';
+import Modal, {Fragment} from 'antd/lib/modal/Modal';
 import React from 'react';
 import { Button } from 'antd';
 
 import Copy from '../../Page/Copy';
-import { config } from '../../../projects/config';
 import { useProjectTranslation } from '../../../helpers/translations';
 import './style.scss';
 
@@ -67,7 +66,7 @@ const OperationStatusModal = ({
                 </div>
             </div>
             <a
-                href={`${config.environment.explorerUrl}/tx/${txHash}`}
+                href={`www.test.com`}
                 target="_blank"
             >
                 {t('staking.modal.RewardsClaimButton_Modal_ViewOnExplorer')}
@@ -80,9 +79,7 @@ const OperationStatusModal = ({
                     style={{ width: 130 }}
                     onClick={onCancel}
                 >
-                    {t('staking.modal.RewardsClaimButton_Modal_Close', {
-                        ns: 'global'
-                    })}
+                    {t('staking.modal.RewardsClaimButton_Modal_Close')}
                 </Button>
             </div>
         </Modal>
