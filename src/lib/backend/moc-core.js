@@ -72,7 +72,7 @@ const mintTC = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
-        .mintTCViaVendor(
+        .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -81,13 +81,14 @@ const mintTC = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
-        .mintTCViaVendor(
+        .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -96,6 +97,7 @@ const mintTC = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .send({
@@ -167,7 +169,7 @@ const redeemTC = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
-        .redeemTCViaVendor(
+        .redeemTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -176,13 +178,14 @@ const redeemTC = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
-        .redeemTCViaVendor(
+        .redeemTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
                 settings.tokens.TC.decimals
@@ -191,6 +194,7 @@ const redeemTC = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .send({
@@ -284,7 +288,7 @@ const mintTP = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
-        .mintTPViaVendor(
+        .mintTP(
             tpAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -294,13 +298,14 @@ const mintTP = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
-        .mintTPViaVendor(
+        .mintTP(
             tpAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -310,6 +315,7 @@ const mintTP = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .send({
@@ -385,7 +391,7 @@ const redeemTP = async (
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
-        .redeemTPViaVendor(
+        .redeemTP(
             tpAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -395,13 +401,14 @@ const redeemTP = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
-        .redeemTPViaVendor(
+        .redeemTP(
             tpAddress,
             toContractPrecisionDecimals(
                 new BigNumber(qTP),
@@ -411,6 +418,7 @@ const redeemTP = async (
                 limitAmount,
                 settings.tokens.CA[caIndex].decimals
             ),
+            account,
             vendorAddress
         )
         .send({

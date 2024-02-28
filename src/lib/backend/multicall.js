@@ -133,18 +133,31 @@ const contractStatus = async (web3, dContracts) => {
             )
         } else {
 
-            // Not Ok Error on calling
-            if (listMethods[itemIndex][2] === 'uint256') {
-                listReturnData.push(0)
-            } else if (listMethods[itemIndex][2] === 'address') {
-                listReturnData.push('0x')
-            } else if (listMethods[itemIndex][2] === 'bool') {
-                listReturnData.push(false)
+            // 24 getLeverageTC this is an exception
+            if (itemIndex === 24) {
+                // When there are an exception here is because leverage is infinity
+                // very big number (infinity+)
+                listReturnData.push(new BigNumber(115792089237316200000000000000000000000000000000000000))
+                console.warn("WARN: Leverage too high!")
+
+            } else {
+
+                // Not Ok Error on calling
+                if (listMethods[itemIndex][2] === 'uint256') {
+                    listReturnData.push(0)
+                } else if (listMethods[itemIndex][2] === 'address') {
+                    listReturnData.push('0x')
+                } else if (listMethods[itemIndex][2] === 'bool') {
+                    listReturnData.push(false)
+                }
+
+                // If there are any problems can not operate
+                status.canOperate = false
+                console.warn("WARN: Cannot operate!")
+
             }
 
-            // If there are any problems can not operate
-            status.canOperate = false
-            console.warn("WARN: Cannot operate!")
+
         }
 
     })
