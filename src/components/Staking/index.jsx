@@ -115,6 +115,7 @@ export default function Staking(props) {
                   mocBalance={mocBalance}
                   stakedBalance={stakedBalance}
                   setStakingBalances={setStakingBalances}
+                  totalAvailableToWithdraw={totalAvailableToWithdraw}
                 />
               </div>
             </div>
@@ -126,7 +127,10 @@ export default function Staking(props) {
               </div>
               <div className="tab-content">
                 <PieChartComponent
-
+                  mocBalance={mocBalance}
+                  stakedBalance={stakedBalance}
+                  lockedBalance={lockedBalance}
+                  totalAvailableToWithdraw={totalAvailableToWithdraw}
                 />
               </div>
             </div>
