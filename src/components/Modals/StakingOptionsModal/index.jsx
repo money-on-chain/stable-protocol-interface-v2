@@ -7,7 +7,6 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import { TokenSettings } from '../../../helpers/currencies';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
-import './style.scss';
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
@@ -200,7 +199,7 @@ export default function StakingOptionsModal(props) {
                                     justifyContent: 'center'
                                 }}
                             >
-                                <Button type="primary" onClick={setAllowance}>
+                                <Button type="primary" className="primary-button btn-confirm" onClick={setAllowance}>
                                     {t('staking.modal.StakingOptionsModal_Authorize')}
                                 </Button>
                             </div>
@@ -249,13 +248,13 @@ export default function StakingOptionsModal(props) {
                                 {t('staking.modal.StakingOptionsModal_StakingDescription')}
                             </p>
                             <div className="ActionButtonsRow">
-                                <Button type="default" onClick={onClose}>
+                                <Button type="default" onClick={onClose} className="secondary-button btn-clear" >
                                     {t('staking.modal.StakingOptionsModal_Cancel')}
                                 </Button>
                                 <Button
                                     type="primary"
                                     onClick={depositMoCs}
-                                    className="ButtonPrimary"
+                                    className="primary-button btn-confirm"
                                 >
                                     {t('staking.modal.StakingOptionsModal_Comfirm')}
                                 </Button>
@@ -422,6 +421,9 @@ export default function StakingOptionsModal(props) {
             open={visible}
             onCancel={onClose}
             footer={null}
+            centered={true}
+            maskClosable={false}
+            maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
         >
             {render()}
         </Modal>

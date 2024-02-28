@@ -3297,8 +3297,50 @@ h1.title-last-operations {
             width: 100%;
         }
     }
+    .StakingOptionsModal {
+        font-family: var(--brand-font);
+    
+        .ant-modal-content {
+            background: rgb(248, 248, 249);
+            // border-radius: 4px;
+            box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+        .ant-modal-header {
+            background-color: transparent !important;
+            border-bottom: 0 !important;
+            font-style: italic;
+            font-weight: 900;
+            font-size: 20px;
+            line-height: 24px;
+            padding: 24px 24px;
+        }
+    
+        .ant-modal-title {
+            color: black !important;
+            font-family: 'Sora';
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            font-style: normal !important;
+            letter-spacing: 0px !important;
+            text-align: left !important;
+        }
+    
+        .ant-modal-body {
+            padding: 14px 32px;
+        }
+    
+        // .ant-modal-content {
+        //     border: 0 !important;
+        // }
+    }
+    
 }
-
+.ActionButtonsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
 
 .ant-layout-footer {
     padding: 24px 50px;
