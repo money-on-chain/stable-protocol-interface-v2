@@ -49,11 +49,18 @@ const PrecisionNumbers = ({
         numericLabelParams
     );
 
-    return (
-        <Tooltip title={amountBig.eq(0) ? '0' : amountBig}>
-            <NumericLabel {...{ params }}>{amountFormat}</NumericLabel>
-        </Tooltip>
-    );
+    // If is very big number
+    if (amountBig.gte(new BigNumber(115792089237316200000000000000000000))) {
+        return (<span>Infinity +</span>)
+    } else {
+        return (
+            <Tooltip title={amountBig.eq(0) ? '0' : amountBig}>
+                <NumericLabel {...{ params }}>{amountFormat}</NumericLabel>
+            </Tooltip>
+        );
+    }
+
+
 };
 
 export { PrecisionNumbers };
