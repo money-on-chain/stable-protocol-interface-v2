@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useContext } from 'react';
-
+import { Skeleton } from 'antd';
 import { AuthenticateContext } from '../../context/Auth';
 import ListOperations from '../../components/Tables/ListOperations';
 import { useProjectTranslation } from '../../helpers/translations';
@@ -12,7 +12,12 @@ import '../../assets/css/pages.scss';
 function SectionSend(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        if (auth) {
+            setReady(true);
+        }
+    }, [auth])
     return (
         <Fragment>
 
@@ -24,7 +29,7 @@ function SectionSend(props) {
                 </div>
 
                 <div className={'content-body'}>
-                    <Send />
+                    {ready ? <Send /> : <Skeleton active />}
                 </div>
 
             </div>
