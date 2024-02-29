@@ -6,9 +6,11 @@ public
 
 # assets
 src/assets/icons
-src/assets/css
 src/assets/img
-
+logout.scss
+navigation.scss
+Oval.svg
+pages.scss
 # settings
 src/settings/en_US.json
 src/settings/es_ES.json
