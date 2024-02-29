@@ -114,6 +114,7 @@ export default function Staking(props) {
                   activeTab={activeTab}
                   mocBalance={mocBalance}
                   stakedBalance={stakedBalance}
+                  lockedBalance={lockedBalance}
                   setStakingBalances={setStakingBalances}
                   totalAvailableToWithdraw={totalAvailableToWithdraw}
                 />

@@ -18,8 +18,6 @@ const PrecisionNumbers = ({
     ns,
     skipContractConvert
 }) => {
-    console.log('amount is ', amount);
-    console.log('token is ', token);
     let amountBig;
     if (skipContractConvert) {
         amountBig = amount;

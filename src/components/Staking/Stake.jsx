@@ -20,6 +20,7 @@ const Stake = (props) => {
     activeTab,
     mocBalance,
     stakedBalance,
+    lockedBalance,
     setStakingBalances,
   } = props;
   const [t, i18n, ns] = useProjectTranslation();
