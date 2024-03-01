@@ -1,35 +1,25 @@
-import React, { Fragment } from 'react';
-import { useContext } from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
+import {
+  Skeleton
+} from 'antd';
 
-import { AuthenticateContext } from '../../context/Auth';
-import { useProjectTranslation } from '../../helpers/translations';
-
-import '../../assets/css/pages.scss';
-
-
-function SectionVesting(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-
-    return (
-        <Fragment>
-
-            {/* Send */}
-            <div className={'dashboard-exchange'}>
-
-                <div className={'title'}>
-                    <h1>Staking</h1>
-                </div>
-
-                <div className={'content-body'}>
-
-                </div>
-
-            </div>
+import Vesting from '../../components/Vesting';
 
 
-        </Fragment>
-    );
+function SectionVesting() {
+  // const auth = useContext(AuthenticateContext);
+  // useEffect(() => {
+  //   if (auth.contractStatusData) {
+  //     setReady(true);
+  //   }
+  // }, [auth])
+  return (
+    <Fragment>
+      <div>
+      <Vesting />
+      </div>
+    </Fragment>
+  );
 }
 
 export default SectionVesting;

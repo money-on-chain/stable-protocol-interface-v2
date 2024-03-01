@@ -223,7 +223,7 @@ const Stake = (props) => {
             onClick={onStakeButton}
             disabled={inputValidationError}
           >
-            {isUnstaking ? "Unstake" : "Stake"}
+            {isUnstaking ? t('staking.staking.unstake_button') : t('staking.staking.stake_button')}
           </Button>
         </div>
         <div className="right-column">

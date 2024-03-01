@@ -121,7 +121,9 @@
             "tab1": "Hacer Staking",
             "tab2": "Retirar Stack",
             "staked": "En Stake",
-            "note": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'."
+            "note": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'.",
+            "stake_button": "Stake",
+            "unstake_button": "Unstake"
         },
         "distribution": {
             "title": "Distribución de MOC",
@@ -183,5 +185,10 @@
         "Error_separateDecimals": "Usa el punto para separar decimales",
         "Error_numberTooSmall": "El valor es muy pequeño",
         "Error_maxExceeded": "El número excede el máximo permitido"
+    },
+    "vesting" : {
+        "vestingMachineGeneral" : {
+            "title" : "Vesting Machine"
+        }
     }
 }
