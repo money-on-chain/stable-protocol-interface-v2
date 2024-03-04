@@ -360,7 +360,7 @@ export default function ListOperations(props) {
                                     <div className='table-amount' >
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
-                                            token: token.exchange.token,
+                                            token: token.exchange.token[0] ?? token.exchange.token,
                                             decimals: 2,
                                             t: t,
                                             i18n: i18n,
