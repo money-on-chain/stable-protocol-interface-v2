@@ -88,7 +88,14 @@ export default function Send() {
             setInputValidationErrorText('Not enough balance in your wallet');
             amountInputError = true
         }
-
+        if (amountYouExchange.eq(0)) {
+            setInputValidationErrorText('Amount field cannot be empty');
+            amountInputError = true
+        }
+        if (amountYouExchange.lt(0)) {
+            setInputValidationErrorText('Amount cannot be negative');
+            amountInputError = true
+        }
         // 2. Input address valid
         if (destinationAddress === '') {
             setInputValidationAddressErrorText('Address field cannot be empty');
