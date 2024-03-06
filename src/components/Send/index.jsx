@@ -85,11 +85,11 @@ export default function Send() {
             setInputValidationErrorText('Not enough balance in your wallet');
             amountInputError = true
         }
-        if (amountYouExchange.eq(0)) {
+        if (amountYouSend.eq(0)) {
             setInputValidationErrorText('Amount field cannot be empty');
             amountInputError = true
         }
-        if (amountYouExchange.lt(0)) {
+        if (amountYouSend.lt(0)) {
             setInputValidationErrorText('Amount cannot be negative');
             amountInputError = true
         }
