@@ -455,7 +455,6 @@ export default function ListOperations(props) {
                              margin: '0.5rem',
                              marginTop: '3px',
                              marginRight: '1rem',
-                             cursor: 'pointer',
                              flexGrow: 0
                            }}
                       >
