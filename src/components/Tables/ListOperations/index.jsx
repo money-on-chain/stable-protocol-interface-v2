@@ -449,20 +449,19 @@ export default function ListOperations(props) {
                     </div>
                   ),
                   status: (
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div className={`tx-status-icon-${data['status']}`}
-                           style={{
-                             margin: '0.5rem',
-                             marginTop: '3px',
-                             marginRight: '1rem',
-                             flexGrow: 0
-                           }}
-                      >
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div className={`tx-status-icon-${getStatus(data)}`}
+                              style={{
+                                  margin: '0.5rem',
+                                  marginTop: '3px',
+                                  marginRight: '1rem',
+                                  flexGrow: 0
+                              }}
+                          />
+                          <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
+                              {getStatus(data)}
+                          </span>
                       </div>
-                       <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
-                       {getStatus(data)}
-                      </span>
-                    </div>
                   ),
                 detail: detail || "--"
             });
@@ -621,7 +620,6 @@ export default function ListOperations(props) {
         }
 
     }
-
     function getTokenInfo(token){
         switch (token) {
             case "CA_0":
