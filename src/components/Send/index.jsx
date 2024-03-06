@@ -4,7 +4,6 @@ import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
-
 import {
     TokenSettings,
     TokenBalance,
@@ -13,7 +12,7 @@ import {
 import {
     tokenExchange
 } from '../../helpers/exchange';
-
+import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from '../InputAmount';
@@ -25,34 +24,34 @@ export default function Send() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const defaultTokenExchange = tokenExchange()[0];
+    const defaultTokenSend = tokenExchange()[0];
 
-    const [currencyYouExchange, setCurrencyYouExchange] =
-        useState(defaultTokenExchange);
+    const [currencyYouSend, setCurrencyYouSend] =
+        useState(defaultTokenSend);
 
-    const [amountYouExchange, setAmountYouExchange] = useState(
+    const [amountYouSend, setAmountYouSend] = useState(
         new BigNumber(0)
     );
     const [destinationAddress, setDestinationAddress] = useState('');
 
-    const [exchangingUSD, setExchangingUSD] = useState(new BigNumber(0));
+    const [sendingUSD, setSendingUSD] = useState(new BigNumber(0));
 
-    const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
+    const [isDirtyYouSend, setIsDirtyYouSend] = useState(false);
 
     const [inputValidationErrorText, setInputValidationErrorText] = useState('');
     const [inputValidationAddressErrorText, setInputValidationAddressErrorText] = useState('');
     const [inputValidationError, setInputValidationError] = useState(false);
 
     useEffect(() => {
-        setAmountYouExchange(amountYouExchange);
-    }, [amountYouExchange]);
+        setAmountYouSend(amountYouSend);
+    }, [amountYouSend]);
 
 
     useEffect(() => {
-        if (amountYouExchange) {
+        if (amountYouSend) {
             onValidate();
         }
-    }, [amountYouExchange]);
+    }, [amountYouSend]);
 
     useEffect(() => {
         if (destinationAddress) {
@@ -60,31 +59,29 @@ export default function Send() {
         }
     }, [destinationAddress]);
 
-    const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
+    const onChangeCurrencyYouSend = (newCurrencyYouExchange) => {
         onClear();
-        setCurrencyYouExchange(newCurrencyYouExchange);
+        setCurrencyYouSend(newCurrencyYouExchange);
     };
 
     const onClear = () => {
-        setIsDirtyYouExchange(false);
-        setAmountYouExchange(new BigNumber(0));
+        setIsDirtyYouSend(false);
+        setAmountYouSend(new BigNumber(0));
     };
 
     const onValidate = () => {
-        console.log('onValidate');
-        console.log(destinationAddress);
         let amountInputError = false
         let addressInputError = false
 
-        // 1. User Exchange Token Validation
+        // 1. User Send Token Validation
         const totalBalance = new BigNumber(
             fromContractPrecisionDecimals(
-                TokenBalance(auth, currencyYouExchange),
-                TokenSettings(currencyYouExchange).decimals
+                TokenBalance(auth, currencyYouSend),
+                TokenSettings(currencyYouSend).decimals
             )
         );
 
-        if (amountYouExchange.gt(totalBalance)) {
+        if (amountYouSend.gt(totalBalance)) {
             setInputValidationErrorText('Not enough balance in your wallet');
             amountInputError = true
         }
@@ -121,20 +118,43 @@ export default function Send() {
 
     };
 
-    const onChangeAmountYouExchange = (newAmount) => {
-
-        setIsDirtyYouExchange(true);
-        setAmountYouExchange(new BigNumber(newAmount));
-
-        const usdAmount = ConvertAmount(
-            auth,
-            currencyYouExchange,
-            'CA_0',
-            newAmount,
-            false
-        );
-        setExchangingUSD(usdAmount);
-
+    const onChangeAmountYouSend = (newAmount) => {
+        const newAmountBig = new BigNumber(newAmount);
+        setIsDirtyYouSend(true);
+        setAmountYouSend(newAmountBig);
+        switch (currencyYouSend) {
+            case 'CA_0':
+                const price = new BigNumber(
+                    fromContractPrecisionDecimals(
+                        auth.contractStatusData.PP_CA[0],
+                        settings.tokens.CA[0].decimals
+                    )
+                );
+                const priceUSD = newAmountBig.times(price);
+                setSendingUSD(priceUSD);
+                break;
+            case 'TC':
+                const priceTEC = new BigNumber(
+                    fromContractPrecisionDecimals(
+                        auth.contractStatusData.getPTCac,
+                        settings.tokens.TC.decimals
+                    )
+                );
+                const priceCA = new BigNumber(
+                    fromContractPrecisionDecimals(
+                        auth.contractStatusData.PP_CA[0],
+                        settings.tokens.CA[0].decimals
+                    )
+                );
+                const priceTC = priceTEC.times(priceCA);
+                const priceUSDtc= newAmountBig.times(priceTC);
+                setSendingUSD(priceUSDtc);
+                break;
+            case 'TP_0':
+                setSendingUSD(newAmountBig);
+            default:
+                setSendingUSD(newAmountBig);
+        }
     };
 
     const onChangeDestinationAddress = (event) => {
@@ -143,16 +163,16 @@ export default function Send() {
 
     const setAddTotalAvailable = () => {
 
-        setIsDirtyYouExchange(false);
+        setIsDirtyYouSend(false);
 
-        const tokenSettings = TokenSettings(currencyYouExchange);
-        const totalYouExchange = new BigNumber(
+        const tokenSettings = TokenSettings(currencyYouSend);
+        const totalYouSend = new BigNumber(
             fromContractPrecisionDecimals(
-                TokenBalance(auth, currencyYouExchange),
+                TokenBalance(auth, currencyYouSend),
                 tokenSettings.decimals
             )
         );
-        setAmountYouExchange(totalYouExchange);
+        setAmountYouSend(totalYouSend);
     };
 
     return (
@@ -164,28 +184,28 @@ export default function Send() {
                     <div className="swap-from">
                         <SelectCurrency
                             className="select-token"
-                            value={currencyYouExchange}
+                            value={currencyYouSend}
                             currencyOptions={tokenExchange()}
-                            onChange={onChangeCurrencyYouExchange}
+                            onChange={onChangeCurrencyYouSend}
                         />
 
                         <InputAmount
-                            InputValue={amountYouExchange.toString() === '0' ? 0 : AmountToVisibleValue(
-                                amountYouExchange,
-                                currencyYouExchange,
+                            InputValue={amountYouSend.toString() === '0' ? 0 : AmountToVisibleValue(
+                                amountYouSend,
+                                currencyYouSend,
                                 3,
                                 false
                             )}
                             placeholder={'0.0'}
-                            onValueChange={onChangeAmountYouExchange}
+                            onValueChange={onChangeAmountYouSend}
                             validateError={false}
-                            isDirty={isDirtyYouExchange}
+                            isDirty={isDirtyYouSend}
                             balance={
                                 PrecisionNumbers({
-                                    amount: TokenBalance(auth, currencyYouExchange),
-                                    token: TokenSettings(currencyYouExchange),
+                                    amount: TokenBalance(auth, currencyYouSend),
+                                    token: TokenSettings(currencyYouSend),
                                     decimals:
-                                    TokenSettings(currencyYouExchange)
+                                    TokenSettings(currencyYouSend)
                                         .visibleDecimals,
                                     t: t,
                                     i18n: i18n,
@@ -221,7 +241,7 @@ export default function Send() {
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
                     {PrecisionNumbers({
-                        amount: exchangingUSD,
+                        amount: sendingUSD,
                         token: TokenSettings('CA_0'),
                         decimals: 2,
                         t: t,
@@ -237,9 +257,9 @@ export default function Send() {
                 <div className="actions-buttons">
 
                     <ModalConfirmSend
-                        currencyYouExchange={currencyYouExchange}
-                        exchangingUSD={exchangingUSD}
-                        amountYouExchange={amountYouExchange}
+                        currencyYouExchange={currencyYouSend}
+                        exchangingUSD={sendingUSD}
+                        amountYouExchange={amountYouSend}
                         destinationAddress={destinationAddress}
                         onClear={onClear}
                         inputValidationError={inputValidationError}
