@@ -86,7 +86,6 @@ export default function Send() {
             amountInputError = true
         }
         if (amountYouSend.eq(0)) {
-            setInputValidationErrorText('Amount field cannot be empty');
             amountInputError = true
         }
         if (amountYouSend.lt(0)) {
@@ -95,7 +94,6 @@ export default function Send() {
         }
         // 2. Input address valid
         if (destinationAddress === '') {
-            setInputValidationAddressErrorText('Address field cannot be empty');
             addressInputError = true
         } else if (destinationAddress.length < 42) {
             setInputValidationAddressErrorText('Address is not valid');
@@ -112,16 +110,18 @@ export default function Send() {
 
         if (amountInputError || addressInputError) {
             setInputValidationError(true);
-        }  else {
+        } else {
             setInputValidationError(false);
         }
 
     };
 
-    const onChangeAmountYouSend = (newAmount) => {
+    const onChangeAmountYouSend = (newAmount, isPriceOnly = false) => {
         const newAmountBig = new BigNumber(newAmount);
-        setIsDirtyYouSend(true);
-        setAmountYouSend(newAmountBig);
+        if (!isPriceOnly){
+            setIsDirtyYouSend(true);
+            setAmountYouSend(newAmountBig);
+        }
         switch (currencyYouSend) {
             case 'CA_0':
                 const price = new BigNumber(
@@ -147,7 +147,7 @@ export default function Send() {
                     )
                 );
                 const priceTC = priceTEC.times(priceCA);
-                const priceUSDtc= newAmountBig.times(priceTC);
+                const priceUSDtc = newAmountBig.times(priceTC);
                 setSendingUSD(priceUSDtc);
                 break;
             case 'TP_0':
@@ -173,6 +173,10 @@ export default function Send() {
             )
         );
         setAmountYouSend(totalYouSend);
+        onChangeAmountYouSend(fromContractPrecisionDecimals(
+            TokenBalance(auth, currencyYouSend),
+            tokenSettings.decimals
+        ), true);
     };
 
     return (
@@ -205,8 +209,8 @@ export default function Send() {
                                     amount: TokenBalance(auth, currencyYouSend),
                                     token: TokenSettings(currencyYouSend),
                                     decimals:
-                                    TokenSettings(currencyYouSend)
-                                        .visibleDecimals,
+                                        TokenSettings(currencyYouSend)
+                                            .visibleDecimals,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns
@@ -240,16 +244,16 @@ export default function Send() {
                     <span className={'token_exchange'}>Sending </span>
                     <span className={'symbol'}> ≈ </span>
                     <span className={'token_receive'}>
-                    {PrecisionNumbers({
-                        amount: sendingUSD,
-                        token: TokenSettings('CA_0'),
-                        decimals: 2,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}
-                </span>
+                        {PrecisionNumbers({
+                            amount: sendingUSD,
+                            token: TokenSettings('CA_0'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                    </span>
                     <span className={'token_receive_name'}> USD</span>
 
                 </div>
