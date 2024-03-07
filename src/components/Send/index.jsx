@@ -80,7 +80,7 @@ export default function Send() {
                 TokenSettings(currencyYouSend).decimals
             )
         );
-
+        console.log('amount you send', amountYouSend.toString());
         if (amountYouSend.gt(totalBalance)) {
             setInputValidationErrorText('Not enough balance in your wallet');
             amountInputError = true
@@ -90,6 +90,10 @@ export default function Send() {
         }
         if (amountYouSend.lt(0)) {
             setInputValidationErrorText('Amount cannot be negative');
+            amountInputError = true
+        }
+        if (amountYouSend.toString() === 'NaN') {
+            setInputValidationErrorText('Amount must be greater than zero');
             amountInputError = true
         }
         // 2. Input address valid
@@ -117,43 +121,49 @@ export default function Send() {
     };
 
     const onChangeAmountYouSend = (newAmount, isPriceOnly = false) => {
-        const newAmountBig = new BigNumber(newAmount);
-        if (!isPriceOnly){
-            setIsDirtyYouSend(true);
-            setAmountYouSend(newAmountBig);
+        if (newAmount < 0 || newAmount === '') {
+            newAmount = 0;
+            setAmountYouSend(new BigNumber(0));
         }
-        switch (currencyYouSend) {
-            case 'CA_0':
-                const price = new BigNumber(
-                    fromContractPrecisionDecimals(
-                        auth.contractStatusData.PP_CA[0],
-                        settings.tokens.CA[0].decimals
-                    )
-                );
-                const priceUSD = newAmountBig.times(price);
-                setSendingUSD(priceUSD);
-                break;
-            case 'TC':
-                const priceTEC = new BigNumber(
-                    fromContractPrecisionDecimals(
-                        auth.contractStatusData.getPTCac,
-                        settings.tokens.TC.decimals
-                    )
-                );
-                const priceCA = new BigNumber(
-                    fromContractPrecisionDecimals(
-                        auth.contractStatusData.PP_CA[0],
-                        settings.tokens.CA[0].decimals
-                    )
-                );
-                const priceTC = priceTEC.times(priceCA);
-                const priceUSDtc = newAmountBig.times(priceTC);
-                setSendingUSD(priceUSDtc);
-                break;
-            case 'TP_0':
-                setSendingUSD(newAmountBig);
-            default:
-                setSendingUSD(newAmountBig);
+        else {
+            const newAmountBig = new BigNumber(newAmount);
+            if (!isPriceOnly){
+                setIsDirtyYouSend(true);
+                setAmountYouSend(newAmountBig);
+            }
+            switch (currencyYouSend) {
+                case 'CA_0':
+                    const price = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_CA[0],
+                            settings.tokens.CA[0].decimals
+                        )
+                    );
+                    const priceUSD = newAmountBig.times(price);
+                    setSendingUSD(priceUSD);
+                    break;
+                case 'TC':
+                    const priceTEC = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.getPTCac,
+                            settings.tokens.TC.decimals
+                        )
+                    );
+                    const priceCA = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_CA[0],
+                            settings.tokens.CA[0].decimals
+                        )
+                    );
+                    const priceTC = priceTEC.times(priceCA);
+                    const priceUSDtc = newAmountBig.times(priceTC);
+                    setSendingUSD(priceUSDtc);
+                    break;
+                case 'TP_0':
+                    setSendingUSD(newAmountBig);
+                default:
+                    setSendingUSD(newAmountBig);
+            }
         }
     };
 
@@ -243,7 +253,7 @@ export default function Send() {
 
                     <span className={'token_exchange'}>Sending </span>
                     <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
+                    {sendingUSD.toString() !== 'NaN' ? <span className={'token_receive'}>
                         {PrecisionNumbers({
                             amount: sendingUSD,
                             token: TokenSettings('CA_0'),
@@ -253,7 +263,7 @@ export default function Send() {
                             ns: ns,
                             skipContractConvert: true
                         })}
-                    </span>
+                    </span> : <span>0</span>}
                     <span className={'token_receive_name'}> USD</span>
 
                 </div>

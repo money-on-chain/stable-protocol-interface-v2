@@ -130,6 +130,10 @@ export default function Exchange() {
 
         // 0. Amount > 0
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
+            setInputValidationError(true);
+            return
+        }
+        if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
             setInputValidationErrorText('Amount must be greater than zero');
             setInputValidationError(true);
             return
@@ -347,44 +351,61 @@ export default function Exchange() {
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
-        if (newAmount === '0' && amountYouExchange.toString() === '0') {
+        if (newAmount < 0) {
+            console.log('onChangeAmount is negative', newAmount);
             setIsDirtyYouExchange(true);
             setIsDirtyYouReceive(true);
+            setAmountYouExchange(new BigNumber(0));
+            setAmountYouReceive(new BigNumber(0));
+            setExchangingUSD(new BigNumber(0));
         } else {
-            setIsDirtyYouExchange(true);
-            setIsDirtyYouReceive(false);
+            if (newAmount === '0' && amountYouExchange.toString() === '0') {
+                setIsDirtyYouExchange(true);
+                setIsDirtyYouReceive(true);
+            } else {
+                setIsDirtyYouExchange(true);
+                setIsDirtyYouReceive(false);
+            }
+    
+            const convertAmountReceive = ConvertAmount(
+                auth,
+                currencyYouExchange,
+                currencyYouReceive,
+                newAmount,
+                false
+            );
+            onChangeAmounts(
+                new BigNumber(newAmount),
+                convertAmountReceive,
+                'exchange'
+            );
         }
-
-        const convertAmountReceive = ConvertAmount(
-            auth,
-            currencyYouExchange,
-            currencyYouReceive,
-            newAmount,
-            false
-        );
-        onChangeAmounts(
-            new BigNumber(newAmount),
-            convertAmountReceive,
-            'exchange'
-        );
     };
 
     const onChangeAmountYouReceive = (newAmount) => {
-        setIsDirtyYouExchange(false);
-        setIsDirtyYouReceive(true);
-
-        const convertAmountExchange = ConvertAmount(
-            auth,
-            currencyYouReceive,
-            currencyYouExchange,
-            newAmount,
-            false
-        );
-        onChangeAmounts(
-            convertAmountExchange,
-            new BigNumber(newAmount),
-            'receive'
-        );
+        if (newAmount < 0) {
+            setIsDirtyYouExchange(true);
+            setIsDirtyYouReceive(true);
+            setAmountYouExchange(new BigNumber(0));
+            setAmountYouReceive(new BigNumber(0));
+            setExchangingUSD(new BigNumber(0));
+        } else {
+            setIsDirtyYouExchange(false);
+            setIsDirtyYouReceive(true);
+    
+            const convertAmountExchange = ConvertAmount(
+                auth,
+                currencyYouReceive,
+                currencyYouExchange,
+                newAmount,
+                false
+            );
+            onChangeAmounts(
+                convertAmountExchange,
+                new BigNumber(newAmount),
+                'receive'
+            );
+        }
     };
 
     const setAddTotalAvailable = () => {
@@ -677,7 +698,7 @@ export default function Exchange() {
 
                 <span className={'token_exchange'}>Exchanging </span>
                 <span className={'symbol'}> ≈ </span>
-                <span className={'token_receive'}>
+                {exchangingUSD.toString() !== 'NaN' ? <span className={'token_receive'}>
                     {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                         amount: exchangingUSD,
                         token: TokenSettings('CA_0'),
@@ -687,7 +708,7 @@ export default function Exchange() {
                         ns: ns,
                         skipContractConvert: true
                     })}
-                </span>
+                </span> : <span>0</span>}
                 <span className={'token_receive_name'}> USD</span>
 
             </div>
