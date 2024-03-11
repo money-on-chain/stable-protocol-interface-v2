@@ -13,7 +13,8 @@ import './assets/css/navigation.scss';
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
 
-import IconWaiting from './assets/icons/status-pending.png';
+// import IconWaiting from './assets/icons/status-pending.png';
+import IconLoading from './assets/icons/LoaderAnim.svg';
 import Router from './router';
 
 import es_ES from './settings/es_ES.json';
@@ -53,13 +54,14 @@ root.render(
                                     position: 'fixed',
                                     left: '50%',
                                     top: '50%',
-                                    transform: 'translateX(-50%) translateY(-50%)'
+                                    // transform: 'translateX(-50%) translateY(-50%)'
+                                    filter: 'var(--color-navigation-icon-filter-default)',
                                 }}
                                 width={50}
                                 height={50}
-                                src={IconWaiting}
+                                src={IconLoading}
                                 alt="Loading..."
-                                className={'img-status rotate'}
+                                // className={'img-status rotate'}
                             />
                         }
                     >
