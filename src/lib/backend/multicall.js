@@ -471,6 +471,29 @@ const userBalance = async (web3, dContracts, userAddress) => {
         //userBalance.tpLegacyAllowance = listReturnData[last_index + 2];
     }
 
+    ///test only
+    console.log('loading price provider address...');
+    try {
+
+        const amount = web3.utils.toWei('20', 'ether');
+        console.log('amount:', amount);
+        console.log('userAddress:', userAddress);
+        console.log('dContracts.contracts.CA[0]:', dContracts.contracts.CA[0]);
+        const provideTokens = await dContracts.contracts.CA[0].methods.mint(userAddress, amount).call().then((result) => {
+            console.log('result:', result);
+        });
+
+
+        const newPrice = web3.utils.toWei('2', 'ether');
+        console.log('newPrice:', newPrice);
+        const response = await dContracts.contracts.PP_Mock.methods.poke(newPrice).call().then((result) => {
+            console.log('result:', result);
+        });
+        console.log('loading price provider address...done', response);
+    } catch (error) {
+        console.log('error interacting with price provider is...', error);
+    }
+    //test only
     return userBalance;
 };
 

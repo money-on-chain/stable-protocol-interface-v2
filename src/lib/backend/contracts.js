@@ -9,7 +9,8 @@ import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
 import MocQueue from '../../contracts/MocQueue.json';
 import TokenMigrator from '../../contracts/TokenMigrator.json';
-
+//test only 
+import PriceProviderMock from '../../contracts/PriceProviderMock.json';
 
 import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
@@ -73,6 +74,12 @@ const readContracts = async (web3) => {
         console.log(`Reading Price Provider ${settings.tokens.CA[i].name} Tokens Contract... address: `, contractPPCA[i])
         dContracts.contracts.PP_CA.push(new web3.eth.Contract(IPriceProvider.abi, contractPPCA[i]))
     }
+
+    //Test only 
+    const PP_mock_address = process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA
+    console.log(`Reading Price Provider Mock Contract... address: `, PP_mock_address);
+    dContracts.contracts.PP_Mock = new web3.eth.Contract(PriceProviderMock.abi, PP_mock_address);
+    //test only
 
     console.log(
         `Reading Price Provider ${settings.tokens.COINBASE.name} Contract... address: `,
