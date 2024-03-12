@@ -18,7 +18,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
-
+import {GetErrorMessage} from '../../../helpers/errorHandler';
 
 export default function ListOperations(props) {
     const { token } = props;
@@ -340,7 +340,7 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
                 error_code: data['errorCode_'] || "--",
-                msg: data['msg_'] || "--",
+                msg: GetErrorMessage(data['msg_']),
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
