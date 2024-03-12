@@ -138,7 +138,7 @@ export default function ConfirmSend(props) {
                     <div className="exchanging">
 
                         <span className={'token_exchange'}>
-                            Exchanging{' '}
+                            Sending{' '}
                         </span>
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>

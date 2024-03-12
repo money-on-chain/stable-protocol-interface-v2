@@ -1,25 +1,42 @@
-.tx-status-icon-0 {
+.tx-status-icon-QUEUING {
     width: 30px;
     height: 30px;
-    background-image: url('../../../assets/icons/tx-status-0.svg');
+    background-image: url('../../../assets/icons/Queuing.svg');
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
 }
-
-.tx-status-icon-1 {
+.tx-status-icon-QUEUED {
     width: 30px;
     height: 30px;
-    background-image: url('../../../assets/icons/tx-status-1.svg');
+    background-image: url('../../../assets/icons/Queued.svg');
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
 }
-
-.tx-status-icon--1, .tx-status-icon--2, .tx-status-icon--3, .tx-status-icon--4 {
+.tx-status-icon-CONFIRMED {
     width: 30px;
     height: 30px;
-    background-image: url('../../../assets/icons/tx-status--1.svg');
+    background-image: url('../../../assets/icons/Confirmed.svg');
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
+}
+.tx-status-icon-CONFIRMING {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/icons/Confirming.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
+}
+.tx-status-icon-FAILED {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/icons/Failed.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-negative);
 }
 
 .custom-table .ant-table-tbody > tr:nth-child(n + 2) > td {
@@ -242,7 +259,6 @@
 .ant-descriptions-item-label-th {
     font-family: var(--main-font);
     font-size: 14px;
-    font-weight: 50;
     line-height: 19px;
     letter-spacing: 0px;
     text-align: left;

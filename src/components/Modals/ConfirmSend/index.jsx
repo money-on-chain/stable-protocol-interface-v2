@@ -35,7 +35,7 @@ export default function ModalConfirmSend(props) {
             >
                 Send
             </Button>
-            <Modal
+            {visible && <Modal
                 title="Confirm Send"
                 width={505}
                 open={visible}
@@ -48,7 +48,7 @@ export default function ModalConfirmSend(props) {
                 maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
             >
                 <ConfirmSend {...props} onCloseModal={hideModal} />
-            </Modal>
+            </Modal>}
         </div>
     );
 }

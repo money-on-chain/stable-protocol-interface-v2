@@ -168,6 +168,8 @@ const AuthenticateProvider = ({ children }) => {
                 setAccount(account);
                 setIsLoggedIn(true);
             });
+        }).catch((error) => {
+            disconnect();
         });
 
     const disconnect = async () => {
@@ -183,7 +185,9 @@ const AuthenticateProvider = ({ children }) => {
         });
         setUserBalanceData(null);
         setIsLoggedIn(false);
-        await window.rLoginDisconnect();
+        if (window?.rLoginDisconnect){
+            await window?.rLoginDisconnect();
+        }
         connect();
         disableLogin();
     };

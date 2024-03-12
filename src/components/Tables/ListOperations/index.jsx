@@ -18,7 +18,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
-
+import {GetErrorMessage} from '../../../helpers/errorHandler';
 
 export default function ListOperations(props) {
     const { token } = props;
@@ -340,7 +340,7 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
                 error_code: data['errorCode_'] || "--",
-                msg: data['msg_'] || "--",
+                msg: GetErrorMessage(data['msg_']),
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
@@ -360,7 +360,7 @@ export default function ListOperations(props) {
                                     <div className='table-amount' >
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
-                                            token: token.exchange.token,
+                                            token: token.exchange.token[0] ?? token.exchange.token,
                                             decimals: 2,
                                             t: t,
                                             i18n: i18n,
@@ -449,21 +449,19 @@ export default function ListOperations(props) {
                     </div>
                   ),
                   status: (
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div className={`tx-status-icon-${data['status']}`}
-                           style={{
-                             margin: '0.5rem',
-                             marginTop: '3px',
-                             marginRight: '1rem',
-                             cursor: 'pointer',
-                             flexGrow: 0
-                           }}
-                      >
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <div className={`tx-status-icon-${getStatus(data)}`}
+                              style={{
+                                  margin: '0.5rem',
+                                  marginTop: '3px',
+                                  marginRight: '1rem',
+                                  flexGrow: 0
+                              }}
+                          />
+                          <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
+                              {getStatus(data)}
+                          </span>
                       </div>
-                       <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
-                       {getStatus(data)}
-                      </span>
-                    </div>
                   ),
                 detail: detail || "--"
             });
@@ -622,7 +620,6 @@ export default function ListOperations(props) {
         }
 
     }
-
     function getTokenInfo(token){
         switch (token) {
             case "CA_0":

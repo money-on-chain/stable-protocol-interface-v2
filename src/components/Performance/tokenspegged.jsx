@@ -46,7 +46,7 @@ const ProvideColumnsTP = [
       width: 100
     },
     {
-      title: 'Ctargema',
+      title: 'T. EMA',
       dataIndex: 'ctargema',
       align: 'right',
       width: 140
