@@ -475,69 +475,69 @@ const userBalance = async (web3, dContracts, userAddress) => {
     return userBalance;
 };
 
-const connectorAddresses = async (web3, dContracts, appMode) => {
-    if (!dContracts) return;
-    const multicall = dContracts.contracts.multicall;
-    const mocconnector = dContracts.contracts.mocconnector;
-    console.log('step 1');
-    const listMethods = [
-        [
-            mocconnector.options.address,
-            mocconnector.methods.mocState().encodeABI()
-        ],
-        [
-            mocconnector.options.address,
-            mocconnector.methods.mocInrate().encodeABI()
-        ],
-        [
-            mocconnector.options.address,
-            mocconnector.methods.mocExchange().encodeABI()
-        ],
-        [
-            mocconnector.options.address,
-            mocconnector.methods.mocSettlement().encodeABI()
-        ]
-    ];
-    console.log('step 2');
-    if (appMode === 'MoC') {
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.docToken().encodeABI()
-        ]);
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.bproToken().encodeABI()
-        ]);
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.bproToken().encodeABI()
-        ]);
-    } else {
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.stableToken().encodeABI()
-        ]);
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.riskProToken().encodeABI()
-        ]);
-        listMethods.push([
-            mocconnector.options.address,
-            mocconnector.methods.reserveToken().encodeABI()
-        ]);
-    }
-    console.log('step 3');
-    const multicallResult = await multicall.methods
-        .tryBlockAndAggregate(false, listMethods)
-        .call();
-    console.log('multicallresult ', multicallResult);
-    console.log('step 4');
-    const listReturnData = multicallResult[2].map((x) =>
-        web3.eth.abi.decodeParameter('address', x.returnData)
-    );
-    console.log('step 5');
-    return listReturnData;
-};
+// const connectorAddresses = async (web3, dContracts, appMode) => {
+//     if (!dContracts) return;
+//     const multicall = dContracts.contracts.multicall;
+//     const mocconnector = dContracts.contracts.mocconnector;
+//     console.log('step 1');
+//     const listMethods = [
+//         [
+//             mocconnector.options.address,
+//             mocconnector.methods.mocState().encodeABI()
+//         ],
+//         [
+//             mocconnector.options.address,
+//             mocconnector.methods.mocInrate().encodeABI()
+//         ],
+//         [
+//             mocconnector.options.address,
+//             mocconnector.methods.mocExchange().encodeABI()
+//         ],
+//         [
+//             mocconnector.options.address,
+//             mocconnector.methods.mocSettlement().encodeABI()
+//         ]
+//     ];
+//     console.log('step 2');
+//     if (appMode === 'MoC') {
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.docToken().encodeABI()
+//         ]);
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.bproToken().encodeABI()
+//         ]);
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.bproToken().encodeABI()
+//         ]);
+//     } else {
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.stableToken().encodeABI()
+//         ]);
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.riskProToken().encodeABI()
+//         ]);
+//         listMethods.push([
+//             mocconnector.options.address,
+//             mocconnector.methods.reserveToken().encodeABI()
+//         ]);
+//     }
+//     console.log('step 3');
+//     const multicallResult = await multicall.methods
+//         .tryBlockAndAggregate(false, listMethods)
+//         .call();
+//     console.log('multicallresult ', multicallResult);
+//     console.log('step 4');
+//     const listReturnData = multicallResult[2].map((x) =>
+//         web3.eth.abi.decodeParameter('address', x.returnData)
+//     );
+//     console.log('step 5');
+//     return listReturnData;
+// };
 
 const registryAddresses = async (web3, dContracts) => {
     if (!dContracts) return;
@@ -603,4 +603,9 @@ const registryAddresses = async (web3, dContracts) => {
 };
 
 
-export { contractStatus, userBalance, registryAddresses, connectorAddresses };
+export { 
+    contractStatus, 
+    userBalance, 
+    registryAddresses, 
+    // connectorAddresses 
+};

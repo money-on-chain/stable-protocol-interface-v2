@@ -262,41 +262,44 @@ const readContracts = async (web3) => {
 
 
 
-    console.log('Reading MoC Contract... address: ', process.env.REACT_APP_ENVIRONMENT_MOC);
-    const moc = new web3.eth.Contract(MoC.abi, process.env.REACT_APP_ENVIRONMENT_MOC);
-    dContracts.contracts.moc = moc;
+    // console.log('Reading MoC Contract... address: ', process.env.REACT_APP_ENVIRONMENT_MOC);
+    // const moc = new web3.eth.Contract(MoC.abi, process.env.REACT_APP_ENVIRONMENT_MOC);
+    // console.log('moc is ', moc);
+    // dContracts.contracts.moc = moc;
 
-    const connectorAddress = await moc.methods.connector().call();
-    console.log('Reading MoCConnector... address: ', connectorAddress);
+    // const connectorAddress = await moc.methods.connector().call().catch((err) => {
+    //     console.error('Error reading connector address: ', err);
+    // });
+    // console.log('Reading MoCConnector... address: ', connectorAddress);
     
-    const mocconnector = new web3.eth.Contract(
-        MoCConnector.abi,
-        connectorAddress
-    );
-    dContracts.contracts.mocconnector = mocconnector;
-    console.log('mocconector is ', mocconnector);
-    //TODO read/define appMode for flipago and roc
-    const appMode = ''; //Need to be dynamic
-    //Read contracts addresses from connector
-    const [
-        mocStateAddress,
-        // mocInrateAddress,
-        // mocExchangeAddress,
-        // mocSettlementAddress,
-        // tpTokenAddress,
-        // tcTokenAddress,
-        // reserveTokenAddress
-    ] = await connectorAddresses(web3, dContracts, appMode);
+    // const mocconnector = new web3.eth.Contract(
+    //     MoCConnector.abi,
+    //     connectorAddress
+    // );
+    // dContracts.contracts.mocconnector = mocconnector;
+    // console.log('mocconector is ', mocconnector);
+    // //TODO read/define appMode for flipago and roc
+    // const appMode = ''; //Need to be dynamic
+    // //Read contracts addresses from connector
+    // const [
+    //     mocStateAddress,
+    //     // mocInrateAddress,
+    //     // mocExchangeAddress,
+    //     // mocSettlementAddress,
+    //     // tpTokenAddress,
+    //     // tcTokenAddress,
+    //     // reserveTokenAddress
+    // ] = await connectorAddresses(web3, dContracts, appMode);
 
-    console.log('Reading MoC State Contract... address: ', mocStateAddress);
-    const mocstate = new web3.eth.Contract(MoCState.abi, mocStateAddress);
-    dContracts.contracts.mocstate = mocstate;
+    // console.log('Reading MoC State Contract... address: ', mocStateAddress);
+    // const mocstate = new web3.eth.Contract(MoCState.abi, mocStateAddress);
+    // dContracts.contracts.mocstate = mocstate;
     
-    const tgTokenAddress = await mocstate.methods.getMoCToken().call();
-    console.log('Reading TG Token Contract... address: ', tgTokenAddress);
-    const tg = new web3.eth.Contract(TG.abi, tgTokenAddress);
-    dContracts.contracts.tg = tg;
-    //----------------
+    // const tgTokenAddress = await mocstate.methods.getMoCToken().call();
+    // console.log('Reading TG Token Contract... address: ', tgTokenAddress);
+    // const tg = new web3.eth.Contract(TG.abi, tgTokenAddress);
+    // dContracts.contracts.tg = tg;
+    // //----------------
 
     
     
