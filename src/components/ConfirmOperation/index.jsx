@@ -42,7 +42,15 @@ export default function ConfirmOperation(props) {
 
     useEffect(() => {
         let timerId;
-    
+        if (status === 'QUEUING') {
+            console.log('Operation queuing... waiting for operation execution.');
+            timerId = setTimeout(() => {
+                if (status === 'QUEUING') {
+                    setStatus('ERROR');
+                    console.log('Operation failed after waiting 20 minutes for execution after queuing.');
+                }
+            }, 600000);
+        }
         if (status === 'QUEUED') {
             console.log('Operation queued... waiting for operation execution.');
             timerId = setTimeout(() => {
