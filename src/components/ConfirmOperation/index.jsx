@@ -40,6 +40,22 @@ export default function ConfirmOperation(props) {
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
+    useEffect(() => {
+        let timerId;
+    
+        if (status === 'QUEUED') {
+            console.log('Operation queued... waiting for operation execution.');
+            timerId = setTimeout(() => {
+                if (status === 'QUEUED') {
+                    setStatus('ERROR');
+                    console.log('Operation failed after waiting 10 minutes for execution.');
+                }
+            }, 600000);
+        }
+    
+        return () => clearTimeout(timerId);
+    }, [status]);
+
     const toleranceLimits = (newTolerance) => {
         let limitExchange;
         let limitReceive;

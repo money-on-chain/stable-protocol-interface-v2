@@ -209,13 +209,13 @@ export default function SectionHeader() {
                     </div>
                 </div>
                 <div className="wallet-user">
-                    <div className="wallet-translation">
+                    {/*<div className="wallet-translation">
                         <a href="#" className="translation-selector">
                             {' '}
                             English{' '}
                         </a>{' '}
                         <i className="logo-translation"></i>
-                    </div>
+                    </div>*/}
                     <div className="wallet-address">
                         {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
                         <ModalAccount
