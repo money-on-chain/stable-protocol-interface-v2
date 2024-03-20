@@ -8,7 +8,9 @@ export const GetErrorMessage = (error) => {
       return 'Below protected ctargema';
     case 'InvalidFluxCapacitorOperation':
       return 'Error in flux capacitor';
+    case null || undefined || '' || ' ' || 0 || 'null':
+      return 'No message';
     default:
-      return 'Error in operation';
+      return error;
   }
 }
