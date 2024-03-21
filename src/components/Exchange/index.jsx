@@ -166,7 +166,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(tpAvailableToMint)) {
-                setInputValidationErrorText('Insufficient TP to mint in the contract');
+                setInputValidationErrorText('Not enough liquidity in the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -179,7 +179,7 @@ export default function Exchange() {
                 Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem, "ether")
             );
             if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
-                setInputValidationErrorText('Insufficient TC available to redeem in the contract');
+                setInputValidationErrorText('Not enough liquidity in the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -197,7 +197,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(caBalance)) {
-                setInputValidationErrorText(`Not enough CA balance in the contract please try selecting another collateral asset. In contract: ${caBalance} ${settings.tokens.CA[tIndex].name} `);
+                setInputValidationErrorText(`Not enough liquidity in the protocol`);
                 setInputValidationError(true);
                 return                
             }
@@ -232,7 +232,7 @@ export default function Exchange() {
             console.log("maxQACToMintTP: ", maxQACToMintTP.toString())
             console.log("amountYouExchange: ", new BigNumber(amountYouExchange).toString())
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
-                setInputValidationErrorText('Flux Capacitor: Insufficient TP to mint in the contract, please try again later...');
+                setInputValidationErrorText('Maximum temporarily limited by the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -251,7 +251,7 @@ export default function Exchange() {
             console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
             console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
-                setInputValidationErrorText('Flux Capacitor: Insufficient TP to redeem in the contract, please try again later...');
+                setInputValidationErrorText('Maximum temporarily limited by the protocol');
                 setInputValidationError(true);
                 return
             }
