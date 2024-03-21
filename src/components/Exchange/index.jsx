@@ -478,6 +478,7 @@ export default function Exchange() {
                         }
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'EXCHANGING'}
+                        balanceText={'Balance'}
                     />
                     <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
@@ -522,6 +523,7 @@ export default function Exchange() {
                         })}
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'RECEIVING'}
+                        balanceText={'Up to'}
                     />
                 </div>
             </div>
