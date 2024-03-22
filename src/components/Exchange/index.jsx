@@ -1,5 +1,6 @@
 import { Input, Radio, Space } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -26,7 +27,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from '../InputAmount';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import Web3 from 'web3';
+import CheckStatus from '../../helpers/checkStatus';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -65,6 +66,8 @@ export default function Exchange() {
 
     const [radioSelectFee, setRadioSelectFee] = useState(0);
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
+
+    const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -113,6 +116,12 @@ export default function Exchange() {
     };
 
     const onValidate = () => {
+        // Protocol in not-good status
+        if (!isValid) {
+            setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationError(true);
+            return
+        }
 
         // 0. Not Wallet connected
         if (!auth.userBalanceData) {
@@ -166,7 +175,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(tpAvailableToMint)) {
-                setInputValidationErrorText('Insufficient TP to mint in the contract');
+                setInputValidationErrorText('Not enough liquidity in the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -179,7 +188,7 @@ export default function Exchange() {
                 Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem, "ether")
             );
             if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
-                setInputValidationErrorText('Insufficient TC available to redeem in the contract');
+                setInputValidationErrorText('Not enough liquidity in the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -197,7 +206,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(caBalance)) {
-                setInputValidationErrorText(`Not enough CA balance in the contract please try selecting another collateral asset. In contract: ${caBalance} ${settings.tokens.CA[tIndex].name} `);
+                setInputValidationErrorText(`Not enough liquidity in the protocol`);
                 setInputValidationError(true);
                 return                
             }
@@ -232,7 +241,7 @@ export default function Exchange() {
             console.log("maxQACToMintTP: ", maxQACToMintTP.toString())
             console.log("amountYouExchange: ", new BigNumber(amountYouExchange).toString())
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
-                setInputValidationErrorText('Flux Capacitor: Insufficient TP to mint in the contract, please try again later...');
+                setInputValidationErrorText('Maximum temporarily limited by the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -251,7 +260,7 @@ export default function Exchange() {
             console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
             console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
-                setInputValidationErrorText('Flux Capacitor: Insufficient TP to redeem in the contract, please try again later...');
+                setInputValidationErrorText('Maximum temporarily limited by the protocol');
                 setInputValidationError(true);
                 return
             }
@@ -478,6 +487,7 @@ export default function Exchange() {
                         }
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'EXCHANGING'}
+                        balanceText={'Balance'}
                     />
                     <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
@@ -522,6 +532,7 @@ export default function Exchange() {
                         })}
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'RECEIVING'}
+                        balanceText={'Up to'}
                     />
                 </div>
             </div>

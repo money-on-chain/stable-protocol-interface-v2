@@ -228,6 +228,7 @@ export default function Send() {
                             }
                             setAddTotalAvailable={setAddTotalAvailable}
                             action={'SENDING'}
+                            balanceText={'Balance'}
                         />
                         <div className="input-validation-error">{inputValidationErrorText}</div>
                     </div>
