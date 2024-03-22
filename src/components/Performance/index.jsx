@@ -9,13 +9,30 @@ import CollateralAssets from './collateral';
 import TokensPegged from './tokenspegged';
 import BigNumber from 'bignumber.js';
 import CheckStatus from '../../helpers/checkStatus';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import settings from '../../settings/settings.json';
 
 export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const {statusIcon, statusLabel, statusText} = CheckStatus();
-
+    let price;
+    if (auth.contractStatusData && auth.userBalanceData) {
+        const priceTEC = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.getPTCac,
+                settings.tokens.TC.decimals
+            )
+        );
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+        price = priceTEC.times(priceCA);
+    }
     return (
         <div className="Performance">
 
@@ -94,13 +111,13 @@ export default function Performance(props) {
                                 <div className="coll-1">
                                     <div className="amount">
                                         {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                                            amount: auth.contractStatusData ? auth.contractStatusData.getPTCac : new BigNumber(0),
-                                            token: TokenSettings('TC'),
+                                            amount: price,
+                                            token: settings.tokens.TC,
                                             decimals: 8,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns,
-                                            skipContractConvert: false
+                                            skipContractConvert: true
                                         })}
                                     </div>
                                     <div className="caption"> Price in USD</div>
