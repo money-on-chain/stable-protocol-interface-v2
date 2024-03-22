@@ -1,5 +1,6 @@
 import { Input, Radio, Space } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -26,7 +27,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import InputAmount from '../InputAmount';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import Web3 from 'web3';
+import CheckStatus from '../../helpers/checkStatus';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -65,6 +66,8 @@ export default function Exchange() {
 
     const [radioSelectFee, setRadioSelectFee] = useState(0);
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
+
+    const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -113,6 +116,12 @@ export default function Exchange() {
     };
 
     const onValidate = () => {
+        // Protocol in not-good status
+        if (!isValid) {
+            setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationError(true);
+            return
+        }
 
         // 0. Not Wallet connected
         if (!auth.userBalanceData) {

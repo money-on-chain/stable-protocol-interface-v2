@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Col, Row } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
@@ -8,77 +8,13 @@ import { TokenSettings } from '../../helpers/currencies';
 import CollateralAssets from './collateral';
 import TokensPegged from './tokenspegged';
 import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import settings from '../../settings/settings.json';
+import CheckStatus from '../../helpers/checkStatus';
 
 export default function Performance(props) {
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-
-    const globalCoverage = new BigNumber(
-        fromContractPrecisionDecimals(
-            auth.contractStatusData.getCglb,
-            settings.tokens.CA[0].decimals
-        )
-    );
-
-    const calcCtargemaCA = new BigNumber(
-        fromContractPrecisionDecimals(
-            auth.contractStatusData.calcCtargemaCA,
-            settings.tokens.CA[0].decimals
-        )
-    );
-
-    const liqThrld = new BigNumber(
-        fromContractPrecisionDecimals(
-            auth.contractStatusData.liqThrld,
-            settings.tokens.CA[0].decimals
-        )
-    );
-
-    const protThrld = new BigNumber(
-        fromContractPrecisionDecimals(
-            auth.contractStatusData.protThrld,
-            settings.tokens.CA[0].decimals
-        )
-    );
-
-    let statusIcon = '';
-    let statusLabel = '--';
-    let statusText = '--';
-
-    if (globalCoverage.gt(calcCtargemaCA)) {
-        statusIcon = 'icon-status-success';
-        statusLabel = 'Fully Operational';
-        statusText = 'The system is in optimal condition';
-    } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
-        statusIcon = 'icon-status-warning';
-        statusLabel = 'Partially Operational';
-        statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
-    } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
-        statusIcon = 'icon-status-alert';
-        statusLabel = 'Protected Mode';
-        statusText = 'No operations allowed';
-    }
-
-    if (auth.contractStatusData.liquidated) {
-        statusIcon = 'icon-status-alert';
-        statusLabel = 'Liquidated';
-        statusText = 'No operations allowed';
-    }
-
-    if (auth.contractStatusData.paused) {
-        statusIcon = 'icon-status-alert';
-        statusLabel = 'Paused';
-        statusText = 'The contract is paused. No operations allowed';
-    }
-
-    if (!auth.contractStatusData.canOperate) {
-        statusIcon = 'icon-status-alert';
-        statusLabel = 'Cannot operate';
-        statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
-    }
+    const {statusIcon, statusLabel, statusText} = CheckStatus();
 
     return (
         <div className="Performance">
