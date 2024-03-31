@@ -113,6 +113,8 @@ export default function Exchange() {
         setIsDirtyYouReceive(false);
         setAmountYouExchange(new BigNumber(0));
         setAmountYouReceive(new BigNumber(0));
+        setInputValidationError(false);
+        setInputValidationErrorText('');
     };
 
     const onValidate = () => {
@@ -120,13 +122,18 @@ export default function Exchange() {
         console.log('work currencies', currencyYouExchange, currencyYouReceive);
         if (!isValid && errorType === '1') {
             if (currencyYouExchange !== 'TP_0' && currencyYouReceive !== 'TC') {
-                setInputValidationErrorText('Cannot operate with the current status');
+                setInputValidationErrorText('Not Operational due to low Global Coverage ratio');
                 setInputValidationError(true);
                 return
             }
         }
-        if (!isValid && errorType > 1) {
+        if (!isValid && errorType > 1 && errorType < 5) {
             setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationError(true);
+            return
+        }
+        if (!isValid && errorType === '5') {
+            setInputValidationErrorText('Request timeout');
             setInputValidationError(true);
             return
         }
