@@ -49,7 +49,7 @@ export default function CheckStatus() {
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
     statusLabel = 'Partially Operational';
-    statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
+    statusText = 'Not Operational due to low Global Coverage ratio. Please try again later.';
     errorType = '1';
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
@@ -79,9 +79,19 @@ export default function CheckStatus() {
   if (!auth.contractStatusData.canOperate) {
     statusIcon = 'icon-status-alert';
     statusLabel = 'Cannot operate';
-    statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
+    statusText = 'Failed to execute transaction due to timeout. Please try again later.';
     errorType = '5';
     isValid = false;
   }
+
+
+  statusIcon = 'icon-status-warning';
+    statusLabel = 'Partially Operational';
+    statusText = 'Not Operational due to low Global Coverage ratio. Please try again later.';
+    errorType = '1';
+    isValid = false;
+
+
+    
   return {isValid , statusIcon, statusLabel, statusText, errorType};
 }
