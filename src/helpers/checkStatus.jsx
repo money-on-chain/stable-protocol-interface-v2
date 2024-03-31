@@ -38,21 +38,25 @@ export default function CheckStatus() {
   let statusIcon = '';
   let statusLabel = '--';
   let statusText = '--';
-
+  let errorType = '-1';
+  
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
     statusLabel = 'Fully Operational';
     statusText = 'The system is in optimal condition';
+    errorType = '0';
     isValid = true;
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
     statusLabel = 'Partially Operational';
     statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
+    errorType = '1';
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
     statusIcon = 'icon-status-alert';
     statusLabel = 'Protected Mode';
     statusText = 'No operations allowed';
+    errorType = '2';
     isValid = false;
   }
 
@@ -60,6 +64,7 @@ export default function CheckStatus() {
     statusIcon = 'icon-status-alert';
     statusLabel = 'Liquidated';
     statusText = 'No operations allowed';
+    errorType = '3';
     isValid = false;
   }
 
@@ -67,6 +72,7 @@ export default function CheckStatus() {
     statusIcon = 'icon-status-alert';
     statusLabel = 'Paused';
     statusText = 'The contract is paused. No operations allowed';
+    errorType = '4';
     isValid = false;
   }
 
@@ -74,7 +80,8 @@ export default function CheckStatus() {
     statusIcon = 'icon-status-alert';
     statusLabel = 'Cannot operate';
     statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
+    errorType = '5';
     isValid = false;
   }
-  return {isValid , statusIcon, statusLabel, statusText};
+  return {isValid , statusIcon, statusLabel, statusText, errorType};
 }
