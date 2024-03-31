@@ -83,15 +83,5 @@ export default function CheckStatus() {
     errorType = '5';
     isValid = false;
   }
-
-
-  statusIcon = 'icon-status-warning';
-    statusLabel = 'Partially Operational';
-    statusText = 'Not Operational due to low Global Coverage ratio. Please try again later.';
-    errorType = '1';
-    isValid = false;
-
-
-    
   return {isValid , statusIcon, statusLabel, statusText, errorType};
 }
