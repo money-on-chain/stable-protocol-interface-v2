@@ -67,7 +67,7 @@ export default function Exchange() {
     const [radioSelectFee, setRadioSelectFee] = useState(0);
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
 
-    const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
+    const { isValid, errorType } = CheckStatus();
 
     useEffect(() => {
         setAmountYouExchange(amountYouExchange);
@@ -117,7 +117,15 @@ export default function Exchange() {
 
     const onValidate = () => {
         // Protocol in not-good status
-        if (!isValid) {
+        console.log('work currencies', currencyYouExchange, currencyYouReceive);
+        if (!isValid && errorType === '1') {
+            if (currencyYouExchange !== 'TP_0' && currencyYouReceive !== 'TC') {
+                setInputValidationErrorText('Cannot operate with the current status');
+                setInputValidationError(true);
+                return
+            }
+        }
+        if (!isValid && errorType > 1) {
             setInputValidationErrorText('Cannot operate with the current status');
             setInputValidationError(true);
             return
