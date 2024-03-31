@@ -98,15 +98,15 @@ export default function Exchange() {
         //onChangeAmountYouExchange(0.0);
     };
     const handleSwapCurrencies = () => {
-        // Intercambia las monedas
+        setIsDirtyYouExchange(true);
+        setIsDirtyYouReceive(true);
         const tempCurrency = currencyYouExchange;
         setCurrencyYouExchange(currencyYouReceive);
         setCurrencyYouReceive(tempCurrency);
-    
+        
         const tempAmount = amountYouExchange;
         setAmountYouExchange(amountYouReceive);
         setAmountYouReceive(tempAmount);
-
     };
     const onClear = () => {
         setIsDirtyYouExchange(false);
@@ -277,6 +277,9 @@ export default function Exchange() {
         let infoFee;
         let amountExchangeFee;
         let amountReceiveFee;
+        console.log('4', amountExchange);
+        console.log('6', amountReceive);
+        console.log('5', source);
         switch (source) {
             case 'exchange':
                 infoFee = CalcCommission(
@@ -360,6 +363,9 @@ export default function Exchange() {
     };
 
     const onChangeAmountYouExchange = (newAmount) => {
+        console.log('onChangeAmount', newAmount);
+        console.log('amount you exchange', amountYouExchange.toString());
+
         if (newAmount < 0) {
             console.log('onChangeAmount is negative', newAmount);
             setIsDirtyYouExchange(true);
@@ -368,10 +374,15 @@ export default function Exchange() {
             setAmountYouReceive(new BigNumber(0));
             setExchangingUSD(new BigNumber(0));
         } else {
+            console.log('1');
             if (newAmount === '0' && amountYouExchange.toString() === '0') {
+            console.log('2');
+                
                 setIsDirtyYouExchange(true);
                 setIsDirtyYouReceive(true);
             } else {
+            console.log('3');
+
                 setIsDirtyYouExchange(true);
                 setIsDirtyYouReceive(false);
             }
@@ -383,6 +394,7 @@ export default function Exchange() {
                 newAmount,
                 false
             );
+            console.log('3.1', convertAmountReceive);
             onChangeAmounts(
                 new BigNumber(newAmount),
                 convertAmountReceive,
