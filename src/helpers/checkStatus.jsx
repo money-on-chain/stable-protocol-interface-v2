@@ -53,7 +53,7 @@ export default function CheckStatus() {
     errorType = '1';
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Protected Mode';
     statusText = 'No operations allowed';
     errorType = '2';
@@ -61,7 +61,7 @@ export default function CheckStatus() {
   }
 
   if (auth.contractStatusData.liquidated) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Liquidated';
     statusText = 'No operations allowed';
     errorType = '3';
@@ -69,7 +69,7 @@ export default function CheckStatus() {
   }
 
   if (auth.contractStatusData.paused) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Paused';
     statusText = 'The contract is paused. No operations allowed';
     errorType = '4';
@@ -77,7 +77,7 @@ export default function CheckStatus() {
   }
 
   if (!auth.contractStatusData.canOperate) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Cannot operate';
     statusText = 'Failed to execute transaction due to timeout. Please try again later.';
     errorType = '5';
