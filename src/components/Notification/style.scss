@@ -1,0 +1,52 @@
+.notification-container-warning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding : 0 20px;
+  background-color: var(--surface-color-1);
+  box-shadow: var(--surface-shadow-1);
+  width: 100%;
+  height: 58px;
+  background-color: var(--notification-warning-background);
+}
+
+.icon-left img {
+  width: 50px;
+  height: 50px;
+}
+
+.text-content {
+  width: 85%;
+  // padding: 0 20px;
+  color: var(--color-text-notification);
+  font-family: var(--main-font);
+}
+
+.text-content h4 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--color-text-notification);
+  font-family: var(--brand-font);
+}
+
+.text-content p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.action button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px;
+  color: var(--color-text-notification);
+}
+
+.icon-status-warning-notif {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../assets/icons/WarningOutline.svg');
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  filter: var(--color-navigation-icon-filter-active);
+}
