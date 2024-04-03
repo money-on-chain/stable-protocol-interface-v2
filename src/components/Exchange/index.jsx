@@ -147,8 +147,11 @@ export default function Exchange() {
 
         // 0. Amount > 0
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
-            setInputValidationError(true);
-            return
+            if (valueExchange !== '' || valueReceive !== '') {
+                setInputValidationErrorText('Amount must be greater than zero');
+                setInputValidationError(true);
+                return
+            }
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
             setInputValidationErrorText('Amount must be greater than zero');
@@ -231,10 +234,8 @@ export default function Exchange() {
         if (feeTokenBalance.gt(commissionFeeToken)) {
             // Set as default to pay fee with token
             setRadioSelectFeeTokenDisabled(false)
-            setRadioSelectFee(1)
         } else {
             setRadioSelectFeeTokenDisabled(true)
-            setRadioSelectFee(0)
         }
 
         // 6. MINT TP. Flux capacitor maxQACToMintTP
