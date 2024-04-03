@@ -9,11 +9,11 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { tokenStake } from '../../helpers/staking';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import InputAmount from '../InputAmount';
 import SelectCurrency from '../SelectCurrency';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 import { getUSD } from '../../helpers/balances';
+import InputAmount from '../InputAmount/indexInput';
 
 const Stake = (props) => {
   const {
@@ -27,8 +27,6 @@ const Stake = (props) => {
   const auth = useContext(AuthenticateContext);
   const defaultTokenStake = tokenStake()[0];
   const [isUnstaking, setIsUnstaking] = useState(false);
-  const [isDirtyYouStake, setIsDirtyYouStake] = useState(false);
-  const [isDirtyYouUnstake, setIsDirtyYouUnstake] = useState(false);
   const [inputValidationErrorText, setInputValidationErrorText] = useState('');
   const [currencyYouStake, setCurrencyYouStake] = useState(defaultTokenStake);
   const [currencyYouUnstake, setCurrencyYouUnstake] = useState(defaultTokenStake);
@@ -40,47 +38,48 @@ const Stake = (props) => {
   const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
   const [inputValidationError, setInputValidationError] = useState(true);
   const [cleanInputCount, setUntouchCount] = useState(0);
-  const [amountStake, setAmountStake] = useState(
-    new BigNumber(0)
-  );
-  const [amountUnstake, setAmountUnstake] = useState(
-    new BigNumber(0)
-  );
-  const [inputValidation, setInputValidation] = useState({
-    validateStatus: 'success'
-  });
+
+  const [amountToStake, setAmountToStake] = useState('');
+  const [amountToUnstake, setAmountToUnstake] = useState('');
 
   useEffect(() => {
+    // if(amountToStake === '' && amountToUnstake === '') return;
     setIsUnstaking(activeTab === 'tab2');
-    setAmountStake(new BigNumber(0));
-    setAmountUnstake(new BigNumber(0));
+    setAmountToStake('0.0');
+    setAmountToUnstake('0.0');
   }, [auth, activeTab]);
 
   useEffect(() => {
     onValidate();
-  }, [amountStake, amountUnstake])
+  }, [amountToStake, amountToUnstake])
   const onValidate = () => {
-    console.log('onValidate staking/unstaking amount');
     let amountInputError = false
 
     const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
     const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : mocBalance, tokenSettings.decimals);
-    console.log('totalBalance', totalBalance);
-    const amountToProcess = isUnstaking ? amountUnstake : amountStake;
-    console.log('amountToCompare', amountToProcess);
-    console.log('is greater',amountToProcess.gt(totalBalance));
+    const amountToProcess =  formatBigNumber(isUnstaking ? amountToUnstake : amountToStake, tokenSettings.decimals);
     //1. Input amount valid
-    if (amountToProcess.gt(totalBalance)) {
+    if (isUnstaking && isNaN(parseFloat(amountToUnstake))){
+      setInputValidationErrorText('Invalid amount');
+      amountInputError = true
+    }
+    else if (amountToProcess.gt(totalBalance)) {
       setInputValidationErrorText('Not enough balance in your wallet');
       amountInputError = true
     }
     else if (amountToProcess.lte(0)) {
-      setInputValidationErrorText('Amount must be greater than 0');
-      amountInputError = true
+      if (amountToStake !== '0.0' || amountToUnstake !== '0.0') {
+        setInputValidationErrorText('Amount must be greater than 0');
+        amountInputError = true
+      } else {
+        amountInputError = true
+      }
     }
     else if (amountToProcess.isNaN()) {
-      setInputValidationErrorText('Invalid amount');
-      amountInputError = true
+      if (amountToStake !== '' || amountToUnstake !== '') {
+        setInputValidationErrorText('Invalid amount');
+        amountInputError = true
+      }
     }
     else if (amountToProcess.toString().length < 1) {
       setInputValidationErrorText('Amount field cannot be empty');
@@ -97,48 +96,37 @@ const Stake = (props) => {
     setCurrencyYouStake(newCurrency);
   };
   const onClear = () => {
-    setIsDirtyYouStake(false);
-    setAmountStake(new BigNumber(0));
-  };
-  const onChangeAmountYouStake = (newAmount) => {
-    setIsDirtyYouStake(true);
-    if (newAmount === '' || newAmount === null) {
-      setAmountStake(new BigNumber(0));
-      return;
-    }
-    setAmountStake(new BigNumber(newAmount));
-  };
-  const onChangeAmountYouUnstake = (newAmount) => {
-    setIsDirtyYouUnstake(true);
-    if (newAmount === '') {
-      setAmountUnstake(new BigNumber(0));
-      return;
-    }
-    setAmountUnstake(new BigNumber(newAmount));
+    setAmountToStake('0.0');
+    setAmountToUnstake('0.0');
   };
   const setAddTotalAvailable = () => {
-    setIsDirtyYouStake(false);
     const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
     const total = formatBigNumber(isUnstaking ? stakedBalance : mocBalance, tokenSettings.decimals);
-    if (isUnstaking) setAmountUnstake(total);
-    else setAmountStake(total);
+    if (isUnstaking) setAmountToUnstake(total.toString());
+    else setAmountToStake(total.toString());
   };
   const getAmount = () => {
     if (isUnstaking) {
-      if (amountUnstake.toString() === '0') {
+      if (amountToUnstake === '0') {
         return 0;
       }
     } else {
-      if (amountStake.toString() === '0') {
+      if (amountToStake === '0') {
         return 0;
       }
     }
     return AmountToVisibleValue(
-      isUnstaking ? amountUnstake : amountStake,
+      isUnstaking ? amountToUnstake : amountToStake,
       isUnstaking ? currencyYouUnstake : currencyYouStake,
       4,
       false
     )
+  }
+  const formatNumber = (number) => {
+    if (isNaN(parseFloat(number).toFixed(3))) {
+      return '0.0';
+    }
+    return parseFloat(number).toFixed(4);
   }
   const onStakeButton = () => {
     if (getAmount() > 0) {
@@ -151,9 +139,8 @@ const Stake = (props) => {
 
   const resetBalancesAndValues = () => {
     setStakingBalances();
-    setAmountUnstake(new BigNumber(0));
-    setAmountStake(new BigNumber(0));
-
+    setAmountToStake('0.0');
+    setAmountToUnstake('0.0');
     setUntouchCount((prev) => prev + 1);
   };
   const onStakingModalConfirm = (operationStatus, txHash) => {
@@ -187,11 +174,8 @@ const Stake = (props) => {
           disabled={true}
         />
         <InputAmount
-          InputValue={getAmount()}
-          placeholder={'0.0'}
-          onValueChange={isUnstaking ? onChangeAmountYouUnstake : onChangeAmountYouStake}
-          validateError={false}
-          isDirty={isUnstaking ? isDirtyYouUnstake : isDirtyYouStake}
+          balanceText={'Balance'}
+          action={isUnstaking ? 'To UnStake' : 'To Stake'}
           balance={
             PrecisionNumbers({
               amount: isUnstaking ? stakedBalance : mocBalance,
@@ -204,8 +188,11 @@ const Stake = (props) => {
               ns: ns
             })
           }
+          placeholder={'0.0'}
+          inputValue={isUnstaking ? amountToUnstake : amountToStake}
+          onValueChange={isUnstaking ? setAmountToUnstake : setAmountToStake}
           setAddTotalAvailable={setAddTotalAvailable}
-          action={isUnstaking ? 'To UnStake' : 'To Stake'}
+          validateError={false}
         />
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
@@ -215,7 +202,7 @@ const Stake = (props) => {
       <div className="action-section">
         <div className="left-column">
           <div className="title">
-            {isUnstaking ? `Unstaking = ${amountUnstake.toFixed(4)} MOC` : `Staking = ${(amountStake).toFixed(4)} MOC`}
+            {isUnstaking ? `Unstaking = ${formatNumber(amountToUnstake)} MOC` : `Staking = ${formatNumber(amountToStake)} MOC`}
           </div>
           <Button
             type="primary"

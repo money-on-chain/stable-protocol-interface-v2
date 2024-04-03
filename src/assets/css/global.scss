@@ -3028,15 +3028,15 @@ h1.title-last-operations {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
             .title {
                 color: var(--color-text-primary);
                 font-family: var(--brand-font);
-                font-size: 17px;
+                text-align: center;
+                font-size: 15px;
+                width: 100%;
                 font-weight: 700;
-                text-align: left;
                 line-height: 20px;
-                margin-left: 13px;
+                margin-left: 0;
             }
         }
 
