@@ -38,43 +38,50 @@ export default function CheckStatus() {
   let statusIcon = '';
   let statusLabel = '--';
   let statusText = '--';
-
+  let errorType = '-1';
+  
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
     statusLabel = 'Fully Operational';
     statusText = 'The system is in optimal condition';
+    errorType = '0';
     isValid = true;
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
     statusLabel = 'Partially Operational';
-    statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
+    statusText = 'Not Operational due to low Global Coverage ratio. Please try again later.';
+    errorType = '1';
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Protected Mode';
     statusText = 'No operations allowed';
+    errorType = '2';
     isValid = false;
   }
 
   if (auth.contractStatusData.liquidated) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Liquidated';
     statusText = 'No operations allowed';
+    errorType = '3';
     isValid = false;
   }
 
   if (auth.contractStatusData.paused) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Paused';
     statusText = 'The contract is paused. No operations allowed';
+    errorType = '4';
     isValid = false;
   }
 
   if (!auth.contractStatusData.canOperate) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = 'Cannot operate';
-    statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
+    statusText = 'Failed to execute transaction due to timeout. Please try again later.';
+    errorType = '5';
     isValid = false;
   }
-  return {isValid , statusIcon, statusLabel, statusText};
+  return {isValid , statusIcon, statusLabel, statusText, errorType};
 }
