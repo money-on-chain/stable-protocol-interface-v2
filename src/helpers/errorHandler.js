@@ -3,9 +3,9 @@ import settings from '../settings/settings.json';
 export const GetErrorMessage = (error) => {
   switch (error) {
     case 'qAC below minimum required':
-      return 'RIF price went up, amount below minimum required';
+      return `${settings.tokens.CA[0].name} price went up, amount below minimum required.`;
     case 'Insufficient qac sent':
-      return 'RIF price went down, insufficient RIF sent';
+      return `${settings.tokens.CA[0].name} price went down, insufficient ${settings.tokens.CA[0].name} sent`;
     case 'Low coverage':
       return 'System below protected global coverage';
     case 'Invalid Flux Capacitor Operation':
