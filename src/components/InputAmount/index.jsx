@@ -10,7 +10,7 @@ export default class InputAmount extends Component {
                 <div className="title-balance-container">
                     <div className="input-title">{this.props.action}</div>
                     <span className="input-balance">
-                        Balance:{' '}
+                        {`${this.props.balanceText}: `}
                         {this.props.balance}
                     </span>
                 </div>

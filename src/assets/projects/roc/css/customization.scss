@@ -85,7 +85,11 @@
     --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
     --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
     --filter-semantic-positive: invert(63%) sepia(23%) saturate(7464%) hue-rotate(73deg) brightness(99%) contrast(91%);
-
+    
+    --notification-success-background: var(--color-semantic-positive);
+    --notification-error-background: var(--color-semantic-negative);
+    --notification-warning-background: #0D0D0D;
+    --notification-info-background: #B5B5B5;
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
@@ -110,6 +114,7 @@
     --color-text-secondary: #7f8a99;
     --color-text-highlight: #000000;
     --color-text-link: #000000;
+    --color-text-notification: #ffffff;
     --link-text-style: underline;
     --color-icon-link-filter: invert(0%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
     --brand-font: 'Sora', sans-serif;

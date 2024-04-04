@@ -91,7 +91,11 @@
     --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
     --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
     --filter-semantic-positive: invert(63%) sepia(23%) saturate(7464%) hue-rotate(73deg) brightness(99%) contrast(91%);
-
+    
+    --notification-success-background: var(--color-semantic-positive);
+    --notification-error-background: var(--color-semantic-negative);
+    --notification-warning-background: #0D0D0D;
+    --notification-info-background: #B5B5B5;
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
@@ -116,6 +120,7 @@
     --color-text-secondary: #667180;
     --color-text-highlight: #fff383;
     --color-text-link: #fff383;
+    --color-text-notification: #ffffff;
     --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
     --brand-font: 'Chivo', sans-serif;
     --main-font: 'Open Sans', sans-serif;
