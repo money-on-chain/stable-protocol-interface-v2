@@ -1,11 +1,14 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useProjectTranslation } from '../../helpers/translations';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
+import { func } from 'prop-types';
 
 const { Header } = Layout;
+
 
 export default function SectionHeader() {
     const navigate = useNavigate();
@@ -13,6 +16,8 @@ export default function SectionHeader() {
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+    const [t, i18n, ns] = useProjectTranslation();
+
 
     useEffect(() => {
         if (auth.isLoggedIn &&
@@ -59,41 +64,48 @@ export default function SectionHeader() {
     const menu = {
         mainMenu: [
             {
-                name: "Portfolio",
+                name: "portfolio",
+                text: t('menuOptions.portfolio'),
                 action: goToPortfolio,
                 isActive: true
             },
             {
-                name: "Send",
+                name: t('menuOptions.send'),
+                text: t('menuOptions.send'),
                 action: goToSend,
                 isActive: true
             },
             {
-                name: "Exchange",
+                name: t('menuOptions.exchange'),
+                text: t('menuOptions.exchange'),
                 action: goToExchange,
                 isActive: true
             },
             {
                 name: "Performance",
+                text: t('menuOptions.performance'),
                 action: goToPerformance,
                 isActive: true
             },
             {
                 name: "Staking",
+                text: t('menuOptions.staking'),
                 action: goToStaking,
-                isActive: false
+                isActive: true
             }
         ],
         dropdownMenu: [
             {
                 name: "Liquidity Mining",
+                text: t('menuOptions.liquidityMining'),
                 action: goToLiquidityMining,
-                isActive: false
+                isActive: true
             },
             {
-                name: "Vesting",
+                name: t('menuOptions.vesting'),
+                text: t('menuOptions.vesting'),
                 action: goToVesting,
-                isActive: false
+                isActive: true
             }
         ]
     }
@@ -149,6 +161,7 @@ export default function SectionHeader() {
             ...menuItem,
             containerClassName: isActive ? 'menu-nav-item menu-nav-item-selected' : `menu-nav-item ` + css_disable,
             iClassName: `logo-${menuItem.name.toLowerCase().replace(" ", "-")} ${isActive ? 'color-filter-disabled' : 'color-filter-invert'}`
+
         };
     };
 
@@ -190,7 +203,7 @@ export default function SectionHeader() {
                     })}
                     {getActiveTabsNumber() > 5 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
                         <i className='logo-more color-filter-invert'></i>
-                        <span className="menu-nav-item-title-more">More</span>
+                        <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
                     </a>}
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
                         {menuOptions.dropdownMenu.map((option) => {
@@ -216,7 +229,7 @@ export default function SectionHeader() {
                         </a>{' '}
                         <i className="logo-translation"></i>
                     </div>*/}
-                    <div className="wallet-address">
+                    <div className="wallet-address" >
                         {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
                         <ModalAccount
                             truncatedAddress={auth.accountData.truncatedAddress}
@@ -228,3 +241,21 @@ export default function SectionHeader() {
         </Header>
     );
 }
+
+function setMenuIcon(option) {
+    const [t, i18n, ns] = useProjectTranslation();
+    console.log (option)
+
+    switch (option) {
+        case t('menuOptions.porfolio') :
+            return 'Portfolio'
+        case t('menuOptions.send') :
+            return 'Send'
+        case t('menuOptions.exchange') :
+            return 'Exchange'
+        case t('menuOptions.performance') :
+            return 'Performance'
+        case t('menuOptions.staking') :
+            return 'Staking'
+    }
+} 

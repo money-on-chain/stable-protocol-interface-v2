@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useTransition } from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import TokensCA from '../../Tables/TokensCA';
@@ -131,7 +131,7 @@ export default function Portfolio() {
         <div className="dashboard-portfolio">
             <div className="tokens-card-content">
                 <div className="tokens-list-header">
-                    <div className="tokens-list-header-title">Portfolio</div>
+                    <div className="tokens-list-header-title">{t('portfolio.sectionTitle')}</div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
                             {(auth.contractStatusData && !auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
@@ -143,10 +143,10 @@ export default function Portfolio() {
                                 ns: ns,
                                 skipContractConvert: true
                             })}{' '}
-                            USD
+                            {t('portfolio.totalCurrency')}
                         </div>
                         <div className="tokens-list-header-balance-title">
-                            Total balance
+                        {t('portfolio.totalBalance')}
                         </div>
                     </div>
                 </div>

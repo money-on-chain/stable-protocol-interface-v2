@@ -35,7 +35,7 @@ export default function ListOperations(props) {
     var txList = [];
     const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
-            console.log("Loading table ...")
+            console.log("Loading table…")
             const datas =
                 {
                     address: accountData.Owner,
@@ -85,7 +85,8 @@ export default function ListOperations(props) {
             dataIndex: 'status',
             width: 180,
             hidden: false,
-        }
+        },
+   
     ].filter((item) => !item.hidden);
     useEffect(() => {
         const interval = setInterval(() => {
@@ -120,14 +121,14 @@ export default function ListOperations(props) {
                     name: '',
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: "EXCHANGED"
+                    title: t('operations.actions.exchanged')
                 },
                 receive: {
                     amount: 0,
                     name: '',
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: "RECEIVED"
+                    title: t('operations.actions.received')
                 }
             }
         }
@@ -141,7 +142,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                    title: status === "executed" ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: "TCMint",
@@ -149,7 +150,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: "TC",
-                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                    title: status === "executed" ? t('operations.actions.received') : t('operations.actions.receiving')
                 }
             }
         } else if (row_operation['operation']  === "TCRedeem") {
@@ -161,7 +162,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: "TC",
-                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                    title: status === "executed" ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: "TCRedeem",
@@ -169,7 +170,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                    title: status === "executed" ? t('operations.actions.received') : t('operations.actions.receiving')
                 }
             }
         } else if (row_operation['operation']  === "TPMint") {
@@ -184,7 +185,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                    title: status === "executed" ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: "TPMint",
@@ -192,7 +193,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
                     icon: `TP_${tp_index}`,
-                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                    title: status === "executed" ? t('operations.actions.received') : t('operations.actions.receiving')
                 }
             }
         } else if (row_operation['operation']  === "TPRedeem") {
@@ -207,7 +208,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
                     icon: `TP_${tp_index}`,
-                    title: status === "executed" ? "EXCHANGED" : "EXCHANGE"
+                    title: status === "executed" ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: "TPRedeem",
@@ -215,7 +216,7 @@ export default function ListOperations(props) {
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: "CA_0",
-                    title: status === "executed" ? "RECEIVED" : "RECEIVE"
+                    title: status === "executed" ? t('operations.actions.received') : t('operations.actions.receiving')
                 }
             }
         } else if (row_operation['operation']  === "Transfer") {
@@ -228,7 +229,7 @@ export default function ListOperations(props) {
                     name: token_info.name,
                     token: token_info.token,
                     icon: "TP_0",
-                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
+                    title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 },
                 receive: {
                     action: "Transfer",
@@ -236,7 +237,7 @@ export default function ListOperations(props) {
                     name: token_info.name,
                     token: token_info.token,
                     icon: "CA_0",
-                    title: status === "executed" ? "TRANSFERRED" : "TRANSFER"
+                    title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 }
             }
         } else if (row_operation['operation']  === "ERROR") {
@@ -434,7 +435,7 @@ export default function ListOperations(props) {
                 date:(
                     <div style={{paddingLeft: "25%"}}>
                       <div className='table-date-name' >
-                        <span>DATE</span>
+                        <span>{t('operations.columns.date')}</span>
                       </div>
                       <div className='table-date'>
                         {new Date(data['lastUpdatedAt']).toLocaleString('sv-SE', {
@@ -449,16 +450,9 @@ export default function ListOperations(props) {
                     </div>
                   ),
                   status: (
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <div className={`tx-status-icon-${getStatus(data)}`}
-                              style={{
-                                  margin: '0.5rem',
-                                  marginTop: '3px',
-                                  marginRight: '1rem',
-                                  flexGrow: 0
-                              }}
-                          />
-                          <span className={`table-status-icon ${getStatus(data) === "FAILED" && "table-status-icon-red"}`}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}> 
+                          <div className={`tx-status-icon-${setStatusIcon(getStatus(data)) }`}/>             
+                          <span className={`table-status-icon ${getStatus(data) === t('operations.actions.statusFailed') && "table-status-icon-red"}`}>
                               {getStatus(data)}
                           </span>
                       </div>
@@ -575,9 +569,9 @@ export default function ListOperations(props) {
     }
     function getTransferAction(row_operation){
         if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
-            return "DESTINATION"
+            return t('operations.actions.destination')
         } else {
-            return "RECEIVED"
+            return t('operations.actions.origin')
         }
 
     }
@@ -590,33 +584,33 @@ export default function ListOperations(props) {
             // return truncateAddress(row_operation['params']['recipient'].toLowerCase())
             return row_operation['params']['recipient'].toLowerCase();
         } else {
-            return truncateAddress(row_operation['params']['sender'].toLowerCase())
+            //return truncateAddress(row_operation['params']['sender'].toLowerCase())
+            return row_operation['params']['sender'].toLowerCase()
         }
 
     }
     function getStatus(row_operation){
         const confirmedBlocks = BigInt(10)
-
         switch(row_operation['status']){
             case -4:
-                return "FAILED"
+                return t('operations.actions.statusFailed')
             case -3:
-                return "FAILED"
+                return  t('operations.actions.statusFailed')
             case -2:
-                return "FAILED"
+                return  t('operations.actions.statusFailed')
             case -1:
-                return "FAILED"
+                return  t('operations.actions.statusFailed')
             case 0:
                 if (row_operation['params'] && auth.contractStatusData &&
                     BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['params']['blockNumber']) + confirmedBlocks)
-                        return "QUEUING"
-                else return "QUEUED"
+                        return t('operations.actions.statusQueuing')
+                else return t('operations.actions.statusQueued')
             case 1:
                 if (row_operation['executed'] && auth.contractStatusData &&
                     BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks)
-                        return "CONFIRMING"
+                        return t('operations.actions.statusConfirming')
 
-                else return "CONFIRMED"
+                else return t('operations.actions.statusConfirmed')
         }
 
     }
@@ -647,6 +641,22 @@ export default function ListOperations(props) {
         }
 
     }
+
+    function setStatusIcon(status) {
+        switch (status) {
+            case t('operations.actions.statusQueuing') :
+                return 'QUEUING'
+            case t('operations.actions.statusQueued') :
+                return 'QUEUED'
+            case t('operations.actions.statusConfirming') :
+                return 'CONFIRMING'
+            case t('operations.actions.statusConfirmed') :
+                return 'CONFIRMED'
+            case t('operations.actions.statusFailed') :
+                return 'FAILED'
+        }
+    }
+
     function getAsset(name){
         switch (name) {
             case "CA_0":
@@ -719,7 +729,7 @@ export default function ListOperations(props) {
         <>
             <div className="title">
                 <h1 className="title-last-operations">
-                    {t(`operations.title`, { ns: ns })}
+                    {t(`operations.sectionTitle`, { ns: ns })}
                 </h1>
             </div>
             {!loadingSke ? (

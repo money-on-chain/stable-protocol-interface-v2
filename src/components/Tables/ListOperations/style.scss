@@ -5,6 +5,10 @@
     background-size: 30px 30px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
+    margin: 0.5rem;
+    margin-top: 3px;
+    margin-right: 1rem;
+    flex-grow: 0;
 }
 .tx-status-icon-QUEUED {
     width: 30px;
@@ -13,6 +17,10 @@
     background-size: 30px 30px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
+    margin: 0.5rem;
+    margin-top: 3px;
+    margin-right: 1rem;
+    flex-grow: 0;
 }
 .tx-status-icon-CONFIRMED {
     width: 30px;
@@ -21,6 +29,10 @@
     background-size: 30px 30px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
+    margin: 0.5rem;
+    margin-top: 3px;
+    margin-right: 1rem;
+    flex-grow: 0;
 }
 .tx-status-icon-CONFIRMING {
     width: 30px;
@@ -29,6 +41,10 @@
     background-size: 30px 30px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
+    margin: 0.5rem;
+    margin-top: 3px;
+    margin-right: 1rem;
+    flex-grow: 0;
 }
 .tx-status-icon-FAILED {
     width: 30px;
@@ -37,6 +53,10 @@
     background-size: 30px 30px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
+    margin: 0.5rem;
+    margin-top: 3px;
+    margin-right: 1rem;
+    flex-grow: 0;
 }
 
 .custom-table .ant-table-tbody > tr:nth-child(n + 2) > td {
@@ -67,6 +87,7 @@
     line-height: 11px;
     letter-spacing: 0px;
     text-align: left;
+    text-transform: uppercase;
 }
 
 .components-table-demo-control-bar .ant-form-item {
