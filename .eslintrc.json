@@ -4,5 +4,8 @@
     "browser": true,
     "node": true,
     "mocha": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
   }
 }
