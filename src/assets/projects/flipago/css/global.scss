@@ -84,7 +84,7 @@
         line-height: 80px;
         background: var(--surface-color-1);
         box-shadow: var(--surface-shadow-1);
-
+        position: relative;
         .wallet-address {
             /* Auto layout */
 
@@ -132,6 +132,56 @@
                 filter: var(--color-navigation-icon-filter-hover);
             }
         }
+        .language-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            width: 100%;
+            .menu-item {
+                justify-content: flex-start;
+            }
+            .menu-item-selected {
+                justify-content: flex-start;
+                background-color: var(--color-controls-active);
+                color: var(--color-navigation-text-active);
+            }
+            span {
+                width: 70%;
+            }
+        }
+        .language-menu > div > div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; 
+            height: 50px;
+            cursor: pointer;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .menu-icon {
+            margin-right: 10px; 
+            display: flex;
+            align-items: center;
+            width: 18%;
+        }
+        
+        .menu-icon img {
+            width: 24px; 
+            height: auto; 
+        }
+        
+        .language-menu > div > div:hover {
+            background-color: var(--color-controls-active);
+            color: var(--color-navigation-text-active);
+        }
+        
+        .language-menu > div > div:last-child {
+            border-bottom: none;
+        }
     }
 
     .wallet-translation {
@@ -146,7 +196,7 @@
         flex: none;
         order: 0;
         flex-grow: 0;
-
+        width: 100%;
         a.translation-selector {
             opacity: 1;
             color: var(--color-text-primary);

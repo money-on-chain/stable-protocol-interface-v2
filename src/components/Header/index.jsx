@@ -1,19 +1,24 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useProjectTranslation } from '../../helpers/translations';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
-
+import lang_en from  '../../assets/icons/lang_en.svg';
+import lang_es from  '../../assets/icons/lang_en.svg';
+import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 const { Header } = Layout;
 
 export default function SectionHeader() {
     const navigate = useNavigate();
+    const [t, i18n, ns] = useProjectTranslation();
     const location = useLocation();
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
-
+    const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+    const [lang, setLang] = useState('en');
     useEffect(() => {
         if (auth.isLoggedIn &&
             auth.contractStatusData &&
@@ -163,7 +168,22 @@ export default function SectionHeader() {
     
         return { containerClassName, iconClassName };
     };
-
+    //Lang settings
+    const languageOptions = [
+        { name: t(`language.en`, {
+            ns: ns
+        }), code: "en", icon: lang_en},
+        { name: t(`language.es`, {
+            ns: ns
+        }), code: "es", icon: lang_es}
+    ];
+    const toggleLanguageMenu = () => {
+        setShowLanguageMenu(prevState => !prevState);
+    };
+    const pickLanguage = (code) => {
+        setLang(code);
+        setShowLanguageMenu(false);
+    };
     return (
         <Header>
             <div className="header-container">
@@ -210,9 +230,9 @@ export default function SectionHeader() {
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation">
-                        <a href="#" className="translation-selector">
+                        <a href="#" className="translation-selector" onClick={toggleLanguageMenu}>
                             {' '}
-                            English{' '}
+                            {languageOptions.find(option => option.code === lang).name }{' '}
                         </a>{' '}
                         <i className="logo-translation"></i>
                     </div>
@@ -223,6 +243,26 @@ export default function SectionHeader() {
                         ></ModalAccount>
                         <i className="logo-wallet"></i>
                     </div>
+                    {showLanguageMenu && (
+                        <div className="language-menu">
+                            <div>
+                                {languageOptions.map((option) => {
+                                    return (
+                                        <div 
+                                            className={`menu-item${lang === option.code ? '-selected' : ''}`}
+                                            onClick={() => pickLanguage(option.code)}
+                                        >
+                                            <div className="menu-icon">
+                                                <img src={option.icon} alt={option.name} />
+                                            </div>
+                                            <span>{option.name}</span>
+                                           {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </Header>

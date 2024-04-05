@@ -114,5 +114,9 @@
                 }
             }
         }
+    },
+    "language" : {
+        "en": "Inglés",
+        "es": "Español"
     }
 }
