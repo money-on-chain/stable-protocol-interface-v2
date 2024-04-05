@@ -157,5 +157,9 @@
                 "rows": {}
             }
         }
+    },
+    "language" : {
+        "en": "Inglés",
+        "es": "Español"
     }
 }

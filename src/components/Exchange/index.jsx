@@ -1,5 +1,6 @@
 import { Input, Radio, Space } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
+import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -23,10 +24,11 @@ import {
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
-import InputAmount from '../InputAmount';
+// import InputAmount from '../InputAmount';
+import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import Web3 from 'web3';
+import CheckStatus from '../../helpers/checkStatus';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -66,13 +68,10 @@ export default function Exchange() {
     const [radioSelectFee, setRadioSelectFee] = useState(0);
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
 
-    useEffect(() => {
-        setAmountYouExchange(amountYouExchange);
-    }, [amountYouExchange]);
+    const { isValid, errorType } = CheckStatus();
 
-    useEffect(() => {
-        setAmountYouReceive(amountYouReceive);
-    }, [amountYouReceive]);
+    const [ valueExchange, setValueExchange ] = useState('');
+    const [ valueReceive, setValueReceive ] = useState('');
 
     useEffect(() => {
         if (amountYouExchange && auth.contractStatusData) {
@@ -84,35 +83,53 @@ export default function Exchange() {
         onClear();
         setCurrencyYouExchange(newCurrencyYouExchange);
         setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0]);
-        //onChangeAmountYouReceive(0.0);
-        //onChangeAmountYouExchange(0.0);
     };
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
         onClear();
         setCurrencyYouReceive(newCurrencyYouReceive);
-        //onChangeAmountYouReceive(0.0);
-        //onChangeAmountYouExchange(0.0);
     };
     const handleSwapCurrencies = () => {
-        // Intercambia las monedas
         const tempCurrency = currencyYouExchange;
         setCurrencyYouExchange(currencyYouReceive);
         setCurrencyYouReceive(tempCurrency);
-    
+        
         const tempAmount = amountYouExchange;
         setAmountYouExchange(amountYouReceive);
         setAmountYouReceive(tempAmount);
 
+        const tempInputExchange = valueExchange;
+        setValueExchange(valueReceive);
+        setValueReceive(tempInputExchange);
     };
     const onClear = () => {
-        setIsDirtyYouExchange(false);
-        setIsDirtyYouReceive(false);
         setAmountYouExchange(new BigNumber(0));
         setAmountYouReceive(new BigNumber(0));
+        setValueExchange('');
+        setValueReceive('');
+        setInputValidationError(false);
+        setInputValidationErrorText('');
     };
 
     const onValidate = () => {
+        // Protocol in not-good status
+        if (!isValid && errorType === '1') {
+            if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
+                setInputValidationErrorText('Not Operational due to low Global Coverage ratio');
+                setInputValidationError(true);
+                return
+            }
+        }
+        if (!isValid && errorType > 1 && errorType < 5) {
+            setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationError(true);
+            return
+        }
+        if (!isValid && errorType === '5') {
+            setInputValidationErrorText('Request timeout');
+            setInputValidationError(true);
+            return
+        }
 
         // 0. Not Wallet connected
         if (!auth.userBalanceData) {
@@ -130,8 +147,11 @@ export default function Exchange() {
 
         // 0. Amount > 0
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
-            setInputValidationError(true);
-            return
+            if (valueExchange !== '' || valueReceive !== '') {
+                setInputValidationErrorText('Amount must be greater than zero');
+                setInputValidationError(true);
+                return
+            }
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
             setInputValidationErrorText('Amount must be greater than zero');
@@ -214,10 +234,8 @@ export default function Exchange() {
         if (feeTokenBalance.gt(commissionFeeToken)) {
             // Set as default to pay fee with token
             setRadioSelectFeeTokenDisabled(false)
-            setRadioSelectFee(1)
         } else {
             setRadioSelectFeeTokenDisabled(true)
-            setRadioSelectFee(0)
         }
 
         // 6. MINT TP. Flux capacitor maxQACToMintTP
@@ -264,7 +282,6 @@ export default function Exchange() {
     };
 
     const onChangeAmounts = (amountExchange, amountReceive, source) => {
-        // set the other input
         let infoFee;
         let amountExchangeFee;
         let amountReceiveFee;
@@ -279,6 +296,13 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange;
                 amountReceiveFee = amountReceive.minus(infoFee.fee);
+                const amountFormattedReceive = AmountToVisibleValue(
+                    amountReceiveFee,
+                    currencyYouReceive,
+                    3,
+                    false
+                );
+                setValueReceive(amountFormattedReceive);
                 setAmountYouReceive(amountReceiveFee);
                 setAmountYouExchange(amountExchangeFee);
                 break;
@@ -292,7 +316,14 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange.plus(infoFee.fee);
                 amountReceiveFee = amountReceive;
+                const amountFormattedExchange = AmountToVisibleValue(
+                    amountExchangeFee,
+                    currencyYouExchange,
+                    3,
+                    false
+                );
                 setAmountYouExchange(amountExchangeFee);
+                setValueExchange(amountFormattedExchange);
                 setAmountYouReceive(amountReceiveFee);
                 break;
             default:
@@ -352,21 +383,12 @@ export default function Exchange() {
 
     const onChangeAmountYouExchange = (newAmount) => {
         if (newAmount < 0) {
-            console.log('onChangeAmount is negative', newAmount);
-            setIsDirtyYouExchange(true);
-            setIsDirtyYouReceive(true);
             setAmountYouExchange(new BigNumber(0));
             setAmountYouReceive(new BigNumber(0));
             setExchangingUSD(new BigNumber(0));
+            setValueExchange('0.0');
         } else {
-            if (newAmount === '0' && amountYouExchange.toString() === '0') {
-                setIsDirtyYouExchange(true);
-                setIsDirtyYouReceive(true);
-            } else {
-                setIsDirtyYouExchange(true);
-                setIsDirtyYouReceive(false);
-            }
-    
+            setValueExchange(newAmount);
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
@@ -384,15 +406,12 @@ export default function Exchange() {
 
     const onChangeAmountYouReceive = (newAmount) => {
         if (newAmount < 0) {
-            setIsDirtyYouExchange(true);
-            setIsDirtyYouReceive(true);
             setAmountYouExchange(new BigNumber(0));
             setAmountYouReceive(new BigNumber(0));
             setExchangingUSD(new BigNumber(0));
+            setValueReceive('0.0');
         } else {
-            setIsDirtyYouExchange(false);
-            setIsDirtyYouReceive(true);
-    
+            setValueReceive(newAmount);
             const convertAmountExchange = ConvertAmount(
                 auth,
                 currencyYouReceive,
@@ -410,9 +429,6 @@ export default function Exchange() {
 
     const setAddTotalAvailable = () => {
 
-        setIsDirtyYouExchange(false);
-        setIsDirtyYouReceive(false);
-
         const tokenSettings = TokenSettings(currencyYouExchange);
         const totalYouExchange = new BigNumber(
             fromContractPrecisionDecimals(
@@ -427,7 +443,7 @@ export default function Exchange() {
             totalYouExchange,
             false
         );
-
+        setValueExchange(totalYouExchange.toFixed(3));
         setAmountYouExchange(totalYouExchange);
         onChangeAmounts(
             new BigNumber(totalYouExchange),
@@ -454,16 +470,10 @@ export default function Exchange() {
                     />
 
                     <InputAmount
-                        InputValue={amountYouExchange.toString() === '0' ? 0 : AmountToVisibleValue(
-                            amountYouExchange,
-                            currencyYouReceive,
-                            3,
-                            false
-                        )}
+                        inputValue={valueExchange}
                         placeholder={'0.0'}
                         onValueChange={onChangeAmountYouExchange}
                         validateError={false}
-                        isDirty={isDirtyYouExchange}
                         balance={
                             (!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouExchange),
@@ -478,6 +488,7 @@ export default function Exchange() {
                         }
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'EXCHANGING'}
+                        balanceText={'Balance'}
                     />
                     <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
@@ -495,12 +506,7 @@ export default function Exchange() {
                     />
 
                     <InputAmount
-                        InputValue={amountYouReceive.toString() === '0' ? 0 : AmountToVisibleValue(
-                            amountYouReceive,
-                            currencyYouReceive,
-                            3,
-                            false
-                        )}
+                        inputValue={valueReceive}
                         placeholder={'0.0'}
                         onValueChange={onChangeAmountYouReceive}
                         validateError={false}
@@ -522,6 +528,7 @@ export default function Exchange() {
                         })}
                         setAddTotalAvailable={setAddTotalAvailable}
                         action={'RECEIVING'}
+                        balanceText={'Up to'}
                     />
                 </div>
             </div>

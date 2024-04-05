@@ -106,5 +106,9 @@
                 "rows": {}
             }
         }
+    },
+    "language" : {
+        "en": "English",
+        "es": "Spanish"
     }
 }
