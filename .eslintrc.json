@@ -6,25 +6,10 @@
     "mocha": true
   },
   "parserOptions": {
-    "ecmaVersion": 11, // es2020 equivalente a ecmaVersion 11
+    "ecmaVersion": 11, 
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true // Importante para soportar JSX
-    }
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended" // Usa recomendaciones estándares para React
-  ],
-  "plugins": [
-    "react" // Asegúrate de que el plugin de React está activado
-  ],
-  "rules": {
-    // Aquí puedes definir o sobreescribir reglas específicas
-  },
-  "settings": {
-    "react": {
-      "version": "detect" // Autodetecta la versión de React para usar
+      "jsx": true 
     }
   }
 }
