@@ -114,7 +114,7 @@ export default function Exchange() {
     const onValidate = () => {
         // Protocol in not-good status
         if (!isValid && errorType === '1') {
-            if (currencyYouExchange !== 'TP_0' && currencyYouReceive !== 'TC') {
+            if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
                 setInputValidationErrorText('Not Operational due to low Global Coverage ratio');
                 setInputValidationError(true);
                 return
