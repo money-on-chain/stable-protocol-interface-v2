@@ -297,7 +297,6 @@
             "default" : "∆Wait for transaction confirmation"
         }
      },
-
      "menuOptions": {
         "portfolio": "Portafolio",
         "send" : "Enviar",
@@ -307,6 +306,5 @@
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
         "more" : "Más"
-
     }
 }

@@ -17,7 +17,7 @@ export default function SectionHeader() {
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [t, i18n, ns] = useProjectTranslation();
-
+    const [menuLimit, setMenuLimit] = useState(4);
 
     useEffect(() => {
         if (auth.isLoggedIn &&
@@ -61,54 +61,58 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
-    const menu = {
-        mainMenu: [
+    const menu = [
             {
-                name: "portfolio",
+                name: t('menuOptions.portfolio'),
                 text: t('menuOptions.portfolio'),
+                className: 'logo-portfolio',
                 action: goToPortfolio,
                 isActive: true
             },
             {
                 name: t('menuOptions.send'),
                 text: t('menuOptions.send'),
+                className: 'logo-send',
                 action: goToSend,
                 isActive: true
             },
             {
                 name: t('menuOptions.exchange'),
                 text: t('menuOptions.exchange'),
+                className: 'logo-exchange',
                 action: goToExchange,
                 isActive: true
             },
             {
                 name: "Performance",
                 text: t('menuOptions.performance'),
+                className: 'logo-performance',
                 action: goToPerformance,
                 isActive: true
             },
             {
                 name: "Staking",
                 text: t('menuOptions.staking'),
+                className: 'logo-staking',
                 action: goToStaking,
                 isActive: true
-            }
-        ],
-        dropdownMenu: [
+            },
             {
                 name: "Liquidity Mining",
                 text: t('menuOptions.liquidityMining'),
+                className: 'logo-liquidity-mining',
                 action: goToLiquidityMining,
                 isActive: true
             },
             {
                 name: t('menuOptions.vesting'),
                 text: t('menuOptions.vesting'),
+                className: 'logo-vesting',
                 action: goToVesting,
                 isActive: true
             }
-        ]
-    }
+    ];
+
     const getActiveTabsNumber = () => {
         let activeTabs = 0;
         menu.mainMenu.forEach(item => {
@@ -146,15 +150,15 @@ export default function SectionHeader() {
             }
         });
     };
-    const pathMap = {
-        "Portfolio": ['/', '/home'],
-        "Send": ['/send'],
-        "Exchange": ['/exchange'],
-        "Performance": ['/performance'],
-        "Staking": ['/staking'],
-        "Liquidity Mining": ['/liquidity-mining'],
-        "Vesting": ['/vesting']
-    };
+    const pathMap = [
+        ['/'],
+        ['/send'],
+        ['/exchange'],
+        ['/performance'],
+        ['/staking'],
+        ['/liquidity-mining'],
+        ['/vesting']
+    ];
     const updateMenuItemClasses = (menuItem) => {
         const isActive = pathMap[menuItem.name]?.includes(location.pathname);
         return {
@@ -165,10 +169,10 @@ export default function SectionHeader() {
         };
     };
 
-    const getMenuItemClasses = (itemName) => {
+    const getMenuItemClasses = (logoClass, index) => {
         let containerClassName = `menu-nav-item ` + css_disable;
-        const isSelected = pathMap[itemName]?.includes(location.pathname);
-        let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
+        const isSelected = pathMap[index]?.includes(location.pathname);
+        let iconClassName = `${logoClass}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
         
         if (isSelected) {
             containerClassName += ' menu-nav-item-selected';
@@ -185,9 +189,9 @@ export default function SectionHeader() {
                 </div>
 
                 <div className="central-menu">
-                    {menuOptions.mainMenu.map((option) => {
-                        const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                        if (option.isActive) {
+                    {menuOptions.map((option, index) => {
+                        const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index);
+                        if (option.isActive && index < menuLimit) {
                             return (
                                 <a
                                     onClick={option.action}
@@ -195,12 +199,14 @@ export default function SectionHeader() {
                                     key={option.name}
                                 >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{option.name}</span>
+                                    <span className="menu-nav-item-title">{menuOptions[index].name}</span>
                                 </a>
                             );
                         }
                         else return null;
-                    })}
+                    }
+                    )}
+                    {/*
                     {getActiveTabsNumber() > 5 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
                         <i className='logo-more color-filter-invert'></i>
                         <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
@@ -219,7 +225,7 @@ export default function SectionHeader() {
                                 </a>
                             );
                         })}
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="wallet-user">
                     {/*<div className="wallet-translation">

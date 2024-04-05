@@ -245,5 +245,15 @@
             "error": "Transaction failed!",
             "default": "Wait for transaction confirmation"
         }
-     }
+     },
+     "menuOptions": {
+        "portfolio": "Portfolio",
+        "send" : "Send",
+        "exchange" : "exchange",
+        "performance" : "Performance",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Vesting",
+        "more" : "More"
+    }
 }
