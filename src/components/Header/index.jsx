@@ -198,6 +198,7 @@ export default function SectionHeader() {
         setShowLanguageMenu(prevState => !prevState);
     };
     const pickLanguage = (code) => {
+        i18n.changeLanguage(code);
         setLang(code);
         setShowLanguageMenu(false);
     };
