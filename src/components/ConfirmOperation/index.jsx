@@ -580,9 +580,9 @@ export default function ConfirmOperation(props) {
                     </span>
                 </div>
                 <div className="disclaimer">
-                    {t('exchange.fee.disclaimer1')}
+                    {t('fees.disclaimer1')}
                     <br />
-                    {t('exchange.fee.disclaimer2')}
+                    {t('fees.disclaimer2')}
                 </div>
             </div>
 

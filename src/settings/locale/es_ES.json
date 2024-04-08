@@ -95,11 +95,6 @@
             "seeVariationTolarance": "Ver Tolerancia de Variación de Precio"
         },
 
-        "fee": {
-            "disclaimer1": "Este fee será restado del monto a ser transferido.",
-            "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
-        },
-
         "confirm": {
             "submit": "Espera la confirmación de la transacción",
             "sign": "Firma la transacción en tu billetera",
@@ -117,18 +112,16 @@
             "title": "Personalizar Tolerancia de Variación de Precio",
             "sliderLabel" : "Tolerancia de Variación de Precio"
         },
-        "exchangingSummary": "Cambiando",
-        "exchangingSign": "≈", 
-        "exchangingCurrency": "USD",
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
         "labelBalance": "balance",
+        "labelUpTo" : "hasta",
         "labelReceiving": "Recibiendo",
         "labelTransactionID": "ID de transacción",
         "placeholder": "Dirección",
-        "sendingSummary": "Enviando",
-        "sendingSign": " ",
-        "sendingCurrency": "USD",
+        "exchangingSummary": "Cambiando",
+        "exchangingSign": "≈",
+        "exchangingCurrency": "USD",
         "buttonPrimary": "Enviar",
         "modalTitle": "Confirmar Cambio",
         "buttonCancel": "Cancelar",
@@ -205,19 +198,22 @@
             "cardTitle": "Estado del Sistema",
 
             "statusTitleFull": "Totalmente Operativo",
-            "statusDescriptionFull": "The system is in optimal condition",
+            "statusDescriptionFull": "∆The system is in optimal condition",
 
-            "stuatuTitleWarning": "Parcialmente Operativo",
-            "statusDescriptionWarning": "Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+            "stuatusTitleWarning": "Parcialmente Operativo",
+            "statusDescriptionWarning": "∆Token Collateral cannot be redeemed. Token Pegged cannot be minted",
 
             "statusTitleAlert": "Modo Protegido",
-            "StatusDescriptionAlert": "No hay operaciones permitidas",
+            "statusDescriptionAlert": "No hay operaciones permitidas",
 
             "statusTitleLiquidated": "Liquidado",
-            "StatusDescriptionLiquidated": "No hay operaciones permitidas",
+            "statusDescriptionLiquidated": "No hay operaciones permitidas",
             
             "statusTitlePaused": "Pausado",
-            "StatusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
+            "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
+
+            "statusTitleUnavailable" : "Cannot operate",
+            "statusDescreiptionUnavailable" : "∆One or more contracts are temporarily unavailable. Please try again later.",
 
             "showingBlock": "Mostrando bloque"
 
@@ -297,6 +293,15 @@
             "default" : "∆Wait for transaction confirmation"
         }
      },
+     "inputFields": {
+        "maxButton" : "maI"
+     },
+
+     "fees": {
+        "labelFee" : "Fee",
+        "disclaimer1": "Este fee será restado del monto a ser transferido.",
+        "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
+    },
 
      "menuOptions": {
         "portfolio": "Portafolio",

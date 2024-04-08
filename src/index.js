@@ -26,7 +26,7 @@ async function loadTranslations() {
     try {
         await i18next.init({
             interpolation: { escapeValue: false },
-            lng: 'es',
+            lng: 'en',
             resources: {
                 es: { translation: es_ES },
                 en: { translation: en_US }

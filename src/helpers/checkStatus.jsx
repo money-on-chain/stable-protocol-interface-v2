@@ -1,11 +1,14 @@
 import { useContext } from 'react';
 import { BigNumber } from 'bignumber.js';
 
+import { useProjectTranslation } from '../helpers/translations';
+
 import { AuthenticateContext } from '../context/Auth';
 import { fromContractPrecisionDecimals } from './Formats';
 import settings from '../settings/settings.json';
 
 export default function CheckStatus() {
+  const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   if (!auth.contractStatusData) return {isValid: false, statusIcon: '', statusLabel: '', statusText: ''};
   const globalCoverage = new BigNumber(
@@ -41,39 +44,39 @@ export default function CheckStatus() {
 
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
-    statusLabel = 'Fully Operational';
-    statusText = 'The system is in optimal condition';
+    statusLabel = t("performance.status.statusTitleFull");
+    statusText = t("performance.status.statusDescriptionFull");
     isValid = true;
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
-    statusLabel = 'Partially Operational';
-    statusText = 'Token Collateral cannot be redeemed. Token Pegged cannot be minted';
+    statusLabel = t("performance.status.stuatusTitleWarning");
+    statusText = t("performance.status.statusDescriptionWarning");
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
     statusIcon = 'icon-status-alert';
-    statusLabel = 'Protected Mode';
-    statusText = 'No operations allowed';
+    statusLabel = t("performance.status.statusTitleAlert");
+    statusText = t("performance.status.statusDescriptionAlert");
     isValid = false;
   }
 
   if (auth.contractStatusData.liquidated) {
     statusIcon = 'icon-status-alert';
-    statusLabel = 'Liquidated';
-    statusText = 'No operations allowed';
+    statusLabel = t("performance.status.statusTitleLiquidated");
+    statusText = t("performance.status.statusDescriptionLiquidated");
     isValid = false;
   }
 
   if (auth.contractStatusData.paused) {
     statusIcon = 'icon-status-alert';
-    statusLabel = 'Paused';
-    statusText = 'The contract is paused. No operations allowed';
+    statusLabel = t("performance.status.statusTitlePaused");
+    statusText = t("performance.status.statusDescriptionPaused");
     isValid = false;
   }
 
   if (!auth.contractStatusData.canOperate) {
     statusIcon = 'icon-status-alert';
-    statusLabel = 'Cannot operate';
-    statusText = 'One or more contracts are temporarily unavailable. Please try again later.';
+    statusLabel = t("performance.status.statusTitleUnavailable");
+    statusText = t("performance.status.statusDescreiptionUnavailable");
     isValid = false;
   }
   return {isValid , statusIcon, statusLabel, statusText};
