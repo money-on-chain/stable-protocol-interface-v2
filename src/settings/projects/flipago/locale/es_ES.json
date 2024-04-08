@@ -306,5 +306,9 @@
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
         "more" : "Más"
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
     }
 }

@@ -122,5 +122,9 @@
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Vesting",
         "more" : "More"
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
     }
 }
