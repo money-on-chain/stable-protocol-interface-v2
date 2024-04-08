@@ -248,8 +248,8 @@ export default function SectionHeader() {
                     </div>*/}
                 </div>
                 <div className="wallet-user">
-                    <div className="wallet-translation">
-                        <a href="#" className="translation-selector" onClick={toggleLanguageMenu}>
+                    <div className="wallet-translation" onClick={toggleLanguageMenu}>
+                        <a href="#" className="translation-selector" >
                             {' '}
                             {languageOptions.find(option => option.code === lang).name }{' '}
                         </a>{' '}
@@ -271,9 +271,9 @@ export default function SectionHeader() {
                                             className={`menu-item${lang === option.code ? '-selected' : ''}`}
                                             onClick={() => pickLanguage(option.code)}
                                         >
-                                            <div className="menu-icon">
+                                            {/*<div className="menu-icon">
                                                 <img src={option.icon} alt={option.name} />
-                                            </div>
+                                    </div>*/}
                                             <span>{option.name}</span>
                                            {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
                                         </div>
