@@ -28,6 +28,7 @@ export default function ListOperations(props) {
     const { accountData = {} } = auth;
     const [dataJson, setDataJson] = useState([]);
     const [totalTable, setTotalTable] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
     const [loadingSke, setLoadingSke] = useState(true);
     const timeSke = 1500;
     var data = [];
@@ -758,11 +759,15 @@ export default function ListOperations(props) {
                                 )
                         }}
                         pagination={{
-                            pageSize: 10,
+                            pageSize: pageSize,
                             position: ['none', 'bottomRight'],
                             defaultCurrent: 1,
                             onChange: onChange,
-                            total: totalTable
+                            total: totalTable,
+                            pageSizeOptions: [10, 20, 50, 100],
+                            onShowSizeChange: (current, pageSize) => {
+                                setPageSize(pageSize);
+                            }
                         }}
                         columns={tableColumns}
                         dataSource={

@@ -4,35 +4,95 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
-    "numberSeparator":{
-        "decimalPoint": ".",
-        "thousandSeparator": ","
-      },
+    "Tokens_TP_code": "DOC",
+    "Tokens_TP_name": "DoC",
+    "Tokens_TC_code": "BPRO",
+    "Tokens_TC_name": "BPro",
+    "Tokens_TX_code": "BTCX",
+    "Tokens_TX_name": "BTCx",
+    "Tokens_RESERVE_code": "RBTC",
+    "Tokens_RESERVE_name": "rBTC",
+    "Tokens_USD_code": "USD",
+    "Tokens_USD_name": "Dollar",
+    "Tokens_TG_code": "MOC",
+    "Tokens_TG_name": "MoC",
+    "Tokens_USDPrice_code": "USD",
+    "Tokens_USDPrice_name": "Dollar",
     "operations": {
         "title": "Last Operations",
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
         "empty": "No operations",
+        "explain": {
+            "RiskProMint": "You received in your platform",
+            "RiskProRedeem": "You received in your wallet",
+            "StableTokenMint": "You received in your platform",
+            "StableTokenRedeem": "You received  in your wallet by redeeming on settlement",
+            "FreeStableTokenRedeem": "You received in your wallet",
+            "RiskProxMint": "You received in your platform",
+            "RiskProxRedeem": "You received in your wallet",
+            "SettlementDeleveraging": "You received in your wallet by settlement deleveraging event",
+            "RedeemRequestAlter": "You queue to redeem on settlement",
+            "Transfer_positive": "You transfer to another account",
+            "Transfer_negative": "Another account transfer to you",
+            "BucketLiquidation": "was liquidated on bucket liquidation event"
+        },
+        "memo": {
+            "edit": "Edit your comment and press enter to save it"
+        },
         "headers": {
             "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
+        },
+        "columns": {
+            "event": "Event",
+            "type": "Asset",
+            "amount": "Platform",
+            "totalBtc": "Wallet",
+            "platformFee": "Platform fee",
+            "rbtcCommission": "__app__ Fee",
+            "totalUsd": "USD",
+            "yieldUsd": "USD yield",
+            "yieldBtc": "BTC yield",
+            "rbtcInterests": "Interests __tokenCode__",
+            "date": "Date",
+            "status": "Status",
+            "leverage": "Leverage",
+            "mocAmount": "Amount",
+            "memo": "Comments"
         },
         "columns_detailed": {
             "event": "Event",
             "created": "Created",
-            "gas_used": "Gas Used",
-            "oper_id": "Operation ID",
+            "detail": "Detail",
+            "asset": "Asset",
             "confirmation": "Confirmation",
-            "recipient": "Recipient",
-            "status": "Status",
-            "error_code": "Error Code",
+            "address": "Address",
+            "platform": "Platform",
+            "platform_fee": "Platform Fee",
             "block": "Block Nº",
-            "executed_tx": "Executed",
+            "wallet": "Wallet",
+            "interests": "Interests",
             "tx": "TX Hash",
-            "fee": "Fee",
+            "leverage": "Leverage",
             "gas": "Gas Fee",
-            "msg": "msg",
-            "reason": "reason"
+            "memo": "Comments",
+            "reserve_price": "Reserve Price",
+            "txRequest": "TX Request",
+            "txSent": "TX Sent",
+            "status": "Status",
+            "amount": "Amount",
+            "gasCost": "Gas Cost",
+            "transaction": "Transaction",
+            "mocPrice": "Moc Price"
+        },
+        "status": {
+            "open": "Open",
+            "settled": "Settled",
+            "confirming": "Confirming",
+            "confirmed": "Confirmed",
+            "pending": "Pending",
+            "failed": "Failed"
         }
     },
     "exchange": {
@@ -48,14 +108,6 @@
             "TP_0": {
                 "label": "RIF Dollar",
                 "abbr": "USDRIF"
-            },
-            "COINBASE": {
-                "label": "rBTC",
-                "abbr": "RBTC"
-            },
-            "TF": {
-                "label": "MoC",
-                "abbr": "MoC"
             }
         }
     },
@@ -87,11 +139,6 @@
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "MoC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2
-                    },
-                    "4": {
                         "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
@@ -109,22 +156,10 @@
                 },
                 "rows": {}
             }
-        },
-       "sectionTitle": "Portfolio",
-       "totalBalance": "Total Balance"
-    },
-    "menuOptions": {
-        "portfolio": "Portfolio",
-        "send" : "Send",
-        "exchange" : "exchange",
-        "performance" : "Performance",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Vesting",
-        "more" : "More"
+        }
     },
     "language" : {
-        "en": "🇬🇧 English",
-        "es": "🇪🇸 Español"
+        "en": "Inglés",
+        "es": "Español"
     }
 }

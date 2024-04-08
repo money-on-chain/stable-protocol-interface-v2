@@ -293,6 +293,7 @@
             "default" : "∆Wait for transaction confirmation"
         }
      },
+<<<<<<< HEAD
      "inputFields": {
         "maxButton" : "maI"
      },
@@ -303,6 +304,8 @@
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
+=======
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
      "menuOptions": {
         "portfolio": "Portafolio",
         "send" : "Enviar",
@@ -312,6 +315,9 @@
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
         "more" : "Más"
-
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
     }
 }

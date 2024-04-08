@@ -21,9 +21,14 @@ export default class InputAmount extends Component {
                 <div className="input-field-container">
                     <input
                         placeholder={this.props.placeholder}
+                        // value={this.props.InputValue}
                         value={this.props.isDirty ? null : this.props.InputValue === 0 ? '' : this.props.InputValue}
-                        debounceTimeout={1000}
-                        onChange={(event) => this.props.onValueChange(event.target.value)}
+                        // debounceTimeout={1000}
+                        onChange={(event) =>{
+                            console.log('event.target.value', event.target.value);
+                            this.props.onValueChange(event.target.value)
+
+                        }}
                         className={`input-value ${this.props.validateError ? 'input-value-error' : ''}`}
                         type={'number'}
                     />

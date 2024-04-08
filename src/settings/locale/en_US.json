@@ -4,8 +4,12 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
+    "numberSeparator":{
+        "decimalPoint": ".",
+        "thousandSeparator": ","
+      },
     "operations": {
-        "sectionTitle": "Last Operations",
+        "title": "Last Operations",
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -44,10 +48,11 @@
             "tx": "TX Hash",
             "fee": "Fee",
             "gas": "Gas Fee",
-            "msg": "Message",
-            "reason": "Reason"
+            "msg": "msg",
+            "reason": "reason"
         }
     },
+<<<<<<< HEAD
     "feedback" :{
         "clipboardCopy" : "Copied",
         "clipboardTo" : "to the clipboard"
@@ -62,32 +67,31 @@
         }
     },
 
+=======
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "RIF Pro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
-            },
-            "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "RIF Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
+<<<<<<< HEAD
         },
 
         "limit": {
@@ -131,6 +135,9 @@
         "infoAddressEmpty": "Enter destination address",
         "infoAddressInvalid": "Invalid destination address"
 
+=======
+        }
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     },
     "portfolio": {
         "tokens": {
@@ -140,26 +147,32 @@
                     "price": "Price in USD",
                     "variation": "24h variation",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "RIF",
+                        "symbol": " (RIF)",
+                        "price_decimals": 4
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
+                        "price_decimals": 4
                     },
                     "2": {
-                        "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "Smart Bitcoin",
+                        "title": "MoC",
+                        "symbol": " (MOC)",
+                        "price_decimals": 2
+                    },
+                    "4": {
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
@@ -171,22 +184,13 @@
                     "price": "Tokens per USD",
                     "variation": "24h variation",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {
-                    "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
-                        "price_decimals": 2
-                    },
-                    "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
-                        "price_decimals": 2
-                    }
-                }
+                "rows": {}
             }
         },
+<<<<<<< HEAD
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",
         "totalBalance": "Total Balance"
@@ -313,5 +317,23 @@
         "vesting" : "Vesting",
         "more" : "More"
 
+=======
+       "sectionTitle": "Portfolio",
+       "totalBalance": "Total Balance"
+    },
+    "menuOptions": {
+        "portfolio": "Portfolio",
+        "send" : "Send",
+        "exchange" : "exchange",
+        "performance" : "Performance",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Vesting",
+        "more" : "More"
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     }
 }

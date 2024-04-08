@@ -276,6 +276,7 @@
             "default": "Wait for transaction confirmation"
         }
      },
+<<<<<<< HEAD
 
      "allowance": {
         "cardTitle" : "Authorize using",
@@ -307,11 +308,24 @@
         "portfolio": "Portfolio",
         "send" : "Send",
         "exchange" : "Exchange",
+=======
+     "menuOptions": {
+        "portfolio": "Portfolio",
+        "send" : "Send",
+        "exchange" : "exchange",
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
         "performance" : "Performance",
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Vesting",
         "more" : "More"
+<<<<<<< HEAD
 
+=======
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     }
 }

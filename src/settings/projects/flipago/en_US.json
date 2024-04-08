@@ -4,10 +4,6 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
-    "numberSeparator":{
-        "decimalPoint": ".",
-        "thousandSeparator": ","
-      },
     "operations": {
         "title": "Last Operations",
         "tooltip": {
@@ -38,24 +34,28 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "Go Turbo",
+                "abbr": "Turbo"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "Go ARS",
+                "abbr": "GoARS"
+            },
+            "TP_1": {
+                "label": "Go COP",
+                "abbr": "GoCOP"
             },
             "COINBASE": {
                 "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MoC",
-                "abbr": "MoC"
+                "label": "Flip",
+                "abbr": "FLIP"
             }
         }
     },
@@ -67,32 +67,26 @@
                     "price": "Price in USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
-                        "price_decimals": 4
+                        "title": "Dollar on Chain",
+                        "symbol": " (DOC)",
+                        "price_decimals": 2
                     },
                     "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
-                        "price_decimals": 4
+                        "title": "Go Turbo",
+                        "symbol": " (TURBO)",
+                        "price_decimals": 2
                     },
                     "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
+                        "title": "Flip",
+                        "symbol": " (GOFLIP)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "MoC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2
-                    },
-                    "4": {
-                        "title": "rBTC",
+                        "title": "RBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
@@ -104,27 +98,25 @@
                     "price": "Tokens per USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {}
+                "rows": {
+                    "0": {
+                        "title": "GoARS",
+                        "symbol": " (GOARS)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "GoCOP",
+                        "symbol": " (GOCOP)",
+                        "price_decimals": 2
+                    }
+                }
             }
-        },
-       "sectionTitle": "Portfolio",
-       "totalBalance": "Total Balance"
-    },
-    "menuOptions": {
-        "portfolio": "Portfolio",
-        "send" : "Send",
-        "exchange" : "exchange",
-        "performance" : "Performance",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Vesting",
-        "more" : "More"
+        }
     },
     "language" : {
-        "en": "🇬🇧 English",
-        "es": "🇪🇸 Español"
+        "en": "English",
+        "es": "Spanish"
     }
 }

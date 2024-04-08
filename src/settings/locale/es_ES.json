@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
     "NoConnection_alertTitle": "¡Billetera no conectada!",
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
@@ -304,6 +305,124 @@
     },
 
      "menuOptions": {
+=======
+  "CustomizePrize_VariationToleranceTitle": "Price Variation Tolerance",
+  "NoConnection_alertTitle": "Wallet not connected!",
+  "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
+  "invalidValueDescription": "No value to display",
+  "invalidValuePlaceholder": "--",
+  "numberSeparator":{
+    "decimalPoint": ",",
+    "thousandSeparator": "."
+  },
+  "operations": {
+      "title": "Last Operations",
+      "tooltip": {
+          "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
+      },
+      "empty": "No operations",
+      "headers": {
+          "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
+      },
+      "columns_detailed": {
+          "event": "Event",
+          "created": "Created",
+          "gas_used": "Gas Used",
+          "oper_id": "Operation ID",
+          "confirmation": "Confirmation",
+          "recipient": "Recipient",
+          "status": "Status",
+          "error_code": "Error Code",
+          "block": "Block Nº",
+          "executed_tx": "Executed",
+          "tx": "TX Hash",
+          "fee": "Fee",
+          "gas": "Gas Fee",
+          "msg": "msg",
+          "reason": "reason"
+      }
+  },
+  "exchange": {
+      "tokens": {
+          "CA_0": {
+              "label": "RIF",
+              "abbr": "RIF"
+          },
+          "TC": {
+              "label": "RIF Pro",
+              "abbr": "RIFP"
+          },
+          "TP_0": {
+              "label": "RIF Dollar",
+              "abbr": "USDRIF"
+          },
+          "COINBASE": {
+              "label": "rBTC",
+              "abbr": "RBTC"
+          },
+          "TF": {
+              "label": "MoC",
+              "abbr": "MoC"
+          }
+      }
+  },
+  "portfolio": {
+      "tokens": {
+          "CA": {
+              "columns": {
+                  "name": "Nombre",
+                  "price": "Precio en USD",
+                  "variation": "Variación 24h",
+                  "balance": "Balance",
+                  "rif" : "RIF",
+                  "usd": "USD"
+              },
+              "rows": {
+                  "0": {
+                      "title": "RIF",
+                      "symbol": " (RIF)",
+                      "price_decimals": 4
+                  },
+                  "1": {
+                      "title": "RIFPro",
+                      "symbol": " (RIFP)",
+                      "price_decimals": 4
+                  },
+                  "2": {
+                      "title": "RIF US Dollar",
+                      "symbol": " (USDRIF)",
+                      "price_decimals": 2
+                  },
+                  "3": {
+                      "title": "MoC",
+                      "symbol": " (MOC)",
+                      "price_decimals": 2
+                  },
+                  "4": {
+                      "title": "rBTC",
+                      "symbol": " (RBTC)",
+                      "price_decimals": 2
+                  }
+              }
+          },
+          "TP": {
+              "columns": {
+                  "name": "Nombre",
+                  "price": "Tokens por USD",
+                  "variation": "Variación 24h",
+                  "balance": "Balance",
+                  "rif" : "RIF",
+                  "usd": "USD"
+              },
+              "rows": {}
+          }
+      },
+    "sectionTitle": "Portafolio",
+    "totalBalance": "Balance Total"
+
+    },
+    "menuOptions": {
+>>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
         "portfolio": "Portafolio",
         "send" : "Enviar",
         "exchange" : "Cambiar",
@@ -312,6 +431,9 @@
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
         "more" : "Más"
-
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
     }
 }

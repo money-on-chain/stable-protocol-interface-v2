@@ -4,10 +4,6 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
-    "numberSeparator":{
-        "decimalPoint": ".",
-        "thousandSeparator": ","
-      },
     "operations": {
         "title": "Last Operations",
         "tooltip": {
@@ -109,22 +105,10 @@
                 },
                 "rows": {}
             }
-        },
-       "sectionTitle": "Portfolio",
-       "totalBalance": "Total Balance"
-    },
-    "menuOptions": {
-        "portfolio": "Portfolio",
-        "send" : "Send",
-        "exchange" : "exchange",
-        "performance" : "Performance",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Vesting",
-        "more" : "More"
+        }
     },
     "language" : {
-        "en": "🇬🇧 English",
-        "es": "🇪🇸 Español"
+        "en": "English",
+        "es": "Spanish"
     }
 }

@@ -113,5 +113,19 @@
     "sectionTitle": "Portafolio",
     "totalBalance": "Balance Total"
 
-  }
+    },
+    "menuOptions": {
+        "portfolio": "Portafolio",
+        "send" : "Enviar",
+        "exchange" : "Cambiar",
+        "performance" : "Performance",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Bloqueo",
+        "more" : "Más"
+    },
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
+    }
 }

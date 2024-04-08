@@ -41,43 +41,50 @@ export default function CheckStatus() {
   let statusIcon = '';
   let statusLabel = '--';
   let statusText = '--';
-
+  let errorType = '-1';
+  
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
     statusLabel = t("performance.status.statusTitleFull");
     statusText = t("performance.status.statusDescriptionFull");
+    errorType = '0';
     isValid = true;
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
     statusLabel = t("performance.status.stuatusTitleWarning");
     statusText = t("performance.status.statusDescriptionWarning");
+    errorType = '1';
+
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
-    statusIcon = 'icon-status-alert';
-    statusLabel = t("performance.status.statusTitleAlert");
-    statusText = t("performance.status.statusDescriptionAlert");
+    statusIcon = 'icon-status-warning';
+    statusLabel = 'Protected Mode';
+    statusText = 'No operations allowed';
     isValid = false;
   }
 
   if (auth.contractStatusData.liquidated) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = t("performance.status.statusTitleLiquidated");
     statusText = t("performance.status.statusDescriptionLiquidated");
+    errorType = '3';
     isValid = false;
   }
 
   if (auth.contractStatusData.paused) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = t("performance.status.statusTitlePaused");
     statusText = t("performance.status.statusDescriptionPaused");
+    errorType = '4';
     isValid = false;
   }
 
   if (!auth.contractStatusData.canOperate) {
-    statusIcon = 'icon-status-alert';
+    statusIcon = 'icon-status-warning';
     statusLabel = t("performance.status.statusTitleUnavailable");
     statusText = t("performance.status.statusDescreiptionUnavailable");
+    errorType = '5';
     isValid = false;
   }
-  return {isValid , statusIcon, statusLabel, statusText};
+  return {isValid , statusIcon, statusLabel, statusText, errorType};
 }
