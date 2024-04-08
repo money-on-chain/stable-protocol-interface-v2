@@ -24,16 +24,17 @@ import {
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
-// import InputAmount from '../InputAmount';
 import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import CheckStatus from '../../helpers/checkStatus';
+import { getMaxWithTolerance } from '../../helpers/toleranceCalculator';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
+    const [defaultTolerance, setDefaultTolerance] = useState(0.2);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -147,11 +148,13 @@ export default function Exchange() {
 
         // 0. Amount > 0
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
+            setInputValidationError(true);
             if (valueExchange !== '' || valueReceive !== '') {
                 setInputValidationErrorText('Amount must be greater than zero');
                 setInputValidationError(true);
                 return
             }
+            return;
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
             setInputValidationErrorText('Amount must be greater than zero');
@@ -166,13 +169,24 @@ export default function Exchange() {
                 TokenSettings(currencyYouExchange).decimals
             )
         );
-
+        
         if (amountYouExchange.gt(totalBalance)) {
             setInputValidationErrorText('Not enough balance in your wallet');
             setInputValidationError(true);
             return
         }
 
+        const totalYouExchangeWithTolerance = getMaxWithTolerance(
+            defaultTolerance,
+            totalBalance,
+            new BigNumber(0),
+            currencyYouExchange,
+            currencyYouReceive
+        ).exchange;
+        if (amountYouExchange.gt(totalYouExchangeWithTolerance)) {
+            setInputValidationErrorText('Your TX may exceed tolerance limit');
+            return
+        }
         let tIndex
         // 2. MINT TP. User receive available token in contract
         const arrCurrencyYouReceive = currencyYouReceive.split('_')
@@ -247,8 +261,6 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
-            console.log("maxQACToMintTP: ", maxQACToMintTP.toString())
-            console.log("amountYouExchange: ", new BigNumber(amountYouExchange).toString())
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
                 setInputValidationErrorText('Maximum temporarily limited by the protocol');
                 setInputValidationError(true);
@@ -430,12 +442,20 @@ export default function Exchange() {
     const setAddTotalAvailable = () => {
 
         const tokenSettings = TokenSettings(currencyYouExchange);
-        const totalYouExchange = new BigNumber(
+        const totalbalance = new BigNumber(
             fromContractPrecisionDecimals(
                 TokenBalance(auth, currencyYouExchange),
                 tokenSettings.decimals
             )
         );
+        const totalYouExchange = getMaxWithTolerance(
+            defaultTolerance,
+            totalbalance,
+            new BigNumber(0),
+            currencyYouExchange,
+            currencyYouReceive
+        ).exchange;
+
         const convertAmountReceive = ConvertAmount(
             auth,
             currencyYouExchange,
