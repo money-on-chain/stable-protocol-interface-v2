@@ -298,7 +298,7 @@
      "menuOptions": {
         "portfolio": "Portfolio",
         "send" : "Send",
-        "exchange" : "exchange",
+        "exchange" : "Exchange",
         "performance" : "Performance",
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
@@ -314,5 +314,11 @@
     "numberFormat" : {
         "thousandsSeparator" : ",",
         "decimalSeparator" : "."
+    },
+
+    "swapModal" : {
+        "text1" : "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
+        "text2" : "Swap Now button",
+        "button" : "Swap Now"
     }
 }

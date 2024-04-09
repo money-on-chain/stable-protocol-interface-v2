@@ -5,7 +5,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
-import { func } from 'prop-types';
 
 import lang_en from  '../../assets/icons/lang_en.svg';
 import lang_es from  '../../assets/icons/lang_en.svg';
@@ -20,7 +19,7 @@ export default function SectionHeader() {
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [t, i18n, ns] = useProjectTranslation();
-    const [menuLimit, setMenuLimit] = useState(4);
+    const menuLimit = 4;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -244,7 +243,7 @@ export default function SectionHeader() {
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation" onClick={toggleLanguageMenu}>
-                        <a href="#" className="translation-selector" >
+                        <a className="translation-selector" >
                             {' '}
                             {languageOptions.find(option => option.code === lang).name }{' '}
                         </a>{' '}
@@ -266,9 +265,6 @@ export default function SectionHeader() {
                                             className={`menu-item${lang === option.code ? '-selected' : ''}`}
                                             onClick={() => pickLanguage(option.code)}
                                         >
-                                            {/*<div className="menu-icon">
-                                                <img src={option.icon} alt={option.name} />
-                                    </div>*/}
                                             <span>{option.name}</span>
                                            {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
                                         </div>
