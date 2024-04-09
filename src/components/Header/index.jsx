@@ -276,7 +276,7 @@ export default function SectionHeader() {
                                                 <img src={option.icon} alt={option.name} />
                                     </div>*/}
                                             <span>{option.name}</span>
-                                           {/* {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />} */}
+                                           {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
                                         </div>
                                     );
                                 })}
