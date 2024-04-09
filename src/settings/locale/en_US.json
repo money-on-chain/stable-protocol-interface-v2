@@ -4,12 +4,8 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
-    "numberSeparator":{
-        "decimalPoint": ".",
-        "thousandSeparator": ","
-      },
     "operations": {
-        "title": "Last Operations",
+        "sectionTitle": "Last Operations",
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -48,11 +44,10 @@
             "tx": "TX Hash",
             "fee": "Fee",
             "gas": "Gas Fee",
-            "msg": "msg",
-            "reason": "reason"
+            "msg": "Message",
+            "reason": "Reason"
         }
     },
-<<<<<<< HEAD
     "feedback" :{
         "clipboardCopy" : "Copied",
         "clipboardTo" : "to the clipboard"
@@ -67,8 +62,6 @@
         }
     },
 
-=======
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     "exchange": {
         "tokens": {
             "CA_0": {
@@ -91,7 +84,6 @@
                 "label": "MoC",
                 "abbr": "MoC"
             }
-<<<<<<< HEAD
         },
 
         "limit": {
@@ -135,9 +127,6 @@
         "infoAddressEmpty": "Enter destination address",
         "infoAddressInvalid": "Invalid destination address"
 
-=======
-        }
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
     },
     "portfolio": {
         "tokens": {
@@ -145,7 +134,7 @@
                 "columns": {
                     "name": "Name",
                     "price": "Price in USD",
-                    "variation": "24h variation",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
                     "rif" : "RIF",
                     "usd": "USD"
@@ -182,7 +171,7 @@
                 "columns": {
                     "name": "Name",
                     "price": "Tokens per USD",
-                    "variation": "24h variation",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
                     "rif" : "RIF",
                     "usd": "USD"
@@ -190,7 +179,6 @@
                 "rows": {}
             }
         },
-<<<<<<< HEAD
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",
         "totalBalance": "Total Balance"
@@ -292,7 +280,7 @@
         "feedback" : {
             "submit" : "",
             "sign" : "Please, sign the allowance authorization transaction using your wallet.",
-            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
+            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
             "error" : "Operation Failed!",
             "default" : "Wait for transaction confirmation"
         }
@@ -310,20 +298,6 @@
      "menuOptions": {
         "portfolio": "Portfolio",
         "send" : "Send",
-        "exchange" : "Exchange",
-        "performance" : "Performance",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Vesting",
-        "more" : "More"
-
-=======
-       "sectionTitle": "Portfolio",
-       "totalBalance": "Total Balance"
-    },
-    "menuOptions": {
-        "portfolio": "Portfolio",
-        "send" : "Send",
         "exchange" : "exchange",
         "performance" : "Performance",
         "staking" : "Staking",
@@ -331,9 +305,14 @@
         "vesting" : "Vesting",
         "more" : "More"
     },
+   
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
+    },
+
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
     }
 }

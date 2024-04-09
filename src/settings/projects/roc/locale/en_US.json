@@ -4,12 +4,8 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
-    "numberSeparator":{
-        "decimalPoint": ".",
-        "thousandSeparator": ","
-      },
     "operations": {
-        "title": "Last Operations",
+        "sectionTitle": "Last Operations",
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -17,24 +13,55 @@
         "headers": {
             "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
         },
+        "actions" : {
+            "transfer" : "Transfer",
+            "exchanging" : "Exchanging",
+            "exchanged" : "Exchanged",
+            "receiving" : "Receiving",
+            "received" : "Received",
+            "origin" : "From",
+            "destination" : "Destination",
+            "statusQueuing" : "Queuing",
+            "statusQueued" : "Queued",
+            "statusConfirming" : "Confirming",
+            "statusConfirmed" : "Confirmed",
+            "statusFailed" : "Failed"
+        },
+        "columns": {
+            "date": "Date"
+        },
         "columns_detailed": {
             "event": "Event",
             "created": "Created",
-            "gas_used": "Gas Used",
+            "gas_used": "Gas used",
             "oper_id": "Operation ID",
             "confirmation": "Confirmation",
             "recipient": "Recipient",
             "status": "Status",
-            "error_code": "Error Code",
-            "block": "Block Nº",
-            "executed_tx": "Executed",
+            "error_code": "Error code",
+            "block": "Block Number",
+            "executed_tx": "Executed TX",
             "tx": "TX Hash",
             "fee": "Fee",
             "gas": "Gas Fee",
-            "msg": "msg",
-            "reason": "reason"
+            "msg": "Message",
+            "reason": "Reason"
         }
     },
+    "feedback" :{
+        "clipboardCopy" : "Copied",
+        "clipboardTo" : "to the clipboard"
+    },
+
+    "wallet" :{
+        "modalTitle" : "Connect Wallet",
+        "userAddress" : "Address",
+        "cta": {
+            "disconnect" : "Disconnect",
+            "close" : "Close"
+        }
+    },
+
     "exchange": {
         "tokens": {
             "CA_0": {
@@ -57,7 +84,49 @@
                 "label": "MoC",
                 "abbr": "MoC"
             }
-        }
+        },
+
+        "limit": {
+            "minimumToReceive": "Minimum to receive",
+            "seeVariationTolarance": "See Price Variation Tolerance"
+        },
+
+        "confirm": {
+            "submit": "Wait for transaction confirmation",
+            "sign": "Sign the transaction in your wallet",
+            "queuing": "Queuing transaction…",
+            "queued": "Operation queued. Wating for execution…",
+            "confirming": "Confirming transaction",
+            "success": "Transaction successful",
+            "error": "Transaction failed!",
+            "default": "Espera la confirmación de la transacción",
+            "minimumWarning" : "Minimum to receive",
+            "minimumExplanation" : "(see price variation tolerance)"
+        },
+
+        "priceVariation": {
+            "title": "Customice price variation tolerance",
+            "sliderLabel" : "Price Variation Tolerance"
+        },
+        "cardTitle": "Exchange",
+        "labelSending": "Exchanging",
+        "labelBalance": "Balance",
+        "labelUpTo" : "Up to",
+        "labelReceiving": "Receiving",
+        "labelTransactionID": "Transaction ID",
+        "placeholder": "Address",
+        "exchangingSummary": "Exchanging",
+        "exchangingSign": "≈",
+        "exchangingCurrency": "USD",
+        "buttonPrimary": "Exchange",
+        "modalTitle": "Confirm exchange",
+        "buttonCancel": "Cancel",
+        "buttonConfirm" : "Confirm",
+        "buttonClose": "Close",
+        "infoNoBalance": "insufficient balance",
+        "infoAddressEmpty": "Enter destination address",
+        "infoAddressInvalid": "Invalid destination address"
+
     },
     "portfolio": {
         "tokens": {
@@ -110,10 +179,123 @@
                 "rows": {}
             }
         },
-       "sectionTitle": "Portfolio",
-       "totalBalance": "Total Balance"
+        "sectionTitle": "Portfolio",
+        "totalCurrency": "USD",
+        "totalBalance": "Total Balance"
+   
     },
-    "menuOptions": {
+    "performance": {
+        "sectionTitle": "Performance",
+        "status": {
+            "cardTitle": "System status",
+
+            "statusTitleFull": "Fully Operational",
+            "statusDescriptionFull": "The system is in optimal condition",
+
+            "stuatusTitleWarning": "Partially Operational",
+            "statusDescriptionWarning": "Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+
+            "statusTitleAlert": "Protected Mode",
+            "statusDescriptionAlert": "No operations allowed",
+
+            "statusTitleLiquidated": "Liquidated",
+            "statusDescriptionLiquidated": "No operations allowed",
+            
+            "statusTitlePaused": "Pausado",
+            "statusDescriptionPaused": "The contract is paused. No operations allowed",
+
+            "statusTitleUnavailable" : "Cannot operate",
+            "statusDescreiptionUnavailable" : "One or more contracts are temporarily unavailable. Please try again later.",
+
+            "showingBlock": "Showing block"
+
+        },
+        "tvl": {
+            "cardTitle": "Total Value Locked",
+            "expressedIn": "Expressed in USD"
+        },
+
+        "tc": {
+            "priceIn": "Price in USD",
+            "currentLeverage": "Current leverage",
+            "totalInSystem": "Total in the system",
+            "redeemable" : "Available to redeem"
+         },
+
+         "collateral": {
+            "cardTitle": "Collateral",
+            "totalIn": "Total collateral in USD",
+            "globalCoverage": "Global coverage"
+         },
+
+         "pegged": {
+            "cardTitle": "Pegged Tokens Performance",
+            "colName": "Name",
+            "colTokensPer": "Tokens per USD",
+            "colMinted": "Minted",
+            "colMintable": "Mintable",
+            "colTargetCoverage": "Cobertura Obj.",
+            "colEMA": "EMA",
+            "colTargetEMA": "Target EMA"
+         }
+    },
+
+    "send": {
+        "cardTitle": "Send",
+        "labelSending": "Sending",
+        "labelBalance": "Balance",
+        "labelDestination": "Destination address",
+        "labelTransactionID": "Transaction ID",
+        "placeholder": "Address",
+        "sendingSummary": "Sending",
+        "sendingSign": "≈",
+        "sendingCurrency": "USD",
+        "buttonPrimary": "Send",
+        "modalTitle": "Confirm Send",
+        "buttonCancel": "Cancel",
+        "buttonConfirm" : "Confirm",
+        "buttonClose": "Close",
+        "infoNoBalance": "No enough balance",
+        "noNegativeValues" : "Value must be greater than 0",
+        "infoAddressEmpty": "Destination address not specified",
+        "infoAddressInvalid": "Invalid address",
+        "feedback": {
+            "submit": "Wait for transaction confirmation",
+            "sign": "Sign the transaction in your wallet",
+            "waiting": "Wait for transaction confirmation",
+            "success": "Transaction successful",
+            "error": "Transaction failed!",
+            "default": "Wait for transaction confirmation"
+        }
+     },
+
+     "allowance": {
+        "cardTitle" : "Authorize using",
+        "statusText" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "setUnlimited" : "Set unlimited allowance. Don't ask me again.",
+        "confirm" : {
+            "cancel": "Cancel",
+            "authorize": "Authorize"
+        },
+        "feedback" : {
+            "submit" : "",
+            "sign" : "Please, sign the allowance authorization transaction using your wallet.",
+            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
+            "error" : "Operation Failed!",
+            "default" : "Wait for transaction confirmation"
+        }
+     },
+     "inputFields": {
+        "maxButton" : "Max"
+     },
+
+     "fees": {
+        "labelFee" : "Fee",
+        "disclaimer1": "This fee will be deduced from the amount to be transferred.",
+        "disclaimer2": "Amounts may change at the transaction confirmation"
+    },
+
+     "menuOptions": {
         "portfolio": "Portfolio",
         "send" : "Send",
         "exchange" : "exchange",
@@ -123,8 +305,14 @@
         "vesting" : "Vesting",
         "more" : "More"
     },
+   
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
+    },
+
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
     }
 }

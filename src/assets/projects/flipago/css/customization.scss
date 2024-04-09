@@ -115,6 +115,24 @@
     --color-navigation-text-disabled: #e0e0e0; //over hover color
     --color-navigation-icon-filter-disabled: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
+    // Language navigation colors
+
+    --color-language-background-default: transparent;
+    --color-language-text-default: #7f8a99;
+    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-language-background-hover: #fff383;
+    --color-language-text-hover: #0c0c08;
+    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --color-language-background-active: transparent;
+    --color-language-text-active: #fff383; //over hover color
+    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+
+    --color-language-background-disabled: transparent;
+    --color-language-text-disabled: #e0e0e0; //over hover color
+    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+
     // Text colors & fonts
 
     --color-text-primary: #c3ccd9;

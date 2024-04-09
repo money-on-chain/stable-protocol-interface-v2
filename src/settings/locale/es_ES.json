@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
     "NoConnection_alertTitle": "¡Billetera no conectada!",
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
@@ -66,28 +65,24 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "RIF Pro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
-            },
-            "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "RIF Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
 
@@ -105,8 +100,8 @@
             "success": "Operación exitosa",
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción",
-            "minimumWarning" : "∆Minimum to receive",
-            "minimumExplanation" : "∆(see price variation tolerance)"
+            "minimumWarning" : "Mínimo a recibir",
+            "minimumExplanation" : "(Ver tolerancia de variación de precio)"
         },
 
         "priceVariation": {
@@ -137,30 +132,36 @@
         "tokens": {
             "CA": {
                 "columns": {
-                    "name": "Nombre",
-                    "price": "Precio en USD",
-                    "variation": "Variación 24 h.",
+                    "name": "Name",
+                    "price": "Price in USD",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "RIF",
+                        "symbol": " (RIF)",
+                        "price_decimals": 4
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
+                        "price_decimals": 4
                     },
                     "2": {
-                        "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "Smart Bitcoin",
+                        "title": "MoC",
+                        "symbol": " (MOC)",
+                        "price_decimals": 2
+                    },
+                    "4": {
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
@@ -168,24 +169,14 @@
             },
             "TP": {
                 "columns": {
-                    "name": "Nombre",
-                    "price": "Tokens por USD",
-                    "variation": "Variación 24 h.",
+                    "name": "Name",
+                    "price": "Tokens per USD",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {
-                    "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
-                        "price_decimals": 2
-                    },
-                    "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
-                        "price_decimals": 2
-                    }
-                }
+                "rows": {}
             }
         },
         "sectionTitle": "Portafolio",
@@ -199,7 +190,7 @@
             "cardTitle": "Estado del Sistema",
 
             "statusTitleFull": "Totalmente Operativo",
-            "statusDescriptionFull": "∆The system is in optimal condition",
+            "statusDescriptionFull": "Sistema en condiciones óptimas",
 
             "stuatusTitleWarning": "Parcialmente Operativo",
             "statusDescriptionWarning": "∆Token Collateral cannot be redeemed. Token Pegged cannot be minted",
@@ -214,7 +205,7 @@
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
             "statusTitleUnavailable" : "Cannot operate",
-            "statusDescreiptionUnavailable" : "∆One or more contracts are temporarily unavailable. Please try again later.",
+            "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
 
@@ -280,22 +271,22 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "∆Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
-        "setUnlimited" : "∆Set unlimited allowance. Don't ask me again.",
+        "statusText" : "Antes de continuar con la operación debes autorizar el Allowance para que el sistema pueda acceder a los tokens.",
+        "setUnlimited" : "Configurar Allowance ilimitado. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
             "authorize": "Autorizar"
         },
         "feedback" : {
             "submit" : "",
-            "sign" : "∆Please, sign the allowance authorization transaction using your wallet.",
-            "waiting" : "∆Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
-            "error" : "∆Operation Failed!",
-            "default" : "∆Wait for transaction confirmation"
+            "sign" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
+            "waiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "error" : "¡Transacción fallada!",
+            "default" : "Espera a la confirmación de la transacción"
         }
      },
      "inputFields": {
-        "maxButton" : "maI"
+        "maxButton" : "MAX"
      },
 
      "fees": {
@@ -305,124 +296,6 @@
     },
 
      "menuOptions": {
-=======
-  "CustomizePrize_VariationToleranceTitle": "Price Variation Tolerance",
-  "NoConnection_alertTitle": "Wallet not connected!",
-  "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
-  "invalidValueDescription": "No value to display",
-  "invalidValuePlaceholder": "--",
-  "numberSeparator":{
-    "decimalPoint": ",",
-    "thousandSeparator": "."
-  },
-  "operations": {
-      "title": "Last Operations",
-      "tooltip": {
-          "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
-      },
-      "empty": "No operations",
-      "headers": {
-          "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
-      },
-      "columns_detailed": {
-          "event": "Event",
-          "created": "Created",
-          "gas_used": "Gas Used",
-          "oper_id": "Operation ID",
-          "confirmation": "Confirmation",
-          "recipient": "Recipient",
-          "status": "Status",
-          "error_code": "Error Code",
-          "block": "Block Nº",
-          "executed_tx": "Executed",
-          "tx": "TX Hash",
-          "fee": "Fee",
-          "gas": "Gas Fee",
-          "msg": "msg",
-          "reason": "reason"
-      }
-  },
-  "exchange": {
-      "tokens": {
-          "CA_0": {
-              "label": "RIF",
-              "abbr": "RIF"
-          },
-          "TC": {
-              "label": "RIF Pro",
-              "abbr": "RIFP"
-          },
-          "TP_0": {
-              "label": "RIF Dollar",
-              "abbr": "USDRIF"
-          },
-          "COINBASE": {
-              "label": "rBTC",
-              "abbr": "RBTC"
-          },
-          "TF": {
-              "label": "MoC",
-              "abbr": "MoC"
-          }
-      }
-  },
-  "portfolio": {
-      "tokens": {
-          "CA": {
-              "columns": {
-                  "name": "Nombre",
-                  "price": "Precio en USD",
-                  "variation": "Variación 24h",
-                  "balance": "Balance",
-                  "rif" : "RIF",
-                  "usd": "USD"
-              },
-              "rows": {
-                  "0": {
-                      "title": "RIF",
-                      "symbol": " (RIF)",
-                      "price_decimals": 4
-                  },
-                  "1": {
-                      "title": "RIFPro",
-                      "symbol": " (RIFP)",
-                      "price_decimals": 4
-                  },
-                  "2": {
-                      "title": "RIF US Dollar",
-                      "symbol": " (USDRIF)",
-                      "price_decimals": 2
-                  },
-                  "3": {
-                      "title": "MoC",
-                      "symbol": " (MOC)",
-                      "price_decimals": 2
-                  },
-                  "4": {
-                      "title": "rBTC",
-                      "symbol": " (RBTC)",
-                      "price_decimals": 2
-                  }
-              }
-          },
-          "TP": {
-              "columns": {
-                  "name": "Nombre",
-                  "price": "Tokens por USD",
-                  "variation": "Variación 24h",
-                  "balance": "Balance",
-                  "rif" : "RIF",
-                  "usd": "USD"
-              },
-              "rows": {}
-          }
-      },
-    "sectionTitle": "Portafolio",
-    "totalBalance": "Balance Total"
-
-    },
-    "menuOptions": {
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
         "portfolio": "Portafolio",
         "send" : "Enviar",
         "exchange" : "Cambiar",
@@ -432,8 +305,14 @@
         "vesting" : "Bloqueo",
         "more" : "Más"
     },
+
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
+    },
+
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
     }
 }

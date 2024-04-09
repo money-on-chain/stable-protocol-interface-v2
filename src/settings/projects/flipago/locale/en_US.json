@@ -65,28 +65,24 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "RIF Pro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
-            },
-            "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "RIF Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
 
@@ -138,28 +134,34 @@
                 "columns": {
                     "name": "Name",
                     "price": "Price in USD",
-                    "variation": "24h variation",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "RIF",
+                        "symbol": " (RIF)",
+                        "price_decimals": 4
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
+                        "price_decimals": 4
                     },
                     "2": {
-                        "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "Smart Bitcoin",
+                        "title": "MoC",
+                        "symbol": " (MOC)",
+                        "price_decimals": 2
+                    },
+                    "4": {
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
@@ -169,22 +171,12 @@
                 "columns": {
                     "name": "Name",
                     "price": "Tokens per USD",
-                    "variation": "24h variation",
+                    "variation": "Variation 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {
-                    "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
-                        "price_decimals": 2
-                    },
-                    "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
-                        "price_decimals": 2
-                    }
-                }
+                "rows": {}
             }
         },
         "sectionTitle": "Portfolio",
@@ -276,7 +268,6 @@
             "default": "Wait for transaction confirmation"
         }
      },
-<<<<<<< HEAD
 
      "allowance": {
         "cardTitle" : "Authorize using",
@@ -289,7 +280,7 @@
         "feedback" : {
             "submit" : "",
             "sign" : "Please, sign the allowance authorization transaction using your wallet.",
-            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
+            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
             "error" : "Operation Failed!",
             "default" : "Wait for transaction confirmation"
         }
@@ -307,25 +298,21 @@
      "menuOptions": {
         "portfolio": "Portfolio",
         "send" : "Send",
-        "exchange" : "Exchange",
-=======
-     "menuOptions": {
-        "portfolio": "Portfolio",
-        "send" : "Send",
         "exchange" : "exchange",
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
         "performance" : "Performance",
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Vesting",
         "more" : "More"
-<<<<<<< HEAD
-
-=======
     },
+   
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
->>>>>>> 4e7d42e4f4a990a643f92643a39cef1a7f5ab869
+    },
+
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
     }
 }
