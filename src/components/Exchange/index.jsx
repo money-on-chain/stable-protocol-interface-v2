@@ -12,7 +12,7 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-    AmountsWithCommissions
+        AmountsWithCommissions
 } from '../../helpers/currencies';
 import {
     tokenExchange,

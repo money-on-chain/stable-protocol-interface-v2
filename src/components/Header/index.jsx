@@ -24,6 +24,53 @@ export default function SectionHeader() {
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
+    const [menuOptions, setMenuOptions] = useState([]);
+    useEffect(() => {
+        setMenuOptions([
+            {
+                name: t('menuOptions.portfolio'),
+                className: 'logo-portfolio',
+                action: goToPortfolio,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.send'),
+                className: 'logo-send',
+                action: goToSend,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.exchange'),
+                className: 'logo-exchange',
+                action: goToExchange,
+                isActive: true
+            },
+            {
+                name: "Performance",
+                className: 'logo-performance',
+                action: goToPerformance,
+                isActive: true
+            },
+            {
+                name: "Staking",
+                className: 'logo-staking',
+                action: goToStaking,
+                isActive: true
+            },
+            {
+                name: "Liquidity Mining",
+                className: 'logo-liquidity-mining',
+                action: goToLiquidityMining,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.vesting'),
+                className: 'logo-vesting',
+                action: goToVesting,
+                isActive: true
+            }
+        ]);
+    }, [t, lang]);
     useEffect(() => {
         if (auth.isLoggedIn &&
             auth.contractStatusData &&
@@ -66,73 +113,21 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
-    const menu = [
-            {
-                name: t('menuOptions.portfolio'),
-                text: t('menuOptions.portfolio'),
-                className: 'logo-portfolio',
-                action: goToPortfolio,
-                isActive: true
-            },
-            {
-                name: t('menuOptions.send'),
-                text: t('menuOptions.send'),
-                className: 'logo-send',
-                action: goToSend,
-                isActive: true
-            },
-            {
-                name: t('menuOptions.exchange'),
-                text: t('menuOptions.exchange'),
-                className: 'logo-exchange',
-                action: goToExchange,
-                isActive: true
-            },
-            {
-                name: "Performance",
-                text: t('menuOptions.performance'),
-                className: 'logo-performance',
-                action: goToPerformance,
-                isActive: true
-            },
-            {
-                name: "Staking",
-                text: t('menuOptions.staking'),
-                className: 'logo-staking',
-                action: goToStaking,
-                isActive: true
-            },
-            {
-                name: "Liquidity Mining",
-                text: t('menuOptions.liquidityMining'),
-                className: 'logo-liquidity-mining',
-                action: goToLiquidityMining,
-                isActive: true
-            },
-            {
-                name: t('menuOptions.vesting'),
-                text: t('menuOptions.vesting'),
-                className: 'logo-vesting',
-                action: goToVesting,
-                isActive: true
-            }
-    ];
-
     const getActiveTabsNumber = () => {
         let activeTabs = 0;
-        menu.mainMenu.forEach(item => {
+        menuOptions.mainMenu.forEach(item => {
             if (item.isActive) {
                 activeTabs++;
             }
         });
-        menu.dropdownMenu.forEach(item => {
+        menuOptions.dropdownMenu.forEach(item => {
             if (item.isActive) {
                 activeTabs++;
             }
         })
         return activeTabs;
     }
-    const [menuOptions, setMenuOptions] = useState(menu);
+
     const swapMenuOptions = (optionName) => {
         setMenuOptions(prevState => {
             const dropdownIndex = prevState.dropdownMenu.findIndex(item => item.name === optionName);
@@ -208,7 +203,6 @@ export default function SectionHeader() {
                 <div className="header-logo">
                     <div className="logo-app"></div>
                 </div>
-
                 <div className="central-menu">
                     {menuOptions.map((option, index) => {
                         const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index);
@@ -288,21 +282,3 @@ export default function SectionHeader() {
         </Header>
     );
 }
-
-function setMenuIcon(option) {
-    const [t, i18n, ns] = useProjectTranslation();
-    console.log (option)
-
-    switch (option) {
-        case t('menuOptions.porfolio') :
-            return 'Portfolio'
-        case t('menuOptions.send') :
-            return 'Send'
-        case t('menuOptions.exchange') :
-            return 'Exchange'
-        case t('menuOptions.performance') :
-            return 'Performance'
-        case t('menuOptions.staking') :
-            return 'Staking'
-    }
-} 

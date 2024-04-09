@@ -10,8 +10,8 @@ src/assets/css
 src/assets/img
 
 # settings
-src/settings/en_US.json
-src/settings/es_ES.json
+src/settings/locale/en_US.json
+src/settings/locale/es_ES.json
 src/settings/settings.json
 
 # contracts
