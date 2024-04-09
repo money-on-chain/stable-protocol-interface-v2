@@ -314,5 +314,11 @@
     "numberFormat" : {
         "thousandsSeparator" : ",",
         "decimalSeparator" : "."
+    },
+
+    "swapModal" : {
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer swap a tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text2" : "botón de Swap",
+        "button" : "Haz Swap"
     }
 }
