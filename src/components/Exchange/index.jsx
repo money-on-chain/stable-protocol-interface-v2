@@ -185,6 +185,7 @@ export default function Exchange() {
         ).exchange;
         if (amountYouExchange.gt(totalYouExchangeWithTolerance)) {
             setInputValidationErrorText('Your TX may exceed tolerance limit');
+            setInputValidationError(true);
             return
         }
         let tIndex
