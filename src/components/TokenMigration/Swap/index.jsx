@@ -140,12 +140,12 @@ const SwapToken = (props) => {
     let btnDisable = false
     switch (status) {
         case 'SUBMIT':
-            title = 'IMPORTANT NOTICE';
-            btnLabel = 'Confirm'
+            title = t('swapModal.modalTitle');
+            btnLabel = t('defaultCTA.buttonSubmit')
             break;
         case 'CONFIRM':
-            title = 'Operation Detail';
-            btnLabel = 'Exchange'
+            title = t('swapModal.modalTitle');
+            btnLabel = t('defaultCTA.buttonExchange')
             const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"))
             if (tpLegacyBalance.eq(0)) btnDisable = true
             break;
@@ -161,11 +161,11 @@ const SwapToken = (props) => {
             break;
         case 'TOKEN-MIGRATION-SUCCESS':
             title = 'TOKEN MIGRATION';
-            btnLabel = 'Close'
+            btnLabel = t('defaultCTA.buttonClose')
             break;
         default:
             title = 'IMPORTANT NOTICE';
-            btnLabel = 'Confirm'
+            btnLabel = t('defaultCTA.buttonSubmit')
     }
 
     return (
@@ -173,12 +173,11 @@ const SwapToken = (props) => {
             <div className="Title">{title}</div>
             <div className="Body">
                 {status === 'SUBMIT' && (<div>
-                    <p>RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the update DAPP.
-                        You will no longer be able to see your RDOC balance in the DAPP. </p>
+                    <p>{t('swapModal.explanation1')}</p>
 
-                    <p>The exchange rate for the swap is <strong>1 RDOC = 1 USDRIF</strong>. You will not be charged a transaction fee, only gas fees will apply.</p>
+                    <p> <strong>{t('swapModal.explanation2')}</strong></p>
 
-                    <p>Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF</p>
+                    <p>{t('swapModal.explanation3')}</p>
                 </div>)}
 
                 {status === 'CONFIRM' && (<div>
@@ -187,7 +186,7 @@ const SwapToken = (props) => {
                     </div>
                     <div className="Summary">
                         <div className="Exchanging">
-                            <div className="Label">Exchanging </div>
+                            <div className="Label">{t('swapModal.exchanging')} </div>
                             <div className="Amount">
                                 <div className="Value">
                                     {PrecisionNumbers({
@@ -204,7 +203,7 @@ const SwapToken = (props) => {
                             </div>
                         </div>
                         <div className="Receiving">
-                            <div className="Label">Receiving </div>
+                            <div className="Label">{t('swapModal.receiving')} </div>
                             <div className="Amount">
                                 <div className="Value">
                                     {PrecisionNumbers({
@@ -288,7 +287,7 @@ const SwapToken = (props) => {
                   status !== 'ALLOWANCE-WAITING' &&
                   status !== 'TOKEN-MIGRATION-WAITING' &&
                   status !== 'TOKEN-MIGRATION-ERROR' &&
-                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>Cancel</Button>)}
+                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>{t('defaultCTA.buttonClose')}</Button>)}
                 {(status === 'SUBMIT' ||
                   status === 'CONFIRM')  && (
                         <Button
