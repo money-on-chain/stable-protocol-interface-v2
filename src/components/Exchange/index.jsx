@@ -157,7 +157,13 @@ export default function Exchange() {
             return;
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
-            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationErrorText('Amount must be valid');
+            setInputValidationError(true);
+            return
+        }
+
+        if(amountYouExchange.toString().length > 20 || amountYouReceive.toString().length > 20) {
+            setInputValidationErrorText('Amount must be valid');
             setInputValidationError(true);
             return
         }
