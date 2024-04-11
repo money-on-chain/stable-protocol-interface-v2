@@ -4,8 +4,9 @@ import { Button, Collapse, Slider } from 'antd';
 import axios from 'axios';
 
 import { useProjectTranslation } from '../../helpers/translations';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { PrecisionNumbers } from '../PrecisionNumbers';
-import { ConvertAmount, TokenSettings } from '../../helpers/currencies';
+import { ConvertAmount, TokenSettings, TokenBalance } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
@@ -37,7 +38,7 @@ export default function ConfirmOperation(props) {
     const [tolerance, setTolerance] = useState(0.2);
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
-
+    const [toleranceError, setToleranceError] = useState('');
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
@@ -364,6 +365,18 @@ export default function ConfirmOperation(props) {
     const changeTolerance = (newTolerance) => {
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance);
+        const totalBalance = new BigNumber(
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouExchange),
+                TokenSettings(currencyYouExchange).decimals
+            )
+        );
+        if (limits.exchange.gt(totalBalance)) {
+            console.log('Insufficient balance');
+            setToleranceError('Tolerance exceeds user balance');
+            return;
+        }
+        setToleranceError('');
         setAmountYouExchangeLimit(limits.exchange);
         setAmountYouReceiveLimit(limits.receive);
     };
@@ -646,6 +659,11 @@ export default function ConfirmOperation(props) {
                         <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
 
                     </div>
+                    {toleranceError !== '' && <div className="error-container">
+                        <span className='confirm-error'>
+                            {toleranceError}
+                        </span>
+                    </div>}
 
                     <div className="actions-buttons">
                         <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
@@ -655,6 +673,7 @@ export default function ConfirmOperation(props) {
                             type="primary"
                             className="primary-button btn-confirm"
                             onClick={onSendTransactionAllowFeeToken}
+                            disabled={toleranceError !== ''}
                         >
                             {t('exchange.buttonConfirm')}
                         </button>
