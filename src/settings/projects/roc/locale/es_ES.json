@@ -334,6 +334,15 @@
         "buttonCancel" : "Cancelar",
         "buttonConfirm" : "Confirmar",
         "exchanging" : "Cambiando",
-        "receiving" : "Recibiendo"
+        "receiving" : "Recibiendo",
+        "authorizing" : "AUTORIZACIÓN DE TOKEN",
+        "migrating" : "MIGRACIÓN DE TOKEN",
+        "allowanceSignText" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
+        "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
+        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "transactionHash" : "Hash de la transacción",
+        "operationFailed" : "La operación falló !.",
+        "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
+        "operationSuccessful" : "Operación exitosa."
     }
 }

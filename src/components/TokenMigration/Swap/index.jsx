@@ -136,7 +136,7 @@ const SwapToken = (props) => {
     };
 
     let title
-    let btnLabel = 'Confirm'
+    let btnLabel = t('swapModal.buttonConfirm')
     let btnDisable = false
     switch (status) {
         case 'SUBMIT':
@@ -152,15 +152,15 @@ const SwapToken = (props) => {
         case 'ALLOWANCE-SIGN':
         case 'ALLOWANCE-WAITING':
         case 'ALLOWANCE-ERROR':
-            title = 'TOKEN AUTHORIZATION';
+            title = t('swapModal.authorizing');
             break;
         case 'TOKEN-MIGRATION-SIGN':
         case 'TOKEN-MIGRATION-WAITING':
         case 'TOKEN-MIGRATION-ERROR':
-            title = 'TOKEN MIGRATION';
+            title = t('swapModal.migrating');
             break;
         case 'TOKEN-MIGRATION-SUCCESS':
-            title = 'TOKEN MIGRATION';
+            title = t('swapModal.migrating');
             btnLabel = t('defaultCTA.buttonClose')
             break;
         default:
@@ -229,38 +229,38 @@ const SwapToken = (props) => {
                     <div className="tx-logo-status">
                         <i className="icon-signifier"></i>
                     </div>
-                    <p className="Center">Please, sign the allowance authorization transaction using your wallet.</p>
+                    <p className="Center">{t('swapModal.allowanceSignText')}</p>
                 </div>)}
 
                 {status === 'ALLOWANCE-WAITING' && (<div>{/*ALLOWANCE-WAITING*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-waiting rotate"></i>
                     </div>
-                    <p>Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.</p>
-                    <p>Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p>{t('swapModal.allowanceWaiting')}</p>
+                    <p>{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'ALLOWANCE-ERROR' && (<div> {/*ALLOWANCE-ERROR*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-error"></i>
                     </div>
-                    <p className="Center">Operation Failed!.</p>
-                    <p className="Center"> Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationFailed')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-SIGN' && (<div>
                     <div className="tx-logo-status">
                         <i className="icon-signifier"></i>
                     </div>
-                    <p className="Center">Please, sign the token migration transaction using your wallet.</p>
+                    <p className="Center">{t('swapModal.migrationTransactionSignText')}</p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-WAITING' && (<div> {/*TOKEN-MIGRATION-WAITING*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-waiting rotate"></i>
                     </div>
-                    <p>Please, wait while the token migration transaction is mined in the blockchain.</p>
-                    <p>Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p>{t('swapModal.tokenMigrationWaitingText')}</p>
+                    <p>{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
 
                 </div>)}
 
@@ -268,16 +268,16 @@ const SwapToken = (props) => {
                     <div className="tx-logo-status">
                         <i className="icon-tx-success"></i>
                     </div>
-                    <p className="Center">Operation successful.</p>
-                    <p className="Center">Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationSuccessful')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-ERROR' && (<div>
                     <div className="tx-logo-status">
                         <i className="icon-tx-error"></i>
                     </div>
-                    <p className="Center">Operation Failed!.</p>
-                    <p className="Center">Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationFailed')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
             </div>

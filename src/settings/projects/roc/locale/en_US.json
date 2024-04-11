@@ -334,6 +334,15 @@
         "buttonCancel" : "Cancel",
         "buttonConfirm" : "Confirm",
         "exchanging" : "Exchanging",
-        "receiving" : "Receiving"
+        "receiving" : "Receiving",
+        "authorizing" : "TOKEN AUTHORIZATION",
+        "migrating" : "TOKEN MIGRATION",
+        "allowanceSignText" : "Please, sign the allowance authorization transaction using your wallet.",
+        "migrationTransactionSignText" : "Please, sign the migration transaction using your wallet.",
+        "allowanceWaiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
+        "transactionHash" : "Transaction Hash",
+        "operationFailed" : "Operation Failed!.",
+        "tokenMigrationWaitingText" : "Please, wait while the token migration is mined in the blockchain.",
+        "operationSuccessful" : "Operation Successful."
     }
 }

@@ -23,7 +23,6 @@ export default function ModalAccount(props) {
         <div className="ShowModalAccount">
             <a onClick={showModal}>{truncatedAddress}</a>{' '}
             <Modal
-                title={t("wallet.modalTitle")}
                 width={505}
                 open={visible}
                 onCancel={hideModal}
