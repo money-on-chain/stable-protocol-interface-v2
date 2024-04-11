@@ -133,7 +133,6 @@
                 filter: var(--color-navigation-icon-filter-hover);
             }
         }
-<<<<<<< HEAD
 
         .language-menu {
             position: absolute;
@@ -174,45 +173,10 @@
 
         .menu-icon {
             margin-right: 10px;
-=======
-        .language-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 10;
-            width: 100%;
-            .menu-item {
-                justify-content: flex-start;
-            }
-            .menu-item-selected {
-                justify-content: flex-start;
-                background-color: var(--color-controls-active);
-                color: var(--color-navigation-text-active);
-            }
-            span {
-                width: 70%;
-            }
-        }
-        .language-menu > div > div {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; 
-            height: 50px;
-            cursor: pointer;
-            padding: 0 16px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .menu-icon {
-            margin-right: 10px; 
->>>>>>> master
             display: flex;
             align-items: center;
             width: 18%;
         }
-<<<<<<< HEAD
 
         .menu-icon img {
             width: 24px;
@@ -224,19 +188,6 @@
             color: var(--color-language-text-hover);
         }
 
-=======
-        
-        .menu-icon img {
-            width: 24px; 
-            height: auto; 
-        }
-        
-        .language-menu > div > div:hover {
-            background-color: var(--color-controls-active);
-            color: var(--color-navigation-text-active);
-        }
-        
->>>>>>> master
         .language-menu > div > div:last-child {
             border-bottom: none;
         }
