@@ -65,24 +65,28 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "Go Turbo",
+                "abbr": "Turbo"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "Go ARS",
+                "abbr": "GoARS"
+            },
+            "TP_1": {
+                "label": "Go MXN",
+                "abbr": "GoMXN"
             },
             "COINBASE": {
-                "label": "rBTC",
+                "label": "Smart Bitcoin",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MoC",
-                "abbr": "MoC"
+                "label": "Flip",
+                "abbr": "FLIP"
             }
         },
 
@@ -141,27 +145,22 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
-                        "price_decimals": 4
+                        "title": "Dollar On Chain",
+                        "symbol": " (DOC)",
+                        "price_decimals": 2
                     },
                     "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
-                        "price_decimals": 4
+                        "title": "Go Turbo",
+                        "symbol": " (TURBO)",
+                        "price_decimals": 2
                     },
                     "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
+                        "title": "Flip",
+                        "symbol": " (GOFLIP)",
                         "price_decimals": 2
                     },
                     "3": {
-                        "title": "MoC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2
-                    },
-                    "4": {
-                        "title": "rBTC",
+                        "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
                         "price_decimals": 2
                     }
@@ -173,10 +172,20 @@
                     "price": "Tokens per USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {}
+                "rows": {
+                    "0": {
+                        "title": "Go ARS",
+                        "symbol": " (GOARS)",
+                        "price_decimals": 2
+                    },
+                    "1": {
+                        "title": "Go MXN",
+                        "symbol": " (GOMXN)",
+                        "price_decimals": 2
+                    }
+                }
             }
         },
         "sectionTitle": "Portafolio",
