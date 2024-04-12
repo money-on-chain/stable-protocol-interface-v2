@@ -4,10 +4,9 @@ import TokenPegged from '../../contracts/TokenPegged.json';
 import CollateralToken from '../../contracts/CollateralToken.json';
 import IPriceProvider from '../../contracts/IPriceProvider.json';
 import Moc from '../../contracts/Moc.json';
-import MoC from '../../contracts/MoCOld.json';
-import MoCState from '../../contracts/MoCState.json';
-import TG from '../../contracts/MoCToken.json';
-import MoCConnector from '../../contracts/MoCConnector.json';
+// import MoCState from '../../contracts/MoCState.json';
+// import TG from '../../contracts/MoCToken.json';
+// import MoCConnector from '../../contracts/MoCConnector.json';
 import MocWrapper from '../../contracts/MocWrapper.json';
 import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
@@ -42,7 +41,7 @@ const readContracts = async (web3) => {
     abiContracts.CollateralToken = CollateralToken;
     abiContracts.IPriceProvider = IPriceProvider;
     abiContracts.Moc = Moc;
-    abiContracts.MoCState = MoCState;
+    // abiContracts.MoCState = MoCState;
     abiContracts.MocWrapper = MocWrapper;
     abiContracts.MocVendors = MocVendors
     abiContracts.FeeToken = FeeToken
