@@ -25,15 +25,15 @@ export default function ModalTokenMigration(props) {
         <div className="ShowTokenMigration">
             <div className="NotificationMigration">
                 <div className="Information">
-                    {"RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the "}
-                    <span className="swapNow" onClick={showModal} style={{ cursor: "pointer" }}>Swap Now button</span>
+                    {t('swapModal.text1')}
+                    <span className="swapNow" onClick={showModal} style={{ cursor: "pointer" }}>{t('swapModal.text2')}</span>
                 </div>
                 <div className="Action">
                     <button
                         type="primary"
                         className="primary-button btn-confirm"
                         onClick={showModal}>
-                        Swap Now
+                        {t('swapModal.button')}
                     </button>
                 </div>
             </div>

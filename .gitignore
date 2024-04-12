@@ -10,9 +10,11 @@ src/assets/css
 src/assets/img
 
 # settings
+src/settings/locale/en_US.json
+src/settings/locale/es_ES.json
+src/settings/settings.json
 src/settings/en_US.json
 src/settings/es_ES.json
-src/settings/settings.json
 
 # contracts
 src/contracts/*.json

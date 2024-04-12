@@ -42,7 +42,7 @@ export default function Performance(props) {
                     <div className="card-system-status">
 
                         <div className="title">
-                            <h1>System Status</h1>
+                            <h1>{t('performance.status.cardTitle')}</h1>
                         </div>
 
                         <div className="card-content">
@@ -53,7 +53,7 @@ export default function Performance(props) {
                             <div className="coll-2">
 
                                 <div className="stat-icon"> <i className={`${statusIcon} display-block`}></i> {statusLabel}</div>
-                                <div className="block-info">Showing block {auth.contractStatusData ? BigInt(auth.contractStatusData.blockHeight).toString() : '--'}</div>
+                                <div className="block-info">{t('performance.status.showingBlock')} {auth.contractStatusData ? BigInt(auth.contractStatusData.blockHeight).toString() : '--'}</div>
 
                             </div>
 
@@ -66,7 +66,7 @@ export default function Performance(props) {
                     <div className="card-tvl">
 
                         <div className="title">
-                            <h1>Total Value Lock</h1>
+                            <h1>{t('performance.tvl.cardTitle')}</h1>
                         </div>
 
                         <div className="card-content">
@@ -84,7 +84,7 @@ export default function Performance(props) {
                             </div>
 
                             <div className="caption">
-                                Expressed in USD
+                                {t('performance.tvl.expressedIn')}
                             </div>
 
                         </div>
@@ -120,7 +120,7 @@ export default function Performance(props) {
                                             skipContractConvert: true
                                         })}
                                     </div>
-                                    <div className="caption"> Price in USD</div>
+                                    <div className="caption"> {t('performance.tc.priceIn')}</div>
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
@@ -134,7 +134,7 @@ export default function Performance(props) {
                                             skipContractConvert: false
                                         })}
                                     </div>
-                                    <div className="caption"> Current Leverage</div>
+                                    <div className="caption"> {t('performance.tc.currentLeverage')}</div>
                                 </div>
                             </div>
 
@@ -152,7 +152,7 @@ export default function Performance(props) {
                                             skipContractConvert: false
                                         })}
                                     </div>
-                                    <div className="caption"> Total in the system</div>
+                                    <div className="caption"> {t('performance.tc.totalInSystem')}</div>
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
@@ -166,7 +166,7 @@ export default function Performance(props) {
                                             skipContractConvert: false
                                         })}
                                     </div>
-                                    <div className="caption"> Available to redeem</div>
+                                    <div className="caption"> {t('performance.tc.redeemable')}</div>
                                 </div>
 
                             </div>
@@ -183,7 +183,7 @@ export default function Performance(props) {
                     <div className="card-collateral">
 
                         <div className="title">
-                            <h1>Collateral</h1>
+                            <h1>{t('performance.collateral.cardTitle')}</h1>
                         </div>
 
                         <div className="card-content">
@@ -200,7 +200,7 @@ export default function Performance(props) {
                                         ns: ns,
                                         skipContractConvert: false
                                     })}</div>
-                                    <div className="caption">Total Collateral in USD</div>
+                                    <div className="caption">{t('performance.collateral.totalIn')}</div>
                                 </div>
                                 <div className="coll-2">
                                     <div className="amount">
@@ -214,7 +214,7 @@ export default function Performance(props) {
                                             skipContractConvert: false
                                         })}
                                     </div>
-                                    <div className="caption">Global coverage</div>
+                                    <div className="caption">{t('performance.collateral.globalCoverage')}</div>
                                 </div>
 
                             </div>

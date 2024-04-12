@@ -1,11 +1,14 @@
 import { useContext } from 'react';
 import { BigNumber } from 'bignumber.js';
 
+import { useProjectTranslation } from '../helpers/translations';
+
 import { AuthenticateContext } from '../context/Auth';
 import { fromContractPrecisionDecimals } from './Formats';
 import settings from '../settings/settings.json';
 
 export default function CheckStatus() {
+  const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   if (!auth.contractStatusData) return {isValid: false, statusIcon: '', statusLabel: '', statusText: ''};
   const globalCoverage = new BigNumber(
@@ -42,44 +45,44 @@ export default function CheckStatus() {
   
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
-    statusLabel = 'Fully Operational';
-    statusText = 'The system is in optimal condition';
+    statusLabel = t("performance.status.statusTitleFull");
+    statusText = t("performance.status.statusDescriptionFull");
     errorType = '0';
     isValid = true;
   } else if (globalCoverage.gt(protThrld) && globalCoverage.lte(calcCtargemaCA)) {
     statusIcon = 'icon-status-warning';
-    statusLabel = 'Partially Operational';
-    statusText = 'Not Operational due to low Global Coverage ratio. Please try again later.';
+    statusLabel = t("performance.status.stuatusTitleWarning");
+    statusText = t("performance.status.statusDescriptionWarning");
     errorType = '1';
+
     isValid = false;
   } else if (globalCoverage.gt(liqThrld) && globalCoverage.lte(protThrld)) {
     statusIcon = 'icon-status-warning';
     statusLabel = 'Protected Mode';
     statusText = 'No operations allowed';
-    errorType = '2';
     isValid = false;
   }
 
   if (auth.contractStatusData.liquidated) {
     statusIcon = 'icon-status-warning';
-    statusLabel = 'Liquidated';
-    statusText = 'No operations allowed';
+    statusLabel = t("performance.status.statusTitleLiquidated");
+    statusText = t("performance.status.statusDescriptionLiquidated");
     errorType = '3';
     isValid = false;
   }
 
   if (auth.contractStatusData.paused) {
     statusIcon = 'icon-status-warning';
-    statusLabel = 'Paused';
-    statusText = 'The contract is paused. No operations allowed';
+    statusLabel = t("performance.status.statusTitlePaused");
+    statusText = t("performance.status.statusDescriptionPaused");
     errorType = '4';
     isValid = false;
   }
 
   if (!auth.contractStatusData.canOperate) {
     statusIcon = 'icon-status-warning';
-    statusLabel = 'Cannot operate';
-    statusText = 'Failed to execute transaction due to timeout. Please try again later.';
+    statusLabel = t("performance.status.statusTitleUnavailable");
+    statusText = t("performance.status.statusDescreiptionUnavailable");
     errorType = '5';
     isValid = false;
   }

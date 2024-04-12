@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
@@ -17,8 +17,8 @@ import { AuthenticateProvider } from './context/Auth';
 import IconLoading from './assets/icons/LoaderAnim.svg';
 import Router from './router';
 
-import es_ES from './settings/es_ES.json';
-import en_US from './settings/en_US.json';
+import es_ES from './settings/locale/es_ES.json';
+import en_US from './settings/locale/en_US.json';
 
 console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
 
@@ -39,7 +39,7 @@ async function loadTranslations() {
 
 loadTranslations();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
@@ -55,7 +55,7 @@ root.render(
                                     left: '50%',
                                     top: '50%',
                                     // transform: 'translateX(-50%) translateY(-50%)'
-                                    filter: 'var(--color-navigation-icon-filter-default)',
+                                    filter: 'var(--color-navigation-icon-filter-default)'
                                 }}
                                 width={50}
                                 height={50}
