@@ -137,8 +137,8 @@
             "CA": {
                 "columns": {
                     "name": "Name",
-                    "price": "Price in USD",
-                    "variation": "Variation 24hs",
+                    "price": "Precio en USD",
+                    "variation": "Variación 24hs",
                     "balance": "Balance",
                     "rif" : "RIF",
                     "usd": "USD"
@@ -169,8 +169,8 @@
             "TP": {
                 "columns": {
                     "name": "Name",
-                    "price": "Tokens per USD",
-                    "variation": "Variation 24hs",
+                    "price": "Tokens por USD",
+                    "variation": "Variación 24hs",
                     "balance": "Balance",
                     "usd": "USD"
                 },
