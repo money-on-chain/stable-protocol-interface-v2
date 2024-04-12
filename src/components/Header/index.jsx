@@ -6,8 +6,8 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
 
-import lang_en from  '../../assets/icons/lang_en.svg';
-import lang_es from  '../../assets/icons/lang_en.svg';
+// import lang_en from  '../../assets/icons/lang_en.svg';
+// import lang_es from  '../../assets/icons/lang_en.svg';
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 const { Header } = Layout;
 
@@ -183,10 +183,10 @@ export default function SectionHeader() {
     const languageOptions = [
         { name: t(`language.en`, {
             ns: ns
-        }), code: "en", icon: lang_en},
+        }), code: "en"},
         { name: t(`language.es`, {
             ns: ns
-        }), code: "es", icon: lang_es}
+        }), code: "es"}
     ];
     const toggleLanguageMenu = () => {
         setShowLanguageMenu(prevState => !prevState);
