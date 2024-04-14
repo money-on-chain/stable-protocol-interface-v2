@@ -102,6 +102,7 @@
             "queuing": "Queuing transaction…",
             "queued": "Operation queued. Wating for execution…",
             "confirming": "Confirming transaction",
+            "confirmed" : "Transaction confirmed",
             "success": "Transaction successful",
             "error": "Transaction failed!",
             "default": "Espera la confirmación de la transacción",

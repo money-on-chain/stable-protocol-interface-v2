@@ -97,6 +97,7 @@
             "queuing": "Encolando la transacción…",
             "queued": "Operación encolada. Esperando ejecución…",
             "confirming": "Operación en confirmación",
+            "confirmed" : "Operación confirmada",
             "success": "Operación exitosa",
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción",
