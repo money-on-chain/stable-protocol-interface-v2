@@ -30,10 +30,10 @@ export default function ModalConfirmOperation(props) {
     return (
         <div className="ShowModalConfirmOperation">
             <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
-                Exchange
+                {t('exchange.buttonPrimary')}
             </Button>
             <Modal
-                title="Confirm Exchange"
+                title={t('exchange.modalTitle')}
                 width={505}
                 open={visible}
                 onCancel={hideModal}
@@ -42,7 +42,7 @@ export default function ModalConfirmOperation(props) {
                 closable={false}
                 centered={true}
                 maskClosable={false}
-                maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                maskStyle={{}}
             >
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
             </Modal>

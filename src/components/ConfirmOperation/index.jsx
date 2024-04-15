@@ -324,35 +324,35 @@ export default function ConfirmOperation(props) {
     switch (status) {
         case 'SUBMIT':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel = t('exchange.confirm.submit');
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
-            statusLabel = 'Sign the transaction using your wallet';
+            statusLabel = t('exchange.confirm.sign');
             break;
         case 'QUEUING':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Queuing operation...';
+            statusLabel = t('exchange.confirm.queuing');
             break;
         case 'QUEUED':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Operation queued... waiting for operation execution';
+            statusLabel = t('exchange.confirm.queued');
             break;
         case 'CONFIRMING':
             sentIcon = 'icon-operation-tx-confirming rotate';
-            statusLabel = 'Operation confirming';
+            statusLabel = t('exchange.confirm.confirming');
             break;
         case 'SUCCESS':
             sentIcon = 'icon-tx-success';
-            statusLabel = 'Operation executed';
+            statusLabel = t('exchange.confirm.confirmed');
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
-            statusLabel = 'Operation Failed!';
+            statusLabel = t('exchange.confirm.error');
             break;
         default:
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel = t('exchange.confirm.default');
     }
 
     const markStyle = {
@@ -471,7 +471,7 @@ export default function ConfirmOperation(props) {
                 <div className="limitSection">
                     {!IS_MINT && (
                         <span className="limitWarning">
-                                Minimum to receive
+                                   {t('exchange.confirm.minimumWarning')}
                                 <span>
                                     {' '}
                                     {PrecisionNumbers({
@@ -488,84 +488,13 @@ export default function ConfirmOperation(props) {
                                         skipContractConvert: true
                                     })}{' '}
                                 </span>
-                                (see price variation tolerance)
+                                {t('exchange.confirm.minimumExplanation')}
                             </span>
                     )}
 
                 </div>
 
             </div>
-
-            {/*<div className="prices">*/}
-            {/*    <div className="rate_1">*/}
-            {/*        <span className={'token_exchange'}>*/}
-            {/*            {' '}*/}
-            {/*            1{' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'symbol'}> ≈ </span>*/}
-            {/*        <span className={'token_receive'}>*/}
-            {/*            {' '}*/}
-            {/*            {PrecisionNumbers({*/}
-            {/*                amount: ConvertAmount(*/}
-            {/*                    auth,*/}
-            {/*                    currencyYouExchange,*/}
-            {/*                    currencyYouReceive,*/}
-            {/*                    1,*/}
-            {/*                    false*/}
-            {/*                ),*/}
-            {/*                token: TokenSettings(currencyYouExchange),*/}
-            {/*                decimals: 6,*/}
-            {/*                t: t,*/}
-            {/*                i18n: i18n,*/}
-            {/*                ns: ns,*/}
-            {/*                skipContractConvert: true*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'token_receive_name'}>*/}
-            {/*            {' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}{' '}*/}
-            {/*        </span>*/}
-            {/*    </div>*/}
-            {/*    <div className="rate_2">*/}
-            {/*        <span className={'token_exchange'}>*/}
-            {/*            {' '}*/}
-            {/*            1{' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'symbol'}> ≈ </span>*/}
-            {/*        <span className={'token_receive'}>*/}
-            {/*            {' '}*/}
-            {/*            {PrecisionNumbers({*/}
-            {/*                amount: ConvertAmount(*/}
-            {/*                    auth,*/}
-            {/*                    currencyYouReceive,*/}
-            {/*                    currencyYouExchange,*/}
-            {/*                    1,*/}
-            {/*                    false*/}
-            {/*                ),*/}
-            {/*                token: TokenSettings(currencyYouReceive),*/}
-            {/*                decimals: 6,*/}
-            {/*                t: t,*/}
-            {/*                i18n: i18n,*/}
-            {/*                ns: ns,*/}
-            {/*                skipContractConvert: true*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'token_receive_name'}>*/}
-            {/*            {' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}{' '}*/}
-            {/*        </span>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
 
             <div className="separator"></div>
 
@@ -601,10 +530,9 @@ export default function ConfirmOperation(props) {
                     </span>
                 </div>
                 <div className="disclaimer">
-                    This fee will be deducted from the transaction value
-                    transferred.
+                    {t('fees.disclaimer1')}
                     <br />
-                    Amounts my be different at transaction confirmation.
+                    {t('fees.disclaimer2')}
                 </div>
             </div>
 
@@ -621,7 +549,7 @@ export default function ConfirmOperation(props) {
                                     <div className="PriceVariationSetting">
                                         <i className="icon-wheel"></i>
                                         <span className="SliderText">
-                                            Customize price variation tolerance
+                                        {t('exchange.priceVariation.title')}
                                         </span>
                                     </div>
                                 </div>
@@ -630,7 +558,7 @@ export default function ConfirmOperation(props) {
                             >
                                 <div className="PriceVariationContainer">
                                     <div className="warningSlider">
-                                    Price Variation Tolerance
+                                    {t('exchange.priceVariation.sliderLabel')}
                                     </div>
                                     <Slider
                                         className="SliderControl"
@@ -651,9 +579,9 @@ export default function ConfirmOperation(props) {
                     <div className="exchanging">
 
                         <span className={'token_exchange'}>
-                            Exchanging{' '}
+                        {t('exchange.exchangingSummary')}{' '}
                         </span>
-                        <span className={'symbol'}> ≈ </span>
+                        <span className={'symbol'}> {t('exchange.exchangingSign')} </span>
                         <span className={'token_receive'}>
                             {PrecisionNumbers({
                                 amount: exchangingUSD,
@@ -665,7 +593,7 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}> USD</span>
+                        <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
 
                     </div>
                     {toleranceError !== '' && <div className="error-container">
@@ -676,7 +604,7 @@ export default function ConfirmOperation(props) {
 
                     <div className="actions-buttons">
                         <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
-                            Cancel
+                        {t('exchange.buttonCancel')}
                         </Button>
                         <button
                             type="primary"
@@ -684,7 +612,7 @@ export default function ConfirmOperation(props) {
                             onClick={onSendTransactionAllowFeeToken}
                             disabled={toleranceError !== ''}
                         >
-                            Confirm
+                            {t('exchange.buttonConfirm')}
                         </button>
                     </div>
 
@@ -735,7 +663,7 @@ export default function ConfirmOperation(props) {
             )}
 
             <ModalAllowanceOperation
-                title={`Authorize to use ${t(`exchange.tokens.${currencyYouExchange}.label`, {ns: ns})}`}
+                title={`${t('allowance.cardTitle')}  ${t(`exchange.tokens.${currencyYouExchange}.label`, {ns: ns})}`}
                 visible={showModalAllowance}
                 onHideModalAllowance={onHideModalAllowance}
                 currencyYouExchange={currencyYouExchange}
@@ -747,7 +675,7 @@ export default function ConfirmOperation(props) {
             />
 
             <ModalAllowanceOperation
-                title={`Authorize to use ${t(`exchange.tokens.TF.abbr`, {ns: ns})}`}
+                title={`${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, {ns: ns})}`}
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
                 currencyYouExchange={'TF'}

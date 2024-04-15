@@ -136,36 +136,36 @@ const SwapToken = (props) => {
     };
 
     let title
-    let btnLabel = 'Confirm'
+    let btnLabel = t('swapModal.buttonConfirm')
     let btnDisable = false
     switch (status) {
         case 'SUBMIT':
-            title = 'IMPORTANT NOTICE';
-            btnLabel = 'Confirm'
+            title = t('swapModal.modalTitle');
+            btnLabel = t('defaultCTA.buttonSubmit')
             break;
         case 'CONFIRM':
-            title = 'Operation Detail';
-            btnLabel = 'Exchange'
+            title = t('swapModal.modalTitle');
+            btnLabel = t('defaultCTA.buttonExchange')
             const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"))
             if (tpLegacyBalance.eq(0)) btnDisable = true
             break;
         case 'ALLOWANCE-SIGN':
         case 'ALLOWANCE-WAITING':
         case 'ALLOWANCE-ERROR':
-            title = 'TOKEN AUTHORIZATION';
+            title = t('swapModal.authorizing');
             break;
         case 'TOKEN-MIGRATION-SIGN':
         case 'TOKEN-MIGRATION-WAITING':
         case 'TOKEN-MIGRATION-ERROR':
-            title = 'TOKEN MIGRATION';
+            title = t('swapModal.migrating');
             break;
         case 'TOKEN-MIGRATION-SUCCESS':
-            title = 'TOKEN MIGRATION';
-            btnLabel = 'Close'
+            title = t('swapModal.migrating');
+            btnLabel = t('defaultCTA.buttonClose')
             break;
         default:
             title = 'IMPORTANT NOTICE';
-            btnLabel = 'Confirm'
+            btnLabel = t('defaultCTA.buttonSubmit')
     }
 
     return (
@@ -173,12 +173,11 @@ const SwapToken = (props) => {
             <div className="Title">{title}</div>
             <div className="Body">
                 {status === 'SUBMIT' && (<div>
-                    <p>RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the update DAPP.
-                        You will no longer be able to see your RDOC balance in the DAPP. </p>
+                    <p>{t('swapModal.explanation1')}</p>
 
-                    <p>The exchange rate for the swap is <strong>1 RDOC = 1 USDRIF</strong>. You will not be charged a transaction fee, only gas fees will apply.</p>
+                    <p> <strong>{t('swapModal.explanation2')}</strong></p>
 
-                    <p>Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF</p>
+                    <p>{t('swapModal.explanation3')}</p>
                 </div>)}
 
                 {status === 'CONFIRM' && (<div>
@@ -187,7 +186,7 @@ const SwapToken = (props) => {
                     </div>
                     <div className="Summary">
                         <div className="Exchanging">
-                            <div className="Label">Exchanging </div>
+                            <div className="Label">{t('swapModal.exchanging')} </div>
                             <div className="Amount">
                                 <div className="Value">
                                     {PrecisionNumbers({
@@ -204,7 +203,7 @@ const SwapToken = (props) => {
                             </div>
                         </div>
                         <div className="Receiving">
-                            <div className="Label">Receiving </div>
+                            <div className="Label">{t('swapModal.receiving')} </div>
                             <div className="Amount">
                                 <div className="Value">
                                     {PrecisionNumbers({
@@ -230,38 +229,38 @@ const SwapToken = (props) => {
                     <div className="tx-logo-status">
                         <i className="icon-signifier"></i>
                     </div>
-                    <p className="Center">Please, sign the allowance authorization transaction using your wallet.</p>
+                    <p className="Center">{t('swapModal.allowanceSignText')}</p>
                 </div>)}
 
                 {status === 'ALLOWANCE-WAITING' && (<div>{/*ALLOWANCE-WAITING*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-waiting rotate"></i>
                     </div>
-                    <p>Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.</p>
-                    <p>Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p>{t('swapModal.allowanceWaiting')}</p>
+                    <p>{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'ALLOWANCE-ERROR' && (<div> {/*ALLOWANCE-ERROR*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-error"></i>
                     </div>
-                    <p className="Center">Operation Failed!.</p>
-                    <p className="Center"> Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationFailed')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-SIGN' && (<div>
                     <div className="tx-logo-status">
                         <i className="icon-signifier"></i>
                     </div>
-                    <p className="Center">Please, sign the token migration transaction using your wallet.</p>
+                    <p className="Center">{t('swapModal.migrationTransactionSignText')}</p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-WAITING' && (<div> {/*TOKEN-MIGRATION-WAITING*/}
                     <div className="tx-logo-status">
                         <i className="icon-tx-waiting rotate"></i>
                     </div>
-                    <p>Please, wait while the token migration transaction is mined in the blockchain.</p>
-                    <p>Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p>{t('swapModal.tokenMigrationWaitingText')}</p>
+                    <p>{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
 
                 </div>)}
 
@@ -269,16 +268,16 @@ const SwapToken = (props) => {
                     <div className="tx-logo-status">
                         <i className="icon-tx-success"></i>
                     </div>
-                    <p className="Center">Operation successful.</p>
-                    <p className="Center">Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationSuccessful')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
                 {status === 'TOKEN-MIGRATION-ERROR' && (<div>
                     <div className="tx-logo-status">
                         <i className="icon-tx-error"></i>
                     </div>
-                    <p className="Center">Operation Failed!.</p>
-                    <p className="Center">Transaction Hash <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
+                    <p className="Center">{t('swapModal.operationFailed')}</p>
+                    <p className="Center">{t('swapModal.transactionHash')}<Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'}/></p>
                 </div>)}
 
             </div>
@@ -288,7 +287,7 @@ const SwapToken = (props) => {
                   status !== 'ALLOWANCE-WAITING' &&
                   status !== 'TOKEN-MIGRATION-WAITING' &&
                   status !== 'TOKEN-MIGRATION-ERROR' &&
-                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>Cancel</Button>)}
+                  status !== 'ALLOWANCE-ERROR')  && (<Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>{t('defaultCTA.buttonClose')}</Button>)}
                 {(status === 'SUBMIT' ||
                   status === 'CONFIRM')  && (
                         <Button
