@@ -126,8 +126,18 @@
         "buttonClose": "Close",
         "infoNoBalance": "insufficient balance",
         "infoAddressEmpty": "Enter destination address",
-        "infoAddressInvalid": "Invalid destination address"
-
+        "infoAddressInvalid": "Invalid destination address",
+        "errors" : {
+            "notOperational" : "Not Operational due to low Global Coverage ratio",
+            "cantOperate" : "Cannot operate with the current status",
+            "requestTimeout" : "Request timeout",
+            "connectYourWallet" : "Please connect your wallet",
+            "amountTooLow" : "Amount must be greater than zero",
+            "amountInvalid" : "Amount must be valid",
+            "notBalance" : "Not enough balance in your wallet",
+            "noLiquidity" : "Not enough liquidity in the protocol",
+            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+        }
     },
     "portfolio": {
         "tokens": {

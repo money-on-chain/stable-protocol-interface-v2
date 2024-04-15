@@ -130,8 +130,18 @@
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
         "infoAddressEmpty": "Falta la dirección de destino",
-        "infoAddressInvalid": "Dirección de destino inválida"
-
+        "infoAddressInvalid": "Dirección de destino inválida",
+        "errors" : {
+            "notOperational" : "No operacional debido a bajo Global Coverage ratio",
+            "cantOperate" : "No se puede operar con el estado actual",
+            "requestTimeout" : "Mucho tiempo procesando",
+            "connectYourWallet" : "Please connect your wallet Por favor conectar billetera",
+            "amountTooLow" : "La cantidad debe ser mayor a cero",
+            "amountInvalid" : "La cantidad debe ser válida",
+            "notBalance" : "No hay balance suficiente en tu billetera",
+            "noLiquidity" : "No hay suficiente liquidez en el protocolo",
+            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
+        }
     },
     "portfolio": {
         "tokens": {
