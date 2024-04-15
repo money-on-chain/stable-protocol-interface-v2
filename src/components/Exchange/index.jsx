@@ -12,7 +12,6 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-        AmountsWithCommissions
 } from '../../helpers/currencies';
 import {
     tokenExchange,
@@ -181,19 +180,7 @@ export default function Exchange() {
             setInputValidationError(true);
             return
         }
-
-        const totalYouExchangeWithTolerance = getMaxWithTolerance(
-            defaultTolerance,
-            totalBalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-        if (amountYouExchange.gt(totalYouExchangeWithTolerance)) {
-            setInputValidationErrorText('Your TX may exceed tolerance limit');
-            setInputValidationError(true);
-            return
-        }
+        
         let tIndex
         // 2. MINT TP. User receive available token in contract
         const arrCurrencyYouReceive = currencyYouReceive.split('_')
@@ -407,16 +394,34 @@ export default function Exchange() {
             setExchangingUSD(new BigNumber(0));
             setValueExchange('0.0');
         } else {
+            const tokenSettings = TokenSettings(currencyYouExchange);
+            const totalbalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    tokenSettings.decimals
+                )
+            );
+            const totalYouExchangeTolerance = getMaxWithTolerance(
+                defaultTolerance,
+                totalbalance,
+                new BigNumber(0),
+                currencyYouExchange,
+                currencyYouReceive
+            ).exchange;
+
             setValueExchange(newAmount);
+
+            const exchangeAmount = newAmount > totalYouExchangeTolerance ? totalYouExchangeTolerance : newAmount;
+
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                newAmount,
+                exchangeAmount,
                 false
             );
             onChangeAmounts(
-                new BigNumber(newAmount),
+                new BigNumber(exchangeAmount),
                 convertAmountReceive,
                 'exchange'
             );
@@ -470,7 +475,7 @@ export default function Exchange() {
             totalYouExchange,
             false
         );
-        setValueExchange(totalYouExchange.toFixed(3));
+        setValueExchange(totalbalance.toFixed(3));
         setAmountYouExchange(totalYouExchange);
         onChangeAmounts(
             new BigNumber(totalYouExchange),
