@@ -12,7 +12,7 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-    AmountsWithCommissions
+        AmountsWithCommissions
 } from '../../helpers/currencies';
 import {
     tokenExchange,
@@ -514,8 +514,8 @@ export default function Exchange() {
                             })
                         }
                         setAddTotalAvailable={setAddTotalAvailable}
-                        action={'EXCHANGING'}
-                        balanceText={'Balance'}
+                        action={t('exchange.labelSending')}
+                        balanceText={t('exchange.labelBalance')}
                     />
                     <div className="input-validation-error">{inputValidationErrorText}</div>
                 </div>
@@ -554,8 +554,8 @@ export default function Exchange() {
                             skipContractConvert: true
                         })}
                         setAddTotalAvailable={setAddTotalAvailable}
-                        action={'RECEIVING'}
-                        balanceText={'Up to'}
+                        action={t('exchange.labelReceiving')}
+                        balanceText={t('exchange.labelUpTo')}
                     />
                 </div>
             </div>
@@ -639,7 +639,7 @@ export default function Exchange() {
                                 <Space direction="vertical">
                                     <Radio value={0} >
                                         <span className={'token_exchange'}>
-                                Fee (
+                                {t('fees.labelFee')} (
                                             {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                                 amount: new BigNumber(commissionPercent),
                                                 token: TokenSettings(currencyYouExchange),
@@ -678,7 +678,7 @@ export default function Exchange() {
                                     </Radio>
                                     <Radio value={1} disabled={radioSelectFeeTokenDisabled}>
                                         <span className={'token_exchange'}>
-                                            Fee (
+                                        {t('fees.labelFee')} (
                                                 {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                                     amount: new BigNumber(commissionPercentFeeToken),
                                                     token: TokenSettings(currencyYouExchange),
@@ -717,9 +717,8 @@ export default function Exchange() {
 
                     </div>
                     <div className="balance">
-                        This fee will be deducted from the transaction value
-                        transferred. <br />
-                        Amounts my be different at transaction confirmation.
+                        {t('fees.disclaimer1')} <br />
+                        {t('fees.disclaimer2')}
                     </div>
                 </div>
 
@@ -730,7 +729,7 @@ export default function Exchange() {
 
             <div className="exchanging">
 
-                <span className={'token_exchange'}>Exchanging </span>
+                <span className={'token_exchange'}>{t('exchange.exchangingSummary')} </span>
                 <span className={'symbol'}> ≈ </span>
                 {exchangingUSD.toString() !== 'NaN' ? <span className={'token_receive'}>
                     {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
@@ -743,7 +742,7 @@ export default function Exchange() {
                         skipContractConvert: true
                     })}
                 </span> : <span>0</span>}
-                <span className={'token_receive_name'}> USD</span>
+                <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
 
             </div>
 

@@ -124,6 +124,7 @@
             background-repeat: no-repeat;
             filter: var(--color-navigation-icon-filter-default);
         }
+
         .wallet-address:hover {
             .logo-wallet {
                 width: 24px;
@@ -132,53 +133,61 @@
                 filter: var(--color-navigation-icon-filter-hover);
             }
         }
+
         .language-menu {
             position: absolute;
-            top: 100%;
+            top: 50%;
             right: 0;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-color: var(--surface-color-3);
+            box-shadow: var(--surface-shadow-3);
             z-index: 10;
             width: 100%;
+            font-family: var(--main-font);
+            font-weight: 600;
+            border-radius: var(--card-border-radius);
+
             .menu-item {
                 justify-content: flex-start;
+                background-color: var(--color-language-background-default);
+                color: var(--color-language-text-default);
             }
             .menu-item-selected {
                 justify-content: flex-start;
-                background-color: var(--color-controls-active);
-                color: var(--color-navigation-text-active);
+                background-color: var(--color-language-background-active);
+                color: var(--color-language-text-active);
             }
             span {
-                width: 70%;
+                width: 90%;
             }
         }
+
         .language-menu > div > div {
             display: flex;
             align-items: center;
-            justify-content: flex-start; 
-            height: 50px;
+            justify-content: flex-start;
+            height: 40px;
             cursor: pointer;
             padding: 0 16px;
-            border-bottom: 1px solid #f0f0f0;
+            // border-bottom: 1px solid #f0f0f0;
         }
-        
+
         .menu-icon {
-            margin-right: 10px; 
+            margin-right: 10px;
             display: flex;
             align-items: center;
             width: 18%;
         }
-        
+
         .menu-icon img {
-            width: 24px; 
-            height: auto; 
+            width: 24px;
+            height: auto;
         }
-        
+
         .language-menu > div > div:hover {
-            background-color: var(--color-controls-active);
-            color: var(--color-navigation-text-active);
+            background-color: var(--color-language-background-hover);
+            color: var(--color-language-text-hover);
         }
-        
+
         .language-menu > div > div:last-child {
             border-bottom: none;
         }
@@ -654,19 +663,32 @@
     // background: #d0d0d0;
 }
 
- .ant-table-body::-webkit-scrollbar {
-     width: 6px;
- }
+// Portfolio table
+.tokens-card-content .ant-table-tbody > tr.ant-table-row:hover > td,
+.tokens-card-content .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    // background: #d0d0d0;
+    background: var(--surface-color-1) !important;
+}
 
- .ant-table-body::-webkit-scrollbar-track {
-     background-color: transparent;
- }
+// Last Operations table
+.content-last-operations .ant-table-tbody > tr.ant-table-row:hover > td,
+.content-last-operations .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-2) !important;
+}
 
- .ant-table-body::-webkit-scrollbar-thumb {
-     /*box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
-     background: rgba(201, 214, 255, 0.24);
-     border-radius: 3px;
- }
+.ant-table-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ant-table-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb {
+    /*box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+    background: rgba(201, 214, 255, 0.24);
+    border-radius: 3px;
+}
 
 /* Token icons */
 
@@ -1672,7 +1694,7 @@ h1.title-last-operations {
         h1 {
             opacity: 1;
             color: var(--color-text-primary);
-            font-family: var(--main-font);
+            font-family: var(--brand-font);
             font-size: 20px;
             font-weight: 700;
             font-style: normal;
@@ -3170,6 +3192,7 @@ h1.title-last-operations {
 }
 .input-balance {
     color: var(--color-text-secondary);
+    text-transform: capitalize;
 }
 
 .input-value {

@@ -31,8 +31,8 @@ export default function AccountDialog(props) {
         e.stopPropagation();
         navigator.clipboard.writeText(address);
         notification.open({
-            message: 'Copied',
-            description: `${address} to clipboard`,
+            message: t('feedback.clipboardCopy'),
+            description: `${address} ` + t('feedback.clipboardTo'),
             placement: 'bottomRight'
         });
     };
@@ -55,7 +55,7 @@ export default function AccountDialog(props) {
                     window.open(qrValue, '_blank', 'noopener,noreferrer');
                 }}
             >
-                <div className="caption">Address</div>{' '}
+                <div className="caption">{t('wallet.userAddress')}</div>{' '}
                 <div className="address-info">
                     <div className="truncate-address">{truncatedAddress}</div>
                     <a onClick={onCopy} ><i className="icon-copy"></i></a>
@@ -68,14 +68,14 @@ export default function AccountDialog(props) {
                     className="secondary-button btn-clear"
                     onClick={onDisconnect}
                 >
-                    Disconnect
+                    {t('wallet.cta.disconnect')}
                 </button>
                 <button
                     type="primary"
                     className="primary-button btn-confirm"
                     onClick={onClose}
                 >
-                    Close
+                    {t('wallet.cta.close')}
                 </button>
             </div>
         </div>

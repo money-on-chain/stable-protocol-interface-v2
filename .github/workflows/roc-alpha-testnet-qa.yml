@@ -1,4 +1,4 @@
-name: RoC-Testnet
+name: RoC-Alpha-Testnet-QA
 on:
   workflow_dispatch:
 
@@ -48,16 +48,16 @@ jobs:
       - name: Install setup
         run: npm ci
 
-      # Target Testnet
+      # Target Alpha Testnet QA
 
       - name: Build setup Testnet
-        run: CI=false npm run build:roc-testnet
+        run: CI=false npm run build:roc-alpha-testnet-qa
 
       - name: Pin to IPFS Testnet
         id: upload
         uses: anantaramdas/ipfs-pinata-deploy-action@39bbda1ce1fe24c69c6f57861b8038278d53688d
         with:
-          pin-name: RoC Testnet ${{ needs.bump_version.outputs.new_tag }}
+          pin-name: RoC Alpha Testnet QA ${{ needs.bump_version.outputs.new_tag }}
           path: './build'
           pinata-api-key: ${{ secrets.PINATA_API_KEY_ROC }}
           pinata-secret-api-key: ${{ secrets.PINATA_API_SECRET_KEY_ROC }}
@@ -76,12 +76,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           tag_name: ${{ needs.bump_version.outputs.new_tag }}
-          release_name: RoC Testnet ${{ needs.bump_version.outputs.new_tag }}
+          release_name: RoC Alpha Testnet QA ${{ needs.bump_version.outputs.new_tag }}
           prerelease: true
           body: |
             **IMPORTANT:** This is a pre-release!, please use at your own RISK... is for testing purpose!
-
-            **RoC Testnet gateways**:
+            
             - CIDv0: `${{ steps.upload.outputs.hash }}`
             - CIDv1: `${{ steps.convert_cidv0.outputs.cidv1 }}`
             - https://rifonchain.mypinata.cloud/ipfs/${{ steps.upload.outputs.hash }}

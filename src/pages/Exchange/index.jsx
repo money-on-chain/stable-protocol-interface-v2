@@ -24,13 +24,13 @@ function SectionExchange(props) {
         <Fragment>
 
             {/* Dashboard Staking Rewards */}
-            {/*<StakingRewards />*/}
+            {/* <StakingRewards /> */}
 
             {/* Exchange */}
             <div className={'dashboard-exchange'}>
 
                 <div className={'title'}>
-                    <h1>Exchange</h1>
+                    <h1>{t('exchange.cardTitle')}</h1>
                 </div>
 
                 <div className={'content-body'}>
