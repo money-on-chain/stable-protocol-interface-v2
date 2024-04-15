@@ -162,7 +162,7 @@ export default function Exchange() {
             return
         }
 
-        if(amountYouExchange.toString().length > 20 || amountYouReceive.toString().length > 20) {
+        if(amountYouExchange.toString().length > 30 || amountYouReceive.toString().length > 30) {
             setInputValidationErrorText('Amount must be valid');
             setInputValidationError(true);
             return
