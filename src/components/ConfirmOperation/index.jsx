@@ -35,7 +35,7 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
-    const [tolerance, setTolerance] = useState(0.2);
+    const [tolerance, setTolerance] = useState(0.7);
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
