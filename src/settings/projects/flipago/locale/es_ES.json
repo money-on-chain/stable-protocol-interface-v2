@@ -42,10 +42,21 @@
             "block": "Bloque Nº",
             "executed_tx": "Ejecutado",
             "tx": "TX Hash",
-            "fee": "Fee",
-            "gas": "Fee Gas",
+            "fee": "Tasa",
+            "gas": "Tasa de Gas",
             "msg": "Mensaje",
             "reason": "Motivo"
+        },
+        "errors": {
+            "qACBelow" : "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1" : "token bajó, insuficiente",
+            "insufficientQAC2" : "enviado",
+            "lowCoverage" : "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor" : "Error en el Flux Capacitor",
+            "noMessage" : "Sin mensaje"
+        },
+        "table":{
+            "itemsPerPage" : "Página"
         }
     },
     "feedback" :{
@@ -213,7 +224,7 @@
             "statusDescriptionFull": "Sistema en condiciones óptimas",
 
             "stuatusTitleWarning": "Parcialmente Operativo",
-            "statusDescriptionWarning": "∆Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+            "statusDescriptionWarning": "El Token Colateral no se puede redimir. El token anclado no se puede mintear",
 
             "statusTitleAlert": "Modo Protegido",
             "statusDescriptionAlert": "No hay operaciones permitidas",
@@ -224,7 +235,7 @@
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
-            "statusTitleUnavailable" : "Cannot operate",
+            "statusTitleUnavailable" : "No puede operar",
             "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
@@ -249,7 +260,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Performance de Tokens Pegged",
+            "cardTitle": "Rendimiento de Tokens Pegged",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -310,8 +321,8 @@
      },
 
      "fees": {
-        "labelFee" : "Fee",
-        "disclaimer1": "Este fee será restado del monto a ser transferido.",
+        "labelFee" : "Tasa",
+        "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
@@ -344,12 +355,12 @@
     },
 
     "swapModal" : {
-        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer swap a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer el cambio a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
         "text2" : "botón 'Cambiar Ahora'",
         "button" : "Cambiar Ahora",
         "modalTitle" : "NOTICIA IMPORTANTE",
         "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva DAPP. No podrás ver más tu balance de RDOC en la DAPP.",
-        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ningún fee por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
         "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todos tu balance de RDOC será convertido a USDRIF",
         "buttonCancel" : "Cancelar",
         "buttonConfirm" : "Confirmar",

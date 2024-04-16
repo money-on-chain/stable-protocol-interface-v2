@@ -18,7 +18,6 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
-import {GetErrorMessage} from '../../../helpers/errorHandler';
 
 export default function ListOperations(props) {
     const { token } = props;
@@ -267,6 +266,22 @@ export default function ListOperations(props) {
         }
 
     }
+    const getErrorMessage = (error) => {
+        switch (error) {
+            case 'qAC below minimum required':
+                return `${settings.tokens.CA[0].name} ${t('operations.errors.qACBelow')} `;
+            case 'Insufficient qac sent':
+                return `${settings.tokens.CA[0].name} ${t('operations.errors.insufficientQAC1')} ${settings.tokens.CA[0].name} ${t('operations.errors.insufficientQAC2')}`;
+            case 'Low coverage':
+                return t('operations.errors.lowCoverage');
+            case 'Invalid Flux Capacitor Operation':
+                return t('operations.errors.fluxCapacitor');
+            case null || undefined || '' || ' ' || 0 || 'null':
+                return t('operations.errors.noMessage');
+            default:
+                return error;
+        }
+    }
     const data_row = () => {
         /*******************************sort descending by date lastUpdatedAt***********************************/
         if (dataJson.operations !== undefined) {
@@ -342,7 +357,7 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
                 error_code: data['errorCode_'] || "--",
-                msg: GetErrorMessage(data['msg_']) || "No message",
+                msg: getErrorMessage(data['msg_']) || "No message",
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
@@ -767,6 +782,9 @@ export default function ListOperations(props) {
                             pageSizeOptions: [10, 20, 50, 100],
                             onShowSizeChange: (current, pageSize) => {
                                 setPageSize(pageSize);
+                            },
+                            locale: {
+                                items_per_page: t('operations.table.itemsPerPage', { ns: ns }),
                             }
                         }}
                         columns={tableColumns}
