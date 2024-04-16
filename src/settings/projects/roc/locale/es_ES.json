@@ -42,8 +42,8 @@
             "block": "Bloque Nº",
             "executed_tx": "Ejecutado",
             "tx": "TX Hash",
-            "fee": "Fee",
-            "gas": "Fee Gas",
+            "fee": "Tasa",
+            "gas": "Tasa de Gas",
             "msg": "Mensaje",
             "reason": "Motivo"
         },
@@ -312,8 +312,8 @@
      },
 
      "fees": {
-        "labelFee" : "Fee",
-        "disclaimer1": "Este fee será restado del monto a ser transferido.",
+        "labelFee" : "Tasa",
+        "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
@@ -346,12 +346,12 @@
     },
 
     "swapModal" : {
-        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer swap a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer el cambio a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
         "text2" : "botón 'Cambiar Ahora'",
         "button" : "Cambiar Ahora",
         "modalTitle" : "NOTICIA IMPORTANTE",
         "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva DAPP. No podrás ver más tu balance de RDOC en la DAPP.",
-        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ningún fee por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
         "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todos tu balance de RDOC será convertido a USDRIF",
         "buttonCancel" : "Cancelar",
         "buttonConfirm" : "Confirmar",

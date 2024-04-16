@@ -501,7 +501,7 @@ export default function ConfirmOperation(props) {
             <div className="fees">
                 <div className="value">
                     <span className={'token_exchange'}>
-                        Fee (
+                        {t('fees.labelFee')} (
                         {PrecisionNumbers({
                             amount: new BigNumber(commissionPercentPAY),
                             token: commissionSettings,
