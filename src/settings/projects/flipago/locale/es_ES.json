@@ -221,7 +221,7 @@
             "statusDescriptionFull": "Sistema en condiciones óptimas",
 
             "stuatusTitleWarning": "Parcialmente Operativo",
-            "statusDescriptionWarning": "∆Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+            "statusDescriptionWarning": "El Token Colateral no se puede redimir. El token anclado no se puede mintear",
 
             "statusTitleAlert": "Modo Protegido",
             "statusDescriptionAlert": "No hay operaciones permitidas",
@@ -232,7 +232,7 @@
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
-            "statusTitleUnavailable" : "Cannot operate",
+            "statusTitleUnavailable" : "No puede operar",
             "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
