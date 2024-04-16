@@ -46,6 +46,14 @@
             "gas": "Fee Gas",
             "msg": "Mensaje",
             "reason": "Motivo"
+        },
+        "errors": {
+            "qACBelow" : "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1" : "token bajó, insuficiente",
+            "insufficientQAC2" : "enviado",
+            "lowCoverage" : "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor" : "Error en el Flux Capacitor",
+            "noMessage" : "Sin mensaje"
         }
     },
     "feedback" :{
@@ -249,7 +257,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Performance de Tokens Pegged",
+            "cardTitle": "Rendimiento de Tokens Pegged",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",

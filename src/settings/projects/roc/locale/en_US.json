@@ -46,6 +46,14 @@
             "gas": "Gas Fee",
             "msg": "Message",
             "reason": "Reason"
+        },
+        "errors": {
+            "qACBelow" : "price went up, amount below minimum required.",
+            "insufficientQAC1" : "price went down, insufficient",
+            "insufficientQAC2" : "sent",
+            "lowCoverage" : "System below protected global coverage",
+            "fluxCapacitor" : "Error in flux capacitor",
+            "noMessage" : "No message"
         }
     },
     "feedback" :{
