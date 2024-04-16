@@ -782,6 +782,9 @@ export default function ListOperations(props) {
                             pageSizeOptions: [10, 20, 50, 100],
                             onShowSizeChange: (current, pageSize) => {
                                 setPageSize(pageSize);
+                            },
+                            locale: {
+                                items_per_page: t('operations.table.itemsPerPage', { ns: ns }),
                             }
                         }}
                         columns={tableColumns}

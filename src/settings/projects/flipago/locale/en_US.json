@@ -54,6 +54,9 @@
             "lowCoverage" : "System below protected global coverage",
             "fluxCapacitor" : "Error in flux capacitor",
             "noMessage" : "No message"
+        },
+        "table":{
+            "itemsPerPage" : "Page"
         }
     },
     "feedback" :{
