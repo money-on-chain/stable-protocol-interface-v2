@@ -411,7 +411,7 @@ export default function Exchange() {
 
             setValueExchange(newAmount);
 
-            const exchangeAmount = newAmount > totalYouExchangeTolerance ? totalYouExchangeTolerance : newAmount;
+            const exchangeAmount = newAmount > totalYouExchangeTolerance && newAmount < totalbalance ? totalYouExchangeTolerance : newAmount;
 
             const convertAmountReceive = ConvertAmount(
                 auth,
