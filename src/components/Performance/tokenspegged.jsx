@@ -177,7 +177,7 @@ const ProvideColumnsTP = [
         <div className="card-tps">
 
             <div className="title">
-                <h1>{t('performance.pegged.cardTitle')}</h1>
+                <h1>{`${t('performance.pegged.cardTitle')} ${settings.tokens.TP[0].name}`}</h1>
             </div>
 
             <Table

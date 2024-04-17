@@ -293,7 +293,7 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "Antes de continuar con la operación debes autorizar el Allowance para que el sistema pueda acceder a los tokens.",
+        "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
         "setUnlimited" : "Configurar Allowance ilimitado. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
@@ -359,7 +359,7 @@
         "receiving" : "Recibiendo",
         "authorizing" : "AUTORIZACIÓN DE TOKEN",
         "migrating" : "MIGRACIÓN DE TOKEN",
-        "allowanceSignText" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
+        "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
         "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
         "allowanceWaiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
         "transactionHash" : "Hash de la transacción",
