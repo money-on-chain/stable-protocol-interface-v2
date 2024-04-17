@@ -302,7 +302,7 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "Antes de continuar con la operación debes autorizar el Allowance para que el sistema pueda acceder a los tokens.",
+        "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
         "setUnlimited" : "Configurar Allowance ilimitado. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
