@@ -429,7 +429,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchangeLimit),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 4,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -454,7 +454,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouReceive),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 4,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,

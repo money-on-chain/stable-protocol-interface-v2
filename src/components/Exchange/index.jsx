@@ -161,7 +161,7 @@ export default function Exchange() {
             return
         }
 
-        if(amountYouExchange.toString().length > 30 || amountYouReceive.toString().length > 30) {
+        if(valueExchange.toString().length > 20 || valueReceive.toString().length > 20) {
             setInputValidationErrorText(t('exchange.errors.amountInvalid'));
             setInputValidationError(true);
             return
@@ -305,7 +305,7 @@ export default function Exchange() {
                 const amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
-                    3,
+                    amountExchange < 0.0001 ? 9 : 4,
                     false
                 );
                 setValueReceive(amountFormattedReceive);
@@ -325,7 +325,7 @@ export default function Exchange() {
                 const amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
-                    3,
+                    amountReceive <= 0.0001 ? 9:4,
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
