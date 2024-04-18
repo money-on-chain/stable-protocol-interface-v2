@@ -251,7 +251,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Rendimiento de Tokens Pegged",
+            "cardTitle": "Rendimiento de",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
