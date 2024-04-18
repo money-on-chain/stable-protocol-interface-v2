@@ -251,7 +251,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Rendimiento de Tokens Pegged",
+            "cardTitle": "Rendimiento de",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -321,7 +321,7 @@
         "portfolio": "Portafolio",
         "send" : "Enviar",
         "exchange" : "Cambiar",
-        "performance" : "Performance",
+        "performance" : "Rendimiento",
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
