@@ -65,20 +65,20 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "BitPro",
+                "abbr": "BPRO"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "BPro Max",
+                "abbr": "BProX"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
+                "label": "Argentinian Peso",
+                "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "Colombian Peso",
+                "abbr": "CopFlip"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
@@ -145,13 +145,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
+                        "title": "BitPro",
+                        "symbol": " (BPRO)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
+                        "title": "BPro Max",
+                        "symbol": " (BProX)",
                         "price_decimals": 2
                     },
                     "2": {
@@ -176,13 +176,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
+                        "title": "Argentinian Peso",
+                        "symbol": " (ArsFlip)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
+                        "title": "Colombian Peso",
+                        "symbol": " (CopFlip)",
                         "price_decimals": 2
                     }
                 }
