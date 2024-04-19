@@ -357,7 +357,7 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
                 error_code: data['errorCode_'] || "--",
-                msg: getErrorMessage(data['msg_']) || "No message",
+                msg: getErrorMessage(data['msg_']) || t('operations.errors.noMessage'),
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",

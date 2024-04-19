@@ -656,7 +656,7 @@ export default function ConfirmOperation(props) {
                             className="secondary-button btn-clear"
                             onClick={onClose}
                         >
-                            Close
+                        {t('exchange.buttonClose')}
                         </button>
                     </div>
                 </div>
