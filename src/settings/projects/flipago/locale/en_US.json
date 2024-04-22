@@ -147,12 +147,12 @@
                     "0": {
                         "title": "BitPro",
                         "symbol": " (BPRO)",
-                        "price_decimals": 2
+                        "price_decimals": 6
                     },
                     "1": {
                         "title": "BPro Max",
                         "symbol": " (BProX)",
-                        "price_decimals": 2
+                        "price_decimals": 6
                     },
                     "2": {
                         "title": "Flip",
@@ -162,7 +162,7 @@
                     "3": {
                         "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 6
                     }
                 }
             },
