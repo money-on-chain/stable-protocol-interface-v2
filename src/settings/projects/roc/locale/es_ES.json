@@ -294,15 +294,15 @@
      "allowance": {
         "cardTitle" : "Autorizar uso de",
         "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
-        "setUnlimited" : "Configurar Allowance ilimitado. No preguntarme nuevamente.",
+        "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
             "authorize": "Autorizar"
         },
         "feedback" : {
             "submit" : "",
-            "sign" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
-            "waiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "sign" : "Por favor, firma la transacción de atutorización utilizando tu billetera.",
+            "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
             "error" : "¡Transacción fallada!",
             "default" : "Espera a la confirmación de la transacción"
         }
@@ -361,7 +361,7 @@
         "migrating" : "MIGRACIÓN DE TOKEN",
         "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
         "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
-        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
         "transactionHash" : "Hash de la transacción",
         "operationFailed" : "La operación falló !.",
         "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
