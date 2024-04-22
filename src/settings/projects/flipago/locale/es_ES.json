@@ -42,10 +42,21 @@
             "block": "Bloque Nº",
             "executed_tx": "Ejecutado",
             "tx": "TX Hash",
-            "fee": "Fee",
-            "gas": "Fee Gas",
+            "fee": "Tasa",
+            "gas": "Tasa de Gas",
             "msg": "Mensaje",
             "reason": "Motivo"
+        },
+        "errors": {
+            "qACBelow" : "precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1" : "token bajó, insuficiente",
+            "insufficientQAC2" : "enviado",
+            "lowCoverage" : "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor" : "Error en el Flux Capacitor",
+            "noMessage" : "Sin mensaje"
+        },
+        "table":{
+            "itemsPerPage" : "Página"
         }
     },
     "feedback" :{
@@ -101,6 +112,7 @@
             "queuing": "Encolando la transacción…",
             "queued": "Operación encolada. Esperando ejecución…",
             "confirming": "Operación en confirmación",
+            "confirmed" : "Operación confirmada",
             "success": "Operación exitosa",
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción",
@@ -122,15 +134,25 @@
         "exchangingSummary": "Cambiando",
         "exchangingSign": "≈",
         "exchangingCurrency": "USD",
-        "buttonPrimary": "Enviar",
+        "buttonPrimary": "Cambiar",
         "modalTitle": "Confirmar Cambio",
         "buttonCancel": "Cancelar",
         "buttonConfirm" : "Confirmar",
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
         "infoAddressEmpty": "Falta la dirección de destino",
-        "infoAddressInvalid": "Dirección de destino inválida"
-
+        "infoAddressInvalid": "Dirección de destino inválida",
+        "errors" : {
+            "notOperational" : "No operacional debido a bajo Global Coverage ratio",
+            "cantOperate" : "No se puede operar con el estado actual",
+            "requestTimeout" : "Mucho tiempo procesando",
+            "connectYourWallet" : "Please connect your wallet Por favor conectar billetera",
+            "amountTooLow" : "La cantidad debe ser mayor a cero",
+            "amountInvalid" : "La cantidad debe ser válida",
+            "notBalance" : "No hay balance suficiente en tu billetera",
+            "noLiquidity" : "No hay suficiente liquidez en el protocolo",
+            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
+        }
     },
     "portfolio": {
         "tokens": {
@@ -201,7 +223,7 @@
             "statusDescriptionFull": "Sistema en condiciones óptimas",
 
             "stuatusTitleWarning": "Parcialmente Operativo",
-            "statusDescriptionWarning": "∆Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+            "statusDescriptionWarning": "El Token Colateral no se puede redimir. El token anclado no se puede mintear",
 
             "statusTitleAlert": "Modo Protegido",
             "statusDescriptionAlert": "No hay operaciones permitidas",
@@ -212,7 +234,7 @@
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
-            "statusTitleUnavailable" : "Cannot operate",
+            "statusTitleUnavailable" : "No puede operar",
             "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
@@ -237,7 +259,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Performance de Tokens Pegged",
+            "cardTitle": "Rendimiento de",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -279,16 +301,16 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "Antes de continuar con la operación debes autorizar el Allowance para que el sistema pueda acceder a los tokens.",
-        "setUnlimited" : "Configurar Allowance ilimitado. No preguntarme nuevamente.",
+        "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
+        "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
             "authorize": "Autorizar"
         },
         "feedback" : {
             "submit" : "",
-            "sign" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
-            "waiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "sign" : "Por favor, firma la transacción de atutorización utilizando tu billetera.",
+            "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
             "error" : "¡Transacción fallada!",
             "default" : "Espera a la confirmación de la transacción"
         }
@@ -298,8 +320,8 @@
      },
 
      "fees": {
-        "labelFee" : "Fee",
-        "disclaimer1": "Este fee será restado del monto a ser transferido.",
+        "labelFee" : "Tasa",
+        "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
@@ -307,7 +329,7 @@
         "portfolio": "Portafolio",
         "send" : "Enviar",
         "exchange" : "Cambiar",
-        "performance" : "Performance",
+        "performance" : "Rendimiento",
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Bloqueo",
@@ -332,12 +354,12 @@
     },
 
     "swapModal" : {
-        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer swap a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas hacer el cambio a tus RIF Dollars para usar la nueva DAPP. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
         "text2" : "botón 'Cambiar Ahora'",
         "button" : "Cambiar Ahora",
         "modalTitle" : "NOTICIA IMPORTANTE",
         "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva DAPP. No podrás ver más tu balance de RDOC en la DAPP.",
-        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ningún fee por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
         "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todos tu balance de RDOC será convertido a USDRIF",
         "buttonCancel" : "Cancelar",
         "buttonConfirm" : "Confirmar",
@@ -345,9 +367,9 @@
         "receiving" : "Recibiendo",
         "authorizing" : "AUTORIZACIÓN DE TOKEN",
         "migrating" : "MIGRACIÓN DE TOKEN",
-        "allowanceSignText" : "Por favor, firma la autorización del Allowance utilizando tu billetera.",
+        "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
         "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
-        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización del Allowance. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
         "transactionHash" : "Hash de la transacción",
         "operationFailed" : "La operación falló !.",
         "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",

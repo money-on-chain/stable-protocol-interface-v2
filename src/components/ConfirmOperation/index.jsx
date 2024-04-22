@@ -43,7 +43,15 @@ export default function ConfirmOperation(props) {
 
     useEffect(() => {
         let timerId;
-    
+        if (status === 'QUEUING') {
+            console.log('Operation queuing... waiting for operation execution.');
+            timerId = setTimeout(() => {
+                if (status === 'QUEUING') {
+                    setStatus('ERROR');
+                    console.log('Operation failed after waiting 20 minutes for execution after queuing.');
+                }
+            }, 600000);
+        }
         if (status === 'QUEUED') {
             console.log('Operation queued... waiting for operation execution.');
             timerId = setTimeout(() => {
@@ -421,7 +429,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchangeLimit),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 4,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -446,7 +454,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouReceive),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 4,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -488,83 +496,12 @@ export default function ConfirmOperation(props) {
 
             </div>
 
-            {/*<div className="prices">*/}
-            {/*    <div className="rate_1">*/}
-            {/*        <span className={'token_exchange'}>*/}
-            {/*            {' '}*/}
-            {/*            1{' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'symbol'}> ≈ </span>*/}
-            {/*        <span className={'token_receive'}>*/}
-            {/*            {' '}*/}
-            {/*            {PrecisionNumbers({*/}
-            {/*                amount: ConvertAmount(*/}
-            {/*                    auth,*/}
-            {/*                    currencyYouExchange,*/}
-            {/*                    currencyYouReceive,*/}
-            {/*                    1,*/}
-            {/*                    false*/}
-            {/*                ),*/}
-            {/*                token: TokenSettings(currencyYouExchange),*/}
-            {/*                decimals: 6,*/}
-            {/*                t: t,*/}
-            {/*                i18n: i18n,*/}
-            {/*                ns: ns,*/}
-            {/*                skipContractConvert: true*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'token_receive_name'}>*/}
-            {/*            {' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}{' '}*/}
-            {/*        </span>*/}
-            {/*    </div>*/}
-            {/*    <div className="rate_2">*/}
-            {/*        <span className={'token_exchange'}>*/}
-            {/*            {' '}*/}
-            {/*            1{' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'symbol'}> ≈ </span>*/}
-            {/*        <span className={'token_receive'}>*/}
-            {/*            {' '}*/}
-            {/*            {PrecisionNumbers({*/}
-            {/*                amount: ConvertAmount(*/}
-            {/*                    auth,*/}
-            {/*                    currencyYouReceive,*/}
-            {/*                    currencyYouExchange,*/}
-            {/*                    1,*/}
-            {/*                    false*/}
-            {/*                ),*/}
-            {/*                token: TokenSettings(currencyYouReceive),*/}
-            {/*                decimals: 6,*/}
-            {/*                t: t,*/}
-            {/*                i18n: i18n,*/}
-            {/*                ns: ns,*/}
-            {/*                skipContractConvert: true*/}
-            {/*            })}*/}
-            {/*        </span>*/}
-            {/*        <span className={'token_receive_name'}>*/}
-            {/*            {' '}*/}
-            {/*            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {*/}
-            {/*                ns: ns*/}
-            {/*            })}{' '}*/}
-            {/*        </span>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
             <div className="separator"></div>
 
             <div className="fees">
                 <div className="value">
                     <span className={'token_exchange'}>
-                        Fee (
+                        {t('fees.labelFee')} (
                         {PrecisionNumbers({
                             amount: new BigNumber(commissionPercentPAY),
                             token: commissionSettings,
@@ -719,7 +656,7 @@ export default function ConfirmOperation(props) {
                             className="secondary-button btn-clear"
                             onClick={onClose}
                         >
-                            Close
+                        {t('exchange.buttonClose')}
                         </button>
                     </div>
                 </div>

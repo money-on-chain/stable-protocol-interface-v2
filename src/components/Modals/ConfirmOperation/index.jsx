@@ -30,7 +30,7 @@ export default function ModalConfirmOperation(props) {
     return (
         <div className="ShowModalConfirmOperation">
             <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
-                Exchange
+                {t('exchange.buttonPrimary')}
             </Button>
             <Modal
                 title={t('exchange.modalTitle')}

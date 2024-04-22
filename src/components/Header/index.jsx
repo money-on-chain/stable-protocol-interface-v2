@@ -45,7 +45,7 @@ export default function SectionHeader() {
                 isActive: true
             },
             {
-                name: "Performance",
+                name: t('menuOptions.performance'),
                 className: 'logo-performance',
                 action: goToPerformance,
                 isActive: true

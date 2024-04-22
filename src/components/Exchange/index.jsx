@@ -12,7 +12,6 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-        AmountsWithCommissions
 } from '../../helpers/currencies';
 import {
     tokenExchange,
@@ -116,32 +115,32 @@ export default function Exchange() {
         // Protocol in not-good status
         if (!isValid && errorType === '1') {
             if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
-                setInputValidationErrorText('Not Operational due to low Global Coverage ratio');
+                setInputValidationErrorText(t('exchange.errors.notOperational'));
                 setInputValidationError(true);
                 return
             }
         }
         if (!isValid && errorType > 1 && errorType < 5) {
-            setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationErrorText(t('exchange.errors.cantOperate'));
             setInputValidationError(true);
             return
         }
         if (!isValid && errorType === '5') {
-            setInputValidationErrorText('Request timeout');
+            setInputValidationErrorText(t('exchange.errors.requestTimeout'));
             setInputValidationError(true);
             return
         }
 
         // 0. Not Wallet connected
         if (!auth.userBalanceData) {
-            setInputValidationErrorText('Please connect your wallet');
+            setInputValidationErrorText(t('exchange.errors.connectYourWallet'));
             setInputValidationError(true);
             return
         }
 
         // 0. Cannot operate
         if (!auth.contractStatusData?.canOperate) {
-            setInputValidationErrorText('Cannot operate with the current contract status');
+            setInputValidationErrorText(t('exchange.errors.cantOperate'));
             setInputValidationError(true);
             return
         }
@@ -150,14 +149,20 @@ export default function Exchange() {
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
             setInputValidationError(true);
             if (valueExchange !== '' || valueReceive !== '') {
-                setInputValidationErrorText('Amount must be greater than zero');
+                setInputValidationErrorText(t('exchange.errors.amountTooLow'));
                 setInputValidationError(true);
                 return
             }
             return;
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
-            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationErrorText(t('exchange.errors.amountInvalid'));
+            setInputValidationError(true);
+            return
+        }
+
+        if(valueExchange.toString().length > 20 || valueReceive.toString().length > 20) {
+            setInputValidationErrorText(t('exchange.errors.amountInvalid'));
             setInputValidationError(true);
             return
         }
@@ -171,23 +176,11 @@ export default function Exchange() {
         );
         
         if (amountYouExchange.gt(totalBalance)) {
-            setInputValidationErrorText('Not enough balance in your wallet');
+            setInputValidationErrorText(t('exchange.errors.notBalance'));
             setInputValidationError(true);
             return
         }
-
-        const totalYouExchangeWithTolerance = getMaxWithTolerance(
-            defaultTolerance,
-            totalBalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-        if (amountYouExchange.gt(totalYouExchangeWithTolerance)) {
-            setInputValidationErrorText('Your TX may exceed tolerance limit');
-            setInputValidationError(true);
-            return
-        }
+        
         let tIndex
         // 2. MINT TP. User receive available token in contract
         const arrCurrencyYouReceive = currencyYouReceive.split('_')
@@ -201,7 +194,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(tpAvailableToMint)) {
-                setInputValidationErrorText('Not enough liquidity in the protocol');
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return
             }
@@ -214,7 +207,7 @@ export default function Exchange() {
                 Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem, "ether")
             );
             if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
-                setInputValidationErrorText('Not enough liquidity in the protocol');
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return
             }
@@ -232,7 +225,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(caBalance)) {
-                setInputValidationErrorText(`Not enough liquidity in the protocol`);
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return                
             }
@@ -263,7 +256,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
-                setInputValidationErrorText('Maximum temporarily limited by the protocol');
+                setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
             }
@@ -282,7 +275,7 @@ export default function Exchange() {
             console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
             console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
-                setInputValidationErrorText('Maximum temporarily limited by the protocol');
+                setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
             }
@@ -312,7 +305,7 @@ export default function Exchange() {
                 const amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
-                    3,
+                    amountExchange < 0.0001 ? 9 : 4,
                     false
                 );
                 setValueReceive(amountFormattedReceive);
@@ -332,7 +325,7 @@ export default function Exchange() {
                 const amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
-                    3,
+                    amountReceive <= 0.0001 ? 9:4,
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
@@ -401,16 +394,34 @@ export default function Exchange() {
             setExchangingUSD(new BigNumber(0));
             setValueExchange('0.0');
         } else {
+            const tokenSettings = TokenSettings(currencyYouExchange);
+            const totalbalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    tokenSettings.decimals
+                )
+            );
+            const totalYouExchangeTolerance = getMaxWithTolerance(
+                defaultTolerance,
+                totalbalance,
+                new BigNumber(0),
+                currencyYouExchange,
+                currencyYouReceive
+            ).exchange;
+
             setValueExchange(newAmount);
+
+            const exchangeAmount = newAmount > totalYouExchangeTolerance && newAmount < totalbalance ? totalYouExchangeTolerance : newAmount;
+
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                newAmount,
+                exchangeAmount,
                 false
             );
             onChangeAmounts(
-                new BigNumber(newAmount),
+                new BigNumber(exchangeAmount),
                 convertAmountReceive,
                 'exchange'
             );
@@ -464,7 +475,7 @@ export default function Exchange() {
             totalYouExchange,
             false
         );
-        setValueExchange(totalYouExchange.toFixed(3));
+        setValueExchange(totalbalance.toFixed(3));
         setAmountYouExchange(totalYouExchange);
         onChangeAmounts(
             new BigNumber(totalYouExchange),
