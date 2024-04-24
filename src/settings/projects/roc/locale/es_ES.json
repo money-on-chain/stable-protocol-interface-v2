@@ -293,7 +293,7 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
+        "statusText" : "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
         "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
@@ -301,7 +301,7 @@
         },
         "feedback" : {
             "submit" : "",
-            "sign" : "Por favor, firma la transacción de atutorización utilizando tu billetera.",
+            "sign" : "Por favor, firma la transacción de autorización utilizando tu billetera.",
             "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
             "error" : "¡Transacción fallada!",
             "default" : "Espera a la confirmación de la transacción"
