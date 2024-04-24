@@ -76,19 +76,19 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "BitPro",
+                "label": "BPro",
                 "abbr": "BPRO"
             },
             "TC": {
                 "label": "BPro Max",
-                "abbr": "BProX"
+                "abbr": "BPROX"
             },
             "TP_0": {
-                "label": "Peso Argentino",
+                "label": "ARS",
                 "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Peso Colombiano",
+                "label": "COP",
                 "abbr": "CopFlip"
             },
             "COINBASE": {
@@ -166,18 +166,18 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "BitPro",
+                        "title": "BPro",
                         "symbol": " (BPRO)",
                         "price_decimals": 6
                     },
                     "1": {
                         "title": "BPro Max",
-                        "symbol": " (BProX)",
+                        "symbol": " (BPROX)",
                         "price_decimals": 6
                     },
                     "2": {
                         "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "symbol": " (FLIP)",
                         "price_decimals": 2
                     },
                     "3": {
@@ -197,12 +197,12 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Peso Argentino",
+                        "title": "ARS",
                         "symbol": " (ArsFlip)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Peso Colombiano",
+                        "title": "COP",
                         "symbol": " (CopFlip)",
                         "price_decimals": 2
                     }
@@ -321,6 +321,7 @@
 
      "fees": {
         "labelFee" : "Tasa",
+        "labelExecutionFee" : "Tasa de ejecución",
         "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },

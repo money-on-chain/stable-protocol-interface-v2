@@ -529,6 +529,31 @@ export default function ConfirmOperation(props) {
                         {commissionTokenName}
                     </span>
                 </div>
+                <div className={'execution-fee'}>
+                    <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
+                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: executionFee,
+                                    token: TokenSettings('COINBASE'),
+                                    decimals: 6,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                    <span className={'token_receive_name'}>
+                                {' '}
+                        {t(`exchange.tokens.COINBASE.abbr`, {
+                            ns: ns
+                        })}{' '}
+                            </span>
+
+                </div>
+
+
+
                 <div className="disclaimer">
                     {t('fees.disclaimer1')}
                     <br />

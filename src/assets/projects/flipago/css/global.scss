@@ -1190,7 +1190,7 @@ h1.title-last-operations {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 4px;
         width: 100%;
         // height: 61px;
         margin-bottom: 16px;
@@ -2014,7 +2014,8 @@ h1.title-last-operations {
     box-shadow: none;
 }
 
-.primary-button:hover {
+.primary-button:hover,
+.primary-button:focus {
     color: var(--color-button-primary-text-hover);
     border-color: var(--color-button-primary-text-hover);
     background: var(--color-button-primary-background-hover);

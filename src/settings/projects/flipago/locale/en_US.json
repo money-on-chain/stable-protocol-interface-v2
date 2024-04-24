@@ -76,19 +76,19 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "BitPro",
+                "label": "BPro",
                 "abbr": "BPRO"
             },
             "TC": {
                 "label": "BPro Max",
-                "abbr": "BProX"
+                "abbr": "BPROX"
             },
             "TP_0": {
-                "label": "Argentinian Peso",
+                "label": "ARS",
                 "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Colombian Peso",
+                "label": "COP",
                 "abbr": "CopFlip"
             },
             "COINBASE": {
@@ -168,18 +168,18 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "BitPro",
+                        "title": "BPro",
                         "symbol": " (BPRO)",
                         "price_decimals": 6
                     },
                     "1": {
                         "title": "BPro Max",
-                        "symbol": " (BProX)",
+                        "symbol": " (BPROX)",
                         "price_decimals": 6
                     },
                     "2": {
                         "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "symbol": " (FLIP)",
                         "price_decimals": 2
                     },
                     "3": {
@@ -199,12 +199,12 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Argentinian Peso",
+                        "title": "ARS",
                         "symbol": " (ArsFlip)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Colombian Peso",
+                        "title": "COP",
                         "symbol": " (CopFlip)",
                         "price_decimals": 2
                     }
@@ -266,7 +266,7 @@
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
             "colMintable": "Mintable",
-            "colTargetCoverage": "Cobertura Obj.",
+            "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
          }
@@ -323,6 +323,7 @@
 
      "fees": {
         "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },
