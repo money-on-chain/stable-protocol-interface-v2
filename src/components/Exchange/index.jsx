@@ -27,7 +27,6 @@ import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import CheckStatus from '../../helpers/checkStatus';
-import { getMaxWithTolerance } from '../../helpers/toleranceCalculator';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -305,7 +304,7 @@ export default function Exchange() {
                 const amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
-                    amountExchange < 0.0001 ? 9 : 4,
+                    8,
                     false
                 );
                 setValueReceive(amountFormattedReceive);
@@ -325,7 +324,7 @@ export default function Exchange() {
                 const amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
-                    amountReceive <= 0.0001 ? 9:4,
+                    8,
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
@@ -401,27 +400,18 @@ export default function Exchange() {
                     tokenSettings.decimals
                 )
             );
-            const totalYouExchangeTolerance = getMaxWithTolerance(
-                defaultTolerance,
-                totalbalance,
-                new BigNumber(0),
-                currencyYouExchange,
-                currencyYouReceive
-            ).exchange;
 
             setValueExchange(newAmount);
-
-            const exchangeAmount = newAmount > totalYouExchangeTolerance && newAmount < totalbalance ? totalYouExchangeTolerance : newAmount;
 
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                exchangeAmount,
+                newAmount,
                 false
             );
             onChangeAmounts(
-                new BigNumber(exchangeAmount),
+                new BigNumber(newAmount),
                 convertAmountReceive,
                 'exchange'
             );
@@ -460,25 +450,17 @@ export default function Exchange() {
                 tokenSettings.decimals
             )
         );
-        const totalYouExchange = getMaxWithTolerance(
-            defaultTolerance,
-            totalbalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-
         const convertAmountReceive = ConvertAmount(
             auth,
             currencyYouExchange,
             currencyYouReceive,
-            totalYouExchange,
+            totalbalance,
             false
         );
-        setValueExchange(totalbalance.toFixed(TokenSettings(currencyYouExchange).visibleDecimals, 2));
-        setAmountYouExchange(totalYouExchange);
+        setValueExchange(totalbalance.toFixed(8, 2));
+        setAmountYouExchange(totalbalance);
         onChangeAmounts(
-            new BigNumber(totalYouExchange),
+            totalbalance,
             convertAmountReceive,
             'exchange'
         );
@@ -510,9 +492,7 @@ export default function Exchange() {
                             (!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouExchange),
                                 token: TokenSettings(currencyYouExchange),
-                                decimals:
-                                TokenSettings(currencyYouExchange)
-                                    .visibleDecimals,
+                                decimals: 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns
@@ -550,9 +530,7 @@ export default function Exchange() {
                                 currencyYouReceive
                             ),
                             token: TokenSettings(currencyYouReceive),
-                            decimals:
-                                TokenSettings(currencyYouReceive)
-                                    .visibleDecimals,
+                            decimals:8,
                             t: t,
                             i18n: i18n,
                             ns: ns,

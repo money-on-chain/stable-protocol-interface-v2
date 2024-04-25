@@ -429,7 +429,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchangeLimit),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 8,
+                            decimals: amountYouExchangeLimit < 0.0000001 ? 12 : 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -453,7 +453,7 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouReceive),
                             token: TokenSettings(currencyYouReceive),
-                            decimals: 8,
+                            decimals: amountYouReceive < 0.0000001 ? 12 : 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -519,27 +519,6 @@ export default function ConfirmOperation(props) {
                         })}
                     </span>
                     <span className={'token_receive_name'}>{commissionTokenName}</span>
-                </div>
-                <div className={'execution-fee'}>
-                    <span className={'token_exchange'}>Execution fee</span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
-                        {PrecisionNumbers({
-                            amount: executionFee,
-                            token: TokenSettings('COINBASE'),
-                            decimals: 6,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className={'token_receive_name'}>
-                        {' '}
-                        {t(`exchange.tokens.COINBASE.abbr`, {
-                            ns: ns
-                        })}{' '}
-                    </span>
                 </div>
                 <div className={'execution-fee'}>
                     <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
