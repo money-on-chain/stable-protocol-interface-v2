@@ -2325,7 +2325,7 @@ h1.title-last-operations {
         color: var(--color-text-primary);
 
         .ant-switch-checked {
-            background-color: var(--surface-color-1) !important;
+            background-color: var(--surface-color-inset) !important;
 
             .ant-switch-handle::before {
                 background-color: var(--color-text-link) !important;
@@ -2407,6 +2407,7 @@ h1.title-last-operations {
     }
 
     .actions {
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         gap: 24px;
