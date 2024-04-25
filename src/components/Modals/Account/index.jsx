@@ -23,14 +23,14 @@ export default function ModalAccount(props) {
         <div className="ShowModalAccount">
             <a onClick={showModal}>{truncatedAddress}</a>{' '}
             <Modal
-                width={505}
+                width={620}
                 open={visible}
                 onCancel={hideModal}
                 footer={null}
                 closable={false}
                 className="ModalAccount"
                 centered={true}
-                maskStyle={{  }}
+                maskStyle={{}}
             >
                 <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
             </Modal>
