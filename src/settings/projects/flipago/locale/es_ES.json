@@ -76,20 +76,20 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "BPro Max",
+                "abbr": "BPROX"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
+                "label": "ARS",
+                "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "COP",
+                "abbr": "CopFlip"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
@@ -162,29 +162,28 @@
                     "price": "Precio en USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
+                        "price_decimals": 6
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "BPro Max",
+                        "symbol": " (BPROX)",
+                        "price_decimals": 6
                     },
                     "2": {
                         "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "symbol": " (FLIP)",
                         "price_decimals": 2
                     },
                     "3": {
                         "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 6
                     }
                 }
             },
@@ -198,13 +197,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
+                        "title": "ARS",
+                        "symbol": " (ArsFlip)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
+                        "title": "COP",
+                        "symbol": " (CopFlip)",
                         "price_decimals": 2
                     }
                 }
@@ -322,6 +321,7 @@
 
      "fees": {
         "labelFee" : "Tasa",
+        "labelExecutionFee" : "Tasa de ejecución",
         "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },

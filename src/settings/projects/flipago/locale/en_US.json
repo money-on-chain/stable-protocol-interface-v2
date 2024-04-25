@@ -76,20 +76,20 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "BPro Max",
+                "abbr": "BPROX"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
+                "label": "ARS",
+                "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "COP",
+                "abbr": "CopFlip"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
@@ -168,24 +168,24 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
+                        "price_decimals": 6
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "BPro Max",
+                        "symbol": " (BPROX)",
+                        "price_decimals": 6
                     },
                     "2": {
                         "title": "Flip",
-                        "symbol": " (GOFLIP)",
+                        "symbol": " (FLIP)",
                         "price_decimals": 2
                     },
                     "3": {
                         "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 6
                     }
                 }
             },
@@ -199,13 +199,13 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
+                        "title": "ARS",
+                        "symbol": " (ArsFlip)",
                         "price_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
+                        "title": "COP",
+                        "symbol": " (CopFlip)",
                         "price_decimals": 2
                     }
                 }
@@ -266,7 +266,7 @@
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
             "colMintable": "Mintable",
-            "colTargetCoverage": "Cobertura Obj.",
+            "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
          }
@@ -323,6 +323,7 @@
 
      "fees": {
         "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },

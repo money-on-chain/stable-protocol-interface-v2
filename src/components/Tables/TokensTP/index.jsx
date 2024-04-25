@@ -8,6 +8,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import settings from '../../../settings/settings.json';
 import { ProvideColumnsTP } from '../../../helpers/tokensTables';
+import { ConvertPeggedTokenPrice } from '../../../helpers/currencies';
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -38,21 +39,25 @@ export default function Tokens(props) {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            const price = new BigNumber(
+
+            let price = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.PP_TP[dataItem.key],
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
+            price = ConvertPeggedTokenPrice(auth, price)
             const balanceUSD = balance.div(price);
 
             // variation
-            const priceHistory = new BigNumber(
+            let priceHistory = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.historic.PP_TP[dataItem.key],
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
+            priceHistory = ConvertPeggedTokenPrice(auth, priceHistory)
+
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);
 

@@ -256,7 +256,7 @@
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
             "colMintable": "Mintable",
-            "colTargetCoverage": "Cobertura Obj.",
+            "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
          }
@@ -313,6 +313,7 @@
 
      "fees": {
         "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },

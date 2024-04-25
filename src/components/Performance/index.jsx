@@ -18,13 +18,15 @@ export default function Performance(props) {
     const auth = useContext(AuthenticateContext);
     const {statusIcon, statusLabel, statusText} = CheckStatus();
     let price;
-    if (auth.contractStatusData && auth.userBalanceData) {
+    let collateralInUSD;
+    if (auth.contractStatusData) {
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
                 settings.tokens.TC.decimals
             )
         );
+
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_CA[0],
@@ -32,6 +34,15 @@ export default function Performance(props) {
             )
         );
         price = priceTEC.times(priceCA);
+
+        const collateralTotal = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.nACcb,
+                settings.tokens.TC.decimals
+            )
+        );
+        collateralInUSD = collateralTotal.times(price);
+
     }
     return (
         <div className="Performance">
@@ -73,13 +84,13 @@ export default function Performance(props) {
 
                             <div className="big-number">
                                 {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                                    amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
+                                    amount: collateralInUSD ? collateralInUSD : new BigNumber(0),
                                     token: TokenSettings('CA_0'),
                                     decimals: 2,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
-                                    skipContractConvert: false
+                                    skipContractConvert: true
                                 })}
                             </div>
 
@@ -192,13 +203,13 @@ export default function Performance(props) {
 
                                 <div className="coll-1">
                                     <div className="amount">{(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                                        amount: auth.contractStatusData ? auth.contractStatusData.nACcb : new BigNumber(0),
+                                        amount: collateralInUSD ? collateralInUSD : new BigNumber(0),
                                         token: TokenSettings('CA_0'),
                                         decimals: 2,
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
-                                        skipContractConvert: false
+                                        skipContractConvert: true
                                     })}</div>
                                     <div className="caption">{t('performance.collateral.totalIn')}</div>
                                 </div>

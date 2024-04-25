@@ -313,6 +313,7 @@
 
      "fees": {
         "labelFee" : "Tasa",
+        "labelExecutionFee" : "Tasa de ejecución",
         "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
