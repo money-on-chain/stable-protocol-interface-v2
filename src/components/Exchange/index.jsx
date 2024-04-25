@@ -33,7 +33,7 @@ export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [defaultTolerance, setDefaultTolerance] = useState(0.2);
+    const [defaultTolerance, setDefaultTolerance] = useState(0.7);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -475,7 +475,7 @@ export default function Exchange() {
             totalYouExchange,
             false
         );
-        setValueExchange(totalbalance.toFixed(3));
+        setValueExchange(totalbalance.toFixed(TokenSettings(currencyYouExchange).visibleDecimals, 2));
         setAmountYouExchange(totalYouExchange);
         onChangeAmounts(
             new BigNumber(totalYouExchange),
