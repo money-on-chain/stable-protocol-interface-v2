@@ -1001,7 +1001,15 @@ h1.title-last-operations {
         width: 380px;
         /*height: 122px;*/
         // margin-bottom: 0px !important;
-
+        .warning-msg {
+            font-family: var(--brand-font);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            text-align: center;
+            color: var(--color-semantic-negative);
+        }
         .swapFrom {
             display: flex;
             flex-direction: row;

@@ -39,6 +39,7 @@ export default function ConfirmOperation(props) {
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
+    const [tooSmallTolerance, setTooSmallTolerance] = useState('');
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
@@ -106,7 +107,19 @@ export default function ConfirmOperation(props) {
     useEffect(() => {
         if (amountYouExchange) {
             const limits = toleranceLimits(tolerance);
-            setAmountYouExchangeLimit(limits.exchange);
+            const totalBalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    TokenSettings(currencyYouExchange).decimals
+                )
+            );
+            if (limits.exchange.gt(totalBalance)) {
+                setAmountYouExchangeLimit(totalBalance);
+                setTooSmallTolerance(true);
+                changeTolerance(0);
+            } else {
+                setAmountYouExchangeLimit(limits.exchange);
+            }
         }
     }, [amountYouExchange]);
 
@@ -382,6 +395,8 @@ export default function ConfirmOperation(props) {
         if (limits.exchange.gt(totalBalance)) {
             console.log('Insufficient balance');
             setToleranceError('Tolerance exceeds user balance');
+            setAmountYouExchangeLimit(limits.exchange);
+            setAmountYouReceiveLimit(limits.receive);
             return;
         }
         setToleranceError('');
@@ -443,6 +458,11 @@ export default function ConfirmOperation(props) {
                         })}{' '}
                     </span>
                 </div>
+                {tooSmallTolerance && 
+                <div className="warning-msg">{t(`exchange.priceVariation.warning`, {
+                            ns: ns
+                        })}{' '}
+                </div>}
 
                 <div className="swapArrow">
                     <i className="icon-arrow-down"></i>
