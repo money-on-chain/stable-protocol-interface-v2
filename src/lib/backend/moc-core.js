@@ -116,8 +116,8 @@ const mintTC = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -213,8 +213,8 @@ const redeemTC = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -336,8 +336,8 @@ const mintTP = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -439,8 +439,8 @@ const redeemTP = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
