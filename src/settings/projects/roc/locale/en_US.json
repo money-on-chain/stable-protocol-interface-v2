@@ -119,7 +119,7 @@
         "priceVariation": {
             "title": "Customice price variation tolerance",
             "sliderLabel" : "Price Variation Tolerance",
-            "warning" : "Warning, price variation tolerance is too small, your TX might fail"
+            "warning" : "This amount was updated according to variation tolerance"
         },
         "cardTitle": "Exchange",
         "labelSending": "Exchanging",

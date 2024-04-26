@@ -123,7 +123,7 @@
         "priceVariation": {
             "title": "Personalizar Tolerancia de Variación de Precio",
             "sliderLabel" : "Tolerancia de Variación de Precio",
-            "warning" : "Advertencia, la tolerancia de variación de precio es muy baja, su transacción puede fallar"
+            "warning" : "Cantidad actualizada debido a tolerancia de variación de precio"
         },
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
