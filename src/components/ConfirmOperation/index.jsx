@@ -39,7 +39,8 @@ export default function ConfirmOperation(props) {
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
-    const [tooSmallTolerance, setTooSmallTolerance] = useState('');
+    const [adjustedTolerance, setAdjustedTolerance] = useState('');
+    const [amountYouExchangeAdjusted, setAmountYouExchangeAdjusted] = useState(null);
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
@@ -70,13 +71,13 @@ export default function ConfirmOperation(props) {
         let limitExchange;
         let limitReceive;
         if (IS_MINT) {
-            limitExchange = new BigNumber(amountYouExchange)
+            limitExchange = new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange)
                 .times(new BigNumber(newTolerance))
                 .div(100)
-                .plus(new BigNumber(amountYouExchange));
+                .plus(new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange));
             limitReceive = amountYouReceive;
         } else {
-            limitExchange = amountYouExchange;
+            limitExchange = amountYouExchangeAdjusted ?? amountYouExchange;
             limitReceive = new BigNumber(amountYouReceive)
                 .times(new BigNumber(newTolerance))
                 .div(100)
@@ -114,9 +115,9 @@ export default function ConfirmOperation(props) {
                 )
             );
             if (limits.exchange.gt(totalBalance)) {
-                setAmountYouExchangeLimit(totalBalance);
-                setTooSmallTolerance(true);
-                changeTolerance(0);
+                setAmountYouExchangeLimit(totalBalance - (limits.exchange - totalBalance));
+                setAmountYouExchangeAdjusted(totalBalance - (limits.exchange - totalBalance));
+                setAdjustedTolerance(true);
             } else {
                 setAmountYouExchangeLimit(limits.exchange);
             }
@@ -206,7 +207,7 @@ export default function ConfirmOperation(props) {
             tokenAmount = amountYouReceive;
             limitAmount = amountYouExchangeLimit;
         } else {
-            tokenAmount = amountYouExchange;
+            tokenAmount = amountYouExchangeAdjusted ?? amountYouExchange;
             limitAmount = amountYouReceiveLimit;
         }
 
@@ -384,6 +385,7 @@ export default function ConfirmOperation(props) {
     };
 
     const changeTolerance = (newTolerance) => {
+        setAdjustedTolerance(false);
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance);
         const totalBalance = new BigNumber(
@@ -458,7 +460,7 @@ export default function ConfirmOperation(props) {
                         })}{' '}
                     </span>
                 </div>
-                {tooSmallTolerance && 
+                {adjustedTolerance && 
                 <div className="warning-msg">{t(`exchange.priceVariation.warning`, {
                             ns: ns
                         })}{' '}
