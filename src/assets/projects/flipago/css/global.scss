@@ -2173,17 +2173,15 @@ h1.title-last-operations {
         padding: 0px;
         gap: 24px;
         width: 100%;
-        height: 167px;
-
+        height: 200px;
         .status-submit {
             /* Auto layout */
-
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 24px;
             width: 100%;
-            height: 167px;
+            height: 200px;
 
             .status-text {
                 display: flex;
@@ -2215,7 +2213,7 @@ h1.title-last-operations {
                 gap: 8px;
                 width: 424px;
                 height: 32px;
-
+                margin-top: 30px;
                 .check-unlimited {
                     height: 17px;
                     font-style: normal;
