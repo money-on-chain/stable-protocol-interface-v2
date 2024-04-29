@@ -378,7 +378,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
                                             token: token.exchange.token[0] ?? token.exchange.token,
-                                            decimals: 2,
+                                            decimals: token.exchange.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -413,7 +413,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.receive.amount,
                                             token: token.receive.token,
-                                            decimals: 2,
+                                            decimals: token.receive.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
