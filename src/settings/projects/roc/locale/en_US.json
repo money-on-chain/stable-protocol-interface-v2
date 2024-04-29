@@ -6,6 +6,16 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Last Operations",
+        "aboutQueue": "About queue",
+        "modal" : {
+            "title" : "About queue - Cicle of a transaction",
+            "queuing" : "Transaction entered the queue with the first confirmation.",
+            "queued" : "Transaction is in the queue waiting for execution.",
+            "confirming" : "Transaction was executed and has one confirmation.", 
+            "confirmed" : "Transaction was executed and has at least ten confirmations.",
+            "failed" : "Transaction failed in any of the involved steps.",
+            "buttonClose" : "Close"
+        },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },

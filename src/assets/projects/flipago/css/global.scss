@@ -859,6 +859,67 @@ h1.title-last-operations {
     color: var(--color-text-primary);
 }
 
+.about-button {
+    font-family: var(--brand-font);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: right;
+    color: var(--color-text-primary);
+    background: var(--surface-color-2);
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 8px;
+    cursor: pointer;
+    .logo-queue {
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+        background-image: url('../icons/aboutqueueicon.svg');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        filter: var(--color-navigation-icon-filter-default);
+    }
+}
+
+/* Modal Queue info*/
+.queue-modal-container {
+    display: flex;
+    flex-direction: column;
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px; 
+    }
+    
+    .text {
+        flex: 1; 
+        margin-right: 10px; 
+    }
+    
+    .icon {
+        
+    }
+    
+    
+    @media (max-width: 600px) {
+        .row {
+            flex-direction: column;
+            align-items: flex-start; 
+        }
+    
+        .icon {
+            margin-top: 10px; 
+        }
+    }
+}
+/* Modal Queue info*/
+
 /* Modal Important Notice*/
 .ModalImportantNotice {
     font-family: var(--brand-font);
