@@ -7,6 +7,10 @@
     background-color: var(--surface-color-0);
 }
 
+.modalsDefaults {
+    width: 650px !important;
+}
+
 /*
     --- Ant Layout ---
 */
@@ -860,29 +864,31 @@ h1.title-last-operations {
 }
 
 .about-button {
-    font-family: var(--brand-font);
+    font-family: var(--main-font);
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
     line-height: 19px;
     text-align: right;
-    color: var(--color-text-primary);
-    background: var(--surface-color-2);
+    color: var(--color-text-secondary);
+    background-color: transparent;
     border-radius: 4px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 12px;
-    padding: 8px 8px;
+    margin-bottom: 8px;
+    margin-right: 16px;
     cursor: pointer;
+    display: flex;
+    justify-content: end;
     .logo-queue {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         margin-left: 8px;
         background-image: url('../icons/aboutqueueicon.svg');
-        background-size: 20px 20px;
+        background-size: 16px 16px;
         background-repeat: no-repeat;
         display: inline-block;
-        filter: var(--color-navigation-icon-filter-default);
+        filter: var(--color-icon-link-secondary-filter);
     }
 }
 
@@ -890,36 +896,60 @@ h1.title-last-operations {
 .queue-modal-container {
     display: flex;
     flex-direction: column;
+    padding: 8px;
+
     .row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px; 
+        margin-bottom: 16px;
     }
-    
+
     .text {
-        flex: 1; 
-        margin-right: 10px; 
+        flex: 1;
+        margin-right: 10px;
     }
-    
+
     .button-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 20px; 
+        margin-top: 20px;
     }
-    
+
     @media (max-width: 600px) {
         .row {
-            flex-direction: column;
-            align-items: flex-start; 
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
         }
-    
+
         .icon {
-            margin-top: 10px; 
+            margin-top: 10px;
         }
     }
 }
+
+.queue-modal-container > .row {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--dividers);
+}
+
+.status-list > div {
+    font-family: var(--main-font);
+    color: var(--color-text-primary);
+    padding-top: 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--dividers);
+}
+
+.status-list > div:last-child {
+    border-bottom: none;
+}
+.table-status-icon-cell {
+    width: 130px;
+}
+
 /* Modal Queue info*/
 
 /* Modal Important Notice*/
@@ -1007,8 +1037,8 @@ h1.title-last-operations {
         font-style: italic;
         font-weight: 900;
         font-size: 20px;
-        // line-height: 24px;
-        // padding: 24px 24px;
+        line-height: 24px;
+        padding: 24px 24px;
     }
 
     .ant-modal-title {
@@ -3271,4 +3301,14 @@ h1.title-last-operations {
 
 .ant-table-thead .ant-table-cell-scrollbar {
     display: none;
+}
+
+/* Modal background backdrop color & blur settings */
+
+.ant-modal-wrap {
+    background-color: var(--modals-backdrop-color) !important;
+}
+
+.ant-modal-mask {
+    backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
 }

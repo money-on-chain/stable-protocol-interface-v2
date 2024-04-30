@@ -6,14 +6,14 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Last Operations",
-        "aboutQueue": "About queue",
-        "modal" : {
+        "aboutQueue" : {
+            "button" : "About queue",
             "title" : "About queue - Cicle of a transaction",
-            "queuing" : "Transaction entered the queue with the first confirmation.",
-            "queued" : "Transaction is in the queue waiting for execution.",
-            "confirming" : "Transaction was executed and has one confirmation.", 
-            "confirmed" : "Transaction was executed and has at least ten confirmations.",
-            "failed" : "Transaction failed in any of the involved steps.",
+            "statusQueuing" : "Transaction entered the queue with the first confirmation.",
+            "statusQueued" : "Transaction is in the queue waiting for execution.",
+            "statusConfirming" : "Transaction was executed and has one confirmation.", 
+            "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
+            "statusFailed" : "Transaction failed in any of the involved steps.",
             "buttonClose" : "Close"
         },
         "tooltip": {
@@ -262,7 +262,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Performance",
+            "cardTitle": "USDRIF Performance",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",

@@ -6,15 +6,15 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Últimas Operaciones",
-        "aboutQueue": "Acerca de la cola",
-        "modal" : {
+        "aboutQueue" : {
+        "button" : "Acerca de la cola",
             "title" : "Acerca de la cola - Ciclo de una transacción",
-            "queuing" : "La transacción entró a la cola con la primera confirmación.",
-            "queued" : "La transacción está en la cola esperando por ejecución.",
-            "confirming" : "La transacción fue ejecutada y tiene una confirmación.", 
-            "confirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
-            "failed" : "La transacción falló en alguno de los pasos relacionados.",
-            "buttonClose" : "Cerrar"
+            "statusQueuing" : "La transacción entró a la cola con la primera confirmación.",
+            "statusQueued" : "La transacción está en la cola esperando por ejecución.",
+            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.", 
+            "statusConfirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
+            "statusFailed" : "La transacción falló en alguno de los pasos relacionados.",
+            "buttonClose" : "Close"
         },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
@@ -262,7 +262,7 @@
          },
 
          "pegged": {
-            "cardTitle": "Rendimiento de",
+            "cardTitle": "Rendimiento del USDRIF",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",

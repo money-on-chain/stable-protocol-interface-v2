@@ -188,11 +188,7 @@ const ProvideColumnsTP = [
         <div className="card-tps">
 
             <div className="title">
-                <h1>{
-                    i18n.language === 'en'
-                        ? `${settings.tokens.TP[0].name} ${t('performance.pegged.cardTitle')}`
-                        : `${t('performance.pegged.cardTitle')} ${settings.tokens.TP[0].name}`
-                }</h1>
+                <h1>{t("performance.pegged.cardTitle")}</h1>
             </div>
 
             <Table
