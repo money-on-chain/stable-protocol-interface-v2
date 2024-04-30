@@ -759,19 +759,21 @@ export default function ListOperations(props) {
                     <i className="logo-queue"></i>
                 </div>
                 {queueModal  && 
-                <Modal
-                    title={t('operations.aboutQueue', { ns: ns })}
-                    width={505}
-                    open={true}
-                    onCancel={hideModal}
-                    footer={null}
-                    closable={false}
-                    className="ModalAccount"
-                    centered={true}
-                    maskStyle={{  }}
-                >
-                    <AboutQueue />
-                </Modal>
+                    <Modal
+                        title={t('operations.aboutQueue', { ns: ns })}
+                        width={505}
+                        open={true}
+                        onCancel={hideModal}
+                        footer={null}
+                        closable={false}
+                        className="ModalAccount"
+                        centered={true}
+                        maskStyle={{  }}
+                    >
+                        <AboutQueue 
+                            hideModal={hideModal}
+                        />
+                    </Modal>
                 }
             </div>
             {!loadingSke ? (

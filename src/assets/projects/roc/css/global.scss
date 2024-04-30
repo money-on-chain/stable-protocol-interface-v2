@@ -902,10 +902,12 @@ h1.title-last-operations {
         margin-right: 10px; 
     }
     
-    .icon {
-        
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; 
     }
-    
     
     @media (max-width: 600px) {
         .row {

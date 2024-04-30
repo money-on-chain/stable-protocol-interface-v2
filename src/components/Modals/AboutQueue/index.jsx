@@ -4,7 +4,6 @@ import Modal from 'antd/lib/modal/Modal';
 import { useProjectTranslation } from '../../../helpers/translations';
 
 export default function AboutQueue(props) {
-    const { truncatedAddress } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
 
@@ -58,6 +57,15 @@ export default function AboutQueue(props) {
                     <div className={`tx-status-icon-${setStatusIcon(t('operations.actions.statusFailed'))}`} />
                     <span className={`table-status-icon table-status-icon-red`}>{t('operations.actions.statusFailed')}</span>
                 </div>
+            </div>
+            <div className='button-container'>
+                <button
+                        type="primary"
+                        className="primary-button btn-confirm"
+                        onClick={props.hideModal}
+                    >
+                        {t('wallet.cta.close')}
+                </button>
             </div>
         </div>
     );
