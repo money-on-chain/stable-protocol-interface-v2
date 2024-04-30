@@ -115,8 +115,8 @@ export default function ConfirmOperation(props) {
                 )
             );
             if (limits.exchange.gt(totalBalance)) {
-                setAmountYouExchangeLimit(totalBalance - (limits.exchange - totalBalance));
-                setAmountYouExchangeAdjusted(totalBalance - (limits.exchange - totalBalance));
+                setAmountYouExchangeLimit(totalBalance.minus(limits.exchange.minus(totalBalance)));
+                setAmountYouExchangeAdjusted(totalBalance.minus(limits.exchange.minus(totalBalance)));
                 setAdjustedTolerance(true);
             } else {
                 setAmountYouExchangeLimit(limits.exchange);

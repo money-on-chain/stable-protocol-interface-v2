@@ -304,7 +304,7 @@ export default function Exchange() {
                 const amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
-                    amountReceiveFee.lte(0.00000001) ? 12 : 8,
+                    amountReceiveFee.lt(0.00000001) ? 12 : 8,
                     false
                 );
                 setValueReceive(amountFormattedReceive);
