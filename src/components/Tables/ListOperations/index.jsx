@@ -782,7 +782,7 @@ export default function ListOperations(props) {
                         className={`vertical-middle custom-border-spacing-table ${getClassName()}`}
                         showHeader={false}
                         expandable={{
-                            expanodedRowRender: (record) => (
+                            expandedRowRender: (record) => (
                                 <div  className='table-expanded-row'>
                                     {record.description}
                                 </div>
