@@ -6,6 +6,16 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Últimas Operaciones",
+        "aboutQueue": "Acerca de la cola",
+        "modal" : {
+            "title" : "Acerca de la cola - Ciclo de una transacción",
+            "queuing" : "La transacción entró a la cola con la primera confirmación.",
+            "queued" : "La transacción está en la cola esperando por ejecución.",
+            "confirming" : "La transacción fue ejecutada y tiene una confirmación.", 
+            "confirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
+            "failed" : "La transacción falló en alguno de los pasos relacionados.",
+            "buttonClose" : "Cerrar"
+        },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -122,7 +132,8 @@
 
         "priceVariation": {
             "title": "Personalizar Tolerancia de Variación de Precio",
-            "sliderLabel" : "Tolerancia de Variación de Precio"
+            "sliderLabel" : "Tolerancia de Variación de Precio",
+            "warning" : "Cantidad actualizada debido a tolerancia de variación de precio"
         },
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
@@ -301,7 +312,8 @@
 
      "allowance": {
         "cardTitle" : "Autorizar uso de",
-        "statusText" : "Antes de continuar con la operación, firma una transacción de atutorización para que el sistema pueda acceder a los tokens.",
+        "statusText1" : "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
+        "statusText2" : "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
         "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
         "confirm" : {
             "cancel": "Cancelar",
@@ -309,7 +321,7 @@
         },
         "feedback" : {
             "submit" : "",
-            "sign" : "Por favor, firma la transacción de atutorización utilizando tu billetera.",
+            "sign" : "Por favor, firma la transacción de autorización utilizando tu billetera.",
             "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
             "error" : "¡Transacción fallada!",
             "default" : "Espera a la confirmación de la transacción"

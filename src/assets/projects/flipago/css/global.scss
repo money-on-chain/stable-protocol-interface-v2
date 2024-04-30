@@ -859,6 +859,69 @@ h1.title-last-operations {
     color: var(--color-text-primary);
 }
 
+.about-button {
+    font-family: var(--brand-font);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: right;
+    color: var(--color-text-primary);
+    background: var(--surface-color-2);
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 8px;
+    cursor: pointer;
+    .logo-queue {
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+        background-image: url('../icons/aboutqueueicon.svg');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        filter: var(--color-navigation-icon-filter-default);
+    }
+}
+
+/* Modal Queue info*/
+.queue-modal-container {
+    display: flex;
+    flex-direction: column;
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px; 
+    }
+    
+    .text {
+        flex: 1; 
+        margin-right: 10px; 
+    }
+    
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; 
+    }
+    
+    @media (max-width: 600px) {
+        .row {
+            flex-direction: column;
+            align-items: flex-start; 
+        }
+    
+        .icon {
+            margin-top: 10px; 
+        }
+    }
+}
+/* Modal Queue info*/
+
 /* Modal Important Notice*/
 .ModalImportantNotice {
     font-family: var(--brand-font);
@@ -1001,7 +1064,15 @@ h1.title-last-operations {
         width: 380px;
         /*height: 122px;*/
         // margin-bottom: 0px !important;
-
+        .warning-msg {
+            font-family: var(--brand-font);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 14px;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
         .swapFrom {
             display: flex;
             flex-direction: row;
@@ -2165,17 +2236,15 @@ h1.title-last-operations {
         padding: 0px;
         gap: 24px;
         width: 100%;
-        height: 167px;
-
+        height: 200px;
         .status-submit {
             /* Auto layout */
-
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 24px;
             width: 100%;
-            height: 167px;
+            height: 200px;
 
             .status-text {
                 display: flex;
@@ -2207,7 +2276,7 @@ h1.title-last-operations {
                 gap: 8px;
                 width: 424px;
                 height: 32px;
-
+                margin-top: 30px;
                 .check-unlimited {
                     height: 17px;
                     font-style: normal;

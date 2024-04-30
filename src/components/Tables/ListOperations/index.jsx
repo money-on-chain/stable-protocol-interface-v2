@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { Table, Skeleton } from 'antd';
+import { Table, Skeleton, Modal } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';
 import RowDetail from '../RowDetail';
@@ -18,6 +18,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
+import AboutQueue from '../../Modals/AboutQueue';
 
 export default function ListOperations(props) {
     const { token } = props;
@@ -29,6 +30,7 @@ export default function ListOperations(props) {
     const [totalTable, setTotalTable] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [loadingSke, setLoadingSke] = useState(true);
+    const [queueModal, setQueueModal] = useState(false);
     const timeSke = 1500;
     var data = [];
     const received_row = [];
@@ -378,7 +380,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
                                             token: token.exchange.token[0] ?? token.exchange.token,
-                                            decimals: 2,
+                                            decimals: token.exchange.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -413,7 +415,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.receive.amount,
                                             token: token.receive.token,
-                                            decimals: 2,
+                                            decimals: token.receive.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -740,13 +742,39 @@ export default function ListOperations(props) {
                 return 'custom-table';
         }
     }
-
+    const showModal = () => {
+        console.log("showModal");
+        setQueueModal(true)
+    }
+    const hideModal = () => {
+        setQueueModal(false)
+    }
     return (
         <>
             <div className="title">
                 <h1 className="title-last-operations">
                     {t(`operations.sectionTitle`, { ns: ns })}
                 </h1>
+                <div className='about-button' onClick={showModal}>{t(`operations.aboutQueue`, { ns: ns })}
+                    <i className="logo-queue"></i>
+                </div>
+                {queueModal  && 
+                    <Modal
+                        title={t('operations.aboutQueue', { ns: ns })}
+                        width={505}
+                        open={true}
+                        onCancel={hideModal}
+                        footer={null}
+                        closable={false}
+                        className="ModalAccount"
+                        centered={true}
+                        maskStyle={{  }}
+                    >
+                        <AboutQueue 
+                            hideModal={hideModal}
+                        />
+                    </Modal>
+                }
             </div>
             {!loadingSke ? (
                 <>
@@ -802,6 +830,7 @@ export default function ListOperations(props) {
             ) : (
                 <Skeleton active={true} paragraph={{ rows: 4 }}></Skeleton>
             )}
+            
         </>
     );
 }

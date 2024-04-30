@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout, Alert } from 'antd';
+import BigNumber from 'bignumber.js';
+import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -18,6 +20,7 @@ export default function Skeleton() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
+    const [canSwap, setCanSwap] = useState(false);
     const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
     useEffect(() => {
         if (auth.contractStatusData) {
@@ -38,6 +41,8 @@ export default function Skeleton() {
                 dismissTime: 0,
             })
         }
+        const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"));
+        if (tpLegacyBalance.gt(0)) setCanSwap(true);
     }
 
     return (
@@ -55,7 +60,7 @@ export default function Skeleton() {
                 <div className="content-container">
                     {/* Content page*/}
                     <div className="content-page">
-                        <ModalTokenMigration />
+                        {canSwap && <ModalTokenMigration />}
                         {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                         {notifStatus && <NotificationBody notifStatus={notifStatus} />}
                         {/* Dashboard Staking Rewards  

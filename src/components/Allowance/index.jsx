@@ -113,7 +113,9 @@ export default function AllowanceDialog(props) {
                 {status === 'SUBMIT' && (
                     <div className="status-submit">
                         <div className="status-text">
-                           {t('allowance.statusText')}
+                            {t('allowance.statusText1')}
+                            <br />
+                            {t('allowance.statusText2')}
                         </div>
                         <div className="remember-this">
                             <Checkbox

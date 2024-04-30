@@ -26,13 +26,12 @@ export default function ModalConfirmOperation(props) {
     const hideModal = () => {
         setVisible(false);
     };
-
     return (
         <div className="ShowModalConfirmOperation">
             <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
                 {t('exchange.buttonPrimary')}
             </Button>
-            <Modal
+            {visible && <Modal
                 title={t('exchange.modalTitle')}
                 width={505}
                 open={visible}
@@ -45,7 +44,7 @@ export default function ModalConfirmOperation(props) {
                 maskStyle={{}}
             >
                 <ConfirmOperation {...props} onCloseModal={hideModal} />
-            </Modal>
+            </Modal>}
         </div>
     );
 }
