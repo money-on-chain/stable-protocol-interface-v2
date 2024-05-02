@@ -230,7 +230,7 @@ export default function ListOperations(props) {
                     amount: row_operation['params']['amount'],
                     name: token_info.name,
                     token: token_info.token,
-                    icon: "TP_0",
+                    icon: row_operation['params']['token'],
                     title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 },
                 receive: {
@@ -238,7 +238,7 @@ export default function ListOperations(props) {
                     amount: row_operation['params']['amount'],
                     name: token_info.name,
                     token: token_info.token,
-                    icon: "CA_0",
+                    icon: row_operation['params']['token'],
                     title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 }
             }

@@ -90,7 +90,7 @@ const ProvideColumnsTP = [
             key: dataItem.key,
             name: (
                 <div className="item-token">
-                    <i className="icon-token-tp_0"></i>{' '}
+                    <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
                     <span className="token-description">
                         {t(`exchange.tokens.TP_${dataItem.key}.label`, {
                             ns: ns
