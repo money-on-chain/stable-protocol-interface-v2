@@ -26,7 +26,7 @@ export default function Skeleton() {
         if (auth.contractStatusData) {
             readProtocolStatus();
         }
-    }, [auth.contractStatusData])
+    }, [auth.contractStatusData, auth.userBalanceData])
     
     const readProtocolStatus = () => {
         if (!isValid) {
@@ -42,7 +42,11 @@ export default function Skeleton() {
             })
         }
         const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"));
-        if (tpLegacyBalance.gt(0)) setCanSwap(true);
+        if (tpLegacyBalance.gt(0)) {
+            setCanSwap(true);
+        } else {
+            setCanSwap(false);
+        }
     }
 
     return (
