@@ -39,7 +39,7 @@ export default function ConfirmOperation(props) {
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
-    const [adjustedTolerance, setAdjustedTolerance] = useState('');
+    const [adjustedTolerance, setAdjustedTolerance] = useState(true);
     const [amountYouExchangeAdjusted, setAmountYouExchangeAdjusted] = useState(null);
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
