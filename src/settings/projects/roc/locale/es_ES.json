@@ -176,27 +176,32 @@
                     "0": {
                         "title": "RIF",
                         "symbol": " (RIF)",
-                        "price_decimals": 4
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "1": {
                         "title": "RIFPro",
                         "symbol": " (RIFP)",
-                        "price_decimals": 4
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "2": {
                         "title": "RIF US Dollar",
                         "symbol": " (USDRIF)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     },
                     "3": {
                         "title": "MoC",
                         "symbol": " (MOC)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     },
                     "4": {
                         "title": "rBTC",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     }
                 }
             },
