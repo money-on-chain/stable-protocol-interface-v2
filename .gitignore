@@ -1,9 +1,8 @@
 node_modules
 .idea
 build
-public
 .DS_Store
-
+public/*.*
 # assets
 src/assets/icons
 src/assets/css

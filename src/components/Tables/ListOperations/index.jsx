@@ -738,7 +738,7 @@ export default function ListOperations(props) {
     }
     const getClassName = () => {
         switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-            case 'flipago':
+            case 'flipmoney':
                 return 'custom-table';
             case 'roc':
                 return 'custom-table-light';
