@@ -6,8 +6,8 @@ Open source **decentralized interface** for v2 contracts
 
 You can:
 
-* Mint / Redeem Pegged Token (TP): Ex.: GoARS, USDRIF
-* Mint / Redeem Collateral Token (TC): Ex.: GoTurbo, RIFPro
+* Mint / Redeem Pegged Token (TP): Ex.: FlipARS, USDRIF
+* Mint / Redeem Collateral Token (TC): Ex.: BProMax, RIFPro
 * Metrics
 * Last operations
 
@@ -21,9 +21,9 @@ You can:
 
 | Token | Token name       | Project     | Token Name | Collateral |
 |-------|------------------|-------------|------------|------------|
-| TP #0 | Pegged Token     | Flipmoney   | Go ARS     | DoC        |
-| TP #1 | Pegged Token     | Flipmoney   | Go MXN     | DoC        |
-| TC    | Collateral Token | Flipmoney   | Go Turbo   | DoC        |
+| TP #0 | Pegged Token     | Flipmoney   | Flip ARS   | BPro       |
+| TP #1 | Pegged Token     | Flipmoney   | Flip MXN   | BPro       |
+| TC    | Collateral Token | Flipmoney   | BProMax    | BPro       |
 | TF    | Fee Token        | Flipmoney   | Flip       | -          |
 | TP    | Pegged Token     | RoC         | USDRIF     | RIF        |
 | TC    | Collateral Token | RoC         | RIFP       | RIF        |
