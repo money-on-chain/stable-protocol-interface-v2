@@ -722,7 +722,8 @@ export default function Exchange() {
                         t: t,
                         i18n: i18n,
                         ns: ns,
-                        skipContractConvert: true
+                        skipContractConvert: true,
+                        isUSD: true
                     })}
                 </span> : <span>0</span>}
                 <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
