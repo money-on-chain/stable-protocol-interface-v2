@@ -1,4 +1,4 @@
-const columnsFlipagoCA = [
+const columnsFlipmoneyCA = [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -30,7 +30,7 @@ const columnsFlipagoCA = [
     /*width: 190,*/
   }
 ];
-const columnsFlipagoTP = [
+const columnsFlipmoneyTP = [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -140,21 +140,21 @@ const columnsRocTP = [
 ];
 export const ProvideColumnsCA = () => {
   switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-    case 'flipago':
-      return columnsFlipagoCA;
+    case 'flipmoney':
+      return columnsFlipmoneyCA;
     case 'roc':
       return columnsRocCA;
     default:
-      return columnsFlipagoCA;
+      return columnsFlipmoneyCA;
   }
 }
 export const ProvideColumnsTP = () => {
   switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-    case 'flipago':
-      return columnsFlipagoTP;
+    case 'flipmoney':
+      return columnsFlipmoneyTP;
     case 'roc':
       return columnsRocTP;
     default:
-      return columnsFlipagoTP;
+      return columnsFlipmoneyTP;
   }
 }

@@ -42,6 +42,11 @@
     margin-top: 32px;
 }
 
+// Set default hover for table-cell-row-hover to transparent
+.ant-table-cell-row-hover {
+    background-color: transparent !important;
+}
+
 /*
     --- Header ---
 */
@@ -680,6 +685,12 @@
     background: var(--surface-color-2) !important;
 }
 
+// Performance Pegged-Tokens table
+.card-tps .ant-table-tbody > tr.ant-table-row:hover > td,
+.ccard-tps .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-1) !important;
+}
+
 .ant-table-body::-webkit-scrollbar {
     width: 6px;
 }
@@ -947,7 +958,7 @@ h1.title-last-operations {
     border-bottom: none;
 }
 .table-status-icon-cell {
-    width: 130px;
+    width: 145px;
 }
 
 /* Modal Queue info*/

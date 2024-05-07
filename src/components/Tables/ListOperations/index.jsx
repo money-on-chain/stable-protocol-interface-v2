@@ -628,6 +628,10 @@ export default function ListOperations(props) {
                     BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks)
                         return t('operations.actions.statusConfirming')
 
+                else if (row_operation['operation'] === 'Transfer' && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['blockNumber']) + confirmedBlocks)
+                        return t('operations.actions.statusConfirming')
+
                 else return t('operations.actions.statusConfirmed')
         }
 
@@ -734,7 +738,7 @@ export default function ListOperations(props) {
     }
     const getClassName = () => {
         switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-            case 'flipago':
+            case 'flipmoney':
                 return 'custom-table';
             case 'roc':
                 return 'custom-table-light';
