@@ -5,6 +5,9 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
+import BigNumber from 'bignumber.js';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
 
 
 export default function TokensPegged() {
@@ -75,11 +78,19 @@ const ProvideColumnsTP = [
     auth.contractStatusData &&
     settings.tokens.TP.forEach(function (dataItem) {
 
+        let price = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_TP[dataItem.key],
+                settings.tokens.TP[dataItem.key].decimals
+            )
+        );
+        price = ConvertPeggedTokenPrice(auth, price)
+
         tokensData.push({
             key: dataItem.key,
             name: (
                 <div className="item-token">
-                    <i className="icon-token-tp_0"></i>{' '}
+                    <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
                     <span className="token-description">
                         {t(`exchange.tokens.TP_${dataItem.key}.label`, {
                             ns: ns
@@ -95,13 +106,13 @@ const ProvideColumnsTP = [
             tokens_per_usd: (
                 <div>
                     {settings.project !== 'roc' ? (!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                        amount: auth.contractStatusData.PP_TP[dataItem.key],
+                        amount: price,
                         token: settings.tokens.TP[dataItem.key],
                         decimals: 3,
                         t: t,
                         i18n: i18n,
                         ns: ns,
-                        skipContractConvert: false
+                        skipContractConvert: true
                     }) : 1}
                 </div>
             ),
@@ -177,7 +188,7 @@ const ProvideColumnsTP = [
         <div className="card-tps">
 
             <div className="title">
-                <h1>{t('performance.pegged.cardTitle')}</h1>
+                <h1>{t("performance.pegged.cardTitle")}</h1>
             </div>
 
             <Table

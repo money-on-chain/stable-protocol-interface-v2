@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { Table, Skeleton } from 'antd';
+import { Table, Skeleton, Modal } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';
 import RowDetail from '../RowDetail';
@@ -18,7 +18,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
-import {GetErrorMessage} from '../../../helpers/errorHandler';
+import AboutQueue from '../../Modals/AboutQueue';
 
 export default function ListOperations(props) {
     const { token } = props;
@@ -30,6 +30,7 @@ export default function ListOperations(props) {
     const [totalTable, setTotalTable] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [loadingSke, setLoadingSke] = useState(true);
+    const [queueModal, setQueueModal] = useState(false);
     const timeSke = 1500;
     var data = [];
     const received_row = [];
@@ -229,7 +230,7 @@ export default function ListOperations(props) {
                     amount: row_operation['params']['amount'],
                     name: token_info.name,
                     token: token_info.token,
-                    icon: "TP_0",
+                    icon: row_operation['params']['token'],
                     title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 },
                 receive: {
@@ -237,7 +238,7 @@ export default function ListOperations(props) {
                     amount: row_operation['params']['amount'],
                     name: token_info.name,
                     token: token_info.token,
-                    icon: "CA_0",
+                    icon: row_operation['params']['token'],
                     title: status === "executed" ? "TRANSFERRED" : t('operations.actions.transfer')
                 }
             }
@@ -266,6 +267,22 @@ export default function ListOperations(props) {
             console.log("CAN'T OPERATE: " + row_operation.operation)
         }
 
+    }
+    const getErrorMessage = (error) => {
+        switch (error) {
+            case 'qAC below minimum required':
+                return `${settings.tokens.CA[0].name} ${t('operations.errors.qACBelow')} `;
+            case 'Insufficient qac sent':
+                return `${settings.tokens.CA[0].name} ${t('operations.errors.insufficientQAC1')} ${settings.tokens.CA[0].name} ${t('operations.errors.insufficientQAC2')}`;
+            case 'Low coverage':
+                return t('operations.errors.lowCoverage');
+            case 'Invalid Flux Capacitor Operation':
+                return t('operations.errors.fluxCapacitor');
+            case null || undefined || '' || ' ' || 0 || 'null':
+                return t('operations.errors.noMessage');
+            default:
+                return error;
+        }
     }
     const data_row = () => {
         /*******************************sort descending by date lastUpdatedAt***********************************/
@@ -342,7 +359,7 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || "--",
                 gas_used: data['gasUsed'] || "--",
                 error_code: data['errorCode_'] || "--",
-                msg: GetErrorMessage(data['msg_']) || "No message",
+                msg: getErrorMessage(data['msg_']) || t('operations.errors.noMessage'),
                 reason: data['reason_'] || "--",
                 executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
                 executed_tx_hash: data['hash'] || "--",
@@ -363,7 +380,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
                                             token: token.exchange.token[0] ?? token.exchange.token,
-                                            decimals: 2,
+                                            decimals: token.exchange.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -398,7 +415,7 @@ export default function ListOperations(props) {
                                         {PrecisionNumbers({
                                             amount: token.receive.amount,
                                             token: token.receive.token,
-                                            decimals: 2,
+                                            decimals: token.receive.token.visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -611,6 +628,10 @@ export default function ListOperations(props) {
                     BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks)
                         return t('operations.actions.statusConfirming')
 
+                else if (row_operation['operation'] === 'Transfer' && auth.contractStatusData &&
+                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['blockNumber']) + confirmedBlocks)
+                        return t('operations.actions.statusConfirming')
+
                 else return t('operations.actions.statusConfirmed')
         }
 
@@ -717,7 +738,7 @@ export default function ListOperations(props) {
     }
     const getClassName = () => {
         switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-            case 'flipago':
+            case 'flipmoney':
                 return 'custom-table';
             case 'roc':
                 return 'custom-table-light';
@@ -725,13 +746,39 @@ export default function ListOperations(props) {
                 return 'custom-table';
         }
     }
-
+    const showModal = () => {
+        console.log("showModal");
+        setQueueModal(true)
+    }
+    const hideModal = () => {
+        setQueueModal(false)
+    }
     return (
         <>
             <div className="title">
                 <h1 className="title-last-operations">
                     {t(`operations.sectionTitle`, { ns: ns })}
                 </h1>
+                <div className='about-button' onClick={showModal}>{t(`operations.aboutQueue.button`, { ns: ns })}
+                    <i className="logo-queue"></i>
+                </div>
+                {queueModal  && 
+                    <Modal
+                        title={t('operations.aboutQueue.title', { ns: ns })}
+                        width={505}
+                        open={true}
+                        onCancel={hideModal}
+                        footer={null}
+                        closable={false}
+                        className="modalsDefaults ModalAccount "
+                        centered={true}
+                        maskStyle={{  }}
+                    >
+                        <AboutQueue 
+                            hideModal={hideModal}
+                        />
+                    </Modal>
+                }
             </div>
             {!loadingSke ? (
                 <>
@@ -767,6 +814,9 @@ export default function ListOperations(props) {
                             pageSizeOptions: [10, 20, 50, 100],
                             onShowSizeChange: (current, pageSize) => {
                                 setPageSize(pageSize);
+                            },
+                            locale: {
+                                items_per_page: t('operations.table.itemsPerPage', { ns: ns }),
                             }
                         }}
                         columns={tableColumns}
@@ -784,6 +834,7 @@ export default function ListOperations(props) {
             ) : (
                 <Skeleton active={true} paragraph={{ rows: 4 }}></Skeleton>
             )}
+            
         </>
     );
 }

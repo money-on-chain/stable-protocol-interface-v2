@@ -12,7 +12,6 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-        AmountsWithCommissions
 } from '../../helpers/currencies';
 import {
     tokenExchange,
@@ -28,13 +27,12 @@ import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import CheckStatus from '../../helpers/checkStatus';
-import { getMaxWithTolerance } from '../../helpers/toleranceCalculator';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [defaultTolerance, setDefaultTolerance] = useState(0.2);
+    const [defaultTolerance, setDefaultTolerance] = useState(0.7);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -116,32 +114,32 @@ export default function Exchange() {
         // Protocol in not-good status
         if (!isValid && errorType === '1') {
             if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
-                setInputValidationErrorText('Not Operational due to low Global Coverage ratio');
+                setInputValidationErrorText(t('exchange.errors.notOperational'));
                 setInputValidationError(true);
                 return
             }
         }
         if (!isValid && errorType > 1 && errorType < 5) {
-            setInputValidationErrorText('Cannot operate with the current status');
+            setInputValidationErrorText(t('exchange.errors.cantOperate'));
             setInputValidationError(true);
             return
         }
         if (!isValid && errorType === '5') {
-            setInputValidationErrorText('Request timeout');
+            setInputValidationErrorText(t('exchange.errors.requestTimeout'));
             setInputValidationError(true);
             return
         }
 
         // 0. Not Wallet connected
         if (!auth.userBalanceData) {
-            setInputValidationErrorText('Please connect your wallet');
+            setInputValidationErrorText(t('exchange.errors.connectYourWallet'));
             setInputValidationError(true);
             return
         }
 
         // 0. Cannot operate
         if (!auth.contractStatusData?.canOperate) {
-            setInputValidationErrorText('Cannot operate with the current contract status');
+            setInputValidationErrorText(t('exchange.errors.cantOperate'));
             setInputValidationError(true);
             return
         }
@@ -150,14 +148,20 @@ export default function Exchange() {
         if (amountYouExchange.lte(0) || amountYouReceive.lte(0)) {
             setInputValidationError(true);
             if (valueExchange !== '' || valueReceive !== '') {
-                setInputValidationErrorText('Amount must be greater than zero');
+                setInputValidationErrorText(t('exchange.errors.amountTooLow'));
                 setInputValidationError(true);
                 return
             }
             return;
         }
         if (amountYouExchange.toString() === 'NaN' || amountYouReceive.toString() === 'NaN') {
-            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationErrorText(t('exchange.errors.amountInvalid'));
+            setInputValidationError(true);
+            return
+        }
+
+        if(valueExchange.toString().length > 20 || valueReceive.toString().length > 20) {
+            setInputValidationErrorText(t('exchange.errors.amountInvalid'));
             setInputValidationError(true);
             return
         }
@@ -171,23 +175,11 @@ export default function Exchange() {
         );
         
         if (amountYouExchange.gt(totalBalance)) {
-            setInputValidationErrorText('Not enough balance in your wallet');
+            setInputValidationErrorText(t('exchange.errors.notBalance'));
             setInputValidationError(true);
             return
         }
-
-        const totalYouExchangeWithTolerance = getMaxWithTolerance(
-            defaultTolerance,
-            totalBalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-        if (amountYouExchange.gt(totalYouExchangeWithTolerance)) {
-            setInputValidationErrorText('Your TX may exceed tolerance limit');
-            setInputValidationError(true);
-            return
-        }
+        
         let tIndex
         // 2. MINT TP. User receive available token in contract
         const arrCurrencyYouReceive = currencyYouReceive.split('_')
@@ -201,7 +193,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(tpAvailableToMint)) {
-                setInputValidationErrorText('Not enough liquidity in the protocol');
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return
             }
@@ -214,7 +206,7 @@ export default function Exchange() {
                 Web3.utils.fromWei(auth.contractStatusData.getTCAvailableToRedeem, "ether")
             );
             if (new BigNumber(amountYouExchange).gt(tcAvailableToRedeem)) {
-                setInputValidationErrorText('Not enough liquidity in the protocol');
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return
             }
@@ -232,7 +224,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouReceive).gt(caBalance)) {
-                setInputValidationErrorText(`Not enough liquidity in the protocol`);
+                setInputValidationErrorText(t('exchange.errors.noLiquidity'));
                 setInputValidationError(true);
                 return                
             }
@@ -263,7 +255,7 @@ export default function Exchange() {
                 )
             );
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
-                setInputValidationErrorText('Maximum temporarily limited by the protocol');
+                setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
             }
@@ -282,7 +274,7 @@ export default function Exchange() {
             console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
             console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
-                setInputValidationErrorText('Maximum temporarily limited by the protocol');
+                setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
             }
@@ -312,7 +304,7 @@ export default function Exchange() {
                 const amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
-                    3,
+                    amountReceiveFee.lt(0.00000001) ? 12 : 8,
                     false
                 );
                 setValueReceive(amountFormattedReceive);
@@ -332,7 +324,7 @@ export default function Exchange() {
                 const amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
-                    3,
+                    amountExchangeFee.lte(0.00000001) ? 12 : 8,
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
@@ -401,7 +393,16 @@ export default function Exchange() {
             setExchangingUSD(new BigNumber(0));
             setValueExchange('0.0');
         } else {
+            const tokenSettings = TokenSettings(currencyYouExchange);
+            const totalbalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    tokenSettings.decimals
+                )
+            );
+
             setValueExchange(newAmount);
+
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
@@ -449,25 +450,17 @@ export default function Exchange() {
                 tokenSettings.decimals
             )
         );
-        const totalYouExchange = getMaxWithTolerance(
-            defaultTolerance,
-            totalbalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-
         const convertAmountReceive = ConvertAmount(
             auth,
             currencyYouExchange,
             currencyYouReceive,
-            totalYouExchange,
+            totalbalance,
             false
         );
-        setValueExchange(totalYouExchange.toFixed(3));
-        setAmountYouExchange(totalYouExchange);
+        setValueExchange(totalbalance.toFixed(8, 2));
+        setAmountYouExchange(totalbalance);
         onChangeAmounts(
-            new BigNumber(totalYouExchange),
+            totalbalance,
             convertAmountReceive,
             'exchange'
         );
@@ -499,9 +492,7 @@ export default function Exchange() {
                             (!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouExchange),
                                 token: TokenSettings(currencyYouExchange),
-                                decimals:
-                                TokenSettings(currencyYouExchange)
-                                    .visibleDecimals,
+                                decimals: 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns
@@ -539,9 +530,7 @@ export default function Exchange() {
                                 currencyYouReceive
                             ),
                             token: TokenSettings(currencyYouReceive),
-                            decimals:
-                                TokenSettings(currencyYouReceive)
-                                    .visibleDecimals,
+                            decimals:8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -733,7 +722,8 @@ export default function Exchange() {
                         t: t,
                         i18n: i18n,
                         ns: ns,
-                        skipContractConvert: true
+                        skipContractConvert: true,
+                        isUSD: true
                     })}
                 </span> : <span>0</span>}
                 <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>

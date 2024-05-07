@@ -12,8 +12,6 @@
     --modals-border-radius: 4px;
     --modals-backdrop-color: rgba(18, 17, 17, 0.3);
     --modals-backdrop-blur: 1.8px;
-
-    // Borders
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
 
@@ -140,8 +138,11 @@
     --color-text-highlight: #fff383;
     --color-text-link: #fff383;
     --color-text-notification: #ffffff;
+    --link-text-style: underline;
 
     --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
+
     --brand-font: 'Chivo', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 

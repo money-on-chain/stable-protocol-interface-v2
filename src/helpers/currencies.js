@@ -78,6 +78,25 @@ function TokenBalance(auth, tokenName) {
     return balance;
 }
 
+function ConvertPeggedTokenPrice(auth, price) {
+
+    switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
+        case 'flipmoney':
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[0],
+                    settings.tokens.CA[0].decimals
+                )
+            );
+            return price.div(priceCA);
+        case 'roc':
+            return price;
+        default:
+            return price;
+    }
+
+}
+
 function TokenPrice(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let price = 0;
@@ -482,5 +501,6 @@ export {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
-    AmountsWithCommissions
+    AmountsWithCommissions,
+    ConvertPeggedTokenPrice
 };

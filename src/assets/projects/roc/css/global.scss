@@ -7,6 +7,10 @@
     background-color: var(--surface-color-0);
 }
 
+.modalsDefaults {
+    width: 650px !important;
+}
+
 /*
     --- Ant Layout ---
 */
@@ -36,6 +40,11 @@
     background-color: var(--surface-color-0) !important;
     line-height: 0;
     margin-top: 32px;
+}
+
+// Set default hover for table-cell-row-hover to transparent
+.ant-table-cell-row-hover {
+    background-color: transparent !important;
 }
 
 /*
@@ -676,6 +685,12 @@
     background: var(--surface-color-2) !important;
 }
 
+// Performance Pegged-Tokens table
+.card-tps .ant-table-tbody > tr.ant-table-row:hover > td,
+.ccard-tps .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-1) !important;
+}
+
 .ant-table-body::-webkit-scrollbar {
     width: 6px;
 }
@@ -859,6 +874,95 @@ h1.title-last-operations {
     color: var(--color-text-primary);
 }
 
+.about-button {
+    font-family: var(--main-font);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: right;
+    color: var(--color-text-secondary);
+    background-color: transparent;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    margin-right: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    .logo-queue {
+        width: 16px;
+        height: 16px;
+        margin-left: 8px;
+        background-image: url('../icons/aboutqueueicon.svg');
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        filter: var(--color-icon-link-secondary-filter);
+    }
+}
+
+/* Modal Queue info*/
+.queue-modal-container {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .text {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+        .row {
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icon {
+            margin-top: 10px;
+        }
+    }
+}
+
+.queue-modal-container > .row {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--dividers);
+}
+
+.status-list > div {
+    font-family: var(--main-font);
+    color: var(--color-text-primary);
+    padding-top: 0px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--dividers);
+}
+
+.status-list > div:last-child {
+    border-bottom: none;
+}
+.table-status-icon-cell {
+    width: 145px;
+}
+
+/* Modal Queue info*/
+
 /* Modal Important Notice*/
 .ModalImportantNotice {
     font-family: var(--brand-font);
@@ -944,8 +1048,8 @@ h1.title-last-operations {
         font-style: italic;
         font-weight: 900;
         font-size: 20px;
-        // line-height: 24px;
-        // padding: 24px 24px;
+        line-height: 24px;
+        padding: 24px 24px;
     }
 
     .ant-modal-title {
@@ -1001,7 +1105,15 @@ h1.title-last-operations {
         width: 380px;
         /*height: 122px;*/
         // margin-bottom: 0px !important;
-
+        .warning-msg {
+            font-family: var(--brand-font);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 14px;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
         .swapFrom {
             display: flex;
             flex-direction: row;
@@ -1190,7 +1302,7 @@ h1.title-last-operations {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 4px;
         width: 100%;
         // height: 61px;
         margin-bottom: 16px;
@@ -2014,7 +2126,8 @@ h1.title-last-operations {
     box-shadow: none;
 }
 
-.primary-button:hover {
+.primary-button:hover,
+.primary-button:focus {
     color: var(--color-button-primary-text-hover);
     border-color: var(--color-button-primary-text-hover);
     background: var(--color-button-primary-background-hover);
@@ -2164,17 +2277,15 @@ h1.title-last-operations {
         padding: 0px;
         gap: 24px;
         width: 100%;
-        height: 167px;
-
+        height: 200px;
         .status-submit {
             /* Auto layout */
-
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 24px;
             width: 100%;
-            height: 167px;
+            height: 200px;
 
             .status-text {
                 display: flex;
@@ -2206,7 +2317,7 @@ h1.title-last-operations {
                 gap: 8px;
                 width: 424px;
                 height: 32px;
-
+                margin-top: 30px;
                 .check-unlimited {
                     height: 17px;
                     font-style: normal;
@@ -3201,4 +3312,14 @@ h1.title-last-operations {
 
 .ant-table-thead .ant-table-cell-scrollbar {
     display: none;
+}
+
+/* Modal background backdrop color & blur settings */
+
+.ant-modal-wrap {
+    background-color: var(--modals-backdrop-color) !important;
+}
+
+.ant-modal-mask {
+    backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
 }

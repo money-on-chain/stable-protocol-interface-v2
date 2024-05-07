@@ -223,8 +223,10 @@ function exchangeMethod(
 
     const aTokenExchange = tokenExchange.split('_')
     const aTokenReceive = tokenReceive.split('_')
+    console.log('aTokenExchange', aTokenExchange);
+    console.log('aTokenReceive', aTokenReceive);
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
-
+    console.log('aTokenMap', aTokenMap);
     switch (aTokenMap) {
         case 'CA,TC':
             caIndex = parseInt(aTokenExchange[1]);

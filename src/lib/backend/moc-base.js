@@ -33,8 +33,8 @@ const AllowanceAmount = async (
             from: account,
             value: 0,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -67,8 +67,8 @@ const transferTokenTo = async (
             from: account,
             value: 0,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -98,8 +98,8 @@ const AllowUseTokenMigrator = async (interfaceContext, newAllowance, onTransacti
             {
                 from: account,
                 gasPrice: await getGasPrice(web3),
-                gas: estimateGas * BigInt(2),
-                gasLimit: estimateGas * BigInt(2)
+                gas: estimateGas,
+                gasLimit: estimateGas
             }
         )
         .on('error', onError)
@@ -130,8 +130,8 @@ const MigrateToken = async (interfaceContext, onTransaction, onReceipt, onError)
             {
                 from: account,
                 gasPrice: await getGasPrice(web3),
-                gas: estimateGas * BigInt(2),
-                gasLimit: estimateGas * BigInt(2)
+                gas: estimateGas,
+                gasLimit: estimateGas
             }
         )
         .on('error', onError)

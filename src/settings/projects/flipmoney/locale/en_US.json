@@ -6,6 +6,16 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Last Operations",
+        "aboutQueue" : {
+            "button" : "About queue",
+            "title" : "About queue - Cicle of a transaction",
+            "statusQueuing" : "Transaction entered the queue with the first confirmation.",
+            "statusQueued" : "Transaction is in the queue waiting for execution.",
+            "statusConfirming" : "Transaction was executed and has one confirmation.", 
+            "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
+            "statusFailed" : "Transaction failed in any of the involved steps.",
+            "buttonClose" : "Close"
+        },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -46,6 +56,17 @@
             "gas": "Gas Fee",
             "msg": "Message",
             "reason": "Reason"
+        },
+        "errors": {
+            "qACBelow" : "price went up, amount below minimum required.",
+            "insufficientQAC1" : "price went down, insufficient",
+            "insufficientQAC2" : "sent",
+            "lowCoverage" : "System below protected global coverage",
+            "fluxCapacitor" : "Error in flux capacitor",
+            "noMessage" : "No message"
+        },
+        "table":{
+            "itemsPerPage" : "Page"
         }
     },
     "feedback" :{
@@ -65,20 +86,20 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TC": {
-                "label": "Go Turbo",
-                "abbr": "Turbo"
+                "label": "BPro Max",
+                "abbr": "BPROX"
             },
             "TP_0": {
-                "label": "Go ARS",
-                "abbr": "GoARS"
+                "label": "ARS",
+                "abbr": "ArsFlip"
             },
             "TP_1": {
-                "label": "Go MXN",
-                "abbr": "GoMXN"
+                "label": "COP",
+                "abbr": "CopFlip"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
@@ -102,6 +123,7 @@
             "queuing": "Queuing transaction…",
             "queued": "Operation queued. Wating for execution…",
             "confirming": "Confirming transaction",
+            "confirmed" : "Transaction confirmed",
             "success": "Transaction successful",
             "error": "Transaction failed!",
             "default": "Espera la confirmación de la transacción",
@@ -111,7 +133,8 @@
 
         "priceVariation": {
             "title": "Customice price variation tolerance",
-            "sliderLabel" : "Price Variation Tolerance"
+            "sliderLabel" : "Price Variation Tolerance",
+            "warning" : "This amount was updated according to variation tolerance"
         },
         "cardTitle": "Exchange",
         "labelSending": "Exchanging",
@@ -130,7 +153,18 @@
         "buttonClose": "Close",
         "infoNoBalance": "insufficient balance",
         "infoAddressEmpty": "Enter destination address",
-        "infoAddressInvalid": "Invalid destination address"
+        "infoAddressInvalid": "Invalid destination address",
+        "errors" : {
+            "notOperational" : "Not Operational due to low Global Coverage ratio",
+            "cantOperate" : "Cannot operate with the current status",
+            "requestTimeout" : "Request timeout",
+            "connectYourWallet" : "Please connect your wallet",
+            "amountTooLow" : "Amount must be greater than zero",
+            "amountInvalid" : "Amount must be valid",
+            "notBalance" : "Not enough balance in your wallet",
+            "noLiquidity" : "Not enough liquidity in the protocol",
+            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+        }
 
     },
     "portfolio": {
@@ -145,24 +179,28 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Dollar On Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     },
                     "1": {
-                        "title": "Go Turbo",
-                        "symbol": " (TURBO)",
-                        "price_decimals": 2
+                        "title": "BPro Max",
+                        "symbol": " (BPROX)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     },
                     "2": {
                         "title": "Flip",
-                        "symbol": " (GOFLIP)",
-                        "price_decimals": 2
+                        "symbol": " (FLIP)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     },
                     "3": {
                         "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     }
                 }
             },
@@ -176,14 +214,16 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Go ARS",
-                        "symbol": " (GOARS)",
-                        "price_decimals": 2
+                        "title": "ARS",
+                        "symbol": " (ArsFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     },
                     "1": {
-                        "title": "Go MXN",
-                        "symbol": " (GOMXN)",
-                        "price_decimals": 2
+                        "title": "COP",
+                        "symbol": " (CopFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     }
                 }
             }
@@ -238,12 +278,12 @@
          },
 
          "pegged": {
-            "cardTitle": "Pegged Tokens Performance",
+            "cardTitle": "Pegged-Tokens Performance",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
             "colMintable": "Mintable",
-            "colTargetCoverage": "Cobertura Obj.",
+            "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
          }
@@ -280,7 +320,8 @@
 
      "allowance": {
         "cardTitle" : "Authorize using",
-        "statusText" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText1" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText2" : "Optionally you can set an unlimited allowance checking the checkbox. Warning: if you don't know the implicances of doing this, leave it unchecked.",
         "setUnlimited" : "Set unlimited allowance. Don't ask me again.",
         "confirm" : {
             "cancel": "Cancel",
@@ -300,6 +341,7 @@
 
      "fees": {
         "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },
@@ -336,7 +378,8 @@
         "text1" : "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
         "text2" : "'Swap Now' button",
         "button" : "Swap Now",
-        "modalTitle" : "IMPORTANT NOTICE",
+        "modalTitle1" : "IMPORTANT NOTICE",
+        "modalTitle2" : "Confirm Migration",
         "explanation1" : "RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the new DAPP. You will no longer be able to see your RDOC balance in the DAPP.",
         "explanation2" : "The exchange rate for the swap is 1 RDOC = 1 USDRIF. You will not be charged a transaction fee, only gas fees will apply.",
         "explanation3" : "Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF",

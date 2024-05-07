@@ -448,7 +448,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
         balance: listReturnData[3],
         allowance: listReturnData[4]
     }
-
+    console.log('user balance tc is .... ' , userBalance.TC.balance);
     let last_index = 4 // this is the last used array index
     TP = []
     for (let i = 0; i < settings.tokens.TP.length; i++) {

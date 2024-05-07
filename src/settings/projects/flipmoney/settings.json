@@ -4,39 +4,39 @@
         "COINBASE": {
             "name": "RBTC",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 8
         },
         "CA": [
             {
                 "key": 0,
-                "name": "DOC",
+                "name": "BPRO",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 8
             }
         ],
         "TP": [
             {
                 "key": 0,
-                "name": "GoARS",
+                "name": "ArsFlip",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 2
             },
             {
                 "key": 1,
-                "name": "GoCOP",
+                "name": "CopFlip",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 2
             }
         ],
         "TC": {
-            "name": "GoTURBO",
+            "name": "BPROX",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 8
         },
         "TF": {
             "name": "FLIP",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 8
         }
     }
 }

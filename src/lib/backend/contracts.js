@@ -10,7 +10,6 @@ import FeeToken from '../../contracts/FeeToken.json';
 import MocQueue from '../../contracts/MocQueue.json';
 import TokenMigrator from '../../contracts/TokenMigrator.json';
 
-
 import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
 

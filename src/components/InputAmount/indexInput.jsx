@@ -15,20 +15,25 @@ const InputAmount = (props) => {
 
   const isValidNumber = (value) => {
     const num = value.replace(',', '.');
-    return !isNaN(num) && parseFloat(num) > 0;
+    return !isNaN(num);
   }
 
   const handleValueChange = (value) => {
-    console.log('new value is', value);
     let formattedValue = value;
-
+    if (value.length > 20) {
+        return;
+    }
     if (value.startsWith('.')) {
       formattedValue = `0${value}`;
     }
 
-    if (formattedValue === '') { 
-      console.log('Input is either empty or NaN');
-      onValueChange('0.0');
+    if (formattedValue === '') {
+      if (formattedValue.includes(',')) {
+        formattedValue = formattedValue.replace(/,/g, '');
+        onValueChange(formattedValue);
+      } else {
+        onValueChange('');
+      }
     } else if (isValidNumber(formattedValue)) {
       onValueChange(formattedValue.replace(',', '.'));
     } else {

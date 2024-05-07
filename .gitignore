@@ -1,9 +1,8 @@
 node_modules
 .idea
 build
-public
 .DS_Store
-
+public/*.*
 # assets
 src/assets/icons
 src/assets/css
@@ -34,3 +33,5 @@ src/contracts/*.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.vscode

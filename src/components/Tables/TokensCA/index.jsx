@@ -146,7 +146,7 @@ export default function Tokens(props) {
                             amount: auth.userBalanceData.CA[dataItem.key]
                                 .balance,
                             token: settings.tokens.CA[dataItem.key],
-                            decimals: 2,
+                            decimals: t(`portfolio.tokens.CA.rows.${dataItem.key}.balance_decimals`),
                             t: t,
                             i18n: i18n,
                             ns: ns
@@ -280,7 +280,7 @@ export default function Tokens(props) {
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.TC.balance,
                         token: settings.tokens.TC,
-                        decimals: 2,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`),
                         t: t,
                         i18n: i18n,
                         ns: ns
@@ -611,7 +611,7 @@ export default function Tokens(props) {
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.coinbase,
                         token: settings.tokens.COINBASE,
-                        decimals: 6,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`),
                         t: t,
                         i18n: i18n,
                         ns: ns
