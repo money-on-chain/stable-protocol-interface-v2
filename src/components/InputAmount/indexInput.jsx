@@ -20,8 +20,8 @@ const InputAmount = (props) => {
 
   const handleValueChange = (value) => {
     let formattedValue = value;
-    if (value.length > 10) {
-      return;
+    if (value.length > 20) {
+        return;
     }
     if (value.startsWith('.')) {
       formattedValue = `0${value}`;

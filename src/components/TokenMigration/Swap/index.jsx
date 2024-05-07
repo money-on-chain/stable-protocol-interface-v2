@@ -140,11 +140,11 @@ const SwapToken = (props) => {
     let btnDisable = false
     switch (status) {
         case 'SUBMIT':
-            title = t('swapModal.modalTitle');
+            title = t('swapModal.modalTitle1');
             btnLabel = t('defaultCTA.buttonSubmit')
             break;
         case 'CONFIRM':
-            title = t('swapModal.modalTitle');
+            title = t('swapModal.modalTitle2');
             btnLabel = t('defaultCTA.buttonExchange')
             const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"))
             if (tpLegacyBalance.eq(0)) btnDisable = true
