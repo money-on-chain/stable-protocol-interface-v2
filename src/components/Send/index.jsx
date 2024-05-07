@@ -132,39 +132,25 @@ export default function Send() {
                 setIsDirtyYouSend(true);
                 setAmountYouSend(newAmountBig);
             }
-            switch (currencyYouSend) {
-                case 'CA_0':
-                    const price = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
-                            settings.tokens.CA[0].decimals
-                        )
-                    );
-                    const priceUSD = newAmountBig.times(price);
-                    setSendingUSD(priceUSD);
-                    break;
-                case 'TC':
-                    const priceTEC = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.getPTCac,
-                            settings.tokens.TC.decimals
-                        )
-                    );
-                    const priceCA = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
-                            settings.tokens.CA[0].decimals
-                        )
-                    );
-                    const priceTC = priceTEC.times(priceCA);
-                    const priceUSDtc = newAmountBig.times(priceTC);
-                    setSendingUSD(priceUSDtc);
-                    break;
-                case 'TP_0':
-                    setSendingUSD(newAmountBig);
-                default:
-                    setSendingUSD(newAmountBig);
-            }
+
+            const convertAmount = ConvertAmount(
+                auth,
+                currencyYouSend,
+                'CA',
+                newAmountBig,
+                false
+            );
+
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[0],
+                    settings.tokens.CA[0].decimals
+                )
+            );
+
+            const convertAmountUSD = convertAmount.times(priceCA);
+            setSendingUSD(convertAmountUSD);
+
         }
     };
 

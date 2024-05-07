@@ -104,7 +104,7 @@ export default function ConfirmSend(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchange),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 2,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -145,7 +145,7 @@ export default function ConfirmSend(props) {
                             {PrecisionNumbers({
                                 amount: exchangingUSD,
                                 token: TokenSettings('CA_0'),
-                                decimals: 2,
+                                decimals: 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,

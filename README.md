@@ -6,8 +6,8 @@ Open source **decentralized interface** for v2 contracts
 
 You can:
 
-* Mint / Redeem Pegged Token (TP): Ex.: GoARS, USDRIF
-* Mint / Redeem Collateral Token (TC): Ex.: GoTurbo, RIFPro
+* Mint / Redeem Pegged Token (TP): Ex.: FlipARS, USDRIF
+* Mint / Redeem Collateral Token (TC): Ex.: BProMax, RIFPro
 * Metrics
 * Last operations
 
@@ -19,15 +19,15 @@ You can:
 * Please review the contracts [here](https://github.com/money-on-chain/main-sc-protocol)
 
 
-| Token | Token name       | Project | Token Name | Collateral |
-|-------|------------------|---------|------------|------------|
-| TP #0 | Pegged Token     | Flipago | Go ARS     | DoC        |
-| TP #1 | Pegged Token     | Flipago | Go MXN     | DoC        |
-| TC    | Collateral Token | Flipago | Go Turbo   | DoC        |
-| TF    | Fee Token        | Flipago | Flip       | -          |
-| TP    | Pegged Token     | RoC     | USDRIF     | RIF        |
-| TC    | Collateral Token | RoC     | RIFP       | RIF        |
-| TF    | Fee Token        | RoC     | MOC        | -          |
+| Token | Token name       | Project     | Token Name | Collateral |
+|-------|------------------|-------------|------------|------------|
+| TP #0 | Pegged Token     | Flipmoney   | Flip ARS   | BPro       |
+| TP #1 | Pegged Token     | Flipmoney   | Flip MXN   | BPro       |
+| TC    | Collateral Token | Flipmoney   | BProMax    | BPro       |
+| TF    | Fee Token        | Flipmoney   | Flip       | -          |
+| TP    | Pegged Token     | RoC         | USDRIF     | RIF        |
+| TC    | Collateral Token | RoC         | RIFP       | RIF        |
+| TF    | Fee Token        | RoC         | MOC        | -          |
 
 
 
@@ -58,13 +58,13 @@ Install packages
 
 Run
 
-`npm run start:flipago-testnet`
+`npm run start:flipmoney-testnet`
 
 or 
 
 `npm run start:roc-testnet`
 
-**Note:** Start the environment you want to run ex. **"start:flipago-testnet"** to start environment Flipago Testnet 
+**Note:** Start the environment you want to run ex. **"start:flipmoney-testnet"** to start environment Flipmoney Testnet 
 
 
 ### Environment table
@@ -72,10 +72,10 @@ or
 Environment is our already deployed contracts. 
 **Develop**: npm run start:<environment>
 
-| Name            | Project | Main Gateway                         | Environment | Network | npm run               |
-|-----------------|---------|--------------------------------------|-------------|---------|-----------------------|
-| Flipago Testnet | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipago-testnet |
-| RoC Testnet     | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet     |
+| Name              | Project | Main Gateway                         | Environment | Network | npm run                 |
+|-------------------|---------|--------------------------------------|-------------|---------|-------------------------|
+| Flipmoney Testnet | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipmoney-testnet |
+| RoC Testnet       | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet       |
 
 
 

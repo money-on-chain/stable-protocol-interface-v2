@@ -11,7 +11,7 @@ RUN npm install
 # copy environments targets
 COPY .env ./
 COPY .env.rocTestnet ./
-COPY .env.flipagoTestnet ./
+COPY .env.flipmoneyTestnet ./
 
 # build script target
 COPY build_target.sh ./
