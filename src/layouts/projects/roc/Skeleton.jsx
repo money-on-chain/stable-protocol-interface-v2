@@ -23,7 +23,7 @@ export default function Skeleton() {
     const [canSwap, setCanSwap] = useState(false);
     const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
     useEffect(() => {
-        if (auth.contractStatusData) {
+        if (auth.contractStatusData && auth.userBalanceData) {
             readProtocolStatus();
         }
     }, [auth.contractStatusData, auth.userBalanceData])

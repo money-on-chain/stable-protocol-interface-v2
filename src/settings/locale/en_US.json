@@ -6,6 +6,16 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Last Operations",
+        "aboutQueue" : {
+            "button" : "About queue",
+            "title" : "About queue - Cicle of a transaction",
+            "statusQueuing" : "Transaction entered the queue with the first confirmation.",
+            "statusQueued" : "Transaction is in the queue waiting for execution.",
+            "statusConfirming" : "Transaction was executed and has one confirmation.", 
+            "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
+            "statusFailed" : "Transaction failed in any of the involved steps.",
+            "buttonClose" : "Close"
+        },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
         },
@@ -46,6 +56,17 @@
             "gas": "Gas Fee",
             "msg": "Message",
             "reason": "Reason"
+        },
+        "errors": {
+            "qACBelow" : "price went up, amount below minimum required.",
+            "insufficientQAC1" : "price went down, insufficient",
+            "insufficientQAC2" : "sent",
+            "lowCoverage" : "System below protected global coverage",
+            "fluxCapacitor" : "Error in flux capacitor",
+            "noMessage" : "No message"
+        },
+        "table":{
+            "itemsPerPage" : "Page"
         }
     },
     "feedback" :{
@@ -97,6 +118,7 @@
             "queuing": "Queuing transaction…",
             "queued": "Operation queued. Wating for execution…",
             "confirming": "Confirming transaction",
+            "confirmed" : "Transaction confirmed",
             "success": "Transaction successful",
             "error": "Transaction failed!",
             "default": "Espera la confirmación de la transacción",
@@ -106,7 +128,8 @@
 
         "priceVariation": {
             "title": "Customice price variation tolerance",
-            "sliderLabel" : "Price Variation Tolerance"
+            "sliderLabel" : "Price Variation Tolerance",
+            "warning" : "This amount was updated according to variation tolerance"
         },
         "cardTitle": "Exchange",
         "labelSending": "Exchanging",
@@ -125,8 +148,18 @@
         "buttonClose": "Close",
         "infoNoBalance": "insufficient balance",
         "infoAddressEmpty": "Enter destination address",
-        "infoAddressInvalid": "Invalid destination address"
-
+        "infoAddressInvalid": "Invalid destination address",
+        "errors" : {
+            "notOperational" : "Not Operational due to low Global Coverage ratio",
+            "cantOperate" : "Cannot operate with the current status",
+            "requestTimeout" : "Request timeout",
+            "connectYourWallet" : "Please connect your wallet",
+            "amountTooLow" : "Amount must be greater than zero",
+            "amountInvalid" : "Amount must be valid",
+            "notBalance" : "Not enough balance in your wallet",
+            "noLiquidity" : "Not enough liquidity in the protocol",
+            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+        }
     },
     "portfolio": {
         "tokens": {
@@ -143,27 +176,32 @@
                     "0": {
                         "title": "RIF",
                         "symbol": " (RIF)",
-                        "price_decimals": 4
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "1": {
                         "title": "RIFPro",
                         "symbol": " (RIFP)",
-                        "price_decimals": 4
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "2": {
                         "title": "RIF US Dollar",
                         "symbol": " (USDRIF)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     },
                     "3": {
                         "title": "MoC",
                         "symbol": " (MOC)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 2
                     },
                     "4": {
                         "title": "rBTC",
                         "symbol": " (RBTC)",
-                        "price_decimals": 2
+                        "price_decimals": 2,
+                        "balance_decimals": 8
                     }
                 }
             },
@@ -229,12 +267,12 @@
          },
 
          "pegged": {
-            "cardTitle": "Pegged Tokens Performance",
+            "cardTitle": "USDRIF Performance",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
             "colMintable": "Mintable",
-            "colTargetCoverage": "Cobertura Obj.",
+            "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
          }
@@ -271,7 +309,8 @@
 
      "allowance": {
         "cardTitle" : "Authorize using",
-        "statusText" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText1" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText2" : "Optionally you can set an unlimited allowance checking the checkbox. Warning: if you don't know the implicances of doing this, leave it unchecked.",
         "setUnlimited" : "Set unlimited allowance. Don't ask me again.",
         "confirm" : {
             "cancel": "Cancel",
@@ -291,6 +330,7 @@
 
      "fees": {
         "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },
@@ -327,7 +367,8 @@
         "text1" : "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
         "text2" : "'Swap Now' button",
         "button" : "Swap Now",
-        "modalTitle" : "IMPORTANT NOTICE",
+        "modalTitle1" : "IMPORTANT NOTICE",
+        "modalTitle2" : "Confirm Migration",
         "explanation1" : "RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the new DAPP. You will no longer be able to see your RDOC balance in the DAPP.",
         "explanation2" : "The exchange rate for the swap is 1 RDOC = 1 USDRIF. You will not be charged a transaction fee, only gas fees will apply.",
         "explanation3" : "Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF",
