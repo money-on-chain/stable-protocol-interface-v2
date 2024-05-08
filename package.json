@@ -1,6 +1,6 @@
 {
   "name": "stable-protocol-interface-v2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -39,9 +39,10 @@
     "webpack": "^5.90.1"
   },
   "scripts": {
-    "start:flipago-testnet": "bash ./prepare_target.sh flipago && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipagoTestnet react-app-rewired start",
-    "build:flipago-testnet": "bash ./prepare_target.sh flipago && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipagoTestnet react-app-rewired build && rm build/projects/ -R",
-    "start:roc-testnet-noRewrite": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocTestnet react-app-rewired start",
+    "reload:flipmoney-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet react-app-rewired start",
+    "start:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet react-app-rewired start",
+    "build:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyTestnet react-app-rewired build && rm build/projects/ -R",
+    "reload:roc-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocTestnet react-app-rewired start",
     "start:roc-testnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocTestnet react-app-rewired start",
     "build:roc-testnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocTestnet react-app-rewired build && rm build/projects/ -R",
     "start:roc-alpha-testnet-qa": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocAlphaTestnetQA react-app-rewired start",

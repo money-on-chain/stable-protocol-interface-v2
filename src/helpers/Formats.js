@@ -17,9 +17,7 @@ BigNumber.config({
 });
 
 const fromContractPrecisionDecimals = (amount, decimals) => {
-    return new BigNumber(amount).div(
-        new BigNumber(10).exponentiatedBy(decimals)
-    );
+    return new BigNumber(amount).div(new BigNumber(10).exponentiatedBy(decimals));
 };
 
 const formatLocalMap2 = {

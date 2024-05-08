@@ -1,7 +1,12 @@
 import { notification } from 'antd';
 import React from 'react';
+import { useProjectTranslation } from '../../helpers/translations';
+
 
 export default function CopyAddress(props) {
+
+    const [t, i18n, ns] = useProjectTranslation();
+
     const {
         address = '',
         type = ''
@@ -15,8 +20,8 @@ export default function CopyAddress(props) {
     const onClick = () => {
         navigator.clipboard.writeText(address);
         notification.open({
-            message: 'Copied',
-            description: `${address} to clipboard`,
+            message: t('feedback.clipboardCopy'),
+            description: `${address} ` +  t('feedback.clipboardTo'),
             placement: 'bottomRight'
         });
     };

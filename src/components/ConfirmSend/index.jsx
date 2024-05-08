@@ -68,27 +68,27 @@ export default function ConfirmSend(props) {
     switch (status) {
         case 'SUBMIT':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel = t('send.feedback.submit');
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
-            statusLabel = 'Sign the transaction using your wallet';
+            statusLabel =  t('send.feedback.sign');
             break;
         case 'WAITING':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel =  t('send.feedback.waiting');
             break;
         case 'SUCCESS':
             sentIcon = 'icon-tx-success';
-            statusLabel = 'Operation Successful';
+            statusLabel =  t('send.feedback.success');
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
-            statusLabel = 'Operation Failed!';
+            statusLabel =  t('send.feedback.error');
             break;
         default:
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel =  t('send.feedback.default');
     }
 
     const onClose = () => {
@@ -104,7 +104,7 @@ export default function ConfirmSend(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(amountYouExchange),
                             token: TokenSettings(currencyYouExchange),
-                            decimals: 2,
+                            decimals: 8,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -138,34 +138,34 @@ export default function ConfirmSend(props) {
                     <div className="exchanging">
 
                         <span className={'token_exchange'}>
-                            Sending{' '}
+                        {t('send.sendingSummary')}{' '}
                         </span>
-                        <span className={'symbol'}> ≈ </span>
+                        <span className={'symbol'}> {t('send.sendingSign')} </span>
                         <span className={'token_receive'}>
                             {PrecisionNumbers({
                                 amount: exchangingUSD,
                                 token: TokenSettings('CA_0'),
-                                decimals: 2,
+                                decimals: 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}> USD</span>
+                        <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
 
                     </div>
 
                     <div className="actions-buttons">
                         <Button type="secondary" className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? "secondary-button btn-clear" : "secondary-button btn-clear"} onClick={onClose}>
-                            Cancel
+                            {t('send.buttonCancel')}
                         </Button>
                         <button
                             type="primary"
                             className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? `primary-button btn-confirm` : `primary-button btn-confirm`}
                             onClick={onSendTransaction}
                         >
-                            Confirm
+                            {t('send.buttonConfirm')}
                         </button>
                     </div>
 
@@ -182,7 +182,7 @@ export default function ConfirmSend(props) {
                             status === 'SUCCESS' ||
                             status === 'ERROR') && (
                             <div className="transaction-id">
-                                <div className="label">Transaction ID</div>
+                                <div className="label">{t('send.labelTransactionID')}</div>
                                 <div className="address-section">
                                     <CopyAddress address={txID} type={'tx'}></CopyAddress>
                                     {/*<span className="address">*/}
@@ -204,7 +204,7 @@ export default function ConfirmSend(props) {
                             className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? "secondary-button btn-clear" : "secondary-button btn-clear"}
                             onClick={onClose}
                         >
-                            Close
+                            {t('send.buttonClose')}
                         </button>
                     </div>
                 </div>

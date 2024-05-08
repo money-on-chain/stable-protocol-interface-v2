@@ -8,6 +8,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import { ProvideColumnsCA } from '../../../helpers/tokensTables';
+import NumericLabel from 'react-pretty-numbers';
 
 
 export default function Tokens(props) {
@@ -16,7 +17,19 @@ export default function Tokens(props) {
 
     const tokensData = [];
     const columnsData = [];
-
+    const params = Object.assign(
+        {
+            shortFormat: true,
+            justification: 'L',
+            locales: i18n.languages[0],
+            shortFormatMinValue: 1000000,
+            commafy: true,
+            shortFormatPrecision: 2,
+            precision: 2,
+            title: '',
+            cssClass: ['display-inline']
+        },
+    );
     // Columns
     ProvideColumnsCA().forEach(function (dataItem) {
         columnsData.push({
@@ -80,9 +93,10 @@ export default function Tokens(props) {
                 }
                 return '-';
             };
+
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: '.',
-                groupSeparator: ','
+                decimalSeparator:  t('numberFormat.decimalSeparator'),
+                groupSeparator:   t('numberFormat.thousandsSeparator'),
             });
 
             tokensData.push({
@@ -117,7 +131,8 @@ export default function Tokens(props) {
                 variation:
                     (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
-                        {`${getSign()} ${variationFormat} %`}
+                        {`${getSign()} `}
+                        <NumericLabel {...{ params }}>{variationFormat}</NumericLabel>{' %'}
                         <span className={
                             `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
                                 getSign() === '-' ? 'negative-indicator' :
@@ -131,7 +146,7 @@ export default function Tokens(props) {
                             amount: auth.userBalanceData.CA[dataItem.key]
                                 .balance,
                             token: settings.tokens.CA[dataItem.key],
-                            decimals: 2,
+                            decimals: t(`portfolio.tokens.CA.rows.${dataItem.key}.balance_decimals`),
                             t: t,
                             i18n: i18n,
                             ns: ns
@@ -251,7 +266,8 @@ export default function Tokens(props) {
             variation:
                     (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
-                        {`${getSign()} ${variationFormat} %`}
+                        {`${getSign()} `}
+                        <NumericLabel {...{ params }}>{variationFormat}</NumericLabel>{' %'}
                         <span className={
                             `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
                                 getSign() === '-' ? 'negative-indicator' :
@@ -264,7 +280,7 @@ export default function Tokens(props) {
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.TC.balance,
                         token: settings.tokens.TC,
-                        decimals: 2,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`),
                         t: t,
                         i18n: i18n,
                         ns: ns
@@ -354,7 +370,7 @@ export default function Tokens(props) {
             variation:
                     (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
-                        {'0,00 %'}
+                        <NumericLabel {...{ params }}>{0}</NumericLabel>{' %'}
                         <span className={'variation-indicator neutral-indicator'}></span>
                     </div>),
             balance: (
@@ -465,7 +481,8 @@ export default function Tokens(props) {
             variation:
                     (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
-                        {`${getSign()} ${variationFormat} %`}
+                        {`${getSign()} `}
+                        <NumericLabel {...{ params }}>{variationFormat}</NumericLabel>{' %'}
                         <span className={
                             `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
                                 getSign() === '-' ? 'negative-indicator' :
@@ -580,7 +597,8 @@ export default function Tokens(props) {
             variation:
                     (!auth.contractStatusData.canOperate) ? '--' : (
                     <div>
-                        {`${getSign()} ${variationFormat} %`}
+                        {`${getSign()} `}
+                        <NumericLabel {...{ params }}>{variationFormat}</NumericLabel>{' %'}
                         <span className={
                             `variation-indicator ${getSign() === '+' ? 'positive-indicator' :
                                 getSign() === '-' ? 'negative-indicator' :
@@ -593,7 +611,7 @@ export default function Tokens(props) {
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.coinbase,
                         token: settings.tokens.COINBASE,
-                        decimals: 6,
+                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`),
                         t: t,
                         i18n: i18n,
                         ns: ns

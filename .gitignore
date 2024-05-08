@@ -1,9 +1,8 @@
 node_modules
 .idea
 build
-public
 .DS_Store
-
+public/*.*
 # assets
 src/assets/icons
 src/assets/img
@@ -13,9 +12,11 @@ navigation.scss
 Oval.svg
 pages.scss
 # settings
+src/settings/locale/en_US.json
+src/settings/locale/es_ES.json
+src/settings/settings.json
 src/settings/en_US.json
 src/settings/es_ES.json
-src/settings/settings.json
 
 # contracts
 src/contracts/*.json
@@ -35,3 +36,5 @@ src/contracts/*.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.vscode

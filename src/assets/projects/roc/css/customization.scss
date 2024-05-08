@@ -7,7 +7,11 @@
     --card-border-radius: 0px;
     --card-padding: 32px;
 
-    // Borders
+    // Modals
+    --modals-padding: 16px 16px 16px 16px;
+    --modals-border-radius: 4px;
+    --modals-backdrop-color: rgba(18, 17, 17, 0.3);
+    --modals-backdrop-blur: 1.8px;
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 0px;
 
@@ -86,11 +90,12 @@
     --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
     --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
     --filter-semantic-positive: invert(63%) sepia(23%) saturate(7464%) hue-rotate(73deg) brightness(99%) contrast(91%);
-    
+
     --notification-success-background: var(--color-semantic-positive);
     --notification-error-background: var(--color-semantic-negative);
-    --notification-warning-background: #0D0D0D;
-    --notification-info-background: #B5B5B5;
+    --notification-warning-background: #0d0d0d;
+    --notification-info-background: #b5b5b5;
+
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
@@ -109,6 +114,24 @@
     --color-navigation-text-disabled: #e0e0e0; //over hover color
     --color-navigation-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
 
+    // Language navigation colors
+
+    --color-language-background-default: transparent;
+    --color-language-text-default: #000000;
+    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-language-background-hover: #000000;
+    --color-language-text-hover: #ffffff;
+    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --color-language-background-active: transparent;
+    --color-language-text-active: #4b5cf0; //over hover color
+    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+
+    --color-language-background-disabled: transparent;
+    --color-language-text-disabled: #e0e0e0; //over hover color
+    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+
     // Text colors & fonts
 
     --color-text-primary: #000000;
@@ -117,7 +140,10 @@
     --color-text-link: #000000;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
+
     --color-icon-link-filter: invert(0%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
+    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
+
     --brand-font: 'Sora', sans-serif;
     --main-font: 'Open Sans', sans-serif;
 

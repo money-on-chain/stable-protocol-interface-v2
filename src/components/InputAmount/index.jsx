@@ -1,10 +1,14 @@
 import { DebounceInput } from 'react-debounce-input';
 import React, { Component } from 'react';
+
 import './style.scss';
+
 
 export default class InputAmount extends Component {
 
     render() {
+
+
         return (
             <div className="input-amount-container">
                 <div className="title-balance-container">

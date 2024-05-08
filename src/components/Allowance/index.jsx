@@ -27,25 +27,25 @@ export default function AllowanceDialog(props) {
     switch (status) {
         case 'SUBMIT':
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = '';
+            statusLabel = t('allowance.feedback.submit');
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
             statusLabel =
-                'Please, sign the allowance authorization transaction using your wallet.';
+                t('allowance.feedback.sign');
             break;
         case 'WAITING':
             sentIcon = 'icon-tx-waiting rotate';
             statusLabel =
-                'Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.';
+            t('allowance.feedback.waiting');
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
-            statusLabel = 'Operation Failed!';
+            statusLabel = t('allowance.feedback.error');
             break;
         default:
             sentIcon = 'icon-tx-waiting rotate';
-            statusLabel = 'Wait for transaction confirmation';
+            statusLabel = t('allowance.feedback.default');
     }
 
     const onChange = (e) => {
@@ -113,16 +113,15 @@ export default function AllowanceDialog(props) {
                 {status === 'SUBMIT' && (
                     <div className="status-submit">
                         <div className="status-text">
-                            Before continuing with the operation, you must
-                            authorize the allowance so that the system can
-                            access the tokens.
+                            {t('allowance.statusText1')}
+                            <br />
+                            {t('allowance.statusText2')}
                         </div>
                         <div className="remember-this">
                             <Checkbox
                                 className="check-unlimited"
                                 onChange={onChange}
-                            >
-                                Set unlimited allowance. Don’t ask me again.
+                            >{t('allowance.setUnlimited')}
                             </Checkbox>
                         </div>
                         <div className="actions">
@@ -131,14 +130,14 @@ export default function AllowanceDialog(props) {
                                 className="secondary-button btn-clear"
                                 onClick={onClose}
                             >
-                                Cancel
+                                {t('allowance.confirm.cancel')}
                             </button>
                             <button
                                 type="primary"
                                 className="primary-button btn-confirm"
                                 onClick={onAuthorize}
                             >
-                                Authorize
+                                {t('allowance.confirm.authorize')}
                             </button>
                         </div>
                     </div>
@@ -158,7 +157,7 @@ export default function AllowanceDialog(props) {
                                 className="secondary-button btn-clear"
                                 onClick={onClose}
                             >
-                                Cancel
+                                {t('allowance.confirm.cancel')}
                             </button>
                         </div>
                     </div>

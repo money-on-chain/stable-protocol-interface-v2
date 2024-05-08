@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 
-const RouterFlipago = React.lazy(() => import('./projects/flipago'));
+const RouterFlipmoney = React.lazy(() => import('./projects/flipmoney'));
 const RouterRoc = React.lazy(() => import('./projects/roc'));
 const Router = () => {
     switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-        case 'flipago':
-            return RouterFlipago;
+        case 'flipmoney':
+            return RouterFlipmoney;
         case 'roc':
             return RouterRoc;
         default:
-            return RouterFlipago;
+            return RouterFlipmoney;
     }
 };
 

@@ -4,6 +4,7 @@ import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
+
 import {
     TokenSettings,
     TokenBalance,
@@ -82,25 +83,25 @@ export default function Send() {
         );
         console.log('amount you send', amountYouSend.toString());
         if (amountYouSend.gt(totalBalance)) {
-            setInputValidationErrorText('Not enough balance in your wallet');
+            setInputValidationErrorText(t('send.infoNoBalance'));
             amountInputError = true
         }
         if (amountYouSend.eq(0)) {
             amountInputError = true
         }
         if (amountYouSend.lt(0)) {
-            setInputValidationErrorText('Amount cannot be negative');
+            setInputValidationErrorText(t('send.infoNoNegativeValues'));
             amountInputError = true
         }
         if (amountYouSend.toString() === 'NaN') {
-            setInputValidationErrorText('Amount must be greater than zero');
+            setInputValidationErrorText(t('send.infoNoNegativeValues'));
             amountInputError = true
         }
         // 2. Input address valid
         if (destinationAddress === '') {
             addressInputError = true
         } else if (destinationAddress.length < 42) {
-            setInputValidationAddressErrorText('Address is not valid');
+            setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
             addressInputError = true
         }
 
@@ -131,39 +132,25 @@ export default function Send() {
                 setIsDirtyYouSend(true);
                 setAmountYouSend(newAmountBig);
             }
-            switch (currencyYouSend) {
-                case 'CA_0':
-                    const price = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
-                            settings.tokens.CA[0].decimals
-                        )
-                    );
-                    const priceUSD = newAmountBig.times(price);
-                    setSendingUSD(priceUSD);
-                    break;
-                case 'TC':
-                    const priceTEC = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.getPTCac,
-                            settings.tokens.TC.decimals
-                        )
-                    );
-                    const priceCA = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
-                            settings.tokens.CA[0].decimals
-                        )
-                    );
-                    const priceTC = priceTEC.times(priceCA);
-                    const priceUSDtc = newAmountBig.times(priceTC);
-                    setSendingUSD(priceUSDtc);
-                    break;
-                case 'TP_0':
-                    setSendingUSD(newAmountBig);
-                default:
-                    setSendingUSD(newAmountBig);
-            }
+
+            const convertAmount = ConvertAmount(
+                auth,
+                currencyYouSend,
+                'CA',
+                newAmountBig,
+                false
+            );
+
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[0],
+                    settings.tokens.CA[0].decimals
+                )
+            );
+
+            const convertAmountUSD = convertAmount.times(priceCA);
+            setSendingUSD(convertAmountUSD);
+
         }
     };
 
@@ -227,8 +214,8 @@ export default function Send() {
                                 })
                             }
                             setAddTotalAvailable={setAddTotalAvailable}
-                            action={'SENDING'}
-                            balanceText={'Balance'}
+                            action={t('send.labelSending')}
+                            balanceText={t('send.labelBalance')}
                         />
                         <div className="input-validation-error">{inputValidationErrorText}</div>
                     </div>
@@ -239,8 +226,8 @@ export default function Send() {
 
                     <div className="swap-to">
 
-                        <div className="caption">Destination Address</div>
-                        <Input type="text" placeholder="Destination address" className="input-address" onChange={onChangeDestinationAddress} />
+                        <div className="caption">{t('send.labelDestination')}</div>
+                        <Input type="text" placeholder={t('send.placeholder')} className="input-address" onChange={onChangeDestinationAddress} />
                         <div className="input-validation-error">{inputValidationAddressErrorText}</div>
 
                     </div>
@@ -252,8 +239,8 @@ export default function Send() {
 
                 <div className="exchanging">
 
-                    <span className={'token_exchange'}>Sending </span>
-                    <span className={'symbol'}> ≈ </span>
+                    <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
+                    <span className={'symbol'}> {t('send.sendingSign')} </span>
                     {sendingUSD.toString() !== 'NaN' ? <span className={'token_receive'}>
                         {PrecisionNumbers({
                             amount: sendingUSD,
@@ -265,7 +252,7 @@ export default function Send() {
                             skipContractConvert: true
                         })}
                     </span> : <span>0</span>}
-                    <span className={'token_receive_name'}> USD</span>
+                    <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
 
                 </div>
 

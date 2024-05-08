@@ -87,6 +87,18 @@ const mintTC = async (
         .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
+    console.log('parameters for minttc');
+    console.log(toContractPrecisionDecimals(
+        new BigNumber(qTC),
+        settings.tokens.TC.decimals
+    ));
+    console.log(toContractPrecisionDecimals(
+        limitAmount,
+        settings.tokens.CA[caIndex].decimals
+    ));
+    console.log(account);
+    console.log(vendorAddress);
+    console.log('value to send', valueToSend);
     const receipt = MoCContract.methods
         .mintTC(
             toContractPrecisionDecimals(
@@ -104,8 +116,8 @@ const mintTC = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -201,8 +213,8 @@ const redeemTC = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -227,7 +239,9 @@ const mintTP = async (
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
     const tpAddress = dContracts.contracts.TP[tpIndex].options.address
-
+    console.log('tpAddress', tpAddress);
+    console.log('contractStatusData', contractStatusData);
+    console.log('vendor address is ', vendorAddress);
     // Verifications
 
     // User have sufficient reserve to pay?
@@ -285,7 +299,7 @@ const mintTP = async (
         );
 
     const valueToSend = contractStatusData.tpMintExecFee
-
+    
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTP(
@@ -322,8 +336,8 @@ const mintTP = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);
@@ -425,8 +439,8 @@ const redeemTP = async (
             from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
-            gas: estimateGas * BigInt(2),
-            gasLimit: estimateGas * BigInt(2)
+            gas: estimateGas,
+            gasLimit: estimateGas
         })
         .on('transactionHash', onTransaction)
         .on('receipt', onReceipt);

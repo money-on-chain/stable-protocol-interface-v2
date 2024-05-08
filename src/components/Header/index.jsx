@@ -1,11 +1,16 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useProjectTranslation } from '../../helpers/translations';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
 
+// import lang_en from  '../../assets/icons/lang_en.svg';
+// import lang_es from  '../../assets/icons/lang_en.svg';
+import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 const { Header } = Layout;
+
 
 export default function SectionHeader() {
     const navigate = useNavigate();
@@ -13,7 +18,58 @@ export default function SectionHeader() {
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+    const [t, i18n, ns] = useProjectTranslation();
+    const menuLimit = 4;
 
+    const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+    const [lang, setLang] = useState('en');
+    const [menuOptions, setMenuOptions] = useState([]);
+    useEffect(() => {
+        setMenuOptions([
+            {
+                name: t('menuOptions.portfolio'),
+                className: 'logo-portfolio',
+                action: goToPortfolio,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.send'),
+                className: 'logo-send',
+                action: goToSend,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.exchange'),
+                className: 'logo-exchange',
+                action: goToExchange,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.performance'),
+                className: 'logo-performance',
+                action: goToPerformance,
+                isActive: true
+            },
+            {
+                name: "Staking",
+                className: 'logo-staking',
+                action: goToStaking,
+                isActive: true
+            },
+            {
+                name: "Liquidity Mining",
+                className: 'logo-liquidity-mining',
+                action: goToLiquidityMining,
+                isActive: true
+            },
+            {
+                name: t('menuOptions.vesting'),
+                className: 'logo-vesting',
+                action: goToVesting,
+                isActive: true
+            }
+        ]);
+    }, [t, lang]);
     useEffect(() => {
         if (auth.isLoggedIn &&
             auth.contractStatusData &&
@@ -56,62 +112,21 @@ export default function SectionHeader() {
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
-    const menu = {
-        mainMenu: [
-            {
-                name: "Portfolio",
-                action: goToPortfolio,
-                isActive: true
-            },
-            {
-                name: "Send",
-                action: goToSend,
-                isActive: true
-            },
-            {
-                name: "Exchange",
-                action: goToExchange,
-                isActive: true
-            },
-            {
-                name: "Performance",
-                action: goToPerformance,
-                isActive: true
-            },
-            {
-                name: "Staking",
-                action: goToStaking,
-                isActive: true
-            }
-        ],
-        dropdownMenu: [
-            {
-                name: "Liquidity Mining",
-                action: goToLiquidityMining,
-                isActive: true
-            },
-            {
-                name: "Vesting",
-                action: goToVesting,
-                isActive: true
-            }
-        ]
-    }
     const getActiveTabsNumber = () => {
         let activeTabs = 0;
-        menu.mainMenu.forEach(item => {
+        menuOptions.mainMenu.forEach(item => {
             if (item.isActive) {
                 activeTabs++;
             }
         });
-        menu.dropdownMenu.forEach(item => {
+        menuOptions.dropdownMenu.forEach(item => {
             if (item.isActive) {
                 activeTabs++;
             }
         })
         return activeTabs;
     }
-    const [menuOptions, setMenuOptions] = useState(menu);
+
     const swapMenuOptions = (optionName) => {
         setMenuOptions(prevState => {
             const dropdownIndex = prevState.dropdownMenu.findIndex(item => item.name === optionName);
@@ -134,28 +149,29 @@ export default function SectionHeader() {
             }
         });
     };
-    const pathMap = {
-        "Portfolio": ['/', '/home'],
-        "Send": ['/send'],
-        "Exchange": ['/exchange'],
-        "Performance": ['/performance'],
-        "Staking": ['/staking'],
-        "Liquidity Mining": ['/liquidity-mining'],
-        "Vesting": ['/vesting']
-    };
+    const pathMap = [
+        ['/'],
+        ['/send'],
+        ['/exchange'],
+        ['/performance'],
+        ['/staking'],
+        ['/liquidity-mining'],
+        ['/vesting']
+    ];
     const updateMenuItemClasses = (menuItem) => {
         const isActive = pathMap[menuItem.name]?.includes(location.pathname);
         return {
             ...menuItem,
             containerClassName: isActive ? 'menu-nav-item menu-nav-item-selected' : `menu-nav-item ` + css_disable,
             iClassName: `logo-${menuItem.name.toLowerCase().replace(" ", "-")} ${isActive ? 'color-filter-disabled' : 'color-filter-invert'}`
+
         };
     };
 
-    const getMenuItemClasses = (itemName) => {
+    const getMenuItemClasses = (logoClass, index) => {
         let containerClassName = `menu-nav-item ` + css_disable;
-        const isSelected = pathMap[itemName]?.includes(location.pathname);
-        let iconClassName = `logo-${itemName.toLowerCase().replace(" ", "-")}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
+        const isSelected = pathMap[index]?.includes(location.pathname);
+        let iconClassName = `${logoClass}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
         
         if (isSelected) {
             containerClassName += ' menu-nav-item-selected';
@@ -163,18 +179,33 @@ export default function SectionHeader() {
     
         return { containerClassName, iconClassName };
     };
-
+    //Lang settings
+    const languageOptions = [
+        { name: t(`language.en`, {
+            ns: ns
+        }), code: "en"},
+        { name: t(`language.es`, {
+            ns: ns
+        }), code: "es"}
+    ];
+    const toggleLanguageMenu = () => {
+        setShowLanguageMenu(prevState => !prevState);
+    };
+    const pickLanguage = (code) => {
+        i18n.changeLanguage(code);
+        setLang(code);
+        setShowLanguageMenu(false);
+    };
     return (
         <Header>
             <div className="header-container">
                 <div className="header-logo">
                     <div className="logo-app"></div>
                 </div>
-
                 <div className="central-menu">
-                    {menuOptions.mainMenu.map((option) => {
-                        const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
-                        if (option.isActive) {
+                    {menuOptions.map((option, index) => {
+                        const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index);
+                        if (option.isActive && index < menuLimit) {
                             return (
                                 <a
                                     onClick={option.action}
@@ -182,15 +213,17 @@ export default function SectionHeader() {
                                     key={option.name}
                                 >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{option.name}</span>
+                                    <span className="menu-nav-item-title">{menuOptions[index].name}</span>
                                 </a>
                             );
                         }
                         else return null;
-                    })}
+                    }
+                    )}
+                    {/*
                     {getActiveTabsNumber() > 5 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
                         <i className='logo-more color-filter-invert'></i>
-                        <span className="menu-nav-item-title-more">More</span>
+                        <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
                     </a>}
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
                         {menuOptions.dropdownMenu.map((option) => {
@@ -206,16 +239,16 @@ export default function SectionHeader() {
                                 </a>
                             );
                         })}
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="wallet-user">
-                    {/*<div className="wallet-translation">
-                        <a href="#" className="translation-selector">
+                    <div className="wallet-translation" onClick={toggleLanguageMenu}>
+                        <a className="translation-selector" >
                             {' '}
-                            English{' '}
+                            {languageOptions.find(option => option.code === lang).name }{' '}
                         </a>{' '}
                         <i className="logo-translation"></i>
-                    </div>*/}
+                    </div>
                     <div className="wallet-address">
                         {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
                         <ModalAccount
@@ -223,6 +256,23 @@ export default function SectionHeader() {
                         ></ModalAccount>
                         <i className="logo-wallet"></i>
                     </div>
+                    {showLanguageMenu && (
+                        <div className="language-menu">
+                            <div>
+                                {languageOptions.map((option) => {
+                                    return (
+                                        <div 
+                                            className={`menu-item${lang === option.code ? '-selected' : ''}`}
+                                            onClick={() => pickLanguage(option.code)}
+                                        >
+                                            <span>{option.name}</span>
+                                           {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </Header>

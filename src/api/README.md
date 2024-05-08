@@ -124,19 +124,19 @@ Example API operations
 
 ### Collateral Asset (CA) Token:
 
-* **Flipago:** DOC
+* **Flipmoney:** DOC
 * **RoC:** RIF
 
 
 ### Token Pegged (TP):
 
-* **Flipago:** Go ARS, Go COP
+* **Flipmoney:** Go ARS, Go COP
 * **RoC:** USDRIF
 
 
 ### Token Collateral  (TC):
 
-* **Flipago:** Go Turbo
+* **Flipmoney:** Go Turbo
 * **RoC:** RIFPro
 
 

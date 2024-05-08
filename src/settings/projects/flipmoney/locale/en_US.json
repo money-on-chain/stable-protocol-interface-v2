@@ -1,0 +1,400 @@
+{
+    "CustomizePrize_VariationToleranceTitle": "Price Variation Tolerance",
+    "NoConnection_alertTitle": "Wallet not connected!",
+    "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
+    "invalidValueDescription": "No value to display",
+    "invalidValuePlaceholder": "--",
+    "operations": {
+        "sectionTitle": "Last Operations",
+        "aboutQueue" : {
+            "button" : "About queue",
+            "title" : "About queue - Cicle of a transaction",
+            "statusQueuing" : "Transaction entered the queue with the first confirmation.",
+            "statusQueued" : "Transaction is in the queue waiting for execution.",
+            "statusConfirming" : "Transaction was executed and has one confirmation.", 
+            "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
+            "statusFailed" : "Transaction failed in any of the involved steps.",
+            "buttonClose" : "Close"
+        },
+        "tooltip": {
+            "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
+        },
+        "empty": "No operations",
+        "headers": {
+            "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
+        },
+        "actions" : {
+            "transfer" : "Transfer",
+            "exchanging" : "Exchanging",
+            "exchanged" : "Exchanged",
+            "receiving" : "Receiving",
+            "received" : "Received",
+            "origin" : "From",
+            "destination" : "Destination",
+            "statusQueuing" : "Queuing",
+            "statusQueued" : "Queued",
+            "statusConfirming" : "Confirming",
+            "statusConfirmed" : "Confirmed",
+            "statusFailed" : "Failed"
+        },
+        "columns": {
+            "date": "Date"
+        },
+        "columns_detailed": {
+            "event": "Event",
+            "created": "Created",
+            "gas_used": "Gas used",
+            "oper_id": "Operation ID",
+            "confirmation": "Confirmation",
+            "recipient": "Recipient",
+            "status": "Status",
+            "error_code": "Error code",
+            "block": "Block Number",
+            "executed_tx": "Executed TX",
+            "tx": "TX Hash",
+            "fee": "Fee",
+            "gas": "Gas Fee",
+            "msg": "Message",
+            "reason": "Reason"
+        },
+        "errors": {
+            "qACBelow" : "price went up, amount below minimum required.",
+            "insufficientQAC1" : "price went down, insufficient",
+            "insufficientQAC2" : "sent",
+            "lowCoverage" : "System below protected global coverage",
+            "fluxCapacitor" : "Error in flux capacitor",
+            "noMessage" : "No message"
+        },
+        "table":{
+            "itemsPerPage" : "Page"
+        }
+    },
+    "feedback" :{
+        "clipboardCopy" : "Copied",
+        "clipboardTo" : "to the clipboard"
+    },
+
+    "wallet" :{
+        "modalTitle" : "Connect Wallet",
+        "userAddress" : "Address",
+        "cta": {
+            "disconnect" : "Disconnect",
+            "close" : "Close"
+        }
+    },
+
+    "exchange": {
+        "tokens": {
+            "CA_0": {
+                "label": "BPro",
+                "abbr": "BPRO"
+            },
+            "TC": {
+                "label": "BPro Max",
+                "abbr": "BPROX"
+            },
+            "TP_0": {
+                "label": "ARS",
+                "abbr": "ArsFlip"
+            },
+            "TP_1": {
+                "label": "COP",
+                "abbr": "CopFlip"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "Flip",
+                "abbr": "FLIP"
+            }
+        },
+
+
+        "limit": {
+            "minimumToReceive": "Minimum to receive",
+            "seeVariationTolarance": "See Price Variation Tolerance"
+        },
+
+        "confirm": {
+            "submit": "Wait for transaction confirmation",
+            "sign": "Sign the transaction in your wallet",
+            "queuing": "Queuing transaction…",
+            "queued": "Operation queued. Wating for execution…",
+            "confirming": "Confirming transaction",
+            "confirmed" : "Transaction confirmed",
+            "success": "Transaction successful",
+            "error": "Transaction failed!",
+            "default": "Espera la confirmación de la transacción",
+            "minimumWarning" : "Minimum to receive",
+            "minimumExplanation" : "(see price variation tolerance)"
+        },
+
+        "priceVariation": {
+            "title": "Customice price variation tolerance",
+            "sliderLabel" : "Price Variation Tolerance",
+            "warning" : "This amount was updated according to variation tolerance"
+        },
+        "cardTitle": "Exchange",
+        "labelSending": "Exchanging",
+        "labelBalance": "Balance",
+        "labelUpTo" : "Up to",
+        "labelReceiving": "Receiving",
+        "labelTransactionID": "Transaction ID",
+        "placeholder": "Address",
+        "exchangingSummary": "Exchanging",
+        "exchangingSign": "≈",
+        "exchangingCurrency": "USD",
+        "buttonPrimary": "Exchange",
+        "modalTitle": "Confirm exchange",
+        "buttonCancel": "Cancel",
+        "buttonConfirm" : "Confirm",
+        "buttonClose": "Close",
+        "infoNoBalance": "insufficient balance",
+        "infoAddressEmpty": "Enter destination address",
+        "infoAddressInvalid": "Invalid destination address",
+        "errors" : {
+            "notOperational" : "Not Operational due to low Global Coverage ratio",
+            "cantOperate" : "Cannot operate with the current status",
+            "requestTimeout" : "Request timeout",
+            "connectYourWallet" : "Please connect your wallet",
+            "amountTooLow" : "Amount must be greater than zero",
+            "amountInvalid" : "Amount must be valid",
+            "notBalance" : "Not enough balance in your wallet",
+            "noLiquidity" : "Not enough liquidity in the protocol",
+            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+        }
+
+    },
+    "portfolio": {
+        "tokens": {
+            "CA": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Price in USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "1": {
+                        "title": "BPro Max",
+                        "symbol": " (BPROX)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "2": {
+                        "title": "Flip",
+                        "symbol": " (FLIP)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "3": {
+                        "title": "Smart Bitcoin",
+                        "symbol": " (RBTC)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    }
+                }
+            },
+            "TP": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Tokens per USD",
+                    "variation": "Variation 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "ARS",
+                        "symbol": " (ArsFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    },
+                    "1": {
+                        "title": "COP",
+                        "symbol": " (CopFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    }
+                }
+            }
+        },
+        "sectionTitle": "Portfolio",
+        "totalCurrency": "USD",
+        "totalBalance": "Total Balance"
+   
+    },
+    "performance": {
+        "sectionTitle": "Performance",
+        "status": {
+            "cardTitle": "System status",
+
+            "statusTitleFull": "Fully Operational",
+            "statusDescriptionFull": "The system is in optimal condition",
+
+            "stuatusTitleWarning": "Partially Operational",
+            "statusDescriptionWarning": "Token Collateral cannot be redeemed. Token Pegged cannot be minted",
+
+            "statusTitleAlert": "Protected Mode",
+            "statusDescriptionAlert": "No operations allowed",
+
+            "statusTitleLiquidated": "Liquidated",
+            "statusDescriptionLiquidated": "No operations allowed",
+            
+            "statusTitlePaused": "Pausado",
+            "statusDescriptionPaused": "The contract is paused. No operations allowed",
+
+            "statusTitleUnavailable" : "Cannot operate",
+            "statusDescreiptionUnavailable" : "One or more contracts are temporarily unavailable. Please try again later.",
+
+            "showingBlock": "Showing block"
+
+        },
+        "tvl": {
+            "cardTitle": "Total Value Locked",
+            "expressedIn": "Expressed in USD"
+        },
+
+        "tc": {
+            "priceIn": "Price in USD",
+            "currentLeverage": "Current leverage",
+            "totalInSystem": "Total in the system",
+            "redeemable" : "Available to redeem"
+         },
+
+         "collateral": {
+            "cardTitle": "Collateral",
+            "totalIn": "Total collateral in USD",
+            "globalCoverage": "Global coverage"
+         },
+
+         "pegged": {
+            "cardTitle": "Pegged-Tokens Performance",
+            "colName": "Name",
+            "colTokensPer": "Tokens per USD",
+            "colMinted": "Minted",
+            "colMintable": "Mintable",
+            "colTargetCoverage": "T. Coverage",
+            "colEMA": "EMA",
+            "colTargetEMA": "Target EMA"
+         }
+    },
+
+    "send": {
+        "cardTitle": "Send",
+        "labelSending": "Sending",
+        "labelBalance": "Balance",
+        "labelDestination": "Destination address",
+        "labelTransactionID": "Transaction ID",
+        "placeholder": "Address",
+        "sendingSummary": "Sending",
+        "sendingSign": "≈",
+        "sendingCurrency": "USD",
+        "buttonPrimary": "Send",
+        "modalTitle": "Confirm Send",
+        "buttonCancel": "Cancel",
+        "buttonConfirm" : "Confirm",
+        "buttonClose": "Close",
+        "infoNoBalance": "No enough balance",
+        "noNegativeValues" : "Value must be greater than 0",
+        "infoAddressEmpty": "Destination address not specified",
+        "infoAddressInvalid": "Invalid address",
+        "feedback": {
+            "submit": "Wait for transaction confirmation",
+            "sign": "Sign the transaction in your wallet",
+            "waiting": "Wait for transaction confirmation",
+            "success": "Transaction successful",
+            "error": "Transaction failed!",
+            "default": "Wait for transaction confirmation"
+        }
+     },
+
+     "allowance": {
+        "cardTitle" : "Authorize using",
+        "statusText1" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText2" : "Optionally you can set an unlimited allowance checking the checkbox. Warning: if you don't know the implicances of doing this, leave it unchecked.",
+        "setUnlimited" : "Set unlimited allowance. Don't ask me again.",
+        "confirm" : {
+            "cancel": "Cancel",
+            "authorize": "Authorize"
+        },
+        "feedback" : {
+            "submit" : "",
+            "sign" : "Please, sign the allowance authorization transaction using your wallet.",
+            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
+            "error" : "Operation Failed!",
+            "default" : "Wait for transaction confirmation"
+        }
+     },
+     "inputFields": {
+        "maxButton" : "Max"
+     },
+
+     "fees": {
+        "labelFee" : "Fee",
+        "labelExecutionFee" : "Execution Fee",
+        "disclaimer1": "This fee will be deduced from the amount to be transferred.",
+        "disclaimer2": "Amounts may change at the transaction confirmation"
+    },
+
+     "menuOptions": {
+        "portfolio": "Portfolio",
+        "send" : "Send",
+        "exchange" : "Exchange",
+        "performance" : "Performance",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Vesting",
+        "more" : "More"
+    },
+   
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
+    },
+
+    "defaultCTA" : {
+        "buttonSubmit" : "Confirm",
+        "buttonCancel" : "Cancel",
+        "buttonExchange" : "Exchange",
+        "buttonClose" : "Close"
+    },
+
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
+    },
+
+    "swapModal" : {
+        "text1" : "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
+        "text2" : "'Swap Now' button",
+        "button" : "Swap Now",
+        "modalTitle1" : "IMPORTANT NOTICE",
+        "modalTitle2" : "Confirm Migration",
+        "explanation1" : "RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the new DAPP. You will no longer be able to see your RDOC balance in the DAPP.",
+        "explanation2" : "The exchange rate for the swap is 1 RDOC = 1 USDRIF. You will not be charged a transaction fee, only gas fees will apply.",
+        "explanation3" : "Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF",
+        "buttonCancel" : "Cancel",
+        "buttonConfirm" : "Confirm",
+        "exchanging" : "Exchanging",
+        "receiving" : "Receiving",
+        "authorizing" : "TOKEN AUTHORIZATION",
+        "migrating" : "TOKEN MIGRATION",
+        "allowanceSignText" : "Please, sign the allowance authorization transaction using your wallet.",
+        "migrationTransactionSignText" : "Please, sign the migration transaction using your wallet.",
+        "allowanceWaiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
+        "transactionHash" : "Transaction Hash",
+        "operationFailed" : "Operation Failed!.",
+        "tokenMigrationWaitingText" : "Please, wait while the token migration is mined in the blockchain.",
+        "operationSuccessful" : "Operation Successful."
+    }
+}
