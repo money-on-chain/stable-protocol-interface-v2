@@ -1,6 +1,6 @@
 import { Button, Input } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
-import Web3 from 'web3';
+import { isAddress } from 'web3-validator';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
@@ -100,7 +100,7 @@ export default function Send() {
         // 2. Input address valid
         if (destinationAddress === '') {
             addressInputError = true
-        } else if (destinationAddress.length < 42) {
+        } else if (destinationAddress.length < 42 || !isAddress(destinationAddress)) {
             setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
             addressInputError = true
         }
@@ -155,6 +155,10 @@ export default function Send() {
     };
 
     const onChangeDestinationAddress = (event) => {
+        if (event.target.value.length < 42 ) {
+            setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
+            setInputValidationError(true);
+        }
         setDestinationAddress(event.target.value);
     };
 
