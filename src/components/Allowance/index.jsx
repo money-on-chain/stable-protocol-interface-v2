@@ -50,7 +50,7 @@ export default function AllowanceDialog(props) {
 
     const onChange = (e) => {
         console.log(`checked = ${e.target.checked}`);
-        infinityAllowance = true
+        infinityAllowance = e.target.checked
     };
 
     const reset = () => {

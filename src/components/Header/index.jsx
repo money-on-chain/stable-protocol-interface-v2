@@ -254,7 +254,6 @@ export default function SectionHeader() {
                         <ModalAccount
                             truncatedAddress={auth.accountData.truncatedAddress}
                         ></ModalAccount>
-                        <i className="logo-wallet"></i>
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">
