@@ -6,6 +6,27 @@ import './style.scss';
 
 export default class InputAmount extends Component {
 
+    constructor(props) {
+        super(props);
+        this.inputRef = React.createRef();
+    }
+
+    componentDidMount() {
+        if (this.inputRef.current) {
+            this.inputRef.current.addEventListener('wheel', this.handleWheel, { passive: false });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.inputRef.current) {
+            this.inputRef.current.removeEventListener('wheel', this.handleWheel);
+        }
+    }
+
+    handleWheel = event => {
+        event.preventDefault();
+    };
+
     render() {
 
 
@@ -20,6 +41,7 @@ export default class InputAmount extends Component {
                 </div>
                 <div className="input-field-container">
                     <input
+                        ref={this.inputRef}
                         placeholder={this.props.placeholder}
                         // value={this.props.InputValue}
                         value={this.props.isDirty ? null : this.props.InputValue === 0 ? '' : this.props.InputValue}

@@ -302,7 +302,7 @@ export default function ListOperations(props) {
         }
         txList = pre_datas;
         data = [];
-
+        console.log("txList", txList);
         txList.forEach((data) => {
 
             const token = tokenExchange(data)
@@ -361,8 +361,8 @@ export default function ListOperations(props) {
                 error_code: data['errorCode_'] || "--",
                 msg: getErrorMessage(data['msg_']) || t('operations.errors.noMessage'),
                 reason: data['reason_'] || "--",
-                executed_tx_hash_truncate: TruncatedAddress(data['hash']) || "--",
-                executed_tx_hash: data['hash'] || "--",
+                executed_tx_hash_truncate: TruncatedAddress(data['params']['hash']) || "--",
+                executed_tx_hash: data['params']['hash'] || "--",
                 status: getStatus(data) || "--",
                 fee: getFee(data) || "--"
             };
