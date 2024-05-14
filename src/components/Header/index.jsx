@@ -19,7 +19,7 @@ export default function SectionHeader() {
     const [css_disable, setCssDisable] = useState( 'disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = 4;
+    const menuLimit = 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -111,20 +111,6 @@ export default function SectionHeader() {
         swapMenuOptions("Vesting");
         setShowMoreDropdown(false);
         navigate('/vesting');
-    }
-    const getActiveTabsNumber = () => {
-        let activeTabs = 0;
-        menuOptions.mainMenu.forEach(item => {
-            if (item.isActive) {
-                activeTabs++;
-            }
-        });
-        menuOptions.dropdownMenu.forEach(item => {
-            if (item.isActive) {
-                activeTabs++;
-            }
-        })
-        return activeTabs;
     }
 
     const swapMenuOptions = (optionName) => {
@@ -220,14 +206,15 @@ export default function SectionHeader() {
                         else return null;
                     }
                     )}
-                    {/*
-                    {getActiveTabsNumber() > 5 && <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
-                        <i className='logo-more color-filter-invert'></i>
-                        <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
-                    </a>}
+                    {menuLimit > 4 && 
+                        <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className='menu-nav-item-more'>
+                            <i className='logo-more color-filter-invert'></i>
+                            <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
+                        </a>
+                    }
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
-                        {menuOptions.dropdownMenu.map((option) => {
-                            const { containerClassName, iconClassName } = getMenuItemClasses(option.name);
+                        {menuOptions.slice(-2).map((option, index) => {
+                            const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index + menuLimit);
                             return (
                                 <a
                                     onClick={option.action}
@@ -235,11 +222,11 @@ export default function SectionHeader() {
                                     key={option.name}
                                 >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{option.name}</span>
+                                    <span className="menu-nav-item-title">{menuOptions[index].name}</span>
                                 </a>
                             );
                         })}
-                    </div>*/}
+                    </div>
                 </div>
                 <div className="wallet-user">
                     <div className="wallet-translation" onClick={toggleLanguageMenu}>
