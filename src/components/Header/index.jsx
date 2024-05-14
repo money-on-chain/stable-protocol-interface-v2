@@ -30,43 +30,50 @@ export default function SectionHeader() {
                 name: t('menuOptions.portfolio'),
                 className: 'logo-portfolio',
                 action: goToPortfolio,
-                isActive: true
+                isActive: true,
+                pathMap: '/',
             },
             {
                 name: t('menuOptions.send'),
                 className: 'logo-send',
                 action: goToSend,
-                isActive: true
+                isActive: true,
+                pathMap: '/send',
             },
             {
                 name: t('menuOptions.exchange'),
                 className: 'logo-exchange',
                 action: goToExchange,
-                isActive: true
+                isActive: true,
+                pathMap: '/exchange',
             },
             {
                 name: t('menuOptions.performance'),
                 className: 'logo-performance',
                 action: goToPerformance,
-                isActive: true
+                isActive: true,
+                pathMap: '/performance',
             },
             {
-                name: "Staking",
+                name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
-                isActive: true
+                isActive: true,
+                pathMap: '/staking',
             },
             {
-                name: "Liquidity Mining",
+                name: t('menuOptions.liquidityMining'),
                 className: 'logo-liquidity-mining',
                 action: goToLiquidityMining,
-                isActive: true
+                isActive: true,
+                pathMap: '/liquidity-mining',
             },
             {
                 name: t('menuOptions.vesting'),
                 className: 'logo-vesting',
                 action: goToVesting,
-                isActive: true
+                isActive: true,
+                pathMap: '/vesting',
             }
         ]);
     }, [t, lang]);
@@ -98,65 +105,37 @@ export default function SectionHeader() {
         navigate('/performance');
     };
     const goToStaking = () => {
-        swapMenuOptions("Staking");
+        swapMenuOptions(t('menuOptions.staking'));
         setShowMoreDropdown(false);
         navigate('/staking');
     };
     const goToLiquidityMining = () => {
-        swapMenuOptions("Liquidity Mining");
+        swapMenuOptions(t('menuOptions.liquidityMining'));
         setShowMoreDropdown(false);
         navigate('/liquidity-mining');
     }
     const goToVesting = () => {
-        swapMenuOptions("Vesting");
+        swapMenuOptions(t('menuOptions.vesting'));
         setShowMoreDropdown(false);
         navigate('/vesting');
     }
 
     const swapMenuOptions = (optionName) => {
-        setMenuOptions(prevState => {
-            const dropdownIndex = prevState.dropdownMenu.findIndex(item => item.name === optionName);
-            if (dropdownIndex !== -1) {
-                const foundInDropdown = prevState.dropdownMenu[dropdownIndex];
-                const lastElementInMain = prevState.mainMenu[prevState.mainMenu.length - 1];
-
-                const newMainMenu = [...prevState.mainMenu];
-                newMainMenu[newMainMenu.length - 1] = foundInDropdown;
-
-                const newDropdownMenu = [...prevState.dropdownMenu];
-                newDropdownMenu[dropdownIndex] = lastElementInMain;
-
-                return {
-                    mainMenu: newMainMenu.map(item => updateMenuItemClasses(item)),
-                    dropdownMenu: newDropdownMenu.map(item => updateMenuItemClasses(item))
-                };
-            } else {
-                return prevState;
+        setMenuOptions((currentOptions) => {
+            const currentIndex = currentOptions.findIndex(item => item.name === optionName);
+            if (currentIndex > menuLimit - 1) {
+                const newMenuOptions = [...currentOptions];
+                const [selectedOption] = newMenuOptions.splice(currentIndex, 1);
+                newMenuOptions.splice(menuLimit - 1, 0, selectedOption);
+                return newMenuOptions;
             }
+            return currentOptions;
         });
     };
-    const pathMap = [
-        ['/'],
-        ['/send'],
-        ['/exchange'],
-        ['/performance'],
-        ['/staking'],
-        ['/liquidity-mining'],
-        ['/vesting']
-    ];
-    const updateMenuItemClasses = (menuItem) => {
-        const isActive = pathMap[menuItem.name]?.includes(location.pathname);
-        return {
-            ...menuItem,
-            containerClassName: isActive ? 'menu-nav-item menu-nav-item-selected' : `menu-nav-item ` + css_disable,
-            iClassName: `logo-${menuItem.name.toLowerCase().replace(" ", "-")} ${isActive ? 'color-filter-disabled' : 'color-filter-invert'}`
-
-        };
-    };
-
-    const getMenuItemClasses = (logoClass, index) => {
+    
+    const getMenuItemClasses = (logoClass, path) => {
         let containerClassName = `menu-nav-item ` + css_disable;
-        const isSelected = pathMap[index]?.includes(location.pathname);
+        const isSelected = path ===  location.pathname;
         let iconClassName = `${logoClass}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
         
         if (isSelected) {
@@ -190,7 +169,7 @@ export default function SectionHeader() {
                 </div>
                 <div className="central-menu">
                     {menuOptions.map((option, index) => {
-                        const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index);
+                        const { containerClassName, iconClassName } = getMenuItemClasses(option.className, option.pathMap);
                         if (option.isActive && index < menuLimit) {
                             return (
                                 <a
@@ -214,7 +193,7 @@ export default function SectionHeader() {
                     }
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
                         {menuOptions.slice(-2).map((option, index) => {
-                            const { containerClassName, iconClassName } = getMenuItemClasses(option.className, index + menuLimit);
+                            const { containerClassName, iconClassName } = getMenuItemClasses(option.className, option.pathMap);
                             return (
                                 <a
                                     onClick={option.action}
@@ -222,7 +201,7 @@ export default function SectionHeader() {
                                     key={option.name}
                                 >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{menuOptions[index].name}</span>
+                                    <span className="menu-nav-item-title">{option.name}</span>
                                 </a>
                             );
                         })}
