@@ -4,9 +4,6 @@ import TokenPegged from '../../contracts/TokenPegged.json';
 import CollateralToken from '../../contracts/CollateralToken.json';
 import IPriceProvider from '../../contracts/IPriceProvider.json';
 import Moc from '../../contracts/Moc.json';
-// import MoCState from '../../contracts/MoCState.json';
-// import TG from '../../contracts/MoCToken.json';
-// import MoCConnector from '../../contracts/MoCConnector.json';
 import MocWrapper from '../../contracts/MocWrapper.json';
 import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
@@ -189,8 +186,6 @@ const readContracts = async (web3) => {
     }*/
 
     // OMOC contracts
-    
-
     const iregistry = new web3.eth.Contract(
         IRegistry.abi,
         process.env.REACT_APP_ENVIRONMENT_IREGISTRY
@@ -203,11 +198,8 @@ const readContracts = async (web3) => {
         delayMachineAddress,
         vestingMachineAddress,
         votingMachineAddress,
-        // priceProviderRegistryAddress,
-        // oracleManagerAddress
     ] = await registryAddresses(web3, dContracts);
 
-     
     console.log(
         'Reading OMOC: IStakingMachine Contract... address: ',
         mocStakingMachineAddress
@@ -257,52 +249,6 @@ const readContracts = async (web3) => {
         votingMachineAddress
     );
     dContracts.contracts.ivotingmachine = ivotingmachine;
-
-
-
-
-    // console.log('Reading MoC Contract... address: ', process.env.REACT_APP_ENVIRONMENT_MOC);
-    // const moc = new web3.eth.Contract(MoC.abi, process.env.REACT_APP_ENVIRONMENT_MOC);
-    // console.log('moc is ', moc);
-    // dContracts.contracts.moc = moc;
-
-    // const connectorAddress = await moc.methods.connector().call().catch((err) => {
-    //     console.error('Error reading connector address: ', err);
-    // });
-    // console.log('Reading MoCConnector... address: ', connectorAddress);
-    
-    // const mocconnector = new web3.eth.Contract(
-    //     MoCConnector.abi,
-    //     connectorAddress
-    // );
-    // dContracts.contracts.mocconnector = mocconnector;
-    // console.log('mocconector is ', mocconnector);
-    // //TODO read/define appMode for flipago and roc
-    // const appMode = ''; //Need to be dynamic
-    // //Read contracts addresses from connector
-    // const [
-    //     mocStateAddress,
-    //     // mocInrateAddress,
-    //     // mocExchangeAddress,
-    //     // mocSettlementAddress,
-    //     // tpTokenAddress,
-    //     // tcTokenAddress,
-    //     // reserveTokenAddress
-    // ] = await connectorAddresses(web3, dContracts, appMode);
-
-    // console.log('Reading MoC State Contract... address: ', mocStateAddress);
-    // const mocstate = new web3.eth.Contract(MoCState.abi, mocStateAddress);
-    // dContracts.contracts.mocstate = mocstate;
-    
-    // const tgTokenAddress = await mocstate.methods.getMoCToken().call();
-    // console.log('Reading TG Token Contract... address: ', tgTokenAddress);
-    // const tg = new web3.eth.Contract(TG.abi, tgTokenAddress);
-    // dContracts.contracts.tg = tg;
-    // //----------------
-
-    
-    
-    
 
     // Token migrator & Legacy token
     if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {

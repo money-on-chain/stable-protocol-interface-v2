@@ -145,7 +145,7 @@ const approveMoCTokenStaking = async (interfaceContext, enabled, callback) => {
     const dContracts = window.dContracts;
 
     const stakingAddress = dContracts.contracts.istakingmachine._address;
-    const tg = dContracts.contracts.tg;
+    const tg = dContracts.contracts.FeeToken;
 
     const newAllowance = enabled
         ? new BigNumber(1000000000000000)
@@ -157,7 +157,6 @@ const approveMoCTokenStaking = async (interfaceContext, enabled, callback) => {
             toContractPrecisionDecimals(newAllowance, settings.tokens.TF.decimals)
         )
         .estimateGas({ from: account, value: '0x' });
-    console.log('estimateGas', estimateGas);
     // Send tx
     const receipt = tg.methods.approve(
         stakingAddress,
@@ -178,8 +177,7 @@ const approveMoCTokenStaking = async (interfaceContext, enabled, callback) => {
 
 const getMoCAllowance = async (address) => {
     const dContracts = window.dContracts;
-    const tg = dContracts.contracts.tg;
-    console.log('tg', tg);
+    const tg = dContracts.contracts.FeeToken;
     const stakingAddress = dContracts.contracts.istakingmachine._address;
     return await tg.methods.allowance(Web3.utils.toChecksumAddress(address), stakingAddress).call();
 };

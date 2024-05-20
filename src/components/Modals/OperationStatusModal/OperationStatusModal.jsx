@@ -23,7 +23,7 @@ const OperationStatusModal = ({
             onCancel={onCancel}
         >
             {
-                <h1 class={'StakingOptionsModal_Title'}>
+                <h1 className={'StakingOptionsModal_Title'}>
                     {title || t('staking.modal.RewardsClaimButton_Modal_Title')}
                 </h1>
             }
