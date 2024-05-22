@@ -37,7 +37,7 @@ const stakingDeposit = async (interfaceContext, amount, address, callback) => {
     const dContracts = window.dContracts;
 
     const istakingmachine = dContracts.contracts.istakingmachine;
-
+    console.log('amount', amount);
     amount = new BigNumber(amount);
 
     // Calculate estimate gas cost
@@ -66,14 +66,11 @@ const unStake = async (interfaceContext, amount, callback) => {
     const dContracts = window.dContracts;
 
     const istakingmachine = dContracts.contracts.istakingmachine;
-
     amount = new BigNumber(amount);
-
     // Calculate estimate gas cost
     const estimateGas = await istakingmachine.methods
         .withdraw(toContractPrecision(amount))
         .estimateGas({ from: account });
-
     // Send tx
     const receipt = istakingmachine.methods
         .withdraw(toContractPrecision(amount))
@@ -81,8 +78,8 @@ const unStake = async (interfaceContext, amount, callback) => {
             {
                 from: account,
                 gasPrice: await getGasPrice(web3),
-                gas: estimateGas * 2,
-                gasLimit: estimateGas * 2
+                gas: estimateGas * BigInt(2),
+                gasLimit: estimateGas * BigInt(2),
             },
             callback
         );
@@ -171,7 +168,6 @@ const approveMoCTokenStaking = async (interfaceContext, enabled, callback) => {
         },
         callback
     );
-    console.log('receipt', receipt);
     return receipt;
 };
 

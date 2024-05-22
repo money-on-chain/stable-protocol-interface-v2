@@ -23,23 +23,17 @@ export default function StakingOptionsModal(props) {
         currencyYouStake,
     } = props;
     const [step, setStep] = useState(0);
-    console.log('amount is', amount);
     const amountInEth = Web3.utils.toWei(amount, 'ether');
     // const AppProject = config.environment.AppProject;
     const AppProject = 'MoC';
 
     useEffect(() => {
-        console.log('enter to read allowance');
         checkAllowance();
     }, []);
 
     const checkAllowance = async () => {
         try {
-        console.log('enter to read allowance 2');
             const allowanceAmount = await auth.interfaceGetMoCAllowance();
-            console.log('allowanceAmount is', allowanceAmount);
-            console.log('amount in eth ? ', amountInEth);
-            console.log('allowanceAmount > amount is', allowanceAmount > amountInEth);
             if (allowanceAmount > amountInEth) setStep(2);
         } catch (error) {
             console.log('error reading allowance is ', error);            
@@ -74,7 +68,6 @@ export default function StakingOptionsModal(props) {
                 amount,
                 accountData.Wallet,
                 (error, txHash) => {
-                    console.log('error depositing 1 is', error);
                     onClose();
                     if (error) {
                         return error;
@@ -85,12 +78,10 @@ export default function StakingOptionsModal(props) {
             )
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
-                console.log('res.transactionHash is', res.transactionHash);
                 onConfirm(status, res.transactionHash);
                 return null;
             })
             .catch((e) => {
-                console.log('error depositing  2 is', e);
                 notification['error']({
                     message: t('global.RewardsError_Title'),
                     description: t('global.RewardsError_Message'),
@@ -130,29 +121,30 @@ export default function StakingOptionsModal(props) {
     //         });
     // };
 
-    // const unstakeMoCs = async () => {
-    //     onClose();
-    //     await auth
-    //         .interfaceUnStake(amountInEth, (error, txHash) => {
-    //             if (error) return error;
+    const unstakeMoCs = async () => {
+        onClose();
+        await auth
+            .interfaceUnStake(amount, (error, txHash) => {
+                if (error) return error;
+ 
+                const status = 'pending';
+                onConfirm(status, txHash);
+            })
+            .then((res) => {
+                const status = res.status ? 'success' : 'error';
+                onConfirm(status, res.transactionHash);
+                return null;
+            })
+            .catch((e) => {
+                console.error('error unstaking is', e);
+                notification['error']({
+                    message: t('global.RewardsError_Title'),
+                    description: t('global.RewardsError_Message'),
+                    duration: 10
+                });
+            });
+    };
 
-    //             const status = 'pending';
-    //             onConfirm(status, txHash);
-    //         })
-    //         .then((res) => {
-    //             const status = res.status ? 'success' : 'error';
-    //             onConfirm(status, res.transactionHash);
-    //             return null;
-    //         })
-    //         .catch((e) => {
-    //             console.error(e);
-    //             notification['error']({
-    //                 message: t('global.RewardsError_Title'),
-    //                 description: t('global.RewardsError_Message'),
-    //                 duration: 10
-    //             });
-    //         });
-    // };
     // const withdrawMoCs = () => {
     //     onClose();
     //     auth.interfaceDelayMachineWithdraw(withdrawalId, (error, txHash) => {
@@ -285,46 +277,43 @@ export default function StakingOptionsModal(props) {
         return steps[step] ? steps[step]() : null;
     };
 
-    // const renderUnstaking = () => {
-    //     return (
-    //         <Fragment>
-    //             <h1 className="StakingOptionsModal_Title">
-    //                 {t('global.StakingOptionsModal_UnstakeTitle')}
-    //             </h1>
-    //             <div className="StakingOptionsModal_Content">
-    //                 <div className="InfoContainer">
-    //                     <span className="title">
-    //                         {t('global.StakingOptionsModal_AmountToUnstake')}
-    //                     </span>
-    //                     <span className="value amount">
-    //                         <LargeNumber
-    //                             amount={amount}
-    //                             currencyCode="RESERVE"
-    //                         />{' '}
-    //                         <span>
-    //                             {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
-    //                         </span>
-    //                     </span>
-    //                 </div>
-    //                 <p>
-    //                     {t('global.StakingOptionsModal_UnstakingDescription')}
-    //                 </p>
-    //                 <div className="ActionButtonsRow">
-    //                     <Button type="default" onClick={onClose}>
-    //                         {t('global.StakingOptionsModal_Cancel')}
-    //                     </Button>
-    //                     <Button
-    //                         type="primary"
-    //                         onClick={unstakeMoCs}
-    //                         className="ButtonPrimary"
-    //                     >
-    //                         {t('global.StakingOptionsModal_Comfirm')}
-    //                     </Button>
-    //                 </div>
-    //             </div>
-    //         </Fragment>
-    //     );
-    // };
+    const renderUnstaking = () => {
+        return (
+            <Fragment>
+                <h1 className="StakingOptionsModal_Title">
+                    {t('staking.modal.StakingOptionsModal_UnstakeTitle')}
+                </h1>
+                <div className="StakingOptionsModal_Content">
+                    <div className="InfoContainer">
+                        <span className="title">
+                            {t('staking.modal.StakingOptionsModal_AmountToUnstake')}
+                        </span>
+                        <span className="value amount">
+                        {amount}
+                            <span>
+                                {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
+                            </span>
+                        </span>
+                    </div>
+                    <p>
+                        {t('staking.modal.StakingOptionsModal_UnstakingDescription')}
+                    </p>
+                    <div className="ActionButtonsRow">
+                        <Button type="default" onClick={onClose}>
+                            {t('staking.modal.StakingOptionsModal_Cancel')}
+                        </Button>
+                        <Button
+                            type="primary"
+                            onClick={unstakeMoCs}
+                            className="ButtonPrimary"
+                        >
+                            {t('staking.modal.StakingOptionsModal_Comfirm')}
+                        </Button>
+                    </div>
+                </div>
+            </Fragment>
+        );
+    };
 
     // const renderWithdraw = () => {
     //     return (
@@ -407,11 +396,10 @@ export default function StakingOptionsModal(props) {
     const render = () => {
         const modes = {
             staking: renderStaking,
-            // unstaking: renderUnstaking,
+            unstaking: renderUnstaking,
             // withdraw: renderWithdraw,
             // restake: renderRestaking
         };
-
         return modes[mode]();
     };
 

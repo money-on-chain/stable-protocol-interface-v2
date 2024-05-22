@@ -454,6 +454,18 @@
             "StakingOptionsModal_Comfirm": "Confirm",
             "StakingOptionsModal_Cancel": "Cancel",
 
+            "StakingOptionsModal_UnstakeTitle": "Unstake",
+            "StakingOptionsModal_AmountToUnstake": "Amount to Unstake",
+            "StakingOptionsModal_UnstakingDescription": "You will be able to withdraw your MoC Tokens to your wallet in 30 days. You can restake them anytime in this period.",
+    
+            "StakingOptionsModal_WithdrawTitle": "Withdraw",
+            "StakingOptionsModal_AmountToWithdraw": "Amount to Withdraw",
+            "StakingOptionsModal_WithdrawDescription": "After withdrawal your MoCs tokens will be available in your wallet",
+    
+            "StakingOptionsModal_RestakeTitle": "Restake",
+            "StakingOptionsModal_AmountToRestake": "Amount to Restake",
+            "StakingOptionsModal_RestakeDescription": "After confirming, this amount of MoC Tokens will be removed from the processing queue and staked again. They will immediately start receiving MoC Staking Rewards.",
+
             "RewardsClaimButton_Claim": "Claim",
             "RewardsClaimButton_Modal_Title": "Operation details",
             "RewardsClaimButton_Modal_TxStatus": "Transaction status",

@@ -79,6 +79,7 @@ const AuthenticateContext = createContext({
     interfacePendingWithdrawals: async (address) => {},
     interfaceApproveMoCTokenStaking: async (enabled) => {},
     interfaceStakingDeposit: async (mocs, address) => {},
+    interfaceUnStake: async (mocs) => {},
     interfaceGetMoCAllowance: async (address) => {},
 });
 
@@ -405,6 +406,12 @@ const AuthenticateProvider = ({ children }) => {
         const interfaceContext = buildInterfaceContext();
         return stakingDeposit(interfaceContext, mocs, address, callback);
     };
+
+    const interfaceUnStake = async (mocs, callback) => {
+        const interfaceContext = buildInterfaceContext();
+        return unStake(interfaceContext, mocs, callback);
+    };
+
     const interfaceGetMoCAllowance = async (address) => {
         const from = address || account;
         return getMoCAllowance(from);
@@ -436,6 +443,7 @@ const AuthenticateProvider = ({ children }) => {
                 interfacePendingWithdrawals,
                 interfaceApproveMoCTokenStaking,
                 interfaceStakingDeposit,
+                interfaceUnStake,
                 interfaceGetMoCAllowance,
             }}
         >

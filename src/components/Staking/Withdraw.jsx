@@ -37,7 +37,8 @@ const ProvideColumnsTP = [
   }
 ];
 
-export default function Withdraw() {
+export default function Withdraw(props) {
+  const { totalPendingExpiration } = props;
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   const [current, setCurrent] = useState(1);
@@ -53,7 +54,6 @@ export default function Withdraw() {
   const getWithdrawals = async () => {
     try {
       const pendingWithdrawals = await auth.interfacePendingWithdrawals();
-      console.log('pendingWithdrawals are ', pendingWithdrawals);
       const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
         key: index,
         expiration:
@@ -97,7 +97,6 @@ export default function Withdraw() {
           </div>
         )
       }));
-      console.log('tokensData are ', tokensData);
       setData(tokensData);
     } catch (error) {
       console.log('error fetching pending withdrawals ', error);
@@ -133,7 +132,16 @@ export default function Withdraw() {
         <h1>{t('staking.withdraw.title')}</h1>
         <div className="withdraw-header-balance">
           <div className="withdraw-header-group">
-            <div className="withdraw-header-balance-number">12,345.67 MOC</div>
+            <div className="withdraw-header-balance-number">
+              ${PrecisionNumbers({
+            amount: totalPendingExpiration,
+            token: settings.tokens.TF,
+            decimals: settings.tokens.TF.decimals,
+            t: t,
+            i18n: i18n,
+            ns: ns
+          })}
+            </div>
             <div className="withdraw-header-balance-title">PROCESSING UNSTAKE</div>
           </div>
           <div className="withdraw-header-group">

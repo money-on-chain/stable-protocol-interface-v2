@@ -29,8 +29,6 @@ export default function Staking(props) {
     if (auth.accountData && auth.userBalanceData) {
       setLoading(false);
       setStakingBalances();
-      console.log('userbalance ', auth.userBalanceData);
-      console.log('MOC balance is', auth.userBalanceData?.FeeToken?.balance);
     }
   }, [auth]);
 
@@ -80,15 +78,13 @@ export default function Staking(props) {
         }
       });
       const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
-        return b.id - a.id;
+        return b.id.toString() - a.id.toString();
       });
       setLockedBalance(_lockedBalance);
-      console.log('Staked balance', _stakedBalance);
       setStakedBalance(_stakedBalance);
       setTotalPendingExpiration(pendingExpirationAmount);
       setTotalAvailableToWithdraw(readyToWithdrawAmount);
       setPendingWithdrawals(arrayDes);
-      console.log('Staking balances', _stakedBalance, _lockedBalance, _pendingWithdrawals);
     } catch (error) {
       console.log('Error getting staking balances', error);
     }
@@ -149,7 +145,9 @@ export default function Staking(props) {
         </Row>
         <Row gutter={24} className="row-section">
           <Col span={24}>
-            <Withdraw />
+            <Withdraw 
+              totalPendingExpiration={totalPendingExpiration}
+            />
           </Col>
         </Row>
       </Fragment>}

@@ -47,6 +47,7 @@ const Stake = (props) => {
     setIsUnstaking(activeTab === 'tab2');
     setAmountToStake('0.0');
     setAmountToUnstake('0.0');
+    console.log(activeTab);
   }, [auth, activeTab]);
 
   useEffect(() => {
@@ -131,7 +132,7 @@ const Stake = (props) => {
   const onStakeButton = () => {
     if (getAmount() > 0) {
       setModalAmount(getAmount());
-      setModalMode('staking');
+      setModalMode(isUnstaking ? 'unstaking' : 'staking');
     } else {
       alert('Please fill amount you want to stake');
     }
