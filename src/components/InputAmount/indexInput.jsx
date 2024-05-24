@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useRef, useEffect} from 'react'
 
 const InputAmount = (props) => {
+  const inputRef = useRef(null);  
   const [value, setValue] = useState('');
   const {
     balanceText,
@@ -12,6 +13,24 @@ const InputAmount = (props) => {
     setAddTotalAvailable,
     validateError,
   } = props;
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      console.log('Wheel event triggered');
+      event.preventDefault();
+    };
+
+    const inputElement = inputRef.current;
+    if (inputElement) {
+      inputElement.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, []);
 
   const isValidNumber = (value) => {
     const num = value.replace(',', '.');
@@ -51,6 +70,7 @@ const InputAmount = (props) => {
       </div>
       <div className="input-field-container">
         <input
+          ref={inputRef}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => {
