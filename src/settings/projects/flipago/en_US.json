@@ -144,7 +144,13 @@
             }
         },
         "withdraw" : {
-            "title": "Withdraw"
+            "title": "Withdraw",
+            "processing_unstake": "Processing unstake",
+            "ready_to_withdraw": "Ready to withdraw",
+            "buttons": {
+                "withdraw": "Withdraw",
+                "restake": "Restake"
+            }
         },
         "tokens" : {
             "TF": {

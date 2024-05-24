@@ -3571,6 +3571,7 @@ h1.title-last-operations {
         box-shadow: var(--surface-shadow-1);
         padding: var(--card-padding);
         height: 430px;
+
         .title {
             h1 {
                 opacity: 1;
@@ -3589,26 +3590,21 @@ h1.title-last-operations {
             flex-direction: row;
             align-items: center;
             justify-content: flex-end;
-            
             padding: 0px;
             gap: 4px;
-
             width: 100%;
             height: 49px;
-
             flex-grow: 0;
         }
-        
+
         .withdraw-header-balance-number {
             width: 170px;
             height: 24px;
-        
             font-family: var(--brand-font);
             font-weight: 600;
             font-size: 18px;
             text-align: right;
             color: var(--color-text-primary);
-        
             flex: none;
             order: 0;
             flex-grow: 0;
@@ -3617,7 +3613,6 @@ h1.title-last-operations {
         .withdraw-header-balance-title {
             width: 170px;
             height: 21px;
-        
             font-family: var(--main-font);
             font-style: normal;
             font-size: 10px;
@@ -3627,14 +3622,12 @@ h1.title-last-operations {
             text-align: right;
             text-transform: uppercase;
             line-height: 16px;
-        
             color: (var(--color-text-secondary));
-        
             flex: none;
             order: 1;
             flex-grow: 0;
         }
-        
+
         .item-data {
             font-family: var(--main-font);
             font-style: normal;
@@ -3643,30 +3636,49 @@ h1.title-last-operations {
             letter-spacing: 0.61px;
             line-height: 19px;
         }
-        .ant-table-cell{
+
+        .ant-table-cell {
             padding: 10px 0px !important;
         }
+
         .group-container {
             display: flex;
-            align-items: center; 
+            align-items: center;
             justify-content: flex-end;
-            width: 100%; 
+            width: 100%;
         }
+
         .action-container {
             display: flex;
-            align-items: center; 
-            justify-content: flex-end; 
-            width: 90px;
-            margin-left: 40px; 
+            align-items: center;
+            justify-content: flex-end;
+            width: 130px;
+            margin-left: 5px;
+            cursor: pointer;
         }
-        
+
+        .action-container.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
         .token-description {
-            text-align: left; 
+            text-align: left;
             margin-right: 5px;
+            color: var(--color-text-link);
+            color: var(--color-text-link);
+            cursor: pointer;
         }
-        
+
+        .token-description-disabled {
+            text-align: left;
+            margin-right: 5px;
+            color: var(--color-text-secondary);
+            cursor: not-allowed;
+        }
+
         .icon-action {
-            display: flex; 
+            display: flex;
         }
     }
 

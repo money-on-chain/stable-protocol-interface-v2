@@ -144,7 +144,13 @@
             }
         },
         "withdraw" : {
-            "title": "Retiros"
+            "title": "Retiros",
+            "processing_unstake": "Procesando desbloqueo",
+            "ready_to_withdraw": "Listo para retirar",
+            "buttons": {
+                "withdraw": "Retirar",
+                "restake": "Re-bloquear"
+            }
         },
         "tokens" : {
             "TF": {

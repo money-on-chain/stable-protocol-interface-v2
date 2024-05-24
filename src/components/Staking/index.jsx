@@ -20,11 +20,10 @@ export default function Staking(props) {
   const [mocBalance, setMocBalance] = useState('0');
   const [lockedBalance, setLockedBalance] = useState('0');
   const [stakedBalance, setStakedBalance] = useState('0');
-  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
+  const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
   const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
   const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (auth.accountData && auth.userBalanceData) {
       setLoading(false);
@@ -87,6 +86,7 @@ export default function Staking(props) {
       setPendingWithdrawals(arrayDes);
     } catch (error) {
       console.log('Error getting staking balances', error);
+      setLoadingWithdrawals(false);
     }
   };
   
@@ -147,6 +147,8 @@ export default function Staking(props) {
           <Col span={24}>
             <Withdraw 
               totalPendingExpiration={totalPendingExpiration}
+              totalAvailableToWithdraw={totalAvailableToWithdraw}
+              pendingWithdrawals={pendingWithdrawals}
             />
           </Col>
         </Row>
