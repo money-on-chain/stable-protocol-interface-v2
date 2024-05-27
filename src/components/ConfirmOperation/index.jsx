@@ -460,11 +460,13 @@ export default function ConfirmOperation(props) {
                         })}{' '}
                     </span>
                 </div>
-                {adjustedTolerance && 
-                <div className="warning-msg">{t(`exchange.priceVariation.warning`, {
+                {adjustedTolerance && (
+                    <div className="warning-msg">
+                        {t(`exchange.priceVariation.warning`, {
                             ns: ns
                         })}{' '}
-                </div>}
+                    </div>
+                )}
 
                 <div className="swapArrow">
                     <i className="icon-arrow-down"></i>
@@ -562,11 +564,7 @@ export default function ConfirmOperation(props) {
                             ns: ns
                         })}{' '}
                             </span>
-
                 </div>
-
-
-
                 <div className="disclaimer">
                     {t('fees.disclaimer1')}
                     <br />
@@ -695,7 +693,7 @@ export default function ConfirmOperation(props) {
             />
 
             <ModalAllowanceOperation
-                title={`${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`}
+                title={disAllowanceFeeToken ? `${t('allowance.disallowanceTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`:`${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`}
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
                 currencyYouExchange={'TF'}

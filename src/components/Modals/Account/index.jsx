@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -20,20 +20,23 @@ export default function ModalAccount(props) {
     };
 
     return (
-        <div className="ShowModalAccount">
-            <a onClick={showModal}>{truncatedAddress}</a>{' '}
-            <Modal
-                width={505}
-                open={visible}
-                onCancel={hideModal}
-                footer={null}
-                closable={false}
-                className="ModalAccount"
-                centered={true}
-                maskStyle={{  }}
-            >
-                <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
-            </Modal>
-        </div>
+        <Fragment>
+            <div className="ShowModalAccount">
+                <a onClick={showModal}>{truncatedAddress}</a>{' '}
+                <Modal
+                    width={505}
+                    open={visible}
+                    onCancel={hideModal}
+                    footer={null}
+                    closable={false}
+                    className="ModalAccount"
+                    centered={true}
+                    maskStyle={{  }}
+                >
+                    <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
+                </Modal>
+            </div>
+            <i className="logo-wallet" onClick={showModal}></i>
+        </Fragment>
     );
 }

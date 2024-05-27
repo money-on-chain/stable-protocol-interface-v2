@@ -50,7 +50,7 @@ export default function AllowanceDialog(props) {
 
     const onChange = (e) => {
         console.log(`checked = ${e.target.checked}`);
-        infinityAllowance = true
+        infinityAllowance = e.target.checked
     };
 
     const reset = () => {
@@ -112,17 +112,24 @@ export default function AllowanceDialog(props) {
             <div className="Content">
                 {status === 'SUBMIT' && (
                     <div className="status-submit">
+                        {disAllowance ?
+                        <div className="status-text">
+                            {t('allowance.statusDisallowanceText')}
+                        </div>
+                        :
                         <div className="status-text">
                             {t('allowance.statusText1')}
                             <br />
                             {t('allowance.statusText2')}
-                        </div>
+                        </div>}
                         <div className="remember-this">
-                            <Checkbox
-                                className="check-unlimited"
-                                onChange={onChange}
-                            >{t('allowance.setUnlimited')}
-                            </Checkbox>
+                            {!disAllowance && 
+                                <Checkbox
+                                    className="check-unlimited"
+                                    onChange={onChange}
+                                >{t('allowance.setUnlimited')}
+                                </Checkbox>
+                            }
                         </div>
                         <div className="actions">
                             <button
