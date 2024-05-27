@@ -38,10 +38,6 @@ const PieChartComponent = (props) => {
     setData(_data);
   }
   const getTotal = () => {
-    console.log('mocBalance', mocBalance);
-    console.log('stakedBalance', stakedBalance);
-    console.log('lockedBalance', lockedBalance);
-    console.log('totalAvailableToWithdraw', totalAvailableToWithdraw);
     return BigNumber.sum(
       mocBalance,
       stakedBalance,
@@ -55,7 +51,7 @@ const PieChartComponent = (props) => {
       text: 'Pie Chart',
     },
     description: {
-      visible: true,
+      visible: false,
       text: 'This is a pie chart',
     },
     radius: 1,
@@ -63,10 +59,7 @@ const PieChartComponent = (props) => {
     data,
     angleField: 'value',
     colorField: 'type',
-    label: {
-      visible: false,
-      type: 'inner',
-    },
+    label: null,
     interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
     legend: {
       visible: false,
@@ -82,7 +75,7 @@ const PieChartComponent = (props) => {
         {data.map((item) => (
           <div key={item.type} className="dataRow">
             <span>{item.type}</span>
-            <span>{item.value}%</span>
+            <span>{item.value.toFixed(2)}%</span>
           </div>
         ))}
       </div>

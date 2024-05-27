@@ -6,55 +6,51 @@ import moment from 'moment-timezone';
 import date from '../../helpers/date';
 import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
-import fromContractPrecisionDecimals from '../../helpers/Formats';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
 import ActionIcon from '../../assets/icons/Action.svg';
-
-const ProvideColumnsTP = [
-  {
-    title: 'Expiration',
-    dataIndex: 'expiration',
-    align: 'left',
-    width: 120
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-    align: 'right',
-    width: 100
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    align: 'right',
-    width: 140
-  },
-  {
-    title: 'Available Actions',
-    dataIndex: 'available_actions',
-    align: 'right',
-    width: 160
-  }
-];
 
 export default function Withdraw(props) {
     const { totalPendingExpiration, totalAvailableToWithdraw, pendingWithdrawals } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [current, setCurrent] = useState(1);
-    const [totalTable, setTotalTable] = useState(50); //TODO call correct info
+    const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);
     const columnsData = [];
-
+    const ProvideColumnsTP = [
+        {
+            title: t('staking.withdraw.table.expiration'),
+            dataIndex: 'expiration',
+            align: 'left',
+            width: 120
+        },
+        {
+            title: t('staking.withdraw.table.amount'),
+            dataIndex: 'amount',
+            align: 'right',
+            width: 100
+        },
+        {
+            title: t('staking.withdraw.table.status'),
+            dataIndex: 'status',
+            align: 'right',
+            width: 140
+        },
+        {
+            title: t('staking.withdraw.table.actions'),
+            dataIndex: 'available_actions',
+            align: 'right',
+            width: 160
+        }
+    ];
     useEffect(() => {
-      console.log('lang is ', i18n.language);
         if (auth && pendingWithdrawals) {
             getWithdrawals();
         }
     }, [auth, pendingWithdrawals, i18n.language]);
     const getWithdrawals = () => {
-        console.log('pendingWithdrawals', pendingWithdrawals);
+        setTotalTable(pendingWithdrawals.length);
         const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
             key: index,
             expiration: (
@@ -77,7 +73,7 @@ export default function Withdraw(props) {
                     })}
                 </div>
             ),
-            status: <div className="item-data">{withdrawal.status}</div>,
+            status: <div className="item-data">{t(`staking.withdraw.status.${withdrawal.status}`)}</div>,
             available_actions: (
                 <div className="group-container">
                     <div

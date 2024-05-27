@@ -424,6 +424,16 @@
             "buttons": {
                 "withdraw": "Withdraw",
                 "restake": "Restake"
+            },
+            "status": {
+                "PENDING": "Processing Unstake",
+                "AVAILABLE": "Unstaked"
+            },
+            "table": {
+                "expiration": "Expiration",
+                "amount": "Amount",
+                "status": "Status",
+                "actions": "Available actions"
             }
         },
         "tokens" : {

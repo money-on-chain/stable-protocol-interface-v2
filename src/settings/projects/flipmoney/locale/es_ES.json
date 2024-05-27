@@ -435,6 +435,16 @@
             "buttons": {
                 "withdraw": "Retirar",
                 "restake": "Re-bloquear"
+            },
+            "status": {
+                "PENDING": "Procesando desbloqueo",
+                "AVAILABLE": "Desbloqueado"
+            },
+            "table": {
+                "expiration": "Expiración",
+                "amount": "Cantidad",
+                "status": "Estado",
+                "actions": "Acciones disponibles"
             }
         },
         "tokens" : {
