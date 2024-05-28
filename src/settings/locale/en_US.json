@@ -430,10 +430,10 @@
                 "AVAILABLE": "Unstaked"
             },
             "table": {
-                "expiration": "Expiration",
-                "amount": "Amount",
-                "status": "Status",
-                "actions": "Available actions"
+                "expiration": "Expiración",
+                "amount": "Cantidad",
+                "status": "Estado",
+                "actions": "Acciones disponibles"
             }
         },
         "tokens" : {
