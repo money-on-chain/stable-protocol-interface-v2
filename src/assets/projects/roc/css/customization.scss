@@ -53,9 +53,11 @@
 
     --color-button-primary-background-default: #000000;
     --color-button-primary-text-default: #ffffff;
+    --color-button-primary-filter-default: invert(0%) sepia(98%) saturate(0%) hue-rotate(153deg) brightness(92%) contrast(100%);
 
     --color-button-primary-background-hover: #4b5cf0;
     --color-button-primary-text-hover: #ffffff;
+    --color-button-primary-filter-hover: invert(28%) sepia(43%) saturate(5376%) hue-rotate(230deg) brightness(102%) contrast(88%);
 
     --color-button-primary-background-active: #4b5cf0;
     --color-button-primary-text-active: #ffffff;
@@ -175,4 +177,23 @@ html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+//Hide MOC fee selector inside Exchange
+
+.dashboard-exchange {
+    .ant-radio,
+    .ant-radio-disabled {
+        display: none !important;
+    }
+
+    .ant-space > div:last-child {
+        display: none !important;
+    }
+    .ant-radio.ant-radio-checked > span {
+        margin-left: 0px;
+    }
+    .ant-radio-wrapper > span {
+        padding: 0px !important;
+    }
 }

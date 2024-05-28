@@ -1,0 +1,408 @@
+{
+    "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
+    "NoConnection_alertTitle": "¡Billetera no conectada!",
+    "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
+    "invalidValueDescription": "No value to display",
+    "invalidValuePlaceholder": "--",
+    "operations": {
+        "sectionTitle": "Últimas Operaciones",
+        "aboutQueue" : {
+        "button" : "Acerca de la cola",
+            "title" : "Acerca de la cola - Ciclo de una transacción",
+            "statusQueuing" : "La transacción entró a la cola con la primera confirmación.",
+            "statusQueued" : "La transacción está en la cola esperando por ejecución.",
+            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.", 
+            "statusConfirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
+            "statusFailed" : "La transacción falló en alguno de los pasos relacionados.",
+            "buttonClose" : "Close"
+        },
+        "tooltip": {
+            "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
+        },
+        "empty": "No operations",
+        "headers": {
+            "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
+        },
+        "actions" : {
+            "transfer" : "Transferencia",
+            "exchanging" : "Cambiando",
+            "exchanged" : "Cambiado",
+            "receiving" : "Recibiendo",
+            "received" : "Recibido",
+            "origin" : "Origen",
+            "destination" : "Destino",
+            "statusQueuing" : "Encolando",
+            "statusQueued" : "Encolado",
+            "statusConfirming" : "Confirmando",
+            "statusConfirmed" : "Confirmado",
+            "statusFailed" : "Fallado"
+        },
+        "columns": {
+            "date": "Fecha"
+        },
+        "columns_detailed": {
+            "event": "Evento",
+            "created": "Creado",
+            "gas_used": "Gas Usado",
+            "oper_id": "ID Operación",
+            "confirmation": "Confirmación",
+            "recipient": "Destinatario",
+            "status": "Estado",
+            "error_code": "Código de error",
+            "block": "Bloque Nº",
+            "executed_tx": "Ejecutado",
+            "tx": "TX Hash",
+            "fee": "Tasa",
+            "gas": "Tasa de Gas",
+            "msg": "Mensaje",
+            "reason": "Motivo"
+        },
+        "errors": {
+            "qACBelow" : "precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1" : "token bajó, insuficiente",
+            "insufficientQAC2" : "enviado",
+            "lowCoverage" : "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor" : "Error en el Flux Capacitor",
+            "noMessage" : "Sin mensaje"
+        },
+        "table":{
+            "itemsPerPage" : "Página"
+        }
+    },
+    "feedback" :{
+        "clipboardCopy" : "Copiado",
+        "clipboardTo" : "al portapapeles"
+    },
+
+    "wallet" :{
+        "modalTitle" : "Conectar Billetera",
+        "userAddress" : "Dirección",
+        "cta": {
+            "disconnect" : "Desconectar",
+            "close" : "Cerrar"
+        }
+    },
+
+    "exchange": {
+        "tokens": {
+            "CA_0": {
+                "label": "BPro",
+                "abbr": "BPRO"
+            },
+            "TC": {
+                "label": "BPro Max",
+                "abbr": "BPROX"
+            },
+            "TP_0": {
+                "label": "ARS",
+                "abbr": "ArsFlip"
+            },
+            "TP_1": {
+                "label": "COP",
+                "abbr": "CopFlip"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "Flip",
+                "abbr": "FLIP"
+            }
+        },
+
+
+        "limit": {
+            "minimumToReceive": "Mínimo a recibir",
+            "seeVariationTolarance": "Ver Tolerancia de Variación de Precio"
+        },
+
+        "confirm": {
+            "submit": "Espera la confirmación de la transacción",
+            "sign": "Firma la transacción en tu billetera",
+            "queuing": "Encolando la transacción…",
+            "queued": "Operación encolada. Esperando ejecución…",
+            "confirming": "Operación en confirmación",
+            "confirmed" : "Operación confirmada",
+            "success": "Operación exitosa",
+            "error": "La operación falló",
+            "default": "Espera la confirmación de la transacción",
+            "minimumWarning" : "Mínimo a recibir",
+            "minimumExplanation" : "(Ver tolerancia de variación de precio)"
+        },
+
+        "priceVariation": {
+            "title": "Personalizar Tolerancia de Variación de Precio",
+            "sliderLabel" : "Tolerancia de Variación de Precio",
+            "warning" : "Cantidad actualizada debido a tolerancia de variación de precio"
+        },
+        "cardTitle": "Cambiar",
+        "labelSending": "cambiando",
+        "labelBalance": "balance",
+        "labelUpTo" : "hasta",
+        "labelReceiving": "Recibiendo",
+        "labelTransactionID": "ID de transacción",
+        "placeholder": "Dirección",
+        "exchangingSummary": "Cambiando",
+        "exchangingSign": "≈",
+        "exchangingCurrency": "USD",
+        "buttonPrimary": "Cambiar",
+        "modalTitle": "Confirmar Cambio",
+        "buttonCancel": "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "buttonClose": "Cerrar",
+        "infoNoBalance": "Saldo insuficiente",
+        "infoAddressEmpty": "Falta la dirección de destino",
+        "infoAddressInvalid": "Dirección de destino inválida",
+        "errors" : {
+            "notOperational" : "No operacional debido a bajo Global Coverage ratio",
+            "cantOperate" : "No se puede operar con el estado actual",
+            "requestTimeout" : "Mucho tiempo procesando",
+            "connectYourWallet" : "Please connect your wallet Por favor conectar billetera",
+            "amountTooLow" : "La cantidad debe ser mayor a cero",
+            "amountInvalid" : "La cantidad debe ser válida",
+            "notBalance" : "No hay balance suficiente en tu billetera",
+            "noLiquidity" : "No hay suficiente liquidez en el protocolo",
+            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
+        }
+
+    },
+    "portfolio": {
+        "tokens": {
+            "CA": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Precio en USD",
+                    "variation": "Variación 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "1": {
+                        "title": "BPro Max",
+                        "symbol": " (BPROX)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "2": {
+                        "title": "Flip",
+                        "symbol": " (FLIP)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    },
+                    "3": {
+                        "title": "Smart Bitcoin",
+                        "symbol": " (RBTC)",
+                        "price_decimals": 2,
+                        "balance_decimals": 8
+                    }
+                }
+            },
+            "TP": {
+                "columns": {
+                    "name": "Name",
+                    "price": "Tokens por USD",
+                    "variation": "Variación 24hs",
+                    "balance": "Balance",
+                    "usd": "USD"
+                },
+                "rows": {
+                    "0": {
+                        "title": "ARS",
+                        "symbol": " (ArsFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    },
+                    "1": {
+                        "title": "COP",
+                        "symbol": " (CopFlip)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    }
+                }
+            }
+        },
+        "sectionTitle": "Portafolio",
+        "totalCurrency": "USD",
+        "totalBalance": "Balance Total"
+   
+    },
+    "performance": {
+        "sectionTitle": "Desempeño",
+        "status": {
+            "cardTitle": "Estado del Sistema",
+
+            "statusTitleFull": "Totalmente Operativo",
+            "statusDescriptionFull": "Sistema en condiciones óptimas",
+
+            "stuatusTitleWarning": "Parcialmente Operativo",
+            "statusDescriptionWarning": "El Token Colateral no se puede redimir. El token anclado no se puede mintear",
+
+            "statusTitleAlert": "Modo Protegido",
+            "statusDescriptionAlert": "No hay operaciones permitidas",
+
+            "statusTitleLiquidated": "Liquidado",
+            "statusDescriptionLiquidated": "No hay operaciones permitidas",
+            
+            "statusTitlePaused": "Pausado",
+            "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
+
+            "statusTitleUnavailable" : "No puede operar",
+            "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
+
+            "showingBlock": "Mostrando bloque"
+
+        },
+        "tvl": {
+            "cardTitle": "Valor Total Bloqueado",
+            "expressedIn": "Expresado en USD"
+        },
+
+        "tc": {
+            "priceIn": "Precio en USD",
+            "currentLeverage": "Apalancamiento actual",
+            "totalInSystem": "Total en el sistema",
+            "redeemable" : "Disponible para redimir"
+         },
+
+         "collateral": {
+            "cardTitle": "Colateral",
+            "totalIn": "Colateral total en USD",
+            "globalCoverage": "Cobertura Global"
+         },
+
+         "pegged": {
+            "cardTitle": "Rendimiento de los Tokens-Pegged",
+            "colName": "Nombre",
+            "colTokensPer": "Tokens por USD",
+            "colMinted": "Minteados",
+            "colMintable": "Minteables",
+            "colTargetCoverage": "Cobertura Obj.",
+            "colEMA": "EMA",
+            "colTargetEMA": "EMA Objetivo"
+         }
+    },
+
+    "send": {
+        "cardTitle": "Enviar",
+        "labelSending": "enviando",
+        "labelBalance": "balance",
+        "labelDestination": "Dirección de destino",
+        "labelTransactionID": "ID de transacción",
+        "placeholder": "Dirección",
+        "sendingSummary": "Enviando",
+        "sendingSign": "≈",
+        "sendingCurrency": "USD",
+        "buttonPrimary": "Enviar",
+        "modalTitle": "Confirmar Envío",
+        "buttonCancel": "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "buttonClose": "Cerrar",
+        "infoNoBalance": "Saldo insuficiente",
+        "noNegativeValues" : "El valor debe ser mayor a cero",
+        "infoAddressEmpty": "Falta la dirección de destino",
+        "infoAddressInvalid": "Dirección de destino inválida",
+        "feedback": {
+            "submit": "Espera la confirmación de la transacción",
+            "sign": "Firma la transacción en tu billetera",
+            "waiting": "Espera la confirmación de la transacción",
+            "success": "Operación exitosa",
+            "error": "La operación falló",
+            "default": "Espera la confirmación de la transacción"
+        }
+     },
+
+     "allowance": {
+        "cardTitle" : "Autorizar uso de",
+        "statusText1" : "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
+        "statusText2" : "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
+        "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
+        "confirm" : {
+            "cancel": "Cancelar",
+            "authorize": "Autorizar"
+        },
+        "feedback" : {
+            "submit" : "",
+            "sign" : "Por favor, firma la transacción de autorización utilizando tu billetera.",
+            "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "error" : "¡Transacción fallada!",
+            "default" : "Espera a la confirmación de la transacción"
+        }
+     },
+     "inputFields": {
+        "maxButton" : "MAX"
+     },
+
+     "fees": {
+        "labelFee" : "Tasa",
+        "labelExecutionFee" : "Tasa de ejecución",
+        "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
+        "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
+    },
+
+     "menuOptions": {
+        "portfolio": "Portafolio",
+        "send" : "Enviar",
+        "exchange" : "Cambiar",
+        "performance" : "Rendimiento",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Bloqueo",
+        "more" : "Más"
+    },
+
+    "language" : {
+        "en": "🇬🇧 English",
+        "es": "🇪🇸 Español"
+    },
+
+    "defaultCTA" : {
+        "buttonSubmit" : "Confirmar",
+        "buttonCancel" : "Cancelar",
+        "buttonExchange" : "Cambiar",
+        "buttonClose" : "Cerrar"
+    },
+    
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
+    },
+
+    "swapModal" : {
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text2" : "botón 'Cambiar Ahora'",
+        "button" : "Cambiar Ahora",
+        "modalTitle1" : "AVISO IMPORTANTE",
+        "modalTitle2" : "Confirmar Migración",
+        "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva dApp. No podrás ver más tu balance de RDOC en la dApp.",
+        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todo tu balance de RDOC será convertido a USDRIF",
+        "buttonCancel" : "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "exchanging" : "Cambiando",
+        "receiving" : "Recibiendo",
+        "authorizing" : "AUTORIZACIÓN DE TOKEN",
+        "migrating" : "MIGRACIÓN DE TOKEN",
+        "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
+        "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
+        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "transactionHash" : "Hash de la transacción",
+        "operationFailed" : "La operación falló !.",
+        "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
+        "operationSuccessful" : "Operación exitosa."
+    },
+
+    "settings" : {
+        "protocolName" : "Money On Chain",
+        "themeMode" : {
+            "light" : "Modo claro",
+            "dark" : "Modo oscuro"
+        }
+    }
+}

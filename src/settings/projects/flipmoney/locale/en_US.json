@@ -121,7 +121,7 @@
             "submit": "Wait for transaction confirmation",
             "sign": "Sign the transaction in your wallet",
             "queuing": "Queuing transaction…",
-            "queued": "Operation queued. Wating for execution…",
+            "queued": "Operation queued. Waiting for execution…",
             "confirming": "Confirming transaction",
             "confirmed" : "Transaction confirmed",
             "success": "Transaction successful",

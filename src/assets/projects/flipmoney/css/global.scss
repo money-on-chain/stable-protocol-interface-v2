@@ -2,11 +2,6 @@
 
 // Variable definitions inside customization.scss
 
-#root,
-.html {
-    background-color: var(--surface-color-0);
-}
-
 .modalsDefaults {
     width: 650px !important;
 }
@@ -40,6 +35,7 @@
     background-color: var(--surface-color-0) !important;
     line-height: 0;
     margin-top: 32px;
+    background-color: transparent !important;
 }
 
 // Set default hover for table-cell-row-hover to transparent
@@ -70,7 +66,7 @@
         .logo-app {
             width: 127.25px;
             height: 42px;
-            background-image: url('../icons/logo-app.svg');
+            background-image: var(--brand-logo-main);
             background-size: 127.25px 42px;
             background-repeat: no-repeat;
             margin-left: 32px;
@@ -903,6 +899,15 @@ h1.title-last-operations {
     }
 }
 
+.content-footer {
+    /* Auto layout */
+    margin-top: 24px;
+    padding: 32px;
+    border-radius: var(--card-border-radius);
+    background: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+}
+
 /* Modal Queue info*/
 .queue-modal-container {
     display: flex;
@@ -1686,9 +1691,14 @@ h1.title-last-operations {
     width: 32px;
     height: 32px;
     display: block;
-    background-image: url('../icons/Swap.svg');
+    border-radius: 50%;
+    background-image: url('../icons/SwapButton.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    filter: var(--color-button-primary-filter-default);
+}
+.icon-swap:hover {
+    filter: var(--color-button-primary-filter-hover);
 }
 
 .icon-wheel {
@@ -3322,4 +3332,64 @@ h1.title-last-operations {
 
 .ant-modal-mask {
     backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
+}
+
+/* Footer */
+
+.dashboard-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--main-font);
+    font-weight: 400;
+    margin-left: 8px;
+    color: var(--color-text-secondary);
+}
+
+.lightModeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .lightModeSwitch {
+        background: var(--color-controls-background);
+        width: 56px;
+        height: 28px;
+        padding: 2px;
+        border-radius: 50px;
+    }
+
+    label {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.25s ease 0s;
+        background-image: url('../icons/LightMode-Light.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        filter: var(--color-icon-link-filter);
+    }
+
+    input {
+        display: none;
+    }
+
+    input:checked + label {
+        margin-left: 28px;
+        background-image: url('../icons/LightMode-Dark.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+    }
+
+    .lightModeText {
+        font-family: var(--main-font);
+        font-weight: 600;
+        margin-left: 8px;
+        color: var(--color-text-secondary);
+    }
 }

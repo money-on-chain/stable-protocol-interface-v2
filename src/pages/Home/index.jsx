@@ -5,6 +5,9 @@ import { AuthenticateContext } from '../../context/Auth';
 import '../../assets/css/pages.scss';
 import StakingRewards from '../../components/Dashboards/StakingRewards';
 import Portfolio from '../../components/Dashboards/Portfolio';
+import Footer from '../../components/Footer/index';
+import DappFooter from '../../components/Footer/index';
+
 
 function Home(props) {
     const auth = useContext(AuthenticateContext);
@@ -18,10 +21,12 @@ function Home(props) {
         <Fragment>
             {/* Portfolio */}
             {ready ? <Portfolio /> : <Skeleton active />}
+
             <div className="content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
             </div>
-        </Fragment>
+        </Fragment>   
+        
     );
 }
 

@@ -1,0 +1,42 @@
+{
+    "collateral": "rc20",
+    "tokens": {
+        "COINBASE": {
+            "name": "RBTC",
+            "decimals": 18,
+            "visibleDecimals": 8
+        },
+        "CA": [
+            {
+                "key": 0,
+                "name": "RBTC",
+                "decimals": 18,
+                "visibleDecimals": 8
+            }
+        ],
+        "TP": [
+            {
+                "key": 0,
+                "name": "Dollar On Chain",
+                "decimals": 18,
+                "visibleDecimals": 2
+            },
+            {
+                "key": 1,
+                "name": "Euro On Chain",
+                "decimals": 18,
+                "visibleDecimals": 2
+            }
+        ],
+        "TC": {
+            "name": "BPro",
+            "decimals": 18,
+            "visibleDecimals": 8
+        },
+        "TF": {
+            "name": "MoC",
+            "decimals": 18,
+            "visibleDecimals": 8
+        }
+    }
+}
