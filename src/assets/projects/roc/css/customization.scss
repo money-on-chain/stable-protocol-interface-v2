@@ -186,7 +186,6 @@ html {
     .ant-radio-disabled {
         display: none !important;
     }
-
     .ant-space > div:last-child {
         display: none !important;
     }
@@ -195,5 +194,6 @@ html {
     }
     .ant-radio-wrapper > span {
         padding: 0px !important;
+        cursor: default !important;
     }
 }
