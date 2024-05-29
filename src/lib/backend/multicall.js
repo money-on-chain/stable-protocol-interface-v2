@@ -323,7 +323,7 @@ const contractStatus = async (web3, dContracts) => {
 
             // Not Ok Error on calling
             if (listMethods[itemIndex][2] === 'uint256') {
-                listReturnDataHistoric.push(0)
+                listReturnDataHistoric.push('0')
             } else if (listMethods[itemIndex][2] === 'address') {
                 listReturnDataHistoric.push('0x')
             } else if (listMethods[itemIndex][2] === 'bool') {
