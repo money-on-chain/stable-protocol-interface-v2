@@ -33,7 +33,7 @@ You can:
 
 Each release gets deployed to IPFS automatically.
 
-Please go to release section, there are several links to [releases](https://github.com/money-on-chain/release) 
+Please go to release section, there are several links to [releases](https://github.com/money-on-chain/stable-protocol-interface-v2/release) 
 
 **Notes:** The list of operations of the user is get it through an  API. We use an api also for the liquidity mining program, but is not need it to run or to exchange tokens.
 
@@ -74,7 +74,7 @@ Environment is our already deployed contracts.
 |-------------------|---------|--------------------------------------|-------------|---------|-------------------------|
 | Flipmoney Testnet | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipmoney-testnet |
 | RoC Testnet       | ROC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet       |
-| RoC Mainnet       | ROC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-mainnet       |
+| RoC Mainnet       | ROC     | [link](https://dapp.rifonchain.com)  | Mainnet     | RSK     | start:roc-mainnet       |
 
 
 
