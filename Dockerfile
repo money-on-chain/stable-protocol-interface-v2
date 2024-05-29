@@ -12,6 +12,7 @@ RUN npm install
 COPY .env ./
 COPY .env.rocTestnet ./
 COPY .env.flipmoneyTestnet ./
+COPY .env.rocMainnet ./
 
 # build script target
 COPY build_target.sh ./

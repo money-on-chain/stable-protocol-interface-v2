@@ -16,8 +16,6 @@ You can:
 
 **Projects**
 
-* Please review the contracts [here](https://github.com/money-on-chain/main-sc-protocol)
-
 
 | Token | Token name       | Project     | Token Name | Collateral |
 |-------|------------------|-------------|------------|------------|
@@ -75,7 +73,8 @@ Environment is our already deployed contracts.
 | Name              | Project | Main Gateway                         | Environment | Network | npm run                 |
 |-------------------|---------|--------------------------------------|-------------|---------|-------------------------|
 | Flipmoney Testnet | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipmoney-testnet |
-| RoC Testnet       | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet       |
+| RoC Testnet       | ROC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet       |
+| RoC Mainnet       | ROC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-mainnet       |
 
 
 
@@ -85,6 +84,22 @@ In testnet you may need some test tRIF o tRBTC
 
 * **Faucet tRBTC**: https://faucet.rsk.co/
 * **Faucet tRIF**: https://faucet.rifos.org/
+
+
+### Contracts
+
+
+**Stable protocol core v2**
+
+*[https://github.com/money-on-chain/stable-protocol-core-v2](https://github.com/money-on-chain/stable-protocol-core-v2)*
+
+**RIF on Chain implementation v2**
+
+*[https://github.com/money-on-chain/stable-protocol-roc-v2](https://github.com/money-on-chain/stable-protocol-roc-v2)*
+
+**Flipmoney implementation v2**
+
+*[https://github.com/money-on-chain/stable-protocol-roc-v2](https://github.com/money-on-chain/stable-protocol-roc-v2)*
 
 
 ### Integration
