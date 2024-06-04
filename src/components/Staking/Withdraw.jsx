@@ -9,6 +9,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
 import ActionIcon from '../../assets/icons/Action.svg';
+import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 
 export default function Withdraw(props) {
     const { totalPendingExpiration, totalAvailableToWithdraw, pendingWithdrawals } = props;
@@ -17,6 +18,10 @@ export default function Withdraw(props) {
     const [current, setCurrent] = useState(1);
     const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);
+    const [modalMode, setModalMode] = useState(null);
+    const [withdrawalId, setWithdrawalId] = useState('0');
+    const [modalAmount, setModalAmount] = useState('0');
+
     const columnsData = [];
     const ProvideColumnsTP = [
         {
@@ -51,6 +56,9 @@ export default function Withdraw(props) {
     }, [auth, pendingWithdrawals, i18n.language]);
     const getWithdrawals = () => {
         setTotalTable(pendingWithdrawals.length);
+        console.log('pendingWithdrawals', pendingWithdrawals);
+        console.log(pendingWithdrawals[0].id);
+        console.log(pendingWithdrawals[0].id.toString());
         const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
             key: index,
             expiration: (
@@ -127,10 +135,14 @@ export default function Withdraw(props) {
     };
 
     const handleActionClick = (action, status) => {
-      // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
-      if (status === 'PENDING' && action === 'withdraw') return;
-      console.log('action', action, status);
-      
+        // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
+        if (status === 'PENDING' && action === 'withdraw') return;
+        console.log('action', action, status);
+        if (action === 'restake') {
+            setModalMode('restake');
+        } else {
+            setModalMode('withdraw');
+        }
     };
 
     return (
@@ -187,6 +199,18 @@ export default function Withdraw(props) {
                 />
             ) : (
                 <Skeleton active />
+            )}
+            {modalMode !== null && (
+                <StakingOptionsModal
+                    mode={modalMode}
+                    visible={modalMode !== null}
+                    onClose={() => setModalMode(null)}
+                    withdrawalId={withdrawalId}
+                    amount={modalAmount}
+                    onConfirm={onStakingModalConfirm}
+                    setBlockedWithdrawals={setBlockedWithdrawals}
+                    currencyYouStake={currencyYouStake}
+                />
             )}
         </div>
     );

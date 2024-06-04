@@ -31,7 +31,6 @@ const Stake = (props) => {
   const [currencyYouStake, setCurrencyYouStake] = useState(defaultTokenStake);
   const [currencyYouUnstake, setCurrencyYouUnstake] = useState(defaultTokenStake);
   const [modalMode, setModalMode] = useState(null);
-  const [withdrawalId, setWithdrawalId] = useState('0');
   const [modalAmount, setModalAmount] = useState('0');
   const [blockedWithdrawals, setBlockedWithdrawals] = useState([]);
   const [operationModalInfo, setOperationModalInfo] = useState({});
@@ -222,7 +221,7 @@ const Stake = (props) => {
         mode={modalMode}
         visible={modalMode !== null}
         onClose={() => setModalMode(null)}
-        withdrawalId={withdrawalId}
+        withdrawalId={null}
         amount={modalAmount}
         onConfirm={onStakingModalConfirm}
         setBlockedWithdrawals={setBlockedWithdrawals}

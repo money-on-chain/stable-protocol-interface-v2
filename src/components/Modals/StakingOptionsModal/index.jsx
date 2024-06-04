@@ -90,43 +90,43 @@ export default function StakingOptionsModal(props) {
             });
     };
 
-    // const restakeMoCs = async () => {
-    //     onClose();
-    //     await auth
-    //         .interfaceDelayMachineCancelWithdraw(
-    //             withdrawalId,
-    //             (error, txHash) => {
-    //                 if (error) return error;
+    const restakeMoCs = async () => {
+        onClose();
+        await auth
+            .interfaceDelayMachineCancelWithdraw(
+                withdrawalId,
+                (error, txHash) => {
+                    if (error) return error;
 
-    //                 const status = 'pending';
-    //                 onConfirm(status, txHash);
-    //                 setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
-    //             }
-    //         )
-    //         .then((res) => {
-    //             const status = res.status ? 'success' : 'error';
-    //             onConfirm(status, res.transactionHash);
-    //             setBlockedWithdrawals((prev) =>
-    //                 prev.filter((val) => val !== withdrawMoCs)
-    //             );
-    //             return null;
-    //         })
-    //         .catch((e) => {
-    //             console.error(e);
-    //             notification['error']({
-    //                 message: t('global.RewardsError_Title'),
-    //                 description: t('global.RewardsError_Message'),
-    //                 duration: 10
-    //             });
-    //         });
-    // };
+                    const status = 'pending';
+                    onConfirm(status, txHash);
+                    setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
+                }
+            )
+            .then((res) => {
+                const status = res.status ? 'success' : 'error';
+                onConfirm(status, res.transactionHash);
+                setBlockedWithdrawals((prev) =>
+                    prev.filter((val) => val !== withdrawMoCs)
+                );
+                return null;
+            })
+            .catch((e) => {
+                console.error(e);
+                notification['error']({
+                    message: t('global.RewardsError_Title'),
+                    description: t('global.RewardsError_Message'),
+                    duration: 10
+                });
+            });
+    };
 
     const unstakeMoCs = async () => {
         onClose();
         await auth
             .interfaceUnStake(amount, (error, txHash) => {
                 if (error) return error;
- 
+
                 const status = 'pending';
                 onConfirm(status, txHash);
             })
@@ -354,51 +354,51 @@ export default function StakingOptionsModal(props) {
     //     );
     // };
 
-    // const renderRestaking = () => {
-    //     return (
-    //         <Fragment>
-    //             <h1 className="StakingOptionsModal_Title">
-    //                 {t('global.StakingOptionsModal_RestakeTitle')}
-    //             </h1>
-    //             <div className="StakingOptionsModal_Content">
-    //                 <div className="InfoContainer">
-    //                     <span className="title">
-    //                         {t('global.StakingOptionsModal_AmountToRestake')}
-    //                     </span>
-    //                     <span className="value amount">
-    //                         <LargeNumber
-    //                             amount={amount}
-    //                             currencyCode="RESERVE"
-    //                         />{' '}
-    //                         <span>
-    //                             {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
-    //                         </span>
-    //                     </span>
-    //                 </div>
-    //                 <p>{t('global.StakingOptionsModal_RestakeDescription')}</p>
-    //                 <div className="ActionButtonsRow">
-    //                     <Button type="default" onClick={onClose}>
-    //                         {t('global.StakingOptionsModal_Cancel')}
-    //                     </Button>
-    //                     <Button
-    //                         type="primary"
-    //                         onClick={restakeMoCs}
-    //                         className="ButtonPrimary"
-    //                     >
-    //                         {t('global.StakingOptionsModal_Comfirm')}
-    //                     </Button>
-    //                 </div>
-    //             </div>
-    //         </Fragment>
-    //     );
-    // };
+    const renderRestaking = () => {
+        return (
+            <Fragment>
+                <h1 className="StakingOptionsModal_Title">
+                    {t('global.StakingOptionsModal_RestakeTitle')}
+                </h1>
+                <div className="StakingOptionsModal_Content">
+                    <div className="InfoContainer">
+                        <span className="title">
+                            {t('global.StakingOptionsModal_AmountToRestake')}
+                        </span>
+                        <span className="value amount">
+                            <LargeNumber
+                                amount={amount}
+                                currencyCode="RESERVE"
+                            />{' '}
+                            <span>
+                                {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
+                            </span>
+                        </span>
+                    </div>
+                    <p>{t('global.StakingOptionsModal_RestakeDescription')}</p>
+                    <div className="ActionButtonsRow">
+                        <Button type="default" onClick={onClose}>
+                            {t('global.StakingOptionsModal_Cancel')}
+                        </Button>
+                        <Button
+                            type="primary"
+                            onClick={restakeMoCs}
+                            className="ButtonPrimary"
+                        >
+                            {t('global.StakingOptionsModal_Comfirm')}
+                        </Button>
+                    </div>
+                </div>
+            </Fragment>
+        );
+    };
 
     const render = () => {
         const modes = {
             staking: renderStaking,
             unstaking: renderUnstaking,
             // withdraw: renderWithdraw,
-            // restake: renderRestaking
+            restake: renderRestaking
         };
         return modes[mode]();
     };
