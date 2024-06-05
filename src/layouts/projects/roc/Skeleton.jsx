@@ -13,6 +13,8 @@ import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
+import DappFooter from '../../../components/Footer/index';
+
 
 const { Content, Footer } = Layout;
 
@@ -74,9 +76,11 @@ export default function Skeleton() {
                     </div>
                 </div>
             </Content>
-            {/* <Footer>
-                <div className="footer-container"></div>
-            </Footer>*/}
+            <Footer>
+                <div className="footer-container">
+                <DappFooter></DappFooter>
+                </div>
+            </Footer>
         </Layout>
     );
 }

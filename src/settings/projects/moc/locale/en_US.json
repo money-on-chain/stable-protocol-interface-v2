@@ -398,8 +398,11 @@
         "operationSuccessful" : "Operation Successful."
     },
 
-    "themeMode" : {
-        "light" : "Light mode",
-        "dark" : "Dark mode"
+    "settings" : {
+        "protocolName" : "Money On Chain",
+        "themeMode" : {
+            "light" : "Light mode",
+            "dark" : "Dark mode"
+        }
     }
 }

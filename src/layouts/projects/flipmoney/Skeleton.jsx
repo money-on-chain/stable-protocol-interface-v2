@@ -8,6 +8,8 @@ import SectionHeader from '../../../components/Header';
 
 import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
+import DappFooter from '../../../components/Footer/index';
+
 
 const { Content, Footer } = Layout;
 
@@ -38,7 +40,9 @@ export default function Skeleton() {
                 </div>
             </Content>
             <Footer>
-                <div className="footer-container"></div>
+                <div className="footer-container">
+                <DappFooter></DappFooter>
+                </div>
             </Footer>
         </Layout>
     );

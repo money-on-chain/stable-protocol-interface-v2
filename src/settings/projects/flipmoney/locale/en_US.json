@@ -398,5 +398,13 @@
         "operationFailed" : "Operation Failed!.",
         "tokenMigrationWaitingText" : "Please, wait while the token migration is mined in the blockchain.",
         "operationSuccessful" : "Operation Successful."
+    },
+
+    "settings" : {
+        "protocolName" : "Flipmoney",
+        "themeMode" : {
+            "light" : "Light mode",
+            "dark" : "Dark mode"
+        }
     }
 }

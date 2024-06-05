@@ -64,7 +64,7 @@
     background-color: var(--surface-color-2);
 }
 .custom-table-light .ant-table-tbody > tr:nth-child(n + 2) > td {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--surface-color-2);
     border-bottom: 0px;
 }
 .ant-empty-description {

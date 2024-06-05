@@ -387,5 +387,13 @@
         "operationFailed" : "La operación falló !.",
         "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
         "operationSuccessful" : "Operación exitosa."
+    },
+
+    "settings" : {
+        "protocolName" : "RIF On Chain",
+        "themeMode" : {
+            "light" : "Modo claro",
+            "dark" : "Modo oscuro"
+        }
     }
 }

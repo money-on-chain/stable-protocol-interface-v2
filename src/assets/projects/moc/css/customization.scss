@@ -3,10 +3,12 @@
 // Variables
 
 :root {
-    // Variables
-
     // Theme used by default. Use "ligth" or "dark"
     --default-theme: 'light';
+
+    //
+    // LIGTH MODE VARIABLES FROM HERE
+    //
 
     // Branding
     --brand-logo-main: url('../icons/logo-app.svg');
@@ -25,8 +27,9 @@
     --modals-border-radius: 4px;
 
     //Surfaces
+    --surface-background-image: linear-gradient(to right bottom, #f2f4f7, #e7ecee, #e4eff2); // can be set to none
     --surface-color-0: #f5f5f5;
-    --surface-color-1: rgba(255, 255, 255, 0.7);
+    --surface-color-1: #fefefe;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.15);
     --surface-color-2: rgba(255, 255, 255, 0.8);
     --surface-shadow-2: 0px 1px 4px rgba(0, 0, 0, 0.15);
@@ -108,7 +111,7 @@
 
     // Main navigation colors
 
-    --color-navigation-background-default: transparent;
+    --color-navigation-background-default: var(--surface-color-1);
     --color-navigation-text-default: #08374f;
     --color-navigation-icon-filter-default: invert(17%) sepia(45%) saturate(886%) hue-rotate(155deg) brightness(95%) contrast(99%);
 
@@ -116,7 +119,7 @@
     --color-navigation-text-hover: #3db2a4;
     --color-navigation-icon-filter-hover: invert(54%) sepia(72%) saturate(330%) hue-rotate(123deg) brightness(97%) contrast(94%);
 
-    --color-navigation-background-active: transparent;
+    --color-navigation-background-active: var(--surface-color-1);
     --color-navigation-text-active: #3db2a4; //over hover color
     --color-navigation-icon-filter-active: invert(54%) sepia(72%) saturate(330%) hue-rotate(123deg) brightness(97%) contrast(94%);
 
@@ -176,7 +179,7 @@
     --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
 
     //
-    // Dark Mode Scheme from here
+    // DARK MODE VARIABLES FROM HERE
     //
 
     &:has(#color-scheme-selector:checked) {
@@ -197,7 +200,22 @@
         --modals-border-radius: 4px;
 
         //Surfaces
-        --surface-color-0: #00ff33;
+        --surface-background-image: linear-gradient(
+            to right bottom,
+            #19171c,
+            #18161b,
+            #171519,
+            #161418,
+            #151317,
+            #151317,
+            #151317,
+            #151317,
+            #161418,
+            #171519,
+            #18161b,
+            #19171c
+        ); // can be set to none
+        --surface-color-0: #131215;
         --surface-color-1: #1c1b21;
         --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
         --surface-color-2: #212128;
@@ -333,29 +351,27 @@
 
         --rlogin-themeswitcher-display: none;
         --rlogin-title-background-color: #08374f;
-        --rlogin-content-title-color: #08374f;
-        --rlogin-content-background-color: white;
+        --rlogin-content-title-color: #ffffff;
+        --rlogin-content-background-color: #26272f;
         --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
         --rlogin-content-border-color: #08374f;
         --rlogin-content-text-color: var(--color-text-primary);
-        --rlogin-provider-background-color: #f2f2f2;
+        --rlogin-provider-background-color: #3e424a;
         --rlogin-provider-border-color: #08374f;
         --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
         --rlogin-spinner-color: #3db2a4;
 
         --rlogin-border-radius: 0px;
         --rlogin-poweredby-color: white;
-        --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%) hue-rotate(225deg) brightness(99%) contrast(90%);
+        --rlogin-logo-filter-color: invert(100%) sepia(90%) saturate(0%) hue-rotate(225deg) brightness(99%) contrast(90%);
     }
 }
 
-body,
-html {
-    // body + html css
+#root {
     font-family: var(--main-font);
     background-color: var(--surface-color-0) !important;
-    background-image: var(--brand-background-gradient);
+    background-image: var(--surface-background-image);
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
 }
