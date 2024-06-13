@@ -24,7 +24,7 @@ function SectionSend(props) {
             {/* Send */}
             <div className='dashboard-exchange'>
 
-                <div className={'title'}>
+                <div className={'layout-card-title'}>
                     <h1>{t('send.cardTitle')}</h1>
                 </div>
 

@@ -174,8 +174,8 @@ const Stake = (props) => {
           disabled={true}
         />
         <InputAmount
-          balanceText={'Balance'}
-          action={isUnstaking ? 'To UnStake' : 'To Stake'}
+          balanceText={t('staking.staking.inputAvailable')}
+          action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
           balance={
             PrecisionNumbers({
               amount: isUnstaking ? stakedBalance : mocBalance,
@@ -197,25 +197,20 @@ const Stake = (props) => {
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
       <div className='staked-text'>
-        {`${t('staking.staking.staked')}: ${parseFloat(Web3.utils.fromWei(stakedBalance, 'ether')).toFixed(4)} ${TokenSettings(currencyYouStake).name}`}
+        {`${t('staking.staking.stakedAmount')}: ${parseFloat(Web3.utils.fromWei(stakedBalance, 'ether')).toFixed(4)} ${TokenSettings(currencyYouStake).name}`}
       </div>
-      <div className="action-section">
-        <div className="left-column">
-          <div className="title">
-            {isUnstaking ? `Unstaking = ${formatNumber(amountToUnstake)} MOC` : `Staking = ${formatNumber(amountToStake)} MOC`}
+      <div className="cta">
+          <div className="note-text">{t('staking.staking.cta.explanation')}</div>
+          <div className="summary">
+            {isUnstaking ? `${t('staking.staking.cta.staking')} ${t('staking.staking.cta.stakingSign')} ${formatNumber(amountToUnstake)} ${t('staking.governanceToken')}` : `${t('staking.staking.cta.staking')} ${t('staking.staking.cta.stakingSign')} ${formatNumber(amountToStake)} ${t('staking.governanceToken')}`}
           </div>
           <Button
             type="primary"
             className={"primary-button btn-confirm"}
             onClick={onStakeButton}
-            disabled={inputValidationError}
-          >
-            {isUnstaking ? t('staking.staking.unstake_button') : t('staking.staking.stake_button')}
+            disabled={inputValidationError}>
+            {isUnstaking ? t('staking.staking.cta.unstakeButton') : t('staking.staking.cta.stakeButton')}
           </Button>
-        </div>
-        <div className="right-column">
-          <div className="note-text">{t('staking.staking.note')}</div>
-        </div>
       </div>
       {modalMode !== null && <StakingOptionsModal
         mode={modalMode}

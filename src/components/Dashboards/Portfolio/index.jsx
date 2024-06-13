@@ -131,7 +131,7 @@ export default function Portfolio() {
         <div className="dashboard-portfolio">
             <div className="tokens-card-content">
                 <div className="tokens-list-header">
-                    <div className="tokens-list-header-title">{t('portfolio.sectionTitle')}</div>
+                    <div className="layout-card-title"><h1>{t('portfolio.sectionTitle')}</h1></div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
                             {(auth.contractStatusData && !auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({

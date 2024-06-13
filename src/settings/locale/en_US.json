@@ -305,9 +305,9 @@
             "error": "Transaction failed!",
             "default": "Wait for transaction confirmation"
         }
-     },
+    },
 
-     "allowance": {
+    "allowance": {
         "cardTitle" : "Authorize using",
         "disallowanceTitle" : "Revoke allowance of",
         "statusText1" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
@@ -325,19 +325,19 @@
             "error" : "Operation Failed!",
             "default" : "Wait for transaction confirmation"
         }
-     },
-     "inputFields": {
+    },
+    "inputFields": {
         "maxButton" : "Max"
-     },
+    },
 
-     "fees": {
+    "fees": {
         "labelFee" : "Fee",
         "labelExecutionFee" : "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },
 
-     "menuOptions": {
+    "menuOptions": {
         "portfolio": "Portfolio",
         "send" : "Send",
         "exchange" : "Exchange",
@@ -347,7 +347,7 @@
         "vesting" : "Vesting",
         "more" : "More"
     },
-   
+    
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
@@ -390,14 +390,23 @@
     },
 
     "staking" : {
-        "title": "Staking",
+        "cardTitle": "Staking",
+        "governanceToken":"ROC",
         "staking": {
-            "tab1": "Staking",
-            "tab2": "Unstaking",
-            "staked": "Staked",
-            "note": "You will be able to unstake at any time with a release delay of 30 days (no rewards received during this period). After this period you will be able to 'Withdraw'.",
-            "stake_button": "Stake",
-            "unstake_button": "Unstake"
+            "tabStake": "Stake",
+            "tabUnstake": "Ustake",
+            "inputStake": "Stake",
+            "inputUnstake": "Unstake",
+            "inputAvailable": "Available",
+            "stakedAmount": "Staked",
+            "cta" : {
+                "explanation": "You will be able to unstake at any time with a release delay of 30 days (no rewards received during this period). After this period you will be able to 'Withdraw'.",
+                "stakeButton": "Stake",
+                "unstakeButton": "Unstake",
+                "staking" : "Staking",
+                "unstaking" : "Unstaking",
+                "stakingSign" : "≈"
+            }
         },
         "distribution": {
             "title": "MOC Distribution",

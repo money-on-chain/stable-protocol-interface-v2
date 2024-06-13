@@ -19,49 +19,49 @@ export default function TokensPegged() {
 
 const ProvideColumnsTP = [
     {
-      title: t("performance.pegged.colName"),
-      dataIndex: 'name',
-      align: 'left',
-      width: 210
+        title: t("performance.pegged.colName"),
+        dataIndex: 'name',
+        align: 'left',
+        width: 210
     },
     {
-      title: t("performance.pegged.colTokensPer"),
-      dataIndex: 'tokens_per_usd',
-      align: 'right',
-      width: 160
+        title: t("performance.pegged.colTokensPer"),
+        dataIndex: 'tokens_per_usd',
+        align: 'right',
+        width: 160
     },
     {
-      title: t("performance.pegged.colMinted"),
-      dataIndex: 'minted',
-      align: 'right',
-      width: 140
+        title: t("performance.pegged.colMinted"),
+        dataIndex: 'minted',
+        align: 'right',
+        width: 140
     },
     {
-      title: t("performance.pegged.colMintable"),
-      dataIndex: 'mintable',
-      align: 'right',
-      width: 160
+        title: t("performance.pegged.colMintable"),
+        dataIndex: 'mintable',
+        align: 'right',
+        width: 160
     },
     {
-      title: t("performance.pegged.colTargetCoverage"),
-      dataIndex: 'coverage',
-      align: 'right',
-      width: 140
+        title: t("performance.pegged.colTargetCoverage"),
+        dataIndex: 'coverage',
+        align: 'right',
+        width: 140
 
     },
     {
-      title: t("performance.pegged.colEMA"),
-      dataIndex: 'ema',
-      align: 'right',
-      width: 100
+        title: t("performance.pegged.colEMA"),
+        dataIndex: 'ema',
+        align: 'right',
+        width: 100
     },
     {
-      title: t("performance.pegged.colTargetEMA"),
-      dataIndex: 'ctargema',
-      align: 'right',
-      width: 140
+        title: t("performance.pegged.colTargetEMA"),
+        dataIndex: 'ctargema',
+        align: 'right',
+        width: 140
     }
-  ];
+];
 
 
     // Columns
@@ -187,7 +187,7 @@ const ProvideColumnsTP = [
 
         <div className="card-tps">
 
-            <div className="title">
+            <div className="layout-card-title">
                 <h1>{t("performance.pegged.cardTitle")}</h1>
             </div>
 

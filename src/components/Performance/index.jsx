@@ -52,7 +52,7 @@ export default function Performance(props) {
 
                     <div className="card-system-status">
 
-                        <div className="title">
+                        <div className="layout-card-title">
                             <h1>{t('performance.status.cardTitle')}</h1>
                         </div>
 
@@ -76,7 +76,7 @@ export default function Performance(props) {
                 <Col span={12}>
                     <div className="card-tvl">
 
-                        <div className="title">
+                        <div className="layout-card-title">
                             <h1>{t('performance.tvl.cardTitle')}</h1>
                         </div>
 
@@ -193,7 +193,7 @@ export default function Performance(props) {
 
                     <div className="card-collateral">
 
-                        <div className="title">
+                        <div className="layout-card-title">
                             <h1>{t('performance.collateral.cardTitle')}</h1>
                         </div>
 

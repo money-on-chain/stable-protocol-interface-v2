@@ -95,13 +95,13 @@ export default function Staking(props) {
       {!loading && <Fragment>
         <Row gutter={24} className="row-section">
           <Col span={10}>
-            <div className="card-system-status">
-              <div className="title">
-                <h1>{t('staking.title')}</h1>
+            <div className="layout-card">
+              <div className="layout-card-title">
+                <h1>{t('staking.cardTitle')}</h1>
               </div>
               <div className="tabs">
-                <button onClick={() => setActiveTab('tab1')} className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}>{t('staking.staking.tab1')}</button>
-                <button onClick={() => setActiveTab('tab2')} className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}>{t('staking.staking.tab2')}</button>
+                <button onClick={() => setActiveTab('tab1')} className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}>{t('staking.staking.tabStake')}</button>
+                <button onClick={() => setActiveTab('tab2')} className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}>{t('staking.staking.tabUnstake')}</button>
               </div>
               <div className="tab-divider"></div>
               {/* Contenido del Tab */}
@@ -118,8 +118,8 @@ export default function Staking(props) {
             </div>
           </Col>
           <Col span={7}>
-            <div className="card-system-status">
-              <div className="title">
+            <div className="layout-card">
+              <div className="layout-card-title">
                 <h1>{t('staking.distribution.title')}</h1>
               </div>
               <div className="tab-content">
@@ -133,8 +133,8 @@ export default function Staking(props) {
             </div>
           </Col>
           <Col span={7}>
-            <div className="card-system-status">
-              <div className="title">
+            <div className="layout-card">
+              <div className="layout-card-title">
                 <h1>{t('staking.performance.title')}</h1>
               </div>
               <div className="tab-content">

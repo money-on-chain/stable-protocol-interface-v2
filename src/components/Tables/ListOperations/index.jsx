@@ -88,7 +88,7 @@ export default function ListOperations(props) {
             width: 180,
             hidden: false,
         },
-   
+
     ].filter((item) => !item.hidden);
     useEffect(() => {
         const interval = setInterval(() => {
@@ -755,7 +755,7 @@ export default function ListOperations(props) {
     }
     return (
         <>
-            <div className="title">
+            <div className="layout-card-title">
                 <h1 className="title-last-operations">
                     {t(`operations.sectionTitle`, { ns: ns })}
                 </h1>

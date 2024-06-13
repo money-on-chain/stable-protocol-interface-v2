@@ -56,9 +56,9 @@ export default function Withdraw(props) {
     }, [auth, pendingWithdrawals, i18n.language]);
     const getWithdrawals = () => {
         setTotalTable(pendingWithdrawals.length);
-        console.log('pendingWithdrawals', pendingWithdrawals);
-        console.log(pendingWithdrawals[0].id);
-        console.log(pendingWithdrawals[0].id.toString());
+        // console.log('pendingWithdrawals', pendingWithdrawals);
+        // console.log(pendingWithdrawals[0].id);
+        // console.log(pendingWithdrawals[0].id.toString());
         const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
             key: index,
             expiration: (
@@ -147,7 +147,7 @@ export default function Withdraw(props) {
 
     return (
         <div className="card-withdraw">
-            <div className="title">
+            <div className="layout-card-title">
                 <h1>{t('staking.withdraw.title')}</h1>
                 <div className="withdraw-header-balance">
                     {totalPendingExpiration && (
