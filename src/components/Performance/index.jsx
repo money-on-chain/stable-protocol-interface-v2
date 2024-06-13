@@ -41,7 +41,7 @@ export default function Performance(props) {
                 settings.tokens.TC.decimals
             )
         );
-        collateralInUSD = collateralTotal.times(price);
+        collateralInUSD = collateralTotal.times(priceCA);
 
     }
     return (
