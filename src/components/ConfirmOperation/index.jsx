@@ -148,7 +148,7 @@ export default function ConfirmOperation(props) {
 
     const showAllowance = () => {
         const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
-        return !!amountYouExchangeLimit.gte(tokenAllowance);
+        return !!amountYouExchangeLimit.gt(tokenAllowance);
     };
 
     const onHideModalAllowanceFeeToken = () => {
