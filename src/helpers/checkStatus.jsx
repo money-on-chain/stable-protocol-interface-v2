@@ -11,6 +11,12 @@ export default function CheckStatus() {
   const [t, i18n, ns] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   if (!auth.contractStatusData) return {isValid: false, statusIcon: '', statusLabel: '', statusText: ''};
+  let isValid = false;
+  let statusIcon = '';
+  let statusLabel = '--';
+  let statusText = '--';
+  let errorType = '-1';
+
   const globalCoverage = new BigNumber(
     fromContractPrecisionDecimals(
       auth.contractStatusData.getCglb,
@@ -37,11 +43,6 @@ export default function CheckStatus() {
       settings.tokens.CA[0].decimals
     )
   );
-  let isValid = true;
-  let statusIcon = '';
-  let statusLabel = '--';
-  let statusText = '--';
-  let errorType = '-1';
   
   if (globalCoverage.gt(calcCtargemaCA)) {
     statusIcon = 'icon-status-success';
