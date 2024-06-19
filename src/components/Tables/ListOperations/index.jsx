@@ -812,6 +812,7 @@ export default function ListOperations(props) {
                             onChange: onChange,
                             total: totalTable,
                             pageSizeOptions: [10, 20, 50, 100],
+                            showSizeChanger: true,
                             onShowSizeChange: (current, pageSize) => {
                                 setPageSize(pageSize);
                             },
