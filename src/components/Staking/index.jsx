@@ -118,7 +118,7 @@ export default function Staking(props) {
             </div>
           </Col>
           <Col span={7}>
-            <div className="layout-card">
+            <div className="layout-card staking-distribution-card">
               <div className="layout-card-title">
                 <h1>{t('staking.distribution.title')}</h1>
               </div>

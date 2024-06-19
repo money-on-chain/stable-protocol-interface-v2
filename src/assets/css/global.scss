@@ -79,7 +79,6 @@
     }
 
     .wallet-user {
-        /* Auto layout */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -420,7 +419,7 @@
         background-repeat: no-repeat;
         filter: var(--color-navigation-icon-filter-default);
         /*margin-left: 8px;
-  margin-top: 8px;*/
+        margin-top: 8px;*/
     }
 
     .resume-staking {
@@ -794,6 +793,9 @@
     border-radius: var(--card-border-radius);
     background: var(--surface-color-1);
     box-shadow: var(--surface-shadow-1);
+    .ant-table-body .ant-table-cell {
+        border-color: transparent !important;
+    }
 }
 
 .about-button {
@@ -2720,6 +2722,9 @@
         box-shadow: var(--surface-shadow-1);
         padding: var(--card-padding);
         height: 274px;
+        .ant-table-body .ant-table-cell {
+            border-color: transparent !important;
+        }
     }
 }
 
@@ -2891,219 +2896,234 @@
         margin-top: 24px;
     }
 
-    .layout-card {
-        border-radius: var(--card-border-radius);
-        background-color: var(--surface-color-1);
-        box-shadow: var(--surface-shadow-1);
-        height: 489px;
-        padding: var(--card-padding);
+    .card-content {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
 
-        .layout-card-title {
-            h1 {
-                opacity: 1;
-                color: var(--color-text-primary);
-                font-family: var(--brand-font);
-                font-size: 20px;
-                font-weight: 700;
-                font-style: normal;
-                letter-spacing: 0px;
-                text-align: left;
-                margin-bottom: 20px;
-            }
-        }
+    .staking-select-token {
+        margin-left: 8px;
+    }
+    .input-value {
+        font-family: var(--brand-font);
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .tab-button {
+        color: var(--color-text-primary);
+        font-family: var(--brand-font);
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 5px 5px;
+        padding-bottom: 0px;
+        border: none;
+        background-color: transparent;
+        border-bottom: 4px solid var(--color-controls-background-disabled);
+        cursor: pointer;
+    }
 
-        .card-content {
-            display: flex;
-            flex-direction: row;
-            gap: 15px;
-        }
+    .tab-button.active {
+        color: var(--color-text-highlight);
+        border-bottom: 4px solid var(--color-controls-active);
+        background-color: transparent;
+    }
 
-        .staking-select-token {
-            margin-left: 8px;
-        }
-        .input-value {
-            font-family: var(--brand-font);
-            font-size: 20px;
-            font-weight: 700;
-        }
-        .tab-button {
-            color: var(--color-text-primary);
+    .tab-divider {
+        height: 1px;
+        border-bottom: 2px solid var(--color-controls-foreground-on);
+        margin-bottom: 20px;
+    }
+
+    .staked-text {
+        color: var(--color-text-primary);
+        font-family: var(--main-font);
+        font-size: 14px;
+        font-weight: 400;
+        text-align: left;
+        margin-top: 22px;
+    }
+
+    .cta {
+        display: flex;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        gap: 16px;
+
+        .note-text {
+            color: var(--color-text-secondary);
             font-family: var(--main-font);
-            font-weight: 700;
-            margin-right: 5px;
-            padding: 5px 5px;
-            border: none;
-            background-color: var(--surface-color-1);
-            cursor: pointer;
-        }
-
-        .tab-button.active {
-            border-bottom: 4px solid var(--divider-card);
-        }
-
-        .tab-divider {
-            height: 1px;
-            background-color: var(--divider-card);
-            margin-bottom: 20px;
-        }
-
-        .staked-text {
-            color: var(--color-text-primary);
-            font-family: var(--main-font);
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 400;
             text-align: left;
-            margin-top: 22px;
+            line-height: 16px;
         }
-
-        .cta {
-            display: flex;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: end;
-            align-items: center;
-            gap: 16px;
-
-            .note-text {
-                color: var(--color-text-secondary);
-                font-family: var(--main-font);
-                font-size: 12px;
-                font-weight: 400;
-                text-align: left;
-                line-height: 16px;
-                margin-bottom: 0px;
-            }
-            .summary {
-                color: var(--color-text-primary);
-                font-family: var(--brand-font);
-                text-align: center;
-                font-size: 15px;
-                width: 100%;
-                font-weight: 700;
-                line-height: 20px;
-                margin-left: 0;
-            }
+        .summary {
+            color: var(--color-text-primary);
+            font-family: var(--brand-font);
+            text-align: center;
+            font-size: 15px;
+            width: 100%;
+            font-weight: 700;
+            line-height: 20px;
+            margin-left: 0;
         }
+    }
 
-        .pie-chart-container {
-            margin-top: 40px;
-            .dataContainer {
-                margin-top: 4px;
-            }
+    .ChartContainer {
+        margin-top: 40px;
+        display: flex;
+        align-items: flex-end;
+        height: 340px;
+        padding-bottom: 25px;
+        padding-left: 0px;
 
-            .dataRow {
+        .ChartGraphic {
+            height: 300px;
+            display: flex;
+            flex-direction: row;
+            column-gap: 10px;
+            justify-items: center;
+            width: 120px;
+            margin: 0 auto;
+
+            .ChartColumn {
                 display: flex;
-                justify-content: space-between;
-                margin-bottom: 1px;
-            }
-        }
-        .ChartContainer {
-            margin-top: 40px;
-            display: flex;
-            align-items: flex-end;
-            height: 340px;
-            padding-bottom: 25px;
-            padding-left: 0px;
-            .ChartGraphic {
-                height: 300px;
-                display: flex;
-                flex-direction: row;
-                column-gap: 10px;
-                justify-items: center;
-                width: 120px;
-                margin: 0 auto;
-                .ChartColumn {
-                    display: flex;
-                    flex-direction: column;
-                    flex-basis: 50%;
-                    .Bar {
-                        background: #d5d5d5;
-                        flex-grow: 1;
-                        position: relative;
-                        div {
-                            color: #000000;
-                            font-size: 8px;
-                            bottom: 5px;
-                            position: absolute;
-                            text-align: center;
-                            line-height: 12px;
-                            width: 100%;
-                            font-weight: bold;
-                        }
+                flex-direction: column;
+                flex-basis: 50%;
+                border: 1px solid var(--surface-color-1);
 
-                        &.Percent {
-                            flex-grow: 0;
-                            height: 0;
-                            transition: ease all 0.5s;
-                            background: #959595;
-                            &.Hidden {
-                                background: #fff;
-                            }
+                .Bar {
+                    background: var(--brand-color-base);
+                    flex-grow: 1;
+                    position: relative;
+                    border: 1px solid var(--surface-color-1);
+
+                    div {
+                        color: var(--brand-color-overbrand);
+                        font-size: 8px;
+                        line-height: 8px;
+                        bottom: 16px;
+                        position: absolute;
+                        text-align: center;
+                        width: 100%;
+                        font-weight: bold;
+                    }
+
+                    &.Percent {
+                        flex-grow: 0;
+                        height: 0;
+                        transition: ease all 0.5s;
+                        background: var(--brand-color-dark);
+
+                        &.Hidden {
+                            background: transparent;
                         }
                     }
                 }
             }
+        }
 
-            .ChartText {
-                display: flex;
-                flex-direction: column;
-                flex-grow: 1;
-                margin-top: 10px;
-                width: 86px;
-                margin-right: 20px;
-                align-items: flex-start;
-                justify-content: flex-start;
-                padding-left: 0;
+        .ChartText {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            width: 86px;
+            margin-right: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
 
-                .percent {
-                    color: var(--color-text-primary);
-                    font-family: var(--brand-font);
-                    font-size: 20px;
-                    font-weight: 700;
-                    letter-spacing: 0px;
-                    text-align: left;
-                }
+            .percent {
+                color: var(--color-text-primary);
+                font-family: var(--brand-font);
+                font-size: 20px;
+                line-height: 24px;
+                font-weight: 700;
+                letter-spacing: 0px;
+                text-align: left;
+                margin-bottom: 4px;
+            }
 
-                .percent-note {
-                    color: var(--color-text-primary);
-                    font-family: var(--brand-font);
-                    font-size: 14px;
-                    font-weight: 400;
-                    letter-spacing: 0px;
-                    text-align: left;
-                    width: 100%;
-                }
+            .percent-note {
+                color: var(--color-text-primary);
+                font-family: var(--main-font);
+                font-size: 14px;
+                line-height: 19px;
+                font-weight: 400;
+                letter-spacing: 0px;
+                text-align: left;
+                width: 100%;
             }
         }
     }
+    // .layout-card {
+    //     border-radius: var(--card-border-radius);
+    //     background-color: var(--surface-color-1);
+    //     box-shadow: var(--surface-shadow-1);
+    //     height: 489px;
+    //     padding: var(--card-padding);
 
-    .card-tvl {
-        border-radius: var(--card-border-radius);
-        background-color: var(--surface-color-1);
-        box-shadow: var(--surface-shadow-1);
-        padding: var(--card-padding);
-        height: 161px;
+    //     // .layout-card-title {
+    //     //     h1 {
+    //     //         opacity: 1;
+    //     //         color: var(--color-text-primary);
+    //     //         font-family: var(--brand-font);
+    //     //         font-size: 20px;
+    //     //         font-weight: 700;
+    //     //         font-style: normal;
+    //     //         letter-spacing: 0px;
+    //     //         text-align: left;
+    //     //         margin-bottom: 20px;
+    //     //     }
+    //     // }
+    // }
+    .staking-distribution-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        overflow: hidden;
 
-        .card-content {
-            .big-number {
-                color: var(--color-text-primary);
-                font-family: var(--brand-font);
-                font-size: 40px;
-                font-weight: 700; //Bold
-                letter-spacing: 0px;
-                text-align: left;
+        .pie-chart-container {
+            height: 250px;
+            color: var(--color-text-primary);
+        }
+        .dataContainer {
+            color: var(--color-text-primary);
+            margin-top: 4px;
+
+            :nth-child(1) > .data-bullet {
+                background-color: var(--brand-color-darker);
             }
-
-            .caption {
-                color: var(--color-text-secondary);
-                font-family: var(--main-font);
-                font-size: 10px;
-                font-weight: 700; //Bold
-                letter-spacing: 0.5px;
-                text-align: left;
-                text-transform: uppercase;
-                line-height: 0px;
+            :nth-child(2) > .data-bullet {
+                background-color: var(--brand-color-dark);
+            }
+            :nth-child(3) > .data-bullet {
+                background-color: var(--brand-color-light);
+            }
+            :nth-child(4) > .data-bullet {
+                background-color: var(--brand-color-lighter);
+            }
+            .data-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 12px;
+                line-height: 16px;
+                margin-bottom: 8px;
+                width: 100%;
+                .data-bullet {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                }
+                .data-numbers {
+                    font-weight: 600;
+                }
             }
         }
     }
@@ -3167,6 +3187,9 @@
             line-height: 19px;
         }
 
+        .ant-table-body .ant-table-cell {
+            border-color: transparent !important;
+        }
         .ant-table-cell {
             padding: 10px 0px !important;
         }

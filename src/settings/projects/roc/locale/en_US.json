@@ -409,7 +409,7 @@
             }
         },
         "distribution": {
-            "title": "MOC Distribution",
+            "title": "ROC Distribution",
             "graph": {
                 "balance": "Balance (free)",
                 "processingUnstake": "Processing unstake",
@@ -417,13 +417,16 @@
                 "staked": "Staked"
             },
             "bar" : {
-                "desc": "MOC staking annualized performance"
+                "desc": "ROC staking annualized performance"
             }
         },
         "performance" : {
             "title": "Staking Performance",
             "bar" : {
-                "desc": "MOC staking annualized performance"
+                "description": "ROC staking annualized performance",
+                "base": "ROC",
+                "sign": "+",
+                "staking": "Stacking"
             }
         },
         "withdraw" : {

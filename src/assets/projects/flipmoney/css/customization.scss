@@ -3,6 +3,16 @@
 :root {
     // Variables
 
+    // Branding
+    --brand-logo-main: url('../icons/logo-app-dark.svg');
+
+    --brand-color-darker: #807d44;
+    --brand-color-dark: #b3af5c;
+    --brand-color-base: #fff383;
+    --brand-color-light: #fffdc1;
+    --brand-color-lighter: #fffee0;
+    --brand-color-overbrand: #0c0c08;
+
     // Cards
     --card-border-radius: 4px;
     --card-padding: 32px;
@@ -16,6 +26,7 @@
     --modals-border-radius: 4px;
 
     //Surfaces
+    --surface-background-image: linear-gradient(to right bottom, #1312156e, #161518, #131215, #1b1a1e6e, #131215); // can be set to none
     --surface-color-0: #131215;
     --surface-color-1: #1c1b21;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -165,14 +176,11 @@
     --rlogin-logo-filter-color: invert(93%) sepia(0%) saturate(7472%) hue-rotate(130deg) brightness(107%) contrast(109%);
 }
 
-body,
-html {
-    // body + html css
-
+#root {
     font-family: var(--main-font);
     background-color: var(--surface-color-0) !important;
-    background-image: url('../img/Oval.svg');
+    background-image: var(--surface-background-image);
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
 }

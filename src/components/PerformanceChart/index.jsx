@@ -18,12 +18,10 @@ export default function PerformanceChart(props) {
   return (
     <div className="ChartContainer">
       <div className="ChartText">
-        <Col xs={24}>
           <div className='percent'>{percent > 0 && `${percent}%`}</div>
           <div className='percent-note'>
-            {t('staking.performance.bar.desc')}
+          {t('staking.performance.bar.description')}
           </div>
-        </Col>
       </div>
       <div className="ChartGraphic">
         <div className="ChartColumn">
@@ -32,16 +30,16 @@ export default function PerformanceChart(props) {
             style={{ height }}
           />
           <div className="Bar">
-            <div>MOC</div>
+            <div>{t('staking.performance.bar.base')}</div>
           </div>
         </div>
         <div className="ChartColumn">
           <div className="Bar Percent Gray" style={{ height }} />
           <div className="Bar">
             <div>
-              MOC
-              <br />+<br />
-              Staking
+            {t('staking.performance.bar.base')}
+              <br />{t('staking.performance.bar.sign')}<br />
+              {t('staking.performance.bar.staking')}
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@ const Stake = (props) => {
     setIsUnstaking(activeTab === 'tab2');
     setAmountToStake('0.0');
     setAmountToUnstake('0.0');
-    console.log(activeTab);
+    // console.log(activeTab);
   }, [auth, activeTab]);
 
   useEffect(() => {
