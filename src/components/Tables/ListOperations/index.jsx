@@ -37,7 +37,6 @@ export default function ListOperations(props) {
     var txList = [];
     const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
-            console.log("Loading table…")
             const datas =
                 {
                     address: accountData.Owner,
@@ -312,7 +311,6 @@ export default function ListOperations(props) {
         }
         txList = pre_datas;
         data = [];
-        console.log("txList", txList);
         txList.forEach((data) => {
 
             const token = tokenExchange(data)
@@ -757,7 +755,6 @@ export default function ListOperations(props) {
         }
     }
     const showModal = () => {
-        console.log("showModal");
         setQueueModal(true)
     }
     const hideModal = () => {
