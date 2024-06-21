@@ -285,12 +285,22 @@ export default function ListOperations(props) {
         }
     }
     const data_row = () => {
-        /*******************************sort descending by date lastUpdatedAt***********************************/
+        /*******************************sort descending by block number and then by operID***********************************/
         if (dataJson.operations !== undefined) {
             dataJson.operations.sort((a, b) => {
-                return (
-                    myParseDate(b.lastUpdatedAt) - myParseDate(a.lastUpdatedAt)
-                );
+                if (a.blockNumber !== b.blockNumber) {
+                    return b.blockNumber - a.blockNumber;
+                }
+                if (a.operId_ !== null && b.operId_ !== null) {
+                    return b.operId_ - a.operId_;
+                }
+                if (a.operId_ === null) {
+                    return 1;
+                }
+                if (b.operId_ === null) {
+                    return -1;
+                }
+                return 0;
             });
         }
         /*******************************filter by type (token)***********************************/
