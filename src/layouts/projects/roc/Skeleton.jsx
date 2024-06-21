@@ -6,6 +6,7 @@ import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
+import { useAirdropFunctions } from '../../../helpers/useAirdropFunctions';
 import SectionHeader from '../../../components/Header';
 import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 
@@ -22,6 +23,7 @@ export default function Skeleton() {
     const [notifStatus, setNotifStatus] = useState(null);
     const [canSwap, setCanSwap] = useState(false);
     const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
+    const {amountAvailable} = useAirdropFunctions();
     useEffect(() => {
         if (auth.contractStatusData, auth.userBalanceData) {
             readProtocolStatus();
@@ -64,6 +66,7 @@ export default function Skeleton() {
                 <div className="content-container">
                     {/* Content page*/}
                     <div className="content-page">
+                        {amountAvailable && amountAvailable > 0 && <ModalTokenMigration />}
                         {canSwap && <ModalTokenMigration />}
                         {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                         {notifStatus && <NotificationBody notifStatus={notifStatus} />}
