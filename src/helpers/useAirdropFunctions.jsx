@@ -17,19 +17,19 @@ export const useAirdropFunctions = (props) => {
     const getUserData = (address) => {
         const normalized = normalizeData(data);
         if (normalized.hasOwnProperty(address.toLowerCase())) {
-          return normalized[address.toLowerCase()][0];
+            return normalized[address.toLowerCase()][0];
         }
         return null;
     };
     const normalizeData = (data) => {
-      const normalized = {};
-      for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-              normalized[key.toLowerCase()] = data[key];
-          }
-      }
-      return normalized;
-  };
+        const normalized = {};
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                normalized[key.toLowerCase()] = data[key];
+            }
+        }
+        return normalized;
+    };
     return {
         amountAvailable
     };

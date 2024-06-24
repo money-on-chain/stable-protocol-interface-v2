@@ -14,6 +14,7 @@ import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
+import ModalRocAirdrop from '../../../components/Airdrop/modal';
 
 const { Content, Footer } = Layout;
 
@@ -66,7 +67,7 @@ export default function Skeleton() {
                 <div className="content-container">
                     {/* Content page*/}
                     <div className="content-page">
-                        {amountAvailable && amountAvailable > 0 && <ModalTokenMigration />}
+                        {amountAvailable && amountAvailable > 0 && <ModalRocAirdrop />}
                         {canSwap && <ModalTokenMigration />}
                         {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                         {notifStatus && <NotificationBody notifStatus={notifStatus} />}

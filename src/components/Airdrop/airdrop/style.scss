@@ -1,0 +1,104 @@
+.Content {
+  color: var(--color-text-primary);
+  .Title {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    font-family: var(--brand-font);
+  }
+
+  .Body {
+    margin-top: 20px;
+
+    font-family: var(--main-font);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    .Center {text-align: center}
+
+    .tx-logo-status {
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0px;
+      gap: 16px;
+      margin-top: 35px;
+      margin-bottom: 35px;
+
+      .rotate {
+        animation: rotation 2s infinite linear;
+      }
+
+      @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-359deg);
+        }
+      }
+    }
+
+    .TokenIcon {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .Summary {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      margin-left: 30px;
+      margin-right: 30px;
+      text-align: center;
+      font-family: var(--main-font);
+      .Exchanging, .Receiving {
+        display: flex;
+        justify-content: center; 
+        font-size: 18px;
+        margin-bottom: 4px;
+    
+        .Label {
+          width: 50%;
+          display: flex;
+          justify-content: center; 
+          align-items: center; 
+          font-weight: 600;
+          margin-right: 40px;
+        }
+    
+        .Amount {
+          width: 50%;
+          display: flex;
+          justify-content: flex-start; 
+          align-items: center; 
+          font-weight: 700;
+          .Value {
+            font-weight: bold; 
+          }
+    
+          .Token {
+            margin-left: 6px; 
+            font-weight: bold;
+          }
+        }
+      }
+    
+      .Receiving .Amount {
+        justify-content: flex-start; 
+      }
+    }
+  }
+
+  .Actions {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+
+    .btn-confirm {
+      margin-left: 16px;
+    }
+  }
+}

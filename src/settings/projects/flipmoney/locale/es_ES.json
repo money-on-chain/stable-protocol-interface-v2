@@ -398,5 +398,10 @@
         "operationFailed" : "La operación falló !.",
         "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
         "operationSuccessful" : "Operación exitosa."
+    },
+
+    "airdropModal": {
+        "text" : "Has recibido un airdrop de RIF on Chain (ROC). Puedes hacer click en el botón de claim para recibir tus tokens.",
+        "button" : "Reclamar ahora"
     }
 }
