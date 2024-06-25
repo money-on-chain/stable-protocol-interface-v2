@@ -92,7 +92,7 @@ export default function ListOperations(props) {
     useEffect(() => {
         const interval = setInterval(() => {
             transactionsList(current);
-        }, 15000);
+        }, 3000);
         return () => clearInterval(interval);
     }, [accountData.Owner]);
     useEffect(() => {
