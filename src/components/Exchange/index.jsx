@@ -112,7 +112,7 @@ export default function Exchange() {
 
     const onValidate = () => {
         // Protocol in not-good status
-        const { isValid } = checkerStatus();
+        const { isValid, errorType } = checkerStatus();
         if (!isValid && errorType === '1') {
             if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
                 setInputValidationErrorText(t('exchange.errors.notOperational'));

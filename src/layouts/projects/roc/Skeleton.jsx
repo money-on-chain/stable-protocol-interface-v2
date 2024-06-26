@@ -41,6 +41,8 @@ export default function Skeleton() {
                 isDismisable: false,
                 dismissTime: 0,
             })
+        }else {
+            setNotifStatus(null);
         }
         const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"));
         if (tpLegacyBalance.gt(0)) {
