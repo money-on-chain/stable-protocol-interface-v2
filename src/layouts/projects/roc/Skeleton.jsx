@@ -21,7 +21,7 @@ export default function Skeleton() {
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
     const [canSwap, setCanSwap] = useState(false);
-    const { isValid, statusIcon, statusLabel, statusText } = CheckStatus();
+    const { checkerStatus} = CheckStatus();
     useEffect(() => {
         if (auth.contractStatusData, auth.userBalanceData) {
             readProtocolStatus();
@@ -29,6 +29,7 @@ export default function Skeleton() {
     }, [auth.contractStatusData, auth.userBalanceData])
     
     const readProtocolStatus = () => {
+        const { isValid, statusIcon, statusLabel, statusText} = checkerStatus();
         if (!isValid) {
             console.log('is not valid');
             setNotifStatus({
