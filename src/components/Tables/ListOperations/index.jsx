@@ -37,7 +37,6 @@ export default function ListOperations(props) {
     var txList = [];
     const transactionsList = (skip) => {
         if (auth.isLoggedIn) {
-            console.log("Loading table…")
             const datas =
                 {
                     address: accountData.Owner,
@@ -93,7 +92,7 @@ export default function ListOperations(props) {
     useEffect(() => {
         const interval = setInterval(() => {
             transactionsList(current);
-        }, 15000);
+        }, 3000);
         return () => clearInterval(interval);
     }, [accountData.Owner]);
     useEffect(() => {
@@ -285,12 +284,22 @@ export default function ListOperations(props) {
         }
     }
     const data_row = () => {
-        /*******************************sort descending by date lastUpdatedAt***********************************/
+        /*******************************sort descending by block number and then by operID***********************************/
         if (dataJson.operations !== undefined) {
             dataJson.operations.sort((a, b) => {
-                return (
-                    myParseDate(b.lastUpdatedAt) - myParseDate(a.lastUpdatedAt)
-                );
+                if (a.blockNumber !== b.blockNumber) {
+                    return b.blockNumber - a.blockNumber;
+                }
+                if (a.operId_ !== null && b.operId_ !== null) {
+                    return b.operId_ - a.operId_;
+                }
+                if (a.operId_ === null) {
+                    return 1;
+                }
+                if (b.operId_ === null) {
+                    return -1;
+                }
+                return 0;
             });
         }
         /*******************************filter by type (token)***********************************/
@@ -302,7 +311,6 @@ export default function ListOperations(props) {
         }
         txList = pre_datas;
         data = [];
-        console.log("txList", txList);
         txList.forEach((data) => {
 
             const token = tokenExchange(data)
@@ -747,7 +755,6 @@ export default function ListOperations(props) {
         }
     }
     const showModal = () => {
-        console.log("showModal");
         setQueueModal(true)
     }
     const hideModal = () => {
@@ -812,6 +819,7 @@ export default function ListOperations(props) {
                             onChange: onChange,
                             total: totalTable,
                             pageSizeOptions: [10, 20, 50, 100],
+                            showSizeChanger: true,
                             onShowSizeChange: (current, pageSize) => {
                                 setPageSize(pageSize);
                             },
