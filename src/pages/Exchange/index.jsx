@@ -17,28 +17,21 @@ function SectionExchange(props) {
         if (auth.contractStatusData && auth.userBalanceData) {
             setReady(true);
         }
-    }, [auth])
-
+    }, [auth]);
 
     return (
         <Fragment>
-
             {/* Dashboard Staking Rewards */}
             {/* <StakingRewards /> */}
 
             {/* Exchange */}
-            <div className={'dashboard-exchange'}>
-
+            <div className={'dashboard-exchange layout-card-title'}>
                 <div className={'title'}>
                     <h1>{t('exchange.cardTitle')}</h1>
                 </div>
 
-                <div className={'content-body'}>
-                    {ready ? <Exchange /> : <Skeleton active />}
-                </div>
-
+                <div className={'content-body'}>{ready ? <Exchange /> : <Skeleton active />}</div>
             </div>
-
 
             <div className="content-last-operations">
                 <ListOperations token={'all'} />

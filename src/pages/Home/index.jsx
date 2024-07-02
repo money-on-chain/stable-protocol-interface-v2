@@ -11,9 +11,9 @@ function Home(props) {
     const [ready, setReady] = useState(false);
     useEffect(() => {
         if (auth.contractStatusData) {
-          setReady(true);
+            setReady(true);
         }
-      }, [auth])
+    }, [auth]);
     return (
         <Fragment>
             {/* Portfolio */}
