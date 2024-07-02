@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import {  Alert  } from 'antd';
 import VestingSchedule from '../../components/Tables/VestingSchedule';
 import settings from '../../settings/settings.json';
 import { useProjectTranslation } from '../../helpers/translations';
@@ -8,6 +9,13 @@ export default function Performance(props) {
 
     return (
         <div className="vesting">
+            <Alert
+                message="Warning"
+                description="This is a warning notice about copywriting."
+                type="warning"
+                showIcon
+                closable
+            />
             {' '}
             <div className="layout-card using-vesting-alert">
                 {' '}
