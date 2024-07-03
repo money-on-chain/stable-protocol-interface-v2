@@ -19,6 +19,17 @@ import IVotingMachine from '../../contracts/omoc/IVotingMachine.json';
 import IVestingFactory from '../../contracts/omoc/IVestingFactory.json';
 //----------------
 
+// OMOC
+import IRegistry from '../../contracts/omoc/IRegistry.json';
+import StakingMachine from '../../contracts/omoc/StakingMachine.json';
+import DelayMachine from '../../contracts/omoc/DelayMachine.json';
+import Supporters from '../../contracts/omoc/Supporters.json';
+import VestingMachine from '../../contracts/omoc/VestingMachine.json';
+import VotingMachine from '../../contracts/omoc/VotingMachine.json';
+import VestingFactory from '../../contracts/omoc/VestingFactory.json';
+import IERC20 from '../../contracts/omoc/IERC20.json';
+
+import { registryAddresses } from './multicall';
 import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
 import {registryAddresses, connectorAddresses } from './multicall';
@@ -51,6 +62,14 @@ const readContracts = async (web3) => {
     abiContracts.IVestingMachine = IVestingMachine;
     abiContracts.IVotingMachine = IVotingMachine;
     abiContracts.IVestingFactory = IVestingFactory;
+
+    // Abi OMOC
+    abiContracts.IRegistry = IRegistry;
+    abiContracts.StakingMachine = StakingMachine;
+    abiContracts.DelayMachine = DelayMachine;
+    abiContracts.Supporters = Supporters;
+    abiContracts.VestingMachine = VestingMachine;
+    abiContracts.VotingMachine = VotingMachine;
 
     addABI(abiContracts);
 
@@ -172,18 +191,86 @@ const readContracts = async (web3) => {
         process.env.REACT_APP_CONTRACT_FC_MAX_OP_DIFFERENCE_PROVIDER
     );
 
-    // Note: Collateral Bag Not Supported!
-    /*
-    if (settings.collateral === 'bag') {
+    console.log(
+        'Reading IRegistry Contract... address: ',
+        process.env.REACT_APP_CONTRACT_IREGISTRY
+    );
+    dContracts.contracts.IRegistry = new web3.eth.Contract(
+        IRegistry.abi,
+        process.env.REACT_APP_CONTRACT_IREGISTRY
+    );
+
+    // Read contracts addresses from registry
+    const registryAddr = await registryAddresses(web3, dContracts)
+
+    console.log(
+        'Reading StakingMachine Contract... address: ',
+        registryAddr['MOC_STAKING_MACHINE']
+    );
+    dContracts.contracts.StakingMachine = new web3.eth.Contract(
+        StakingMachine.abi,
+        registryAddr['MOC_STAKING_MACHINE']
+    );
+
+    console.log(
+        'Reading Delay Machine Contract... address: ',
+        registryAddr['MOC_DELAY_MACHINE']
+    );
+    dContracts.contracts.DelayMachine = new web3.eth.Contract(
+        DelayMachine.abi,
+        registryAddr['MOC_DELAY_MACHINE']
+    );
+
+    console.log(
+        'Reading Supporters Contract... address: ',
+        registryAddr['SUPPORTERS_ADDR']
+    );
+    dContracts.contracts.Supporters = new web3.eth.Contract(
+        Supporters.abi,
+        registryAddr['SUPPORTERS_ADDR']
+    );
+
+    // reading vesting machine from environment address
+    if (typeof process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS !== 'undefined') {
+
         console.log(
-            'Reading MocWrapper Contract... address: ',
-            process.env.REACT_APP_CONTRACT_MOC_WRAPPER
+            'Reading Vesting Factory Contract... address: ',
+            registryAddr['MOC_VESTING_MACHINE']
         );
-        dContracts.contracts.MocWrapper = new web3.eth.Contract(
-            MocWrapper.abi,
-            process.env.REACT_APP_CONTRACT_MOC_WRAPPER
+        dContracts.contracts.VestingFactory = new web3.eth.Contract(
+            VestingFactory.abi,
+            registryAddr['MOC_VESTING_MACHINE']
         );
-    }*/
+
+        console.log(
+            'Reading Vesting Machine Contract... address: ',
+            process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS
+        );
+        dContracts.contracts.VestingMachine = new web3.eth.Contract(
+            VestingMachine.abi,
+            process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS
+        );
+
+    }
+
+    console.log(
+        'Reading Voting Machine Contract... address: ',
+        registryAddr['MOC_VOTING_MACHINE']
+    );
+    dContracts.contracts.VotingMachine = new web3.eth.Contract(
+        VotingMachine.abi,
+        registryAddr['MOC_VOTING_MACHINE']
+    );
+
+    console.log(
+        'Reading Token Govern Contract... address: ',
+        registryAddr['MOC_TOKEN']
+    );
+    dContracts.contracts.TG = new web3.eth.Contract(
+        IERC20.abi,
+        registryAddr['MOC_TOKEN']
+    );
+
 
     // OMOC contracts
     const iregistry = new web3.eth.Contract(

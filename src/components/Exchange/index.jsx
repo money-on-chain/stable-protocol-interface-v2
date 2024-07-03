@@ -68,7 +68,7 @@ export default function Exchange() {
     const [radioSelectFee, setRadioSelectFee] = useState(0);
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] = useState(true);
 
-    const { isValid, errorType } = CheckStatus();
+    const { checkerStatus } = CheckStatus();
 
     const [ valueExchange, setValueExchange ] = useState('');
     const [ valueReceive, setValueReceive ] = useState('');
@@ -113,6 +113,7 @@ export default function Exchange() {
 
     const onValidate = () => {
         // Protocol in not-good status
+        const { isValid, errorType } = checkerStatus();
         if (!isValid && errorType === '1') {
             if (!currencyYouExchange.startsWith('TP') && currencyYouReceive !== 'TC') {
                 setInputValidationErrorText(t('exchange.errors.notOperational'));

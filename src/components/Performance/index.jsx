@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Col, Row } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
@@ -13,10 +13,23 @@ import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import settings from '../../settings/settings.json';
 
 export default function Performance(props) {
-
+    const [isValid, setIsValid] = useState(true);
+    const [statusIcon, setStatusIcon] = useState('');
+    const [statusLabel, setStatusLabel] = useState('--');
+    const [statusText, setStatusText] = useState('--');
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const {statusIcon, statusLabel, statusText} = CheckStatus();
+    const {checkerStatus} = CheckStatus();
+    useEffect(() => {
+        if (auth.contractStatusData, auth.userBalanceData) {
+            const { isValid, statusIcon, statusLabel, statusText} = checkerStatus();
+            setIsValid(isValid);
+            setStatusIcon(statusIcon);
+            setStatusLabel(statusLabel);
+            setStatusText(statusText);
+        }
+    }, [auth.contractStatusData, auth.userBalanceData])
+    
     let price;
     let collateralInUSD;
     if (auth.contractStatusData) {
