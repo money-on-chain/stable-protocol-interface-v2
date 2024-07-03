@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { Col, Row, Skeleton, Alert } from 'antd';
 import { useProjectTranslation } from '../../helpers/translations';
+import {pendingWithdrawalsFormat} from '../../helpers/staking';
 import BigNumber from 'bignumber.js';
 import Stake from './Stake';
 import PieChartComponent from './PieChart';
@@ -24,6 +25,7 @@ export default function Staking(props) {
   const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
   const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (auth.accountData && auth.userBalanceData) {
       setLoading(false);
@@ -32,20 +34,23 @@ export default function Staking(props) {
   }, [auth]);
 
   const setStakingBalances = async () => {
-    try {
+    //try {
       let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
         '0',
         '0',
         []
       ];
       if (auth.userBalanceData) {
-        setMocBalance(auth.userBalanceData.FeeToken.balance);
-        [_stakedBalance, _lockedBalance, _pendingWithdrawals] =
+        setMocBalance(auth.userBalanceData.tgBalance);
+        _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
+        _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
+        _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);
+        /*[_stakedBalance, _lockedBalance, _pendingWithdrawals] =
           await Promise.all([
             auth.interfaceStackedBalance(),
             auth.interfaceLockedBalance(),
             auth.interfacePendingWithdrawals()
-          ]);
+          ]);*/
       }
       const pendingWithdrawalsFormatted = _pendingWithdrawals
         .filter((withdrawal) => withdrawal.expiration)
@@ -84,10 +89,9 @@ export default function Staking(props) {
       setTotalPendingExpiration(pendingExpirationAmount);
       setTotalAvailableToWithdraw(readyToWithdrawAmount);
       setPendingWithdrawals(arrayDes);
-    } catch (error) {
-      console.log('Error getting staking balances', error);
-      setLoadingWithdrawals(false);
-    }
+    //} catch (error) {
+      //console.log('Error getting staking balances', error);
+    //}
   };
   
   return (

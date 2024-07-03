@@ -243,9 +243,6 @@ const contractStatus = async (web3, dContracts) => {
         status.canOperate = false
     }
 
-    console.log("DEBUG>>>")
-    console.log(status)
-
     // History Price (24hs ago)
     const d24BlockHeights = status.blockHeight - BigInt(2880);
     const multiCallRequestHistory = new MultiCall(multicall, web3)

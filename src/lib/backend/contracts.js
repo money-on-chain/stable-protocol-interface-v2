@@ -9,15 +9,6 @@ import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
 import MocQueue from '../../contracts/MocQueue.json';
 import TokenMigrator from '../../contracts/TokenMigrator.json';
-//OMOC contracts abis
-import IRegistry from '../../contracts/omoc/IRegistry.json';
-import IStakingMachine from '../../contracts/omoc/IStakingMachine.json';
-import IDelayMachine from '../../contracts/omoc/IDelayMachine.json';
-import ISupporters from '../../contracts/omoc/ISupporters.json';
-import IVestingMachine from '../../contracts/omoc/IVestingMachine.json';
-import IVotingMachine from '../../contracts/omoc/IVotingMachine.json';
-import IVestingFactory from '../../contracts/omoc/IVestingFactory.json';
-//----------------
 
 // OMOC
 import IRegistry from '../../contracts/omoc/IRegistry.json';
@@ -32,7 +23,6 @@ import IERC20 from '../../contracts/omoc/IERC20.json';
 import { registryAddresses } from './multicall';
 import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
-import {registryAddresses, connectorAddresses } from './multicall';
 
 const readContracts = async (web3) => {
     // Store contracts to later use
@@ -49,19 +39,11 @@ const readContracts = async (web3) => {
     abiContracts.CollateralToken = CollateralToken;
     abiContracts.IPriceProvider = IPriceProvider;
     abiContracts.Moc = Moc;
-    // abiContracts.MoCState = MoCState;
     abiContracts.MocWrapper = MocWrapper;
     abiContracts.MocVendors = MocVendors
     abiContracts.FeeToken = FeeToken
     abiContracts.MocQueue = MocQueue
     abiContracts.TokenMigrator = TokenMigrator;
-    abiContracts.IRegistry = IRegistry;
-    abiContracts.IStakingMachine = IStakingMachine;
-    abiContracts.IDelayMachine = IDelayMachine;
-    abiContracts.ISupporters = ISupporters;
-    abiContracts.IVestingMachine = IVestingMachine;
-    abiContracts.IVotingMachine = IVotingMachine;
-    abiContracts.IVestingFactory = IVestingFactory;
 
     // Abi OMOC
     abiContracts.IRegistry = IRegistry;
@@ -271,71 +253,6 @@ const readContracts = async (web3) => {
         registryAddr['MOC_TOKEN']
     );
 
-
-    // OMOC contracts
-    const iregistry = new web3.eth.Contract(
-        IRegistry.abi,
-        process.env.REACT_APP_ENVIRONMENT_IREGISTRY
-    );
-    dContracts.contracts.iregistry = iregistry;
-    // Read contracts addresses from registry
-    const [
-        mocStakingMachineAddress,
-        supportersAddress,
-        delayMachineAddress,
-        vestingMachineAddress,
-        votingMachineAddress,
-    ] = await registryAddresses(web3, dContracts);
-
-    console.log(
-        'Reading OMOC: IStakingMachine Contract... address: ',
-        mocStakingMachineAddress
-    );
-    const istakingmachine = new web3.eth.Contract(
-        IStakingMachine.abi,
-        mocStakingMachineAddress
-    );
-    dContracts.contracts.istakingmachine = istakingmachine;
-
-    console.log(
-        'Reading OMOC: ISupporters Contract... address: ',
-        supportersAddress
-    );
-    const isupporters = new web3.eth.Contract(
-        ISupporters.abi,
-        supportersAddress
-    );
-    dContracts.contracts.isupporters = isupporters;
-
-    console.log(
-        'Reading OMOC: IDelayMachine Contract... address: ',
-        delayMachineAddress
-    );
-    const idelaymachine = new web3.eth.Contract(
-        IDelayMachine.abi,
-        delayMachineAddress
-    );
-    dContracts.contracts.idelaymachine = idelaymachine;
-
-    console.log(
-        'Reading OMOC: IVestingFactory Contract... address: ',
-        vestingMachineAddress
-    );
-    const ivestingfactory = new web3.eth.Contract(
-        IVestingFactory.abi,
-        vestingMachineAddress
-    );
-    dContracts.contracts.ivestingfactory = ivestingfactory;
-
-    console.log(
-        'Reading OMOC: IVotingMachine Contract... address: ',
-        votingMachineAddress
-    );
-    const ivotingmachine = new web3.eth.Contract(
-        IVotingMachine.abi,
-        votingMachineAddress
-    );
-    dContracts.contracts.ivotingmachine = ivotingmachine;
 
     // Token migrator & Legacy token
     if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {

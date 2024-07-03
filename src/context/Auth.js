@@ -19,17 +19,8 @@ import {
     MigrateToken,
     AllowUseTokenMigrator 
 } from '../lib/backend/moc-base';
-import {
-    stackedBalance,
-    lockedBalance,
-    pendingWithdrawals,
-    stakingDeposit,
-    unStake,
-    delayMachineWithdraw,
-    delayMachineCancelWithdraw,
-    approveMoCTokenStaking,
-    getMoCAllowance
-} from '../lib/backend/interfaces-omoc';
+
+import { addStake, unStake, delayMachineWithdraw, delayMachineCancelWithdraw, approve } from '../lib/backend/omoc/staking'
 import { getGasPrice } from '../lib/backend/utils';
 
 const helper = addressHelper(Web3);
@@ -74,13 +65,11 @@ const AuthenticateContext = createContext({
     interfaceAllowUseTokenMigrator: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
     //OMOC methods
-    interfaceStackedBalance: async (address) => {},
-    interfaceLockedBalance: async (address) => {},
-    interfacePendingWithdrawals: async (address) => {},
-    interfaceApproveMoCTokenStaking: async (enabled) => {},
-    interfaceStakingDeposit: async (mocs, address) => {},
-    interfaceUnStake: async (mocs) => {},
-    interfaceGetMoCAllowance: async (address) => {},
+    interfaceStakingAddStake: async (amount, address, onTransaction, onReceipt, onError) => {},
+    interfaceStakingUnStake: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceStakingDelayMachineWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
+    interfaceStakingMachineCancelWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
+    interfaceStakingApprove: async (amount, onTransaction, onReceipt, onError) => {},
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -379,42 +368,32 @@ const AuthenticateProvider = ({ children }) => {
         const filteredEvents = decodeEvents(txRcp);
         return filteredEvents;
     };
-    //OMOC methods
-    const interfaceStackedBalance = async (address) => {
-        const from = address || account;
-        return stackedBalance(from);
-    };
+    // OMOC
 
-    const interfaceLockedBalance = async (address) => {
-        const from = address || account;
-        return lockedBalance(from);
-    };
-
-    const interfacePendingWithdrawals = async (address) => {
-        const from = address || account;
-        return pendingWithdrawals(from);
-    };
-    const interfaceApproveMoCTokenStaking = async (
-        enabled,
-        callback = () => {}
-    ) => {
+    const interfaceStakingApprove = async (amount, onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
-        return approveMoCTokenStaking(interfaceContext, enabled, callback);
+        return approve(interfaceContext, amount, onTransaction, onReceipt, onError);
     };
-    const interfaceStakingDeposit = async (mocs, address, callback) => {
+
+    const interfaceStakingAddStake = async (amount, address, onTransaction, onReceipt, onError) => {
         const from = address || account;
         const interfaceContext = buildInterfaceContext();
-        return stakingDeposit(interfaceContext, mocs, address, callback);
+        return addStake(interfaceContext, amount, from, onTransaction, onReceipt, onError);
     };
 
-    const interfaceUnStake = async (mocs, callback) => {
+    const interfaceStakingUnStake = async (amount, onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
-        return unStake(interfaceContext, mocs, callback);
+        return unStake(interfaceContext, amount, onTransaction, onReceipt, onError);
     };
 
-    const interfaceGetMoCAllowance = async (address) => {
-        const from = address || account;
-        return getMoCAllowance(from);
+    const interfaceStakingDelayMachineWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return delayMachineWithdraw(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
+    };
+
+    const interfaceStakingDelayMachineCancelWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return delayMachineCancelWithdraw(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
     };
 
     return (
@@ -438,13 +417,11 @@ const AuthenticateProvider = ({ children }) => {
                 loadContractsStatusAndUserBalance,
                 interfaceAllowUseTokenMigrator,
                 interfaceMigrateToken,
-                interfaceStackedBalance,
-                interfaceLockedBalance,
-                interfacePendingWithdrawals,
-                interfaceApproveMoCTokenStaking,
-                interfaceStakingDeposit,
-                interfaceUnStake,
-                interfaceGetMoCAllowance,
+                interfaceStakingApprove,
+                interfaceStakingAddStake,
+                interfaceStakingUnStake,
+                interfaceStakingDelayMachineWithdraw,
+                interfaceStakingDelayMachineCancelWithdraw
             }}
         >
             {children}

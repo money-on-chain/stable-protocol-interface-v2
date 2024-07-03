@@ -32,11 +32,9 @@ export default function StakingOptionsModal(props) {
     }, []);
 
     const checkAllowance = async () => {
-        try {
-            const allowanceAmount = await auth.interfaceGetMoCAllowance();
+        if (auth.accountData && auth.userBalanceData) {
+            const allowanceAmount = auth.userBalanceData.stakingmachine.tgAllowance
             if (allowanceAmount > amountInEth) setStep(2);
-        } catch (error) {
-            console.log('error reading allowance is ', error);            
         }
     };
 
