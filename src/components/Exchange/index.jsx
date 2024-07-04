@@ -32,7 +32,6 @@ export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [defaultTolerance, setDefaultTolerance] = useState(0.7);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -759,7 +758,7 @@ export default function Exchange() {
                     exchangingUSD={exchangingUSD}
                     commission={commission}
                     commissionPercent={commissionPercent}
-                    amountYouExchange={calculateFinalAmountExchange()}
+                    inputAmountYouExchange={calculateFinalAmountExchange()}
                     amountYouReceive={amountYouReceive}
                     onClear={onClear}
                     inputValidationError={inputValidationError}

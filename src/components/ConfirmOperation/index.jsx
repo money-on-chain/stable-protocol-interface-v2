@@ -22,7 +22,7 @@ export default function ConfirmOperation(props) {
         exchangingUSD,
         commission,
         commissionPercent,
-        amountYouExchange,
+        inputAmountYouExchange,
         amountYouReceive,
         onCloseModal,
         executionFee,
@@ -35,6 +35,7 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
+    const [amountYouExchange, setAmountYouExchange] = useState(inputAmountYouExchange);
     const [tolerance, setTolerance] = useState(0.7);
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
@@ -42,7 +43,10 @@ export default function ConfirmOperation(props) {
     const [amountChanged, setAmountChanged] = useState(false);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
-
+    useEffect(() => {
+      setAmountYouExchange(inputAmountYouExchange);
+    }, [])
+    
     useEffect(() => {
         let timerId;
         if (status === 'QUEUING') {
