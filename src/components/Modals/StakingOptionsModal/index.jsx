@@ -62,7 +62,7 @@ export default function StakingOptionsModal(props) {
             });
     };
 
-    const depositMoCs = async () => {
+    const addStake = async () => {
         const onTransaction = (txHash) => {
             console.log("Sent transaction add stake...")
             onClose();
@@ -97,7 +97,7 @@ export default function StakingOptionsModal(props) {
             });
     };
 
-    const restakeMoCs = async () => {
+    const CancelWithdraw = async () => {
         onClose();
         const onTransaction = (txHash) => {
             console.log("Sent cancel withdraw allowance...: ", txHash)
@@ -132,7 +132,7 @@ export default function StakingOptionsModal(props) {
             });
     };
 
-    const unstakeMoCs = async () => {
+    const UnStake = async () => {
         onClose();
         const onTransaction = (txHash) => {
             console.log("Sent transaction unStake...: ", txHash);
@@ -263,7 +263,7 @@ export default function StakingOptionsModal(props) {
                                 </Button>
                                 <Button
                                     type="primary"
-                                    onClick={depositMoCs}
+                                    onClick={addStake}
                                     className="primary-button btn-confirm"
                                 >
                                     {t('staking.modal.StakingOptionsModal_Comfirm')}
@@ -322,7 +322,7 @@ export default function StakingOptionsModal(props) {
                         </Button>
                         <Button
                             type="primary"
-                            onClick={unstakeMoCs}
+                            onClick={UnStake}
                             className="ButtonPrimary"
                         >
                             {t('staking.modal.StakingOptionsModal_Comfirm')}
@@ -400,7 +400,7 @@ export default function StakingOptionsModal(props) {
                         </Button>
                         <Button
                             type="primary"
-                            onClick={restakeMoCs}
+                            onClick={CancelWithdraw}
                             className="ButtonPrimary"
                         >
                             {t('global.StakingOptionsModal_Comfirm')}

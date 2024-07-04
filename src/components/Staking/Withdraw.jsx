@@ -73,8 +73,8 @@ export default function Withdraw(props) {
                 <div className="item-data">
                     {PrecisionNumbers({
                         amount: withdrawal.amount,
-                        token: settings.tokens.TF,
-                        decimals: settings.tokens.TF.visibleDecimals,
+                        token: settings.tokens.TG,
+                        decimals: settings.tokens.TG.visibleDecimals,
                         t: t,
                         i18n: i18n,
                         ns: ns
@@ -155,13 +155,13 @@ export default function Withdraw(props) {
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
                                     amount: totalPendingExpiration,
-                                    token: settings.tokens.TF,
-                                    decimals: settings.tokens.TF.visibleDecimals,
+                                    token: settings.tokens.TG,
+                                    decimals: settings.tokens.TG.visibleDecimals,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns
                                 })}{' '}
-                                {`${settings.tokens.TF.name}`}
+                                {`${settings.tokens.TG.name}`}
                             </div>
                             <div className="withdraw-header-balance-title">{t('staking.withdraw.processing_unstake')}</div>
                         </div>
@@ -171,13 +171,13 @@ export default function Withdraw(props) {
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
                                     amount: totalAvailableToWithdraw,
-                                    token: settings.tokens.TF,
-                                    decimals: settings.tokens.TF.visibleDecimals,
+                                    token: settings.tokens.TG,
+                                    decimals: settings.tokens.TG.visibleDecimals,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns
                                 })}{' '}
-                                {`${settings.tokens.TF.name}`}
+                                {`${settings.tokens.TG.name}`}
                             </div>
                             <div className="withdraw-header-balance-title">{t('staking.withdraw.ready_to_withdraw')}</div>
                         </div>

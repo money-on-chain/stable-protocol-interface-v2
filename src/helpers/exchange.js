@@ -210,6 +210,11 @@ function TokenContract(dContracts, tokenExchange) {
                 token: dContracts.contracts.FeeToken,
                 decimals: tokenExchangeSettings.decimals
             }
+        case 'TG':
+            return {
+                token: dContracts.contracts.TG,
+                decimals: tokenExchangeSettings.decimals
+            }
         default:
             throw new Error('Invalid token name');
     }

@@ -456,7 +456,7 @@
             }
         },
         "tokens": {
-            "TF": {
+            "TG": {
                 "label": "Flip",
                 "abbr": "FLIP"
             }
