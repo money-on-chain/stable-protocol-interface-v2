@@ -41,7 +41,7 @@ export default function Staking(props) {
         []
       ];
       if (auth.userBalanceData) {
-        setMocBalance(auth.userBalanceData.tgBalance);
+        setMocBalance(auth.userBalanceData.TG.balance);
         _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
         _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
         _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);

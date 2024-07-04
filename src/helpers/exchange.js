@@ -172,6 +172,12 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
                 contractAllow: dContracts.contracts.Moc,
                 decimals: tokenExchangeSettings.decimals
             };
+        case 'TG,ST': // Token Govern, Allow on Staking Machine
+            return {
+                token: dContracts.contracts.TG,
+                contractAllow: dContracts.contracts.StakingMachine,
+                decimals: tokenExchangeSettings.decimals
+            };
         default:
             throw new Error('Invalid token name');
     }

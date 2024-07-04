@@ -300,7 +300,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
     multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(userAddress).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'stakingmachine', 'getLockingInfo')
     multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(userAddress).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'delaymachine', 'getTransactions')
     multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(userAddress).encodeABI(), 'uint256', 'delaymachine', 'getBalance')
-    multiCallRequest.aggregate(tg, tg.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'tgBalance')
+    multiCallRequest.aggregate(tg, tg.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'TG', 'balance')
     multiCallRequest.aggregate(tg, tg.methods.allowance(userAddress, stakingmachine.options.address).encodeABI(), 'uint256', 'stakingmachine', 'tgAllowance')
 
     if (typeof vestingmachine !== 'undefined') {

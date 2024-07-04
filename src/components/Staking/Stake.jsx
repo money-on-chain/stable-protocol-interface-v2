@@ -12,7 +12,6 @@ import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import SelectCurrency from '../SelectCurrency';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
-import { getUSD } from '../../helpers/balances';
 import InputAmount from '../InputAmount/indexInput';
 
 const Stake = (props) => {

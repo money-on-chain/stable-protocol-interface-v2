@@ -42,9 +42,12 @@ export default function StakingOptionsModal(props) {
 
     //methods
     const setAllowance = async () => {
+        const onTransaction = (txHash) => { console.log("Sent transaction allowance...: ", txHash)}
+        const onReceipt = () => { console.log("Transaction allowance mined!...")}
+        const onError = (error) => { console.log("Transaction allowance error!...:", error)}
         setStep(1);
         await auth
-            .interfaceApproveMoCTokenStaking(true, (error) => { })
+            .interfaceStakingApprove(100000000, onTransaction, onReceipt, onError)
             .then((res) => {
                 setStep(2);
                 return null;
@@ -60,19 +63,25 @@ export default function StakingOptionsModal(props) {
     };
 
     const depositMoCs = async () => {
+        const onTransaction = (txHash) => {
+            console.log("Sent transaction add stake...")
+            onClose();
+            const status = 'pending';
+            onConfirm(status, txHash);
+        }
+        const onReceipt = () => { console.log("Transaction add stake mined!...") }
+        const onError = (error) => {
+            console.log("Transaction add stake error!...:", error)
+            onClose();
+        }
         setStep(99);
         await auth
-            .interfaceStakingDeposit(
+            .interfaceStakingAddStake(
                 amount,
                 accountData.Wallet,
-                (error, txHash) => {
-                    onClose();
-                    if (error) {
-                        return error;
-                    }
-                    const status = 'pending';
-                    onConfirm(status, txHash);
-                }
+                onTransaction,
+                onReceipt,
+                onError
             )
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
@@ -90,16 +99,20 @@ export default function StakingOptionsModal(props) {
 
     const restakeMoCs = async () => {
         onClose();
+        const onTransaction = (txHash) => {
+            console.log("Sent cancel withdraw allowance...: ", txHash)
+            const status = 'pending';
+            onConfirm(status, txHash);
+            setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
+        }
+        const onReceipt = () => { console.log("Transaction cancel withdraw mined!...")}
+        const onError = (error) => { console.log("Transaction cancel withdraw error!...:", error)}
         await auth
-            .interfaceDelayMachineCancelWithdraw(
+            .interfaceStakingMachineCancelWithdraw(
                 withdrawalId,
-                (error, txHash) => {
-                    if (error) return error;
-
-                    const status = 'pending';
-                    onConfirm(status, txHash);
-                    setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
-                }
+                onTransaction,
+                onReceipt,
+                onError
             )
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
@@ -121,13 +134,20 @@ export default function StakingOptionsModal(props) {
 
     const unstakeMoCs = async () => {
         onClose();
+        const onTransaction = (txHash) => {
+            console.log("Sent transaction unStake...: ", txHash);
+            const status = 'pending';
+            onConfirm(status, txHash);
+        }
+        const onReceipt = () => { console.log("Transaction unStake mined!...")}
+        const onError = (error) => { console.log("Transaction unStake error!...:", error)}
         await auth
-            .interfaceUnStake(amount, (error, txHash) => {
-                if (error) return error;
-
-                const status = 'pending';
-                onConfirm(status, txHash);
-            })
+            .interfaceStakingUnStake(
+                amount,
+                onTransaction,
+                onReceipt,
+                onError
+            )
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);

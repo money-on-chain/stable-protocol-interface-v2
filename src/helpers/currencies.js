@@ -19,7 +19,8 @@ const currencies = [
     },
     { value: 'TP_0', image: <LogoIconTP_0 className="currencyImage" /> },
     { value: 'TP_1', image: <LogoIconTP_1 className="currencyImage" /> },
-    { value: 'TF', image: <LogoIconTG_0 className="currencyImage" /> }
+    { value: 'TF', image: <LogoIconTG_0 className="currencyImage" /> },
+    { value: 'TG', image: <LogoIconTG_0 className="currencyImage" /> }
 ].map((it) => ({
     ...it
 }));
@@ -45,6 +46,9 @@ function TokenSettings(tokenName) {
             break;
         case 'TF':
             token = settings.tokens.TF;
+            break;
+        case 'TG':
+            token = settings.tokens.TG;
             break;
         default:
             throw new Error('Invalid token name');
@@ -74,7 +78,10 @@ function TokenBalance(auth, tokenName) {
             balance = auth.userBalanceData.coinbase;
             break;
         case 'TF':
-            balance = auth.userBalanceData.TP[0].balance;
+            balance = auth.userBalanceData.FeeToken.balance;
+            break;
+        case 'TG':
+            balance = auth.userBalanceData.TG.balance;
             break;
         default:
             throw new Error('Invalid token name');
