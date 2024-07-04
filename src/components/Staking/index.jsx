@@ -18,7 +18,7 @@ export default function Staking(props) {
   const auth = useContext(AuthenticateContext);
   const [t] = useProjectTranslation();
   const [activeTab, setActiveTab] = useState('tab1');
-  const [mocBalance, setMocBalance] = useState('0');
+  const [tgBalance, setTgBalance] = useState('0');
   const [lockedBalance, setLockedBalance] = useState('0');
   const [stakedBalance, setStakedBalance] = useState('0');
   const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
@@ -41,16 +41,10 @@ export default function Staking(props) {
         []
       ];
       if (auth.userBalanceData) {
-        setMocBalance(auth.userBalanceData.TG.balance);
+        setTgBalance(auth.userBalanceData.TG.balance);
         _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
         _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
         _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);
-        /*[_stakedBalance, _lockedBalance, _pendingWithdrawals] =
-          await Promise.all([
-            auth.interfaceStackedBalance(),
-            auth.interfaceLockedBalance(),
-            auth.interfacePendingWithdrawals()
-          ]);*/
       }
       const pendingWithdrawalsFormatted = _pendingWithdrawals
         .filter((withdrawal) => withdrawal.expiration)
@@ -108,11 +102,11 @@ export default function Staking(props) {
                 <button onClick={() => setActiveTab('tab2')} className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}>{t('staking.staking.tabUnstake')}</button>
               </div>
               <div className="tab-divider"></div>
-              {/* Contenido del Tab */}
+              {/* Tab Content */}
               <div className="tab-content">
                 <Stake
                   activeTab={activeTab}
-                  mocBalance={mocBalance}
+                  tgBalance={tgBalance}
                   stakedBalance={stakedBalance}
                   lockedBalance={lockedBalance}
                   setStakingBalances={setStakingBalances}
@@ -128,7 +122,7 @@ export default function Staking(props) {
               </div>
               <div className="tab-content">
                 <PieChartComponent
-                  mocBalance={mocBalance}
+                  tgBalance={tgBalance}
                   stakedBalance={stakedBalance}
                   lockedBalance={lockedBalance}
                   totalAvailableToWithdraw={totalAvailableToWithdraw}

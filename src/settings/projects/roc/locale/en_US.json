@@ -391,7 +391,7 @@
 
     "staking" : {
         "cardTitle": "Staking",
-        "governanceToken":"ROC",
+        "governanceToken":"MOC",
         "staking": {
             "tabStake": "Stake",
             "tabUnstake": "Ustake",
@@ -409,7 +409,7 @@
             }
         },
         "distribution": {
-            "title": "ROC Distribution",
+            "title": "MoC Distribution",
             "graph": {
                 "balance": "Balance (free)",
                 "processingUnstake": "Processing unstake",
@@ -417,14 +417,14 @@
                 "staked": "Staked"
             },
             "bar" : {
-                "desc": "ROC staking annualized performance"
+                "desc": "MoC staking annualized performance"
             }
         },
         "performance" : {
             "title": "Staking Performance",
             "bar" : {
-                "description": "ROC staking annualized performance",
-                "base": "ROC",
+                "description": "MoC staking annualized performance",
+                "base": "MoC",
                 "sign": "+",
                 "staking": "Stacking"
             }

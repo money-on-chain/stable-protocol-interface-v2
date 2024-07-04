@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { getGasPrice, toContractPrecision } from '../utils';
 import Web3 from 'web3';
+
+import { getGasPrice, toContractPrecision, toContractPrecisionDecimals } from '../utils';
+import settings from '../../../settings/settings.json';
 
 
 const addStake = async (interfaceContext, amount, address, onTransaction, onReceipt) => {
@@ -119,22 +121,23 @@ const delayMachineCancelWithdraw = async (interfaceContext, idWithdraw, onTransa
 };
 
 
-const approve = async (interfaceContext, amount, onTransaction, onReceipt) => {
+const approveStakingMachine = async (interfaceContext, amount, onTransaction, onReceipt) => {
 
     const { web3, account, userBalanceData } = interfaceContext;
     const dContracts = window.dContracts;
 
     const StakingMachine = dContracts.contracts.StakingMachine;
     const TG = dContracts.contracts.TG;
+    const tokenDecimals = settings.tokens.TG.decimals
 
     amount = new BigNumber(amount);
 
     const estimateGas = await TG.methods
-        .approve(StakingMachine.options.address, toContractPrecision(amount))
+        .approve(StakingMachine.options.address, toContractPrecisionDecimals(amount, tokenDecimals))
         .estimateGas({ from: account, value: '0x'  });
 
-    const receipt = StakingMachine.methods
-        .approve(StakingMachine.options.address, toContractPrecision(amount))
+    const receipt = TG.methods
+        .approve(StakingMachine.options.address, toContractPrecisionDecimals(amount, tokenDecimals))
         .send(
             {
                 from: account,
@@ -156,5 +159,5 @@ export {
     unStake,
     delayMachineWithdraw,
     delayMachineCancelWithdraw,
-    approve
+    approveStakingMachine
 };

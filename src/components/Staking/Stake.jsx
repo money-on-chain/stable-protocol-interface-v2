@@ -17,7 +17,7 @@ import InputAmount from '../InputAmount/indexInput';
 const Stake = (props) => {
   const {
     activeTab,
-    mocBalance,
+    tgBalance,
     stakedBalance,
     lockedBalance,
     setStakingBalances,
@@ -55,7 +55,7 @@ const Stake = (props) => {
     let amountInputError = false
 
     const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
-    const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : mocBalance, tokenSettings.decimals);
+    const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
     const amountToProcess =  formatBigNumber(isUnstaking ? amountToUnstake : amountToStake, tokenSettings.decimals);
     //1. Input amount valid
     if (isUnstaking && isNaN(parseFloat(amountToUnstake))){
@@ -100,7 +100,7 @@ const Stake = (props) => {
   };
   const setAddTotalAvailable = () => {
     const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
-    const total = formatBigNumber(isUnstaking ? stakedBalance : mocBalance, tokenSettings.decimals);
+    const total = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
     if (isUnstaking) setAmountToUnstake(total.toString());
     else setAmountToStake(total.toString());
   };
@@ -177,7 +177,7 @@ const Stake = (props) => {
           action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
           balance={
             PrecisionNumbers({
-              amount: isUnstaking ? stakedBalance : mocBalance,
+              amount: isUnstaking ? stakedBalance : tgBalance,
               token: TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake),
               decimals:
                 TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake)
@@ -219,7 +219,6 @@ const Stake = (props) => {
         amount={modalAmount}
         onConfirm={onStakingModalConfirm}
         setBlockedWithdrawals={setBlockedWithdrawals}
-        currencyYouStake={currencyYouStake}
       />}
       {isOperationModalVisible && <OperationStatusModal
         visible={isOperationModalVisible}

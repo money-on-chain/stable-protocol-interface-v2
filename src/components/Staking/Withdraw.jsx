@@ -134,6 +134,16 @@ export default function Withdraw(props) {
         // }
     };
 
+    const onConfirm = (status, txHash) => {
+        console.log("On Confirm: ", status, txHash)
+    };
+
+    const setBlockedWithdrawals = (withdrawal) => {
+        console.log("Blocked withdrawals")
+    };
+
+
+
     const handleActionClick = (action, status) => {
         // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
         if (status === 'PENDING' && action === 'withdraw') return;
@@ -207,9 +217,8 @@ export default function Withdraw(props) {
                     onClose={() => setModalMode(null)}
                     withdrawalId={withdrawalId}
                     amount={modalAmount}
-                    onConfirm={onStakingModalConfirm}
+                    onConfirm={onConfirm}
                     setBlockedWithdrawals={setBlockedWithdrawals}
-                    currencyYouStake={currencyYouStake}
                 />
             )}
         </div>

@@ -20,7 +20,13 @@ import {
     AllowUseTokenMigrator 
 } from '../lib/backend/moc-base';
 
-import { addStake, unStake, delayMachineWithdraw, delayMachineCancelWithdraw, approve } from '../lib/backend/omoc/staking'
+import {
+    addStake,
+    unStake,
+    delayMachineWithdraw,
+    delayMachineCancelWithdraw,
+    approveStakingMachine } from '../lib/backend/omoc/staking'
+
 import { getGasPrice } from '../lib/backend/utils';
 
 const helper = addressHelper(Web3);
@@ -372,7 +378,7 @@ const AuthenticateProvider = ({ children }) => {
 
     const interfaceStakingApprove = async (amount, onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
-        return approve(interfaceContext, amount, onTransaction, onReceipt, onError);
+        return approveStakingMachine(interfaceContext, amount, onTransaction, onReceipt, onError);
     };
 
     const interfaceStakingAddStake = async (amount, address, onTransaction, onReceipt, onError) => {

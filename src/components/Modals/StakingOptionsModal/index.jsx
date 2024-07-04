@@ -1,5 +1,5 @@
-import { Modal, Button, Spin, notification } from 'antd';
-import { useEffect, useState, useContext, Fragment } from 'react';
+import { Modal, Button, Spin, notification, Checkbox } from 'antd';
+import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import Web3 from 'web3';
 
@@ -7,6 +7,7 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import { TokenSettings } from '../../../helpers/currencies';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
+import BigNumber from 'bignumber.js';
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
@@ -19,17 +20,22 @@ export default function StakingOptionsModal(props) {
         amount,
         onConfirm,
         withdrawalId,
-        setBlockedWithdrawals,
-        currencyYouStake,
+        setBlockedWithdrawals
     } = props;
+
     const [step, setStep] = useState(0);
     const amountInEth = Web3.utils.toWei(amount, 'ether');
-    // const AppProject = config.environment.AppProject;
-    const AppProject = 'MoC';
+    let infinityAllowance = false;
 
     useEffect(() => {
         checkAllowance();
     }, []);
+
+
+    const onChangeInfinity = (e) => {
+        console.log(`checked = ${e.target.checked}`);
+        infinityAllowance = e.target.checked
+    };
 
     const checkAllowance = async () => {
         if (auth.accountData && auth.userBalanceData) {
@@ -42,12 +48,22 @@ export default function StakingOptionsModal(props) {
 
     //methods
     const setAllowance = async () => {
+
+        setStep(1);
+
+        let amountAllowance;
+        if (infinityAllowance) {
+            amountAllowance = new BigNumber(100000000000);
+        } else {
+            amountAllowance = amount;
+        }
+
         const onTransaction = (txHash) => { console.log("Sent transaction allowance...: ", txHash)}
         const onReceipt = () => { console.log("Transaction allowance mined!...")}
         const onError = (error) => { console.log("Transaction allowance error!...:", error)}
-        setStep(1);
+
         await auth
-            .interfaceStakingApprove(100000000, onTransaction, onReceipt, onError)
+            .interfaceStakingApprove(amountAllowance, onTransaction, onReceipt, onError)
             .then((res) => {
                 setStep(2);
                 return null;
@@ -203,6 +219,13 @@ export default function StakingOptionsModal(props) {
                             <p>
                                 {t('staking.modal.StakingOptionsModal_AllowanceDescription')}
                             </p>
+                            <div className="remember-this">
+                                <Checkbox
+                                    className="check-unlimited"
+                                    onChange={onChangeInfinity}
+                                >{t('allowance.setUnlimited')}
+                                </Checkbox>
+                            </div>
                             <div
                                 style={{
                                     display: 'flex',
@@ -248,7 +271,7 @@ export default function StakingOptionsModal(props) {
                                         {amount}
                                     </span>
                                     <span>
-                                        {t('staking.tokens.TF.label', {
+                                        {t('staking.tokens.TG.label', {
                                             ns: ns
                                         })}
                                     </span>
@@ -309,7 +332,9 @@ export default function StakingOptionsModal(props) {
                         <span className="value amount">
                         {amount}
                             <span>
-                                {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
+                                {t('staking.tokens.TG.abbr', {
+                                    ns: ns
+                                })}
                             </span>
                         </span>
                     </div>
@@ -389,7 +414,9 @@ export default function StakingOptionsModal(props) {
                                 currencyCode="RESERVE"
                             />{' '}
                             <span>
-                                {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
+                                {t('staking.tokens.TG.abbr', {
+                                    ns: ns
+                                })}
                             </span>
                         </span>
                     </div>
