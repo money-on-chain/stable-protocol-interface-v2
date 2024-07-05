@@ -23,7 +23,7 @@ export default function Withdraw(props) {
     const [modalAmount, setModalAmount] = useState('0');
 
     const columnsData = [];
-    const ProvideColumnsTP = [
+    const ProvideColumnsTG = [
         {
             title: t('staking.withdraw.table.expiration'),
             dataIndex: 'expiration',
@@ -56,9 +56,6 @@ export default function Withdraw(props) {
     }, [auth, pendingWithdrawals, i18n.language]);
     const getWithdrawals = () => {
         setTotalTable(pendingWithdrawals.length);
-        // console.log('pendingWithdrawals', pendingWithdrawals);
-        // console.log(pendingWithdrawals[0].id);
-        // console.log(pendingWithdrawals[0].id.toString());
         const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
             key: index,
             expiration: (
@@ -114,7 +111,7 @@ export default function Withdraw(props) {
         setData(tokensData);
     };
     // Columns
-    ProvideColumnsTP.forEach(function (dataItem) {
+    ProvideColumnsTG.forEach(function (dataItem) {
         columnsData.push({
             title: dataItem.title,
             dataIndex: dataItem.dataIndex,
@@ -142,8 +139,6 @@ export default function Withdraw(props) {
         console.log("Blocked withdrawals")
     };
 
-
-
     const handleActionClick = (action, status) => {
         // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
         if (status === 'PENDING' && action === 'withdraw') return;
@@ -153,6 +148,8 @@ export default function Withdraw(props) {
         } else {
             setModalMode('withdraw');
         }
+        setWithdrawalId(status.id.toString());
+        setModalAmount(status.amount);
     };
 
     return (

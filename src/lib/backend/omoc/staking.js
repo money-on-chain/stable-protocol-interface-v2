@@ -7,18 +7,19 @@ import settings from '../../../settings/settings.json';
 
 const addStake = async (interfaceContext, amount, address, onTransaction, onReceipt) => {
 
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
+    const tokenDecimals = settings.tokens.TG.decimals
 
     const StakingMachine = dContracts.contracts.StakingMachine;
     amount = new BigNumber(amount);
 
     const estimateGas = await StakingMachine.methods
-        .deposit(toContractPrecision(amount), Web3.utils.toChecksumAddress(address))
+        .deposit(toContractPrecisionDecimals(amount, tokenDecimals), Web3.utils.toChecksumAddress(address))
         .estimateGas({ from: account, value: '0x'  });
 
     const receipt = StakingMachine.methods
-        .deposit(toContractPrecision(amount), Web3.utils.toChecksumAddress(address))
+        .deposit(toContractPrecisionDecimals(amount, tokenDecimals), Web3.utils.toChecksumAddress(address))
         .send(
             {
                 from: account,
@@ -37,18 +38,19 @@ const addStake = async (interfaceContext, amount, address, onTransaction, onRece
 
 const unStake = async (interfaceContext, amount, onTransaction, onReceipt) => {
 
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
+    const tokenDecimals = settings.tokens.TG.decimals
 
     const StakingMachine = dContracts.contracts.StakingMachine;
     amount = new BigNumber(amount);
 
     const estimateGas = await StakingMachine.methods
-        .withdraw(toContractPrecision(amount))
+        .withdraw(toContractPrecisionDecimals(amount, tokenDecimals))
         .estimateGas({ from: account, value: '0x'  });
 
     const receipt = StakingMachine.methods
-        .withdraw(toContractPrecision(amount))
+        .withdraw(toContractPrecisionDecimals(amount, tokenDecimals))
         .send(
             {
                 from: account,
@@ -67,7 +69,7 @@ const unStake = async (interfaceContext, amount, onTransaction, onReceipt) => {
 
 const delayMachineWithdraw = async (interfaceContext, idWithdraw, onTransaction, onReceipt) => {
 
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
     const DelayMachine = dContracts.contracts.DelayMachine;
 
@@ -95,7 +97,7 @@ const delayMachineWithdraw = async (interfaceContext, idWithdraw, onTransaction,
 
 const delayMachineCancelWithdraw = async (interfaceContext, idWithdraw, onTransaction, onReceipt) => {
 
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
     const DelayMachine = dContracts.contracts.DelayMachine;
 
@@ -123,7 +125,7 @@ const delayMachineCancelWithdraw = async (interfaceContext, idWithdraw, onTransa
 
 const approveStakingMachine = async (interfaceContext, amount, onTransaction, onReceipt) => {
 
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
 
     const StakingMachine = dContracts.contracts.StakingMachine;

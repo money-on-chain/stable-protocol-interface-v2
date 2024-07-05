@@ -8,6 +8,7 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import { TokenSettings } from '../../../helpers/currencies';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
+import settings from '../../../settings/settings.json';
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
@@ -116,7 +117,7 @@ export default function StakingOptionsModal(props) {
     const CancelWithdraw = async () => {
         onClose();
         const onTransaction = (txHash) => {
-            console.log("Sent cancel withdraw allowance...: ", txHash)
+            console.log("Sent cancel withdraw ...: ", txHash)
             const status = 'pending';
             onConfirm(status, txHash);
             setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
@@ -124,7 +125,7 @@ export default function StakingOptionsModal(props) {
         const onReceipt = () => { console.log("Transaction cancel withdraw mined!...")}
         const onError = (error) => { console.log("Transaction cancel withdraw error!...:", error)}
         await auth
-            .interfaceStakingMachineCancelWithdraw(
+            .interfaceStakingDelayMachineCancelWithdraw(
                 withdrawalId,
                 onTransaction,
                 onReceipt,
@@ -134,7 +135,7 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
                 setBlockedWithdrawals((prev) =>
-                    prev.filter((val) => val !== withdrawMoCs)
+                    prev.filter((val) => val !== withdrawalId)
                 );
                 return null;
             })
@@ -179,32 +180,38 @@ export default function StakingOptionsModal(props) {
             });
     };
 
-    // const withdrawMoCs = () => {
-    //     onClose();
-    //     auth.interfaceDelayMachineWithdraw(withdrawalId, (error, txHash) => {
-    //         if (error) return error;
-
-    //         const status = 'pending';
-    //         onConfirm(status, txHash);
-    //         setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
-    //     })
-    //         .then((res) => {
-    //             const status = res.status ? 'success' : 'error';
-    //             onConfirm(status, res.transactionHash);
-    //             setBlockedWithdrawals((prev) =>
-    //                 prev.filter((val) => val !== withdrawMoCs)
-    //             );
-    //             return null;
-    //         })
-    //         .catch((e) => {
-    //             console.error(e);
-    //             notification['error']({
-    //                 message: t('global.RewardsError_Title'),
-    //                 description: t('global.RewardsError_Message'),
-    //                 duration: 10
-    //             });
-    //         });
-    // };
+    const withdraw = () => {
+        onClose();
+        const onTransaction = (txHash) => {
+            console.log("Sent withdraw...: ", txHash)
+            const status = 'pending';
+            onConfirm(status, txHash);
+            setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
+        }
+        const onReceipt = () => { console.log("Transaction withdraw mined!...")}
+        const onError = (error) => { console.log("Transaction withdraw error!...:", error)}
+        auth.interfaceStakingDelayMachineWithdraw(
+            withdrawalId,
+            onTransaction,
+            onReceipt,
+            onError)
+            .then((res) => {
+                const status = res.status ? 'success' : 'error';
+                onConfirm(status, res.transactionHash);
+                setBlockedWithdrawals((prev) =>
+                    prev.filter((val) => val !== withdrawalId)
+                );
+                return null;
+            })
+            .catch((e) => {
+                console.error(e);
+                notification['error']({
+                    message: t('global.RewardsError_Title'),
+                    description: t('global.RewardsError_Message'),
+                    duration: 10
+                });
+            });
+    };
 
     // renders
     const renderStaking = () => {
@@ -358,44 +365,50 @@ export default function StakingOptionsModal(props) {
         );
     };
 
-    // const renderWithdraw = () => {
-    //     return (
-    //         <Fragment>
-    //             <h1 className="StakingOptionsModal_Title">
-    //                 {t('global.StakingOptionsModal_WithdrawTitle')}
-    //             </h1>
-    //             <div className="StakingOptionsModal_Content">
-    //                 <div className="InfoContainer">
-    //                     <span className="title">
-    //                         {t('global.StakingOptionsModal_AmountToWithdraw')}
-    //                     </span>
-    //                     <span className="value amount">
-    //                         <LargeNumber
-    //                             amount={amount}
-    //                             currencyCode="RESERVE"
-    //                         />{' '}
-    //                         <span>
-    //                             {t(`${AppProject}.Tokens_TG_code`, { ns: ns })}
-    //                         </span>
-    //                     </span>
-    //                 </div>
-    //                 <p>{t('global.StakingOptionsModal_WithdrawDescription')}</p>
-    //                 <div className="ActionButtonsRow">
-    //                     <Button type="default" onClick={onClose}>
-    //                         {t('global.StakingOptionsModal_Cancel')}
-    //                     </Button>
-    //                     <Button
-    //                         type="primary"
-    //                         onClick={withdrawMoCs}
-    //                         className="ButtonPrimary"
-    //                     >
-    //                         {t('global.StakingOptionsModal_Comfirm')}
-    //                     </Button>
-    //                 </div>
-    //             </div>
-    //         </Fragment>
-    //     );
-    // };
+    const renderWithdraw = () => {
+        return (
+            <Fragment>
+                <h1 className="StakingOptionsModal_Title">
+                    {t('global.StakingOptionsModal_WithdrawTitle')}
+                </h1>
+                <div className="StakingOptionsModal_Content">
+                    <div className="InfoContainer">
+                        <span className="title">
+                            {t('global.StakingOptionsModal_AmountToWithdraw')}
+                        </span>
+                        <span className="value amount">
+                            {PrecisionNumbers({
+                                amount: amount,
+                                token: settings.tokens.TG,
+                                decimals: settings.tokens.TG.visibleDecimals,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns
+                            })}{' '}
+                            <span>
+                                 {t('staking.tokens.TG.abbr', {
+                                     ns: ns
+                                 })}
+                            </span>
+                        </span>
+                    </div>
+                    <p>{t('global.StakingOptionsModal_WithdrawDescription')}</p>
+                    <div className="ActionButtonsRow">
+                        <Button type="default" onClick={onClose}>
+                            {t('global.StakingOptionsModal_Cancel')}
+                        </Button>
+                        <Button
+                            type="primary"
+                            onClick={withdraw}
+                            className="ButtonPrimary"
+                        >
+                            {t('global.StakingOptionsModal_Comfirm')}
+                        </Button>
+                    </div>
+                </div>
+            </Fragment>
+        );
+    };
 
     const renderRestaking = () => {
         return (
@@ -409,10 +422,14 @@ export default function StakingOptionsModal(props) {
                             {t('global.StakingOptionsModal_AmountToRestake')}
                         </span>
                         <span className="value amount">
-                            <LargeNumber
-                                amount={amount}
-                                currencyCode="RESERVE"
-                            />{' '}
+                            {PrecisionNumbers({
+                                amount: amount,
+                                token: settings.tokens.TG,
+                                decimals: settings.tokens.TG.visibleDecimals,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns
+                            })}
                             <span>
                                 {t('staking.tokens.TG.abbr', {
                                     ns: ns
@@ -442,7 +459,7 @@ export default function StakingOptionsModal(props) {
         const modes = {
             staking: renderStaking,
             unstaking: renderUnstaking,
-            // withdraw: renderWithdraw,
+            withdraw: renderWithdraw,
             restake: renderRestaking
         };
         return modes[mode]();

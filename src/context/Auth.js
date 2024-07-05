@@ -74,7 +74,7 @@ const AuthenticateContext = createContext({
     interfaceStakingAddStake: async (amount, address, onTransaction, onReceipt, onError) => {},
     interfaceStakingUnStake: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceStakingDelayMachineWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
-    interfaceStakingMachineCancelWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
+    interfaceStakingDelayMachineCancelWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
     interfaceStakingApprove: async (amount, onTransaction, onReceipt, onError) => {},
 });
 
