@@ -43,8 +43,8 @@ const Stake = (props) => {
   useEffect(() => {
     // if(amountToStake === '' && amountToUnstake === '') return;
     setIsUnstaking(activeTab === 'tab2');
-    setAmountToStake('0.0');
-    setAmountToUnstake('0.0');
+    setAmountToStake('');
+    setAmountToUnstake('');
     // console.log(activeTab);
   }, [auth, activeTab]);
 
@@ -67,7 +67,7 @@ const Stake = (props) => {
       amountInputError = true
     }
     else if (amountToProcess.lte(0)) {
-      if (amountToStake !== '0.0' || amountToUnstake !== '0.0') {
+      if (amountToStake !== '' || amountToUnstake !== '') {
         setInputValidationErrorText('Amount must be greater than 0');
         amountInputError = true
       } else {
@@ -95,8 +95,8 @@ const Stake = (props) => {
     setCurrencyYouStake(newCurrency);
   };
   const onClear = () => {
-    setAmountToStake('0.0');
-    setAmountToUnstake('0.0');
+    setAmountToStake('');
+    setAmountToUnstake('');
   };
   const setAddTotalAvailable = () => {
     const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
@@ -138,8 +138,8 @@ const Stake = (props) => {
 
   const resetBalancesAndValues = () => {
     setStakingBalances();
-    setAmountToStake('0.0');
-    setAmountToUnstake('0.0');
+    setAmountToStake('');
+    setAmountToUnstake('');
     setUntouchCount((prev) => prev + 1);
   };
   const onStakingModalConfirm = (operationStatus, txHash) => {

@@ -204,7 +204,7 @@ export default function Withdraw(props) {
                     columns={columnsData}
                     dataSource={data}
                     pagination={{
-                        pageSize: 10,
+                        pageSize: 1000,
                         position: ['none', 'bottomRight'],
                         defaultCurrent: 1,
                         onChange: onChange,
