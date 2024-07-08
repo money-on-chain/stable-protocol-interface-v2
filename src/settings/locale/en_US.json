@@ -485,16 +485,13 @@
             "StakingOptionsModal_AmountToRestake": "Amount to Restake",
             "StakingOptionsModal_RestakeDescription": "After confirming, this amount of MoC Tokens will be removed from the processing queue and staked again. They will immediately start receiving MoC Staking Rewards.",
 
-            "RewardsClaimButton_Claim": "Claim",
-            "RewardsClaimButton_Modal_Title": "Operation details",
-            "RewardsClaimButton_Modal_TxStatus": "Transaction status",
-            "RewardsClaimButton_Modal_Hash": "Hash",
-            "RewardsClaimButton_Modal_ViewOnExplorer": "View on the explorer",
-            "RewardsClaimButton_Modal_Close": "Close",
-            "RewardsClaimButton_Modal_TxStatus_success": "Success",
-            "RewardsClaimButton_Modal_TxStatus_failed": "Failed",
-            "RewardsClaimButton_Modal_TxStatus_pending": "Pending",
-            "RewardsClaimButton_Modal_TxStatus_error": "Error"
+            "StatusModal_Modal_Title": "Operation details",
+            "StatusModal_Modal_Close": "Close",
+            "StatusModal_Modal_TxStatus_sign": "Sign the transaction in your wallet",
+            "StatusModal_Modal_TxStatus_success": "Transaction successful",
+            "StatusModal_Modal_TxStatus_failed": "Transaction failed!",
+            "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
+            "StatusModal_Modal_TxStatus_error": "Transaction error!"
         },
         "Error_numericField": "This field should be numeric",
         "Error_separateDecimals": "Use point to separate decimals",

@@ -1,10 +1,9 @@
 import Modal, {Fragment} from 'antd/lib/modal/Modal';
 import React from 'react';
-import { Button } from 'antd';
 
-import Copy from '../../Page/Copy';
 import { useProjectTranslation } from '../../../helpers/translations';
 import './style.scss';
+import CopyAddress from '../../CopyAddress';
 
 const OperationStatusModal = ({
     className,
@@ -15,6 +14,31 @@ const OperationStatusModal = ({
     txHash
 }) => {
     const [t] = useProjectTranslation();
+
+    let sentIcon = '';
+    let statusLabel = '';
+    switch (operationStatus) {
+        case 'sign':
+            sentIcon = 'icon-signifier';
+            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+            break;
+        case 'pending':
+            sentIcon = 'icon-tx-waiting rotate';
+            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_pending');
+            break;
+        case 'success':
+            sentIcon = 'icon-tx-success';
+            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_success');
+            break;
+        case 'error':
+            sentIcon = 'icon-tx-error';
+            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_failed');
+            break;
+        default:
+            sentIcon = 'icon-tx-waiting rotate';
+            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+    }
+
     return (
         <Modal
             className={'OperationStatusModal ' + className || ''}
@@ -22,66 +46,44 @@ const OperationStatusModal = ({
             open={visible}
             onCancel={onCancel}
         >
-            {
-                <h1 className={'StakingOptionsModal_Title'}>
-                    {title || t('staking.modal.RewardsClaimButton_Modal_Title')}
-                </h1>
-            }
-            <div
-                className="InfoContainer"
-                style={{
-                    padding: 45,
-                    paddingLeft: '0',
-                    paddingRight: '0',
-                    paddingBottom: '15px'
-                }}
-            >
-                <span className="title">
-                    {t('staking.modal.RewardsClaimButton_Modal_TxStatus')}
-                </span>
-                <span className={`value ${operationStatus} float-right`}>
 
-                    {t(`staking.modal.RewardsClaimButton_Modal_TxStatus_${operationStatus}`)}
-                </span>
-            </div>
-            <div className="InfoContainer">
-                <span className="title">
-                    {t('staking.modal.RewardsClaimButton_Modal_Hash')}
-                </span>
-                <div className={'float-right'}>
-                    <Copy
-                        typeUrl={'tx'}
-                        textToShow={
-                            txHash !== undefined
-                                ? txHash?.substring(0, 6) +
-                                '...' +
-                                txHash?.substring(
-                                    txHash?.length - 4,
-                                    txHash?.length
-                                )
-                                : 'No Hash'
-                        }
-                        textToCopy={txHash}
-                    />
+            <h1 className={'StakingOptionsModal_Title'}>
+                {title || t('staking.modal.StatusModal_Modal_Title')}
+            </h1>
+
+            <div className="tx-sent">
+                <div className="status">
+
+                    {(operationStatus === 'pending' ||
+                        operationStatus === 'success' ) && (
+
+                        <div className="transaction-id">
+                            <div className="label">Transaction ID</div>
+                            <div className="address-section">
+                                <CopyAddress address={txHash} type={'tx'}></CopyAddress>
+                                {/*<span className="address">*/}
+                                {/*    {truncateTxId(txID)}*/}
+                                {/*</span>*/}
+                                {/*<i className="icon-copy"></i>*/}
+                            </div>
+                        </div>
+
+                    )}
+
+                    <div className="tx-logo-status">
+                        <i className={sentIcon}></i>
+                    </div>
+
+                    <div className="status-label">{statusLabel}</div>
+
+                    <button type="primary" className="secondary-button btn-clear" onClick={onCancel}>
+                        {t('staking.modal.StatusModal_Modal_Close')}
+                    </button>
+
                 </div>
             </div>
-            <a
-                href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${txHash}`}
-                target="_blank"
-            >
-                {t('staking.modal.RewardsClaimButton_Modal_ViewOnExplorer')}
-            </a>
-            <br />
-            <br />
-            <div style={{ textAlign: 'center' }}>
-                <Button
-                    type="primary"
-                    style={{ width: 130 }}
-                    onClick={onCancel}
-                >
-                    {t('staking.modal.RewardsClaimButton_Modal_Close')}
-                </Button>
-            </div>
+
+
         </Modal>
     );
 };

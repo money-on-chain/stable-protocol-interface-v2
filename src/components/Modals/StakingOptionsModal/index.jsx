@@ -20,8 +20,7 @@ export default function StakingOptionsModal(props) {
         visible,
         amount,
         onConfirm,
-        withdrawalId,
-        setBlockedWithdrawals
+        withdrawalId
     } = props;
 
     const [step, setStep] = useState(0);
@@ -80,16 +79,15 @@ export default function StakingOptionsModal(props) {
     };
 
     const addStake = async () => {
+        onClose();
+        onConfirm('sign', '');
         const onTransaction = (txHash) => {
             console.log("Sent transaction add stake...")
-            onClose();
-            const status = 'pending';
-            onConfirm(status, txHash);
+            onConfirm('pending', txHash);
         }
         const onReceipt = () => { console.log("Transaction add stake mined!...") }
         const onError = (error) => {
             console.log("Transaction add stake error!...:", error)
-            onClose();
         }
         setStep(99);
         await auth
@@ -111,16 +109,16 @@ export default function StakingOptionsModal(props) {
                     description: t('global.RewardsError_Message'),
                     duration: 10
                 });
+                onConfirm('error', '');
             });
     };
 
     const CancelWithdraw = async () => {
         onClose();
+        onConfirm('sign', '');
         const onTransaction = (txHash) => {
             console.log("Sent cancel withdraw ...: ", txHash)
-            const status = 'pending';
-            onConfirm(status, txHash);
-            setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
+            onConfirm('pending', txHash);
         }
         const onReceipt = () => { console.log("Transaction cancel withdraw mined!...")}
         const onError = (error) => { console.log("Transaction cancel withdraw error!...:", error)}
@@ -134,9 +132,6 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
-                setBlockedWithdrawals((prev) =>
-                    prev.filter((val) => val !== withdrawalId)
-                );
                 return null;
             })
             .catch((e) => {
@@ -146,15 +141,16 @@ export default function StakingOptionsModal(props) {
                     description: t('global.RewardsError_Message'),
                     duration: 10
                 });
+                onConfirm('error', '');
             });
     };
 
     const UnStake = async () => {
         onClose();
+        onConfirm('sign', '');
         const onTransaction = (txHash) => {
             console.log("Sent transaction unStake...: ", txHash);
-            const status = 'pending';
-            onConfirm(status, txHash);
+            onConfirm('pending', txHash);
         }
         const onReceipt = () => { console.log("Transaction unStake mined!...")}
         const onError = (error) => { console.log("Transaction unStake error!...:", error)}
@@ -177,16 +173,17 @@ export default function StakingOptionsModal(props) {
                     description: t('global.RewardsError_Message'),
                     duration: 10
                 });
+                onConfirm('error', '');
             });
     };
 
     const withdraw = () => {
         onClose();
+
+        onConfirm('sign', '');
         const onTransaction = (txHash) => {
             console.log("Sent withdraw...: ", txHash)
-            const status = 'pending';
-            onConfirm(status, txHash);
-            setBlockedWithdrawals((prev) => [...prev, withdrawalId]);
+            onConfirm('pending', txHash);
         }
         const onReceipt = () => { console.log("Transaction withdraw mined!...")}
         const onError = (error) => { console.log("Transaction withdraw error!...:", error)}
@@ -198,9 +195,6 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
-                setBlockedWithdrawals((prev) =>
-                    prev.filter((val) => val !== withdrawalId)
-                );
                 return null;
             })
             .catch((e) => {
@@ -210,6 +204,7 @@ export default function StakingOptionsModal(props) {
                     description: t('global.RewardsError_Message'),
                     duration: 10
                 });
+                onConfirm('error', '');
             });
     };
 

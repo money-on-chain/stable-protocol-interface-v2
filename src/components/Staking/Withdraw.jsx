@@ -16,7 +16,6 @@ export default function Withdraw(props) {
     const { totalPendingExpiration, totalAvailableToWithdraw, pendingWithdrawals } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const [current, setCurrent] = useState(1);
     const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);
     const [modalMode, setModalMode] = useState(null);
@@ -125,15 +124,6 @@ export default function Withdraw(props) {
         });
     });
 
-    const onChange = (page) => {
-        // if (accountData !== undefined) {
-        //   setCurrent(page);
-        //   // data_row(page);
-        //   // transactionsList(page, true);
-        //   //TODO call correct info
-        // }
-    };
-
     const onConfirm = (operationStatus, txHash) => {
         const operationInfo = {
             operationStatus,
@@ -142,10 +132,11 @@ export default function Withdraw(props) {
 
         setOperationModalInfo(operationInfo);
         setIsOperationModalVisible(true);
-    };
 
-    const setBlockedWithdrawals = (withdrawal) => {
-        console.log("Blocked withdrawals")
+        if (operationStatus === 'success') {
+            // Update the withdrawal list
+            getWithdrawals();
+        }
     };
 
     const handleActionClick = (action, status) => {
@@ -207,7 +198,6 @@ export default function Withdraw(props) {
                         pageSize: 1000,
                         position: ['none', 'bottomRight'],
                         defaultCurrent: 1,
-                        onChange: onChange,
                         total: totalTable
                     }}
                     scroll={{ y: 200 }}
@@ -223,7 +213,6 @@ export default function Withdraw(props) {
                     withdrawalId={withdrawalId}
                     amount={modalAmount}
                     onConfirm={onConfirm}
-                    setBlockedWithdrawals={setBlockedWithdrawals}
                 />
             )}
             {isOperationModalVisible && <OperationStatusModal
