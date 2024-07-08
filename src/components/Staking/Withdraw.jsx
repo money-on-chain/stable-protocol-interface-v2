@@ -10,6 +10,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
 import ActionIcon from '../../assets/icons/Action.svg';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
+import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 
 export default function Withdraw(props) {
     const { totalPendingExpiration, totalAvailableToWithdraw, pendingWithdrawals } = props;
@@ -21,6 +22,8 @@ export default function Withdraw(props) {
     const [modalMode, setModalMode] = useState(null);
     const [withdrawalId, setWithdrawalId] = useState('0');
     const [modalAmount, setModalAmount] = useState('0');
+    const [operationModalInfo, setOperationModalInfo] = useState({});
+    const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
 
     const columnsData = [];
     const ProvideColumnsTG = [
@@ -54,6 +57,7 @@ export default function Withdraw(props) {
             getWithdrawals();
         }
     }, [auth, pendingWithdrawals, i18n.language]);
+
     const getWithdrawals = () => {
         setTotalTable(pendingWithdrawals.length);
         const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
@@ -110,6 +114,7 @@ export default function Withdraw(props) {
         }));
         setData(tokensData);
     };
+
     // Columns
     ProvideColumnsTG.forEach(function (dataItem) {
         columnsData.push({
@@ -120,8 +125,6 @@ export default function Withdraw(props) {
         });
     });
 
-    // Rows
-
     const onChange = (page) => {
         // if (accountData !== undefined) {
         //   setCurrent(page);
@@ -131,8 +134,14 @@ export default function Withdraw(props) {
         // }
     };
 
-    const onConfirm = (status, txHash) => {
-        console.log("On Confirm: ", status, txHash)
+    const onConfirm = (operationStatus, txHash) => {
+        const operationInfo = {
+            operationStatus,
+            txHash
+        };
+
+        setOperationModalInfo(operationInfo);
+        setIsOperationModalVisible(true);
     };
 
     const setBlockedWithdrawals = (withdrawal) => {
@@ -142,7 +151,6 @@ export default function Withdraw(props) {
     const handleActionClick = (action, status) => {
         // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
         if (status === 'PENDING' && action === 'withdraw') return;
-        console.log('action', action, status);
         if (action === 'restake') {
             setModalMode('restake');
         } else {
@@ -218,6 +226,12 @@ export default function Withdraw(props) {
                     setBlockedWithdrawals={setBlockedWithdrawals}
                 />
             )}
+            {isOperationModalVisible && <OperationStatusModal
+                visible={isOperationModalVisible}
+                onCancel={() => setIsOperationModalVisible(false)}
+                operationStatus={operationModalInfo.operationStatus}
+                txHash={operationModalInfo.txHash}
+            />}
         </div>
     );
 }
