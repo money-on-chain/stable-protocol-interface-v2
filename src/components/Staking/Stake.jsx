@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../context/Auth';
-import { TokenSettings, TokenBalance, AmountToVisibleValue } from '../../helpers/currencies';
+import { TokenSettings, AmountToVisibleValue } from '../../helpers/currencies';
 import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { tokenStake } from '../../helpers/staking';

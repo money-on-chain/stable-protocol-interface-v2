@@ -369,12 +369,12 @@ export default function StakingOptionsModal(props) {
         return (
             <Fragment>
                 <h1 className="StakingOptionsModal_Title">
-                    {t('global.StakingOptionsModal_WithdrawTitle')}
+                    {t('staking.modal.StakingOptionsModal_WithdrawTitle')}
                 </h1>
                 <div className="StakingOptionsModal_Content">
                     <div className="InfoContainer">
                         <span className="title">
-                            {t('global.StakingOptionsModal_AmountToWithdraw')}
+                            {t('staking.modal.StakingOptionsModal_AmountToWithdraw')}
                         </span>
                         <span className="value amount">
                             {PrecisionNumbers({
@@ -392,17 +392,17 @@ export default function StakingOptionsModal(props) {
                             </span>
                         </span>
                     </div>
-                    <p>{t('global.StakingOptionsModal_WithdrawDescription')}</p>
+                    <p>{t('staking.modal.StakingOptionsModal_WithdrawDescription')}</p>
                     <div className="ActionButtonsRow">
                         <Button type="default" onClick={onClose}>
-                            {t('global.StakingOptionsModal_Cancel')}
+                            {t('staking.modal.StakingOptionsModal_Cancel')}
                         </Button>
                         <Button
                             type="primary"
                             onClick={withdraw}
                             className="ButtonPrimary"
                         >
-                            {t('global.StakingOptionsModal_Comfirm')}
+                            {t('staking.modal.StakingOptionsModal_Comfirm')}
                         </Button>
                     </div>
                 </div>
@@ -414,12 +414,12 @@ export default function StakingOptionsModal(props) {
         return (
             <Fragment>
                 <h1 className="StakingOptionsModal_Title">
-                    {t('global.StakingOptionsModal_RestakeTitle')}
+                    {t('staking.modal.StakingOptionsModal_RestakeTitle')}
                 </h1>
                 <div className="StakingOptionsModal_Content">
                     <div className="InfoContainer">
                         <span className="title">
-                            {t('global.StakingOptionsModal_AmountToRestake')}
+                            {t('staking.modal.StakingOptionsModal_AmountToRestake')}
                         </span>
                         <span className="value amount">
                             {PrecisionNumbers({
@@ -437,17 +437,17 @@ export default function StakingOptionsModal(props) {
                             </span>
                         </span>
                     </div>
-                    <p>{t('global.StakingOptionsModal_RestakeDescription')}</p>
+                    <p>{t('staking.modal.StakingOptionsModal_RestakeDescription')}</p>
                     <div className="ActionButtonsRow">
                         <Button type="default" onClick={onClose}>
-                            {t('global.StakingOptionsModal_Cancel')}
+                            {t('staking.modal.StakingOptionsModal_Cancel')}
                         </Button>
                         <Button
                             type="primary"
                             onClick={CancelWithdraw}
                             className="ButtonPrimary"
                         >
-                            {t('global.StakingOptionsModal_Comfirm')}
+                            {t('staking.modal.StakingOptionsModal_Comfirm')}
                         </Button>
                     </div>
                 </div>
