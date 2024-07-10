@@ -184,3 +184,13 @@
     background-position: center top;
     background-repeat: no-repeat;
 }
+
+// Hide governance token performance card
+.Staking > .row-section > :nth-child(3) {
+    display: none !important;
+}
+.Staking > .row-section > :nth-child(2) {
+    .layout-card {
+        width: 680px !important;
+    }
+}

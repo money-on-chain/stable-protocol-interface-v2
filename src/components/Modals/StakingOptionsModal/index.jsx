@@ -270,7 +270,17 @@ export default function StakingOptionsModal(props) {
                                 </span>
                                 <span className="value amount">
                                     <span className="value">
-                                        {amount}
+
+                                        {PrecisionNumbers({
+                                            amount: new BigNumber(amount),
+                                            token: settings.tokens.TG,
+                                            decimals: t('staking.display_decimals'),
+                                            t: t,
+                                            i18n: i18n,
+                                            ns: ns,
+                                            skipContractConvert: true
+                                        })}
+
                                     </span>
                                     <span>
                                         {t('staking.tokens.TG.label', {
@@ -332,7 +342,17 @@ export default function StakingOptionsModal(props) {
                             {t('staking.modal.StakingOptionsModal_AmountToUnstake')}
                         </span>
                         <span className="value amount">
-                        {amount}
+
+                            {PrecisionNumbers({
+                                amount: new BigNumber(amount),
+                                token: settings.tokens.TG,
+                                decimals: t('staking.display_decimals'),
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+
                             <span>
                                 {t('staking.tokens.TG.abbr', {
                                     ns: ns
@@ -375,7 +395,7 @@ export default function StakingOptionsModal(props) {
                             {PrecisionNumbers({
                                 amount: amount,
                                 token: settings.tokens.TG,
-                                decimals: settings.tokens.TG.visibleDecimals,
+                                decimals: t('staking.display_decimals'),
                                 t: t,
                                 i18n: i18n,
                                 ns: ns
@@ -420,7 +440,7 @@ export default function StakingOptionsModal(props) {
                             {PrecisionNumbers({
                                 amount: amount,
                                 token: settings.tokens.TG,
-                                decimals: settings.tokens.TG.visibleDecimals,
+                                decimals: t('staking.display_decimals'),
                                 t: t,
                                 i18n: i18n,
                                 ns: ns

@@ -202,3 +202,13 @@ html {
         cursor: default !important;
     }
 }
+
+// Hide governance token performance card
+.Staking > .row-section > :nth-child(3) {
+      display: none !important;
+  }
+.Staking > .row-section > :nth-child(2) {
+    .layout-card {
+        width: 680px !important;
+    }
+}

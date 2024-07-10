@@ -13,13 +13,14 @@ import SelectCurrency from '../SelectCurrency';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 import InputAmount from '../InputAmount/indexInput';
+import settings from '../../settings/settings.json';
+
 
 const Stake = (props) => {
   const {
     activeTab,
     tgBalance,
     stakedBalance,
-    lockedBalance,
     setStakingBalances,
   } = props;
   const [t, i18n, ns] = useProjectTranslation();
@@ -161,6 +162,7 @@ const Stake = (props) => {
     );
     return total;
   }
+
   return (
     <Fragment>
       <div className="swap-from">
@@ -179,9 +181,7 @@ const Stake = (props) => {
             PrecisionNumbers({
               amount: isUnstaking ? stakedBalance : tgBalance,
               token: TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake),
-              decimals:
-                TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake)
-                  .visibleDecimals,
+              decimals: t('staking.staking.input_decimals'),
               t: t,
               i18n: i18n,
               ns: ns
@@ -196,12 +196,39 @@ const Stake = (props) => {
         <div className="input-validation-error">{inputValidationErrorText}</div>
       </div>
       <div className='staked-text'>
-        {`${t('staking.staking.stakedAmount')}: ${parseFloat(Web3.utils.fromWei(stakedBalance, 'ether')).toFixed(4)} ${TokenSettings(currencyYouStake).name}`}
+        {t('staking.staking.stakedAmount')}:{' '}
+        {PrecisionNumbers({
+                            amount: new BigNumber(stakedBalance),
+                            token: settings.tokens.TG,
+                            decimals: t('staking.display_decimals'),
+                            t: t,
+                            i18n: i18n,
+                            ns: ns
+                        })}{' '} {TokenSettings(currencyYouStake).name}
       </div>
       <div className="cta">
           <div className="note-text">{t('staking.staking.cta.explanation')}</div>
           <div className="summary">
-            {isUnstaking ? `${t('staking.staking.cta.staking')} ${t('staking.staking.cta.stakingSign')} ${formatNumber(amountToUnstake)} ${t('staking.governanceToken')}` : `${t('staking.staking.cta.staking')} ${t('staking.staking.cta.stakingSign')} ${formatNumber(amountToStake)} ${t('staking.governanceToken')}`}
+            {isUnstaking ? t('staking.staking.cta.unstaking') : t('staking.staking.cta.staking')}
+            {' '}{t('staking.staking.cta.stakingSign')} {' '}
+            {isUnstaking ? amountToUnstake === '' ? '' : PrecisionNumbers({
+              amount: new BigNumber(amountToUnstake),
+              token: settings.tokens.TG,
+              decimals: t('staking.display_decimals'),
+              t: t,
+              i18n: i18n,
+              ns: ns,
+              skipContractConvert: true
+            }) : amountToStake === '' ? '' : PrecisionNumbers({
+              amount: new BigNumber(amountToStake),
+              token: settings.tokens.TG,
+              decimals: t('staking.display_decimals'),
+              t: t,
+              i18n: i18n,
+              ns: ns,
+              skipContractConvert: true
+            })}
+            {' '} {t('staking.governanceToken')}
           </div>
           <Button
             type="primary"

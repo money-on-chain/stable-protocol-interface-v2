@@ -390,9 +390,11 @@
     },
 
     "staking" : {
+        "display_decimals": 2,
         "cardTitle": "Staking",
         "governanceToken":"MOC",
         "staking": {
+            "input_decimals": 2,
             "tabStake": "Stake",
             "tabUnstake": "Ustake",
             "inputStake": "Stake",

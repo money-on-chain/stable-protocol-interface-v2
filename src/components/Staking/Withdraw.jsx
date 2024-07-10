@@ -74,7 +74,7 @@ export default function Withdraw(props) {
                     {PrecisionNumbers({
                         amount: withdrawal.amount,
                         token: settings.tokens.TG,
-                        decimals: settings.tokens.TG.visibleDecimals,
+                        decimals: t('staking.display_decimals'),
                         t: t,
                         i18n: i18n,
                         ns: ns
@@ -162,7 +162,7 @@ export default function Withdraw(props) {
                                 {PrecisionNumbers({
                                     amount: totalPendingExpiration,
                                     token: settings.tokens.TG,
-                                    decimals: settings.tokens.TG.visibleDecimals,
+                                    decimals: t('staking.display_decimals'),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns
@@ -178,7 +178,7 @@ export default function Withdraw(props) {
                                 {PrecisionNumbers({
                                     amount: totalAvailableToWithdraw,
                                     token: settings.tokens.TG,
-                                    decimals: settings.tokens.TG.visibleDecimals,
+                                    decimals: t('staking.display_decimals'),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns
