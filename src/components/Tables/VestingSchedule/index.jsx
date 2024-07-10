@@ -36,6 +36,13 @@ export default function VestingSchedule(props) {
             className: 'date-column'
         },
         {
+            title: t('vesting.vestingScheduleColumns.daysLeft'),
+            dataIndex: 'daysleft',
+            align: 'right',
+            width: 150,
+            className: 'percent-column'
+        },
+        {
             title: t('vesting.vestingScheduleColumns.percent'),
             dataIndex: 'percent',
             align: 'right',
@@ -67,6 +74,7 @@ export default function VestingSchedule(props) {
         {
             key: '1',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '000000000.0000000',
             status: 'Released'
@@ -74,6 +82,7 @@ export default function VestingSchedule(props) {
         {
             key: '2',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '2348342.234442',
             status: 'Released'
@@ -81,6 +90,7 @@ export default function VestingSchedule(props) {
         {
             key: '3',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '2348342.234442',
             status: 'Released'
@@ -88,6 +98,7 @@ export default function VestingSchedule(props) {
         {
             key: '4',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '2348342.234442',
             status: 'Vested'
@@ -95,6 +106,7 @@ export default function VestingSchedule(props) {
         {
             key: '5',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '2348342.234442',
             status: 'Vested'
@@ -102,6 +114,7 @@ export default function VestingSchedule(props) {
         {
             key: '6',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '34.234442',
             status: 'Vested'
@@ -109,6 +122,7 @@ export default function VestingSchedule(props) {
         {
             key: '6',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '34.234442',
             status: 'Vested'
@@ -116,6 +130,7 @@ export default function VestingSchedule(props) {
         {
             key: '7',
             date: '02/12/2024',
+            daysleft: '325',
             percent: '65.23%',
             amount: '34.234442',
             status: 'Vested'

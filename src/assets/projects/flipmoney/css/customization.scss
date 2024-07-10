@@ -17,6 +17,11 @@
     --card-border-radius: 4px;
     --card-padding: 32px;
 
+    // Common Margins
+    --margin-vertical-small: 16px;
+    --margin-vertical-medium: 32px;
+    --margin-vertical-large: 40px;
+
     // Modals
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
@@ -56,9 +61,12 @@
     // Buttons - common
 
     --button-radius: 28px;
+    --button-radius-tiny: 4px;
     --button-width: 200px;
     --button-height: 54px;
     --button-transition: 0.3s;
+    --button-small-height: 32px;
+    --button-small-padding: 16px;
 
     // Buttons - Primary
 

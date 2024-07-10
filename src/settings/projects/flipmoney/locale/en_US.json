@@ -417,9 +417,13 @@
         },
         "vestingScheduleColumns": {
             "date": "Release date",
+            "daysLeft": "Days to release",
             "percent": "Percent",
             "amount": "Amount",
             "status": "Status"
         }
+    },
+    "alert": {
+        "walletNotConnected": "Wallet not connected!"
     }
 }
