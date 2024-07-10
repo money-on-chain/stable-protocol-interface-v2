@@ -28,11 +28,8 @@ const Stake = (props) => {
   const defaultTokenStake = tokenStake()[0];
   const [isUnstaking, setIsUnstaking] = useState(false);
   const [inputValidationErrorText, setInputValidationErrorText] = useState('');
-  const [currencyYouStake, setCurrencyYouStake] = useState(defaultTokenStake);
-  const [currencyYouUnstake, setCurrencyYouUnstake] = useState(defaultTokenStake);
   const [modalMode, setModalMode] = useState(null);
   const [modalAmount, setModalAmount] = useState('0');
-  const [blockedWithdrawals, setBlockedWithdrawals] = useState([]);
   const [operationModalInfo, setOperationModalInfo] = useState({});
   const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
   const [inputValidationError, setInputValidationError] = useState(true);
@@ -55,7 +52,7 @@ const Stake = (props) => {
   const onValidate = () => {
     let amountInputError = false
 
-    const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
+    const tokenSettings = TokenSettings(defaultTokenStake);
     const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
     const amountToProcess =  formatBigNumber(isUnstaking ? amountToUnstake : amountToStake, tokenSettings.decimals);
     //1. Input amount valid
@@ -93,14 +90,13 @@ const Stake = (props) => {
 
   const onChangeCurrency = (newCurrency) => {
     onClear();
-    setCurrencyYouStake(newCurrency);
   };
   const onClear = () => {
     setAmountToStake('');
     setAmountToUnstake('');
   };
   const setAddTotalAvailable = () => {
-    const tokenSettings = TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake);
+    const tokenSettings = TokenSettings(defaultTokenStake);
     const total = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
     if (isUnstaking) setAmountToUnstake(total.toString());
     else setAmountToStake(total.toString());
@@ -117,7 +113,7 @@ const Stake = (props) => {
     }
     return AmountToVisibleValue(
       isUnstaking ? amountToUnstake : amountToStake,
-      isUnstaking ? currencyYouUnstake : currencyYouStake,
+       defaultTokenStake,
       4,
       false
     )
@@ -168,7 +164,7 @@ const Stake = (props) => {
       <div className="swap-from">
         <SelectCurrency
           className="select-token"
-          value={isUnstaking ? currencyYouUnstake : currencyYouStake}
+          value={defaultTokenStake}
           currencyOptions={tokenStake()}
           onChange={onChangeCurrency}
           action={'staking'}
@@ -180,7 +176,7 @@ const Stake = (props) => {
           balance={
             PrecisionNumbers({
               amount: isUnstaking ? stakedBalance : tgBalance,
-              token: TokenSettings(isUnstaking ? currencyYouUnstake : currencyYouStake),
+              token: TokenSettings(defaultTokenStake),
               decimals: t('staking.staking.input_decimals'),
               t: t,
               i18n: i18n,
@@ -204,7 +200,7 @@ const Stake = (props) => {
                             t: t,
                             i18n: i18n,
                             ns: ns
-                        })}{' '} {TokenSettings(currencyYouStake).name}
+                        })}{' '} {TokenSettings(defaultTokenStake).name}
       </div>
       <div className="cta">
           <div className="note-text">{t('staking.staking.cta.explanation')}</div>
@@ -245,7 +241,6 @@ const Stake = (props) => {
         withdrawalId={null}
         amount={modalAmount}
         onConfirm={onStakingModalConfirm}
-        setBlockedWithdrawals={setBlockedWithdrawals}
       />}
       {isOperationModalVisible && <OperationStatusModal
         visible={isOperationModalVisible}
