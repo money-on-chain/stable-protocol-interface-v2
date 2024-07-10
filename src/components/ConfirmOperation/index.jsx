@@ -22,7 +22,7 @@ export default function ConfirmOperation(props) {
         exchangingUSD,
         commission,
         commissionPercent,
-        amountYouExchange,
+        inputAmountYouExchange,
         amountYouReceive,
         onCloseModal,
         executionFee,
@@ -35,14 +35,18 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
+    const [amountYouExchange, setAmountYouExchange] = useState(inputAmountYouExchange);
     const [tolerance, setTolerance] = useState(0.7);
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
-    const [adjustedTolerance, setAdjustedTolerance] = useState(true);
-    const [amountYouExchangeAdjusted, setAmountYouExchangeAdjusted] = useState(null);
-    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
+    const [amountChanged, setAmountChanged] = useState(false);
 
+    const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
+    useEffect(() => {
+      setAmountYouExchange(inputAmountYouExchange);
+    }, [])
+    
     useEffect(() => {
         let timerId;
         if (status === 'QUEUING') {
@@ -71,13 +75,13 @@ export default function ConfirmOperation(props) {
         let limitExchange;
         let limitReceive;
         if (IS_MINT) {
-            limitExchange = new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange)
+            limitExchange = new BigNumber(amountYouExchange)
                 .times(new BigNumber(newTolerance))
                 .div(100)
-                .plus(new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange));
+                .plus(new BigNumber(amountYouExchange));
             limitReceive = amountYouReceive;
         } else {
-            limitExchange = amountYouExchangeAdjusted ?? amountYouExchange;
+            limitExchange = amountYouExchange;
             limitReceive = new BigNumber(amountYouReceive)
                 .times(new BigNumber(newTolerance))
                 .div(100)
@@ -108,19 +112,7 @@ export default function ConfirmOperation(props) {
     useEffect(() => {
         if (amountYouExchange) {
             const limits = toleranceLimits(tolerance);
-            const totalBalance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenBalance(auth, currencyYouExchange),
-                    TokenSettings(currencyYouExchange).decimals
-                )
-            );
-            if (limits.exchange.gt(totalBalance)) {
-                setAmountYouExchangeLimit(totalBalance.minus(limits.exchange.minus(totalBalance)));
-                setAmountYouExchangeAdjusted(totalBalance.minus(limits.exchange.minus(totalBalance)));
-                setAdjustedTolerance(true);
-            } else {
-                setAmountYouExchangeLimit(limits.exchange);
-            }
+            setAmountYouExchangeLimit(limits.exchange);
         }
     }, [amountYouExchange]);
 
@@ -207,7 +199,7 @@ export default function ConfirmOperation(props) {
             tokenAmount = amountYouReceive;
             limitAmount = amountYouExchangeLimit;
         } else {
-            tokenAmount = amountYouExchangeAdjusted ?? amountYouExchange;
+            tokenAmount = amountYouExchange;
             limitAmount = amountYouReceiveLimit;
         }
 
@@ -385,7 +377,7 @@ export default function ConfirmOperation(props) {
     };
 
     const changeTolerance = (newTolerance) => {
-        setAdjustedTolerance(false);
+        setAmountChanged(true);
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance);
         const totalBalance = new BigNumber(
@@ -460,14 +452,11 @@ export default function ConfirmOperation(props) {
                         })}{' '}
                     </span>
                 </div>
-                {adjustedTolerance && (
-                    <div className="warning-msg">
-                        {t(`exchange.priceVariation.warning`, {
-                            ns: ns
-                        })}{' '}
-                    </div>
-                )}
-
+                {!amountChanged && IS_MINT && <div className="warning-msg">
+                    {t(`exchange.priceVariation.warning`, {
+                        ns: ns
+                    })}{' '}
+                </div>}
                 <div className="swapArrow">
                     <i className="icon-arrow-down"></i>
                 </div>

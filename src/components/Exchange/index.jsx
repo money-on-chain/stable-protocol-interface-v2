@@ -32,7 +32,6 @@ export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [defaultTolerance, setDefaultTolerance] = useState(0.7);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -471,7 +470,27 @@ export default function Exchange() {
         console.log('radio checked', e.target.value);
         setRadioSelectFee(e.target.value);
     };
-
+    const calculateFinalAmountExchange = () => {
+        if(currencyYouExchange === 'CA_0') {
+            const tokenSettings = TokenSettings(currencyYouExchange);
+            const totalbalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    tokenSettings.decimals
+                )
+            );
+            const tolerance = 0.7;
+            if (amountYouExchange.gte(totalbalance)) {
+                const upperLimit = totalbalance.times(BigNumber(tolerance)).div(100).plus(amountYouExchange);
+                return totalbalance.minus(upperLimit.minus(totalbalance));
+            } else {
+                return amountYouExchange;
+            }
+        } else {
+            return amountYouExchange;
+        }
+        
+    }
     return (
     <div>
         <div className="exchange-content">
@@ -739,7 +758,7 @@ export default function Exchange() {
                     exchangingUSD={exchangingUSD}
                     commission={commission}
                     commissionPercent={commissionPercent}
-                    amountYouExchange={amountYouExchange}
+                    inputAmountYouExchange={calculateFinalAmountExchange()}
                     amountYouReceive={amountYouReceive}
                     onClear={onClear}
                     inputValidationError={inputValidationError}
