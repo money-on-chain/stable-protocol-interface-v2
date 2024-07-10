@@ -6,43 +6,44 @@ import BigNumber from 'bignumber.js';
 const PieChartComponent = (props) => {
     const [t] = useProjectTranslation();
     const [data, setData] = useState([]);
-    const { mocBalance, stakedBalance, lockedBalance, totalAvailableToWithdraw } = props;
+    const { tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw } = props;
     useEffect(() => {
         readData();
-    }, [mocBalance, stakedBalance, lockedBalance, totalAvailableToWithdraw]);
+    }, [tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw]);
     const readData = async () => {
         const total = getTotal();
-        // const _data = [
-        //   {
-        //     type: t('staking.distribution.graph.balance'),
-        //     value: BigNumber(mocBalance).div(total).times(100).toNumber()
-        //   },
-        //   {
-        //     type: t('staking.distribution.graph.processingUnstake'),
-        //     value: BigNumber(lockedBalance).div(total).times(100).toNumber()
-        //   },
-        //   {
-        //     type: t('staking.distribution.graph.readyWithdraw'),
-        //     value: BigNumber(totalAvailableToWithdraw).div(total).times(100).toNumber()
-        //   },
-        //   {
-        //     type: t('staking.distribution.graph.staked'),
-        //     value: BigNumber(stakedBalance).div(total).times(100).toNumber()
-        //   }
-        // ];
+        const _data = [
+          {
+            type: t('staking.distribution.graph.balance'),
+            value: BigNumber(tgBalance).div(total).times(100).toNumber()
+          },
+          {
+            type: t('staking.distribution.graph.processingUnstake'),
+            value: BigNumber(totalPendingExpiration).div(total).times(100).toNumber()
+          },
+          {
+            type: t('staking.distribution.graph.readyWithdraw'),
+            value: BigNumber(totalAvailableToWithdraw).div(total).times(100).toNumber()
+          },
+          {
+            type: t('staking.distribution.graph.staked'),
+            value: BigNumber(stakedBalance).div(total).times(100).toNumber()
+          }
+        ];
         // START TEST
+        /*
         const _data = [
             { type: 'See code', value: 5 },
             { type: 'Uncomment', value: 20 },
             { type: 'And remove', value: 30 },
             { type: 'Placeholder _data', value: 45 }
-        ];
+        ];*/
         // END TEST
         setData(_data);
     };
 
     const getTotal = () => {
-        return BigNumber.sum(mocBalance, stakedBalance, lockedBalance, totalAvailableToWithdraw).toFixed(3);
+        return BigNumber.sum(tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw).toFixed(3);
     };
     const colorBalance = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-darker');
     const colorProcessing = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-dark');

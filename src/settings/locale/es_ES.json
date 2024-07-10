@@ -472,15 +472,13 @@
             "StakingOptionsModal_AmountToRestake": "Monto para Restake",
             "StakingOptionsModal_RestakeDescription": "Luego de hacer el Restaking de tus tokens comenzarás a recibir recompensas del Programa de Staking Rewards de MoC. ",
 
-            "StatusModal_Modal_Title": "Detalles de la operación",
-            "StatusModal_Modal_TxStatus": "Estado de la transacción",
-            "StatusModal_Modal_Hash": "Hash",
-            "StatusModal_Modal_ViewOnExplorer": "Ver en el explorer",
-            "StatusModal_Modal_Close": "Cerrar",
-            "StatusModal_Modal_TxStatus_success": "Finalizado",
-            "StatusModal_Modal_TxStatus_failed": "Error",
-            "StatusModal_Modal_TxStatus_pending": "Pendiente",
-            "StatusModal_Modal_TxStatus_error": "Error"
+            "StatusModal_Modal_Title": "Operation details",
+            "StatusModal_Modal_Close": "Close",
+            "StatusModal_Modal_TxStatus_sign": "Sign the transaction in your wallet",
+            "StatusModal_Modal_TxStatus_success": "Transaction successful",
+            "StatusModal_Modal_TxStatus_failed": "Transaction failed!",
+            "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
+            "StatusModal_Modal_TxStatus_error": "Transaction error!"
         },
         "Error_numericField": "Este campo debe ser numérico",
         "Error_separateDecimals": "Usa el punto para separar decimales",

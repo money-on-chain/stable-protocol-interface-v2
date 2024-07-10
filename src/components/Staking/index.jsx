@@ -124,7 +124,7 @@ export default function Staking(props) {
                 <PieChartComponent
                   tgBalance={tgBalance}
                   stakedBalance={stakedBalance}
-                  lockedBalance={lockedBalance}
+                  totalPendingExpiration={totalPendingExpiration}
                   totalAvailableToWithdraw={totalAvailableToWithdraw}
                 />
               </div>
