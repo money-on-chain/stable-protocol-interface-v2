@@ -118,12 +118,6 @@ const Stake = (props) => {
       false
     )
   }
-  const formatNumber = (number) => {
-    if (isNaN(parseFloat(number).toFixed(3))) {
-      return '0.0';
-    }
-    return parseFloat(number).toFixed(4);
-  }
   const onStakeButton = () => {
     if (getAmount() > 0) {
       setModalAmount(getAmount());
