@@ -5,7 +5,6 @@ import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import { TokenSettings } from '../../../helpers/currencies';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import settings from '../../../settings/settings.json';
@@ -39,8 +38,10 @@ export default function StakingOptionsModal(props) {
 
     const checkAllowance = async () => {
         if (auth.accountData && auth.userBalanceData) {
-            const allowanceAmount = auth.userBalanceData.stakingmachine.tgAllowance
-            if (allowanceAmount > amountInEth) setStep(2);
+
+            const allowanceAmount = auth.isVestingLoaded() ? auth.userBalanceData.vestingmachine.staking.allowance : auth.userBalanceData.stakingmachine.tgAllowance
+
+            if (allowanceAmount > amountInEth) setStep(3);
         }
     };
 
@@ -58,14 +59,17 @@ export default function StakingOptionsModal(props) {
             amountAllowance = amount;
         }
 
-        const onTransaction = (txHash) => { console.log("Sent transaction allowance...: ", txHash)}
-        const onReceipt = () => { console.log("Transaction allowance mined!...")}
+        const onTransaction = (txHash) => {
+            console.log("Sent transaction allowance...: ", txHash);
+            setStep(2);
+        }
+        const onReceipt = () => { console.log("Transaction allowance mined!...")  }
         const onError = (error) => { console.log("Transaction allowance error!...:", error)}
 
         await auth
             .interfaceStakingApprove(amountAllowance, onTransaction, onReceipt, onError)
             .then((res) => {
-                setStep(2);
+                setStep(3);
                 return null;
             })
             .catch((e) => {
@@ -251,13 +255,28 @@ export default function StakingOptionsModal(props) {
                         <div className="StakingOptionsModal_Content AllowanceLoading">
                             <Spin indicator={<LoadingOutlined />} />
                             <p>
-                                {t('staking.modal.StakingOptionsModal_ProccessingAllowance')}
+                                {t('staking.modal.StakingOptionsModal_ReviewYourWalletDescription')}
                             </p>
                         </div>
                     </Fragment>
                 );
             },
             2: () => {
+                return (
+                    <Fragment>
+                        <h1 className="StakingOptionsModal_Title">
+                            {t('staking.modal.StakingOptionsModal_SetAllowance')}
+                        </h1>
+                        <div className="StakingOptionsModal_Content AllowanceLoading">
+                            <Spin indicator={<LoadingOutlined />} />
+                            <p>
+                                {t('staking.modal.StakingOptionsModal_ProccessingAllowance')}
+                            </p>
+                        </div>
+                    </Fragment>
+                );
+            },
+            3: () => {
                 return (
                     <Fragment>
                         <h1 className="StakingOptionsModal_Title">

@@ -361,6 +361,11 @@ const userBalance = async (web3, dContracts, userAddress) => {
     }
     userBalance.CA = CA
 
+    // Vesting machine added address
+    if (typeof vestingmachine !== 'undefined') {
+        userBalance.vestingmachine.address = vestingmachine.options.address
+    }
+
     return userBalance;
 };
 

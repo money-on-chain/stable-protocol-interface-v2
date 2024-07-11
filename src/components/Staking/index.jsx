@@ -41,10 +41,17 @@ export default function Staking(props) {
         []
       ];
       if (auth.userBalanceData) {
-        setTgBalance(auth.userBalanceData.TG.balance);
-        _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
-        _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
-        _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);
+          if (auth.isVestingLoaded()) {
+              setTgBalance(auth.userBalanceData.vestingmachine.tgBalance);
+              _stakedBalance = auth.userBalanceData.vestingmachine.staking.balance;
+              _lockedBalance = auth.userBalanceData.vestingmachine.staking.getLockedBalance;
+              _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.vestingmachine.delay);
+          } else {
+              setTgBalance(auth.userBalanceData.TG.balance);
+              _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
+              _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
+              _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);
+          }
       }
       const pendingWithdrawalsFormatted = _pendingWithdrawals
         .filter((withdrawal) => withdrawal.expiration)
