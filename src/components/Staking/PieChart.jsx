@@ -12,22 +12,23 @@ const PieChartComponent = (props) => {
     }, [tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw]);
     const readData = async () => {
         const total = getTotal();
+
         const _data = [
           {
             type: t('staking.distribution.graph.balance'),
-            value: BigNumber(tgBalance).div(total).times(100).toNumber()
+            value: total > 0 ? BigNumber(tgBalance).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.processingUnstake'),
-            value: BigNumber(totalPendingExpiration).div(total).times(100).toNumber()
+            value: total > 0 ? BigNumber(totalPendingExpiration).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.readyWithdraw'),
-            value: BigNumber(totalAvailableToWithdraw).div(total).times(100).toNumber()
+            value: total > 0 ? BigNumber(totalAvailableToWithdraw).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.staked'),
-            value: BigNumber(stakedBalance).div(total).times(100).toNumber()
+            value: total > 0 ? BigNumber(stakedBalance).div(total).times(100).toNumber() : 0
           }
         ];
         // START TEST
