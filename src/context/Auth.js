@@ -434,7 +434,7 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const isVestingLoaded = () => {
-        return !!(userBalanceData && userBalanceData.vestingmachine !== 'undefined');
+        return !!(userBalanceData && (typeof userBalanceData.vestingmachine !== 'undefined'));
     };
 
     const vestingAddress = () => {
