@@ -397,9 +397,11 @@
     },
 
     "staking": {
+        "display_decimals": 2,
         "cardTitle": "Staking",
-        "governanceToken": "Flip",
+        "governanceToken":"Flip",
         "staking": {
+            "input_decimals": 2,
             "tabStake": "Stake",
             "tabUnstake": "Ustake",
             "inputStake": "Stake",
