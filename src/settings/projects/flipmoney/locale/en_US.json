@@ -508,8 +508,34 @@
         "Error_maxExceeded": "The number exceeds the maximum allowed"
     },
     "vesting": {
-        "vestingMachineGeneral": {
-            "title": "Vesting Machine"
+        "title": "Vesting Machine",
+        "alert": {
+            "title": "Using Vesting Adress",
+            "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
+            "cta": "Go to wallet settings"
+        },
+        "status": {
+            "verified": "This Vesting Machine is Verified",
+            "notVerified": "This Vesting Machine is not verified yet",
+            "notFromThisUser": "Vesting Machine doesn't belong to this account"
+        },
+        "tokensAvailableToWithdraw": "MOC available to withdraw",
+        "withdrawToWallet": "Withdraw to my wallet",
+        "vested": {
+            "readyToWhitdraw": "Ready to withdraw",
+            "totalVested:": "MOC Vested",
+            "staked": "MOC Staked",
+            "d": ""
+        },
+        "vestingScheduleColumns": {
+            "date": "Release date",
+            "daysLeft": "Days to release",
+            "percent": "Percent",
+            "amount": "Amount",
+            "status": "Status"
         }
+    },
+    "alert": {
+        "walletNotConnected": "Wallet not connected!"
     }
 }
