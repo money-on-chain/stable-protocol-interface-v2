@@ -17,6 +17,11 @@
     --card-border-radius: 4px;
     --card-padding: 32px;
 
+    // Common Margins
+    --margin-vertical-small: 16px;
+    --margin-vertical-medium: 32px;
+    --margin-vertical-large: 40px;
+
     // Modals
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
@@ -56,9 +61,12 @@
     // Buttons - common
 
     --button-radius: 28px;
+    --button-radius-tiny: 4px;
     --button-width: 200px;
     --button-height: 54px;
     --button-transition: 0.3s;
+    --button-small-height: 32px;
+    --button-small-padding: 16px;
 
     // Buttons - Primary
 
@@ -99,12 +107,27 @@
     --color-semantic-positive: #69e453;
     --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
     --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
-    --filter-semantic-positive: invert(63%) sepia(23%) saturate(7464%) hue-rotate(73deg) brightness(99%) contrast(91%);
+    --filter-semantic-positive: invert(78%) sepia(47%) saturate(620%) hue-rotate(55deg) brightness(94%) contrast(93%);
 
     --notification-success-background: var(--color-semantic-positive);
+    --notification-success-text: #0c0c08;
+    --notification-success-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-error-background: var(--color-semantic-negative);
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-warning-background: #0d0d0d;
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-info-background: #b5b5b5;
+    --notification-info-text: #0c0c08;
+    --notification-info-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-permanent-background: #fff383;
+    --notification-permanent-text: #0c0c08;
+    --notification-permanent-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
 
     // Main navigation colors
 
