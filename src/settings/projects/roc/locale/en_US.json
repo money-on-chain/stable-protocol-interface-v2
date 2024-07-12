@@ -11,7 +11,7 @@
             "title" : "About queue - Cicle of a transaction",
             "statusQueuing" : "Transaction entered the queue with the first confirmation.",
             "statusQueued" : "Transaction is in the queue waiting for execution.",
-            "statusConfirming" : "Transaction was executed and has one confirmation.", 
+            "statusConfirming" : "Transaction was executed and has one confirmation.",
             "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
             "statusFailed" : "Transaction failed in any of the involved steps.",
             "buttonClose" : "Close"
@@ -65,8 +65,8 @@
             "fluxCapacitor" : "Error in flux capacitor",
             "noMessage" : "No message"
         },
-        "table":{
-            "itemsPerPage" : "Page"
+        "table": {
+            "itemsPerPage": "Page"
         }
     },
     "feedback" :{
@@ -77,6 +77,12 @@
     "wallet" :{
         "modalTitle" : "Connect Wallet",
         "userAddress" : "Address",
+        "useVesting": "Use vesting address",
+        "inputLabel": "Select a loaded Vesting Machine",
+        "loadVM": "Load Vesting Machine",
+        "unloadVM": "Unload Vesting Machine",
+        "useClaimCode": "Use claim code",
+        "disclaimer": "You can load any existing Vesting Machine address. Unloading a Vesting Machine address from the App doesn’t affect it’s funds and it can be re loaded any time. If you have a Claim Code, you can create a new Vesting Machine.",
         "cta": {
             "disconnect" : "Disconnect",
             "close" : "Close"
@@ -305,7 +311,7 @@
             "error": "Transaction failed!",
             "default": "Wait for transaction confirmation"
         }
-    },
+     },
 
     "allowance": {
         "cardTitle" : "Authorize using",
@@ -347,7 +353,7 @@
         "vesting" : "Vesting",
         "more" : "More"
     },
-    
+
     "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"

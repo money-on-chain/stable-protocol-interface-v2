@@ -2158,65 +2158,148 @@
 }
 
 .AccountDialog {
+    font-size: 16px;
+    .title {
+        font-weight: bolder;
+        font-family: var(--brand-font);
+        font-size: 1.5em;
+        color: var(--color-text-link);
+    }
+
     .qr {
-        width: 164px;
-        height: 164px;
+        width: 160px;
+        height: 160px;
         border-radius: var(--modals-border-radius);
-        opacity: 1;
         background-color: rgba(255, 255, 255, 1);
-        margin-left: auto;
-        margin-right: auto;
-        padding: 8px;
+        padding: 16px;
     }
 
     .address {
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        margin-top: 26px;
-        margin-bottom: 26px;
-        margin-left: 37px;
-        margin-right: 37px;
+        margin-block: 26px;
+
         .caption {
-            opacity: 1;
             color: var(--color-text-primary);
             font-family: var(--main-font);
-            font-size: 14px;
-            font-weight: 400;
-            font-style: normal;
-            letter-spacing: 0px;
-            text-align: left;
         }
-        .truncate-address {
-            opacity: 1;
-            color: var(--color-text-link);
-            font-family: var(--main-font);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0px;
-            text-align: right;
-            text-decoration: underline;
-            margin-right: 14px;
+
+        .address-info {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 5px;
+
+            .truncate-address {
+                color: var(--color-text-link);
+                font-family: var(--main-font);
+                text-decoration: underline;
+            }
+
+            .address-actions {
+                margin-top: 5px;
+                display: flex;
+                gap: 5px;
+                justify-content: start;
+            }
         }
     }
+
+    .switch {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+        color: var(--color-text-primary);
+
+        .ant-switch-checked {
+            background-color: var(--surface-color-inset) !important;
+
+            .ant-switch-handle::before {
+                background-color: var(--color-text-link) !important;
+            }
+        }
+    }
+
     .address-info {
         display: flex;
         align-items: center;
     }
-    .actions {
+
+    .additional-content {
+        padding: 20px 30px;
+        border: 1px solid var(--dividers);
+        border-radius: var(--modals-border-radius);
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+
+            button {
+                cursor: pointer;
+                font-size: 13px;
+                background-color: transparent;
+                border-radius: 5px;
+                font-weight: 900;
+                border: 1px solid var(--color-text-link);
+                color: var(--color-text-link);
+                font-family: var(--brand-font);
+                padding-inline: 10px;
+            }
+        }
+
+        .additional-text {
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--color-text-primary);
+            font-family: var(--main-font);
+            opacity: 0.6;
+            line-height: 16px;
+        }
+    }
+
+    .dropdown-label {
+        color: var(--color-text-primary);
+        margin-bottom: 10px;
+    }
+
+    .dropdown {
         display: flex;
-        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        .ant-select {
+            flex-grow: 1;
+            background-color: var(--surface-color-inset);
+            padding: 8px !important;
+
+            .ant-select-arrow {
+                color: var(--color-text-primary) !important;
+                padding: 10px 5px !important;
+                border: 1px solid var(--color-text-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 9999px;
+                margin-top: -10px;
+            }
+        }
+
+        button {
+            background-color: transparent;
+            border: 0;
+            padding: 5px !important;
+        }
+    }
+
+    .actions {
+        margin-top: 50px;
+        display: flex;
         justify-content: center;
-        align-items: flex-start;
-        padding: 0;
         gap: 24px;
-        width: 424px;
-        height: 53px;
-        flex: none;
-        order: 3;
-        align-self: stretch;
-        flex-grow: 0;
+        margin-inline: auto;
     }
 }
 

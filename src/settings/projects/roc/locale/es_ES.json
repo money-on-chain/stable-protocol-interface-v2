@@ -11,7 +11,7 @@
             "title" : "Acerca de la cola - Ciclo de una transacción",
             "statusQueuing" : "La transacción entró a la cola con la primera confirmación.",
             "statusQueued" : "La transacción está en la cola esperando por ejecución.",
-            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.", 
+            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.",
             "statusConfirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
             "statusFailed" : "La transacción falló en alguno de los pasos relacionados.",
             "buttonClose" : "Close"
@@ -77,6 +77,12 @@
     "wallet" :{
         "modalTitle" : "Conectar Billetera",
         "userAddress" : "Dirección",
+        "useVesting": "Usar dirección de vesting",
+        "inputLabel": "Selecciona una Máquina Vesting",
+        "loadVM": "Cargar Máquina Vesting",
+        "unloadVM": "Bajar Máquina Vesting",
+        "useClaimCode": "Usar Código de Reclamo",
+        "disclaimer": "Puedes cargar cualquier dirección existente de Máquina de Vesting. Descargar una dirección de Máquina de Vesting desde la aplicación no afecta sus fondos y puede volver a cargarse en cualquier momento. Si tienes un Código de Reclamo, puedes crear una nueva Máquina de Vesting.",
         "cta": {
             "disconnect" : "Desconectar",
             "close" : "Cerrar"
@@ -466,11 +472,11 @@
             "StakingOptionsModal_UnstakeTitle": "Unstake",
             "StakingOptionsModal_AmountToUnstake": "Cantidad para Unstake",
             "StakingOptionsModal_UnstakingDescription": "Puedes retirar tus MoC's a tu billetera en 30 días. Puedes restakearlos en cualquier momento durante este período.",
-    
+
             "StakingOptionsModal_WithdrawTitle": "Retiro",
             "StakingOptionsModal_AmountToWithdraw": "Cantidad a Retirar",
             "StakingOptionsModal_WithdrawDescription": "Luego del retiro tus MoC tokens estarán disponibles en tu billetera.",
-    
+
             "StakingOptionsModal_RestakeTitle": "Restake",
             "StakingOptionsModal_AmountToRestake": "Monto para Restake",
             "StakingOptionsModal_RestakeDescription": "Luego de hacer el Restaking de tus tokens comenzarás a recibir recompensas del Programa de Staking Rewards de MoC. ",
