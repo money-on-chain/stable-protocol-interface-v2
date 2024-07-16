@@ -1,11 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Button, Space } from 'antd';
 import VestingSchedule from '../../components/Tables/VestingSchedule';
 import settings from '../../settings/settings.json';
 import { useProjectTranslation } from '../../helpers/translations';
+import { AuthenticateContext } from '../../context/Auth';
+import { PrecisionNumbers } from '../PrecisionNumbers';
+import BigNumber from 'bignumber.js';
+import { TokenSettings } from '../../helpers/currencies';
 
-export default function Performance(props) {
+export default function Vesting(props) {
+
     const [t, i18n, ns] = useProjectTranslation();
+    const auth = useContext(AuthenticateContext);
+
+    const [status, setStatus] = useState('STEP_1');
+
+
+    useEffect(() => {
+        if (auth.userBalanceData && auth.isVestingLoaded()) {
+            setStatus('LOADED')
+        } else {
+            setStatus('STEP_1')
+        }
+    }, [auth]);
 
     return (
         <div className="vesting">
@@ -63,6 +80,8 @@ export default function Performance(props) {
              VESTING ONBOARDING PAGE 1
 
              */}
+
+            {status === 'STEP_1' && (
             <div id="vesting-onboarding" className="layout-card page1">
                 {' '}
                 <div className="layout-card-title">
@@ -86,12 +105,15 @@ export default function Performance(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
+
             {/*
 
              VESTING ONBOARDING PAGE 2
 
              */}
+
+            {status === 'STEP_2' && (
             <div id="vesting-onboarding" className="layout-card page2">
                 <div className="layout-card-title">
                     <h1>Vesting Machine</h1>
@@ -130,12 +152,14 @@ export default function Performance(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
             {/*
 
             VESTING ONBOARDING PAGE 3
 
             */}
+
+            {status === 'STEP_3' && (
             <div id="vesting-onboarding" className="layout-card page3">
                 {' '}
                 <div className="layout-card-title">
@@ -164,66 +188,105 @@ export default function Performance(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
             {/*
 
              VESTING SCHEDULE
 
              */}
-            <div className="two-columns">
-                <div id="vesting-info" className="layout-card">
-                    <div className="layout-card-title">
-                        <h1>{t('vesting.title')}</h1>
-                        <div id="vesting-verification">
-                            <div className="verification-icon"></div> {t('vesting.status.verified')}
-                        </div>{' '}
-                    </div>
-                    <div id="vesting-info-content">
-                        <div>
-                            <div id="vesting-moc-available" className="vesting-data">
+            {status === 'LOADED' && (
+            <div className={'vesting-section'}>
+                <div className="two-columns">
+                    <div id="vesting-info" className="layout-card">
+                        <div className="layout-card-title">
+                            <h1>{t('vesting.title')}</h1>
+                            <div id="vesting-verification">
+                                {auth.userBalanceData && auth.userBalanceData.vestingmachine.isVerified && (<div className={'verifica-line'}><div className="verification-icon"></div> {t('vesting.status.verified')}</div>)}
+                                {auth.userBalanceData && !auth.userBalanceData.vestingmachine.isVerified && (<div className={'verifica-line'}><div className="verification-icon"></div> {t('vesting.status.notVerified')}</div>)}
+                            </div>{' '}
+                        </div>
+                        <div id="vesting-info-content">
+                            <div>
+                                <div id="vesting-moc-available" className="vesting-data">
+                                    {PrecisionNumbers({
+                                        amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.getAvailable,
+                                        token: settings.tokens.TG,
+                                        decimals: t('staking.display_decimals'),
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns
+                                    })}{' '}
+                                </div>
+                                <div className="vesting-label">freely available FLIP balance</div>
+                            </div>
+                            <div id="withdraw-cta">
+                                Send to my wallet <div className="withdraw-button"></div>
+                            </div>
+                        </div>
+                    </div>{' '}
+                    <div id="vesting-distribution" className="layout-card">
+                        <div id="moc-ready">
+                            <div id="vesting-moc-ready" className="vesting-data">
+                                {PrecisionNumbers({
+                                    amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.tgBalance,
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}{' '}
+                            </div>
+                            <div className="vesting-label">Vested FLIP</div>
+                        </div>
+                        <div id="moc2">
+                            <div id="vesting-moc-vested" className="vesting-data">
+                                {PrecisionNumbers({
+                                    amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.staking.balance,
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}{' '}
+                            </div>
+                            <div className="vesting-label">Staked FLIP</div>
+                        </div>
+                        <div id="moc3">
+                            <div id="vesting-moc-staking" className="vesting-data">
+                                {PrecisionNumbers({
+                                    amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.delay.balance,
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}{' '}
+                            </div>
+                            <div className="vesting-label">Unstaking FLIP</div>
+                        </div>
+                        {/* <div id="moc4">
+                            <div id="vestiing-moc-readyToWithdraw" className="vesting-data">
                                 0.000000000000
                             </div>
-                            <div className="vesting-label">freely available FLIP balance</div>
-                        </div>
-                        <div id="withdraw-cta">
-                            Send to my wallet <div className="withdraw-button"></div>
-                        </div>
-                    </div>
+                            <div className="vesting-label">Ready to withdraw FLIP</div>
+                        </div> */}
+                    </div>{' '}
                 </div>{' '}
-                <div id="vesting-distribution" className="layout-card">
-                    <div id="moc-ready">
-                        <div id="vesting-moc-ready" className="vesting-data">
-                            0.000000000000
-                        </div>
-                        <div className="vesting-label">Vested FLIP</div>
-                    </div>
-                    <div id="moc2">
-                        <div id="vesting-moc-vested" className="vesting-data">
-                            0.000000000000
-                        </div>
-                        <div className="vesting-label">Staked FLIP</div>
-                    </div>
-                    <div id="moc3">
-                        <div id="vesting-moc-staking" className="vesting-data">
-                            0.000000000000
-                        </div>
-                        <div className="vesting-label">Unstaking FLIP</div>
-                    </div>
-                    {/* <div id="moc4">
-                        <div id="vestiing-moc-readyToWithdraw" className="vesting-data">
-                            0.000000000000
-                        </div>
-                        <div className="vesting-label">Ready to withdraw FLIP</div>
-                    </div> */}
-                </div>{' '}
-            </div>{' '}
-            <div id="vesting-schedudle" className="layout-card">
+                <div id="vesting-schedudle" className="layout-card">
                 {' '}
                 <div className="layout-card-title">
                     <h1>Vesting Release Schedule</h1>
                 </div>
                 <div id="moc-total">
-                    <div className="total-data">0.000000000000 FLIP</div>
+                    <div className="total-data">{PrecisionNumbers({
+                        amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.getTotal,
+                        token: settings.tokens.TG,
+                        decimals: t('staking.display_decimals'),
+                        t: t,
+                        i18n: i18n,
+                        ns: ns
+                    })}{' '} {t('staking.tokens.TG.abbr', {ns: ns})}
+                    </div>
                     <div className="vesting-label">Schedduled (vested+released)</div>
                 </div>{' '}
                 <div id="vesting-schedule-table">
@@ -231,6 +294,7 @@ export default function Performance(props) {
                     <VestingSchedule />
                 </div>{' '}
             </div>{' '}
+            </div>)}
         </div>
     );
 }

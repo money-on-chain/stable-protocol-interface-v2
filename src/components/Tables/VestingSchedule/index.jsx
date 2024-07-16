@@ -1,38 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'antd';
+import BigNumber from 'bignumber.js';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import settings from '../../../settings/settings.json';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
-import { ProvideColumnsCA } from '../../../helpers/tokensTables';
-import NumericLabel from 'react-pretty-numbers';
+
+
+const formatTimestamp = (timestamp) => {
+    return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).format(timestamp)
+}
+
+const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
+
+const formatVisibleValue = (amount, decimals) => {
+    return BigNumber(amount).div(precision(18)).toFormat(decimals, BigNumber.ROUND_UP, {
+        decimalSeparator: '.',
+        groupSeparator: ','
+    })
+}
+
 
 export default function VestingSchedule(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const tokensData = []; // table data
-    const columnsData = []; // table columns
-    const params = Object.assign({
-        shortFormat: true,
-        justification: 'L',
-        locales: i18n.languages[0],
-        shortFormatMinValue: 1000000,
-        commafy: true,
-        shortFormatPrecision: 2,
-        precision: 2,
-        title: '',
-        cssClass: ['display-inline']
-    });
     const vestingColumns = [
         {
             title: t('vesting.vestingScheduleColumns.date'),
             dataIndex: 'date',
             align: 'left',
-            width: 150,
+            width: 210,
             className: 'date-column'
         },
         {
@@ -53,7 +57,7 @@ export default function VestingSchedule(props) {
             title: t('vesting.vestingScheduleColumns.amount'),
             dataIndex: 'amount',
             align: 'right',
-            width: 300,
+            width: 150,
             className: 'amount-column'
         },
         {
@@ -62,108 +66,59 @@ export default function VestingSchedule(props) {
             align: 'left',
             width: 'auto',
             className: 'status-column'
-            // render: (_, record) => (
-            //     <div size="middle">
-            //         <a>Processed {record.name}</a>
-            //         <a>Delete</a>
-            //     </div>
-            // )
         }
     ];
-    const vestingData = [
-        {
-            key: '1',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '000000000.0000000',
-            status: 'Released'
-        },
-        {
-            key: '2',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '2348342.234442',
-            status: 'Released'
-        },
-        {
-            key: '3',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '2348342.234442',
-            status: 'Released'
-        },
-        {
-            key: '4',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '2348342.234442',
-            status: 'Vested'
-        },
-        {
-            key: '5',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '2348342.234442',
-            status: 'Vested'
-        },
-        {
-            key: '6',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '6',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '7',
-            date: '02/12/2024',
-            daysleft: '325',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '8',
-            date: '02/12/2024',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '9',
-            date: '02/12/2024',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '10',
-            date: '02/12/2024',
-            percent: '65.23%',
-            amount: '34.234442',
-            status: 'Vested'
-        },
-        {
-            key: '11',
-            date: '02/12/2024',
-            percent: '65.23%',
-            amount: '12.43',
-            status: 'Vested'
+    const vestingData = [];
+
+    const getParameters = auth.userBalanceData.vestingmachine.getParameters
+    const tgeTimestamp = auth.userBalanceData.vestingfactory.getTGETimestamp
+    const total = auth.userBalanceData.vestingmachine.getTotal
+    const percentMultiplier = 10000
+
+    const percentages = getParameters.percentages
+    const timeDeltas = getParameters.timeDeltas
+    const deltas = [...timeDeltas]
+    if (timeDeltas && !new BigNumber(timeDeltas[0]).isZero()) {
+        deltas.unshift(new BigNumber(0))
+    }
+    const percents = percentages.map((x) => new BigNumber(percentMultiplier).minus(x))
+    if (percentages && !new BigNumber(percentages[percentages.length - 1]).isZero()) {
+        percents.push(new BigNumber(percentMultiplier))
+    }
+
+    let dates = []
+    if (deltas) {
+        if (tgeTimestamp) {
+            // Convert timestamp to date.
+            dates = deltas.map(x => formatTimestamp(new BigNumber(tgeTimestamp).plus(x).times(1000).toNumber()))
+        } else {
+            dates = deltas.map(x => x / 60 / 60 / 24)
         }
-    ];
+    }
+
+    auth.userBalanceData &&
+    getParameters &&
+    percents.forEach(function (percent, itemIndex) {
+        let strTotal = ''
+        if (total && !new BigNumber(total).isZero()) {
+            strTotal = new BigNumber(percent).times(total).div(percentMultiplier)
+        }
+
+        const date_release =  new Date(dates[itemIndex]);
+        const date_now = new Date();
+        const timeDifference = date_release.getTime() - date_now.getTime();
+        const dayLefts = Math.round(timeDifference / (1000 * 3600 * 24))
+
+        vestingData.push({
+            key: itemIndex,
+            date: dates[itemIndex],
+            daysleft: dayLefts < 0 ? 0 : dayLefts,
+            percent: `${(percent.toNumber() / percentMultiplier * 100).toFixed(2)}%`,
+            amount: formatVisibleValue(strTotal, 2),
+            status: dayLefts < 0 ? 'Released' : 'Vested'
+        });
+
+    });
 
     return <Table columns={vestingColumns} dataSource={vestingData} pagination={false} scroll={{ y: 350 }} />;
 }
