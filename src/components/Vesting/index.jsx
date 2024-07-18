@@ -19,7 +19,7 @@ export default function Vesting(props) {
     const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
-
+    const [modalTitle, setModalTitle] = useState('Operation status');
 
     useEffect(() => {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
@@ -96,6 +96,8 @@ export default function Vesting(props) {
 
     const onWithdraw = async (e) => {
 
+        setModalTitle('Withdraw transaction');
+
         e.stopPropagation();
 
         setOperationStatus('sign');
@@ -128,6 +130,8 @@ export default function Vesting(props) {
     const onVerify = async (e) => {
 
         e.stopPropagation();
+
+        setModalTitle('Verification transaction');
 
         setOperationStatus('sign');
         setIsOperationModalVisible(true);
@@ -352,7 +356,7 @@ export default function Vesting(props) {
                                 <div className="vesting-label">freely available FLIP balance</div>
                             </div>
                             <div id="withdraw-cta">
-                                Send to my wallet <a className="withdraw-button" onClick={onWithdraw}></a>
+                                <a className="withdraw-button" onClick={onWithdraw}>Send to my wallet</a>
                             </div>
                         </div>
                     </div>{' '}
@@ -426,7 +430,7 @@ export default function Vesting(props) {
                         ns: ns
                     })}{' '} {t('staking.tokens.TG.abbr', {ns: ns})}
                     </div>
-                    <div className="vesting-label">Schedduled (vested+released)</div>
+                    <div className="vesting-label">Scheduled (vested+released)</div>
                 </div>{' '}
                 <div id="vesting-schedule-table">
                     {' '}
@@ -436,6 +440,7 @@ export default function Vesting(props) {
             </div>)}
 
             {isOperationModalVisible && <OperationStatusModal
+                title={modalTitle}
                 visible={isOperationModalVisible}
                 onCancel={() => setIsOperationModalVisible(false)}
                 operationStatus={operationStatus}
