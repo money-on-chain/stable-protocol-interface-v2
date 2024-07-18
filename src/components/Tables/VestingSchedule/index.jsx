@@ -4,18 +4,8 @@ import BigNumber from 'bignumber.js';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
+import { formatTimestamp } from '../../../helpers/staking';
 
-
-const formatTimestamp = (timestamp) => {
-    return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    }).format(timestamp)
-}
 
 const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals)
 

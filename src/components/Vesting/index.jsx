@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, Button, Space } from 'antd';
+import { Alert, Button, notification, Space } from 'antd';
 import VestingSchedule from '../../components/Tables/VestingSchedule';
 import settings from '../../settings/settings.json';
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
-import { TokenSettings } from '../../helpers/currencies';
+import { formatTimestamp } from '../../helpers/staking';
+import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+
 
 export default function Vesting(props) {
 
@@ -14,6 +16,9 @@ export default function Vesting(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('STEP_1');
+    const [isOperationModalVisible, setIsOperationModalVisible] = useState(false);
+    const [txHash, setTxHash] = useState('');
+    const [operationStatus, setOperationStatus] = useState('sign');
 
 
     useEffect(() => {
@@ -23,6 +28,133 @@ export default function Vesting(props) {
             setStatus('STEP_1')
         }
     }, [auth]);
+
+
+    const vestedAmounts = () => {
+        const getParameters = auth.userBalanceData.vestingmachine.getParameters
+        const tgeTimestamp = auth.userBalanceData.vestingfactory.getTGETimestamp
+        const total = auth.userBalanceData.vestingmachine.getTotal
+        const percentMultiplier = 10000
+        const percentages = getParameters.percentages
+
+        const timeDeltas = getParameters.timeDeltas
+        const deltas = [...timeDeltas]
+        if (timeDeltas && !new BigNumber(timeDeltas[0]).isZero()) {
+            deltas.unshift(new BigNumber(0))
+        }
+
+        const percents = percentages.map((x) => new BigNumber(percentMultiplier).minus(x))
+        if (percentages && !new BigNumber(percentages[percentages.length - 1]).isZero()) {
+            percents.push(new BigNumber(percentMultiplier))
+        }
+
+        let dates = []
+        if (deltas) {
+            if (tgeTimestamp) {
+                // Convert timestamp to date.
+                dates = deltas.map(x => formatTimestamp(new BigNumber(tgeTimestamp).plus(x).times(1000).toNumber()))
+            } else {
+                dates = deltas.map(x => x / 60 / 60 / 24)
+            }
+        }
+
+        let vestedAmount = new BigNumber(0)
+        let releasedAmount = new BigNumber(0)
+
+        auth.userBalanceData &&
+        getParameters &&
+        percents.forEach(function (percent, itemIndex) {
+
+            const date_release =  new Date(dates[itemIndex]);
+            const date_now = new Date();
+            const timeDifference = date_release.getTime() - date_now.getTime();
+            const dayLefts = Math.round(timeDifference / (1000 * 3600 * 24))
+
+            let amount = new BigNumber(0)
+            if (total && !new BigNumber(total).isZero()) {
+                amount = new BigNumber(percent).times(total).div(percentMultiplier)
+            }
+
+            if (dayLefts >= 0) {
+                vestedAmount = amount;
+            } else {
+                releasedAmount = amount;
+            }
+
+        });
+
+        const amounts = {}
+        amounts.released = releasedAmount
+        amounts.vested = vestedAmount.minus(releasedAmount)
+        amounts.total = total
+
+        return amounts
+
+    };
+
+    const vestingTotals = vestedAmounts()
+
+    const onWithdraw = async (e) => {
+
+        e.stopPropagation();
+
+        setOperationStatus('sign');
+        setIsOperationModalVisible(true);
+
+        const onTransaction = (txHash) => {
+            console.log("Sent transaction withdraw...: ", txHash);
+            setTxHash(txHash);
+            setOperationStatus('pending');
+        }
+        const onReceipt = () => {
+            console.log("Transaction withdraw mined!...");
+            setOperationStatus('success');
+        }
+        const onError = (error) => {
+            console.log("Transaction withdraw error!...:", error);
+            setOperationStatus('error');
+        }
+
+        await auth
+            .interfaceVestingWithdraw(new BigNumber(1), onTransaction, onReceipt, onError)
+            .then((res) => {
+                //console.log('DONE!');
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
+    const onVerify = async (e) => {
+
+        e.stopPropagation();
+
+        setOperationStatus('sign');
+        setIsOperationModalVisible(true);
+
+        const onTransaction = (txHash) => {
+            console.log("Sent transaction verify...: ", txHash);
+            setTxHash(txHash);
+            setOperationStatus('pending');
+        }
+        const onReceipt = () => {
+            console.log("Transaction verify mined!...");
+            setOperationStatus('success');
+        }
+        const onError = (error) => {
+            console.log("Transaction verify error!...:", error);
+            setOperationStatus('error');
+        }
+
+        await auth
+            .interfaceVestingVerify(onTransaction, onReceipt, onError)
+            .then((res) => {
+                //console.log('DONE!');
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
 
     return (
         <div className="vesting">
@@ -202,7 +334,7 @@ export default function Vesting(props) {
                             <h1>{t('vesting.title')}</h1>
                             <div id="vesting-verification">
                                 {auth.userBalanceData && auth.userBalanceData.vestingmachine.isVerified && (<div className={'verifica-line'}><div className="verification-icon"></div> {t('vesting.status.verified')}</div>)}
-                                {auth.userBalanceData && !auth.userBalanceData.vestingmachine.isVerified && (<div className={'verifica-line'}><div className="verification-icon"></div> {t('vesting.status.notVerified')}</div>)}
+                                {auth.userBalanceData && !auth.userBalanceData.vestingmachine.isVerified && (<div className={'verifica-line'}><div className="verification-icon"></div> {t('vesting.status.notVerified')} <a className={'click-verify'} onClick={onVerify}>Verify vesting!</a></div>)}
                             </div>{' '}
                         </div>
                         <div id="vesting-info-content">
@@ -220,7 +352,7 @@ export default function Vesting(props) {
                                 <div className="vesting-label">freely available FLIP balance</div>
                             </div>
                             <div id="withdraw-cta">
-                                Send to my wallet <div className="withdraw-button"></div>
+                                Send to my wallet <a className="withdraw-button" onClick={onWithdraw}></a>
                             </div>
                         </div>
                     </div>{' '}
@@ -228,7 +360,7 @@ export default function Vesting(props) {
                         <div id="moc-ready">
                             <div id="vesting-moc-ready" className="vesting-data">
                                 {PrecisionNumbers({
-                                    amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.tgBalance,
+                                    amount: !auth.userBalanceData ? '0' : vestingTotals['vested'],
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
                                     t: t,
@@ -241,6 +373,19 @@ export default function Vesting(props) {
                         <div id="moc2">
                             <div id="vesting-moc-vested" className="vesting-data">
                                 {PrecisionNumbers({
+                                    amount: !auth.userBalanceData ? '0' : vestingTotals['released'],
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}{' '}
+                            </div>
+                            <div className="vesting-label">Released FLIP</div>
+                        </div>
+                        <div id="moc3">
+                            <div id="vesting-moc-vested" className="vesting-data">
+                                {PrecisionNumbers({
                                     amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.staking.balance,
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
@@ -251,25 +396,19 @@ export default function Vesting(props) {
                             </div>
                             <div className="vesting-label">Staked FLIP</div>
                         </div>
-                        <div id="moc3">
-                            <div id="vesting-moc-staking" className="vesting-data">
-                                {PrecisionNumbers({
-                                    amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.delay.balance,
-                                    token: settings.tokens.TG,
-                                    decimals: t('staking.display_decimals'),
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns
-                                })}{' '}
-                            </div>
-                            <div className="vesting-label">Unstaking FLIP</div>
+                         <div id="moc4">
+                             <div id="vesting-moc-staking" className="vesting-data">
+                                 {PrecisionNumbers({
+                                     amount: !auth.userBalanceData ? '0' : auth.userBalanceData.vestingmachine.delay.balance,
+                                     token: settings.tokens.TG,
+                                     decimals: t('staking.display_decimals'),
+                                     t: t,
+                                     i18n: i18n,
+                                     ns: ns
+                                 })}{' '}
+                             </div>
+                             <div className="vesting-label">Unstaking FLIP</div>
                         </div>
-                        {/* <div id="moc4">
-                            <div id="vestiing-moc-readyToWithdraw" className="vesting-data">
-                                0.000000000000
-                            </div>
-                            <div className="vesting-label">Ready to withdraw FLIP</div>
-                        </div> */}
                     </div>{' '}
                 </div>{' '}
                 <div id="vesting-schedudle" className="layout-card">
@@ -295,6 +434,14 @@ export default function Vesting(props) {
                 </div>{' '}
             </div>{' '}
             </div>)}
+
+            {isOperationModalVisible && <OperationStatusModal
+                visible={isOperationModalVisible}
+                onCancel={() => setIsOperationModalVisible(false)}
+                operationStatus={operationStatus}
+                txHash={txHash}
+            />}
+
         </div>
     );
 }

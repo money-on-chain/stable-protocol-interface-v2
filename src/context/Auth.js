@@ -32,7 +32,10 @@ import {
     unStake as unStakeVesting,
     delayMachineWithdraw as delayMachineWithdrawVesting,
     delayMachineCancelWithdraw as delayMachineCancelWithdrawVesting,
-    approve as approveVesting
+    approve as approveVesting,
+    withdraw,
+    withdrawAll,
+    vestingVerify
 } from '../lib/backend/omoc/vesting'
 
 import { getGasPrice } from '../lib/backend/utils';
@@ -84,6 +87,8 @@ const AuthenticateContext = createContext({
     interfaceStakingDelayMachineWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
     interfaceStakingDelayMachineCancelWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
     interfaceStakingApprove: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceVestingWithdraw: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {}
 
@@ -406,15 +411,6 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
-    const interfaceStakingUnStake = async (amount, onTransaction, onReceipt, onError) => {
-        const interfaceContext = buildInterfaceContext();
-        if (isVestingLoaded()) {
-            return unStakeVesting(interfaceContext, amount, onTransaction, onReceipt, onError);
-        } else {
-            return unStake(interfaceContext, amount, onTransaction, onReceipt, onError);
-        }
-    };
-
     const interfaceStakingDelayMachineWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
@@ -441,6 +437,25 @@ const AuthenticateProvider = ({ children }) => {
         if (isVestingLoaded()) {
              return userBalanceData.vestingmachine.address
         }
+    };
+
+    const interfaceStakingUnStake = async (amount, onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        if (isVestingLoaded()) {
+            return unStakeVesting(interfaceContext, amount, onTransaction, onReceipt, onError);
+        } else {
+            return unStake(interfaceContext, amount, onTransaction, onReceipt, onError);
+        }
+    };
+
+    const interfaceVestingWithdraw = async (amount, onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return withdraw(interfaceContext, amount, onTransaction, onReceipt, onError);
+    };
+
+    const interfaceVestingVerify = async (onTransaction, onReceipt, onError) => {
+        const interfaceContext = buildInterfaceContext();
+        return vestingVerify(interfaceContext, onTransaction, onReceipt, onError);
     };
 
     return (
@@ -470,7 +485,9 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceStakingDelayMachineWithdraw,
                 interfaceStakingDelayMachineCancelWithdraw,
                 isVestingLoaded,
-                vestingAddress
+                vestingAddress,
+                interfaceVestingWithdraw,
+                interfaceVestingVerify
             }}
         >
             {children}
