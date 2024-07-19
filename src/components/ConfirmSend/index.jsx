@@ -8,15 +8,8 @@ import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import CopyAddress from '../CopyAddress';
 
-
 export default function ConfirmSend(props) {
-    const {
-        currencyYouExchange,
-        exchangingUSD,
-        amountYouExchange,
-        destinationAddress,
-        onCloseModal
-    } = props;
+    const { currencyYouExchange, exchangingUSD, amountYouExchange, destinationAddress, onCloseModal } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -28,20 +21,15 @@ export default function ConfirmSend(props) {
         // Real send transaction
         setStatus('SIGN');
 
-        auth.interfaceTransferToken(
-            currencyYouExchange,
-            amountYouExchange,
-            destinationAddress.toLowerCase(),
-            onTransaction,
-            onReceipt
-        ).then((value) => {
-            console.log('DONE!');
-        }).catch((error) => {
-            console.log('ERROR');
-            setStatus('ERROR');
-            console.log(error);
-        });
-
+        auth.interfaceTransferToken(currencyYouExchange, amountYouExchange, destinationAddress.toLowerCase(), onTransaction, onReceipt)
+            .then((value) => {
+                console.log('DONE!');
+            })
+            .catch((error) => {
+                console.log('ERROR');
+                setStatus('ERROR');
+                console.log(error);
+            });
     };
 
     const onTransaction = (transactionHash) => {
@@ -67,28 +55,28 @@ export default function ConfirmSend(props) {
     let statusLabel = '';
     switch (status) {
         case 'SUBMIT':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting ';
             statusLabel = t('send.feedback.submit');
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
-            statusLabel =  t('send.feedback.sign');
+            statusLabel = t('send.feedback.sign');
             break;
         case 'WAITING':
-            sentIcon = 'icon-tx-waiting rotate';
-            statusLabel =  t('send.feedback.waiting');
+            sentIcon = 'icon-tx-waiting ';
+            statusLabel = t('send.feedback.waiting');
             break;
         case 'SUCCESS':
             sentIcon = 'icon-tx-success';
-            statusLabel =  t('send.feedback.success');
+            statusLabel = t('send.feedback.success');
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
-            statusLabel =  t('send.feedback.error');
+            statusLabel = t('send.feedback.error');
             break;
         default:
-            sentIcon = 'icon-tx-waiting rotate';
-            statusLabel =  t('send.feedback.default');
+            sentIcon = 'icon-tx-waiting ';
+            statusLabel = t('send.feedback.default');
     }
 
     const onClose = () => {
@@ -98,118 +86,128 @@ export default function ConfirmSend(props) {
 
     return (
         <div className="confirm-operation">
-            <div className="exchange">
-                <div className="swapFrom">
-                    <span className="value">
-                        {PrecisionNumbers({
-                            amount: new BigNumber(amountYouExchange),
-                            token: TokenSettings(currencyYouExchange),
-                            decimals: 8,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className="token">
-                        {' '}
-                        {t(`exchange.tokens.${currencyYouExchange}.label`, {
-                            ns: ns
-                        })}{' '}
-                    </span>
-                </div>
-
-                <div className="swapArrow">
-                    <i className="icon-arrow-down"></i>
-                </div>
-
-                <div className="swapTo">
-                    <div className="address">
-                        {destinationAddress}
-                    </div>
-                </div>
-
-            </div>
-
-
-            {status === 'SUBMIT' && (
-                <div className="tx-submit">
-
-                    <div className="exchanging">
-
-                        <span className={'token_exchange'}>
-                        {t('send.sendingSummary')}{' '}
-                        </span>
-                        <span className={'symbol'}> {t('send.sendingSign')} </span>
-                        <span className={'token_receive'}>
+            {/* <div className="exchange"> */}
+            <div className="tx-amount-group">
+                <div className="tx-amount-container">
+                    <div className="tx-amount-data">
+                        <div className="tx-amount">
                             {PrecisionNumbers({
-                                amount: exchangingUSD,
-                                token: TokenSettings('CA_0'),
+                                amount: new BigNumber(amountYouExchange),
+                                token: TokenSettings(currencyYouExchange),
                                 decimals: 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
                                 skipContractConvert: true
                             })}
-                        </span>
-                        <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
-
+                        </div>
+                        <div className="tx-token">
+                            {' '}
+                            {t(`exchange.tokens.${currencyYouExchange}.label`, {
+                                ns: ns
+                            })}{' '}
+                        </div>
                     </div>
+                    <div className="tx-direction">
+                        <div className="tx-direction swapArrow">
+                            <div className="icon-arrow-down"></div>
+                        </div>
+                    </div>{' '}
+                    {/* <div className="swapTo"> */}
+                    <div className="tx-destination-address">{destinationAddress}</div>
+                    {/* </div> */}
+                </div>{' '}
+            </div>
+            {status === 'SUBMIT' && (
+                <div className="cta-container">
+                    <div className="cta-info-group">
+                        <div className="cta-info-summary">
+                            <div className={'token_exchange'}>{t('send.sendingSummary')} </div>
+                            <div className={'symbol'}> {t('send.sendingSign')} </div>
+                            <div className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: exchangingUSD,
+                                    token: TokenSettings('CA_0'),
+                                    decimals: 8,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </div>
 
-                    <div className="actions-buttons">
-                        <Button type="secondary" className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? "secondary-button btn-clear" : "secondary-button btn-clear"} onClick={onClose}>
+                            <div className={'token_receive_name'}> {t('send.sendingCurrency')}</div>
+                        </div>
+                    </div>
+                    <div className="cta-options-group">
+                        <Button
+                            type="secondary"
+                            className={
+                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                    ? 'secondary-button btn-clear'
+                                    : 'secondary-button btn-clear'
+                            }
+                            onClick={onClose}
+                        >
                             {t('send.buttonCancel')}
                         </Button>
                         <button
                             type="primary"
-                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? `primary-button btn-confirm` : `primary-button btn-confirm`}
+                            className={
+                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                    ? `primary-button btn-confirm`
+                                    : `primary-button btn-confirm`
+                            }
                             onClick={onSendTransaction}
                         >
                             {t('send.buttonConfirm')}
                         </button>
                     </div>
-
                 </div>
             )}
-
-            {(status === 'SIGN' ||
-                status === 'WAITING' ||
-                status === 'SUCCESS' ||
-                status === 'ERROR') && (
-                <div className="tx-sent">
-                    <div className="status">
-                        {(status === 'WAITING' ||
-                            status === 'SUCCESS' ||
-                            status === 'ERROR') && (
-                            <div className="transaction-id">
-                                <div className="label">{t('send.labelTransactionID')}</div>
-                                <div className="address-section">
-                                    <CopyAddress address={txID} type={'tx'}></CopyAddress>
-                                    {/*<span className="address">*/}
-                                    {/*    {truncateTxId(txID)}*/}
-                                    {/*</span>*/}
-                                    {/*<i className="icon-copy"></i>*/}
+            {/* </div> */}
+            {(status === 'SIGN' || status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
+                <div className="tx-conditional-container">
+                    {(status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
+                        <div className="tx-id-container">
+                            <div className="tx-id-data status">
+                                {' '}
+                                <div className="tx-id-data">
+                                    <div className="tx-id-label">{t('send.labelTransactionID')}</div>
+                                    <div className="tx-id-address">
+                                        <CopyAddress address={txID} type={'tx'}></CopyAddress>
+                                        {/*<span className="address">*/}
+                                        {/*    {truncateTxId(txID)}*/}
+                                        {/*</span>*/}
+                                        {/*<i className="icon-copy"></i>*/}
+                                    </div>{' '}
                                 </div>
-                            </div>
-                        )}
-
-                        <div className="tx-logo-status">
-                            <i className={sentIcon}></i>
+                            </div>{' '}
                         </div>
-
-                        <div className="status-label">{statusLabel}</div>
-
-                        <button
-                            type="primary"
-                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? "secondary-button btn-clear" : "secondary-button btn-clear"}
-                            onClick={onClose}
-                        >
-                            {t('send.buttonClose')}
-                        </button>
+                    )}{' '}
+                    <div className="tx-feedback-container">
+                        <div className="tx-feedback-icon tx-logo-status">
+                            <div className={sentIcon}></div>
+                        </div>
+                        <div className="tx-feedback-text">{statusLabel}</div>
+                    </div>
+                    <div className="cta-container">
+                        <div className="cta-options-group">
+                            <button
+                                type="primary"
+                                className={
+                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc'
+                                        ? 'secondary-button btn-clear'
+                                        : 'secondary-button btn-clear'
+                                }
+                                onClick={onClose}
+                            >
+                                {t('send.buttonClose')}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            )}
-
+            )}{' '}
         </div>
     );
 }

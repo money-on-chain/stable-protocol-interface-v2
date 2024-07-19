@@ -2,15 +2,10 @@ import { notification } from 'antd';
 import React from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 
-
 export default function CopyAddress(props) {
-
     const [t, i18n, ns] = useProjectTranslation();
 
-    const {
-        address = '',
-        type = ''
-    } = props;
+    const { address = '', type = '' } = props;
 
     const truncateAddress = (address) => {
         if (address === '') return '';
@@ -21,7 +16,7 @@ export default function CopyAddress(props) {
         navigator.clipboard.writeText(address);
         notification.open({
             message: t('feedback.clipboardCopy'),
-            description: `${address} ` +  t('feedback.clipboardTo'),
+            description: `${address} ` + t('feedback.clipboardTo'),
             placement: 'bottomRight'
         });
     };
@@ -38,15 +33,14 @@ export default function CopyAddress(props) {
     return (
         <>
             <div className="address-section">
-                <span className="address">
-                    <a
-                        href={urlExplorer}
-                        target="_blank"
-                    >
+                <span className="address tx-id-address">
+                    <a href={urlExplorer} target="_blank">
                         {truncateAddress(address)}
                     </a>
                 </span>
-                <a onClick={onClick} ><i className="icon-copy"></i></a>
+                <a onClick={onClick}>
+                    <i className="icon-copy"></i>
+                </a>
             </div>
         </>
     );

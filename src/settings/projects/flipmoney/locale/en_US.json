@@ -399,7 +399,7 @@
     "staking": {
         "display_decimals": 2,
         "cardTitle": "Staking",
-        "governanceToken":"Flip",
+        "governanceToken": "Flip",
         "staking": {
             "input_decimals": 2,
             "tabStake": "Stake",
@@ -464,6 +464,25 @@
             }
         },
         "modal": {
+            "options": {
+                "availableToWithdraw": "Ready to Withdraw",
+                "unstaking": "Processing unstake",
+                "withdrawAll": "Withdraw all available",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
+            },
+            "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
+            "StakingOptions_PendingExpiration": "Processing unstake",
+            "StakingOptions_WithdrawAll": "Withdraw all available",
+            "StakingOptions_Restake": "Restake",
+            "StakingOptions_Withdraw": "Withdraw",
+            "allowance": {
+                "title": "Set the allowance",
+                "description": "Before continuing with the staking you must set the allowance so that the staking system can access the tokens. This has to be done only once and it doesn't lock any tokens from your wallet.",
+                "setUnlimited": "Set unlimited allowance. Don't ask me again.",
+                "cta": "Authorize"
+            },
+
             "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
             "StakingOptions_PendingExpiration": "Processing unstake",
             "StakingOptions_WithdrawAll": "Withdraw all available",
@@ -502,14 +521,38 @@
             "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
             "StatusModal_Modal_TxStatus_error": "Transaction error!"
         },
+        "confirmation": { "cardTitle": "Confirm Stake" },
         "Error_numericField": "This field should be numeric",
         "Error_separateDecimals": "Use point to separate decimals",
         "Error_numberTooSmall": "The number is too small",
         "Error_maxExceeded": "The number exceeds the maximum allowed"
     },
     "vesting": {
-        "vestingMachineGeneral": {
-            "title": "Vesting Machine"
+        "title": "Vesting Machine",
+        "alert": {
+            "title": "Using Vesting Adress",
+            "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
+            "cta": "Go to wallet settings"
+        },
+        "status": {
+            "verified": "This Vesting Machine is Verified",
+            "notVerified": "This Vesting Machine is not verified yet",
+            "notFromThisUser": "Vesting Machine doesn't belong to this account"
+        },
+        "tokensAvailableToWithdraw": "MOC available to withdraw",
+        "withdrawToWallet": "Withdraw to my wallet",
+        "vested": {
+            "readyToWhitdraw": "Ready to withdraw",
+            "totalVested:": "MOC Vested",
+            "staked": "MOC Staked",
+            "d": ""
+        },
+        "vestingScheduleColumns": {
+            "date": "Release date",
+            "daysLeft": "Days to release",
+            "percent": "Percent",
+            "amount": "Amount",
+            "status": "Status"
         }
     }
 }

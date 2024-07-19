@@ -63,7 +63,7 @@ export default function ConfirmOperation(props) {
                 }
             }, 600000);
         }
-    
+
         return () => clearTimeout(timerId);
     }, [status]);
 
@@ -78,11 +78,7 @@ export default function ConfirmOperation(props) {
             limitReceive = amountYouReceive;
         } else {
             limitExchange = amountYouExchangeAdjusted ?? amountYouExchange;
-            limitReceive = new BigNumber(amountYouReceive)
-                .times(new BigNumber(newTolerance))
-                .div(100)
-                .minus(new BigNumber(amountYouReceive))
-                .abs();
+            limitReceive = new BigNumber(amountYouReceive).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceive)).abs();
         }
 
         const limits = {
@@ -95,12 +91,8 @@ export default function ConfirmOperation(props) {
 
     const limits = toleranceLimits(tolerance);
 
-    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(
-        limits.exchange
-    );
-    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(
-        limits.receive
-    );
+    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(limits.exchange);
+    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(limits.receive);
     const [showModalAllowance, setShowModalAllowance] = useState(false);
     const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
     const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
@@ -109,10 +101,7 @@ export default function ConfirmOperation(props) {
         if (amountYouExchange) {
             const limits = toleranceLimits(tolerance);
             const totalBalance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenBalance(auth, currencyYouExchange),
-                    TokenSettings(currencyYouExchange).decimals
-                )
+                fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), TokenSettings(currencyYouExchange).decimals)
             );
             if (limits.exchange.gt(totalBalance)) {
                 setAmountYouExchangeLimit(totalBalance.minus(limits.exchange.minus(totalBalance)));
@@ -160,19 +149,18 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowanceFeeToken = () => {
-
         const tokenAllowance = UserTokenAllowance(auth, 'TF');
 
         if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
             // if we select not to pay with fee token, please disallow to use Fee token
-            setDisAllowanceFeeToken(true)
+            setDisAllowanceFeeToken(true);
             // show allowance window
-            return true
+            return true;
         } else if (radioSelectFee > 0) {
             return !!commissionFeeToken.gte(tokenAllowance);
         }
 
-        return false
+        return false;
     };
 
     const onSendTransactionAllowFeeToken = () => {
@@ -211,19 +199,14 @@ export default function ConfirmOperation(props) {
             limitAmount = amountYouReceiveLimit;
         }
 
-        auth.interfaceExchangeMethod(
-            currencyYouExchange,
-            currencyYouReceive,
-            tokenAmount,
-            limitAmount,
-            onTransaction,
-            onReceipt
-        ).then((value) => {
-            console.log('DONE!');
-        }).catch((error) => {
-            console.log(error)
-            setStatus('ERROR');
-        });
+        auth.interfaceExchangeMethod(currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt)
+            .then((value) => {
+                console.log('DONE!');
+            })
+            .catch((error) => {
+                console.log(error);
+                setStatus('ERROR');
+            });
     };
 
     const onTransaction = (transactionHash) => {
@@ -234,94 +217,87 @@ export default function ConfirmOperation(props) {
     };
 
     const opStatus = () => {
-
         if (!opID) {
-            console.log("Operation Status: Checking... NO.")
-            return
+            console.log('Operation Status: Checking... NO.');
+            return;
         }
 
-        const apiUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
-            'operations/oper_id/'
-        axios.get(apiUrl, {
-            params: {
-                oper_id: opID
-            },
-            timeout: 10000
-        }).then((response) => {
-            if (response.status === 200) {
-                if (response.data.status === 0) {
-                    // Pending executed
-                    console.log("Operation Status: OK Pending execute.")
+        const apiUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` + 'operations/oper_id/';
+        axios
+            .get(apiUrl, {
+                params: {
+                    oper_id: opID
+                },
+                timeout: 10000
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    if (response.data.status === 0) {
+                        // Pending executed
+                        console.log('Operation Status: OK Pending execute.');
+                    } else if (response.data.status === 1) {
+                        // executed operation is finished
 
-                } else if (response.data.status === 1) {
-                    // executed operation is finished
+                        setStatus('SUCCESS');
 
-                    setStatus('SUCCESS');
+                        // Remove Op ID
+                        setOpID(null);
 
-                    // Remove Op ID
-                    setOpID(null)
+                        // Refresh user balance
+                        auth.loadContractsStatusAndUserBalance().then((value) => {
+                            console.log('Refresh user balance OK!');
+                        });
 
-                    // Refresh user balance
-                    auth.loadContractsStatusAndUserBalance().then((value) => {
-                        console.log('Refresh user balance OK!');
-                    });
+                        console.log('Operation Status: OK Executed.');
+                    } else if (response.data.status === 1) {
+                        setStatus('ERROR');
 
-                    console.log("Operation Status: OK Executed.")
+                        // Remove Op ID
+                        setOpID(null);
 
-                } else if (response.data.status === 1) {
-
-                    setStatus('ERROR');
-
-                    // Remove Op ID
-                    setOpID(null);
-
-                    console.log("Operation Status: Error! Status: ", response.data.status)
-
-                }
-            }
-
-
-        }).catch((error) => {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-
-                if (error.response.status===404) {
-                    // No problem if is 404 error mean is not indexed
-                }
-            }
-            //setStatus('ERROR');
-        });
-
-    }
-
-    const onQueued = (filteredEvents) => {
-
-        let operId = 0
-        filteredEvents.then((results) => {
-            results.forEach(function (events) {
-                if (events.name === 'OperationQueued') {
-                    // Is the event operation queue
-                    events.events.forEach(function (field) {
-                        if (field.name === 'operId_') {
-                            operId = parseInt(field.value);
-                        }
-                    })
+                        console.log('Operation Status: Error! Status: ', response.data.status);
+                    }
                 }
             })
+            .catch((error) => {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
 
-            if (operId > 0) {
-                console.log("Setting operation ID:", operId)
-                setOpID(operId)
-                //setOpID(33)
-                setStatus('QUEUED');
-            }
+                    if (error.response.status === 404) {
+                        // No problem if is 404 error mean is not indexed
+                    }
+                }
+                //setStatus('ERROR');
+            });
+    };
 
-        }).catch((error) => {
-            console.log(error)
-        });
+    const onQueued = (filteredEvents) => {
+        let operId = 0;
+        filteredEvents
+            .then((results) => {
+                results.forEach(function (events) {
+                    if (events.name === 'OperationQueued') {
+                        // Is the event operation queue
+                        events.events.forEach(function (field) {
+                            if (field.name === 'operId_') {
+                                operId = parseInt(field.value);
+                            }
+                        });
+                    }
+                });
 
-    }
+                if (operId > 0) {
+                    console.log('Setting operation ID:', operId);
+                    setOpID(operId);
+                    //setOpID(33)
+                    setStatus('QUEUED');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
@@ -330,14 +306,14 @@ export default function ConfirmOperation(props) {
         //setStatus('SUCCESS');
 
         // on Queue
-        onQueued(filteredEvents)
+        onQueued(filteredEvents);
     };
 
     let sentIcon = '';
     let statusLabel = '';
     switch (status) {
         case 'SUBMIT':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('exchange.confirm.submit');
             break;
         case 'SIGN':
@@ -345,15 +321,15 @@ export default function ConfirmOperation(props) {
             statusLabel = t('exchange.confirm.sign');
             break;
         case 'QUEUING':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('exchange.confirm.queuing');
             break;
         case 'QUEUED':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('exchange.confirm.queued');
             break;
         case 'CONFIRMING':
-            sentIcon = 'icon-operation-tx-confirming rotate';
+            sentIcon = 'icon-operation-tx-confirming';
             statusLabel = t('exchange.confirm.confirming');
             break;
         case 'SUCCESS':
@@ -365,7 +341,7 @@ export default function ConfirmOperation(props) {
             statusLabel = t('exchange.confirm.error');
             break;
         default:
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('exchange.confirm.default');
     }
 
@@ -389,10 +365,7 @@ export default function ConfirmOperation(props) {
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance);
         const totalBalance = new BigNumber(
-            fromContractPrecisionDecimals(
-                TokenBalance(auth, currencyYouExchange),
-                TokenSettings(currencyYouExchange).decimals
-            )
+            fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), TokenSettings(currencyYouExchange).decimals)
         );
         if (limits.exchange.gt(totalBalance)) {
             console.log('Insufficient balance');
@@ -413,167 +386,167 @@ export default function ConfirmOperation(props) {
 
     // Commission Select Radio
 
-    let commissionPAY = commission
-    let commissionPercentPAY = commissionPercent
-    let commissionSettings = TokenSettings(currencyYouExchange)
-    let commissionTokenName
+    let commissionPAY = commission;
+    let commissionPercentPAY = commissionPercent;
+    let commissionSettings = TokenSettings(currencyYouExchange);
+    let commissionTokenName;
 
     if (IS_MINT) {
         commissionTokenName = t(`exchange.tokens.${currencyYouExchange}.abbr`, {
             ns: ns
-        })
+        });
     } else {
         commissionTokenName = t(`exchange.tokens.${currencyYouReceive}.abbr`, {
             ns: ns
-        })
+        });
     }
 
     if (radioSelectFee > 0) {
         // Pay with Fee Token
-        commissionPAY = commissionFeeToken
-        commissionPercentPAY = commissionPercentFeeToken
-        commissionSettings = TokenSettings('TF')
+        commissionPAY = commissionFeeToken;
+        commissionPercentPAY = commissionPercentFeeToken;
+        commissionSettings = TokenSettings('TF');
         commissionTokenName = t(`exchange.tokens.TF.abbr`, {
             ns: ns
-        })
+        });
     }
 
     return (
         <div className="confirm-operation">
-            <div className="exchange">
-                <div className="swapFrom">
-                    <span className="value">
-                        {PrecisionNumbers({
-                            amount: new BigNumber(amountYouExchangeLimit),
-                            token: TokenSettings(currencyYouExchange),
-                            decimals: amountYouExchangeLimit.lt(0.0000001) ? 12 : 8,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className="token">
-                        {' '}
-                        {t(`exchange.tokens.${currencyYouExchange}.label`, {
-                            ns: ns
-                        })}{' '}
-                    </span>
-                </div>
-                {adjustedTolerance && (
-                    <div className="warning-msg">
-                        {t(`exchange.priceVariation.warning`, {
-                            ns: ns
-                        })}{' '}
+            <div className="tx-amount-group">
+                <div className="tx-amount-container">
+                    <div className="tx-amount-data">
+                        <div className="tx-amount">
+                            {PrecisionNumbers({
+                                amount: new BigNumber(amountYouExchangeLimit),
+                                token: TokenSettings(currencyYouExchange),
+                                decimals: amountYouExchangeLimit.lt(0.0000001) ? 12 : 8,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </div>
+                        <div className="tx-token">
+                            {t(`exchange.tokens.${currencyYouExchange}.label`, {
+                                ns: ns
+                            })}
+                        </div>
                     </div>
-                )}
-
-                <div className="swapArrow">
-                    <i className="icon-arrow-down"></i>
-                </div>
-
-                <div className="swapTo">
-                    <span className="value">
-                        {PrecisionNumbers({
-                            amount: new BigNumber(amountYouReceive),
-                            token: TokenSettings(currencyYouReceive),
-                            decimals: amountYouReceive.lt(0.0000001) ? 12 : 8,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className="token">
-                        {' '}
-                        {t(`exchange.tokens.${currencyYouReceive}.label`, {
-                            ns: ns
-                        })}{' '}
-                    </span>
-                </div>
-                <div className="limitSection">
-                    {!IS_MINT && (
-                        <span className="limitWarning">
-                            {t('exchange.confirm.minimumWarning')}
-                            <span>
-                                {' '}
-                                {PrecisionNumbers({
-                                    amount: new BigNumber(amountYouReceiveLimit),
-                                    token: TokenSettings(currencyYouReceive),
-                                    decimals: 4,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}{' '}
-                            </span>
-                            {t('exchange.confirm.minimumExplanation')}
-                        </span>
+                    {adjustedTolerance && (
+                        <div className="tx-amount-info">
+                            {t(`exchange.priceVariation.warning`, {
+                                ns: ns
+                            })}
+                        </div>
                     )}
+                </div>
+                <div className="tx-direction">
+                    <div className="tx-direction swapArrow">
+                        <div className="icon-arrow-down"></div>
+                    </div>
+                </div>
+                <div className="tx-amount-container">
+                    <div className="tx-amount-data">
+                        <div className="tx-amount">
+                            {PrecisionNumbers({
+                                amount: new BigNumber(amountYouReceive),
+                                token: TokenSettings(currencyYouReceive),
+                                decimals: amountYouReceive.lt(0.0000001) ? 12 : 8,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </div>
+                        <div className="tx-token">
+                            {t(`exchange.tokens.${currencyYouReceive}.label`, {
+                                ns: ns
+                            })}
+                        </div>
+                    </div>
+                    <div className="tx-amount-info">
+                        {!IS_MINT && (
+                            <div className="tx-amount-info">
+                                {t('exchange.confirm.minimumWarning')}
+                                <div className="">
+                                    {PrecisionNumbers({
+                                        amount: new BigNumber(amountYouReceiveLimit),
+                                        token: TokenSettings(currencyYouReceive),
+                                        decimals: 4,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true
+                                    })}
+                                </div>
+                                {t('exchange.confirm.minimumExplanation')}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <div className="separator"></div>
-
-            <div className="fees">
-                <div className="value">
-                    <span className={'token_exchange'}>
-                        {t('fees.labelFee')} (
-                        {PrecisionNumbers({
-                            amount: new BigNumber(commissionPercentPAY),
-                            token: commissionSettings,
-                            decimals: 2,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                        %)
-                    </span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
-                        {PrecisionNumbers({
-                            amount: new BigNumber(commissionPAY),
-                            token: commissionSettings,
-                            decimals: 6,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
-                    <span className={'token_receive_name'}>{commissionTokenName}</span>
+            <div className="divider-horizontal"></div>
+            <div className="tx-fees-container">
+                <div className="tx-fees-data">
+                    <div className="tx-fees-item">
+                        <span className={'token_exchange'}>
+                            {t('fees.labelFee')} (
+                            {PrecisionNumbers({
+                                amount: new BigNumber(commissionPercentPAY),
+                                token: commissionSettings,
+                                decimals: 2,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                            %)
+                        </span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: new BigNumber(commissionPAY),
+                                token: commissionSettings,
+                                decimals: 6,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}>{commissionTokenName}</span>
+                    </div>
+                    <div className={'tx-fees-item'}>
+                        <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
+                            {PrecisionNumbers({
+                                amount: executionFee,
+                                token: TokenSettings('COINBASE'),
+                                decimals: 6,
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </span>
+                        <span className={'token_receive_name'}>
+                            {' '}
+                            {t(`exchange.tokens.COINBASE.abbr`, {
+                                ns: ns
+                            })}{' '}
+                        </span>
+                    </div>
                 </div>
-                <div className={'execution-fee'}>
-                    <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
-                    <span className={'symbol'}> ≈ </span>
-                    <span className={'token_receive'}>
-                                {PrecisionNumbers({
-                                    amount: executionFee,
-                                    token: TokenSettings('COINBASE'),
-                                    decimals: 6,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                            </span>
-                    <span className={'token_receive_name'}>
-                                {' '}
-                        {t(`exchange.tokens.COINBASE.abbr`, {
-                            ns: ns
-                        })}{' '}
-                            </span>
-                </div>
-                <div className="disclaimer">
+                <div className="tx-fees-info">
                     {t('fees.disclaimer1')}
                     <br />
                     {t('fees.disclaimer2')}
                 </div>
             </div>
-
-            <div className="separator"></div>
-
+            <div className="divider-horizontal"></div>
             {status === 'SUBMIT' && (
                 <div className="tx-submit">
                     <div className="customize-tolerance">
@@ -606,46 +579,48 @@ export default function ConfirmOperation(props) {
                             </Panel>
                         </Collapse>
                     </div>
-
-                    <div className="exchanging">
-                        <span className={'token_exchange'}>{t('exchange.exchangingSummary')} </span>
-                        <span className={'symbol'}> {t('exchange.exchangingSign')} </span>
-                        <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: exchangingUSD,
-                                token: TokenSettings('CA_0'),
-                                decimals: 4,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true,
-                                isUSD: true
-                            })}
-                        </span>
-                        <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
-                    </div>
-                    {toleranceError !== '' && (
-                        <div className="error-container">
-                            <span className="confirm-error">{toleranceError}</span>
+                    <div className="cta-container">
+                        <div className="cta-info-group">
+                            <div className="cta-info-summary">
+                                <div className={'token_exchange'}>{t('exchange.exchangingSummary')} </div>
+                                <div className={'symbol'}> {t('exchange.exchangingSign')} </div>
+                                <div className={'token_receive'}>
+                                    {PrecisionNumbers({
+                                        amount: exchangingUSD,
+                                        token: TokenSettings('CA_0'),
+                                        decimals: 4,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true,
+                                        isUSD: true
+                                    })}
+                                </div>
+                                <div className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</div>
+                            </div>
                         </div>
-                    )}
+                        {toleranceError !== '' && (
+                            <div className="error-container">
+                                <span className="confirm-error">{toleranceError}</span>
+                            </div>
+                        )}
 
-                    <div className="actions-buttons">
-                        <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
-                            {t('exchange.buttonCancel')}
-                        </Button>
-                        <button
-                            type="primary"
-                            className="primary-button btn-confirm"
-                            onClick={onSendTransactionAllowFeeToken}
-                            disabled={toleranceError !== ''}
-                        >
-                            {t('exchange.buttonConfirm')}
-                        </button>
+                        <div className="cta-options-group">
+                            <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
+                                {t('exchange.buttonCancel')}
+                            </Button>
+                            <button
+                                type="primary"
+                                className="primary-button btn-confirm"
+                                onClick={onSendTransactionAllowFeeToken}
+                                disabled={toleranceError !== ''}
+                            >
+                                {t('exchange.buttonConfirm')}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
-
             {(status === 'SIGN' ||
                 status === 'QUEUING' ||
                 status === 'QUEUED' ||
@@ -679,7 +654,6 @@ export default function ConfirmOperation(props) {
                     </div>
                 </div>
             )}
-
             <ModalAllowanceOperation
                 title={`${t('allowance.cardTitle')}  ${t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}`}
                 visible={showModalAllowance}
@@ -691,9 +665,12 @@ export default function ConfirmOperation(props) {
                 onRealSendTransaction={onRealSendTransaction}
                 disAllowance={false}
             />
-
             <ModalAllowanceOperation
-                title={disAllowanceFeeToken ? `${t('allowance.disallowanceTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`:`${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`}
+                title={
+                    disAllowanceFeeToken
+                        ? `${t('allowance.disallowanceTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
+                        : `${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
+                }
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
                 currencyYouExchange={'TF'}

@@ -11,9 +11,9 @@
     width: 650px !important;
 }
 
-/*
-    --- Ant Layout ---
-*/
+//
+//   --- Ant Layout ---
+//
 
 .ant-layout {
     // color: #7F8A99;
@@ -47,14 +47,13 @@
     background-color: transparent !important;
 }
 
-/*
-    --- Header ---
-*/
+//
+//    --- Header ---
+//
 
 .header-container {
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
     align-items: center;
 
     .header-logo {
@@ -1087,8 +1086,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 24px;
-            margin-bottom: 24px;
+            // margin-top: 24px;
+            // margin-bottom: 24px;
         }
 
         .swapTo {
@@ -1415,30 +1414,53 @@
     filter: var(--color-icon-link-filter);
 }
 
+.icon-tx-signWallet {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../ui/feedbackSignWallet.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
+
 .icon-tx-waiting {
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Signifier-2.svg');
+    background-image: url('../ui/feedbackWaiting.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
 }
 
 .icon-tx-success {
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Signifier-3.svg');
+    background-image: url('../ui/feedbackSuccess.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-positive);
 }
 
 .icon-tx-error {
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Signifier-1.svg');
+    background-image: url('../ui/feedbackError.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
+    filter: var(--filter-semantic-negative);
+}
+
+.icon-waiting {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url('../ui/feedbackWaiting.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    filter: var(--color-icon-link-filter);
 }
 
 /* Status operation */
@@ -1972,15 +1994,430 @@
 }
 
 /* Modal generic formatting */
-.ant-modal-content {
+.ant-modal-content,
+.modal-container {
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
     background-color: var(--surface-color-3);
     border: 0px !important;
     padding: var(--modals-padding);
     border-radius: var(--modals-border-radius);
-}
+    font-family: var(--main-font);
 
+    h1 {
+        color: var(--color-text-primary);
+        font-family: var(--brand-font);
+        font-size: 20px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: var(--color-text-primary);
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-container,
+    .tx-cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 24px;
+        margin-top: 32px;
+        .tx-cta-summary {
+        }
+        .tx-cta-buttons {
+        }
+    }
+
+    .remember-this {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 8px;
+        width: 424px;
+        height: 32px;
+        margin-top: 30px;
+        padding: var(--modals-padding);
+
+        .check-unlimited {
+            height: 17px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--color-text-primary);
+        }
+        .ant-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .ant-checkbox-wrapper > :nth-child(2) {
+            padding-top: 6px;
+        }
+    }
+
+    .ant-checkbox-inner {
+        // Inner square
+        width: 24px;
+        height: 24px;
+        background-color: var(--color-controls-background);
+        border: 1px solid var(--color-controls-foreground-on);
+    }
+
+    .ant-checkbox-inner:after {
+        // Checkmark
+        border-color: var(--color-controls-foreground-on);
+        border-width: 0 2px 2px 0;
+        stroke-linecap: round;
+        position: absolute;
+        top: -1px;
+        width: 6px;
+        height: 16px;
+        margin: 0 auto;
+        margin-top: 2px;
+        margin-left: 3px;
+        transform: rotateZ(40deg);
+    }
+    //
+    // [START] Standarized data classes
+    //
+
+    .tx-amount-group {
+        // Stacks all the groups of information vertically
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 16px;
+        gap: 8px;
+        background-color: var(--surface-color-2);
+        border-radius: var(--card-border-radius);
+    }
+    .tx-amount-container {
+        // One item containing Amount + Token, plus optional extra information below
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 368px;
+        border: 1 solid var(--dividers);
+        gap: 8px;
+        .tx-amount-data {
+            // Amount + Token in one line
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-family: var(--brand-font);
+            font-size: 20px;
+            font-weight: 700;
+            font-style: normal;
+            background-color: var(--surface-color-inset);
+            padding: var(--data-background-padding);
+            border-radius: var(--data-background-radius);
+            .tx-amount {
+                text-align: left;
+                color: var(--color-text-primary);
+            }
+            .tx-token {
+                width: 100%;
+                text-align: right;
+                color: var(--color-text-secondary);
+            }
+        }
+        .tx-amount-info {
+            // Optional information below an Amount + Token line
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            font-family: var(--main-font);
+            font-style: normal;
+            font-weight: 400;
+            font-size: 11px;
+            text-align: left;
+            color: var(--color-text-secondary);
+        }
+    }
+    .tx-direction {
+        // The icon that represent the flow of the transaction
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .tx-destination-address {
+        // The target addresss for send transactions
+        width: 100%;
+        font-family: var(--main-font);
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        color: var(--color-text-primary);
+        background-color: var(--surface-color-inset);
+        padding: var(--data-background-padding);
+        border-radius: var(--data-background-radius);
+    }
+    .tx-fees-container {
+        // Container for the fees information
+        margin-top: 0px;
+        margin-bottom: 0px;
+        .tx-fees-data {
+            // Stacks all the Fees data + Fees info vertically
+        }
+        .tx-fees-item {
+            // For each fee data
+            color: var(--color-text-primary);
+        }
+        .tx-fees-info {
+            // For information about the fees
+            margin-top: 4px;
+            color: var(--color-text-secondary);
+        }
+    }
+    .tx-id-container {
+        // Transaction ID link container in cased some extra information is addded in the future
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 364px;
+        gap: 32px;
+        .tx-id-data {
+            // Label + address = copy icon
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            .tx-id-label {
+                // Transaction ID text/label
+                color: (var(--color-text-primary));
+                width: 100%;
+            }
+            .tx-id-address {
+                // Container that uses CopyAddress address + copy icon
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+                justify-content: end;
+                gap: 8px;
+                width: 100%;
+                font-family: var(--main-font);
+                font-weight: 600;
+                color: var(--color-text-link);
+                text-decoration: underline;
+            }
+        }
+    }
+    .cta-container {
+        // CTA container
+        display: flex;
+        // margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        gap: 32px;
+        .cta-info-group {
+            // Stacks Summary + info items vertically
+            color: var(--color-text-secondary);
+            font-family: var(--main-font);
+            font-size: 14px;
+            font-weight: 400;
+            text-align: left;
+            line-height: 1.3;
+        }
+        .cta-info-summary {
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            width: 100%;
+            color: var(--color-text-highlight);
+            font-family: var(--brand-font);
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .cta-info-detail {
+            color: var(--color-text-primary);
+        }
+        .cta-options-group {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+    .tx-conditional-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 32px;
+        gap: 16px;
+    }
+    .tx-feedback-container {
+        // Container with all the feedback elemensts
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 16px;
+        .tx-feedback-text {
+            // Explanation about the status
+            color: var(--color-text-primary);
+        }
+        .tx-feedback-icon {
+            // Container for the feedback icon
+        }
+    }
+    .option-checkbox {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 8px;
+        width: 424px;
+        height: 32px;
+        margin-top: 30px;
+        padding: var(--modals-padding);
+
+        .check-unlimited {
+            height: 17px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--color-text-primary);
+        }
+        .ant-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .ant-checkbox-wrapper > :nth-child(2) {
+            padding-top: 6px;
+        }
+    }
+    //
+    // [END] Standarized data classes
+    //
+
+    .tx-data-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 32px;
+        margin-bottom: 32px;
+        gap: 16px;
+    }
+    .tx-amount {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 368px;
+        font-family: var(--brand-font);
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 1;
+        .amount {
+            color: (var(--color-text-primary));
+        }
+        .token {
+            color: (var(--color-text-secondary));
+        }
+    }
+    .tx-info-container {
+        .tx-info {
+            color: var(--color-text-primary);
+        }
+    }
+
+    .tx-options-container {
+        .tx-option {
+        }
+    }
+    .status-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 32px;
+        margin-bottom: 32px;
+        gap: 32px;
+    }
+    .tx-logo-status {
+        width: 32px;
+        height: 32px;
+    }
+
+    .address-section {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 16px;
+        width: 100%;
+
+        a {
+            color: (var(--color-text-link));
+            text-decoration: underline;
+        }
+    }
+    .icon {
+        color: (var(--color-text-secondary));
+    }
+
+    .tx-options-container {
+        //
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 8px;
+        width: 424px;
+        height: 32px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        .check-unlimited {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: var(--color-text-primary);
+        }
+    }
+}
+.divider-horizontal {
+    width: 100%;
+    height: 1px;
+    border: 1px solid var(--dividers);
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
 /* Modal Allowance */
 
 /* Modal Allowance & Account */
@@ -1988,17 +2425,6 @@
 .ModalAllowance,
 .ModalAccount {
     font-family: var(--main-font);
-    .ant-modal-content {
-        // background: linear-gradient(
-        //                 0deg,
-        //                 rgba(189, 207, 255, 0.08),
-        //                 rgba(189, 207, 255, 0.08)
-        // ),
-        // #131215;
-        // box-shadow: var(--surface-shadow-1);
-        // border-radius: var(--card-border-radius);
-        // background-color: var(--surface-color-3);
-    }
 
     .ant-modal-header {
         background-color: transparent !important;
@@ -2023,10 +2449,6 @@
         color: var(--color-text-primary) !important;
     }
 
-    // .ant-modal-content {
-    //     border: 0px !important;
-    // }
-
     .ant-modal-close-x {
         color: var(--color-text-primary);
     }
@@ -2036,8 +2458,10 @@
     }
 
     .ant-modal-body {
-        // padding: 16px 32px 32px 32px;
         padding: var(--modals-padding);
+    }
+    .allowance-feedback {
+        width: 100%;
     }
 }
 
@@ -2054,9 +2478,7 @@
         padding: 0px;
         gap: 24px;
         width: 100%;
-        height: 200px;
         .status-submit {
-            /* Auto layout */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -2144,31 +2566,25 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: flex-start;
             padding: 0;
             gap: 24px;
-            width: 424px;
+            width: 100%;
             height: 53px;
-            flex: none;
-            order: 3;
-            align-self: stretch;
-            flex-grow: 0;
+            margin-top: 32px;
         }
     }
 }
-
+.qr {
+    width: 164px;
+    height: 164px;
+    border-radius: var(--modals-border-radius);
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    padding: 8px;
+}
 .AccountDialog {
-    .qr {
-        width: 164px;
-        height: 164px;
-        border-radius: var(--modals-border-radius);
-        opacity: 1;
-        background-color: rgba(255, 255, 255, 1);
-        margin-left: auto;
-        margin-right: auto;
-        padding: 8px;
-    }
-
     .address {
         display: flex;
         flex-direction: row;
@@ -2286,7 +2702,6 @@
         }
 
         .input-validation-error {
-            opacity: 1;
             color: var(--color-semantic-negative);
             font-family: var(--main-font);
             font-size: 14px;
@@ -3103,27 +3518,7 @@
             }
         }
     }
-    // .layout-card {
-    //     border-radius: var(--card-border-radius);
-    //     background-color: var(--surface-color-1);
-    //     box-shadow: var(--surface-shadow-1);
-    //     height: 489px;
-    //     padding: var(--card-padding);
 
-    //     // .layout-card-title {
-    //     //     h1 {
-    //     //         opacity: 1;
-    //     //         color: var(--color-text-primary);
-    //     //         font-family: var(--brand-font);
-    //     //         font-size: 20px;
-    //     //         font-weight: 700;
-    //     //         font-style: normal;
-    //     //         letter-spacing: 0px;
-    //     //         text-align: left;
-    //     //         margin-bottom: 20px;
-    //     //     }
-    //     // }
-    // }
     .staking-distribution-card {
         display: flex;
         flex-direction: column;
