@@ -17,6 +17,7 @@ const Performance = React.lazy(() => import('../../../pages/Performance/index'))
 const Staking = React.lazy(() => import('../../../pages/Staking/index'));
 const LiquidityMining = React.lazy(() => import('../../../pages/LiquidityMining/index'));
 const Vesting = React.lazy(() => import('../../../pages/Vesting/index'));
+const Voting = React.lazy(() => import('../../../pages/Voting/index'));
 
 export default function Router() {
     return useRoutes([
@@ -51,6 +52,10 @@ export default function Router() {
                 {
                     path: 'vesting',
                     element: <Vesting />
+                },
+                {
+                    path: 'voting',
+                    element: <Voting />
                 },
                 { path: '404', element: <NotFound /> },
                 { path: '*', element: <Navigate to="/404" /> }

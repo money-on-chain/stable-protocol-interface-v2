@@ -345,6 +345,7 @@
         "staking" : "Staking",
         "liquidityMining" : "Liquidity Mining",
         "vesting" : "Vesting",
+        "voting" : "Voting",
         "more" : "More"
     },
     

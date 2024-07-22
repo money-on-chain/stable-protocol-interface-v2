@@ -6,15 +6,15 @@
     "invalidValuePlaceholder": "--",
     "operations": {
         "sectionTitle": "Últimas Operaciones",
-        "aboutQueue": {
-            "button": "Acerca de la cola",
-            "title": "Acerca de la cola - Ciclo de una transacción",
-            "statusQueuing": "La transacción entró a la cola con la primera confirmación.",
-            "statusQueued": "La transacción está en la cola esperando por ejecución.",
-            "statusConfirming": "La transacción fue ejecutada y tiene una confirmación.",
-            "statusConfirmed": "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
-            "statusFailed": "La transacción falló en alguno de los pasos relacionados.",
-            "buttonClose": "Close"
+        "aboutQueue" : {
+        "button" : "Acerca de la cola",
+            "title" : "Acerca de la cola - Ciclo de una transacción",
+            "statusQueuing" : "La transacción entró a la cola con la primera confirmación.",
+            "statusQueued" : "La transacción está en la cola esperando por ejecución.",
+            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.", 
+            "statusConfirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
+            "statusFailed" : "La transacción falló en alguno de los pasos relacionados.",
+            "buttonClose" : "Close"
         },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
@@ -23,19 +23,19 @@
         "headers": {
             "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
         },
-        "actions": {
-            "transfer": "Transferencia",
-            "exchanging": "Cambiando",
-            "exchanged": "Cambiado",
-            "receiving": "Recibiendo",
-            "received": "Recibido",
-            "origin": "Origen",
-            "destination": "Destino",
-            "statusQueuing": "Encolando",
-            "statusQueued": "Encolado",
-            "statusConfirming": "Confirmando",
-            "statusConfirmed": "Confirmado",
-            "statusFailed": "Fallado"
+        "actions" : {
+            "transfer" : "Transferencia",
+            "exchanging" : "Cambiando",
+            "exchanged" : "Cambiado",
+            "receiving" : "Recibiendo",
+            "received" : "Recibido",
+            "origin" : "Origen",
+            "destination" : "Destino",
+            "statusQueuing" : "Encolando",
+            "statusQueued" : "Encolado",
+            "statusConfirming" : "Confirmando",
+            "statusConfirmed" : "Confirmado",
+            "statusFailed" : "Fallado"
         },
         "columns": {
             "date": "Fecha"
@@ -58,56 +58,52 @@
             "reason": "Motivo"
         },
         "errors": {
-            "qACBelow": "precio subió, la cantidad está debajo del mínimo requerido",
-            "insufficientQAC1": "token bajó, insuficiente",
-            "insufficientQAC2": "enviado",
-            "lowCoverage": "El sistema está bajo cobertura global protegida",
-            "fluxCapacitor": "Error en el Flux Capacitor",
-            "noMessage": "Sin mensaje"
+            "qACBelow" : "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1" : "token bajó, insuficiente",
+            "insufficientQAC2" : "enviado",
+            "lowCoverage" : "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor" : "Error en el Flux Capacitor",
+            "noMessage" : "Sin mensaje"
         },
-        "table": {
-            "itemsPerPage": "Página"
+        "table":{
+            "itemsPerPage" : "Página"
         }
     },
-    "feedback": {
-        "clipboardCopy": "Copiado",
-        "clipboardTo": "al portapapeles"
+    "feedback" :{
+        "clipboardCopy" : "Copiado",
+        "clipboardTo" : "al portapapeles"
     },
 
-    "wallet": {
-        "modalTitle": "Conectar Billetera",
-        "userAddress": "Dirección",
+    "wallet" :{
+        "modalTitle" : "Conectar Billetera",
+        "userAddress" : "Dirección",
         "cta": {
-            "disconnect": "Desconectar",
-            "close": "Cerrar"
+            "disconnect" : "Desconectar",
+            "close" : "Cerrar"
         }
     },
 
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "BPro",
-                "abbr": "BPRO"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "BPro Max",
-                "abbr": "BPROX"
+                "label": "RIF Pro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "ARS",
-                "abbr": "ArsFlip"
-            },
-            "TP_1": {
-                "label": "COP",
-                "abbr": "CopFlip"
+                "label": "RIF Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
 
@@ -122,23 +118,23 @@
             "queuing": "Encolando la transacción…",
             "queued": "Operación encolada. Esperando ejecución…",
             "confirming": "Operación en confirmación",
-            "confirmed": "Operación confirmada",
+            "confirmed" : "Operación confirmada",
             "success": "Operación exitosa",
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción",
-            "minimumWarning": "Mínimo a recibir",
-            "minimumExplanation": "(Ver tolerancia de variación de precio)"
+            "minimumWarning" : "Mínimo a recibir",
+            "minimumExplanation" : "(Ver tolerancia de variación de precio)"
         },
 
         "priceVariation": {
             "title": "Personalizar Tolerancia de Variación de Precio",
-            "sliderLabel": "Tolerancia de Variación de Precio",
-            "warning": "Cantidad actualizada debido a tolerancia de variación de precio"
+            "sliderLabel" : "Tolerancia de Variación de Precio",
+            "warning" : "Cantidad actualizada debido a tolerancia de variación de precio"
         },
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
         "labelBalance": "balance",
-        "labelUpTo": "hasta",
+        "labelUpTo" : "hasta",
         "labelReceiving": "Recibiendo",
         "labelTransactionID": "ID de transacción",
         "placeholder": "Dirección",
@@ -148,21 +144,21 @@
         "buttonPrimary": "Cambiar",
         "modalTitle": "Confirmar Cambio",
         "buttonCancel": "Cancelar",
-        "buttonConfirm": "Confirmar",
+        "buttonConfirm" : "Confirmar",
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
         "infoAddressEmpty": "Falta la dirección de destino",
         "infoAddressInvalid": "Dirección de destino inválida",
-        "errors": {
-            "notOperational": "No operacional debido a bajo Global Coverage ratio",
-            "cantOperate": "No se puede operar con el estado actual",
-            "requestTimeout": "Mucho tiempo procesando",
-            "connectYourWallet": "Please connect your wallet Por favor conectar billetera",
-            "amountTooLow": "La cantidad debe ser mayor a cero",
-            "amountInvalid": "La cantidad debe ser válida",
-            "notBalance": "No hay balance suficiente en tu billetera",
-            "noLiquidity": "No hay suficiente liquidez en el protocolo",
-            "maxLimitedByProtocol": "Maximos limitados temporalmente por el protocolo"
+        "errors" : {
+            "notOperational" : "No operacional debido a bajo Global Coverage ratio",
+            "cantOperate" : "No se puede operar con el estado actual",
+            "requestTimeout" : "Mucho tiempo procesando",
+            "connectYourWallet" : "Please connect your wallet Por favor conectar billetera",
+            "amountTooLow" : "La cantidad debe ser mayor a cero",
+            "amountInvalid" : "La cantidad debe ser válida",
+            "notBalance" : "No hay balance suficiente en tu billetera",
+            "noLiquidity" : "No hay suficiente liquidez en el protocolo",
+            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
         }
     },
     "portfolio": {
@@ -173,29 +169,36 @@
                     "price": "Precio en USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
+                        "title": "RIF",
+                        "symbol": " (RIF)",
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "1": {
-                        "title": "BPro Max",
-                        "symbol": " (BPROX)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "2": {
-                        "title": "Flip",
-                        "symbol": " (FLIP)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2,
-                        "balance_decimals": 8
+                        "balance_decimals": 2
                     },
                     "3": {
-                        "title": "Smart Bitcoin",
+                        "title": "MoC",
+                        "symbol": " (MOC)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    },
+                    "4": {
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2,
                         "balance_decimals": 8
@@ -208,27 +211,16 @@
                     "price": "Tokens por USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
+                    "rif" : "RIF",
                     "usd": "USD"
                 },
-                "rows": {
-                    "0": {
-                        "title": "ARS",
-                        "symbol": " (ArsFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "1": {
-                        "title": "COP",
-                        "symbol": " (CopFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    }
-                }
+                "rows": {}
             }
         },
         "sectionTitle": "Portafolio",
         "totalCurrency": "USD",
         "totalBalance": "Balance Total"
+   
     },
     "performance": {
         "sectionTitle": "Desempeño",
@@ -246,14 +238,15 @@
 
             "statusTitleLiquidated": "Liquidado",
             "statusDescriptionLiquidated": "No hay operaciones permitidas",
-
+            
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
-            "statusTitleUnavailable": "No puede operar",
-            "statusDescreiptionUnavailable": "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
+            "statusTitleUnavailable" : "No puede operar",
+            "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
+
         },
         "tvl": {
             "cardTitle": "Valor Total Bloqueado",
@@ -264,17 +257,17 @@
             "priceIn": "Precio en USD",
             "currentLeverage": "Apalancamiento actual",
             "totalInSystem": "Total en el sistema",
-            "redeemable": "Disponible para redimir"
-        },
+            "redeemable" : "Disponible para redimir"
+         },
 
-        "collateral": {
+         "collateral": {
             "cardTitle": "Colateral",
             "totalIn": "Colateral total en USD",
             "globalCoverage": "Cobertura Global"
-        },
+         },
 
-        "pegged": {
-            "cardTitle": "Rendimiento de los Tokens-Pegged",
+         "pegged": {
+            "cardTitle": "Rendimiento del USDRIF",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -282,7 +275,7 @@
             "colTargetCoverage": "Cobertura Obj.",
             "colEMA": "EMA",
             "colTargetEMA": "EMA Objetivo"
-        }
+         }
     },
 
     "send": {
@@ -298,10 +291,10 @@
         "buttonPrimary": "Enviar",
         "modalTitle": "Confirmar Envío",
         "buttonCancel": "Cancelar",
-        "buttonConfirm": "Confirmar",
+        "buttonConfirm" : "Confirmar",
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
-        "noNegativeValues": "El valor debe ser mayor a cero",
+        "noNegativeValues" : "El valor debe ser mayor a cero",
         "infoAddressEmpty": "Falta la dirección de destino",
         "infoAddressInvalid": "Dirección de destino inválida",
         "feedback": {
@@ -312,141 +305,132 @@
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción"
         }
-    },
+     },
 
-    "allowance": {
-        "cardTitle": "Autorizar uso de",
-        "disallowanceTitle": "Revocar autorización de gasto de",
-        "statusText1": "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
-        "statusText2": "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
-        "statusDisallowanceText": "Antes de continuar con la operación, firma una transacción para revocar la autorización de gasto.",
-        "setUnlimited": "Configurar autorización ilimitada. No preguntarme nuevamente.",
-        "confirm": {
+     "allowance": {
+        "cardTitle" : "Autorizar uso de",
+        "disallowanceTitle" : "Revocar autorización de gasto de",
+        "statusText1" : "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
+        "statusText2" : "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
+        "statusDisallowanceText" : "Antes de continuar con la operación, firma una transacción para revocar la autorización de gasto.",
+        "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
+        "confirm" : {
             "cancel": "Cancelar",
             "authorize": "Autorizar"
         },
-        "feedback": {
-            "submit": "",
-            "sign": "Por favor, firma la transacción de autorización utilizando tu billetera.",
-            "waiting": "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
-            "error": "¡Transacción fallada!",
-            "default": "Espera a la confirmación de la transacción"
+        "feedback" : {
+            "submit" : "",
+            "sign" : "Por favor, firma la transacción de autorización utilizando tu billetera.",
+            "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "error" : "¡Transacción fallada!",
+            "default" : "Espera a la confirmación de la transacción"
         }
-    },
-    "inputFields": {
-        "maxButton": "MAX"
-    },
+     },
+     "inputFields": {
+        "maxButton" : "MAX"
+     },
 
-    "fees": {
-        "labelFee": "Tasa",
-        "labelExecutionFee": "Tasa de ejecución",
+     "fees": {
+        "labelFee" : "Tasa",
+        "labelExecutionFee" : "Tasa de ejecución",
         "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
-    "menuOptions": {
+     "menuOptions": {
         "portfolio": "Portafolio",
-        "send": "Enviar",
-        "exchange": "Cambiar",
-        "performance": "Rendimiento",
-        "staking": "Staking",
-        "liquidityMining": "Liquidity Mining",
-        "vesting": "Bloqueo",
-        "more": "Más"
+        "send" : "Enviar",
+        "exchange" : "Cambiar",
+        "performance" : "Rendimiento",
+        "staking" : "Staking",
+        "liquidityMining" : "Liquidity Mining",
+        "vesting" : "Bloqueo",
+        "voting" : "Votación",
+        "more" : "Más"
     },
 
-    "language": {
+    "language" : {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
     },
 
-    "defaultCTA": {
-        "buttonSubmit": "Confirmar",
-        "buttonCancel": "Cancelar",
-        "buttonExchange": "Cambiar",
-        "buttonClose": "Cerrar"
+    "defaultCTA" : {
+        "buttonSubmit" : "Confirmar",
+        "buttonCancel" : "Cancelar",
+        "buttonExchange" : "Cambiar",
+        "buttonClose" : "Cerrar"
     },
 
-    "numberFormat": {
-        "thousandsSeparator": ",",
-        "decimalSeparator": "."
+    "numberFormat" : {
+        "thousandsSeparator" : ",",
+        "decimalSeparator" : "."
     },
 
-    "swapModal": {
-        "text1": "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
-        "text2": "botón 'Cambiar Ahora'",
-        "button": "Cambiar Ahora",
-        "modalTitle1": "AVISO IMPORTANTE",
-        "modalTitle2": "Confirmar Migración",
-        "explanation1": "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva dApp. No podrás ver más tu balance de RDOC en la dApp.",
-        "explanation2": "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
-        "explanation3": "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todo tu balance de RDOC será convertido a USDRIF",
-        "buttonCancel": "Cancelar",
-        "buttonConfirm": "Confirmar",
-        "exchanging": "Cambiando",
-        "receiving": "Recibiendo",
-        "authorizing": "AUTORIZACIÓN DE TOKEN",
-        "migrating": "MIGRACIÓN DE TOKEN",
-        "allowanceSignText": "Por favor, firma la autorización utilizando tu billetera.",
-        "migrationTransactionSignText": "Por favor, firma la transacción de migración utilizando tu billetera.",
-        "allowanceWaiting": "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
-        "transactionHash": "Hash de la transacción",
-        "operationFailed": "La operación falló !.",
-        "tokenMigrationWaitingText": "Por favor, espera mientras la transacción de minado del token de migración se completa.",
-        "operationSuccessful": "Operación exitosa."
+    "swapModal" : {
+        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text2" : "botón 'Cambiar Ahora'",
+        "button" : "Cambiar Ahora",
+        "modalTitle1" : "AVISO IMPORTANTE",
+        "modalTitle2" : "Confirmar Migración",
+        "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva dApp. No podrás ver más tu balance de RDOC en la dApp.",
+        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todo tu balance de RDOC será convertido a USDRIF",
+        "buttonCancel" : "Cancelar",
+        "buttonConfirm" : "Confirmar",
+        "exchanging" : "Cambiando",
+        "receiving" : "Recibiendo",
+        "authorizing" : "AUTORIZACIÓN DE TOKEN",
+        "migrating" : "MIGRACIÓN DE TOKEN",
+        "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
+        "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
+        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "transactionHash" : "Hash de la transacción",
+        "operationFailed" : "La operación falló !.",
+        "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
+        "operationSuccessful" : "Operación exitosa."
     },
 
-    "staking": {
-        "cardTitle": "Staking",
-        "governanceToken": "Flip",
+    "staking" : {
+        "display_decimals": 2,
+        "title": "Staking",
         "staking": {
-            "tabStake": "Stake",
-            "tabUnstake": "Unstake",
-            "inputStake": "Stake",
-            "inputUnstake": "Unstake",
-            "inputAvailable": "Disponible",
-            "stakedAmount": "Staked",
-            "cta": {
-                "explanation": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'.",
-                "stakeButton": "Stake",
-                "unstakeButton": "Unstake",
-                "staking": "Staking",
-                "unstaking": "Unstaking",
-                "stakingSign": "≈"
-            }
+            "input_decimals": 2,
+            "tab1": "Hacer Staking",
+            "tab2": "Retirar Stack",
+            "staked": "En Stake",
+            "note": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'.",
+            "stake_button": "Stake",
+            "unstake_button": "Unstake"
         },
         "distribution": {
-            "title": "Distribución de Flip",
+            "title": "Distribución de MOC",
             "graph": {
                 "balance": "Balance (libre)",
                 "processingUnstake": "Unstake en proceso",
                 "readyWithdraw": "Listo para retirar",
                 "staked": "En stake"
             },
-            "bar": {
-                "desc": "Desempeño del stake anual de Flip"
+            "bar" : {
+                "desc": "Desempeño del stake anual de MOC"
             }
         },
-        "performance": {
-            "title": "Performance del Staking",
-            "bar": {
-                "description": "Desempeño anual del Flip",
-                "base": "Flip",
-                "sign": "+",
-                "staking": "Stacking"
+        "performance" : {
+            "title": "Desempeño del Staking",
+            "bar" : {
+                "desc": "Desempeño del stake anual de MOC"
             }
         },
-        "withdraw": {
+        "withdraw" : {
             "title": "Retiros",
             "processing_unstake": "Procesando desbloqueo",
             "ready_to_withdraw": "Listo para retirar",
             "buttons": {
                 "withdraw": "Retirar",
-                "restake": "Restake"
+                "restake": "Re-bloquear"
             },
             "status": {
-                "PENDING": "Procesando Unstake",
-                "AVAILABLE": "Unstaking"
+                "PENDING": "Procesando desbloqueo",
+                "AVAILABLE": "Desbloqueado"
             },
             "table": {
                 "expiration": "Expiración",
@@ -455,10 +439,10 @@
                 "actions": "Acciones disponibles"
             }
         },
-        "tokens": {
-            "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+        "tokens" : {
+            "TG": {
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
         "modal": {
@@ -469,8 +453,9 @@
             "StakingOptions_Withdraw": "Withdraw",
 
             "StakingOptionsModal_SetAllowance": "Autorizar Allowance",
-            "StakingOptionsModal_Authorize": "Autorizar",
+            "StakingOptionsModal_ReviewYourWallet": "Wallet",
             "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
+            "StakingOptionsModal_Authorize": "Autorizar",
             "StakingOptionsModal_AllowanceDescription": "Antes de continuar con el staking deberás permitir el \"allowance\" para que el sistema pueda acceder a los tokens. Esto solo debe hacerse la primera vez y no bloquea ningún token de tu billetera.",
             "StakingOptionsModal_ProccessingAllowance": "Procesando Allowance, por favor espera",
             "StakingOptionsModal_StakingDescription": "Los MoCs stakeados recibirán recompensas del Programa de Recompensas de Staking de MoC. Puedes retirar tus MoC's cuando quieras, el proceso de retiro tomará 30 días",
@@ -482,11 +467,11 @@
             "StakingOptionsModal_UnstakeTitle": "Unstake",
             "StakingOptionsModal_AmountToUnstake": "Cantidad para Unstake",
             "StakingOptionsModal_UnstakingDescription": "Puedes retirar tus MoC's a tu billetera en 30 días. Puedes restakearlos en cualquier momento durante este período.",
-
+    
             "StakingOptionsModal_WithdrawTitle": "Retiro",
             "StakingOptionsModal_AmountToWithdraw": "Cantidad a Retirar",
             "StakingOptionsModal_WithdrawDescription": "Luego del retiro tus MoC tokens estarán disponibles en tu billetera.",
-
+    
             "StakingOptionsModal_RestakeTitle": "Restake",
             "StakingOptionsModal_AmountToRestake": "Monto para Restake",
             "StakingOptionsModal_RestakeDescription": "Luego de hacer el Restaking de tus tokens comenzarás a recibir recompensas del Programa de Staking Rewards de MoC. ",
@@ -504,9 +489,9 @@
         "Error_numberTooSmall": "El valor es muy pequeño",
         "Error_maxExceeded": "El número excede el máximo permitido"
     },
-    "vesting": {
-        "vestingMachineGeneral": {
-            "title": "Vesting Machine"
+    "vesting" : {
+        "vestingMachineGeneral" : {
+            "title" : "Vesting Machine"
         }
     }
 }

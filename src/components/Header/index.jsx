@@ -6,8 +6,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
 
-// import lang_en from  '../../assets/icons/lang_en.svg';
-// import lang_es from  '../../assets/icons/lang_en.svg';
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 const { Header } = Layout;
 
@@ -73,6 +71,13 @@ export default function SectionHeader() {
                 action: goToVesting,
                 isActive: true,
                 pathMap: '/vesting'
+            },
+            {
+                name: t('menuOptions.voting'),
+                className: 'logo-voting',
+                action: goToVoting,
+                isActive: true,
+                pathMap: '/voting'
             }
         ]);
     }, [t, lang]);
@@ -115,6 +120,11 @@ export default function SectionHeader() {
         swapMenuOptions(t('menuOptions.vesting'));
         setShowMoreDropdown(false);
         navigate('/vesting');
+    };
+    const goToVoting = () => {
+        swapMenuOptions(t('menuOptions.voting'));
+        setShowMoreDropdown(false);
+        navigate('/voting');
     };
 
     const swapMenuOptions = (optionName) => {
@@ -189,7 +199,7 @@ export default function SectionHeader() {
                         </a>
                     )}
                     <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
-                        {menuOptions.slice(-2).map((option, index) => {
+                        {menuOptions.slice(-3).map((option, index) => {
                             const { containerClassName, iconClassName } = getMenuItemClasses(option.className, option.pathMap);
                             return (
                                 <a onClick={option.action} className={containerClassName} key={option.name}>

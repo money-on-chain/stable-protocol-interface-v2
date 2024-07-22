@@ -352,6 +352,7 @@
         "staking": "Staking",
         "liquidityMining": "Liquidity Mining",
         "vesting": "Bloqueo",
+        "voting" : "Votación",
         "more": "Más"
     },
 

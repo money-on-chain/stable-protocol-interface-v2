@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/Voting/Like</title>
+    <g id="Icons/Voting/Like" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Area" x="0" y="0" width="24" height="24"></rect>
+        <g id="thumb-up" transform="translate(1, 1)" stroke="#000000" stroke-width="2">
+            <polyline id="Path" points="5 22 0 22 0 11 5 11"></polyline>
+            <path d="M5,11 L8,0 L8,0 C9.65685425,0 11,1.34314575 11,3 L11,9 L18.5,9 C19.375251,9.00004128 20.206838,9.38231298 20.7767445,10.0465952 C21.346651,10.7108774 21.5980382,11.590919 21.465,12.456 L20.388,19.456 C20.1631033,20.918397 18.9055882,21.9984505 17.426,22 L5,22 L5,11 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>
