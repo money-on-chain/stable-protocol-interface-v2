@@ -6,11 +6,7 @@ import ConfirmOperation from '../../ConfirmOperation';
 import { Button } from 'antd';
 
 export default function ModalConfirmOperation(props) {
-
-    const {
-        onClear,
-        inputValidationError
-    } = props;
+    const { onClear, inputValidationError } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
@@ -28,23 +24,25 @@ export default function ModalConfirmOperation(props) {
     };
     return (
         <div className="ShowModalConfirmOperation">
-            <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={(inputValidationError) ? 'disabled': null}>
+            <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={inputValidationError ? 'disabled' : null}>
                 {t('exchange.buttonPrimary')}
             </Button>
-            {visible && <Modal
-                title={t('exchange.modalTitle')}
-                width={505}
-                open={visible}
-                onCancel={hideModal}
-                footer={null}
-                className="ModalConfirmOperation"
-                closable={false}
-                centered={true}
-                maskClosable={false}
-                maskStyle={{}}
-            >
-                <ConfirmOperation {...props} onCloseModal={hideModal} />
-            </Modal>}
+            {visible && (
+                <Modal
+                    title={t('exchange.modalTitle')}
+                    width={505}
+                    open={visible}
+                    onCancel={hideModal}
+                    footer={null}
+                    className="ModalConfirmOperation"
+                    closable={false}
+                    centered={true}
+                    maskClosable={false}
+                    maskStyle={{}}
+                >
+                    <ConfirmOperation {...props} onCloseModal={hideModal} />
+                </Modal>
+            )}
         </div>
     );
 }

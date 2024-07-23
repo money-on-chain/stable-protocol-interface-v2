@@ -486,7 +486,6 @@ export default function ConfirmOperation(props) {
                     </div>
                 </div>
             </div>
-
             <div className="divider-horizontal"></div>
             <div className="tx-fees-container">
                 <div className="tx-fees-data">
@@ -604,7 +603,6 @@ export default function ConfirmOperation(props) {
                                 <span className="confirm-error">{toleranceError}</span>
                             </div>
                         )}
-
                         <div className="cta-options-group">
                             <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
                                 {t('exchange.buttonCancel')}
@@ -627,12 +625,12 @@ export default function ConfirmOperation(props) {
                 status === 'CONFIRMING' ||
                 status === 'SUCCESS' ||
                 status === 'ERROR') && (
-                <div className="tx-sent">
-                    <div className="status">
-                        {(status === 'QUEUING' || status === 'QUEUED' || status === 'CONFIRMING' || status === 'SUCCESS' || status === 'ERROR') && (
-                            <div className="transaction-id">
-                                <div className="label">Transaction ID</div>
-                                <div className="address-section">
+                <div className="conditional-wrapper">
+                    {(status === 'QUEUING' || status === 'QUEUED' || status === 'CONFIRMING' || status === 'SUCCESS' || status === 'ERROR') && (
+                        <div className="tx-id-container">
+                            <div className="tx-id-data">
+                                <div className="tx-id-label"> {t('txFeedback.txIdLabel')}</div>
+                                <div className="tx-id-address">
                                     <CopyAddress address={txID} type={'tx'}></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
@@ -640,17 +638,22 @@ export default function ConfirmOperation(props) {
                                     {/*<i className="icon-copy"></i>*/}
                                 </div>
                             </div>
-                        )}
-
-                        <div className="tx-logo-status">
-                            <i className={sentIcon}></i>
                         </div>
+                    )}
+                    <div className="tx-feedback-container">
+                        <div className="tx-feedback-icon">
+                            <div className={sentIcon}></div>
+                        </div>
+                        <div className="tx-feedback-text">{statusLabel}</div>
+                    </div>
 
-                        <div className="status-label">{statusLabel}</div>
-
-                        <button type="primary" className="secondary-button btn-clear" onClick={onClose}>
-                            {t('exchange.buttonClose')}
-                        </button>
+                    <div className="cta-container">
+                        <div className="cta-options-group">
+                            <button type="primary" className="secondary-button btn-clear" onClick={onClose}>
+                                {t('exchange.buttonClose')}
+                            </button>
+                            {/* BOOKMARK */}
+                        </div>
                     </div>
                 </div>
             )}

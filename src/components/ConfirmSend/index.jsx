@@ -167,7 +167,7 @@ export default function ConfirmSend(props) {
             )}
             {/* </div> */}
             {(status === 'SIGN' || status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
-                <div className="tx-conditional-container">
+                <div className="conditional-wrapper">
                     {(status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
                         <div className="tx-id-container">
                             <div className="tx-id-data status">

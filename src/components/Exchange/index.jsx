@@ -442,7 +442,6 @@ export default function Exchange() {
                         />
                     </div>
                 </div>
-
                 <div className="info">
                     <div className="prices">
                         <div className="conversion_0">

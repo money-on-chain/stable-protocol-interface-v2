@@ -4,6 +4,7 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
+    "txFeedback": { "txIdLabel": "Transaction ID" },
     "operations": {
         "sectionTitle": "Last Operations",
         "aboutQueue": {
