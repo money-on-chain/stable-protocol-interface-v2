@@ -215,12 +215,14 @@ export default function Withdraw(props) {
                     onConfirm={onConfirm}
                 />
             )}
-            {isOperationModalVisible && <OperationStatusModal
-                visible={isOperationModalVisible}
-                onCancel={() => setIsOperationModalVisible(false)}
-                operationStatus={operationModalInfo.operationStatus}
-                txHash={operationModalInfo.txHash}
-            />}
+            {isOperationModalVisible && (
+                <OperationStatusModal
+                    visible={isOperationModalVisible}
+                    onCancel={() => setIsOperationModalVisible(false)}
+                    operationStatus={operationModalInfo.operationStatus}
+                    txHash={operationModalInfo.txHash}
+                />
+            )}
         </div>
     );
 }

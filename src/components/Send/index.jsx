@@ -187,30 +187,31 @@ export default function Send() {
                     </div>
                 </div>
             </div>
-
-            <div className="exchange-send-footer">
-                <div className="exchanging">
-                    <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
-                    <span className={'symbol'}> {t('send.sendingSign')} </span>
-                    {sendingUSD.toString() !== 'NaN' ? (
-                        <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: sendingUSD,
-                                token: TokenSettings('CA_0'),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-                        </span>
-                    ) : (
-                        <span>0</span>
-                    )}
-                    <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
+            <div className="cta-container">
+                <div className="cta-info-group">
+                    <div className="cta-info-summary">
+                        <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
+                        <span className={'symbol'}> {t('send.sendingSign')} </span>
+                        {sendingUSD.toString() !== 'NaN' ? (
+                            <span className={'token_receive'}>
+                                {PrecisionNumbers({
+                                    amount: sendingUSD,
+                                    token: TokenSettings('CA_0'),
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                        ) : (
+                            <span>0</span>
+                        )}
+                        <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
+                    </div>
                 </div>
 
-                <div className="actions-buttons">
+                <div className="cta-options-group">
                     <ModalConfirmSend
                         currencyYouExchange={currencyYouSend}
                         exchangingUSD={sendingUSD}
@@ -220,7 +221,7 @@ export default function Send() {
                         inputValidationError={inputValidationError}
                     />
                 </div>
-            </div>
+            </div>{' '}
         </div>
     );
 }

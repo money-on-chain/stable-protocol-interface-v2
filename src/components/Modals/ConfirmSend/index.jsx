@@ -20,7 +20,7 @@ export default function ModalConfirmSend(props) {
     };
 
     return (
-        <div className="ShowModalConfirmSend">
+        <div className="primary-button">
             <Button
                 type="primary"
                 className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'primary-button btn-confirm' : 'primary-button btn-confirm'}

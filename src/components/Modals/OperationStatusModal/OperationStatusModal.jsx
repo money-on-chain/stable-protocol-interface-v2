@@ -54,7 +54,7 @@ const OperationStatusModal = ({ className, visible, onCancel, title, operationSt
                     </div>
                 </div>
 
-                <div className="tx-cta-container">
+                <div className="cta-container">
                     {' '}
                     <div className="tx-feedback-container">
                         <div className="tx-feedback-icon tx-logo-status">
