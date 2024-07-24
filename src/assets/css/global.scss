@@ -130,9 +130,7 @@ h1 {
 --- [END] Cards Settings ---
 */
 
-/*
---- [START] Notification banners ---
-*/
+/* #region NOTIFICATION BANNERS */
 
 .ant-alert {
     display: flex;
@@ -239,13 +237,98 @@ h1 {
     }
 }
 
-/*
---- [END] Notification banners ---
-*/
+/* #endregion NOTIFICATION BANNES */
 
-/*
---- [START] Customize Variation Tolerance ---
-*/
+/* #region BUTTONS */
+
+.primary-button {
+    opacity: 1;
+    transition:
+        background-color 0.3s,
+        color 0.3s,
+        border-color 0.3s;
+    cursor: pointer;
+    box-shadow: var(--color-button-primary-background-default-shadow);
+    border-width: 0px;
+    border-color: var(--color-button-primary-text-default);
+    border-radius: var(--button-radius);
+    background-color: var(--color-button-primary-background-default);
+    width: var(--button-width);
+    height: var(--button-height);
+    color: var(--color-button-primary-text-default);
+    font-weight: 700;
+    font-size: 18px;
+    font-family: var(--main-font);
+    text-align: center;
+}
+
+.primary-button:disabled,
+.primary-button:disabled:hover {
+    box-shadow: none;
+    background-color: var(--color-button-primary-background-disabled);
+    color: var(--color-button-primary-text-disabled);
+}
+
+.primary-button:hover,
+.primary-button:focus {
+    border-color: var(--color-button-primary-text-hover);
+    background: var(--color-button-primary-background-hover);
+    color: var(--color-button-primary-text-hover);
+}
+
+.secondary-button:hover,
+.secondarybutton:focus {
+    border-color: var(--color-button-secondary-text-hover);
+    background: var(--color-button-primary-secondary-hover);
+    color: var(--color-button-secondary-text-hover);
+}
+
+.secondary-button {
+    border: 2px solid var(--color-button-secondary-text-default);
+    border-radius: var(--button-radius);
+    background-color: var(--color-button-secondary-background-default);
+    width: 200px;
+    height: 54px;
+    color: var(--color-button-secondary-text-default);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: (var(--brand-font));
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+.button-small-secondary {
+    transition:
+        background-color 0.3s,
+        color 0.3s,
+        border-color 0.3s;
+    cursor: pointer;
+    box-shadow: var(--color-button-primary-background-default-shadow);
+    border: 2px solid var(--color-button-secondary-text-default);
+    border-color: var(--color-button-primary-text-default);
+    border-radius: var(--button-radius);
+    background-color: var(--color-button-secondary-background-default);
+    padding: 0 var(--button-small-padding);
+    height: var(--button-small-height);
+    color: var(--color-button-secondary-text-default);
+    font-weight: 700;
+    font-size: 14px;
+    font-family: var(--main-font);
+    text-align: center;
+}
+
+.button-small-secondary:hover,
+.button-small-secondary:focus {
+    border-color: var(--color-button-secondary-text-hover);
+    background: var(--color-button-primary-secondary-hover);
+    color: var(--color-button-secondary-text-hover);
+}
+
+/* #endregion BUTTONS */
+
+/* #region CUSTOMIZE PRIVE VARIATION TOLERANCE */
+
 .customize-tolerance {
     .CollapseTolerance {
         .ant-collapse-content {
@@ -311,7 +394,525 @@ h1 {
         border-bottom: none;
     }
 }
+/* #endregion CUSTOMIZE PRIVE VARIATION TOLERANCE */
 
-/*
---- [END] Customize Variation Tolerance ---
-*/
+/* #region AMOUNT TOKEN INPUT */
+.amountTokenInput {
+    border: var(--debugBorder);
+    background-color: var(--debugColor);
+}
+/* #endregion AMOUNT TOKEN INPUT */
+
+/* #region TOKEN SELECTOR */
+
+.inputFields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 318px;
+}
+
+.tokenSelector {
+    display: flex;
+    flex: none;
+    flex-grow: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    order: 0;
+    gap: 8px;
+    padding: 0px;
+    width: 318px;
+    height: 108px;
+}
+
+.tokenSelector__token {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px; /* identical to box height */
+
+    font-family: var(--brand-font);
+}
+.token__name {
+}
+.token__ticker {
+    margin-left: 7px;
+    color: var(--color-text-secondary);
+    font-weight: 700;
+    line-height: 48px;
+}
+.token__icon {
+    margin-right: 8px;
+    width: var(--icon-token-size);
+    height: var(--icon-token-size);
+}
+.tokenSelector__toggle {
+}
+
+.select-token {
+}
+/* #endregion TOKEN SELECTOR */
+
+/* #region AMOUNT INPUT */
+.amountInput {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--card-border-radius);
+    background-color: var(--color-controls-background);
+    padding: 4px 7px;
+    width: 318px;
+}
+.amountInput__infoBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    color: var(--color-text-secondary);
+}
+.amountInput__label {
+    font-weight: 600;
+    font-size: 8px;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+}
+.amountInput__available {
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    font-family: var(--main-font);
+    letter-spacing: 0px;
+    text-align: right;
+}
+.amountInput__amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    height: 29px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25.2px;
+    font-family: var(--brand-font);
+    text-align: left;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type='number'] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+}
+
+.amountInput__value {
+    border: none;
+    background-color: transparent;
+    padding-left: 2px !important;
+    color: var(--color-text-primary);
+    text-align: left;
+}
+.amountInput__amount::placeholder {
+    color: var(--color-text-secondary);
+}
+
+.amountInput__maxButton {
+}
+.amountInput__feedback {
+    width: 100%;
+    color: var(--color-semantic-neutral);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 8px;
+    font-family: var(--main-font);
+    letter-spacing: 0px;
+    text-align: left;
+}
+.amountInput__feedback--error {
+    color: var(--color-semantic-negative);
+}
+.amountInput__feedback--correct {
+    color: var(--color-semantic-positive);
+}
+
+.amountInput__maxButton {
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    margin-left: 15px;
+    border: 1px solid var(--color-button-secondary-text-default);
+    border-radius: 4px;
+    background-color: var(--color-button-secondary-background-default);
+    padding-left: 1px;
+    width: 38px;
+    height: 17px;
+    color: var(--color-button-secondary-text-default);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 0px;
+    font-family: var(--main-font);
+    letter-spacing: 0.2px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.amountInput__maxButton:hover {
+    border-color: var(--color-button-secondary-text-hover);
+    color: var(--color-button-secondary-text-hover);
+}
+
+/* #endregion AMOUNT INPUT */
+
+// .tx-amount-group {
+//     // Stacks all the groups of information vertically
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: center;
+//     width: 100%;
+//     // margin-bottom: 16px;
+//     // gap: 8px;
+//     background-color: var(--surface-color-2);
+//     border-radius: var(--card-border-radius);
+// }
+// .tx-amount-container {
+//     // One item containing Amount + Token, plus optional extra information below
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: center;
+//     width: 100%;
+//     max-width: 368px;
+//     border: 1 solid var(--dividers);
+//     gap: 8px;
+//     padding-bottom: 8px;
+//     .tx-amount-data {
+//         // Amount + Token in one line
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//         align-items: center;
+//         width: 100%;
+//         font-family: var(--brand-font);
+//         font-size: 20px;
+//         font-weight: 700;
+//         font-style: normal;
+//         background-color: var(--surface-color-inset);
+//         padding: var(--data-background-padding);
+//         border-radius: var(--data-background-radius);
+//         .tx-amount {
+//             text-align: left;
+//             color: var(--color-text-primary);
+//         }
+//         .tx-token {
+//             width: 100%;
+//             text-align: right;
+//             color: var(--color-text-secondary);
+//         }
+//     }
+//     .tx-amount-info {
+//         // Optional information below an Amount + Token line
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: flex-start;
+//         align-items: flex-start;
+//         width: 100%;
+//         font-family: var(--main-font);
+//         font-style: normal;
+//         font-weight: 400;
+//         font-size: 11px;
+//         text-align: left;
+//         color: var(--color-text-secondary);
+//     }
+// }
+
+.tx-amount-group {
+    // Stacks all the groups of information vertically
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--card-border-radius);
+    // margin-bottom: 16px;
+    // gap: 8px;
+    background-color: var(--surface-color-2);
+    width: 100%;
+}
+.tx-amount-container {
+    // One item containing Amount + Token, plus optional extra information below
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    border: 1 solid var(--dividers);
+    padding-bottom: 8px;
+    width: 100%;
+    max-width: 368px;
+}
+.tx-amount-data {
+    // Amount + Token in one line
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--data-background-radius);
+    background-color: var(--surface-color-inset);
+    padding: var(--data-background-padding);
+    width: 100%;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: var(--brand-font);
+    .tx-amount {
+        color: var(--color-text-primary);
+        text-align: left;
+    }
+    .tx-token {
+        width: 100%;
+        color: var(--color-text-secondary);
+        text-align: right;
+    }
+}
+.tx-amount-info {
+    // Optional information below an Amount + Token line
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    color: var(--color-text-secondary);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    font-family: var(--main-font);
+    text-align: left;
+}
+.tx-direction {
+    // The icon that represent the flow of the transaction
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.tx-destination-address {
+    border-radius: var(--data-background-radius);
+    background-color: var(--surface-color-inset);
+    padding: var(--data-background-padding);
+    // The target addresss for send transactions
+    width: 100%;
+    color: var(--color-text-primary);
+    font-weight: 400;
+    font-size: 14px;
+    font-family: var(--main-font);
+    text-align: center;
+}
+.tx-fees-container {
+    // Container for the fees information
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+
+    .tx-fees-data {
+        // Stacks all the Fees data + Fees info vertically
+    }
+    .tx-fees-item {
+        // For each fee data
+        color: var(--color-text-primary);
+    }
+    .tx-fees-info {
+        // For information about the fees
+        margin-top: 4px;
+        color: var(--color-text-secondary);
+    }
+}
+.tx-id-container {
+    // Transaction ID link container in cased some extra information is addded in the future
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 364px;
+    .tx-id-data {
+        // Label + address = copy icon
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .tx-id-label {
+            width: 100%;
+            // Transaction ID text/label
+            color: (var(--color-text-primary));
+        }
+        .tx-id-address {
+            // Container that uses CopyAddress address + copy icon
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: flex-end;
+            gap: 8px;
+            width: 100%;
+            color: var(--color-text-link);
+            font-weight: 600;
+            font-family: var(--main-font);
+            text-decoration: underline;
+        }
+    }
+}
+//
+.tx-amount-group {
+    // Stacks all the groups of information vertically
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--card-border-radius);
+    // margin-bottom: 16px;
+    // gap: 8px;
+    background-color: var(--surface-color-2);
+    width: 100%;
+}
+.tx-amount-container {
+    // One item containing Amount + Token, plus optional extra information below
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    border: 1 solid var(--dividers);
+    padding-bottom: 8px;
+    width: 100%;
+    max-width: 368px;
+    .tx-amount-data {
+        // Amount + Token in one line
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: var(--data-background-radius);
+        background-color: var(--surface-color-inset);
+        padding: var(--data-background-padding);
+        width: 100%;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        font-family: var(--brand-font);
+        .tx-amount {
+            color: var(--color-text-primary);
+            text-align: left;
+        }
+        .tx-token {
+            width: 100%;
+            color: var(--color-text-secondary);
+            text-align: right;
+        }
+    }
+    .tx-amount-info {
+        // Optional information below an Amount + Token line
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        color: var(--color-text-secondary);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
+        font-family: var(--main-font);
+        text-align: left;
+    }
+}
+
+.tx-direction {
+    // The icon that represent the flow of the transaction
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.tx-destination-address {
+    border-radius: var(--data-background-radius);
+    background-color: var(--surface-color-inset);
+    padding: var(--data-background-padding);
+    // The target addresss for send transactions
+    width: 100%;
+    color: var(--color-text-primary);
+    font-weight: 400;
+    font-size: 14px;
+    font-family: var(--main-font);
+    text-align: center;
+}
+.tx-fees-container {
+    // Container for the fees information
+    margin-top: 0px;
+    margin-bottom: 0px;
+    .tx-fees-data {
+        // Stacks all the Fees data + Fees info vertically
+    }
+    .tx-fees-item {
+        // For each fee data
+        color: var(--color-text-primary);
+    }
+    .tx-fees-info {
+        // For information about the fees
+        margin-top: 4px;
+        color: var(--color-text-secondary);
+    }
+}
+.tx-id-container {
+    // Transaction ID link container in cased some extra information is addded in the future
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 364px;
+    .tx-id-data {
+        // Label + address = copy icon
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .tx-id-label {
+            // Transaction ID text/label
+            width: 100%;
+            color: (var(--color-text-primary));
+        }
+        .tx-id-address {
+            // Container that uses CopyAddress address + copy icon
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: flex-end;
+            gap: 8px;
+            width: 100%;
+            color: var(--color-text-link);
+            font-weight: 600;
+            font-family: var(--main-font);
+            text-decoration: underline;
+        }
+    }
+}
+.tx-fee-options {
+    margin: 16px 0px;
+}
+.radioButton {
+    .ant-radio-wrapper {
+        color: var(--color-text-primary);
+        line-height: 14px;
+    }
+    .ant-radio-disabled + span {
+        color: var(--color-controls-disabled);
+    }
+}
+
+.TEST {
+    border: var(--debugBorder);
+    border-color: aqua;
+    background-color: rgba(226, 43, 198, 0.251) !important;
+}

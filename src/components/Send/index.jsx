@@ -147,7 +147,7 @@ export default function Send() {
         <div>
             <div className="exchange-send-content">
                 <div className="fields">
-                    <div className="swap-from">
+                    <div className="tokenSelector">
                         <SelectCurrency
                             className="select-token"
                             value={currencyYouSend}
@@ -180,7 +180,7 @@ export default function Send() {
                         <i className="icon-arrow-down"></i>
                     </div>
 
-                    <div className="swap-to">
+                    <div className="tokenSelector">
                         <div className="caption">{t('send.labelDestination')}</div>
                         <Input type="text" placeholder={t('send.placeholder')} className="input-address" onChange={onChangeDestinationAddress} />
                         <div className="input-validation-error">{inputValidationAddressErrorText}</div>
@@ -191,9 +191,9 @@ export default function Send() {
                 <div className="cta-info-group">
                     <div className="cta-info-summary">
                         <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
-                        <span className={'symbol'}> {t('send.sendingSign')} </span>
+                        <span className={'symbol'}> {t('send.sendingSign')}</span>
                         {sendingUSD.toString() !== 'NaN' ? (
-                            <span className={'token_receive'}>
+                            <span className={'token_receive_label'}>
                                 {PrecisionNumbers({
                                     amount: sendingUSD,
                                     token: TokenSettings('CA_0'),

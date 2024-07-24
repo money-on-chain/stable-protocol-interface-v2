@@ -5,6 +5,7 @@
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
     "txFeedback": { "txIdLabel": "Transaction ID" },
+    "button": { "inputMaxValue": "max" },
     "operations": {
         "sectionTitle": "Last Operations",
         "aboutQueue": {

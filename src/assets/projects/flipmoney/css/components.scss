@@ -274,7 +274,7 @@ html {
         flex-direction: column;
         padding: 4px 7px;
         background-color: var(--color-controls-background);
-    
+
         .title-balance-container {
             display: flex;
             justify-content: space-between;
@@ -282,21 +282,21 @@ html {
             margin-bottom: 5px;
             color: var(-color-text-secondary);
         }
-    
+
         .input-title {
             font-size: 8px;
             font-weight: 600;
             font-family: var(--main-font);
             text-transform: uppercase;
         }
-    
+
         .input-field-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
             flex-grow: 1;
         }
-    
+
         .input-value {
             text-align: left; /* Alinear texto a la izquierda */
             flex-grow: 1;
@@ -304,7 +304,7 @@ html {
             padding-left: 2px !important;
             border: none;
         }
-    
+
         .max-button {
             height: 17px;
             width: 39px;
@@ -323,12 +323,12 @@ html {
             color: var(--color-button-secondary-text-default);
             padding-left: 5px;
         }
-    
+
         .max-button:hover {
             border-color: var(--color-button-secondary-text-hover);
             color: var(--color-button-secondary-text-hover);
         }
-    
+
         .input-balance {
             text-align: right; /* Alinear a la derecha dentro del contenedor */
             font-family: var(--main-font);

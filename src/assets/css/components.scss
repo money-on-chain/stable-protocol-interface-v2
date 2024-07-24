@@ -112,104 +112,104 @@ html {
 }
 
 .input-amount-container {
-    width: 318px;
-    display: flex;
-    flex-direction: column;
-    padding: 4px 7px;
-    background-color: var(--color-controls-background);
+    // width: 318px;
+    // display: flex;
+    // flex-direction: column;
+    // padding: 4px 7px;
+    // background-color: var(--color-controls-background);
 
-    .title-balance-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-        color: var(-color-text-secondary);
-    }
+    // .title-balance-container {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+    //     margin-bottom: 5px;
+    //     color: var(-color-text-secondary);
+    // }
 
-    .input-title {
-        font-size: 8px;
-        font-weight: 600;
-        font-family: var(--main-font);
-        text-transform: uppercase;
-    }
+    // .input-title {
+    //     font-size: 8px;
+    //     font-weight: 600;
+    //     font-family: var(--main-font);
+    //     text-transform: uppercase;
+    // }
 
-    .input-field-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
-        flex-grow: 1;
-    }
+    // .input-field-container {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
+    //     flex-grow: 1;
+    // }
 
-    .input-value {
-        text-align: left; /* Alinear texto a la izquierda */
-        flex-grow: 1;
-        background-color: transparent;
-        padding-left: 2px !important;
-    }
+    // .input-value {
+    //     text-align: left; /* Alinear texto a la izquierda */
+    //     flex-grow: 1;
+    //     background-color: transparent;
+    //     padding-left: 2px !important;
+    // }
 
-    .max-button {
-        height: 17px;
-        width: 39px;
-        background-color: transparent; /* Ajusta según sea necesario */
-        border: 1px solid var(--color-button-secondary-text-default);
-        border-radius: 4px;
-        cursor: pointer;
-        margin-left: 15px;
-        margin-bottom: 3px;
-        font-family: var(--main-font);
-        font-size: 11px;
-        font-weight: 800;
-        line-height: 0px;
-        letter-spacing: 0.2px;
-        text-align: center;
-        color: var(--color-button-secondary-text-default);
-        padding-left: 5px;
-    }
+    // .max-button {
+    //     height: 17px;
+    //     width: 39px;
+    //     background-color: transparent; /* Ajusta según sea necesario */
+    //     border: 1px solid var(--color-button-secondary-text-default);
+    //     border-radius: 4px;
+    //     cursor: pointer;
+    //     margin-left: 15px;
+    //     margin-bottom: 3px;
+    //     font-family: var(--main-font);
+    //     font-size: 11px;
+    //     font-weight: 800;
+    //     line-height: 0px;
+    //     letter-spacing: 0.2px;
+    //     text-align: center;
+    //     color: var(--color-button-secondary-text-default);
+    //     padding-left: 5px;
+    // }
 
-    .max-button:hover {
-        border-color: var(--color-button-secondary-text-hover);
-        color: var(--color-button-secondary-text-hover);
-    }
+    // .max-button:hover {
+    //     border-color: var(--color-button-secondary-text-hover);
+    //     color: var(--color-button-secondary-text-hover);
+    // }
 
-    .input-balance {
-        text-align: right; /* Alinear a la derecha dentro del contenedor */
-        font-family: var(--main-font);
-        font-size: 10px;
-        font-weight: 600;
-        line-height: 14px;
-        letter-spacing: 0px;
-    }
+    // .input-balance {
+    //     text-align: right; /* Alinear a la derecha dentro del contenedor */
+    //     font-family: var(--main-font);
+    //     font-size: 10px;
+    //     font-weight: 600;
+    //     line-height: 14px;
+    //     letter-spacing: 0px;
+    // }
 }
 
 /*
     --- Currencies ---
 */
 
-.currencyOption {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+// .currencyOption {
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-start;
 
-    font-family: var(--brand-font);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    /* identical to box height */
+//     font-family: var(--brand-font);
+//     font-style: normal;
+//     font-weight: 600;
+//     font-size: 14px;
+//     line-height: 19px;
+//     /* identical to box height */
 
-    .currencyImage {
-        width: var(--icon-token-size);
-        height: var(--icon-token-size);
-        margin-right: 8px;
-    }
-}
+//     .currencyImage {
+//         width: var(--icon-token-size);
+//         height: var(--icon-token-size);
+//         margin-right: 8px;
+//     }
+// }
 
-.currencyOption-abbr {
-    margin-left: 7px;
-    font-weight: 700;
-    color: var(--color-text-secondary);
-    line-height: 48px;
-}
+// .currencyOption-abbr {
+//     margin-left: 7px;
+//     font-weight: 700;
+//     color: var(--color-text-secondary);
+//     line-height: 48px;
+// }
 .ant-select-dropdown .ant-select-item-option-content {
     display: flex;
     align-items: center;
@@ -269,42 +269,42 @@ html {
 
 .Staking {
     .input-amount-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 4px 7px;
-        background-color: var(--color-controls-background);
-    
-        .title-balance-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-            color: var(-color-text-secondary);
-        }
-    
-        .input-title {
-            font-size: 8px;
-            font-weight: 600;
-            font-family: var(--main-font);
-            text-transform: uppercase;
-        }
-    
-        .input-field-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
-            flex-grow: 1;
-        }
-    
-        .input-value {
-            text-align: left; /* Alinear texto a la izquierda */
-            flex-grow: 1;
-            background-color: transparent;
-            padding-left: 2px !important;
-            border: none;
-        }
-    
+        // width: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // padding: 4px 7px;
+        // background-color: var(--color-controls-background);
+
+        // .title-balance-container {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: center;
+        //     margin-bottom: 5px;
+        //     color: var(-color-text-secondary);
+        // }
+
+        // .input-title {
+        //     font-size: 8px;
+        //     font-weight: 600;
+        //     font-family: var(--main-font);
+        //     text-transform: uppercase;
+        // }
+
+        // .input-field-container {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
+        //     flex-grow: 1;
+        // }
+
+        // .input-value {
+        //     text-align: left; /* Alinear texto a la izquierda */
+        //     flex-grow: 1;
+        //     background-color: transparent;
+        //     padding-left: 2px !important;
+        //     border: none;
+        // }
+
         .max-button {
             height: 17px;
             width: 39px;
@@ -323,19 +323,19 @@ html {
             color: var(--color-button-secondary-text-default);
             padding-left: 5px;
         }
-    
+
         .max-button:hover {
             border-color: var(--color-button-secondary-text-hover);
             color: var(--color-button-secondary-text-hover);
         }
-    
-        .input-balance {
-            text-align: right; /* Alinear a la derecha dentro del contenedor */
-            font-family: var(--main-font);
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 14px;
-            letter-spacing: 0px;
-        }
+
+        // .input-balance {
+        //     text-align: right; /* Alinear a la derecha dentro del contenedor */
+        //     font-family: var(--main-font);
+        //     font-size: 10px;
+        //     font-weight: 600;
+        //     line-height: 14px;
+        //     letter-spacing: 0px;
+        // }
     }
 }
