@@ -180,8 +180,6 @@ export default function AccountDialog(props) {
         saveVestingAddressesToLocalStorage(removeItems);
         setVestingAddressDefault(null);
         setVestingAddresses(removeItems);
-        console.log("DEBUG>>>")
-        console.log(removeItems)
     };
 
     const onShowAddVesting = (e) => {
