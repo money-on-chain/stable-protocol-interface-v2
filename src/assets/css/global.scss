@@ -3637,6 +3637,35 @@
     }
 }
 
+
+.voting {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--color-text-primary);
+    font-family: var(--main-font);
+        .layout-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; // Espacio entre las filas
+        }
+        
+        .right-column {
+            display: flex;
+            align-items: center; // Centra verticalmente el botón
+        }
+        
+        .row {
+            background-color: var(--surface-color-2); // Ajusta el color según tu diseño
+            padding: var(--row-padding);
+            border-radius: var(--row-border-radius);
+        }
+}
 /*
 --- Notifications ---
 */
