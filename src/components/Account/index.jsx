@@ -62,10 +62,10 @@ export default function AccountDialog(props) {
                 </div>
                 <div className="cta-container">
                     <div className="cta-options-group">
-                        <button type="secondary" className="secondary-button btn-clear" onClick={onDisconnect}>
+                        <button type="secondary" className="button secondary" onClick={onDisconnect}>
                             {t('wallet.cta.disconnect')}
                         </button>
-                        <button type="primary" className="primary-button btn-confirm" onClick={onClose}>
+                        <button type="primary" className="button primary" onClick={onClose}>
                             {t('wallet.cta.close')}
                         </button>
                     </div>

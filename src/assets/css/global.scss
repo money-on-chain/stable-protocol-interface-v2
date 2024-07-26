@@ -13,19 +13,14 @@
 
 /*
 nonglobal.css contains all the css code that not has been fully optimized yet
+IMPORTANT: Variable definitions inside customization.scss
 */
 
-// Variable definitions inside customization.scss
-
-/*
---- [START] General rules ---
-*/
-
+/* #region GENERAL STYLING*/
 * {
     margin: 0;
     padding: 0;
 }
-
 h1 {
     margin-bottom: 20px;
     color: var(--color-text-primary);
@@ -36,19 +31,15 @@ h1 {
     letter-spacing: 0px;
     text-align: left;
 }
-
-/*
---- [END] General rules ---
-*/
-
 .modalsDefaults {
     width: 650px !important;
 }
+.section-container {
+    margin-top: 24px;
+}
+/* #endregion GENERAL STYLING*/
 
-/*
---- [START] Ant Design Customization ---
-*/
-
+/* #region ANT DESIGN CUSTOMIZATION */
 .ant-layout {
     display: flex;
     flex: auto;
@@ -103,14 +94,22 @@ h1 {
     background-color: transparent !important;
 }
 
-/*
---- [END] Ant Design Customization ---
-*/
+// Modal background backdrop color & blur settings
+.ant-modal-wrap {
+    background-color: var(--modals-backdrop-color) !important;
+}
+.ant-modal-mask {
+    backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
+}
+.ant-modal-content {
+    -webkit-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
+    box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
+}
 
-/*
---- [START] Cards Settings ---
-*/
+/* #endregion ANT DESIGN CUSTOMIZATION */
 
+/* #region CARDS */
 .layout-card {
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
@@ -125,13 +124,9 @@ h1 {
     justify-content: center;
     gap: 15px;
 }
-
-/*
---- [END] Cards Settings ---
-*/
+/* #endregion CARDS */
 
 /* #region NOTIFICATION BANNERS */
-
 .ant-alert {
     display: flex;
     flex-direction: row;
@@ -236,13 +231,10 @@ h1 {
         }
     }
 }
-
 /* #endregion NOTIFICATION BANNES */
 
 /* #region BUTTONS */
-
-.primary-button {
-    opacity: 1;
+.button {
     transition:
         background-color 0.3s,
         color 0.3s,
@@ -261,52 +253,47 @@ h1 {
     font-family: var(--main-font);
     text-align: center;
 }
-
-.primary-button:disabled,
-.primary-button:disabled:hover {
+.button:disabled,
+.button:disabled:hover {
     box-shadow: none;
     background-color: var(--color-button-primary-background-disabled);
     color: var(--color-button-primary-text-disabled);
 }
 
-.primary-button:hover,
-.primary-button:focus {
+.button:hover,
+.button:focus {
     border-color: var(--color-button-primary-text-hover);
     background: var(--color-button-primary-background-hover);
     color: var(--color-button-primary-text-hover);
 }
 
-.secondary-button:hover,
-.secondarybutton:focus {
+.secondary {
+    border: 2px solid var(--color-button-secondary-text-default);
+    background-color: var(--color-button-secondary-background-default);
+    color: var(--color-button-secondary-text-default);
+}
+.secondary:hover,
+.secondary:focus {
     border-color: var(--color-button-secondary-text-hover);
     background: var(--color-button-primary-secondary-hover);
     color: var(--color-button-secondary-text-hover);
 }
 
-.secondary-button {
-    border: 2px solid var(--color-button-secondary-text-default);
-    border-radius: var(--button-radius);
-    background-color: var(--color-button-secondary-background-default);
-    width: 200px;
-    height: 54px;
-    color: var(--color-button-secondary-text-default);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    font-family: (var(--brand-font));
-    letter-spacing: 0px;
-    text-align: center;
+.buttonSwap {
+}
+.buttonSwap:hover {
+    filter: var(--color-icon-link-hover-filter);
 }
 
-.button-small-secondary {
+.button--small {
     transition:
         background-color 0.3s,
         color 0.3s,
         border-color 0.3s;
     cursor: pointer;
-    box-shadow: var(--color-button-primary-background-default-shadow);
+    box-shadow: var(--color-button-secondary-background-default-shadow);
     border: 2px solid var(--color-button-secondary-text-default);
-    border-color: var(--color-button-primary-text-default);
+    border-color: var(--color-button-secondary-text-default);
     border-radius: var(--button-radius);
     background-color: var(--color-button-secondary-background-default);
     padding: 0 var(--button-small-padding);
@@ -318,8 +305,8 @@ h1 {
     text-align: center;
 }
 
-.button-small-secondary:hover,
-.button-small-secondary:focus {
+.button--small:hover,
+.button--small:focus {
     border-color: var(--color-button-secondary-text-hover);
     background: var(--color-button-primary-secondary-hover);
     color: var(--color-button-secondary-text-hover);
@@ -328,7 +315,6 @@ h1 {
 /* #endregion BUTTONS */
 
 /* #region CUSTOMIZE PRIVE VARIATION TOLERANCE */
-
 .customize-tolerance {
     .CollapseTolerance {
         .ant-collapse-content {
@@ -404,7 +390,6 @@ h1 {
 /* #endregion AMOUNT TOKEN INPUT */
 
 /* #region TOKEN SELECTOR */
-
 .inputFields {
     display: flex;
     flex-direction: column;
@@ -413,7 +398,6 @@ h1 {
     gap: 40px;
     width: 318px;
 }
-
 .tokenSelector {
     display: flex;
     flex: none;
@@ -426,7 +410,6 @@ h1 {
     width: 318px;
     height: 108px;
 }
-
 .tokenSelector__token {
     display: flex;
     justify-content: flex-start;
@@ -453,7 +436,6 @@ h1 {
 }
 .tokenSelector__toggle {
 }
-
 .select-token {
 }
 /* #endregion TOKEN SELECTOR */
@@ -502,6 +484,7 @@ h1 {
     line-height: 25.2px;
     font-family: var(--brand-font);
     text-align: left;
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -570,69 +553,6 @@ h1 {
 }
 
 /* #endregion AMOUNT INPUT */
-
-// .tx-amount-group {
-//     // Stacks all the groups of information vertically
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     align-items: center;
-//     width: 100%;
-//     // margin-bottom: 16px;
-//     // gap: 8px;
-//     background-color: var(--surface-color-2);
-//     border-radius: var(--card-border-radius);
-// }
-// .tx-amount-container {
-//     // One item containing Amount + Token, plus optional extra information below
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     align-items: center;
-//     width: 100%;
-//     max-width: 368px;
-//     border: 1 solid var(--dividers);
-//     gap: 8px;
-//     padding-bottom: 8px;
-//     .tx-amount-data {
-//         // Amount + Token in one line
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: space-between;
-//         align-items: center;
-//         width: 100%;
-//         font-family: var(--brand-font);
-//         font-size: 20px;
-//         font-weight: 700;
-//         font-style: normal;
-//         background-color: var(--surface-color-inset);
-//         padding: var(--data-background-padding);
-//         border-radius: var(--data-background-radius);
-//         .tx-amount {
-//             text-align: left;
-//             color: var(--color-text-primary);
-//         }
-//         .tx-token {
-//             width: 100%;
-//             text-align: right;
-//             color: var(--color-text-secondary);
-//         }
-//     }
-//     .tx-amount-info {
-//         // Optional information below an Amount + Token line
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: flex-start;
-//         align-items: flex-start;
-//         width: 100%;
-//         font-family: var(--main-font);
-//         font-style: normal;
-//         font-weight: 400;
-//         font-size: 11px;
-//         text-align: left;
-//         color: var(--color-text-secondary);
-//     }
-// }
 
 .tx-amount-group {
     // Stacks all the groups of information vertically
@@ -766,7 +686,6 @@ h1 {
         }
     }
 }
-//
 .tx-amount-group {
     // Stacks all the groups of information vertically
     display: flex;

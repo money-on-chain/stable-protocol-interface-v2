@@ -9,7 +9,8 @@ import { tokenExchange } from '../../helpers/exchange';
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
-import InputAmount from '../InputAmount';
+// import InputAmount from '../InputAmount';
+import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import ModalConfirmSend from '../Modals/ConfirmSend';
@@ -140,19 +141,21 @@ export default function Send() {
         const tokenSettings = TokenSettings(currencyYouSend);
         const totalYouSend = new BigNumber(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouSend), tokenSettings.decimals));
         setAmountYouSend(totalYouSend);
+        console.log(totalYouSend);
         onChangeAmountYouSend(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouSend), tokenSettings.decimals), true);
     };
 
     return (
         <div>
-            <div className="exchange-send-content">
-                <div className="fields">
+            <div className="sectionSend__Content">
+                <div className="inputFields">
                     <div className="tokenSelector">
                         <SelectCurrency
                             className="select-token"
                             value={currencyYouSend}
                             currencyOptions={tokenExchange()}
                             onChange={onChangeCurrencyYouSend}
+                            action={'send'}
                         />
 
                         <InputAmount
@@ -160,7 +163,6 @@ export default function Send() {
                             placeholder={'0.0'}
                             onValueChange={onChangeAmountYouSend}
                             validateError={false}
-                            isDirty={isDirtyYouSend}
                             balance={PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouSend),
                                 token: TokenSettings(currencyYouSend),
@@ -173,17 +175,24 @@ export default function Send() {
                             action={t('send.labelSending')}
                             balanceText={t('send.labelBalance')}
                         />
-                        <div className="input-validation-error">{inputValidationErrorText}</div>
+                        <div className="amountInput__feedback amountInput__feedback--error">{inputValidationErrorText}</div>
                     </div>
 
                     <div className="swap-arrow">
-                        <i className="icon-arrow-down"></i>
+                        <div className="icon-arrow-down"></div>
                     </div>
+                    <div className="amountInput">
+                        <div className="amountInput__infoBar">
+                            <div className="captionOLD amountInput__label">{t('send.labelDestination')}</div>{' '}
+                        </div>
 
-                    <div className="tokenSelector">
-                        <div className="caption">{t('send.labelDestination')}</div>
-                        <Input type="text" placeholder={t('send.placeholder')} className="input-address" onChange={onChangeDestinationAddress} />
-                        <div className="input-validation-error">{inputValidationAddressErrorText}</div>
+                        <Input
+                            type="text"
+                            placeholder={t('send.placeholder')}
+                            className="input-addressOLD amountInput__value "
+                            onChange={onChangeDestinationAddress}
+                        />
+                        <div className="amountInput__feedback amountInput__feedback--error">{inputValidationAddressErrorText}</div>
                     </div>
                 </div>
             </div>
@@ -221,7 +230,7 @@ export default function Send() {
                         inputValidationError={inputValidationError}
                     />
                 </div>
-            </div>{' '}
+            </div>
         </div>
     );
 }

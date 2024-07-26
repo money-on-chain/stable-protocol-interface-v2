@@ -123,10 +123,10 @@ export default function AllowanceDialog(props) {
                         </div>
                         <div className="cta-container">
                             <div className="cta-options-group">
-                                <button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
+                                <button type="secondary" className="button secondary" onClick={onClose}>
                                     {t('allowance.confirm.cancel')}
                                 </button>
-                                <button type="primary" className="primary-button btn-confirm" onClick={onAuthorize}>
+                                <button type="primary" className="button" onClick={onAuthorize}>
                                     {t('allowance.confirm.authorize')}
                                 </button>
                             </div>
@@ -144,7 +144,7 @@ export default function AllowanceDialog(props) {
                         </div>
                         <div className="cta-container">
                             <div className="cta-options-group">
-                                <button type="primary" className="secondary-button btn-clear" onClick={onClose}>
+                                <button type="primary" className="button secondary" onClick={onClose}>
                                     {t('allowance.confirm.cancel')}
                                 </button>
                             </div>

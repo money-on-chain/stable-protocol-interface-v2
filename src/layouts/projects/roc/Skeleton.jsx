@@ -21,15 +21,15 @@ export default function Skeleton() {
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
     const [canSwap, setCanSwap] = useState(false);
-    const { checkerStatus} = CheckStatus();
+    const { checkerStatus } = CheckStatus();
     useEffect(() => {
         if (auth.contractStatusData && auth.userBalanceData) {
             readProtocolStatus();
         }
-    }, [auth.contractStatusData, auth.userBalanceData])
-    
+    }, [auth.contractStatusData, auth.userBalanceData]);
+
     const readProtocolStatus = () => {
-        const { isValid, statusIcon, statusLabel, statusText} = checkerStatus();
+        const { isValid, statusIcon, statusLabel, statusText } = checkerStatus();
         if (!isValid) {
             console.log('is not valid');
             setNotifStatus({
@@ -39,32 +39,25 @@ export default function Skeleton() {
                 notifClass: 'warning',
                 iconLeft: statusIcon,
                 isDismisable: false,
-                dismissTime: 0,
-            })
-        }else {
+                dismissTime: 0
+            });
+        } else {
             setNotifStatus(null);
         }
-        const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether"));
+        const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether'));
         if (tpLegacyBalance.gt(0)) {
             setCanSwap(true);
         } else {
             setCanSwap(false);
         }
-    }
+    };
 
     return (
         <Layout>
-            {!auth.isLoggedIn && (
-                <Alert
-                    message="Warning"
-                    description="Please connect your wallet!."
-                    type="error"
-                    showIcon
-                />
-            )}
+            {!auth.isLoggedIn && <Alert message="Warning" description="Please connect your wallet!." type="error" showIcon />}
             <SectionHeader />
             <Content>
-                <div className="content-container">
+                <div className="section-container">
                     {/* Content page*/}
                     <div className="content-page">
                         {canSwap && <ModalTokenMigration />}

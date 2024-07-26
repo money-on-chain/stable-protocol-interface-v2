@@ -604,15 +604,10 @@ export default function ConfirmOperation(props) {
                             </div>
                         )}
                         <div className="cta-options-group">
-                            <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
+                            <Button type="secondary" className="button secondary" onClick={onClose}>
                                 {t('exchange.buttonCancel')}
                             </Button>
-                            <button
-                                type="primary"
-                                className="primary-button btn-confirm"
-                                onClick={onSendTransactionAllowFeeToken}
-                                disabled={toleranceError !== ''}
-                            >
+                            <button type="primary" className="button" onClick={onSendTransactionAllowFeeToken} disabled={toleranceError !== ''}>
                                 {t('exchange.buttonConfirm')}
                             </button>
                         </div>
@@ -649,7 +644,7 @@ export default function ConfirmOperation(props) {
 
                     <div className="cta-container">
                         <div className="cta-options-group">
-                            <button type="primary" className="secondary-button btn-clear" onClick={onClose}>
+                            <button type="secondary" className="button secondary" onClick={onClose}>
                                 {t('exchange.buttonClose')}
                             </button>
                             {/* BOOKMARK */}

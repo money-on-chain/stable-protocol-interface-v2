@@ -77,7 +77,7 @@ export default function Performance(props) {
                         </p>
                         <p>You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.</p>
                         <div className="cta">
-                            <button className="secondary-button">Load VM</button> <button className="primary-button">Use Claim Code</button>
+                            <button className="button secondary">Load VM</button> <button className="button">Use Claim Code</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator active"></div>
@@ -111,7 +111,7 @@ export default function Performance(props) {
                             </label>{' '}
                         </div>{' '}
                         <div className="options">
-                            <button className="button-small-secondary">Load Claim Code from file</button>
+                            <button className="button--small">Load Claim Code from file</button>
                         </div>
                         <br />
                         <div className="explanation">
@@ -121,7 +121,7 @@ export default function Performance(props) {
                             </p>
                         </div>
                         <div className="cta">
-                            <button className="primary-button">Create Vesting Machine</button>
+                            <button className="button">Create VM</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>
@@ -155,7 +155,7 @@ export default function Performance(props) {
                             </div>
                         </div>
                         <div className="cta">
-                            <button className="primary-button">Continue</button>
+                            <button className="button">Continue</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>

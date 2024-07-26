@@ -62,7 +62,7 @@ const OperationStatusModal = ({ className, visible, onCancel, title, operationSt
                         </div>
                         <p className="tx-feedback-text">{statusLabel}</p>
                     </div>
-                    <button type="primary" className="secondary-button btn-clear" onClick={onCancel}>
+                    <button type="primary" className="button secondary" onClick={onCancel}>
                         {t('staking.modal.StatusModal_Modal_Close')}
                     </button>
                 </div>

@@ -259,3 +259,76 @@ icons.css contains all the css code for Icons across the Dapp
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
 }
+
+.icon__govBalance {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/govBalance.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.icon__govStaked {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/govStaked.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+.icon__govUnstaking {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/govUnstaking.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+.icon__govReadyWithdraw {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/govReadyWithdraw.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+/* #region THIS ICONS MAY BE DEPRECATED */
+.icon-staked {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/StakeOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.icon-gauge {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/PerformanceOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.icon-calendar {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/RewardedTodayOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+.icon-calendar-check {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/ReadyToWithdrawOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+
+/* #endregion THIS ICONS MAY BE DEPRECATED */

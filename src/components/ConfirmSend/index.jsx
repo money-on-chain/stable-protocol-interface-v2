@@ -142,22 +142,14 @@ export default function ConfirmSend(props) {
                     <div className="cta-options-group">
                         <Button
                             type="secondary"
-                            className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
-                                    ? 'secondary-button btn-clear'
-                                    : 'secondary-button btn-clear'
-                            }
+                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button secondary' : 'button secondary'}
                             onClick={onClose}
                         >
                             {t('send.buttonCancel')}
                         </Button>
                         <button
                             type="primary"
-                            className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
-                                    ? `primary-button btn-confirm`
-                                    : `primary-button btn-confirm`
-                            }
+                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? `button` : `button`}
                             onClick={onSendTransaction}
                         >
                             {t('send.buttonConfirm')}
@@ -171,7 +163,6 @@ export default function ConfirmSend(props) {
                     {(status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
                         <div className="tx-id-container">
                             <div className="tx-id-data status">
-                                {' '}
                                 <div className="tx-id-data">
                                     <div className="tx-id-label">{t('send.labelTransactionID')}</div>
                                     <div className="tx-id-address">
@@ -180,9 +171,9 @@ export default function ConfirmSend(props) {
                                         {/*    {truncateTxId(txID)}*/}
                                         {/*</span>*/}
                                         {/*<i className="icon-copy"></i>*/}
-                                    </div>{' '}
+                                    </div>
                                 </div>
-                            </div>{' '}
+                            </div>
                         </div>
                     )}{' '}
                     <div className="tx-feedback-container">
@@ -196,9 +187,7 @@ export default function ConfirmSend(props) {
                             <button
                                 type="primary"
                                 className={
-                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc'
-                                        ? 'secondary-button btn-clear'
-                                        : 'secondary-button btn-clear'
+                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? 'button secondary' : 'button secondary'
                                 }
                                 onClick={onClose}
                             >

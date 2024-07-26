@@ -135,35 +135,41 @@ const Stake = (props) => {
 
     return (
         <Fragment>
-            <div className="swap-from">
-                <SelectCurrency
-                    className="select-token"
-                    value={defaultTokenStake}
-                    currencyOptions={tokenStake()}
-                    onChange={onChangeCurrency}
-                    action={'staking'}
-                    disabled={true}
-                />
-                <InputAmount
-                    balanceText={t('staking.staking.inputAvailable')}
-                    action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
-                    balance={PrecisionNumbers({
-                        amount: isUnstaking ? stakedBalance : tgBalance,
-                        token: TokenSettings(defaultTokenStake),
-                        decimals: t('staking.staking.input_decimals'),
-                        t: t,
-                        i18n: i18n,
-                        ns: ns
-                    })}
-                    placeholder={'0.0'}
-                    inputValue={isUnstaking ? amountToUnstake : amountToStake}
-                    onValueChange={isUnstaking ? setAmountToUnstake : setAmountToStake}
-                    setAddTotalAvailable={setAddTotalAvailable}
-                    validateError={false}
-                />
-                <div className="input-validation-error">{inputValidationErrorText}</div>
+            <div className="sectionStaking__Content">
+                <div className="inputFields">
+                    {' '}
+                    <div className="tokenSelector">
+                        <SelectCurrency
+                            className="select-token"
+                            value={defaultTokenStake}
+                            currencyOptions={tokenStake()}
+                            onChange={onChangeCurrency}
+                            action={'staking'}
+                            disabled={true}
+                        />
+                        <InputAmount
+                            balanceText={t('staking.staking.inputAvailable')}
+                            action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
+                            balance={PrecisionNumbers({
+                                amount: isUnstaking ? stakedBalance : tgBalance,
+                                token: TokenSettings(defaultTokenStake),
+                                decimals: t('staking.staking.input_decimals'),
+                                t: t,
+                                i18n: i18n,
+                                ns: ns
+                            })}
+                            placeholder={'0.0'}
+                            inputValue={isUnstaking ? amountToUnstake : amountToStake}
+                            onValueChange={isUnstaking ? setAmountToUnstake : setAmountToStake}
+                            setAddTotalAvailable={setAddTotalAvailable}
+                            validateError={false}
+                        />
+                        <div className="amountInput__feedback amountInput__feedback--error">{inputValidationErrorText}</div>
+                    </div>
+                </div>
             </div>
-            <div className="staked-text">
+
+            {/* <div className="staked-text">
                 {t('staking.staking.stakedAmount')}:{' '}
                 {PrecisionNumbers({
                     amount: new BigNumber(stakedBalance),
@@ -174,7 +180,7 @@ const Stake = (props) => {
                     ns: ns
                 })}
                 {TokenSettings(defaultTokenStake).name}
-            </div>
+            </div> */}
             <div className="cta-container">
                 <div className="cta-info-group">
                     <div className="cta-info-summary">
@@ -207,7 +213,7 @@ const Stake = (props) => {
                     <div className="cta-info-detail">{t('staking.staking.cta.explanation')}</div>
                 </div>
                 <div className="cta-options-group">
-                    <Button type="primary" className={'primary-button'} onClick={onStakeButton} disabled={inputValidationError}>
+                    <Button type="primary" className={'button'} onClick={onStakeButton} disabled={inputValidationError}>
                         {isUnstaking ? t('staking.staking.cta.unstakeButton') : t('staking.staking.cta.stakeButton')}
                     </Button>
                 </div>

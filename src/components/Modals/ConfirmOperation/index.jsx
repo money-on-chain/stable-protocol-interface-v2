@@ -24,7 +24,7 @@ export default function ModalConfirmOperation(props) {
     };
     return (
         <div className="ShowModalConfirmOperation">
-            <Button type="primary" className="primary-button btn-confirm" onClick={showModal} disabled={inputValidationError ? 'disabled' : null}>
+            <Button type="primary" className="button" onClick={showModal} disabled={inputValidationError ? 'disabled' : null}>
                 {t('exchange.buttonPrimary')}
             </Button>
             {visible && (

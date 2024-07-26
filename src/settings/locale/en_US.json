@@ -288,6 +288,32 @@
     },
 
     "send": {
+        "tokens": {
+            "CA_0": {
+                "label": "BPro",
+                "abbr": "BPRO"
+            },
+            "TC": {
+                "label": "BPro Max",
+                "abbr": "BPROX"
+            },
+            "TP_0": {
+                "label": "ARS",
+                "abbr": "ArsFlip"
+            },
+            "TP_1": {
+                "label": "COP",
+                "abbr": "CopFlip"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "Flip",
+                "abbr": "FLIP"
+            }
+        },
         "cardTitle": "Send",
         "labelSending": "Sending",
         "labelBalance": "Balance",

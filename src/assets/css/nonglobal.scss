@@ -2,18 +2,8 @@
 nonglobal.css contains all the css code that not has been fully optimized yet
 */
 
-// Variable definitions inside customization.scss
-
 .modalsDefaults {
     width: 650px !important;
-}
-
-/*
-    --- Main Container ---
-*/
-
-.content-container {
-    margin-top: 24px;
 }
 
 /* #region Notifications */
@@ -125,44 +115,6 @@ nonglobal.css contains all the css code that not has been fully optimized yet
         order: 0;
         flex-grow: 0;
         background-color: var(--icon-background-color);
-    }
-
-    .icon-staked {
-        width: 32px;
-        height: 32px;
-        background-image: url('../icons/StakeOutline.svg');
-        background-size: 32px 32px;
-        background-repeat: no-repeat;
-        filter: var(--color-navigation-icon-filter-default);
-        /*margin-left: 8px;
-  margin-top: 8px;*/
-    }
-
-    .icon-gauge {
-        width: 32px;
-        height: 32px;
-        background-image: url('../icons/PerformanceOutline.svg');
-        background-size: 32px 32px;
-        background-repeat: no-repeat;
-        filter: var(--color-navigation-icon-filter-default);
-    }
-
-    .icon-calendar {
-        width: 32px;
-        height: 32px;
-        background-image: url('../icons/RewardedTodayOutline.svg');
-        background-size: 32px 32px;
-        background-repeat: no-repeat;
-        filter: var(--color-navigation-icon-filter-default);
-    }
-
-    .icon-calendar-check {
-        width: 32px;
-        height: 32px;
-        background-image: url('../icons/ReadyToWithdrawOutline.svg');
-        background-size: 32px 32px;
-        background-repeat: no-repeat;
-        filter: var(--color-navigation-icon-filter-default);
     }
 
     .resume-staking {
@@ -786,6 +738,7 @@ nonglobal.css contains all the css code that not has been fully optimized yet
     .cta-info-group {
         // Stacks Summary + info items vertically
         display: flex;
+        flex-direction: column;
         justify-content: flex-start;
         gap: 12px;
         width: 100%;
@@ -906,215 +859,6 @@ nonglobal.css contains all the css code that not has been fully optimized yet
         align-self: stretch;
         flex-grow: 0;
     }
-}
-
-/*
-    --- Exchange Send ---
-*/
-
-.exchange-send-content {
-    font-family: var(--brand-font);
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    // .fields {
-    //     flex-direction: column;
-    //     align-items: center;
-    //     padding: 0;
-    //     gap: 4px;
-    //     width: 318px;
-    //     height: 296px;
-    //     flex: none;
-    //     order: 0;
-    //     flex-grow: 0;
-
-    //     select .select-token {
-    //     }
-
-    //     input[type='number'].input-value {
-    //         flex-direction: row;
-    //         justify-content: flex-start;
-    //         align-items: center;
-    //         padding: 11px 16px;
-    //         gap: 8px;
-    //         width: 250px;
-    //         height: 29px;
-    //         border-radius: 4px;
-    //         border: 0;
-    //         font-style: normal;
-    //         font-weight: 700;
-    //         font-size: 20px;
-    //         line-height: 25.2px;
-    //         text-align: left;
-    //         font-family: var(--brand-font);
-    //     }
-
-    //     input[type='number'].input-value::placeholder {
-    //         /* Chrome, Firefox, Opera, Safari 10.1+ */
-    //         color: var(--color-text-primary);
-    //         opacity: 1; /* Firefox */
-    //         text-align: left;
-    //         font-weight: 700;
-    //         font-size: 20px;
-    //         line-height: 25.2px;
-    //     }
-
-    //     // Remove spinner
-
-    //     /* Chrome, Safari, Edge, Opera */
-    //     input[type='number'].input-value::-webkit-outer-spin-button,
-    //     input[type='number'].input-value::-webkit-inner-spin-button {
-    //         -webkit-appearance: none;
-    //         margin: 0;
-    //     }
-
-    //     /* Firefox */
-    //     input[type='number'].input-value {
-    //         -moz-appearance: textfield;
-    //     }
-
-    //     .input-validation-error {
-    //         color: var(--color-semantic-negative);
-    //         font-family: var(--main-font);
-    //         font-size: 14px;
-    //         font-weight: 500;
-    //         font-style: normal;
-    //         letter-spacing: 0px;
-    //         text-align: left;
-    //         line-height: 12px;
-    //     }
-
-    //     .token-balance {
-    //         display: flex;
-    //         flex-direction: row;
-    //         justify-content: space-between;
-    //         align-items: center;
-    //         padding: 0px 0px 0px 4px;
-    //         gap: 8px;
-    //         width: 318px;
-    //         height: 17px;
-    //         flex: none;
-    //         order: 2;
-    //         flex-grow: 0;
-
-    //         .token-balance-value {
-    //             width: 177px;
-    //             height: 17px;
-    //             font-style: normal;
-    //             font-weight: 400;
-    //             font-size: 14px;
-    //             line-height: 17px;
-    //             color: #000000;
-    //         }
-
-    //         a.token-balance-add-total {
-    //             width: 131px;
-    //             height: 17px;
-    //             font-style: normal;
-    //             font-weight: 400;
-    //             font-size: 14px;
-    //             line-height: 17px;
-    //             text-align: left;
-    //             color: #000000;
-    //         }
-    //     }
-
-    //     .swap-from {
-    //         display: flex;
-    //         flex-direction: column;
-    //         align-items: flex-start;
-    //         padding: 0px;
-    //         gap: 8px;
-    //         width: 318px;
-    //         height: 108px;
-    //         flex: none;
-    //         order: 0;
-    //         flex-grow: 0;
-    //     }
-
-    //     .swap-arrow {
-    //         width: 32px;
-    //         height: 32px;
-    //         margin-top: 40px;
-    //         margin-left: auto;
-    //         margin-right: auto;
-    //     }
-
-    //     .swap-to {
-    //         display: flex;
-    //         flex-direction: column;
-    //         align-items: flex-start;
-    //         padding: 0px;
-    //         gap: 8px;
-    //         width: 318px;
-    //         height: 108px;
-    //         flex: none;
-    //         order: 2;
-    //         flex-grow: 0;
-
-    //         input.input-address {
-    //         }
-
-    //         input[type='text'].input-address {
-    //             display: flex;
-    //             flex-direction: row;
-    //             justify-content: flex-end;
-    //             align-items: center;
-    //             padding: 11px 16px;
-    //             gap: 8px;
-    //             width: 318px;
-    //             height: 51px;
-    //             background: var(--color-controls-background);
-    //             border-radius: 4px;
-    //             border: 0;
-    //             line-height: 29px;
-    //             opacity: 1;
-    //             color: var(--color-text-primary);
-    //             font-family: var(--main-font);
-    //             font-size: 14px;
-    //             font-weight: 700;
-    //             font-style: normal;
-    //             letter-spacing: 0px;
-    //             text-align: left;
-    //         }
-
-    //         input[type='text'].input-address::placeholder {
-    //             /* Chrome, Firefox, Opera, Safari 10.1+ */
-    //             color: var(--color-text-secondary);
-    //             font-style: italic;
-    //             opacity: 1; /* Firefox */
-    //         }
-
-    //         // Remove spinner
-
-    //         /* Chrome, Safari, Edge, Opera */
-    //         input[type='text'].input-address::-webkit-outer-spin-button,
-    //         input[type='text'].input-address::-webkit-inner-spin-button {
-    //             -webkit-appearance: none;
-    //             margin: 0;
-    //         }
-
-    //         /* Firefox */
-    //         input[type='text'].input-address {
-    //             -moz-appearance: textfield;
-    //             line-height: 0px;
-    //         }
-
-    //         .caption {
-    //             margin-top: 10px;
-    //             margin-bottom: 0px;
-    //             opacity: 1;
-    //             color: var(--color-text-primary);
-    //             font-family: var(--main-font);
-    //             font-size: 14px;
-    //             font-weight: 400;
-    //             font-style: normal;
-    //             letter-spacing: 0px;
-    //             text-align: left;
-    //             line-height: 16px;
-    //         }
-    //     }
-    // }
 }
 
 .display-block {
@@ -1266,16 +1010,4 @@ nonglobal.css contains all the css code that not has been fully optimized yet
 
 .ant-table-thead .ant-table-cell-scrollbar {
     display: none;
-}
-
-/*
-    --- Modal background backdrop color & blur settings ---
-*/
-
-.ant-modal-wrap {
-    background-color: var(--modals-backdrop-color) !important;
-}
-
-.ant-modal-mask {
-    backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
 }

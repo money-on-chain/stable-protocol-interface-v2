@@ -369,7 +369,7 @@ export default function Exchange() {
 
     return (
         <div>
-            <div className="exchange-content">
+            <div className="sectionExchange__Content">
                 <div className="inputFields">
                     <div className="tokenSelector">
                         <SelectCurrency
@@ -404,7 +404,7 @@ export default function Exchange() {
                         <div className="amountInput__feedback amountInput__feedback--error">{inputValidationErrorText}</div>
                     </div>
 
-                    <div className="swap-arrow" onClick={handleSwapCurrencies}>
+                    <div className="buttonSwap" onClick={handleSwapCurrencies}>
                         <div className="icon-swap"></div>
                     </div>
 
@@ -443,7 +443,6 @@ export default function Exchange() {
                     </div>
                 </div>
                 <div className="info">
-                    {' '}
                     <div className="tx-amount-container">
                         <div className="tx-fees-container">
                             <div className="tx-fees-data">
@@ -473,7 +472,7 @@ export default function Exchange() {
                                     <span className={'token_receive_name'}>
                                         {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
                                             ns: ns
-                                        })}{' '}
+                                        })}
                                     </span>
                                 </div>
                                 <div className="tx-fees-item">
@@ -485,7 +484,6 @@ export default function Exchange() {
                                     </span>
                                     <span className={'symbol'}> ≈ </span>
                                     <span className={'token_receive'}>
-                                        {' '}
                                         {!auth.contractStatusData?.canOperate
                                             ? '--'
                                             : PrecisionNumbers({
@@ -499,12 +497,11 @@ export default function Exchange() {
                                               })}
                                     </span>
                                     <span className={'token_receive_name'}>
-                                        {' '}
                                         {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
                                             ns: ns
-                                        })}{' '}
+                                        })}
                                     </span>
-                                </div>{' '}
+                                </div>
                             </div>
                             <div className="tx-fee-options">
                                 <div className={'radioButton'}>
@@ -526,8 +523,8 @@ export default function Exchange() {
                                                           })}
                                                     %)
                                                 </span>
-                                                <span className={'symbol'}> ≈ </span>
-                                                <span className={'token_receive'}>
+                                                <span className={''}> ≈ </span>
+                                                <span className={''}>
                                                     {!auth.contractStatusData?.canOperate
                                                         ? '--'
                                                         : PrecisionNumbers({
@@ -540,15 +537,14 @@ export default function Exchange() {
                                                               skipContractConvert: true
                                                           })}
                                                 </span>
-                                                <span className={'token_receive_name'}>
-                                                    {' '}
+                                                <span className={''}>
                                                     {IS_MINT
                                                         ? t(`exchange.tokens.${currencyYouExchange}.abbr`, { ns: ns })
                                                         : t(`exchange.tokens.${currencyYouReceive}.abbr`, { ns: ns })}
                                                 </span>
                                             </Radio>
                                             <Radio value={1} disabled={radioSelectFeeTokenDisabled}>
-                                                <span className={'token_exchange'}>
+                                                <span className={''}>
                                                     {t('fees.labelFee')} (
                                                     {!auth.contractStatusData?.canOperate
                                                         ? '--'
@@ -563,8 +559,8 @@ export default function Exchange() {
                                                           })}
                                                     %)
                                                 </span>
-                                                <span className={'symbol'}> ≈ </span>
-                                                <span className={'token_receive'}>
+                                                <span className={''}> ≈ </span>
+                                                <span className={''}>
                                                     {!auth.contractStatusData?.canOperate
                                                         ? '--'
                                                         : PrecisionNumbers({
@@ -577,7 +573,7 @@ export default function Exchange() {
                                                               skipContractConvert: true
                                                           })}
                                                 </span>
-                                                <span className={'token_receive_name'}> {t(`exchange.tokens.TF.abbr`, { ns: ns })}</span>
+                                                <span className={''}> {t(`exchange.tokens.TF.abbr`, { ns: ns })}</span>
                                             </Radio>
                                         </Space>
                                     </Radio.Group>
@@ -598,7 +594,7 @@ export default function Exchange() {
 
                         <div className={''}> ≈ </div>
                         {exchangingUSD.toString() !== 'NaN' ? (
-                            <div className={'token_receive'}>
+                            <div className={''}>
                                 {!auth.contractStatusData?.canOperate
                                     ? '--'
                                     : PrecisionNumbers({
@@ -615,7 +611,7 @@ export default function Exchange() {
                         ) : (
                             <div>0</div>
                         )}
-                        <span className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</span>
+                        <span className={''}>{t('exchange.exchangingCurrency')}</span>
                     </div>
                 </div>
                 <div className="cta-options-group">

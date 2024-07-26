@@ -226,10 +226,10 @@ export default function StakingOptionsModal(props) {
                                 </div>
                                 <div className="cta-container">
                                     <div className="cta-options-group">
-                                        <Button type="secondary" className="secondary-button btn-cancel" onClick={setAllowance}>
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
                                             {t('allowance.confirm.cancel')}
                                         </Button>
-                                        <Button type="primary" className="primary-button btn-confirm" onClick={setAllowance}>
+                                        <Button type="primary" className="button" onClick={setAllowance}>
                                             {t('allowance.confirm.authorize')}
                                         </Button>
                                     </div>
@@ -258,7 +258,7 @@ export default function StakingOptionsModal(props) {
                                 <div className="cta-container">
                                     {' '}
                                     <div className="tx-cta-buttons">
-                                        <Button type="secondary" className="secondary-button btn-cancel" onClick={setAllowance}>
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
                                             {t('allowance.confirm.cancel')}
                                         </Button>
                                     </div>{' '}
@@ -285,7 +285,7 @@ export default function StakingOptionsModal(props) {
                                 <div className="icon-tx-waiting"></div>
                                 <div className="cta-container">
                                     <div className="cta-options-group">
-                                        <Button type="secondary" className="secondary-button btn-cancel" onClick={setAllowance}>
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
                                             {t('allowance.confirm.cancel')}
                                         </Button>
                                     </div>
@@ -326,10 +326,10 @@ export default function StakingOptionsModal(props) {
                                             <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_StakingDescription')}</div>
                                         </div>{' '}
                                         <div className="cta-options-group">
-                                            <Button type="default" onClick={onClose} className="secondary-button btn-clear">
+                                            <Button type="default" onClick={onClose} className="button secondary">
                                                 {t('staking.modal.StakingOptionsModal_Cancel')}
                                             </Button>
-                                            <Button type="primary" onClick={addStake} className="primary-button btn-confirm">
+                                            <Button type="primary" onClick={addStake} className="button">
                                                 {t('staking.modal.StakingOptionsModal_Comfirm')}
                                             </Button>
                                         </div>
@@ -389,10 +389,10 @@ export default function StakingOptionsModal(props) {
                             <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_UnstakingDescription')}</div>
                         </div>
                         <div className="cta-options-group">
-                            <Button type="secondary" onClick={onClose} className="secondary-button">
+                            <Button type="secondary" onClick={onClose} className="button">
                                 {t('staking.modal.StakingOptionsModal_Cancel')}
                             </Button>
-                            <Button type="primary" onClick={UnStake} className="primary-button">
+                            <Button type="primary" onClick={UnStake} className="button">
                                 {t('staking.modal.StakingOptionsModal_Comfirm')}
                             </Button>
                         </div>
@@ -435,10 +435,10 @@ export default function StakingOptionsModal(props) {
                             <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_WithdrawDescription')}</div>
                         </div>
                         <div className="cta-options-group">
-                            <Button type="default" className="secondary-button" onClick={onClose}>
+                            <Button type="default" className="button secondary" onClick={onClose}>
                                 {t('staking.modal.StakingOptionsModal_Cancel')}
                             </Button>
-                            <Button type="primary" className="primary-button" onClick={withdraw}>
+                            <Button type="primary" className="button" onClick={withdraw}>
                                 {t('staking.modal.StakingOptionsModal_Comfirm')}
                             </Button>
                         </div>
@@ -480,10 +480,10 @@ export default function StakingOptionsModal(props) {
                         <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_RestakeDescription')}</div>
 
                         <div className="cta-options-group">
-                            <Button type="default" className="secondary-button" onClick={onClose}>
+                            <Button type="default" className="button secondary" onClick={onClose}>
                                 {t('staking.modal.StakingOptionsModal_Cancel')}
                             </Button>
-                            <Button type="primary" className="primary-button" onClick={CancelWithdraw}>
+                            <Button type="primary" className="button" onClick={CancelWithdraw}>
                                 {t('staking.modal.StakingOptionsModal_Comfirm')}
                             </Button>
                         </div>

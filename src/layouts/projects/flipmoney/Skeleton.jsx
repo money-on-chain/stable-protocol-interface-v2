@@ -17,17 +17,10 @@ export default function Skeleton() {
 
     return (
         <Layout>
-            {!auth.isLoggedIn && (
-                <Alert
-                message="Warning"
-                description="Please connect your wallet!."
-                type="error"
-                showIcon
-                />
-            )}
+            {!auth.isLoggedIn && <Alert message="Warning" description="Please connect your wallet!." type="error" showIcon />}
             <SectionHeader />
             <Content>
-                <div className="content-container">
+                <div className="section-container">
                     {/* Content page*/}
                     <div className="content-page">
                         {/* Dashboard Staking Rewards  
