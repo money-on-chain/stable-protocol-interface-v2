@@ -19,6 +19,7 @@ import {
     isMintOperation,
     executionFeeMap
 } from '../../helpers/exchange';
+import api from '../../services/api';
 
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -70,6 +71,36 @@ export default function Exchange() {
 
     const [ valueExchange, setValueExchange ] = useState('');
     const [ valueReceive, setValueReceive ] = useState('');
+
+    //queue validation
+    const [mintTPValues, setMintTPValues] = useState({})
+    const [redeemTPValues, setRedeemTPValues] = useState({})
+ 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            queuedOpers();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+    const queuedOpers = () => {
+        if (auth.isLoggedIn) {
+            console.log('Loading table…');
+            setTimeout(() => {
+                const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/queued_opers/`;
+                
+                api('get', baseUrl)
+                    .then((response) => {
+                        console.log('response tpmint is ', response.result.TPMint);
+                        console.log('response tp redeem is', response.result.TPRedeem);
+                        setMintTPValues(response.result.TPMint);
+                        setRedeemTPValues(response.result.TPRedeem);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }, 500);
+        }
+    };
 
     useEffect(() => {
         if (amountYouExchange && auth.contractStatusData) {
@@ -254,7 +285,13 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
-            if (new BigNumber(amountYouExchange).gt(maxQACToMintTP)) {
+            const maxQAOnQueue = new BigNumber(
+                fromContractPrecisionDecimals(
+                    mintTPValues.qTP,
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouExchange).gt(maxQACToMintTP.minus(maxQAOnQueue))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
@@ -271,9 +308,13 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
-            console.log("maxQACToRedeemTP: ", maxQACToRedeemTP.toString())
-            console.log("amountYouReceive: ", new BigNumber(amountYouReceive).toString())
-            if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP)) {
+            const maxQAOnQueue = new BigNumber(
+                fromContractPrecisionDecimals(
+                    redeemTPValues.qTP,
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP.minus(maxQAOnQueue))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
