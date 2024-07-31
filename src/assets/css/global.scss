@@ -116,17 +116,37 @@ h1 {
 .ant-select-dropdown {
     background-color: var(--color-controls-background);
     color: var(--color-controls-foreground-on);
+
     .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
         background-color: var(--color-button-primary-background-default);
-        color: var(--color-button-primary-text-default);
     }
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-        background-color: var(--color-button-primary-background-default);
-        color: var(--color-button-primary-text-default);
+        background-color: var(--color-dropdown-hover);
     }
     .ant-select-item-option {
         color: var(--color-text-primary);
     }
+}
+.ant-select-item-option-active {
+    background-color: var(--color-button-primary-background-default) !important;
+}
+.ant-select-item-option-active > div > div > div:nth-child(2),
+.ant-select-item-option-active > div > div > div:nth-child(3) {
+    color: var(--color-button-primary-text-default) !important;
+}
+.ant-select-item-option-selected {
+    background-color: var(
+        --color-button-secondary-background-active
+    ) !important;
+}
+.ant-select-item-option-selected > div > div > div:nth-child(2),
+.ant-select-item-option-selected > div > div > div:nth-child(3) {
+    color: var(--color-button-secondary-text-active) !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-content {
+    display: flex;
+    align-items: center;
 }
 // Radio Buttons
 .ant-radio-inner::after {

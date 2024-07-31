@@ -5,8 +5,6 @@ import { getCurrenciesDetail } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 
-import './style.scss';
-
 const { Option } = Select;
 
 export default function SelectCurrency(props) {
