@@ -84,19 +84,17 @@ export default function Exchange() {
     }, []);
     const queuedOpers = () => {
         if (auth.isLoggedIn) {
-            console.log('Loading table…');
             setTimeout(() => {
                 const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/queued_opers/`;
                 
                 api('get', baseUrl)
                     .then((response) => {
-                        console.log('response tpmint is ', response.result.TPMint);
-                        console.log('response tp redeem is', response.result.TPRedeem);
                         setMintTPValues(response.result.TPMint);
                         setRedeemTPValues(response.result.TPRedeem);
                     })
                     .catch((error) => {
-                        console.error(error);
+                        setMintTPValues({});
+                        setRedeemTPValues({});
                     });
             }, 500);
         }
@@ -285,13 +283,14 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
-            const maxQAOnQueue = new BigNumber(
-                fromContractPrecisionDecimals(
-                    mintTPValues.qTP,
-                    settings.tokens.TP[tIndex].decimals
-                )
+            const convertedQTPToAC = ConvertAmount(
+                auth,
+                currencyYouReceive,
+                currencyYouExchange,
+                mintTPValues.qTP ?? 0,
             );
-            if (new BigNumber(amountYouExchange).gt(maxQACToMintTP.minus(maxQAOnQueue))) {
+            const valueToRest = mintTPValues.qTP ? convertedQTPToAC : new BigNumber(0);
+            if (new BigNumber(amountYouExchange).gt(maxQACToMintTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
@@ -308,13 +307,14 @@ export default function Exchange() {
                     settings.tokens.TP[tIndex].decimals
                 )
             );
-            const maxQAOnQueue = new BigNumber(
-                fromContractPrecisionDecimals(
-                    redeemTPValues.qTP,
-                    settings.tokens.TP[tIndex].decimals
-                )
+            const convertedQTPToAC = ConvertAmount(
+                auth,
+                currencyYouExchange,
+                currencyYouReceive,
+                redeemTPValues.qTP ?? 0,
             );
-            if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP.minus(maxQAOnQueue))) {
+            const valueToRest = redeemTPValues.qTP ? convertedQTPToAC : new BigNumber(0);
+            if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
                 return
