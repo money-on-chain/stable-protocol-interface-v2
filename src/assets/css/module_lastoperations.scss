@@ -1,0 +1,68 @@
+/*
+module_lastoperations.scss contains all the css code for Last Operations Table not contained in global.scss
+*/
+
+// Last Operations table
+.content-last-operations .ant-table-tbody > tr.ant-table-row:hover > td,
+.content-last-operations .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-2) !important;
+}
+
+.content-last-operations .table-event-name,
+.content-last-operations .table-date-name {
+    color: var(--color-text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    font-style: SemiBold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.content-last-operations .table-amount,
+.content-last-operations .table-date {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    font-style: SemiBold;
+    letter-spacing: 0.61px;
+}
+
+.content-last-operations .table-asset-name {
+    color: var(--color-text-primary);
+    font-size: 8px;
+    font-weight: 600;
+    font-style: SemiBold;
+    letter-spacing: 0.35px;
+}
+
+.content-last-operations .anticon-up-circle {
+    font-size: 24px !important;
+    color: var(--color-controls-foreground-on) !important;
+}
+
+.content-last-operations .anticon-down-circle {
+    font-size: 24px !important;
+    color: var(--color-controls-foreground-on) !important;
+}
+
+.content-last-operations {
+    .ant-table-measure-row {
+        display: none; // Hide header spacer (not used) to make scrollbar taller
+    }
+    .table-expanded-row {
+        img {
+            filter: var(--color-icon-link-filter);
+        }
+
+        a:link {
+            color: var(--color-text-link);
+        }
+        a:visited {
+            color: var(--color-text-link);
+        }
+
+        a:hover {
+            text-decoration: underline !important;
+        }
+    }
+}

@@ -25,7 +25,7 @@ function SectionExchange(props) {
             {/* <StakingRewards /> */}
 
             {/* Exchange */}
-            <div className={'dashboard-exchange layout-card-title'}>
+            <div className={'section__innerCard--big dashboard-exchange'}>
                 <div className={'title'}>
                     <h1>{t('exchange.cardTitle')}</h1>
                 </div>
@@ -33,7 +33,7 @@ function SectionExchange(props) {
                 <div className={'content-body'}>{ready ? <Exchange /> : <Skeleton active />}</div>
             </div>
 
-            <div className="content-last-operations">
+            <div className="section__innerCard--big content-last-operations">
                 <ListOperations token={'all'} />
             </div>
         </Fragment>

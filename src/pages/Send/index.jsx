@@ -20,7 +20,7 @@ function SectionSend(props) {
     return (
         <Fragment>
             {/* Send */}
-            <div className="dashboard-exchange">
+            <div className="section__innerCard--big dashboard-exchange">
                 <div className={'layout-card-title'}>
                     <h1>{t('send.cardTitle')}</h1>
                 </div>
@@ -28,7 +28,7 @@ function SectionSend(props) {
                 <div className={'content-body'}>{ready ? <Send /> : <Skeleton active />}</div>
             </div>
 
-            <div className="content-last-operations">
+            <div className="section__innerCard--big content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
             </div>
         </Fragment>

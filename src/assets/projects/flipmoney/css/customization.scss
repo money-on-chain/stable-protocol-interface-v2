@@ -1,9 +1,10 @@
 @import '~antd/dist/antd.css';
 
 :root {
-    // Variables
+    /* #region BRANDING */
+    --debugColor: rgba(75, 103, 36, 0.168) !important;
+    --debugBorder: 1px dashed red !important;
 
-    // Branding
     --brand-logo-main: url('../icons/logo-app-dark.svg');
 
     --brand-color-darker: #807d44;
@@ -12,6 +13,7 @@
     --brand-color-light: #fffdc1;
     --brand-color-lighter: #fffee0;
     --brand-color-overbrand: #0c0c08;
+    /* #endregion BRANDING */
 
     // Cards
     --card-border-radius: 4px;
@@ -27,16 +29,24 @@
     --margin-vertical-medium: 32px;
     --margin-vertical-large: 40px;
 
-    // Modals
+    /* #region MODALS */
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
-    --modals-backdrop-color: rgba(13, 13, 14, 0.604);
-    --modals-backdrop-blur: 1.8px;
+    --modals-backdrop-color: rgba(24, 24, 26, 0.1);
+    --modals-backdrop-blur: 2px;
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
+    /* #endregion MODALS */
 
     //Surfaces
-    --surface-background-image: linear-gradient(to right bottom, #1312156e, #161518, #131215, #1b1a1e6e, #131215); // can be set to none
+    --surface-background-image: linear-gradient(
+        to right bottom,
+        #1312156e,
+        #161518,
+        #131215,
+        #1b1a1e6e,
+        #131215
+    ); // can be set to none
     --surface-color-0: #131215;
     --surface-color-1: #1c1b21;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -87,7 +97,8 @@
     --color-button-primary-background-disabled: #2c2c2c;
     --color-button-primary-text-disabled: #212020;
 
-    --color-button-primary-background-default-shadow: 0px 4px 8px rgba(147, 144, 25, 0.2);
+    --color-button-primary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.6);
 
     // Buttons - Secondary
 
@@ -103,72 +114,91 @@
     --color-button-secondary-background-disabled: #000000;
     --color-button-secondary-text-disabled: #000000;
 
-    --color-button-secondary-background-default-shadow: 0px 4px 8px rgba(147, 144, 25, 0.2);
+    --color-button-secondary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
 
     // Semantic
 
     --color-semantic-negative: #e95e5d;
     --color-semantic-neutral: #b5b5b5;
     --color-semantic-positive: #69e453;
-    --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
-    --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
-    --filter-semantic-positive: invert(78%) sepia(47%) saturate(620%) hue-rotate(55deg) brightness(94%) contrast(93%);
+    --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%)
+        hue-rotate(320deg) brightness(106%) contrast(97%);
+    --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%)
+        hue-rotate(294deg) brightness(90%) contrast(71%);
+    --filter-semantic-positive: invert(78%) sepia(47%) saturate(620%)
+        hue-rotate(55deg) brightness(94%) contrast(93%);
+
+    // Notifications
 
     --notification-success-background: var(--color-semantic-positive);
     --notification-success-text: #0c0c08;
-    --notification-success-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --notification-success-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --notification-error-background: var(--color-semantic-negative);
     --notification-error-text: #0c0c08;
-    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --notification-warning-background: #0d0d0d;
     --notification-error-text: #0c0c08;
-    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --notification-info-background: #b5b5b5;
     --notification-info-text: #0c0c08;
-    --notification-info-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --notification-info-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --notification-permanent-background: #fff383;
     --notification-permanent-text: #0c0c08;
-    --notification-permanent-filter: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --notification-permanent-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
     --color-navigation-text-default: #7f8a99;
-    --color-navigation-icon-filter-default: invert(57%) sepia(8%) saturate(592%) hue-rotate(175deg) brightness(93%) contrast(92%);
+    --color-navigation-icon-filter-default: invert(57%) sepia(8%) saturate(592%)
+        hue-rotate(175deg) brightness(93%) contrast(92%);
 
     --color-navigation-background-hover: transparent;
     --color-navigation-text-hover: #fff383;
-    --color-navigation-icon-filter-hover: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-hover: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
     --color-navigation-background-active: #202028;
     --color-navigation-text-active: #fff383; //over hover color
-    --color-navigation-icon-filter-active: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-active: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
     --color-navigation-background-disabled: transparent;
     --color-navigation-text-disabled: #e0e0e0; //over hover color
-    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
     // Language navigation colors
 
     --color-language-background-default: transparent;
     --color-language-text-default: #7f8a99;
-    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
+        hue-rotate(77deg) brightness(105%) contrast(106%);
 
     --color-language-background-hover: #fff383;
     --color-language-text-hover: #0c0c08;
-    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --color-language-background-active: transparent;
     --color-language-text-active: #fff383; //over hover color
-    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
+        hue-rotate(288deg) brightness(102%) contrast(102%);
 
     --color-language-background-disabled: transparent;
     --color-language-text-disabled: #e0e0e0; //over hover color
-    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
+        hue-rotate(314deg) brightness(106%) contrast(91%);
 
     // Text colors & fonts
 
@@ -179,8 +209,15 @@
     --color-text-notification: #ffffff;
     --link-text-style: underline;
 
-    --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
-    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
+    --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%)
+        hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-icon-link-hover-filter: invert(0%) sepia(20%) saturate(6237%)
+        hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%)
+        hue-rotate(174deg) brightness(93%) contrast(91%);
+    --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
+        saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
 
     --brand-font: 'Chivo', sans-serif;
     --main-font: 'Open Sans', sans-serif;
@@ -201,7 +238,8 @@
 
     --rlogin-border-radius: 4px;
     --rlogin-poweredby-color: white;
-    --rlogin-logo-filter-color: invert(100%) sepia(0%) saturate(7438%) hue-rotate(319deg) brightness(108%) contrast(113%);
+    --rlogin-logo-filter-color: invert(100%) sepia(0%) saturate(7438%)
+        hue-rotate(319deg) brightness(108%) contrast(113%);
 }
 
 #root {
@@ -213,13 +251,13 @@
     background-repeat: no-repeat;
 }
 
-// Hide governance token performance card
-.Staking > .row-section > :nth-child(3) {
-    display: none !important;
-}
-.Staking > .row-section > :nth-child(2) {
-    .layout-card {
-        width: 680px !important;
-        height: 100% !important;
-    }
-}
+// // Hide governance token performance card
+// .Staking > .row-section > :nth-child(3) {
+//     display: none !important;
+// }
+// .Staking > .row-section > :nth-child(2) {
+//     .layout-card {
+//         width: 680px !important;
+//         height: 100% !important;
+//     }
+// }

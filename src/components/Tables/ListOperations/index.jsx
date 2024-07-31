@@ -675,7 +675,7 @@ export default function ListOperations(props) {
     };
     const showModal = () => {
         setQueueModal(true);
-    }
+    };
     const hideModal = () => {
         setQueueModal(false);
     };
@@ -683,7 +683,7 @@ export default function ListOperations(props) {
         <>
             <div className="title layout-card-title">
                 <h1 className="title-last-operations .layout-card-title">{t(`operations.sectionTitle`, { ns: ns })}</h1>
-                <div className="about-button" onClick={showModal}>
+                <div className="aboutQueue__button" onClick={showModal}>
                     {t(`operations.aboutQueue.button`, { ns: ns })}
                     <i className="logo-queue"></i>
                 </div>
@@ -695,7 +695,7 @@ export default function ListOperations(props) {
                         onCancel={hideModal}
                         footer={null}
                         closable={false}
-                        className="modalsDefaults ModalAccount "
+                        className="aboutQueue__modal ModalAccount "
                         centered={true}
                         maskStyle={{}}
                     >

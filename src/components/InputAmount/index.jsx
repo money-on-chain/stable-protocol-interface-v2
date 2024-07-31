@@ -2,8 +2,6 @@ import { DebounceInput } from 'react-debounce-input';
 import React, { Component } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 
-import './style.scss';
-
 export default class InputAmount extends Component {
     constructor(props) {
         super(props);
@@ -28,15 +26,15 @@ export default class InputAmount extends Component {
 
     render() {
         return (
-            <div className="input-amount-containerOLD amountInput">
-                <div className="title-balance-containerOLD amountInput__infoBar">
-                    <div className="input-titleOLD amountInput__label">{this.props.action}</div>
-                    <span className="input-balanceOLD amountInput__available">
+            <div className="amountInput">
+                <div className="amountInput__infoBar">
+                    <div className="amountInput__label">{this.props.action}</div>
+                    <span className="amountInput__available">
                         {`${this.props.balanceText}: `}
                         {this.props.balance}
                     </span>
                 </div>
-                <div className="input-field-containerOLD amountInput__amount">
+                <div className="amountInput__amount">
                     <input
                         ref={this.inputRef}
                         placeholder={this.props.placeholder}
@@ -47,10 +45,10 @@ export default class InputAmount extends Component {
                             console.log('event.target.value', event.target.value);
                             this.props.onValueChange(event.target.value);
                         }}
-                        className={`input-valueOLD amountInput__value ${this.props.validateError ? 'input-value-errorOLD amountInput__feedback--error' : ''}`}
+                        className={`amountInput__value ${this.props.validateError ? 'amountInput__feedback--error' : ''}`}
                         type={'number'}
                     />
-                    <button className="max-buttonOLD amountInput__maxButton" onClick={this.props.setAddTotalAvailable}>
+                    <button className="amountInput__maxButton" onClick={this.props.setAddTotalAvailable}>
                         {/* {t('button.inputMaxValue')} */}
                     </button>
                 </div>

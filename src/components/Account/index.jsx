@@ -36,9 +36,9 @@ export default function AccountDialog(props) {
     return (
         <div className="">
             <div className="ant-modal-header">
-                <h1>Your wallet address</h1>
+                <h1>{t('wallet.modalTitle')}</h1>
             </div>
-            <div className="ant-modal-content tx-amount-group">
+            <div className="ant-modal-body tx-amount-group">
                 <div className="qr">
                     <QRCode size={256} style={{ height: 'auto', maxWidth: '100%', width: '100%' }} value={qrValue ?? ''} viewBox={`0 0 256 256`} />
                 </div>

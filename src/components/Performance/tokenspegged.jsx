@@ -89,14 +89,14 @@ const ProvideColumnsTP = [
         tokensData.push({
             key: dataItem.key,
             name: (
-                <div className="item-token">
-                    <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
-                    <span className="token-description">
+                <div className="token">
+                    <div className={`icon-token-tp_${dataItem.key} token__icon`}></div>{' '}
+                    <span className="token__name">
                         {t(`exchange.tokens.TP_${dataItem.key}.label`, {
                             ns: ns
                         })}
                     </span>
-                    <span className="token-symbol">
+                    <span className="token__ticker">
                         {t(`exchange.tokens.TP_${dataItem.key}.abbr`, {
                             ns: ns
                         })}

@@ -27,11 +27,10 @@ export default function SelectCurrency(props) {
             <Select className={`${action}-select-token`} size={'large'} onChange={onChange} disabled={disabled} value={option && option.value}>
                 {optionsFiltered.map((possibleOption) => (
                     <Option key={possibleOption.value} value={possibleOption.value}>
-                        <div className="currencyOptionOLD tokenSelector__token">
-                            {possibleOption.image}
-                            {possibleOption.label}
-                        </div>
-                        <div className="currencyOption-abbrOLD token__ticker">{`(${possibleOption.abbr})`}</div>
+                        <div className="token">
+                            <div className="token__icon">{possibleOption.image}</div>
+                            <div className="token__name">{possibleOption.label}</div>
+                            <div className="token__ticker">{`(${possibleOption.abbr})`}</div>                        </div>
                     </Option>
                 ))}
             </Select>

@@ -102,14 +102,14 @@ export default function Tokens(props) {
             tokensData.push({
                 key: dataItem.key,
                 name: (
-                    <div className="item-token">
-                        <i className={`icon-token-ca_${dataItem.key}`}></i>{' '}
-                        <span className="token-description">
+                    <div className="token">
+                        <div className={`icon-token-ca_${dataItem.key} token__icon`}></div>{' '}
+                        <span className="token__name">
                             {t(`portfolio.tokens.CA.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>
-                        <span className="token-symbol">
+                        <span className="token__ticker">
                             {t(`portfolio.tokens.CA.rows.${dataItem.key}.symbol`, {
                                 ns: ns
                             })}
@@ -236,14 +236,14 @@ export default function Tokens(props) {
         tokensData.push({
             key: itemIndex,
             name: (
-                <div className="item-token">
-                    <i className="icon-token-tc"></i>{' '}
-                    <span className="token-description">
+                <div className="token">
+                    <div className="icon-token-tc token__icon"></div>
+                    <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
-                    <span className="token-symbol">
+                    <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
@@ -340,14 +340,14 @@ export default function Tokens(props) {
         tokensData.push({
             key: itemIndex,
             name: (
-                <div className="item-token">
-                    <i className="icon-token-tp_0"></i>{' '}
-                    <span className="token-description">
+                <div className="token">
+                    <div className="icon-token-tp_0 token__icon"></div>{' '}
+                    <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
-                    <span className="token-symbol">
+                    <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
@@ -452,14 +452,14 @@ export default function Tokens(props) {
         tokensData.push({
             key: itemIndex,
             name: (
-                <div className="item-token">
-                    <i className="icon-token-tf"></i>{' '}
-                    <span className="token-description">
+                <div className="token">
+                    <div className="icon-token-tf token__icon"></div>
+                    <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
-                    <span className="token-symbol">
+                    <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}
@@ -568,14 +568,14 @@ export default function Tokens(props) {
         tokensData.push({
             key: itemIndex,
             name: (
-                <div className="item-token">
-                    <i className="icon-token-coinbase"></i>{' '}
-                    <span className="token-description">
+                <div className="token">
+                    <div className="icon-token-coinbase token__icon"></div>
+                    <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
                             ns: ns
                         })}
                     </span>
-                    <span className="token-symbol">
+                    <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
                             ns: ns
                         })}

@@ -6,11 +6,27 @@ section_staking.scss contains all the css code for Staking section cards not con
     --- Staking ---
 */
 
-.Staking {
+.sectionStaking {
     .row-section {
         margin-top: 24px;
     }
+    .firstCardsGroup {
+        width: 100%;
+        display: flex;
+        column-gap: 32px;
+    }
+    #stakingCard {
+        width: 475px;
+    }
 
+    #distributionCard {
+        width: 354px;
+        height: 100%;
+    }
+
+    #performanceCard {
+        width: 288px;
+    }
     .card-content {
         display: flex;
         flex-direction: row;
@@ -259,7 +275,9 @@ section_staking.scss contains all the css code for Staking section cards not con
         .ant-table-cell {
             padding: 10px 0px !important;
         }
-
+        .ant-pagination {
+            display: none;
+        }
         .group-container {
             display: flex;
             align-items: center;
@@ -267,42 +285,58 @@ section_staking.scss contains all the css code for Staking section cards not con
             width: 100%;
         }
 
-        .action-container {
+        // .token-description {
+        //     text-align: left;
+        //     margin-right: 5px;
+        //     color: var(--color-text-link);
+        //     color: var(--color-text-link);
+        //     cursor: pointer;
+        // }
+
+        // .token-description-disabled {
+        //     text-align: left;
+        //     margin-right: 5px;
+        //     color: var(--color-text-secondary);
+        //     cursor: not-allowed;
+        // }
+
+        .action__container {
             display: flex;
             align-items: center;
             justify-content: flex-end;
             width: 130px;
             margin-left: 5px;
             cursor: pointer;
+            color: var(--color-text-highlight);
         }
 
-        .action-container.disabled {
+        .action__container--disabled {
             cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .token-description {
-            text-align: left;
-            margin-right: 5px;
-            color: var(--color-text-link);
-            color: var(--color-text-link);
-            cursor: pointer;
-        }
-
-        .token-description-disabled {
-            text-align: left;
-            margin-right: 5px;
-            color: var(--color-text-secondary);
-            cursor: not-allowed;
-        }
-
-        .icon-action {
-            display: flex;
-            filter: var(--color-icon-link-filter);
-        }
-        .icon-action-disabled {
-            display: flex;
+            // color: var(--color-text-secondary);
+            // opacity: 0.5;
             filter: var(--color-icon-link-secondary-filter);
+        }
+        .action__icon--disabled {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            filter: var(--color-icon-link-secondary-filter);
+        }
+        .action__description {
+            width: 200px;
+            margin-right: 8px;
+        }
+        .action__description--disabled {
+            width: 200px;
+            margin-right: 8px;
+        }
+        .action__icon {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            filter: var(--color-icon-link-filter);
         }
     }
 
@@ -316,7 +350,6 @@ section_staking.scss contains all the css code for Staking section cards not con
 
         .ant-modal-content {
             background: rgb(248, 248, 249);
-            // border-radius: 4px;
             box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
         }
         .ant-modal-header {
@@ -356,3 +389,58 @@ section_staking.scss contains all the css code for Staking section cards not con
         margin-top: 5px;
     }
 }
+
+/* #region STAKING DASHBOARD */
+.dashboard-staking-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 8px 32px !important;
+    .stakingDash__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0px;
+        width: 240px;
+        height: 50px;
+    }
+    .stakingDash__icon__back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--card-border-radius);
+        background-color: var(--icon-background-color);
+    }
+    .stakingDash__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0px;
+    }
+    .stakingDash__data__amount {
+        width: 115px;
+        height: 29px;
+        font-family: var(--brand-font);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 29px;
+        display: flex;
+        align-items: center;
+        color: var(--color-text-primary);
+    }
+    .stakingDash__data__label {
+        font-family: var(--main-font);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+    }
+}
+/* #endregion STAKING DASHBOARD */

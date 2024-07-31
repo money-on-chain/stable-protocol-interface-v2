@@ -54,15 +54,15 @@ const InputAmount = (props) => {
         }
     };
     return (
-        <div className="input-amount-containerOLD amountInput">
-            <div className="title-balance-containerOLD amountInput__infoBar">
-                <div className="input-titleOLD amountInput__label">{action}</div>
-                <span className="input-balanceOLD amountInput__available">
+        <div className="amountInput">
+            <div className="amountInput__infoBar">
+                <div className="amountInput__label">{action}</div>
+                <span className="amountInput__available">
                     {`${balanceText}: `}
                     {balance}
                 </span>
             </div>
-            <div className="input-field-containerOLD amountInput__amount">
+            <div className="amountInput__amount">
                 <input
                     ref={inputRef}
                     placeholder={placeholder}
@@ -70,10 +70,10 @@ const InputAmount = (props) => {
                     onChange={(event) => {
                         handleValueChange(event.target.value);
                     }}
-                    className={`input-valueOLD amountInput__value ${validateError ? 'input-value-errorOLD amountInput__feedback--error' : ''}`}
+                    className={`amountInput__value ${validateError ? 'amountInput__feedback--error' : ''}`}
                     type={'number'}
                 />
-                <button className="max-buttonOLD amountInput__maxButton" onClick={setAddTotalAvailable}>
+                <button className="amountInput__maxButton" onClick={setAddTotalAvailable}>
                     {t('button.inputMaxValue')}
                 </button>
             </div>

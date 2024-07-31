@@ -137,7 +137,6 @@ const Stake = (props) => {
         <Fragment>
             <div className="sectionStaking__Content">
                 <div className="inputFields">
-                    {' '}
                     <div className="tokenSelector">
                         <SelectCurrency
                             className="select-token"

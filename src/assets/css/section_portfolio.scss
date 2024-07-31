@@ -24,6 +24,9 @@ section_portfolio.scss contains all the css code for Portfolio card not containe
         width: 1184px;
         /*height: 372px;*/
     }
+    .token {
+        margin-left: 8px;
+    }
 }
 
 .tokens-list-header {
@@ -77,3 +80,41 @@ section_portfolio.scss contains all the css code for Portfolio card not containe
 
     text-transform: uppercase;
 }
+
+/* region PORTFOLIO TABLES */
+.tokens-list-table {
+    width: 1120px;
+    margin-top: 40px;
+}
+// Portfolio table
+.tokens-card-content .ant-table-tbody > tr.ant-table-row:hover > td,
+.tokens-card-content .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    // background: #d0d0d0;
+    background: var(--surface-color-1) !important;
+}
+
+// Performance Pegged-Tokens table
+.card-tps .ant-table-tbody > tr.ant-table-row:hover > td,
+.ccard-tps .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-1) !important;
+}
+
+// Variation Indicator
+.variation-indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0px;
+}
+.positive-indicator {
+    background-color: var(--color-semantic-positive);
+}
+.negative-indicator {
+    background-color: var(--color-semantic-negative);
+}
+.neutral-indicator {
+    background-color: var(--color-semantic-neutral);
+}
+/* endregion PORTFOLIO TABLES */

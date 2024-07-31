@@ -85,26 +85,26 @@ export default function Withdraw(props) {
             available_actions: (
                 <div className="group-container">
                     <div
-                        className={`action-container${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? ' disabled' : ''}`}
+                        className={`action__container${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? ' action__container--disabled' : ''}`}
                         onClick={() => handleActionClick('restake', withdrawal)}
                     >
                         <span
-                            className={`token-description${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? '-disabled' : ''}`}
+                            className={`action__description${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? '--disabled' : ''}`}
                         >
                             {t('staking.withdraw.buttons.restake')}
                         </span>
-                        <div className="icon-action">
+                        <div className="action__icon" >
                             <Image src={ActionIcon} alt="Action" preview={false} />
                         </div>
                     </div>
                     <div
-                        className={`action-container${withdrawal.status === 'PENDING' ? ' disabled' : ''}`}
+                        className={`action__container${withdrawal.status === 'PENDING' ? ' action__container--disabled' : ''}`}
                         onClick={() => handleActionClick('withdraw', withdrawal)}
                     >
-                        <span className={`token-description${withdrawal.status === 'PENDING' ? '-disabled' : ''}`}>
+                        <span className={`action__description${withdrawal.status === 'PENDING' ? '--disabled' : ''}`}>
                             {t('staking.withdraw.buttons.withdraw')}
                         </span>
-                        <div className="icon-action">
+                        <div className="action__icon">
                             <Image src={ActionIcon} alt="Action" preview={false} />
                         </div>
                     </div>
@@ -152,7 +152,7 @@ export default function Withdraw(props) {
     };
 
     return (
-        <div className="card-withdraw">
+        <div className="section__innerCard--big card-withdraw">
             <div className="layout-card-title">
                 <h1>{t('staking.withdraw.title')}</h1>
                 <div className="withdraw-header-balance">

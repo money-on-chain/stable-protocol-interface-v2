@@ -633,7 +633,7 @@ export default function Exchange() {
                         //amountYouReceiveFee={amountYouReceiveFee}
                     />
                 </div>
-            </div>{' '}
+            </div>
         </div>
     );
 }

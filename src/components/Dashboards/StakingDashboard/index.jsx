@@ -83,14 +83,14 @@ const Dashboard = (props) => {
         //}
     };
     return (
-        <div className="dashboard-staking-info">
+        <div className="layout-card section__innerCard--big dashboard-staking-info">
             {/* Performance */}
-            <div className="item-staking second-item">
-                <div className="logo-staking-panel">
+            <div className="stakingDash__item">
+                <div className="stakingDash__icon__back">
                     <div className="icon__govBalance"></div>
                 </div>
-                <div className="resume-staking">
-                    <div className="number-staking">
+                <div className="stakingDash__data">
+                    <div className="stakingDash__data__amount">
                         {' '}
                         {PrecisionNumbers({
                             amount: new BigNumber(tgBalance),
@@ -101,16 +101,16 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="description-staking">Balance (free)</div>
+                    <div className="stakingDash__data__label">{t('staking.dashLabels.balance')}</div>
                 </div>
             </div>
             {/* Staked */}
-            <div className="item-staking first-item">
-                <div className="logo-staking-panel">
+            <div className="stakingDash__item">
+                <div className="stakingDash__icon__back">
                     <div className="icon__govStaked"></div>
                 </div>
-                <div className="resume-staking">
-                    <div className="number-staking">
+                <div className="stakingDash__data">
+                    <div className="stakingDash__data__amount">
                         {PrecisionNumbers({
                             amount: new BigNumber(stakedBalance),
                             token: settings.tokens.TG,
@@ -120,16 +120,16 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="description-staking">Flip staked</div>
+                    <div className="stakingDash__data__label">{t('staking.dashLabels.staked')}</div>
                 </div>
             </div>
             {/* Rewarded today */}
-            <div className="item-staking second-item">
-                <div className="logo-staking-panel">
+            <div className="stakingDash__item">
+                <div className="stakingDash__icon__back">
                     <div className="icon__govUnstaking"></div>
                 </div>
-                <div className="resume-staking">
-                    <div className="number-staking">
+                <div className="stakingDash__data">
+                    <div className="stakingDash__data__amount">
                         {' '}
                         {PrecisionNumbers({
                             amount: new BigNumber(totalPendingExpiration),
@@ -140,18 +140,17 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="description-staking">Unstaking</div>
+                    <div className="stakingDash__data__label">{t('staking.dashLabels.unstaking')}</div>
                 </div>
             </div>
 
             {/* Ready to claim */}
-            <div className="item-staking second-item">
-                <div className="logo-staking-panel">
+            <div className="stakingDash__item">
+                <div className="stakingDash__icon__back">
                     <div className="icon__govReadyWithdraw"></div>
                 </div>
-                <div className="resume-staking">
-                    <div className="number-staking">
-                        {' '}
+                <div className="stakingDash__data">
+                    <div className="stakingDash__data__amount">
                         {PrecisionNumbers({
                             amount: new BigNumber(totalAvailableToWithdraw),
                             token: settings.tokens.TG,
@@ -161,7 +160,7 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="description-staking">Ready to Withdraw</div>
+                    <div className="stakingDash__data__label">{t('staking.dashLabels.ready')}</div>
                 </div>
             </div>
         </div>

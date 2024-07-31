@@ -2,16 +2,18 @@
 section_send.scss contains all the css code for Send section cards not contained in global.scss
 */
 
-/*
---- Vesting ---
-*/
-
 .vesting {
     display: flex;
     flex-direction: column;
     gap: 24px;
     color: var(--color-text-primary);
     font-family: var(--main-font);
+
+    display: flex;
+    column-gap: 32px;
+    row-gap: 24px;
+    flex-direction: row;
+    flex-wrap: wrap;
 
     #vesting-onboarding {
     }
@@ -79,7 +81,8 @@ section_send.scss contains all the css code for Send section cards not contained
         .cta {
             display: flex;
             gap: 32px;
-            margin: var(--margin-vertical-small) 0px var(--margin-vertical-small) 0px;
+            margin: var(--margin-vertical-small) 0px
+                var(--margin-vertical-small) 0px;
         }
         .input-container {
             width: 100%;
@@ -120,11 +123,7 @@ section_send.scss contains all the css code for Send section cards not contained
         display: block;
         float: left;
     }
-    .two-columns {
-        display: flex;
-        flex-direction: row;
-        gap: 32px;
-    }
+
     #vesting-info {
         width: 576px;
         height: 171px;
@@ -179,7 +178,7 @@ section_send.scss contains all the css code for Send section cards not contained
         gap: 26px 32px;
     }
 
-    .vesting-data {
+    .vesting__data {
         font-family: var(--brand-font);
         font-size: 22px;
         font-weight: 600;
@@ -187,7 +186,7 @@ section_send.scss contains all the css code for Send section cards not contained
         margin-top: 6px;
     }
 
-    .vesting-label {
+    .vesting__label {
         font-family: var(--main-font);
         font-size: 10px;
         font-weight: 700;
@@ -213,6 +212,12 @@ section_send.scss contains all the css code for Send section cards not contained
                 line-height: 17px;
                 margin-top: 6px;
             }
+        }
+        .ant-table-cell {
+            border-bottom: 1px solid var(--dividers);
+        }
+        .ant-table-body .ant-table-cell {
+            border: none !important;
         }
         .ant-table {
         }
@@ -251,7 +256,6 @@ section_send.scss contains all the css code for Send section cards not contained
             padding-top: 0px;
         }
         .ant-table-measure-row {
-            // background-color: darkgreen;
         }
     }
 }

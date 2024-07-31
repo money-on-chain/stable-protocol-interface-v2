@@ -139,7 +139,6 @@ icons.css contains all the css code for Icons across the Dapp
     background-size: 24px 24px;
     background-repeat: no-repeat;
     display: block;
-    // filter: invert(100%);
 }
 
 .icon-signifier {
@@ -149,21 +148,6 @@ icons.css contains all the css code for Icons across the Dapp
     background-image: url('../icons/Signifier.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
-}
-
-/* Token icons */
-
-.item-token {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-left: 8px;
-    gap: 8px;
-    width: 90%;
-    height: 20px;
-}
-.token-description {
-    cursor: default;
 }
 
 .item-usd {
@@ -293,42 +277,3 @@ icons.css contains all the css code for Icons across the Dapp
     width: 32px;
     height: 32px;
 }
-
-/* #region THIS ICONS MAY BE DEPRECATED */
-.icon-staked {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/StakeOutline.svg');
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-    width: 32px;
-    height: 32px;
-}
-
-.icon-gauge {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/PerformanceOutline.svg');
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-    width: 32px;
-    height: 32px;
-}
-
-.icon-calendar {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/RewardedTodayOutline.svg');
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-    width: 32px;
-    height: 32px;
-}
-
-.icon-calendar-check {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/ReadyToWithdrawOutline.svg');
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-    width: 32px;
-    height: 32px;
-}
-
-/* #endregion THIS ICONS MAY BE DEPRECATED */

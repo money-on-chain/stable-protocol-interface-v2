@@ -375,7 +375,6 @@ export default function StakingOptionsModal(props) {
                                     ns: ns,
                                     skipContractConvert: true
                                 })}
-
                                 <div className="tx-token">
                                     {t('staking.tokens.TG.abbr', {
                                         ns: ns
@@ -405,11 +404,11 @@ export default function StakingOptionsModal(props) {
     const renderWithdraw = () => {
         return (
             <Fragment>
+                {/* Asks the user to confirm Withdraw */}
                 <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_WithdrawTitle')}</h1>
-                <div className="ant-modal-content">
+                <div className="ant-modal-body">
                     <div className="tx-amount-group">
                         <div className="tx-amount-container">
-                            {' '}
                             <div className="tx-amount-data">
                                 <div className="tx-amount">
                                     {PrecisionNumbers({
@@ -453,8 +452,8 @@ export default function StakingOptionsModal(props) {
             <Fragment>
                 {/* Asks to confirm RESTAKE */}
                 <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_RestakeTitle')}</h1>
-                <div className="ant-modal-content">
-                    <div className="InfoContainer">
+                <div className="ant-modal-body">
+                    <div className="tx-amount-group">
                         <div className="tx-amount-container">
                             <div className="tx-amount-data">
                                 <div className="tx-amount">
@@ -511,7 +510,7 @@ export default function StakingOptionsModal(props) {
             footer={null}
             centered={true}
             maskClosable={false}
-            maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+            maskStyle={{}}
         >
             {render()}
         </Modal>

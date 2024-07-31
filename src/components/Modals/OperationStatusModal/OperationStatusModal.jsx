@@ -2,7 +2,6 @@ import Modal, { Fragment } from 'antd/lib/modal/Modal';
 import React from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
-import './style.scss';
 import CopyAddress from '../../CopyAddress';
 
 const OperationStatusModal = ({ className, visible, onCancel, title, operationStatus, txHash }) => {
@@ -41,7 +40,7 @@ const OperationStatusModal = ({ className, visible, onCancel, title, operationSt
                     <div className="tx-id-data">
                         {(operationStatus === 'pending' || operationStatus === 'success') && (
                             <div className="transaction-id tx-id-container">
-                                <div className="tx-id-label">Transaction ID</div>
+                                <div className="tx-id-label">{t('txFeedback.txIdLabel')}</div>
                                 <div className="tx-id-address">
                                     <CopyAddress address={txHash} type={'tx'}></CopyAddress>
                                     {/*<span className="address">*/}

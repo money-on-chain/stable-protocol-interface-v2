@@ -4,6 +4,9 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
+    "notification": {
+        "dismiss": "Dismiss"
+    },
     "txFeedback": { "txIdLabel": "Transaction ID" },
     "button": { "inputMaxValue": "max" },
     "operations": {
@@ -77,7 +80,7 @@
     },
 
     "wallet": {
-        "modalTitle": "Connect Wallet",
+        "modalTitle": "Your Wallet Address",
         "userAddress": "Address",
         "cta": {
             "disconnect": "Disconnect",
@@ -249,7 +252,7 @@
             "statusTitleLiquidated": "Liquidated",
             "statusDescriptionLiquidated": "No operations allowed",
 
-            "statusTitlePaused": "Pausado",
+            "statusTitlePaused": "Paused",
             "statusDescriptionPaused": "The contract is paused. No operations allowed",
 
             "statusTitleUnavailable": "Cannot operate",
@@ -428,6 +431,12 @@
         "display_decimals": 2,
         "cardTitle": "Staking",
         "governanceToken": "Flip",
+        "dashLabels": {
+            "balance": "Balance (free)",
+            "staked": "Flip Staked",
+            "unstaking": "Unstaking",
+            "ready": "Ready to Withdraw"
+        },
         "staking": {
             "input_decimals": 2,
             "tabStake": "Stake",
@@ -479,10 +488,10 @@
                 "AVAILABLE": "Unstaked"
             },
             "table": {
-                "expiration": "Expiración",
-                "amount": "Cantidad",
-                "status": "Estado",
-                "actions": "Acciones disponibles"
+                "expiration": "Expiration",
+                "amount": "Amount",
+                "status": "Status",
+                "actions": "Available actions"
             }
         },
         "tokens": {
@@ -492,6 +501,7 @@
             }
         },
         "modal": {
+            "StakingOptions_AvailableToWithdraw": "Listo para hacer Withdraw",
             "options": {
                 "availableToWithdraw": "Ready to Withdraw",
                 "unstaking": "Processing unstake",
@@ -510,13 +520,6 @@
                 "setUnlimited": "Set unlimited allowance. Don't ask me again.",
                 "cta": "Authorize"
             },
-
-            "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
-            "StakingOptions_PendingExpiration": "Processing unstake",
-            "StakingOptions_WithdrawAll": "Withdraw all available",
-            "StakingOptions_Restake": "Restake",
-            "StakingOptions_Withdraw": "Withdraw",
-
             "StakingOptionsModal_SetAllowance": "Set Allowance",
             "StakingOptionsModal_ReviewYourWallet": "Wallet",
             "StakingOptionsModal_ReviewYourWalletDescription": "Please review your wallet",
@@ -556,24 +559,49 @@
         "Error_maxExceeded": "The number exceeds the maximum allowed"
     },
     "vesting": {
-        "title": "Vesting Machine",
+        "vestingOnboarding": {
+            "page1": {
+                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
+                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
+                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "ctaPrimary": "Use Claim Code",
+                "ctaSecondary": "Load VM"
+            },
+            "page2": {
+                "stepTitle": "Let’s create a new Vesting Machine (VM) using a Claim Code",
+                "label": "Enter your Claim Code below",
+                "placeholder": "You can paste your claim code here or select 'load from file' button",
+                "loadButton": "Load Claim Code from file",
+                "explanation1": "After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign a transaction using your Wallet. You will only pay for the blockchain usage gas.",
+                "ctaPrimary": "Create VM",
+                "ctaSecondary": "Back"
+            },
+            "page3": {
+                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
+                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
+                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "transactionId": "Transaction ID",
+                "ctaPrimary": "Continue"
+            }
+        },
         "alert": {
             "title": "Using Vesting Adress",
             "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
             "cta": "Go to wallet settings"
         },
+        "cardTitle": "Vesting Machine",
         "status": {
             "verified": "This Vesting Machine is Verified",
             "notVerified": "This Vesting Machine is not verified yet",
             "notFromThisUser": "Vesting Machine doesn't belong to this account"
         },
-        "tokensAvailableToWithdraw": "MOC available to withdraw",
+        "tokensAvailableToWithdraw": "Available Free FLIP balance",
         "withdrawToWallet": "Withdraw to my wallet",
-        "vested": {
-            "readyToWhitdraw": "Ready to withdraw",
-            "totalVested:": "MOC Vested",
-            "staked": "MOC Staked",
-            "d": ""
+        "dashDistribution": {
+            "vested": "Ready to withdraw FLIP",
+            "released": "Vested FLIP",
+            "staked": "Staked FLIP",
+            "unstaking": "Unstaking FLIP in progress"
         },
         "vestingScheduleColumns": {
             "date": "Release date",

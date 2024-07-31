@@ -8,7 +8,7 @@ export default function Performance(props) {
     const [t, i18n, ns] = useProjectTranslation();
 
     return (
-        <div className="vesting">
+        <div className="section vesting">
             {/* <Alert
                 className="alert-success"
                 message="Success Tips"
@@ -63,21 +63,17 @@ export default function Performance(props) {
              VESTING ONBOARDING PAGE 1
 
              */}
-            <div id="vesting-onboarding" className="layout-card page1">
-                {' '}
+            <div id="vesting-onboarding" className="layout-card section__innerCard--big page1">
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
-                </div>{' '}
+                    <h1>{t('vesting.cardTitle')}</h1>
+                </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>You don’t have any Vesting Machine Loaded yet</h2>
-                        <p>
-                            A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment
-                            over time, rather than receiving it all at once.
-                        </p>
-                        <p>You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.</p>
+                        <h2>{t('vesting.vestingOnboarding.page1.stepTitle')}</h2>
+                        <p>{t('vesting.vestingOnboarding.page1.explanation1')}</p>
+                        <p>{t('vesting.vestingOnboarding.page1.explanation2')}</p>
                         <div className="cta">
-                            <button className="button secondary">Load VM</button> <button className="button">Use Claim Code</button>
+                            <button className="button secondary">{t('vesting.vestingOnboarding.page1.ctaSecondary')}</button> <button className="button">{t('vesting.vestingOnboarding.page1.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator active"></div>
@@ -92,36 +88,34 @@ export default function Performance(props) {
              VESTING ONBOARDING PAGE 2
 
              */}
-            <div id="vesting-onboarding" className="layout-card page2">
+            <div id="vesting-onboarding" className="layout-card section__innerCard--big page2">
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
+                    <h1>{t('vesting.cardTitle')}</h1>
                 </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>Let’s create a new Vesting Machine (VM) using a Claim Code</h2>
+                        <h2>{t('vesting.vestingOnboarding.page2.stepTitle')}</h2>
                         <div className="input-container">
-                            {' '}
                             <label className="claim-code-input-label">
-                                Enter your Claim Code below{' '}
+                            {t('vesting.vestingOnboarding.page2.label')}
                                 <textarea
                                     type="text"
                                     className="claim-code-input"
-                                    placeholder="You can paste your claim code here or select 'load from file' button"
+                                    placeholder={t('vesting.vestingOnboarding.page2.placeholder')}
                                 />
-                            </label>{' '}
-                        </div>{' '}
+                            </label>
+                        </div>
                         <div className="options">
-                            <button className="button--small">Load Claim Code from file</button>
+                            <button className="button--small">{t('vesting.vestingOnboarding.page2.loadButton')}</button>
                         </div>
                         <br />
                         <div className="explanation">
-                            <p>
-                                After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign
-                                a transaction using your Wallet. You will only pay for the blockchain usage gas.
+                            <p>{t('vesting.vestingOnboarding.page2.explanation1')}
                             </p>
                         </div>
                         <div className="cta">
-                            <button className="button">Create VM</button>
+                            <button className="button secondary">{t('vesting.vestingOnboarding.page2.ctaSecondary')}</button>
+                            <button className="button">{t('vesting.vestingOnboarding.page2.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>
@@ -136,26 +130,24 @@ export default function Performance(props) {
             VESTING ONBOARDING PAGE 3
 
             */}
-            <div id="vesting-onboarding" className="layout-card page3">
-                {' '}
+            <div id="vesting-onboarding" className="layout-card section__innerCard--big page3">
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
-                </div>{' '}
+                    <h1>{t('vesting.cardTitle')}</h1>
+                </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>Your Vesting Machine has been created!</h2>
-                        <p>This amazing thing we need to celebrate.</p>
-                        <p>Copy your transaction address for later reference.</p>{' '}
+                        <h2>{t('vesting.vestingOnboarding.page3.stepTitle')}</h2>
+                        <p>{t('vesting.vestingOnboarding.page3.explanation1')}</p>
+                        <p>{t('vesting.vestingOnboarding.page3.explanation2')}</p>
                         <div className="tx-details">
-                            {' '}
-                            Transaction ID
+                        {t('vesting.vestingOnboarding.page3.transactionId')}
                             <div className="copy-button">
                                 oxba8cd957…72adM
                                 <div className="copy-icon"></div>
                             </div>
                         </div>
                         <div className="cta">
-                            <button className="button">Continue</button>
+                            <button className="button">{t('vesting.vestingOnboarding.page3.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>
@@ -170,67 +162,70 @@ export default function Performance(props) {
              VESTING SCHEDULE
 
              */}
-            <div className="two-columns">
-                <div id="vesting-info" className="layout-card">
+                <div id="vesting-info" className="layout-card section__innerCard--small">
                     <div className="layout-card-title">
-                        <h1>{t('vesting.title')}</h1>
+                        <h1>{t('vesting.cardTitle')}</h1>
                         <div id="vesting-verification">
                             <div className="verification-icon"></div> {t('vesting.status.verified')}
-                        </div>{' '}
+                        </div>
                     </div>
                     <div id="vesting-info-content">
                         <div>
                             <div id="vesting-moc-available" className="vesting-data">
                                 0.000000000000
                             </div>
-                            <div className="vesting-label">freely available FLIP balance</div>
+                            <div className="vesting-label">{t('vesting.tokensAvailableToWithdraw')}</div>
                         </div>
                         <div id="withdraw-cta">
                             Send to my wallet <div className="withdraw-button"></div>
                         </div>
                     </div>
                 </div>{' '}
-                <div id="vesting-distribution" className="layout-card">
+                <div id="vesting-distribution" className="layout-card section__innerCard--small">
                     <div id="moc-ready">
-                        <div id="vesting-moc-ready" className="vesting-data">
+                        <div id="vestingDash-readyToWithdraw" className="vesting__data">
                             0.000000000000
                         </div>
-                        <div className="vesting-label">Vested FLIP</div>
+                        <div className="vesting__label">
+                               {t('vesting.dashDistribution.vested')}
+                        </div>
                     </div>
-                    <div id="moc2">
-                        <div id="vesting-moc-vested" className="vesting-data">
+                    <div id="dashboard"> 
+                        <div id="vestingDash-vested" className="vesting__data">
                             0.000000000000
                         </div>
-                        <div className="vesting-label">Staked FLIP</div>
+                        <div className="vesting__label">
+                            {t('vesting.dashDistribution.released')}
+                        </div>
                     </div>
                     <div id="moc3">
-                        <div id="vesting-moc-staking" className="vesting-data">
+                        <div id="vestingDash-staked" className="vesting__data">
                             0.000000000000
                         </div>
-                        <div className="vesting-label">Unstaking FLIP</div>
+                        <div className="vesting__label">
+                        {t('vesting.dashDistribution.staked')}
+                        </div>
+                    </div>                    <div id="moc4">
+                        <div id="vestingDash-unstaking" className="vesting__data">
+                            0.000000000000
+                        </div>
+                        <div className="vesting__label">
+                            {t('vesting.dashDistribution.unstaking')}
+                </div>
                     </div>
-                    {/* <div id="moc4">
-                        <div id="vestiing-moc-readyToWithdraw" className="vesting-data">
-                            0.000000000000
-                        </div>
-                        <div className="vesting-label">Ready to withdraw FLIP</div>
-                    </div> */}
-                </div>{' '}
-            </div>{' '}
-            <div id="vesting-schedudle" className="layout-card">
-                {' '}
+                </div>
+            <div id="vesting-schedudle" className="layout-card section__innerCard--big">
                 <div className="layout-card-title">
                     <h1>Vesting Release Schedule</h1>
                 </div>
                 <div id="moc-total">
                     <div className="total-data">0.000000000000 FLIP</div>
                     <div className="vesting-label">Schedduled (vested+released)</div>
-                </div>{' '}
+                </div>
                 <div id="vesting-schedule-table">
-                    {' '}
                     <VestingSchedule />
-                </div>{' '}
-            </div>{' '}
+                </div>
+            </div>
         </div>
     );
 }
