@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Button, Collapse, Slider } from 'antd';
 import axios from 'axios';
 
+import api from '../../services/api';
 import { useProjectTranslation } from '../../helpers/translations';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -403,6 +404,52 @@ export default function ConfirmOperation(props) {
         onCloseModal();
     };
 
+    const validateQueueAmt = async () => {
+        try {
+            const maxQACToMintTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToMintTP,
+                    settings.tokens.TP[0].decimals //TODO refactor for multi TP project
+                )
+            );
+            const maxQACToRedeemTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToRedeemTP,
+                    settings.tokens.TP[0].decimals //TODO refactor for multi TP project
+                )
+            );
+            const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/queued_opers/`;
+            api('get', baseUrl)
+                .then((response) => {
+                    const TPMintQTPConvertedQTPToAC = ConvertAmount(
+                        auth,
+                        'TP_0',
+                        'CA_0',
+                        response.result.TPMint.qTP ?? 0,
+                    );
+                    const TPRedeemQTPConvertedQTPToAC = ConvertAmount(
+                        auth,
+                        'TP_0',
+                        'CA_0',
+                        response.result.TPRedeem.qTP ?? 0,
+                    );
+                    if (
+                        maxQACToMintTP.lt(TPMintQTPConvertedQTPToAC) ||
+                        maxQACToRedeemTP.lt(TPRedeemQTPConvertedQTPToAC)
+                    ) {
+                        return true;
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error reading queue amount: ', error);
+                });
+            return false;
+        } catch (error) {
+            console.log('Error validating queue amount: ', error);
+            return true;
+        }
+    }
+
     // Commission Select Radio
 
     let commissionPAY = commission
@@ -618,7 +665,9 @@ export default function ConfirmOperation(props) {
                             <span className="confirm-error">{toleranceError}</span>
                         </div>
                     )}
-
+                    {validateQueueAmt() && <div className="info-container">
+                        <span className="confirm-error-info">{t('exchange.errors.fluxCapacityFull')}</span>
+                    </div>}
                     <div className="actions-buttons">
                         <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
                             {t('exchange.buttonCancel')}
