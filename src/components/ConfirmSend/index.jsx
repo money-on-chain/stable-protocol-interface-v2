@@ -9,7 +9,13 @@ import { AuthenticateContext } from '../../context/Auth';
 import CopyAddress from '../CopyAddress';
 
 export default function ConfirmSend(props) {
-    const { currencyYouExchange, exchangingUSD, amountYouExchange, destinationAddress, onCloseModal } = props;
+    const {
+        currencyYouExchange,
+        exchangingUSD,
+        amountYouExchange,
+        destinationAddress,
+        onCloseModal
+    } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -21,7 +27,13 @@ export default function ConfirmSend(props) {
         // Real send transaction
         setStatus('SIGN');
 
-        auth.interfaceTransferToken(currencyYouExchange, amountYouExchange, destinationAddress.toLowerCase(), onTransaction, onReceipt)
+        auth.interfaceTransferToken(
+            currencyYouExchange,
+            amountYouExchange,
+            destinationAddress.toLowerCase(),
+            onTransaction,
+            onReceipt
+        )
             .then((value) => {
                 console.log('DONE!');
             })
@@ -102,28 +114,34 @@ export default function ConfirmSend(props) {
                             })}
                         </div>
                         <div className="tx-token">
-                            {' '}
                             {t(`exchange.tokens.${currencyYouExchange}.label`, {
                                 ns: ns
-                            })}{' '}
+                            })}
                         </div>
                     </div>
                     <div className="tx-direction">
-                        <div className="tx-direction swapArrow">
+                        <div className="swapArrow">
                             <div className="icon-arrow-down"></div>
                         </div>
-                    </div>{' '}
+                    </div>
                     {/* <div className="swapTo"> */}
-                    <div className="tx-destination-address">{destinationAddress}</div>
+                    <div className="tx-destination-address">
+                        {destinationAddress}
+                    </div>
                     {/* </div> */}
-                </div>{' '}
+                </div>
             </div>
             {status === 'SUBMIT' && (
                 <div className="cta-container">
                     <div className="cta-info-group">
                         <div className="cta-info-summary">
-                            <div className={'token_exchange'}>{t('send.sendingSummary')} </div>
-                            <div className={'symbol'}> {t('send.sendingSign')} </div>
+                            <div className={'token_exchange'}>
+                                {t('send.sendingSummary')}{' '}
+                            </div>
+                            <div className={'symbol'}>
+                                {' '}
+                                {t('send.sendingSign')}{' '}
+                            </div>
                             <div className={'token_receive'}>
                                 {PrecisionNumbers({
                                     amount: exchangingUSD,
@@ -136,20 +154,31 @@ export default function ConfirmSend(props) {
                                 })}
                             </div>
 
-                            <div className={'token_receive_name'}> {t('send.sendingCurrency')}</div>
+                            <div className={'token_receive_name'}>
+                                {' '}
+                                {t('send.sendingCurrency')}
+                            </div>
                         </div>
                     </div>
                     <div className="cta-options-group">
                         <Button
                             type="secondary"
-                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button secondary' : 'button secondary'}
+                            className={
+                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                    ? 'button secondary'
+                                    : 'button secondary'
+                            }
                             onClick={onClose}
                         >
                             {t('send.buttonCancel')}
                         </Button>
                         <button
                             type="primary"
-                            className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? `button` : `button`}
+                            className={
+                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                    ? `button`
+                                    : `button`
+                            }
                             onClick={onSendTransaction}
                         >
                             {t('send.buttonConfirm')}
@@ -158,15 +187,25 @@ export default function ConfirmSend(props) {
                 </div>
             )}
             {/* </div> */}
-            {(status === 'SIGN' || status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
+            {(status === 'SIGN' ||
+                status === 'WAITING' ||
+                status === 'SUCCESS' ||
+                status === 'ERROR') && (
                 <div className="conditional-wrapper">
-                    {(status === 'WAITING' || status === 'SUCCESS' || status === 'ERROR') && (
+                    {(status === 'WAITING' ||
+                        status === 'SUCCESS' ||
+                        status === 'ERROR') && (
                         <div className="tx-id-container">
                             <div className="tx-id-data status">
                                 <div className="tx-id-data">
-                                    <div className="tx-id-label">{t('send.labelTransactionID')}</div>
+                                    <div className="tx-id-label">
+                                        {t('send.labelTransactionID')}
+                                    </div>
                                     <div className="tx-id-address">
-                                        <CopyAddress address={txID} type={'tx'}></CopyAddress>
+                                        <CopyAddress
+                                            address={txID}
+                                            type={'tx'}
+                                        ></CopyAddress>
                                         {/*<span className="address">*/}
                                         {/*    {truncateTxId(txID)}*/}
                                         {/*</span>*/}
@@ -187,7 +226,10 @@ export default function ConfirmSend(props) {
                             <button
                                 type="primary"
                                 className={
-                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() === 'roc' ? 'button secondary' : 'button secondary'
+                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ===
+                                    'roc'
+                                        ? 'button secondary'
+                                        : 'button secondary'
                                 }
                                 onClick={onClose}
                             >

@@ -13,6 +13,7 @@ import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
+import DappFooter from '../../../components/Footer/index';
 
 const { Content, Footer } = Layout;
 
@@ -29,7 +30,8 @@ export default function Skeleton() {
     }, [auth.contractStatusData, auth.userBalanceData]);
 
     const readProtocolStatus = () => {
-        const { isValid, statusIcon, statusLabel, statusText } = checkerStatus();
+        const { isValid, statusIcon, statusLabel, statusText } =
+            checkerStatus();
         if (!isValid) {
             console.log('is not valid');
             setNotifStatus({
@@ -44,7 +46,9 @@ export default function Skeleton() {
         } else {
             setNotifStatus(null);
         }
-        const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether'));
+        const tpLegacyBalance = new BigNumber(
+            Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
+        );
         if (tpLegacyBalance.gt(0)) {
             setCanSwap(true);
         } else {
@@ -54,7 +58,14 @@ export default function Skeleton() {
 
     return (
         <Layout>
-            {!auth.isLoggedIn && <Alert message="Warning" description="Please connect your wallet!." type="error" showIcon />}
+            {!auth.isLoggedIn && (
+                <Alert
+                    message="Warning"
+                    description="Please connect your wallet!."
+                    type="error"
+                    showIcon
+                />
+            )}
             <SectionHeader />
             <Content>
                 <div className="section-container">
@@ -62,7 +73,9 @@ export default function Skeleton() {
                     <div className="content-page">
                         {canSwap && <ModalTokenMigration />}
                         {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
-                        {notifStatus && <NotificationBody notifStatus={notifStatus} />}
+                        {notifStatus && (
+                            <NotificationBody notifStatus={notifStatus} />
+                        )}
                         {/* Dashboard Staking Rewards  
                             TODO to hide while developing the backend information
                             <StakingRewards />*/}
@@ -70,9 +83,11 @@ export default function Skeleton() {
                     </div>
                 </div>
             </Content>
-            {/* <Footer>
-                <div className="footer-container"></div>
-            </Footer>*/}
+            <Footer>
+                <div className="footer-container">
+                    <DappFooter></DappFooter>
+                </div>
+            </Footer>
         </Layout>
     );
 }

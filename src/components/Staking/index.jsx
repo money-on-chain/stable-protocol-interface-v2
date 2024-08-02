@@ -106,9 +106,11 @@ export default function Staking(props) {
 
     return (
         <div className="cards-container sectionStaking">
-                {!loading && (
-                    <Fragment>
-                        <div className="section row-section"> <div className='firstCardsGroup'>
+            {!loading && (
+                <Fragment>
+                    <div className="section row-section">
+                        {' '}
+                        <div className="firstCardsGroup">
                             <div id="stakingCard" className="layout-card">
                                 <div className="layout-card-title">
                                     <h1>{t('staking.cardTitle')}</h1>
@@ -165,29 +167,28 @@ export default function Staking(props) {
                                         />
                                     </div>
                                 </div>
-                            </div>{' '}
-                            <div className="layout-card">
+                            </div>
+                            <div id="performanceCard" className="layout-card">
                                 <div className="layout-card-title">
                                     <h1>{t('staking.performance.title')}</h1>
                                 </div>
                                 <div className="tab-content">
                                     <PerformanceChart />
                                 </div>
-                            </div></div>
-                                <div>
-                                    <Withdraw
-                                        totalPendingExpiration={
-                                            totalPendingExpiration
-                                        }
-                                        totalAvailableToWithdraw={
-                                            totalAvailableToWithdraw
-                                        }
-                                        pendingWithdrawals={pendingWithdrawals}
-                                    />
-                                </div>
+                            </div>
                         </div>
-                    </Fragment>
-                )}
-            </div>
+                        <div>
+                            <Withdraw
+                                totalPendingExpiration={totalPendingExpiration}
+                                totalAvailableToWithdraw={
+                                    totalAvailableToWithdraw
+                                }
+                                pendingWithdrawals={pendingWithdrawals}
+                            />
+                        </div>
+                    </div>
+                </Fragment>
+            )}
+        </div>
     );
 }

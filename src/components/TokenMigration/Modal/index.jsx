@@ -24,12 +24,20 @@ export default function ModalTokenMigration(props) {
             <div className="NotificationMigration">
                 <div className="Information">
                     {t('swapModal.text1')}
-                    <span className="swapNow" onClick={showModal} style={{ cursor: 'pointer' }}>
+                    <span
+                        className="swapNow"
+                        onClick={showModal}
+                        style={{ cursor: 'pointer' }}
+                    >
                         {t('swapModal.text2')}
                     </span>
                 </div>
-                <div className="Action">
-                    <button type="primary" className="button" onClick={showModal}>
+                <div className="cta-options-group">
+                    <button
+                        type="primary"
+                        className="button"
+                        onClick={showModal}
+                    >
                         {t('swapModal.button')}
                     </button>
                 </div>
@@ -43,7 +51,10 @@ export default function ModalTokenMigration(props) {
                     footer={null}
                     className="ModalTokenMigration"
                     centered={true}
-                    maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+                    maskStyle={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                        backdropFilter: 'blur(2px)'
+                    }}
                 >
                     <Swap {...props} onCloseModal={hideModal} />
                 </Modal>

@@ -610,5 +610,12 @@
             "amount": "Amount",
             "status": "Status"
         }
+    },
+    "settings": {
+        "protocolName": "Flipmoney",
+        "themeMode": {
+            "light": "Light Mode",
+            "dark": "Dark mode"
+        }
     }
 }

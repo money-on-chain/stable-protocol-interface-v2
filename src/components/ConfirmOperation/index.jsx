@@ -6,7 +6,11 @@ import axios from 'axios';
 import { useProjectTranslation } from '../../helpers/translations';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { PrecisionNumbers } from '../PrecisionNumbers';
-import { ConvertAmount, TokenSettings, TokenBalance } from '../../helpers/currencies';
+import {
+    ConvertAmount,
+    TokenSettings,
+    TokenBalance
+} from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
@@ -40,17 +44,22 @@ export default function ConfirmOperation(props) {
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
     const [adjustedTolerance, setAdjustedTolerance] = useState(true);
-    const [amountYouExchangeAdjusted, setAmountYouExchangeAdjusted] = useState(null);
+    const [amountYouExchangeAdjusted, setAmountYouExchangeAdjusted] =
+        useState(null);
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
 
     useEffect(() => {
         let timerId;
         if (status === 'QUEUING') {
-            console.log('Operation queuing... waiting for operation execution.');
+            console.log(
+                'Operation queuing... waiting for operation execution.'
+            );
             timerId = setTimeout(() => {
                 if (status === 'QUEUING') {
                     setStatus('ERROR');
-                    console.log('Operation failed after waiting 20 minutes for execution after queuing.');
+                    console.log(
+                        'Operation failed after waiting 20 minutes for execution after queuing.'
+                    );
                 }
             }, 600000);
         }
@@ -59,7 +68,9 @@ export default function ConfirmOperation(props) {
             timerId = setTimeout(() => {
                 if (status === 'QUEUED') {
                     setStatus('ERROR');
-                    console.log('Operation failed after waiting 10 minutes for execution.');
+                    console.log(
+                        'Operation failed after waiting 10 minutes for execution.'
+                    );
                 }
             }, 600000);
         }
@@ -71,14 +82,24 @@ export default function ConfirmOperation(props) {
         let limitExchange;
         let limitReceive;
         if (IS_MINT) {
-            limitExchange = new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange)
+            limitExchange = new BigNumber(
+                amountYouExchangeAdjusted ?? amountYouExchange
+            )
                 .times(new BigNumber(newTolerance))
                 .div(100)
-                .plus(new BigNumber(amountYouExchangeAdjusted ?? amountYouExchange));
+                .plus(
+                    new BigNumber(
+                        amountYouExchangeAdjusted ?? amountYouExchange
+                    )
+                );
             limitReceive = amountYouReceive;
         } else {
             limitExchange = amountYouExchangeAdjusted ?? amountYouExchange;
-            limitReceive = new BigNumber(amountYouReceive).times(new BigNumber(newTolerance)).div(100).minus(new BigNumber(amountYouReceive)).abs();
+            limitReceive = new BigNumber(amountYouReceive)
+                .times(new BigNumber(newTolerance))
+                .div(100)
+                .minus(new BigNumber(amountYouReceive))
+                .abs();
         }
 
         const limits = {
@@ -91,21 +112,33 @@ export default function ConfirmOperation(props) {
 
     const limits = toleranceLimits(tolerance);
 
-    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(limits.exchange);
-    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(limits.receive);
+    const [amountYouExchangeLimit, setAmountYouExchangeLimit] = useState(
+        limits.exchange
+    );
+    const [amountYouReceiveLimit, setAmountYouReceiveLimit] = useState(
+        limits.receive
+    );
     const [showModalAllowance, setShowModalAllowance] = useState(false);
-    const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
+    const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] =
+        useState(false);
     const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
 
     useEffect(() => {
         if (amountYouExchange) {
             const limits = toleranceLimits(tolerance);
             const totalBalance = new BigNumber(
-                fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), TokenSettings(currencyYouExchange).decimals)
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    TokenSettings(currencyYouExchange).decimals
+                )
             );
             if (limits.exchange.gt(totalBalance)) {
-                setAmountYouExchangeLimit(totalBalance.minus(limits.exchange.minus(totalBalance)));
-                setAmountYouExchangeAdjusted(totalBalance.minus(limits.exchange.minus(totalBalance)));
+                setAmountYouExchangeLimit(
+                    totalBalance.minus(limits.exchange.minus(totalBalance))
+                );
+                setAmountYouExchangeAdjusted(
+                    totalBalance.minus(limits.exchange.minus(totalBalance))
+                );
                 setAdjustedTolerance(true);
             } else {
                 setAmountYouExchangeLimit(limits.exchange);
@@ -199,7 +232,14 @@ export default function ConfirmOperation(props) {
             limitAmount = amountYouReceiveLimit;
         }
 
-        auth.interfaceExchangeMethod(currencyYouExchange, currencyYouReceive, tokenAmount, limitAmount, onTransaction, onReceipt)
+        auth.interfaceExchangeMethod(
+            currencyYouExchange,
+            currencyYouReceive,
+            tokenAmount,
+            limitAmount,
+            onTransaction,
+            onReceipt
+        )
             .then((value) => {
                 console.log('DONE!');
             })
@@ -222,7 +262,9 @@ export default function ConfirmOperation(props) {
             return;
         }
 
-        const apiUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` + 'operations/oper_id/';
+        const apiUrl =
+            `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
+            'operations/oper_id/';
         axios
             .get(apiUrl, {
                 params: {
@@ -244,9 +286,11 @@ export default function ConfirmOperation(props) {
                         setOpID(null);
 
                         // Refresh user balance
-                        auth.loadContractsStatusAndUserBalance().then((value) => {
-                            console.log('Refresh user balance OK!');
-                        });
+                        auth.loadContractsStatusAndUserBalance().then(
+                            (value) => {
+                                console.log('Refresh user balance OK!');
+                            }
+                        );
 
                         console.log('Operation Status: OK Executed.');
                     } else if (response.data.status === 1) {
@@ -255,7 +299,10 @@ export default function ConfirmOperation(props) {
                         // Remove Op ID
                         setOpID(null);
 
-                        console.log('Operation Status: Error! Status: ', response.data.status);
+                        console.log(
+                            'Operation Status: Error! Status: ',
+                            response.data.status
+                        );
                     }
                 }
             })
@@ -365,7 +412,10 @@ export default function ConfirmOperation(props) {
         setTolerance(newTolerance);
         const limits = toleranceLimits(newTolerance);
         const totalBalance = new BigNumber(
-            fromContractPrecisionDecimals(TokenBalance(auth, currencyYouExchange), TokenSettings(currencyYouExchange).decimals)
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouExchange),
+                TokenSettings(currencyYouExchange).decimals
+            )
         );
         if (limits.exchange.gt(totalBalance)) {
             console.log('Insufficient balance');
@@ -420,7 +470,9 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(amountYouExchangeLimit),
                                 token: TokenSettings(currencyYouExchange),
-                                decimals: amountYouExchangeLimit.lt(0.0000001) ? 12 : 8,
+                                decimals: amountYouExchangeLimit.lt(0.0000001)
+                                    ? 12
+                                    : 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
@@ -442,7 +494,7 @@ export default function ConfirmOperation(props) {
                     )}
                 </div>
                 <div className="tx-direction">
-                    <div className="tx-direction swapArrow">
+                    <div className="swapArrow">
                         <div className="icon-arrow-down"></div>
                     </div>
                 </div>
@@ -452,7 +504,9 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(amountYouReceive),
                                 token: TokenSettings(currencyYouReceive),
-                                decimals: amountYouReceive.lt(0.0000001) ? 12 : 8,
+                                decimals: amountYouReceive.lt(0.0000001)
+                                    ? 12
+                                    : 8,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
@@ -471,8 +525,12 @@ export default function ConfirmOperation(props) {
                                 {t('exchange.confirm.minimumWarning')}
                                 <div className="">
                                     {PrecisionNumbers({
-                                        amount: new BigNumber(amountYouReceiveLimit),
-                                        token: TokenSettings(currencyYouReceive),
+                                        amount: new BigNumber(
+                                            amountYouReceiveLimit
+                                        ),
+                                        token: TokenSettings(
+                                            currencyYouReceive
+                                        ),
                                         decimals: 4,
                                         t: t,
                                         i18n: i18n,
@@ -515,10 +573,14 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}>{commissionTokenName}</span>
+                        <span className={'token_receive_name'}>
+                            {commissionTokenName}
+                        </span>
                     </div>
                     <div className={'tx-fees-item'}>
-                        <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
+                        <span className={'token_exchange'}>
+                            {t('fees.labelExecutionFee')}
+                        </span>
                         <span className={'symbol'}> ≈ </span>
                         <span className={'token_receive'}>
                             {PrecisionNumbers({
@@ -556,14 +618,22 @@ export default function ConfirmOperation(props) {
                                     <div className="VariationHeader">
                                         <div className="PriceVariationSetting">
                                             <i className="icon-wheel"></i>
-                                            <span className="SliderText">{t('exchange.priceVariation.title')}</span>
+                                            <span className="SliderText">
+                                                {t(
+                                                    'exchange.priceVariation.title'
+                                                )}
+                                            </span>
                                         </div>
                                     </div>
                                 }
                                 key="1"
                             >
                                 <div className="PriceVariationContainer">
-                                    <div className="warningSlider">{t('exchange.priceVariation.sliderLabel')}</div>
+                                    <div className="warningSlider">
+                                        {t(
+                                            'exchange.priceVariation.sliderLabel'
+                                        )}
+                                    </div>
                                     <Slider
                                         className="SliderControl"
                                         marks={priceVariationToleranceMarks}
@@ -581,8 +651,13 @@ export default function ConfirmOperation(props) {
                     <div className="cta-container">
                         <div className="cta-info-group">
                             <div className="cta-info-summary">
-                                <div className={'token_exchange'}>{t('exchange.exchangingSummary')} </div>
-                                <div className={'symbol'}> {t('exchange.exchangingSign')} </div>
+                                <div className={'token_exchange'}>
+                                    {t('exchange.exchangingSummary')}{' '}
+                                </div>
+                                <div className={'symbol'}>
+                                    {' '}
+                                    {t('exchange.exchangingSign')}{' '}
+                                </div>
                                 <div className={'token_receive'}>
                                     {PrecisionNumbers({
                                         amount: exchangingUSD,
@@ -595,19 +670,33 @@ export default function ConfirmOperation(props) {
                                         isUSD: true
                                     })}
                                 </div>
-                                <div className={'token_receive_name'}> {t('exchange.exchangingCurrency')}</div>
+                                <div className={'token_receive_name'}>
+                                    {' '}
+                                    {t('exchange.exchangingCurrency')}
+                                </div>
                             </div>
                         </div>
                         {toleranceError !== '' && (
                             <div className="error-container">
-                                <span className="confirm-error">{toleranceError}</span>
+                                <span className="confirm-error">
+                                    {toleranceError}
+                                </span>
                             </div>
                         )}
                         <div className="cta-options-group">
-                            <Button type="secondary" className="button secondary" onClick={onClose}>
+                            <Button
+                                type="secondary"
+                                className="button secondary"
+                                onClick={onClose}
+                            >
                                 {t('exchange.buttonCancel')}
                             </Button>
-                            <button type="primary" className="button" onClick={onSendTransactionAllowFeeToken} disabled={toleranceError !== ''}>
+                            <button
+                                type="primary"
+                                className="button"
+                                onClick={onSendTransactionAllowFeeToken}
+                                disabled={toleranceError !== ''}
+                            >
                                 {t('exchange.buttonConfirm')}
                             </button>
                         </div>
@@ -621,12 +710,22 @@ export default function ConfirmOperation(props) {
                 status === 'SUCCESS' ||
                 status === 'ERROR') && (
                 <div className="conditional-wrapper">
-                    {(status === 'QUEUING' || status === 'QUEUED' || status === 'CONFIRMING' || status === 'SUCCESS' || status === 'ERROR') && (
+                    {(status === 'QUEUING' ||
+                        status === 'QUEUED' ||
+                        status === 'CONFIRMING' ||
+                        status === 'SUCCESS' ||
+                        status === 'ERROR') && (
                         <div className="tx-id-container">
                             <div className="tx-id-data">
-                                <div className="tx-id-label"> {t('txFeedback.txIdLabel')}</div>
+                                <div className="tx-id-label">
+                                    {' '}
+                                    {t('txFeedback.txIdLabel')}
+                                </div>
                                 <div className="tx-id-address">
-                                    <CopyAddress address={txID} type={'tx'}></CopyAddress>
+                                    <CopyAddress
+                                        address={txID}
+                                        type={'tx'}
+                                    ></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
                                     {/*</span>*/}
@@ -644,7 +743,11 @@ export default function ConfirmOperation(props) {
 
                     <div className="cta-container">
                         <div className="cta-options-group">
-                            <button type="secondary" className="button secondary" onClick={onClose}>
+                            <button
+                                type="secondary"
+                                className="button secondary"
+                                onClick={onClose}
+                            >
                                 {t('exchange.buttonClose')}
                             </button>
                             {/* BOOKMARK */}

@@ -2,10 +2,6 @@
 section_header.scss contains all the css code for Header section not contained in global.scss
 */
 
-//
-//    --- Header ---
-//
-
 .header-container {
     display: flex;
     flex-direction: row;
@@ -24,14 +20,13 @@ section_header.scss contains all the css code for Header section not contained i
         .logo-app {
             width: 127.25px;
             height: 42px;
-            background-image: url('../icons/logo-app.svg');
+            background-image: var(--brand-logo-main);
             background-size: 127.25px 42px;
             background-repeat: no-repeat;
             margin-left: 32px;
             margin-top: 19px;
         }
     }
-
     .wallet-user {
         display: flex;
         flex-direction: column;
@@ -130,7 +125,6 @@ section_header.scss contains all the css code for Header section not contained i
             height: 40px;
             cursor: pointer;
             padding: 0 16px;
-            // border-bottom: 1px solid #f0f0f0;
         }
 
         .menu-icon {

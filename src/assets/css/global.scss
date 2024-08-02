@@ -99,6 +99,15 @@ h1 {
     // Set default hover for table-cell-row-hover to transparent
     background-color: transparent !important;
 }
+.ant-pagination {
+    a {
+        color: var(--color-text-primary) !important;
+    }
+    svg {
+        color: black; //Important to force black color for SVG before applying filter
+        filter: var(--color-icon-link-secondary-filter);
+    }
+}
 
 // Modal background backdrop color & blur settings
 .ant-modal-wrap {
@@ -108,10 +117,11 @@ h1 {
     backdrop-filter: blur(var(--modals-backdrop-blur)) !important;
 }
 .ant-modal-content {
-    -webkit-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
-    box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 0.3);
+    box-shadow: 8px 8px 7px -3px rgba(0, 0, 0, 0.3);
 }
+
 // Dropdown menus
 .ant-select-dropdown {
     background-color: var(--color-controls-background);
@@ -119,9 +129,12 @@ h1 {
 
     .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
         background-color: var(--color-button-primary-background-default);
+        background-color: var(--color-dropdown-backround-default) !important;
+        color: var(--color-dropdown-text-default) !important;
     }
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-        background-color: var(--color-dropdown-hover);
+        background-color: var(--color-dropdown-background-hover) !important;
+        color: var(--color-dropdown-text-hover) !important;
     }
     .ant-select-item-option {
         color: var(--color-text-primary);
@@ -150,7 +163,7 @@ h1 {
 }
 // Radio Buttons
 .ant-radio-inner::after {
-    background-color: var(--color-controls-foreground-on);
+    background-color: var(--color-controls-foreground-on) !important;
 }
 /* #endregion ANT DESIGN CUSTOMIZATION */
 
@@ -210,11 +223,11 @@ h1 {
     margin-left: 7px;
 }
 .ant-radio-checked .ant-radio-inner {
-    border-color: var(--color-controls-foreground-on);
+    border-color: var(--color-controls-foreground-on) !important;
 }
 .ant-radio-disabled .ant-radio-inner {
     border: var(--color-controls-disabled);
-    background-color: var(--color-controls-disabled);
+    background-color: var(--color-controls-disabled) !important;
 }
 .ant-table-thead .ant-table-cell-scrollbar {
     display: none;
@@ -257,7 +270,6 @@ h1 {
 /* #region MODAL GENERIC CUSTOMIZATION */
 .ant-modal-content,
 .modal-container {
-    box-shadow: var(--surface-shadow-1);
     border: 0px !important;
     border-radius: var(--card-border-radius);
     border-radius: var(--modals-border-radius);
@@ -1009,23 +1021,7 @@ h1 {
     font-family: var(--main-font);
     text-align: left;
 }
-.tx-direction {
-    // The icon that represent the flow of the transaction
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-.tx-destination-address {
-    border-radius: var(--data-background-radius);
-    background-color: var(--surface-color-inset);
-    padding: var(--data-background-padding);
-    // The target addresss for send transactions
-    width: 100%;
-    color: var(--color-text-primary);
-    font-weight: 400;
-    font-size: 14px;
-    font-family: var(--main-font);
-    text-align: center;
-}
+
 .tx-fees-container {
     // Container for the fees information
     margin-top: 0px;
@@ -1079,18 +1075,7 @@ h1 {
         }
     }
 }
-.tx-amount-group {
-    // Stacks all the groups of information vertically
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: var(--card-border-radius);
-    // margin-bottom: 16px;
-    // gap: 8px;
-    background-color: var(--surface-color-2);
-    width: 100%;
-}
+
 .tx-amount-container {
     // One item containing Amount + Token, plus optional extra information below
     display: flex;
@@ -1109,7 +1094,7 @@ h1 {
         justify-content: space-between;
         align-items: center;
         border-radius: var(--data-background-radius);
-        background-color: var(--surface-color-inset);
+        background-color: var(--color-controls-background);
         padding: var(--data-background-padding);
         width: 100%;
         font-style: normal;
@@ -1146,6 +1131,7 @@ h1 {
     // The icon that represent the flow of the transaction
     margin-top: 0px;
     margin-bottom: 0px;
+    filter: var(--color-icon-link-filter);
 }
 .tx-destination-address {
     border-radius: var(--data-background-radius);
@@ -1403,3 +1389,82 @@ h1 {
     // border-color: aqua;
     background-color: rgba(226, 43, 198, 0.251) !important;
 }
+
+/* #section FOOTER */
+
+.footer-container {
+    /* Auto layout */
+    margin-top: 24px;
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    background: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+    width: 100%;
+}
+/* Footer */
+.ant-layout-footer {
+    margin: 0%;
+    padding: 0%;
+    font-size: 14px;
+    background-color: transparent;
+
+    .dashboard-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--main-font);
+        font-weight: 400;
+        margin-left: 8px;
+        color: var(--color-text-secondary);
+    }
+}
+
+.lightModeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // display: none; //turns the theme mode button off
+    .lightModeSwitch {
+        background: var(--color-controls-background);
+        width: 56px;
+        height: 28px;
+        padding: 2px;
+        border-radius: 50px;
+    }
+
+    label {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.25s ease 0s;
+        background-image: url('../icons/LightMode-Light.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        filter: var(--color-icon-link-filter);
+    }
+
+    input {
+        display: none;
+    }
+
+    input:checked + label {
+        margin-left: 28px;
+        background-image: url('../icons/LightMode-Dark.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+    }
+
+    .lightModeText {
+        font-family: var(--main-font);
+        font-weight: 600;
+        margin-left: 12px;
+        color: var(--color-text-secondary);
+    }
+}
+
+/* #endsection FOOTER */

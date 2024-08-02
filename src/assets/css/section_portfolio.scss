@@ -1,7 +1,11 @@
 /*
 section_portfolio.scss contains all the css code for Portfolio card not contained in global.scss
 */
-
+:root {
+    // For table heights use '' -> '200px' 'auto', etc.
+    --portfolioTokenHeight: 'auto';
+    --portfolioPeggedHeight: 'auto';
+}
 .dashboard-portfolio {
     // Portfolio card
     display: flex;

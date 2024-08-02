@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
-
+import { useTranslation } from 'react-i18next';
 import './index.css';
 import './assets/css/customization.scss';
 import './assets/css/global.scss';
@@ -26,7 +26,7 @@ async function loadTranslations() {
     try {
         await i18next.init({
             interpolation: { escapeValue: false },
-            lng: 'en',
+            lng: 'es',
             resources: {
                 es: { translation: es_ES },
                 en: { translation: en_US }

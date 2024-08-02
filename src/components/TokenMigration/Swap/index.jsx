@@ -15,7 +15,9 @@ const SwapToken = (props) => {
     const { onCloseModal } = props;
 
     const [status, setStatus] = useState('SUBMIT');
-    const [txID, setTxID] = useState('0x0000000000000000000000000000000000000000');
+    const [txID, setTxID] = useState(
+        '0x0000000000000000000000000000000000000000'
+    );
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -34,13 +36,21 @@ const SwapToken = (props) => {
     };
 
     const TruncateAddress = (address) => {
-        return address.substring(0, 6) + '...' + address.substring(address.length - 4, address.length);
+        return (
+            address.substring(0, 6) +
+            '...' +
+            address.substring(address.length - 4, address.length)
+        );
     };
 
     const onTokenMigration = () => {
         // First change status to sign tx
         setStatus('TOKEN-MIGRATION-SIGN');
-        auth.interfaceMigrateToken(onTransactionTokenMigration, onReceiptTokenMigration, onErrorTokenMigration)
+        auth.interfaceMigrateToken(
+            onTransactionTokenMigration,
+            onReceiptTokenMigration,
+            onErrorTokenMigration
+        )
             .then((value) => {
                 onSuccess();
             })
@@ -73,13 +83,22 @@ const SwapToken = (props) => {
 
         setStatus('ALLOWANCE-SIGN');
 
-        const allowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether'));
-        const oldAllowanceAmount = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.allowance, 'ether'));
+        const allowanceAmount = new BigNumber(
+            Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
+        );
+        const oldAllowanceAmount = new BigNumber(
+            Web3.utils.fromWei(auth.userBalanceData.tpLegacy.allowance, 'ether')
+        );
 
         if (oldAllowanceAmount.gte(allowanceAmount)) {
             onTokenMigration();
         } else {
-            auth.interfaceAllowUseTokenMigrator(allowanceAmount, onTransactionAuthorize, onReceiptAuthorize, onErrorAuthorize)
+            auth.interfaceAllowUseTokenMigrator(
+                allowanceAmount,
+                onTransactionAuthorize,
+                onReceiptAuthorize,
+                onErrorAuthorize
+            )
                 .then((value) => {
                     onTokenMigration();
                 })
@@ -135,7 +154,12 @@ const SwapToken = (props) => {
         case 'CONFIRM':
             title = t('swapModal.modalTitle2');
             btnLabel = t('defaultCTA.buttonExchange');
-            const tpLegacyBalance = new BigNumber(Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether'));
+            const tpLegacyBalance = new BigNumber(
+                Web3.utils.fromWei(
+                    auth.userBalanceData.tpLegacy.balance,
+                    'ether'
+                )
+            );
             if (tpLegacyBalance.eq(0)) btnDisable = true;
             break;
         case 'ALLOWANCE-SIGN':
@@ -164,12 +188,9 @@ const SwapToken = (props) => {
                 {status === 'SUBMIT' && (
                     <div>
                         <p>{t('swapModal.explanation1')}</p>
-
                         <p>
-                            {' '}
                             <strong>{t('swapModal.explanation2')}</strong>
                         </p>
-
                         <p>{t('swapModal.explanation3')}</p>
                     </div>
                 )}
@@ -177,15 +198,22 @@ const SwapToken = (props) => {
                 {status === 'CONFIRM' && (
                     <div>
                         <div className="TokenIcon">
-                            <img className={''} src={TokenMigratePNG} alt="Token Migrate" />
+                            <img
+                                className={''}
+                                src={TokenMigratePNG}
+                                alt="Token Migrate"
+                            />
                         </div>
                         <div className="Summary">
                             <div className="Exchanging">
-                                <div className="Label">{t('swapModal.exchanging')} </div>
+                                <div className="Label">
+                                    {t('swapModal.exchanging')}{' '}
+                                </div>
                                 <div className="Amount">
                                     <div className="Value">
                                         {PrecisionNumbers({
-                                            amount: auth.userBalanceData.tpLegacy.balance,
+                                            amount: auth.userBalanceData
+                                                .tpLegacy.balance,
                                             token: TokenSettings('TP_0'),
                                             decimals: 4,
                                             t: t,
@@ -198,11 +226,14 @@ const SwapToken = (props) => {
                                 </div>
                             </div>
                             <div className="Receiving">
-                                <div className="Label">{t('swapModal.receiving')} </div>
+                                <div className="Label">
+                                    {t('swapModal.receiving')}{' '}
+                                </div>
                                 <div className="Amount">
                                     <div className="Value">
                                         {PrecisionNumbers({
-                                            amount: auth.userBalanceData.tpLegacy.balance,
+                                            amount: auth.userBalanceData
+                                                .tpLegacy.balance,
                                             token: TokenSettings('TP_0'),
                                             decimals: 4,
                                             t: t,
@@ -223,7 +254,9 @@ const SwapToken = (props) => {
                         <div className="tx-logo-status">
                             <i className="icon-signifier"></i>
                         </div>
-                        <p className="Center">{t('swapModal.allowanceSignText')}</p>
+                        <p className="Center">
+                            {t('swapModal.allowanceSignText')}
+                        </p>
                     </div>
                 )}
 
@@ -236,7 +269,11 @@ const SwapToken = (props) => {
                         <p>{t('swapModal.allowanceWaiting')}</p>
                         <p>
                             {t('swapModal.transactionHash')}
-                            <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'} />
+                            <Copy
+                                textToShow={TruncateAddress(txID)}
+                                textToCopy={txID}
+                                typeUrl={'tx'}
+                            />
                         </p>
                     </div>
                 )}
@@ -248,10 +285,16 @@ const SwapToken = (props) => {
                         <div className="tx-logo-status">
                             <i className="icon-tx-error"></i>
                         </div>
-                        <p className="Center">{t('swapModal.operationFailed')}</p>
+                        <p className="Center">
+                            {t('swapModal.operationFailed')}
+                        </p>
                         <p className="Center">
                             {t('swapModal.transactionHash')}
-                            <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'} />
+                            <Copy
+                                textToShow={TruncateAddress(txID)}
+                                textToCopy={txID}
+                                typeUrl={'tx'}
+                            />
                         </p>
                     </div>
                 )}
@@ -261,7 +304,9 @@ const SwapToken = (props) => {
                         <div className="tx-logo-status">
                             <i className="icon-signifier"></i>
                         </div>
-                        <p className="Center">{t('swapModal.migrationTransactionSignText')}</p>
+                        <p className="Center">
+                            {t('swapModal.migrationTransactionSignText')}
+                        </p>
                     </div>
                 )}
 
@@ -275,7 +320,11 @@ const SwapToken = (props) => {
                         <p>{t('swapModal.tokenMigrationWaitingText')}</p>
                         <p>
                             {t('swapModal.transactionHash')}
-                            <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'} />
+                            <Copy
+                                textToShow={TruncateAddress(txID)}
+                                textToCopy={txID}
+                                typeUrl={'tx'}
+                            />
                         </p>
                     </div>
                 )}
@@ -287,10 +336,16 @@ const SwapToken = (props) => {
                         <div className="tx-logo-status">
                             <i className="icon-tx-success"></i>
                         </div>
-                        <p className="Center">{t('swapModal.operationSuccessful')}</p>
+                        <p className="Center">
+                            {t('swapModal.operationSuccessful')}
+                        </p>
                         <p className="Center">
                             {t('swapModal.transactionHash')}
-                            <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'} />
+                            <Copy
+                                textToShow={TruncateAddress(txID)}
+                                textToCopy={txID}
+                                typeUrl={'tx'}
+                            />
                         </p>
                     </div>
                 )}
@@ -300,34 +355,56 @@ const SwapToken = (props) => {
                         <div className="tx-logo-status">
                             <i className="icon-tx-error"></i>
                         </div>
-                        <p className="Center">{t('swapModal.operationFailed')}</p>
+                        <p className="Center">
+                            {t('swapModal.operationFailed')}
+                        </p>
                         <p className="Center">
                             {t('swapModal.transactionHash')}
-                            <Copy textToShow={TruncateAddress(txID)} textToCopy={txID} typeUrl={'tx'} />
+                            <Copy
+                                textToShow={TruncateAddress(txID)}
+                                textToCopy={txID}
+                                typeUrl={'tx'}
+                            />
                         </p>
                     </div>
                 )}
             </div>
-            <div className="Actions">
-                {status !== 'TOKEN-MIGRATION-SUCCESS' &&
-                    status !== 'ALLOWANCE-WAITING' &&
-                    status !== 'TOKEN-MIGRATION-WAITING' &&
-                    status !== 'TOKEN-MIGRATION-ERROR' &&
-                    status !== 'ALLOWANCE-ERROR' && (
-                        <Button type="secondary" className="button secondary" onClick={onClose}>
-                            {t('defaultCTA.buttonClose')}
+            <div className="cta-container">
+                <div className="cta-options-group">
+                    {status !== 'TOKEN-MIGRATION-SUCCESS' &&
+                        status !== 'ALLOWANCE-WAITING' &&
+                        status !== 'TOKEN-MIGRATION-WAITING' &&
+                        status !== 'TOKEN-MIGRATION-ERROR' &&
+                        status !== 'ALLOWANCE-ERROR' && (
+                            <Button
+                                type="secondary"
+                                className="button secondary"
+                                onClick={onClose}
+                            >
+                                {t('defaultCTA.buttonClose')}
+                            </Button>
+                        )}
+                    {(status === 'SUBMIT' || status === 'CONFIRM') && (
+                        <Button
+                            className="button"
+                            type="primary"
+                            disabled={btnDisable}
+                            onClick={onConfirm}
+                        >
+                            {btnLabel}
                         </Button>
                     )}
-                {(status === 'SUBMIT' || status === 'CONFIRM') && (
-                    <Button className="button" type="primary" disabled={btnDisable} onClick={onConfirm}>
-                        {btnLabel}
-                    </Button>
-                )}
-                {status === 'TOKEN-MIGRATION-SUCCESS' && (
-                    <Button className="button" type="primary" disabled={btnDisable} onClick={onConfirm}>
-                        {btnLabel}
-                    </Button>
-                )}
+                    {status === 'TOKEN-MIGRATION-SUCCESS' && (
+                        <Button
+                            className="button"
+                            type="primary"
+                            disabled={btnDisable}
+                            onClick={onConfirm}
+                        >
+                            {btnLabel}
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     );

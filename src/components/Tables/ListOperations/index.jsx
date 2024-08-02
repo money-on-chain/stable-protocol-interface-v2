@@ -11,7 +11,6 @@ import Copy from '../../Page/Copy';
 import date from '../../../helpers/date';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
-import './style.scss';
 import Web3 from 'web3';
 import settings from '../../../settings/settings.json';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
@@ -31,6 +30,12 @@ export default function ListOperations(props) {
     const [pageSize, setPageSize] = useState(10);
     const [loadingSke, setLoadingSke] = useState(true);
     const [queueModal, setQueueModal] = useState(false);
+    const lastOperationsHeight = getComputedStyle(
+        document.querySelector(':root')
+    )
+        .getPropertyValue('--lastOperationsHeight')
+        .split('"')
+        .join('');
     const timeSke = 1500;
     var data = [];
     const received_row = [];
@@ -136,38 +141,62 @@ export default function ListOperations(props) {
             return {
                 exchange: {
                     action: 'TCMint',
-                    amount: status === 'executed' ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qAC_']
+                            : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: 'CA_0',
-                    title: status === 'executed' ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.exchanged')
+                            : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: 'TCMint',
-                    amount: status === 'executed' ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qTC_']
+                            : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: 'TC',
-                    title: status === 'executed' ? t('operations.actions.received') : t('operations.actions.receiving')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.received')
+                            : t('operations.actions.receiving')
                 }
             };
         } else if (row_operation['operation'] === 'TCRedeem') {
             return {
                 exchange: {
                     action: 'TCRedeem',
-                    amount: status === 'executed' ? row_operation[status]['qTC_'] : row_operation[status]['qTC'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qTC_']
+                            : row_operation[status]['qTC'],
                     name: settings.tokens.TC.name,
                     token: settings.tokens.TC,
                     icon: 'TC',
-                    title: status === 'executed' ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.exchanged')
+                            : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: 'TCRedeem',
-                    amount: status === 'executed' ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qAC_']
+                            : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: 'CA_0',
-                    title: status === 'executed' ? t('operations.actions.received') : t('operations.actions.receiving')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.received')
+                            : t('operations.actions.receiving')
                 }
             };
         } else if (row_operation['operation'] === 'TPMint') {
@@ -177,19 +206,31 @@ export default function ListOperations(props) {
             return {
                 exchange: {
                     action: 'TPMint',
-                    amount: status === 'executed' ? row_operation[status]['qAC_'] : row_operation[status]['qACmax'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qAC_']
+                            : row_operation[status]['qACmax'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: 'CA_0',
-                    title: status === 'executed' ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.exchanged')
+                            : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: 'TPMint',
-                    amount: status === 'executed' ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qTP_']
+                            : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
                     icon: `TP_${tp_index}`,
-                    title: status === 'executed' ? t('operations.actions.received') : t('operations.actions.receiving')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.received')
+                            : t('operations.actions.receiving')
                 }
             };
         } else if (row_operation['operation'] === 'TPRedeem') {
@@ -199,19 +240,31 @@ export default function ListOperations(props) {
             return {
                 exchange: {
                     action: 'TPRedeem',
-                    amount: status === 'executed' ? row_operation[status]['qTP_'] : row_operation[status]['qTP'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qTP_']
+                            : row_operation[status]['qTP'],
                     name: settings.tokens.TP[tp_index].name,
                     token: settings.tokens.TP[tp_index],
                     icon: `TP_${tp_index}`,
-                    title: status === 'executed' ? t('operations.actions.exchanged') : t('operations.actions.exchanging')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.exchanged')
+                            : t('operations.actions.exchanging')
                 },
                 receive: {
                     action: 'TPRedeem',
-                    amount: status === 'executed' ? row_operation[status]['qAC_'] : row_operation[status]['qACmin'],
+                    amount:
+                        status === 'executed'
+                            ? row_operation[status]['qAC_']
+                            : row_operation[status]['qACmin'],
                     name: settings.tokens.CA[0].name,
                     token: settings.tokens.CA[0],
                     icon: 'CA_0',
-                    title: status === 'executed' ? t('operations.actions.received') : t('operations.actions.receiving')
+                    title:
+                        status === 'executed'
+                            ? t('operations.actions.received')
+                            : t('operations.actions.receiving')
                 }
             };
         } else if (row_operation['operation'] === 'Transfer') {
@@ -224,7 +277,10 @@ export default function ListOperations(props) {
                     name: token_info.name,
                     token: token_info.token,
                     icon: row_operation['params']['token'],
-                    title: status === 'executed' ? 'TRANSFERRED' : t('operations.actions.transfer')
+                    title:
+                        status === 'executed'
+                            ? 'TRANSFERRED'
+                            : t('operations.actions.transfer')
                 },
                 receive: {
                     action: 'Transfer',
@@ -232,7 +288,10 @@ export default function ListOperations(props) {
                     name: token_info.name,
                     token: token_info.token,
                     icon: row_operation['params']['token'],
-                    title: status === 'executed' ? 'TRANSFERRED' : t('operations.actions.transfer')
+                    title:
+                        status === 'executed'
+                            ? 'TRANSFERRED'
+                            : t('operations.actions.transfer')
                 }
             };
         } else if (row_operation['operation'] === 'ERROR') {
@@ -312,19 +371,40 @@ export default function ListOperations(props) {
                 receive: token.receive,
                 created: (
                     <span>
-                        <Moment format={i18n.language === 'en' ? date.DATE_EN : date.DATE_ES}>{data['createdAt']}</Moment>
+                        <Moment
+                            format={
+                                i18n.language === 'en'
+                                    ? date.DATE_EN
+                                    : date.DATE_ES
+                            }
+                        >
+                            {data['createdAt']}
+                        </Moment>
                     </span>
                 ),
                 confirmation: data['confirmationTime'] ? (
                     <span>
-                        <Moment format={i18n.language === 'en' ? date.DATE_EN : date.DATE_ES}>{data['confirmationTime']}</Moment>
+                        <Moment
+                            format={
+                                i18n.language === 'en'
+                                    ? date.DATE_EN
+                                    : date.DATE_ES
+                            }
+                        >
+                            {data['confirmationTime']}
+                        </Moment>
                     </span>
                 ) : (
                     '--'
                 ),
                 recipient:
                     data['params']['recipient'] !== '--' ? (
-                        <Copy textToShow={TruncatedAddress(data['params']['recipient'])} textToCopy={data['params']['recipient']} />
+                        <Copy
+                            textToShow={TruncatedAddress(
+                                data['params']['recipient']
+                            )}
+                            textToCopy={data['params']['recipient']}
+                        />
                     ) : (
                         '--'
                     ),
@@ -336,9 +416,12 @@ export default function ListOperations(props) {
                 gas_price: data['gasPrice'] || '--',
                 gas_used: data['gasUsed'] || '--',
                 error_code: data['errorCode_'] || '--',
-                msg: getErrorMessage(data['msg_']) || t('operations.errors.noMessage'),
+                msg:
+                    getErrorMessage(data['msg_']) ||
+                    t('operations.errors.noMessage'),
                 reason: data['reason_'] || '--',
-                executed_tx_hash_truncate: TruncatedAddress(data['params']['hash']) || '--',
+                executed_tx_hash_truncate:
+                    TruncatedAddress(data['params']['hash']) || '--',
                 executed_tx_hash: data['params']['hash'] || '--',
                 status: getStatus(data) || '--',
                 fee: getFee(data) || '--'
@@ -348,16 +431,34 @@ export default function ListOperations(props) {
                 key: data._id,
                 info: '',
                 exchange: (
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            width: '100%'
+                        }}
+                    >
                         {token.receive.action !== 'Error' && (
                             <Fragment>
-                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                                    <div className="table-event-name">{token.exchange.title}</div>
+                                <div
+                                    style={{
+                                        textAlign: 'right',
+                                        marginRight: '8px'
+                                    }}
+                                >
+                                    <div className="table-event-name">
+                                        {token.exchange.title}
+                                    </div>
                                     <div className="table-amount">
                                         {PrecisionNumbers({
                                             amount: token.exchange.amount,
-                                            token: token.exchange.token[0] ?? token.exchange.token,
-                                            decimals: token.exchange.token.visibleDecimals ?? 2,
+                                            token:
+                                                token.exchange.token[0] ??
+                                                token.exchange.token,
+                                            decimals:
+                                                token.exchange.token
+                                                    .visibleDecimals ?? 2,
                                             t: t,
                                             i18n: i18n,
                                             ns: ns
@@ -366,14 +467,23 @@ export default function ListOperations(props) {
                                 </div>
                                 <div className="table-icon-name">
                                     {getAsset(token.exchange.icon).image}
-                                    <div className="table-asset-name">{token.exchange.name}</div>
+                                    <div className="table-asset-name">
+                                        {token.exchange.name}
+                                    </div>
                                 </div>
                             </Fragment>
                         )}
                         {token.receive.action === 'Error' && (
                             <Fragment>
-                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                                    <div className="table-event-name">{token.exchange.title}</div>
+                                <div
+                                    style={{
+                                        textAlign: 'right',
+                                        marginRight: '8px'
+                                    }}
+                                >
+                                    <div className="table-event-name">
+                                        {token.exchange.title}
+                                    </div>
                                     <div className="table-amount">--</div>
                                 </div>
                                 <div className="table-icon-name"></div>
@@ -382,42 +492,77 @@ export default function ListOperations(props) {
                     </div>
                 ),
                 receive: (
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
-                        {token.receive.action !== 'Transfer' && token.receive.action !== 'Error' && (
-                            <Fragment>
-                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                                    <div className="table-event-name">{token.receive.title}</div>
-                                    <br></br>
-                                    <div className="table-amount">
-                                        {PrecisionNumbers({
-                                            amount: token.receive.amount,
-                                            token: token.receive.token,
-                                            decimals: token.receive.token.visibleDecimals ?? 2,
-                                            t: t,
-                                            i18n: i18n,
-                                            ns: ns
-                                        })}
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            width: '100%'
+                        }}
+                    >
+                        {token.receive.action !== 'Transfer' &&
+                            token.receive.action !== 'Error' && (
+                                <Fragment>
+                                    <div
+                                        style={{
+                                            textAlign: 'right',
+                                            marginRight: '8px'
+                                        }}
+                                    >
+                                        <div className="table-event-name">
+                                            {token.receive.title}
+                                        </div>
+                                        <br></br>
+                                        <div className="table-amount">
+                                            {PrecisionNumbers({
+                                                amount: token.receive.amount,
+                                                token: token.receive.token,
+                                                decimals:
+                                                    token.receive.token
+                                                        .visibleDecimals ?? 2,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="table-icon-name">
-                                    {getAsset(token.receive.icon).image}
-                                    <div className="table-asset-name">{token.receive.name}</div>
-                                </div>
-                            </Fragment>
-                        )}
+                                    <div className="table-icon-name">
+                                        {getAsset(token.receive.icon).image}
+                                        <div className="table-asset-name">
+                                            {token.receive.name}
+                                        </div>
+                                    </div>
+                                </Fragment>
+                            )}
                         {token.receive.action === 'Transfer' && (
                             <Fragment>
-                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                                    <div className="table-event-name">{getTransferAction(data)}</div>
+                                <div
+                                    style={{
+                                        textAlign: 'right',
+                                        marginRight: '8px'
+                                    }}
+                                >
+                                    <div className="table-event-name">
+                                        {getTransferAction(data)}
+                                    </div>
                                     <br></br>
-                                    <div className="table-amount">{getTransferAddress(data)}</div>
+                                    <div className="table-amount">
+                                        {getTransferAddress(data)}
+                                    </div>
                                 </div>
                             </Fragment>
                         )}
                         {token.receive.action === 'Error' && (
                             <Fragment>
-                                <div style={{ textAlign: 'right', marginRight: '8px' }}>
-                                    <div className="table-event-name">{token.receive.title}</div>
+                                <div
+                                    style={{
+                                        textAlign: 'right',
+                                        marginRight: '8px'
+                                    }}
+                                >
+                                    <div className="table-event-name">
+                                        {token.receive.title}
+                                    </div>
                                     <br></br>
                                     <div className="table-amount"> -- </div>
                                 </div>
@@ -447,8 +592,12 @@ export default function ListOperations(props) {
                 ),
                 status: (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className={`tx-status-icon-${setStatusIcon(getStatus(data))}`} />
-                        <span className={`table-status-icon ${getStatus(data) === t('operations.actions.statusFailed') && 'table-status-icon-red'}`}>
+                        <div
+                            className={`tx-status-icon-${setStatusIcon(getStatus(data))}`}
+                        />
+                        <span
+                            className={`table-status-icon ${getStatus(data) === t('operations.actions.statusFailed') && 'table-status-icon-red'}`}
+                        >
                             {getStatus(data)}
                         </span>
                     </div>
@@ -461,10 +610,28 @@ export default function ListOperations(props) {
             data.push({
                 key: element.key,
                 info: '',
-                exchange: <span className={classnames('event-action')}>{element.exchange}</span>,
-                receive: <span className="display-inline currency-tx">{element.receive}</span>,
+                exchange: (
+                    <span className={classnames('event-action')}>
+                        {element.exchange}
+                    </span>
+                ),
+                receive: (
+                    <span className="display-inline currency-tx">
+                        {element.receive}
+                    </span>
+                ),
                 date: <span>{element.date}</span>,
-                status: <span style={{ display: 'flex', width: '100%', paddingLeft: '2rem' }}>{element.status}</span>,
+                status: (
+                    <span
+                        style={{
+                            display: 'flex',
+                            width: '100%',
+                            paddingLeft: '2rem'
+                        }}
+                    >
+                        {element.status}
+                    </span>
+                ),
                 description: <RowDetail detail={element.detail} />
             });
         });
@@ -476,16 +643,31 @@ export default function ListOperations(props) {
         setTimeout(() => setLoadingSke(false), timeSke);
     }, [auth]);
     function TruncatedAddress(address, length = 6) {
-        return address.substring(0, length + 2) + '…' + address.substring(address.length - length);
+        return (
+            address.substring(0, length + 2) +
+            '…' +
+            address.substring(address.length - length)
+        );
     }
     function getFee(row_operation) {
         const fee = { amount: new BigNumber(0), token: null, decimals: 18 };
 
-        if (row_operation['executed'] && row_operation['executed']['qFeeToken_']) {
-            const qFeeToken = new BigNumber(fromContractPrecisionDecimals(row_operation['executed']['qFeeToken_'], settings.tokens.TF.decimals));
+        if (
+            row_operation['executed'] &&
+            row_operation['executed']['qFeeToken_']
+        ) {
+            const qFeeToken = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeToken_'],
+                    settings.tokens.TF.decimals
+                )
+            );
 
             const qFeeTokenVendorMarkup = new BigNumber(
-                fromContractPrecisionDecimals(row_operation['executed']['qFeeTokenVendorMarkup_'], settings.tokens.TF.decimals)
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qFeeTokenVendorMarkup_'],
+                    settings.tokens.TF.decimals
+                )
             );
 
             fee['amount'] = qFeeToken.plus(qFeeTokenVendorMarkup);
@@ -493,11 +675,23 @@ export default function ListOperations(props) {
             fee['decimals'] = settings.tokens.TF.decimals;
         }
 
-        if (row_operation['executed'] && row_operation['executed']['qACfee_'] && fee['amount'].eq(0)) {
-            const qACfee = new BigNumber(fromContractPrecisionDecimals(row_operation['executed']['qACfee_'], settings.tokens.CA[0].decimals));
+        if (
+            row_operation['executed'] &&
+            row_operation['executed']['qACfee_'] &&
+            fee['amount'].eq(0)
+        ) {
+            const qACfee = new BigNumber(
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACfee_'],
+                    settings.tokens.CA[0].decimals
+                )
+            );
 
             const qACVendorMarkup = new BigNumber(
-                fromContractPrecisionDecimals(row_operation['executed']['qACVendorMarkup_'], settings.tokens.CA[0].decimals)
+                fromContractPrecisionDecimals(
+                    row_operation['executed']['qACVendorMarkup_'],
+                    settings.tokens.CA[0].decimals
+                )
             );
 
             fee['amount'] = qACfee.plus(qACVendorMarkup);
@@ -532,7 +726,10 @@ export default function ListOperations(props) {
         }
     }
     function getTransferAction(row_operation) {
-        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+        if (
+            row_operation['params']['sender'].toLowerCase() ===
+            accountData.Owner.toLowerCase()
+        ) {
             return t('operations.actions.destination');
         } else {
             return t('operations.actions.origin');
@@ -540,10 +737,17 @@ export default function ListOperations(props) {
     }
     function truncateAddress(address) {
         if (address === '') return '';
-        return address.substring(0, 6) + '...' + address.substring(address.length - 4, address.length);
+        return (
+            address.substring(0, 6) +
+            '...' +
+            address.substring(address.length - 4, address.length)
+        );
     }
     function getTransferAddress(row_operation) {
-        if (row_operation['params']['sender'].toLowerCase() === accountData.Owner.toLowerCase()) {
+        if (
+            row_operation['params']['sender'].toLowerCase() ===
+            accountData.Owner.toLowerCase()
+        ) {
             // return truncateAddress(row_operation['params']['recipient'].toLowerCase())
             return row_operation['params']['recipient'].toLowerCase();
         } else {
@@ -566,7 +770,9 @@ export default function ListOperations(props) {
                 if (
                     row_operation['params'] &&
                     auth.contractStatusData &&
-                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['params']['blockNumber']) + confirmedBlocks
+                    BigInt(auth.contractStatusData.blockHeight) <
+                        BigInt(row_operation['params']['blockNumber']) +
+                            confirmedBlocks
                 )
                     return t('operations.actions.statusQueuing');
                 else return t('operations.actions.statusQueued');
@@ -574,13 +780,16 @@ export default function ListOperations(props) {
                 if (
                     row_operation['executed'] &&
                     auth.contractStatusData &&
-                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['executed']['blockNumber']) + confirmedBlocks
+                    BigInt(auth.contractStatusData.blockHeight) <
+                        BigInt(row_operation['executed']['blockNumber']) +
+                            confirmedBlocks
                 )
                     return t('operations.actions.statusConfirming');
                 else if (
                     row_operation['operation'] === 'Transfer' &&
                     auth.contractStatusData &&
-                    BigInt(auth.contractStatusData.blockHeight) < BigInt(row_operation['blockNumber']) + confirmedBlocks
+                    BigInt(auth.contractStatusData.blockHeight) <
+                        BigInt(row_operation['blockNumber']) + confirmedBlocks
                 )
                     return t('operations.actions.statusConfirming');
                 else return t('operations.actions.statusConfirmed');
@@ -657,7 +866,12 @@ export default function ListOperations(props) {
             default:
                 console.log('UNRECOGNIZED TOKEN: ' + name);
                 return {
-                    image: <i className="icon-token-MOC" style={{ display: 'block', margin: 'auto' }} />,
+                    image: (
+                        <i
+                            className="icon-token-MOC"
+                            style={{ display: 'block', margin: 'auto' }}
+                        />
+                    ),
                     color: 'color-token-tp',
                     txt: 'TP'
                 };
@@ -682,7 +896,9 @@ export default function ListOperations(props) {
     return (
         <>
             <div className="title layout-card-title">
-                <h1 className="title-last-operations .layout-card-title">{t(`operations.sectionTitle`, { ns: ns })}</h1>
+                <h1 className="title-last-operations .layout-card-title">
+                    {t(`operations.sectionTitle`, { ns: ns })}
+                </h1>
                 <div className="aboutQueue__button" onClick={showModal}>
                     {t(`operations.aboutQueue.button`, { ns: ns })}
                     <i className="logo-queue"></i>
@@ -709,13 +925,23 @@ export default function ListOperations(props) {
                         className={`vertical-middle custom-border-spacing-table ${getClassName()}`}
                         showHeader={false}
                         expandable={{
-                            expandedRowRender: (record) => <div className="table-expanded-row">{record.description}</div>,
+                            expandedRowRender: (record) => (
+                                <div className="table-expanded-row">
+                                    {record.description}
+                                </div>
+                            ),
 
                             expandIcon: ({ expanded, onExpand, record }) =>
                                 expanded ? (
-                                    <UpCircleOutlined style={{ fontSize: '26px' }} onClick={(e) => onExpand(record, e)} />
+                                    <UpCircleOutlined
+                                        style={{ fontSize: '26px' }}
+                                        onClick={(e) => onExpand(record, e)}
+                                    />
                                 ) : (
-                                    <DownCircleOutlined style={{ fontSize: '26px' }} onClick={(e) => onExpand(record, e)} />
+                                    <DownCircleOutlined
+                                        style={{ fontSize: '26px' }}
+                                        onClick={(e) => onExpand(record, e)}
+                                    />
                                 )
                         }}
                         pagination={{
@@ -730,12 +956,15 @@ export default function ListOperations(props) {
                                 setPageSize(pageSize);
                             },
                             locale: {
-                                items_per_page: t('operations.table.itemsPerPage', { ns: ns })
+                                items_per_page: t(
+                                    'operations.table.itemsPerPage',
+                                    { ns: ns }
+                                )
                             }
                         }}
                         columns={tableColumns}
                         dataSource={auth.isLoggedIn == true ? data : null}
-                        scroll={{ y: 340 }}
+                        scroll={{ y: lastOperationsHeight }}
                         style={{}}
                     />
                 </>

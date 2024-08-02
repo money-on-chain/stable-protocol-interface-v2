@@ -596,5 +596,12 @@
             "amount": "Amount",
             "status": "Status"
         }
+    },
+    "settings": {
+        "protocolName": "Rif On Chain",
+        "themeMode": {
+            "light": "Light Mode",
+            "dark": "Dark mode"
+        }
     }
 }
