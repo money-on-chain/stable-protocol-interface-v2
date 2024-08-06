@@ -73,8 +73,8 @@ export default function Exchange() {
     const [ valueReceive, setValueReceive ] = useState('');
 
     //queue validation
-    const [mintTPValues, setMintTPValues] = useState({})
-    const [redeemTPValues, setRedeemTPValues] = useState({})
+    const [mintTPValues, setMintTPValues] = useState([])
+    const [redeemTPValues, setRedeemTPValues] = useState([])
  
     useEffect(() => {
         const interval = setInterval(() => {
@@ -287,9 +287,9 @@ export default function Exchange() {
                 auth,
                 currencyYouReceive,
                 currencyYouExchange,
-                mintTPValues.qTP ?? 0,
+                mintTPValues[tIndex].qTP ?? 0,
             );
-            const valueToRest = mintTPValues.qTP ? convertedQTPToAC : new BigNumber(0);
+            const valueToRest = mintTPValues[tIndex].qTP ? convertedQTPToAC : new BigNumber(0);
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
@@ -311,9 +311,9 @@ export default function Exchange() {
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                redeemTPValues.qTP ?? 0,
+                redeemTPValues[tIndex].qTP ?? 0,
             );
-            const valueToRest = redeemTPValues.qTP ? convertedQTPToAC : new BigNumber(0);
+            const valueToRest = redeemTPValues[tIndex].qTP ? convertedQTPToAC : new BigNumber(0);
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);

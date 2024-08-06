@@ -42,6 +42,7 @@ export default function ConfirmOperation(props) {
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
     const [amountChanged, setAmountChanged] = useState(false);
+    const [isFluxCapacityFull, setIsFluxCapacityFull] = useState(false);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
     useEffect(() => {
@@ -109,6 +110,10 @@ export default function ConfirmOperation(props) {
     const [showModalAllowance, setShowModalAllowance] = useState(false);
     const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
     const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
+
+    useEffect(() => {
+        validateQueueAmt();
+    }, []);
 
     useEffect(() => {
         if (amountYouExchange) {
@@ -409,47 +414,54 @@ export default function ConfirmOperation(props) {
             const maxQACToMintTP = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.maxQACToMintTP,
-                    settings.tokens.TP[0].decimals //TODO refactor for multi TP project
+                    18
                 )
             );
             const maxQACToRedeemTP = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.maxQACToRedeemTP,
-                    settings.tokens.TP[0].decimals //TODO refactor for multi TP project
+                    18
                 )
             );
             const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/queued_opers/`;
             api('get', baseUrl)
                 .then((response) => {
-                    const TPMintQTPConvertedQTPToAC = ConvertAmount(
-                        auth,
-                        'TP_0',
-                        'CA_0',
-                        response.result.TPMint.qTP ?? 0,
-                    );
-                    const TPRedeemQTPConvertedQTPToAC = ConvertAmount(
-                        auth,
-                        'TP_0',
-                        'CA_0',
-                        response.result.TPRedeem.qTP ?? 0,
-                    );
+                    let TPMintQueueConvertedToAC = new BigNumber(0);
+                    let TPRedeemQueueConvertedToAC = new BigNumber(0);
+                    if (response.result.TPMint && response.result.TPRedeem) {
+                        for (let index = 0; index < response.result.TPMint.length; index++) {
+                            const _TPMintQueueConvertedToAC = ConvertAmount(
+                                auth, 
+                                `TP_${index}`, 
+                                'CA_0', 
+                                response.result.TPMint[index].qTP ?? 0
+                            );
+                            TPMintQueueConvertedToAC = TPMintQueueConvertedToAC.plus(_TPMintQueueConvertedToAC);
+                        }
+                        for (let index = 0; index < response.result.TPRedeem.length; index++) {
+                            const _TPRedeemQueueConvertedToAC = ConvertAmount(
+                                auth, 
+                                `TP_${index}`, 
+                                'CA_0', 
+                                response.result.TPRedeem[index].qTP ?? 0
+                            );
+                            TPRedeemQueueConvertedToAC = TPRedeemQueueConvertedToAC.plus(_TPRedeemQueueConvertedToAC);
+                        }
+                    }
                     if (
-                        maxQACToMintTP.lt(TPMintQTPConvertedQTPToAC) ||
-                        maxQACToRedeemTP.lt(TPRedeemQTPConvertedQTPToAC)
+                        maxQACToMintTP.lt(TPMintQueueConvertedToAC) ||
+                        maxQACToRedeemTP.lt(TPRedeemQueueConvertedToAC)
                     ) {
-                        return true;
+                        setIsFluxCapacityFull(true);
                     }
                 })
                 .catch((error) => {
                     console.log('Error reading queue amount: ', error);
                 });
-            return false;
         } catch (error) {
             console.log('Error validating queue amount: ', error);
-            return true;
         }
     }
-
     // Commission Select Radio
 
     let commissionPAY = commission
@@ -665,7 +677,7 @@ export default function ConfirmOperation(props) {
                             <span className="confirm-error">{toleranceError}</span>
                         </div>
                     )}
-                    {validateQueueAmt() && <div className="info-container">
+                    {isFluxCapacityFull && <div className="info-container">
                         <span className="confirm-error-info">{t('exchange.errors.fluxCapacityFull')}</span>
                     </div>}
                     <div className="actions-buttons">
