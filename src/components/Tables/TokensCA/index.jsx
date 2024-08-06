@@ -417,7 +417,13 @@ export default function Tokens(props) {
                 settings.tokens.TF.decimals
             )
         );
-        balanceUSD = balance.times(price);
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+        balanceUSD = balance.times(price).times(priceCA);
 
         // variation
         const priceHistory = new BigNumber(
@@ -469,12 +475,13 @@ export default function Tokens(props) {
             price: (
                 <div>
                     {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                        amount: auth.contractStatusData.PP_FeeToken,
+                        amount: price.times(priceCA),
                         token: settings.tokens.TF,
                         decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
+                        skipContractConvert: true
                     })}
                 </div>
             ),

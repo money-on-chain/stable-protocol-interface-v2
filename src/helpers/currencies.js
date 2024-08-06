@@ -320,6 +320,12 @@ function CalcCommission(
             tokenReceiveSettings.decimals
         )
     );
+    const priceCA = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.PP_CA[0],
+            settings.tokens.CA[0].decimals
+        )
+    );
     const qFeeToken = amount.times(feeParam.times(feeTokenPct)).div(feeTokenPrice)
 
     // Markup Vendors
@@ -345,7 +351,7 @@ function CalcCommission(
         feeTokenPct: feeTokenPct,
         feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100),
         totalFeeToken: totalFeeToken,
-        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice)
+        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA)
     };
 
     return feeInfo;

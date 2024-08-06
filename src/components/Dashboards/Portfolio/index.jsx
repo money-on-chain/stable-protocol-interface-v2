@@ -61,8 +61,9 @@ export default function Portfolio() {
 
         });
 
-    // Token TC
     if (auth.contractStatusData && auth.userBalanceData) {
+
+        // Token TC
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.TC.balance,
@@ -88,10 +89,7 @@ export default function Portfolio() {
             totalUSD = totalUSD.plus(balanceUSD);
         }
 
-    }
-
-    // Coinbase
-    if (auth.contractStatusData && auth.userBalanceData) {
+        // Coinbase
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
@@ -107,23 +105,20 @@ export default function Portfolio() {
         balanceUSD = balance.times(price);
         totalUSD = totalUSD.plus(balanceUSD);
 
-    }
-
-    // Fee Token (TF)
-    if (auth.contractStatusData && auth.userBalanceData) {
+        // Fee Token (TF) the price provider is expressed in collateral
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
                 settings.tokens.TF.decimals
             )
         );
-        price = new BigNumber(
+        const priceInCA = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_FeeToken,
                 settings.tokens.TF.decimals
             )
         );
-        balanceUSD = balance.times(price);
+        balanceUSD = balance.times(priceInCA).times(priceCA);
         totalUSD = totalUSD.plus(balanceUSD);
     }
 
