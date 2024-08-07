@@ -3,21 +3,12 @@ section_exchange.scss contains all the css code for Exchange section cards not c
 */
 
 /* #region EXCHANGE & SEND SECTION */
-
-.dashboard-exchange {
-    // margin-top: 23px;
-    margin-bottom: 23px;
-    box-shadow: var(--surface-shadow-1);
-    border-radius: var(--card-border-radius);
-    background: var(--surface-color-1);
-    padding: 32px;
-    .content-body {
-        margin-right: auto;
-        margin-left: auto;
-        padding-right: 32px;
-        padding-left: 32px;
-        width: 733px;
-    }
+.content-body {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 32px;
+    padding-left: 32px;
+    width: 733px;
 }
 .sectionExchange__Content {
     display: flex;
