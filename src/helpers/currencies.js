@@ -326,7 +326,7 @@ function CalcCommission(
             settings.tokens.CA[0].decimals
         )
     );
-    const qFeeToken = amount.times(feeParam.times(feeTokenPct)).div(feeTokenPrice)
+    const qFeeToken = amount.times(feeParam.times(feeTokenPct))
 
     // Markup Vendors
     const vendorMarkup = new BigNumber(
@@ -336,22 +336,21 @@ function CalcCommission(
         )
     );
     const markOperation = amount.times(vendorMarkup)
-    const markOperationToken = amount.times(vendorMarkup).div(feeTokenPrice)
 
     // Total fee token
-    const totalFeeToken = qFeeToken.plus(markOperationToken)
+    const totalFeeToken = qFeeToken.plus(markOperation)
 
     const feeInfo = {
         fee: amount.times(feeParam).plus(markOperation),
+        feeUSD: amount.times(feeParam).plus(markOperation).times(priceCA),
         percent: feeParam.plus(vendorMarkup).times(100),
         markup: vendorMarkup,
         markOperation: markOperation,
-        markOperationToken: markOperationToken,
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
-        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100),
-        totalFeeToken: totalFeeToken,
-        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA)
+        totalFeeToken: totalFeeToken.div(feeTokenPrice),
+        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA),
+        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100)
     };
 
     return feeInfo;
