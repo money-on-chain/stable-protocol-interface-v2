@@ -1468,3 +1468,15 @@ h1 {
 }
 
 /* #endsection FOOTER */
+
+/* Fix Scrollbars in Chrome */
+.ant-table-body::-webkit-scrollbar {
+    width: 6px;
+}
+.ant-table-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.ant-table-body::-webkit-scrollbar-thumb {
+    background: rgba(201, 214, 255, 0.24);
+    border-radius: 3px;
+}
