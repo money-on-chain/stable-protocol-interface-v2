@@ -4,17 +4,22 @@
     "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
     "invalidValueDescription": "No value to display",
     "invalidValuePlaceholder": "--",
+    "notification": {
+        "dismiss": "Dismiss"
+    },
+    "txFeedback": { "txIdLabel": "Transaction ID" },
+    "button": { "inputMaxValue": "max" },
     "operations": {
         "sectionTitle": "Last Operations",
-        "aboutQueue" : {
-            "button" : "About queue",
-            "title" : "About queue - Cicle of a transaction",
-            "statusQueuing" : "Transaction entered the queue with the first confirmation.",
-            "statusQueued" : "Transaction is in the queue waiting for execution.",
-            "statusConfirming" : "Transaction was executed and has one confirmation.", 
-            "statusConfirmed" : "Transaction was executed and has at least ten confirmations.",
-            "statusFailed" : "Transaction failed in any of the involved steps.",
-            "buttonClose" : "Close"
+        "aboutQueue": {
+            "button": "About queue",
+            "title": "About queue - Cicle of a transaction",
+            "statusQueuing": "Transaction entered the queue with the first confirmation.",
+            "statusQueued": "Transaction is in the queue waiting for execution.",
+            "statusConfirming": "Transaction was executed and has one confirmation.",
+            "statusConfirmed": "Transaction was executed and has at least ten confirmations.",
+            "statusFailed": "Transaction failed in any of the involved steps.",
+            "buttonClose": "Close"
         },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
@@ -23,19 +28,19 @@
         "headers": {
             "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
         },
-        "actions" : {
-            "transfer" : "Transfer",
-            "exchanging" : "Exchanging",
-            "exchanged" : "Exchanged",
-            "receiving" : "Receiving",
-            "received" : "Received",
-            "origin" : "From",
-            "destination" : "Destination",
-            "statusQueuing" : "Queuing",
-            "statusQueued" : "Queued",
-            "statusConfirming" : "Confirming",
-            "statusConfirmed" : "Confirmed",
-            "statusFailed" : "Failed"
+        "actions": {
+            "transfer": "Transfer",
+            "exchanging": "Exchanging",
+            "exchanged": "Exchanged",
+            "receiving": "Receiving",
+            "received": "Received",
+            "origin": "From",
+            "destination": "Destination",
+            "statusQueuing": "Queuing",
+            "statusQueued": "Queued",
+            "statusConfirming": "Confirming",
+            "statusConfirmed": "Confirmed",
+            "statusFailed": "Failed"
         },
         "columns": {
             "date": "Date"
@@ -58,28 +63,28 @@
             "reason": "Reason"
         },
         "errors": {
-            "qACBelow" : "price went up, amount below minimum required.",
-            "insufficientQAC1" : "price went down, insufficient",
-            "insufficientQAC2" : "sent",
-            "lowCoverage" : "System below protected global coverage",
-            "fluxCapacitor" : "Error in flux capacitor",
-            "noMessage" : "No message"
+            "qACBelow": "price went up, amount below minimum required.",
+            "insufficientQAC1": "price went down, insufficient",
+            "insufficientQAC2": "sent",
+            "lowCoverage": "System below protected global coverage",
+            "fluxCapacitor": "Error in flux capacitor",
+            "noMessage": "No message"
         },
-        "table":{
-            "itemsPerPage" : "Page"
+        "table": {
+            "itemsPerPage": "Page"
         }
     },
-    "feedback" :{
-        "clipboardCopy" : "Copied",
-        "clipboardTo" : "to the clipboard"
+    "feedback": {
+        "clipboardCopy": "Copied",
+        "clipboardTo": "to the clipboard"
     },
 
-    "wallet" :{
-        "modalTitle" : "Connect Wallet",
-        "userAddress" : "Address",
+    "wallet": {
+        "modalTitle": "Connect Wallet",
+        "userAddress": "Address",
         "cta": {
-            "disconnect" : "Disconnect",
-            "close" : "Close"
+            "disconnect": "Disconnect",
+            "close": "Close"
         }
     },
 
@@ -118,23 +123,23 @@
             "queuing": "Queuing transaction…",
             "queued": "Operation queued. Wating for execution…",
             "confirming": "Confirming transaction",
-            "confirmed" : "Transaction confirmed",
+            "confirmed": "Transaction confirmed",
             "success": "Transaction successful",
             "error": "Transaction failed!",
             "default": "Espera la confirmación de la transacción",
-            "minimumWarning" : "Minimum to receive",
-            "minimumExplanation" : "(see price variation tolerance)"
+            "minimumWarning": "Minimum to receive",
+            "minimumExplanation": "(see price variation tolerance)"
         },
 
         "priceVariation": {
             "title": "Customice price variation tolerance",
-            "sliderLabel" : "Price Variation Tolerance",
-            "warning" : "This amount was updated according to variation tolerance"
+            "sliderLabel": "Price Variation Tolerance",
+            "warning": "This amount was updated according to variation tolerance"
         },
         "cardTitle": "Exchange",
         "labelSending": "Exchanging",
         "labelBalance": "Balance",
-        "labelUpTo" : "Up to",
+        "labelUpTo": "Up to",
         "labelReceiving": "Receiving",
         "labelTransactionID": "Transaction ID",
         "placeholder": "Address",
@@ -144,21 +149,21 @@
         "buttonPrimary": "Exchange",
         "modalTitle": "Confirm exchange",
         "buttonCancel": "Cancel",
-        "buttonConfirm" : "Confirm",
+        "buttonConfirm": "Confirm",
         "buttonClose": "Close",
         "infoNoBalance": "insufficient balance",
         "infoAddressEmpty": "Enter destination address",
         "infoAddressInvalid": "Invalid destination address",
-        "errors" : {
-            "notOperational" : "Not Operational due to low Global Coverage ratio",
-            "cantOperate" : "Cannot operate with the current status",
-            "requestTimeout" : "Request timeout",
-            "connectYourWallet" : "Please connect your wallet",
-            "amountTooLow" : "Amount must be greater than zero",
-            "amountInvalid" : "Amount must be valid",
-            "notBalance" : "Not enough balance in your wallet",
-            "noLiquidity" : "Not enough liquidity in the protocol",
-            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+        "errors": {
+            "notOperational": "Not Operational due to low Global Coverage ratio",
+            "cantOperate": "Cannot operate with the current status",
+            "requestTimeout": "Request timeout",
+            "connectYourWallet": "Please connect your wallet",
+            "amountTooLow": "Amount must be greater than zero",
+            "amountInvalid": "Amount must be valid",
+            "notBalance": "Not enough balance in your wallet",
+            "noLiquidity": "Not enough liquidity in the protocol",
+            "maxLimitedByProtocol": "Maximum temporarily limited by the protocol"
         }
     },
     "portfolio": {
@@ -169,7 +174,7 @@
                     "price": "Price in USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
                 "rows": {
@@ -211,7 +216,7 @@
                     "price": "Tokens per USD",
                     "variation": "Variation 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
                 "rows": {}
@@ -220,7 +225,6 @@
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",
         "totalBalance": "Total Balance"
-   
     },
     "performance": {
         "sectionTitle": "Performance",
@@ -238,15 +242,14 @@
 
             "statusTitleLiquidated": "Liquidated",
             "statusDescriptionLiquidated": "No operations allowed",
-            
+
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "The contract is paused. No operations allowed",
 
-            "statusTitleUnavailable" : "Cannot operate",
-            "statusDescreiptionUnavailable" : "One or more contracts are temporarily unavailable. Please try again later.",
+            "statusTitleUnavailable": "Cannot operate",
+            "statusDescreiptionUnavailable": "One or more contracts are temporarily unavailable. Please try again later.",
 
             "showingBlock": "Showing block"
-
         },
         "tvl": {
             "cardTitle": "Total Value Locked",
@@ -257,16 +260,16 @@
             "priceIn": "Price in USD",
             "currentLeverage": "Current leverage",
             "totalInSystem": "Total in the system",
-            "redeemable" : "Available to redeem"
-         },
+            "redeemable": "Available to redeem"
+        },
 
-         "collateral": {
+        "collateral": {
             "cardTitle": "Collateral",
             "totalIn": "Total collateral in USD",
             "globalCoverage": "Global coverage"
-         },
+        },
 
-         "pegged": {
+        "pegged": {
             "cardTitle": "USDRIF Performance",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
@@ -275,10 +278,32 @@
             "colTargetCoverage": "T. Coverage",
             "colEMA": "EMA",
             "colTargetEMA": "Target EMA"
-         }
+        }
     },
 
     "send": {
+        "tokens": {
+            "CA_0": {
+                "label": "RIF",
+                "abbr": "RIF"
+            },
+            "TC": {
+                "label": "RIFPro",
+                "abbr": "RIFP"
+            },
+            "TP_0": {
+                "label": "RIF US Dollar",
+                "abbr": "USDRIF"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "MOC",
+                "abbr": "MOC"
+            }
+        },
         "cardTitle": "Send",
         "labelSending": "Sending",
         "labelBalance": "Balance",
@@ -291,10 +316,10 @@
         "buttonPrimary": "Send",
         "modalTitle": "Confirm Send",
         "buttonCancel": "Cancel",
-        "buttonConfirm" : "Confirm",
+        "buttonConfirm": "Confirm",
         "buttonClose": "Close",
         "infoNoBalance": "No enough balance",
-        "noNegativeValues" : "Value must be greater than 0",
+        "noNegativeValues": "Value must be greater than 0",
         "infoAddressEmpty": "Destination address not specified",
         "infoAddressInvalid": "Invalid address",
         "feedback": {
@@ -308,91 +333,97 @@
     },
 
     "allowance": {
-        "cardTitle" : "Authorize using",
-        "disallowanceTitle" : "Revoke allowance of",
-        "statusText1" : "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
-        "statusText2" : "Optionally you can set an unlimited allowance checking the checkbox. Warning: if you don't know the implicances of doing this, leave it unchecked.",
-        "statusDisallowanceText" : "Before continuing with the operation, you must authorize the revoke so that the system can no longer access the tokens.",
-        "setUnlimited" : "Set unlimited allowance. Don't ask me again.",
-        "confirm" : {
+        "cardTitle": "Authorize using",
+        "disallowanceTitle": "Revoke allowance of",
+        "statusText1": "Before continuing with the operation, you must authorize the allowance so that the system can access the tokens.",
+        "statusText2": "Optionally you can set an unlimited allowance checking the checkbox. Warning: if you don't know the implicances of doing this, leave it unchecked.",
+        "statusDisallowanceText": "Before continuing with the operation, you must authorize the revoke so that the system can no longer access the tokens.",
+        "setUnlimited": "Set unlimited allowance. Don't ask me again.",
+        "confirm": {
             "cancel": "Cancel",
             "authorize": "Authorize"
         },
-        "feedback" : {
-            "submit" : "",
-            "sign" : "Please, sign the allowance authorization transaction using your wallet.",
-            "waiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
-            "error" : "Operation Failed!",
-            "default" : "Wait for transaction confirmation"
+        "feedback": {
+            "submit": "",
+            "sign": "Please, sign the allowance authorization transaction using your wallet.",
+            "waiting": "Please, wait while the allowance authorization is mined in the blockchain. Once it´s done, the transaction will be sent to your wallet.",
+            "error": "Operation Failed!",
+            "default": "Wait for transaction confirmation"
         }
     },
     "inputFields": {
-        "maxButton" : "Max"
+        "maxButton": "Max"
     },
 
     "fees": {
-        "labelFee" : "Fee",
-        "labelExecutionFee" : "Execution Fee",
+        "labelFee": "Fee",
+        "labelExecutionFee": "Execution Fee",
         "disclaimer1": "This fee will be deduced from the amount to be transferred.",
         "disclaimer2": "Amounts may change at the transaction confirmation"
     },
 
     "menuOptions": {
         "portfolio": "Portfolio",
-        "send" : "Send",
-        "exchange" : "Exchange",
-        "performance" : "Performance",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Vesting",
-        "more" : "More"
+        "send": "Send",
+        "exchange": "Exchange",
+        "performance": "Performance",
+        "staking": "Staking",
+        "liquidityMining": "Liquidity Mining",
+        "vesting": "Vesting",
+        "more": "More"
     },
-    
-    "language" : {
+
+    "language": {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
     },
 
-    "defaultCTA" : {
-        "buttonSubmit" : "Confirm",
-        "buttonCancel" : "Cancel",
-        "buttonExchange" : "Exchange",
-        "buttonClose" : "Close"
+    "defaultCTA": {
+        "buttonSubmit": "Confirm",
+        "buttonCancel": "Cancel",
+        "buttonExchange": "Exchange",
+        "buttonClose": "Close"
     },
 
-    "numberFormat" : {
-        "thousandsSeparator" : ",",
-        "decimalSeparator" : "."
+    "numberFormat": {
+        "thousandsSeparator": ",",
+        "decimalSeparator": "."
     },
 
-    "swapModal" : {
-        "text1" : "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
-        "text2" : "'Swap Now' button",
-        "button" : "Swap Now",
-        "modalTitle1" : "IMPORTANT NOTICE",
-        "modalTitle2" : "Confirm Migration",
-        "explanation1" : "RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the new DAPP. You will no longer be able to see your RDOC balance in the DAPP.",
-        "explanation2" : "The exchange rate for the swap is 1 RDOC = 1 USDRIF. You will not be charged a transaction fee, only gas fees will apply.",
-        "explanation3" : "Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF",
-        "buttonCancel" : "Cancel",
-        "buttonConfirm" : "Confirm",
-        "exchanging" : "Exchanging",
-        "receiving" : "Receiving",
-        "authorizing" : "TOKEN AUTHORIZATION",
-        "migrating" : "TOKEN MIGRATION",
-        "allowanceSignText" : "Please, sign the allowance authorization transaction using your wallet.",
-        "migrationTransactionSignText" : "Please, sign the migration transaction using your wallet.",
-        "allowanceWaiting" : "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
-        "transactionHash" : "Transaction Hash",
-        "operationFailed" : "Operation Failed!.",
-        "tokenMigrationWaitingText" : "Please, wait while the token migration is mined in the blockchain.",
-        "operationSuccessful" : "Operation Successful."
+    "swapModal": {
+        "text1": "RIF Dollar (RDOC) has changed to RIF US Dollar (USDRIF). You need to swap your RIF Dollars to operate with the updated DAPP. You won't be able to see your RDOC balance in the DAPP. Please, swap your tokens using the ",
+        "text2": "'Swap Now' button",
+        "button": "Swap Now",
+        "modalTitle1": "IMPORTANT NOTICE",
+        "modalTitle2": "Confirm Migration",
+        "explanation1": "RIF Dollar on Chain (RDOC) is changing to RIF US Dollar (USDRIF). You need to swap your RIF Dollar on Chain (RDOC) to operate with the new DAPP. You will no longer be able to see your RDOC balance in the DAPP.",
+        "explanation2": "The exchange rate for the swap is 1 RDOC = 1 USDRIF. You will not be charged a transaction fee, only gas fees will apply.",
+        "explanation3": "Clicking Confirm button on your wallet will ask you to sign the transaction. All your RDOC balance will be converted to USDRIF",
+        "buttonCancel": "Cancel",
+        "buttonConfirm": "Confirm",
+        "exchanging": "Exchanging",
+        "receiving": "Receiving",
+        "authorizing": "TOKEN AUTHORIZATION",
+        "migrating": "TOKEN MIGRATION",
+        "allowanceSignText": "Please, sign the allowance authorization transaction using your wallet.",
+        "migrationTransactionSignText": "Please, sign the migration transaction using your wallet.",
+        "allowanceWaiting": "Please, wait while the allowance authorization is mined in the blockchain. Once it’s done, the transaction will be sent to your wallet.",
+        "transactionHash": "Transaction Hash",
+        "operationFailed": "Operation Failed!.",
+        "tokenMigrationWaitingText": "Please, wait while the token migration is mined in the blockchain.",
+        "operationSuccessful": "Operation Successful."
     },
 
-    "staking" : {
+    "staking": {
         "display_decimals": 2,
         "cardTitle": "Staking",
-        "governanceToken":"MOC",
+        "governanceToken": "MOC",
+        "dashLabels": {
+            "balance": "Balance (free)",
+            "staked": "Flip Staked",
+            "unstaking": "Unstaking",
+            "ready": "Ready to Withdraw"
+        },
         "staking": {
             "input_decimals": 2,
             "tabStake": "Stake",
@@ -401,13 +432,13 @@
             "inputUnstake": "Unstake",
             "inputAvailable": "Available",
             "stakedAmount": "Staked",
-            "cta" : {
+            "cta": {
                 "explanation": "You will be able to unstake at any time with a release delay of 30 days (no rewards received during this period). After this period you will be able to 'Withdraw'.",
                 "stakeButton": "Stake",
                 "unstakeButton": "Unstake",
-                "staking" : "Staking",
-                "unstaking" : "Unstaking",
-                "stakingSign" : "≈"
+                "staking": "Staking",
+                "unstaking": "Unstaking",
+                "stakingSign": "≈"
             }
         },
         "distribution": {
@@ -418,20 +449,20 @@
                 "readyWithdraw": "Ready for withdraw",
                 "staked": "Staked"
             },
-            "bar" : {
+            "bar": {
                 "desc": "MoC staking annualized performance"
             }
         },
-        "performance" : {
+        "performance": {
             "title": "Staking Performance",
-            "bar" : {
+            "bar": {
                 "description": "MoC staking annualized performance",
                 "base": "MoC",
                 "sign": "+",
                 "staking": "Stacking"
             }
         },
-        "withdraw" : {
+        "withdraw": {
             "title": "Withdraw",
             "processing_unstake": "Processing unstake",
             "ready_to_withdraw": "Ready to withdraw",
@@ -450,19 +481,32 @@
                 "actions": "Acciones disponibles"
             }
         },
-        "tokens" : {
+        "tokens": {
             "TG": {
                 "label": "MoC",
                 "abbr": "MoC"
             }
         },
         "modal": {
+            "StakingOptions_AvailableToWithdraw": "Listo para hacer Withdraw",
+            "options": {
+                "availableToWithdraw": "Ready to Withdraw",
+                "unstaking": "Processing unstake",
+                "withdrawAll": "Withdraw all available",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
+            },
             "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
             "StakingOptions_PendingExpiration": "Processing unstake",
             "StakingOptions_WithdrawAll": "Withdraw all available",
             "StakingOptions_Restake": "Restake",
             "StakingOptions_Withdraw": "Withdraw",
-
+            "allowance": {
+                "title": "Set the allowance",
+                "description": "Before continuing with the staking you must set the allowance so that the staking system can access the tokens. This has to be done only once and it doesn't lock any tokens from your wallet.",
+                "setUnlimited": "Set unlimited allowance. Don't ask me again.",
+                "cta": "Authorize"
+            },
             "StakingOptionsModal_SetAllowance": "Set Allowance",
             "StakingOptionsModal_ReviewYourWallet": "Wallet",
             "StakingOptionsModal_ReviewYourWalletDescription": "Please review your wallet",
@@ -500,9 +544,64 @@
         "Error_numberTooSmall": "The number is too small",
         "Error_maxExceeded": "The number exceeds the maximum allowed"
     },
-    "vesting" : {
-        "vestingMachineGeneral" : {
-            "title" : "Vesting Machine"
+    "vesting": {
+        "vestingOnboarding": {
+            "page1": {
+                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
+                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
+                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "ctaPrimary": "Use Claim Code",
+                "ctaSecondary": "Load VM"
+            },
+            "page2": {
+                "stepTitle": "Let’s create a new Vesting Machine (VM) using a Claim Code",
+                "label": "Enter your Claim Code below",
+                "placeholder": "You can paste your claim code here or select 'load from file' button",
+                "loadButton": "Load Claim Code from file",
+                "explanation1": "After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign a transaction using your Wallet. You will only pay for the blockchain usage gas.",
+                "ctaPrimary": "Create VM",
+                "ctaSecondary": "Back"
+            },
+            "page3": {
+                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
+                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
+                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "transactionId": "Transaction ID",
+                "ctaPrimary": "Continue"
+            }
+        },
+        "alert": {
+            "title": "Using Vesting Adress",
+            "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
+            "cta": "Go to wallet settings"
+        },
+        "cardTitle": "Vesting Machine",
+        "status": {
+            "verified": "This Vesting Machine is Verified",
+            "notVerified": "This Vesting Machine is not verified yet",
+            "notFromThisUser": "Vesting Machine doesn't belong to this account"
+        },
+        "tokensAvailableToWithdraw": "Available Free FLIP balance",
+        "withdrawToWallet": "Withdraw to my wallet",
+        "dashDistribution": {
+            "vested": "Ready to withdraw FLIP",
+            "released": "Vested FLIP",
+            "staked": "Staked FLIP",
+            "unstaking": "Unstaking FLIP in progress"
+        },
+        "vestingScheduleColumns": {
+            "date": "Release date",
+            "daysLeft": "Days to release",
+            "percent": "Percent",
+            "amount": "Amount",
+            "status": "Status"
+        }
+    },
+    "settings": {
+        "protocolName": "Rif On Chain",
+        "themeMode": {
+            "light": "Light Mode",
+            "dark": "Dark mode"
         }
     }
 }

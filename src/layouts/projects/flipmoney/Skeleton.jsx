@@ -8,6 +8,9 @@ import SectionHeader from '../../../components/Header';
 
 import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
+import NotificationBody from '../../../components/Notification';
+import CheckStatus from '../../../helpers/checkStatus';
+import DappFooter from '../../../components/Footer/index';
 
 const { Content, Footer } = Layout;
 
@@ -19,15 +22,15 @@ export default function Skeleton() {
         <Layout>
             {!auth.isLoggedIn && (
                 <Alert
-                message="Warning"
-                description="Please connect your wallet!."
-                type="error"
-                showIcon
+                    message="Warning"
+                    description="Please connect your wallet!."
+                    type="error"
+                    showIcon
                 />
             )}
             <SectionHeader />
             <Content>
-                <div className="content-container">
+                <div className="section-container">
                     {/* Content page*/}
                     <div className="content-page">
                         {/* Dashboard Staking Rewards  
@@ -38,7 +41,9 @@ export default function Skeleton() {
                 </div>
             </Content>
             <Footer>
-                <div className="footer-container"></div>
+                <div className="footer-container">
+                    <DappFooter></DappFooter>
+                </div>
             </Footer>
         </Layout>
     );

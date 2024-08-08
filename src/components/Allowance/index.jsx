@@ -26,37 +26,34 @@ export default function AllowanceDialog(props) {
     let statusLabel = '';
     switch (status) {
         case 'SUBMIT':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('allowance.feedback.submit');
             break;
         case 'SIGN':
             sentIcon = 'icon-signifier';
-            statusLabel =
-                t('allowance.feedback.sign');
+            statusLabel = t('allowance.feedback.sign');
             break;
         case 'WAITING':
-            sentIcon = 'icon-tx-waiting rotate';
-            statusLabel =
-            t('allowance.feedback.waiting');
+            sentIcon = 'icon-tx-waiting';
+            statusLabel = t('allowance.feedback.waiting');
             break;
         case 'ERROR':
             sentIcon = 'icon-tx-error';
             statusLabel = t('allowance.feedback.error');
             break;
         default:
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('allowance.feedback.default');
     }
 
     const onChange = (e) => {
         console.log(`checked = ${e.target.checked}`);
-        infinityAllowance = e.target.checked
+        infinityAllowance = e.target.checked;
     };
 
     const reset = () => {
         setStatus('SUBMIT');
-        infinityAllowance = false
-
+        infinityAllowance = false;
     };
 
     const onClose = () => {
@@ -80,18 +77,14 @@ export default function AllowanceDialog(props) {
         }
 
         setStatus('SIGN');
-        auth.interfaceAllowanceAmount(
-            currencyYouExchange,
-            currencyYouReceive,
-            amountAllowance,
-            onTransaction,
-            onReceipt
-        ).then((value) => {
-            onClose();
-        }).catch((error) => {
-            console.log('ERROR');
-            setStatus('ERROR');
-        });
+        auth.interfaceAllowanceAmount(currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt)
+            .then((value) => {
+                onClose();
+            })
+            .catch((error) => {
+                console.log('ERROR');
+                setStatus('ERROR');
+            });
     };
 
     const onTransaction = (transactionHash) => {
@@ -109,67 +102,56 @@ export default function AllowanceDialog(props) {
 
     return (
         <div className="AllowanceDialog">
-            <div className="Content">
+            <div className="tx-amount-group">
                 {status === 'SUBMIT' && (
-                    <div className="status-submit">
-                        {disAllowance ?
-                        <div className="status-text">
-                            {t('allowance.statusDisallowanceText')}
-                        </div>
-                        :
-                        <div className="status-text">
-                            {t('allowance.statusText1')}
-                            <br />
-                            {t('allowance.statusText2')}
-                        </div>}
-                        <div className="remember-this">
-                            {!disAllowance && 
-                                <Checkbox
-                                    className="check-unlimited"
-                                    onChange={onChange}
-                                >{t('allowance.setUnlimited')}
+                    <div className="tx-feedback-container">
+                        {disAllowance ? (
+                            <div className="tx-feedback-text">{t('allowance.statusDisallowanceText')}</div>
+                        ) : (
+                            <div className="tx-feedback-text">
+                                {t('allowance.statusText1')}
+                                <br />
+                                {t('allowance.statusText2')}
+                            </div>
+                        )}
+                        <div className="option-checkbox">
+                            {!disAllowance && (
+                                <Checkbox className="check-unlimited" onChange={onChange}>
+                                    {t('allowance.setUnlimited')}
                                 </Checkbox>
-                            }
+                            )}
                         </div>
-                        <div className="actions">
-                            <button
-                                type="secondary"
-                                className="secondary-button btn-clear"
-                                onClick={onClose}
-                            >
-                                {t('allowance.confirm.cancel')}
-                            </button>
-                            <button
-                                type="primary"
-                                className="primary-button btn-confirm"
-                                onClick={onAuthorize}
-                            >
-                                {t('allowance.confirm.authorize')}
-                            </button>
+                        <div className="cta-container">
+                            <div className="cta-options-group">
+                                <button type="secondary" className="button secondary" onClick={onClose}>
+                                    {t('allowance.confirm.cancel')}
+                                </button>
+                                <button type="primary" className="button" onClick={onAuthorize}>
+                                    {t('allowance.confirm.authorize')}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
 
-                {(status === 'SIGN' ||
-                    status === 'WAITING' ||
-                    status === 'ERROR') && (
-                    <div className="status-tx">
-                        <div className="status-text">{statusLabel}</div>
-                        <div className="logo-tx">
-                            <i className={sentIcon}></i>
+                {(status === 'SIGN' || status === 'WAITING' || status === 'ERROR') && (
+                    <div className="tx-amount-group">
+                        <div className="tx-feedback-container">
+                            <div className="tx-feedback-text">{statusLabel}</div>
+                            <div className="tx-feedback-icon tx-logo-status">
+                                <div className={sentIcon}></div>
+                            </div>
                         </div>
-                        <div className="actions">
-                            <button
-                                type="primary"
-                                className="secondary-button btn-clear"
-                                onClick={onClose}
-                            >
-                                {t('allowance.confirm.cancel')}
-                            </button>
+                        <div className="cta-container">
+                            <div className="cta-options-group">
+                                <button type="primary" className="button secondary" onClick={onClose}>
+                                    {t('allowance.confirm.cancel')}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
-            </div>
+            </div>{' '}
         </div>
     );
 }

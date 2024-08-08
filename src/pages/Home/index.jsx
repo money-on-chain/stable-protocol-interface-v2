@@ -13,7 +13,7 @@ function Home(props) {
         if (auth.contractStatusData) {
             setReady(true);
         }
-        }, [auth])
+    }, [auth]);
     return (
         <Fragment>
             {/* Portfolio */}

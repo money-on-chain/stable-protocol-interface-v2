@@ -8,7 +8,6 @@ import Send from '../../components/Send';
 
 import '../../assets/css/pages.scss';
 
-
 function SectionSend(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -17,13 +16,11 @@ function SectionSend(props) {
         if (auth) {
             setReady(true);
         }
-    }, [auth])
+    }, [auth]);
     return (
         <Fragment>
-
             {/* Send */}
-            <div className='dashboard-exchange'>
-
+            <div className="layout-card">
                 <div className={'layout-card-title'}>
                     <h1>{t('send.cardTitle')}</h1>
                 </div>
@@ -31,14 +28,11 @@ function SectionSend(props) {
                 <div className={'content-body'}>
                     {ready ? <Send /> : <Skeleton active />}
                 </div>
-
             </div>
 
-            <div className="content-last-operations">
+            <div className="section__innerCard--big content-last-operations">
                 <ListOperations token={'all'}></ListOperations>
-            </div> 
-
-
+            </div>
         </Fragment>
     );
 }
