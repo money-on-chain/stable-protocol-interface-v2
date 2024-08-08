@@ -163,7 +163,8 @@
             "amountInvalid" : "La cantidad debe ser válida",
             "notBalance" : "No hay balance suficiente en tu billetera",
             "noLiquidity" : "No hay suficiente liquidez en el protocolo",
-            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
+            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo",
+            "fluxCapacityFull" : "El Flux Capacitor está en su capacidad total, esta transacción puede tardar más de lo normal"
         }
 
     },

@@ -1470,6 +1470,26 @@ h1.title-last-operations {
         text-align: center;
         margin-top: 5px;
     }
+    .info-container {
+        color: var(--color-text-highlight);
+        font-family: var(--brand-font);
+        font-size: 16px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: center;
+        margin-top: 5px;
+    }
+    .confirm-error-info {
+        color: var(--color-language-text-active);
+        font-family: var(--brand-font);
+        font-size: 13px;
+        font-weight: 700;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: center;
+        margin-top: 24px;
+    }
     .confirm-error {
         color: var(--color-semantic-negative);
         font-family: var(--brand-font);
