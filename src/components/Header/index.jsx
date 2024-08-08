@@ -169,20 +169,19 @@ export default function SectionHeader() {
         i18n.changeLanguage(code);
         setLang(code);
         setShowLanguageMenu(false);
-        localStorage.setItem('i18nextLng', code);
+        localStorage.setItem('PreferredLang', code);
     };
 
     useEffect(() => {
         var preferredLanguage = '';
         if (
-            localStorage.getItem('i18nextLng') == null ||
-            localStorage.getItem('i18nextLng') == 'en-US'
+            localStorage.getItem('PreferredLang') !== 'en' &&
+            localStorage.getItem('PreferredLang') !== 'es'
         ) {
-            localStorage.setItem('i18nextLng', 'en');
+            localStorage.setItem('PreferredLang', 'en');
             preferredLanguage = 'en';
-        }
-        {
-            preferredLanguage = localStorage.getItem('i18nextLng');
+        } else {
+            preferredLanguage = localStorage.getItem('PreferredLang');
         }
         pickLanguage(preferredLanguage);
         console.log('Preferred language: ' + preferredLanguage);
