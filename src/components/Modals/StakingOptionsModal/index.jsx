@@ -13,14 +13,7 @@ export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
     const [t, i18n, ns] = useProjectTranslation();
     const { accountData = {} } = auth;
-    const {
-        mode,
-        onClose,
-        visible,
-        amount,
-        onConfirm,
-        withdrawalId
-    } = props;
+    const { mode, onClose, visible, amount, onConfirm, withdrawalId } = props;
 
     const [step, setStep] = useState(0);
     const amountInEth = Web3.utils.toWei(amount, 'ether');
@@ -30,16 +23,16 @@ export default function StakingOptionsModal(props) {
         checkAllowance();
     }, []);
 
-
     const onChangeInfinity = (e) => {
         console.log(`checked = ${e.target.checked}`);
-        infinityAllowance = e.target.checked
+        infinityAllowance = e.target.checked;
     };
 
     const checkAllowance = async () => {
         if (auth.accountData && auth.userBalanceData) {
-
-            const allowanceAmount = auth.isVestingLoaded() ? auth.userBalanceData.vestingmachine.staking.allowance : auth.userBalanceData.stakingmachine.tgAllowance
+            const allowanceAmount = auth.isVestingLoaded()
+                ? auth.userBalanceData.vestingmachine.staking.allowance
+                : auth.userBalanceData.stakingmachine.tgAllowance;
 
             if (allowanceAmount > amountInEth) setStep(3);
         }
@@ -49,7 +42,6 @@ export default function StakingOptionsModal(props) {
 
     //methods
     const setAllowance = async () => {
-
         setStep(1);
 
         let amountAllowance;
@@ -60,11 +52,15 @@ export default function StakingOptionsModal(props) {
         }
 
         const onTransaction = (txHash) => {
-            console.log("Sent transaction allowance...: ", txHash);
+            console.log('Sent transaction allowance...: ', txHash);
             setStep(2);
-        }
-        const onReceipt = () => { console.log("Transaction allowance mined!...")  }
-        const onError = (error) => { console.log("Transaction allowance error!...:", error)}
+        };
+        const onReceipt = () => {
+            console.log('Transaction allowance mined!...');
+        };
+        const onError = (error) => {
+            console.log('Transaction allowance error!...:', error);
+        };
 
         await auth
             .interfaceStakingApprove(amountAllowance, onTransaction, onReceipt, onError)
@@ -86,22 +82,18 @@ export default function StakingOptionsModal(props) {
         onClose();
         onConfirm('sign', '');
         const onTransaction = (txHash) => {
-            console.log("Sent transaction add stake...")
+            console.log('Sent transaction add stake...');
             onConfirm('pending', txHash);
-        }
-        const onReceipt = () => { console.log("Transaction add stake mined!...") }
+        };
+        const onReceipt = () => {
+            console.log('Transaction add stake mined!...');
+        };
         const onError = (error) => {
-            console.log("Transaction add stake error!...:", error)
-        }
+            console.log('Transaction add stake error!...:', error);
+        };
         setStep(99);
         await auth
-            .interfaceStakingAddStake(
-                amount,
-                accountData.Wallet,
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceStakingAddStake(amount, accountData.Wallet, onTransaction, onReceipt, onError)
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
@@ -121,18 +113,17 @@ export default function StakingOptionsModal(props) {
         onClose();
         onConfirm('sign', '');
         const onTransaction = (txHash) => {
-            console.log("Sent cancel withdraw ...: ", txHash)
+            console.log('Sent cancel withdraw ...: ', txHash);
             onConfirm('pending', txHash);
-        }
-        const onReceipt = () => { console.log("Transaction cancel withdraw mined!...")}
-        const onError = (error) => { console.log("Transaction cancel withdraw error!...:", error)}
+        };
+        const onReceipt = () => {
+            console.log('Transaction cancel withdraw mined!...');
+        };
+        const onError = (error) => {
+            console.log('Transaction cancel withdraw error!...:', error);
+        };
         await auth
-            .interfaceStakingDelayMachineCancelWithdraw(
-                withdrawalId,
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceStakingDelayMachineCancelWithdraw(withdrawalId, onTransaction, onReceipt, onError)
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
@@ -153,18 +144,17 @@ export default function StakingOptionsModal(props) {
         onClose();
         onConfirm('sign', '');
         const onTransaction = (txHash) => {
-            console.log("Sent transaction unStake...: ", txHash);
+            console.log('Sent transaction unStake...: ', txHash);
             onConfirm('pending', txHash);
-        }
-        const onReceipt = () => { console.log("Transaction unStake mined!...")}
-        const onError = (error) => { console.log("Transaction unStake error!...:", error)}
+        };
+        const onReceipt = () => {
+            console.log('Transaction unStake mined!...');
+        };
+        const onError = (error) => {
+            console.log('Transaction unStake error!...:', error);
+        };
         await auth
-            .interfaceStakingUnStake(
-                amount,
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceStakingUnStake(amount, onTransaction, onReceipt, onError)
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
@@ -186,16 +176,16 @@ export default function StakingOptionsModal(props) {
 
         onConfirm('sign', '');
         const onTransaction = (txHash) => {
-            console.log("Sent withdraw...: ", txHash)
+            console.log('Sent withdraw...: ', txHash);
             onConfirm('pending', txHash);
-        }
-        const onReceipt = () => { console.log("Transaction withdraw mined!...")}
-        const onError = (error) => { console.log("Transaction withdraw error!...:", error)}
-        auth.interfaceStakingDelayMachineWithdraw(
-            withdrawalId,
-            onTransaction,
-            onReceipt,
-            onError)
+        };
+        const onReceipt = () => {
+            console.log('Transaction withdraw mined!...');
+        };
+        const onError = (error) => {
+            console.log('Transaction withdraw error!...:', error);
+        };
+        auth.interfaceStakingDelayMachineWithdraw(withdrawalId, onTransaction, onReceipt, onError)
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
@@ -218,29 +208,32 @@ export default function StakingOptionsModal(props) {
             0: () => {
                 return (
                     <Fragment>
-                        <h1 className="StakingOptionsModal_Title">
-                            {t('staking.modal.StakingOptionsModal_SetAllowance')}
-                        </h1>
-                        <div className="StakingOptionsModal_Content">
-                            <p>
-                                {t('staking.modal.StakingOptionsModal_AllowanceDescription')}
-                            </p>
-                            <div className="remember-this">
-                                <Checkbox
-                                    className="check-unlimited"
-                                    onChange={onChangeInfinity}
-                                >{t('allowance.setUnlimited')}
-                                </Checkbox>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <Button type="primary" className="primary-button btn-confirm" onClick={setAllowance}>
-                                    {t('staking.modal.StakingOptionsModal_Authorize')}
-                                </Button>
+                        {/* Asks user to authorize governance tokens */}
+                        <div className="">
+                            <h1 className="">
+                                {t('allowance.cardTitle')}
+                                <nbsp> </nbsp>
+                                {t('staking.tokens.TG.label')}
+                            </h1>
+                            <div className="modal-content">
+                                <div className="tx-info-container">
+                                    <p>{t('allowance.statusText1')}</p> <p>{t('allowance.statusText2')}</p>
+                                </div>
+                                <div className="tx-options-container">
+                                    <Checkbox className="check-unlimited" onChange={onChangeInfinity}>
+                                        {t('allowance.setUnlimited')}
+                                    </Checkbox>
+                                </div>
+                                <div className="cta-container">
+                                    <div className="cta-options-group">
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
+                                            {t('allowance.confirm.cancel')}
+                                        </Button>
+                                        <Button type="primary" className="button" onClick={setAllowance}>
+                                            {t('allowance.confirm.authorize')}
+                                        </Button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Fragment>
@@ -249,14 +242,28 @@ export default function StakingOptionsModal(props) {
             1: () => {
                 return (
                     <Fragment>
-                        <h1 className="StakingOptionsModal_Title">
-                            {t('staking.modal.StakingOptionsModal_SetAllowance')}
-                        </h1>
-                        <div className="StakingOptionsModal_Content AllowanceLoading">
-                            <Spin indicator={<LoadingOutlined />} />
-                            <p>
-                                {t('staking.modal.StakingOptionsModal_ReviewYourWalletDescription')}
-                            </p>
+                        {/* Asks user to sign authorization transaction on the wallet */}
+                        <div className="AllowanceDialog">
+                            <h1>
+                                {t('allowance.cardTitle')}
+                                <nbsp> </nbsp>
+                                {t('staking.tokens.TG.label')}
+                            </h1>
+                            <div className="modal-content">
+                                <div className="tx-feedback-container">
+                                    <p className="status-text">{t('allowance.feedback.sign')}</p>
+                                    <div className="tx-feedback-icon icon-tx-signWallet"></div>{' '}
+                                </div>
+
+                                <div className="cta-container">
+                                    {' '}
+                                    <div className="tx-cta-buttons">
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
+                                            {t('allowance.confirm.cancel')}
+                                        </Button>
+                                    </div>{' '}
+                                </div>
+                            </div>
                         </div>
                     </Fragment>
                 );
@@ -264,14 +271,26 @@ export default function StakingOptionsModal(props) {
             2: () => {
                 return (
                     <Fragment>
-                        <h1 className="StakingOptionsModal_Title">
-                            {t('staking.modal.StakingOptionsModal_SetAllowance')}
-                        </h1>
-                        <div className="StakingOptionsModal_Content AllowanceLoading">
-                            <Spin indicator={<LoadingOutlined />} />
-                            <p>
-                                {t('staking.modal.StakingOptionsModal_ProccessingAllowance')}
-                            </p>
+                        {/* Authorization is being mined, asks the user to wait */}
+                        <div className="AllowanceDialog">
+                            <h1>
+                                {t('allowance.cardTitle')}
+                                <nbsp> </nbsp>
+                                {t('staking.tokens.TG.label')}
+                            </h1>{' '}
+                            <div className="tx-amount-group">
+                                <div className="StakingOptionsModal_Content AllowanceLoading">
+                                    <p>{t('allowance.feedback.waiting')}</p>
+                                </div>
+                                <div className="icon-tx-waiting"></div>
+                                <div className="cta-container">
+                                    <div className="cta-options-group">
+                                        <Button type="secondary" className="button secondary" onClick={setAllowance}>
+                                            {t('allowance.confirm.cancel')}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </Fragment>
                 );
@@ -279,49 +298,43 @@ export default function StakingOptionsModal(props) {
             3: () => {
                 return (
                     <Fragment>
-                        <h1 className="StakingOptionsModal_Title">
-                            {t('staking.modal.StakingOptionsModal_Title')}
-                        </h1>
-                        <div className="StakingOptionsModal_Content">
-                            <div className="InfoContainer">
-                                <span className="title">
-                                    {t('staking.modal.StakingOptionsModal_AmountToStake')}
-                                </span>
-                                <span className="value amount">
-                                    <span className="value">
-
-                                        {PrecisionNumbers({
-                                            amount: new BigNumber(amount),
-                                            token: settings.tokens.TG,
-                                            decimals: t('staking.display_decimals'),
-                                            t: t,
-                                            i18n: i18n,
-                                            ns: ns,
-                                            skipContractConvert: true
-                                        })}
-
-                                    </span>
-                                    <span>
-                                        {t('staking.tokens.TG.label', {
-                                            ns: ns
-                                        })}
-                                    </span>
-                                </span>
-                            </div>
-                            <p>
-                                {t('staking.modal.StakingOptionsModal_StakingDescription')}
-                            </p>
-                            <div className="ActionButtonsRow">
-                                <Button type="default" onClick={onClose} className="secondary-button btn-clear" >
-                                    {t('staking.modal.StakingOptionsModal_Cancel')}
-                                </Button>
-                                <Button
-                                    type="primary"
-                                    onClick={addStake}
-                                    className="primary-button btn-confirm"
-                                >
-                                    {t('staking.modal.StakingOptionsModal_Comfirm')}
-                                </Button>
+                        {/* Asks the user to confirm the staking */}
+                        <div className="ModalAllowance">
+                            <h1 className="StakingOptionsModal_Title">{t('staking.confirmation.cardTitle')}</h1>
+                            <div className="tx-amount-group">
+                                <div className="tx-amount-container">
+                                    <div className="tx-amount-data">
+                                        <div className="tx-amount">
+                                            {PrecisionNumbers({
+                                                amount: new BigNumber(amount),
+                                                token: settings.tokens.TG,
+                                                decimals: t('staking.display_decimals'),
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                        </div>
+                                        <div className="tx-token">
+                                            {t('staking.tokens.TG.label', {
+                                                ns: ns
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className="cta-container">
+                                        <div className="cta-info-group">
+                                            <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_StakingDescription')}</div>
+                                        </div>{' '}
+                                        <div className="cta-options-group">
+                                            <Button type="default" onClick={onClose} className="button secondary">
+                                                {t('staking.modal.StakingOptionsModal_Cancel')}
+                                            </Button>
+                                            <Button type="primary" onClick={addStake} className="button">
+                                                {t('staking.modal.StakingOptionsModal_Comfirm')}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Fragment>
@@ -330,16 +343,10 @@ export default function StakingOptionsModal(props) {
             99: () => {
                 return (
                     <Fragment>
-                        <h1 className="StakingOptionsModal_Title">
-                            {t('staking.modal.StakingOptionsModal_ReviewYourWallet')}
-                        </h1>
+                        <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_ReviewYourWallet')}</h1>
                         <div className="StakingOptionsModal_Content AllowanceLoading">
                             <Spin indicator={<LoadingOutlined />} />
-                            <p>
-                                {t(
-                                    'staking.modal.StakingOptionsModal_ReviewYourWalletDescription'
-                                )}
-                            </p>
+                            <p>{t('staking.modal.StakingOptionsModal_ReviewYourWalletDescription')}</p>
                         </div>
                     </Fragment>
                 );
@@ -352,47 +359,42 @@ export default function StakingOptionsModal(props) {
     const renderUnstaking = () => {
         return (
             <Fragment>
-                <h1 className="StakingOptionsModal_Title">
-                    {t('staking.modal.StakingOptionsModal_UnstakeTitle')}
-                </h1>
-                <div className="StakingOptionsModal_Content">
-                    <div className="InfoContainer">
-                        <span className="title">
-                            {t('staking.modal.StakingOptionsModal_AmountToUnstake')}
-                        </span>
-                        <span className="value amount">
-
-                            {PrecisionNumbers({
-                                amount: new BigNumber(amount),
-                                token: settings.tokens.TG,
-                                decimals: t('staking.display_decimals'),
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
-
-                            <span>
-                                {t('staking.tokens.TG.abbr', {
-                                    ns: ns
+                {/* Asks the user to confirm the Unstaking */}
+                <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_UnstakeTitle')}</h1>
+                <div className="tx-amount-group">
+                    <div className="tx-amount-container">
+                        <div className="tx-amount-data">
+                            {/* {t('staking.modal.StakingOptionsModal_AmountToUnstake')} */}
+                            <div className="tx-amount">
+                                {PrecisionNumbers({
+                                    amount: new BigNumber(amount),
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
                                 })}
-                            </span>
-                        </span>
+                                <div className="tx-token">
+                                    {t('staking.tokens.TG.abbr', {
+                                        ns: ns
+                                    })}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p>
-                        {t('staking.modal.StakingOptionsModal_UnstakingDescription')}
-                    </p>
-                    <div className="ActionButtonsRow">
-                        <Button type="default" onClick={onClose}>
-                            {t('staking.modal.StakingOptionsModal_Cancel')}
-                        </Button>
-                        <Button
-                            type="primary"
-                            onClick={UnStake}
-                            className="ButtonPrimary"
-                        >
-                            {t('staking.modal.StakingOptionsModal_Comfirm')}
-                        </Button>
+                    <div className="cta-container">
+                        <div className="cta-info-group">
+                            <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_UnstakingDescription')}</div>
+                        </div>
+                        <div className="cta-options-group">
+                            <Button type="secondary" onClick={onClose} className="button">
+                                {t('staking.modal.StakingOptionsModal_Cancel')}
+                            </Button>
+                            <Button type="primary" onClick={UnStake} className="button">
+                                {t('staking.modal.StakingOptionsModal_Comfirm')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </Fragment>
@@ -402,42 +404,43 @@ export default function StakingOptionsModal(props) {
     const renderWithdraw = () => {
         return (
             <Fragment>
-                <h1 className="StakingOptionsModal_Title">
-                    {t('staking.modal.StakingOptionsModal_WithdrawTitle')}
-                </h1>
-                <div className="StakingOptionsModal_Content">
-                    <div className="InfoContainer">
-                        <span className="title">
-                            {t('staking.modal.StakingOptionsModal_AmountToWithdraw')}
-                        </span>
-                        <span className="value amount">
-                            {PrecisionNumbers({
-                                amount: amount,
-                                token: settings.tokens.TG,
-                                decimals: t('staking.display_decimals'),
-                                t: t,
-                                i18n: i18n,
-                                ns: ns
-                            })}{' '}
-                            <span>
-                                 {t('staking.tokens.TG.abbr', {
-                                     ns: ns
-                                 })}
-                            </span>
-                        </span>
+                {/* Asks the user to confirm Withdraw */}
+                <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_WithdrawTitle')}</h1>
+                <div className="ant-modal-body">
+                    <div className="tx-amount-group">
+                        <div className="tx-amount-container">
+                            <div className="tx-amount-data">
+                                <div className="tx-amount">
+                                    {PrecisionNumbers({
+                                        amount: amount,
+                                        token: settings.tokens.TG,
+                                        decimals: t('staking.display_decimals'),
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns
+                                    })}{' '}
+                                    <div className="tx-token">
+                                        {t('staking.tokens.TG.abbr', {
+                                            ns: ns
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="tx-amount-info">{t('staking.modal.StakingOptionsModal_AmountToWithdraw')}</div>
+                        </div>
                     </div>
-                    <p>{t('staking.modal.StakingOptionsModal_WithdrawDescription')}</p>
-                    <div className="ActionButtonsRow">
-                        <Button type="default" onClick={onClose}>
-                            {t('staking.modal.StakingOptionsModal_Cancel')}
-                        </Button>
-                        <Button
-                            type="primary"
-                            onClick={withdraw}
-                            className="ButtonPrimary"
-                        >
-                            {t('staking.modal.StakingOptionsModal_Comfirm')}
-                        </Button>
+                    <div className="cta-container">
+                        <div className="cta-info-group">
+                            <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_WithdrawDescription')}</div>
+                        </div>
+                        <div className="cta-options-group">
+                            <Button type="default" className="button secondary" onClick={onClose}>
+                                {t('staking.modal.StakingOptionsModal_Cancel')}
+                            </Button>
+                            <Button type="primary" className="button" onClick={withdraw}>
+                                {t('staking.modal.StakingOptionsModal_Comfirm')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </Fragment>
@@ -447,42 +450,42 @@ export default function StakingOptionsModal(props) {
     const renderRestaking = () => {
         return (
             <Fragment>
-                <h1 className="StakingOptionsModal_Title">
-                    {t('staking.modal.StakingOptionsModal_RestakeTitle')}
-                </h1>
-                <div className="StakingOptionsModal_Content">
-                    <div className="InfoContainer">
-                        <span className="title">
-                            {t('staking.modal.StakingOptionsModal_AmountToRestake')}
-                        </span>
-                        <span className="value amount">
-                            {PrecisionNumbers({
-                                amount: amount,
-                                token: settings.tokens.TG,
-                                decimals: t('staking.display_decimals'),
-                                t: t,
-                                i18n: i18n,
-                                ns: ns
-                            })}
-                            <span>
-                                {t('staking.tokens.TG.abbr', {
-                                    ns: ns
-                                })}
-                            </span>
-                        </span>
+                {/* Asks to confirm RESTAKE */}
+                <h1 className="StakingOptionsModal_Title">{t('staking.modal.StakingOptionsModal_RestakeTitle')}</h1>
+                <div className="ant-modal-body">
+                    <div className="tx-amount-group">
+                        <div className="tx-amount-container">
+                            <div className="tx-amount-data">
+                                <div className="tx-amount">
+                                    {PrecisionNumbers({
+                                        amount: amount,
+                                        token: settings.tokens.TG,
+                                        decimals: t('staking.display_decimals'),
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns
+                                    })}
+                                    <div className="tx-token">
+                                        {t('staking.tokens.TG.abbr', {
+                                            ns: ns
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="tx-amount-info">{t('staking.modal.StakingOptionsModal_AmountToRestake')}</div>
+                        </div>
                     </div>
-                    <p>{t('staking.modal.StakingOptionsModal_RestakeDescription')}</p>
-                    <div className="ActionButtonsRow">
-                        <Button type="default" onClick={onClose}>
-                            {t('staking.modal.StakingOptionsModal_Cancel')}
-                        </Button>
-                        <Button
-                            type="primary"
-                            onClick={CancelWithdraw}
-                            className="ButtonPrimary"
-                        >
-                            {t('staking.modal.StakingOptionsModal_Comfirm')}
-                        </Button>
+                    <div className="cta-container">
+                        <div className="cta-info-detail">{t('staking.modal.StakingOptionsModal_RestakeDescription')}</div>
+
+                        <div className="cta-options-group">
+                            <Button type="default" className="button secondary" onClick={onClose}>
+                                {t('staking.modal.StakingOptionsModal_Cancel')}
+                            </Button>
+                            <Button type="primary" className="button" onClick={CancelWithdraw}>
+                                {t('staking.modal.StakingOptionsModal_Comfirm')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </Fragment>
@@ -507,7 +510,7 @@ export default function StakingOptionsModal(props) {
             footer={null}
             centered={true}
             maskClosable={false}
-            maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.08)', backdropFilter: 'blur(2px)' }}
+            maskStyle={{}}
         >
             {render()}
         </Modal>

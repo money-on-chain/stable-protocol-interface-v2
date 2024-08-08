@@ -161,7 +161,7 @@ export default function Vesting(props) {
     };
 
     return (
-        <div className="vesting">
+        <div className="section vesting">
             {/* <Alert
                 className="alert-success"
                 message="Success Tips"
@@ -218,21 +218,18 @@ export default function Vesting(props) {
              */}
 
             {status === 'STEP_1' && (
-            <div id="vesting-onboarding" className="layout-card page1">
+            <div id="vesting-onboarding" className="layout-card section__innerCard--big page1">
                 {' '}
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
-                </div>{' '}
+                    <h1>{t('vesting.cardTitle')}</h1>
+                </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>You don’t have any Vesting Machine Loaded yet</h2>
-                        <p>
-                            A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment
-                            over time, rather than receiving it all at once.
-                        </p>
-                        <p>You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.</p>
+                        <h2>{t('vesting.vestingOnboarding.page1.stepTitle')}</h2>
+                        <p>{t('vesting.vestingOnboarding.page1.explanation1')}</p>
+                        <p>{t('vesting.vestingOnboarding.page1.explanation2')}</p>
                         <div className="cta">
-                            <button className="secondary-button">Load VM</button> <button className="primary-button">Use Claim Code</button>
+                            <button className="button secondary">{t('vesting.vestingOnboarding.page1.ctaSecondary')}</button> <button className="button">{t('vesting.vestingOnboarding.page1.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator active"></div>
@@ -250,36 +247,34 @@ export default function Vesting(props) {
              */}
 
             {status === 'STEP_2' && (
-            <div id="vesting-onboarding" className="layout-card page2">
+            <div id="vesting-onboarding" className="layout-card section__innerCard--big page2">
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
+                    <h1>{t('vesting.cardTitle')}</h1>
                 </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>Let’s create a new Vesting Machine (VM) using a Claim Code</h2>
+                        <h2>{t('vesting.vestingOnboarding.page2.stepTitle')}</h2>
                         <div className="input-container">
-                            {' '}
                             <label className="claim-code-input-label">
-                                Enter your Claim Code below{' '}
+                            {t('vesting.vestingOnboarding.page2.label')}
                                 <textarea
                                     type="text"
                                     className="claim-code-input"
-                                    placeholder="You can paste your claim code here or select 'load from file' button"
+                                    placeholder={t('vesting.vestingOnboarding.page2.placeholder')}
                                 />
-                            </label>{' '}
-                        </div>{' '}
+                            </label>
+                        </div>
                         <div className="options">
-                            <button className="button-small-secondary">Load Claim Code from file</button>
+                            <button className="button--small">{t('vesting.vestingOnboarding.page2.loadButton')}</button>
                         </div>
                         <br />
                         <div className="explanation">
-                            <p>
-                                After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign
-                                a transaction using your Wallet. You will only pay for the blockchain usage gas.
+                            <p>{t('vesting.vestingOnboarding.page2.explanation1')}
                             </p>
                         </div>
                         <div className="cta">
-                            <button className="primary-button">Create Vesting Machine</button>
+                            <button className="button secondary">{t('vesting.vestingOnboarding.page2.ctaSecondary')}</button>
+                            <button className="button">{t('vesting.vestingOnboarding.page2.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>
@@ -299,23 +294,22 @@ export default function Vesting(props) {
             <div id="vesting-onboarding" className="layout-card page3">
                 {' '}
                 <div className="layout-card-title">
-                    <h1>Vesting Machine</h1>
-                </div>{' '}
+                    <h1>{t('vesting.cardTitle')}</h1>
+                </div>
                 <div className="layout-card-content">
                     <div className="vesting-content">
-                        <h2>Your Vesting Machine has been created!</h2>
-                        <p>This amazing thing we need to celebrate.</p>
-                        <p>Copy your transaction address for later reference.</p>{' '}
+                        <h2>{t('vesting.vestingOnboarding.page3.stepTitle')}</h2>
+                        <p>{t('vesting.vestingOnboarding.page3.explanation1')}</p>
+                        <p>{t('vesting.vestingOnboarding.page3.explanation2')}</p>
                         <div className="tx-details">
-                            {' '}
-                            Transaction ID
+                        {t('vesting.vestingOnboarding.page3.transactionId')}
                             <div className="copy-button">
                                 oxba8cd957…72adM
                                 <div className="copy-icon"></div>
                             </div>
                         </div>
                         <div className="cta">
-                            <button className="primary-button">Continue</button>
+                            <button className="button">{t('vesting.vestingOnboarding.page3.ctaPrimary')}</button>
                         </div>
                         <div className="pagination">
                             <div className="page-indicator"></div>

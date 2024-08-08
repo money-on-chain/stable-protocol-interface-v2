@@ -8,7 +8,8 @@ import addressHelper from '../helpers/addressHelper';
 import {
     ApproveTokenContract,
     exchangeMethod,
-    TokenContract } from '../helpers/exchange';
+    TokenContract
+} from '../helpers/exchange';
 
 import { readContracts } from '../lib/backend/contracts';
 import { contractStatus, userBalance } from '../lib/backend/multicall';
@@ -17,7 +18,7 @@ import {
     AllowanceAmount,
     transferTokenTo,
     MigrateToken,
-    AllowUseTokenMigrator 
+    AllowUseTokenMigrator
 } from '../lib/backend/moc-base';
 
 import {
@@ -25,7 +26,8 @@ import {
     unStake,
     delayMachineWithdraw,
     delayMachineCancelWithdraw,
-    approveStakingMachine } from '../lib/backend/omoc/staking'
+    approveStakingMachine
+} from '../lib/backend/omoc/staking';
 
 import {
     addStake as addStakeVesting,
@@ -36,7 +38,7 @@ import {
     withdraw,
     withdrawAll,
     vestingVerify
-} from '../lib/backend/omoc/vesting'
+} from '../lib/backend/omoc/vesting';
 
 import { getGasPrice } from '../lib/backend/utils';
 
@@ -79,7 +81,12 @@ const AuthenticateContext = createContext({
     getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (address) => {},
     getReserveAllowance: async (address) => {},
-    interfaceAllowUseTokenMigrator: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceAllowUseTokenMigrator: async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
     interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
     //OMOC methods
     interfaceStakingAddStake: async (amount, address, onTransaction, onReceipt, onError) => {},
@@ -91,7 +98,6 @@ const AuthenticateContext = createContext({
     interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {}
-
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -154,35 +160,40 @@ const AuthenticateProvider = ({ children }) => {
     }, [account]);
 
     const connect = () =>
-        window.rLogin.connect().then((rLoginResponse) => {
-            const { provider, disconnect } = rLoginResponse;
-            setProvider(provider);
+        window.rLogin
+            .connect()
+            .then((rLoginResponse) => {
+                const { provider, disconnect } = rLoginResponse;
+                setProvider(provider);
 
-            const web3 = new Web3(provider);
-            provider.on('accountsChanged', function (accounts) {
-                disconnect();
-                window.location.reload();
-                /*if ( accounts.length==0 ){
+                const web3 = new Web3(provider);
+                provider.on('accountsChanged', function (accounts) {
+                    disconnect();
+                    window.location.reload();
+                    /*if ( accounts.length==0 ){
                     disconnect()
                     window.location.reload()
                 }*/
-            });
-            provider.on('chainChanged', function (accounts) {
+                });
+                provider.on('chainChanged', function (accounts) {
+                    disconnect();
+                    window.location.reload();
+                });
+
+                setWeb3(web3);
+                window.rLoginDisconnect = disconnect;
+
+                // request user's account
+                provider
+                    .request({ method: 'eth_accounts' })
+                    .then(([account]) => {
+                        setAccount(account);
+                        setIsLoggedIn(true);
+                    });
+            })
+            .catch((error) => {
                 disconnect();
-                window.location.reload();
             });
-
-            setWeb3(web3);
-            window.rLoginDisconnect = disconnect;
-
-            // request user's account
-            provider.request({ method: 'eth_accounts' }).then(([account]) => {
-                setAccount(account);
-                setIsLoggedIn(true);
-            });
-        }).catch((error) => {
-            disconnect();
-        });
 
     const disconnect = async () => {
         await disconnect;
@@ -197,7 +208,7 @@ const AuthenticateProvider = ({ children }) => {
         });
         setUserBalanceData(null);
         setIsLoggedIn(false);
-        if (window?.rLoginDisconnect){
+        if (window?.rLoginDisconnect) {
             await window?.rLoginDisconnect();
         }
         connect();
@@ -285,14 +296,30 @@ const AuthenticateProvider = ({ children }) => {
         );
     };
 
-    const interfaceAllowUseTokenMigrator = async (amount, onTransaction, onReceipt, onError) => {
+    const interfaceAllowUseTokenMigrator = async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
-        return AllowUseTokenMigrator(interfaceContext, amount, onTransaction, onReceipt, onError);
+        return AllowUseTokenMigrator(
+            interfaceContext,
+            amount,
+            onTransaction,
+            onReceipt,
+            onError
+        );
     };
 
     const interfaceMigrateToken = async (onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
-        return MigrateToken(interfaceContext, onTransaction, onReceipt, onError);
+        return MigrateToken(
+            interfaceContext,
+            onTransaction,
+            onReceipt,
+            onError
+        );
     };
 
     const initContractsConnection = async () => {
@@ -345,7 +372,7 @@ const AuthenticateProvider = ({ children }) => {
     const getBalance = async (address) => {
         try {
             let balance = await web3.eth.getBalance(address);
-            balance = web3.utils.fromWei(balance, "ether");
+            balance = web3.utils.fromWei(balance, 'ether');
             return balance;
         } catch (e) {
             console.log(e);
@@ -392,50 +419,119 @@ const AuthenticateProvider = ({ children }) => {
     };
     // OMOC
 
-    const interfaceStakingApprove = async (amount, onTransaction, onReceipt, onError) => {
+    const interfaceStakingApprove = async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
-            return approveVesting(interfaceContext, amount, onTransaction, onReceipt, onError);
+            return approveVesting(
+                interfaceContext,
+                amount,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         } else {
-            return approveStakingMachine(interfaceContext, amount, onTransaction, onReceipt, onError);
+            return approveStakingMachine(
+                interfaceContext,
+                amount,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         }
     };
 
-    const interfaceStakingAddStake = async (amount, address, onTransaction, onReceipt, onError) => {
+    const interfaceStakingAddStake = async (
+        amount,
+        address,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const from = address || account;
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
-            return addStakeVesting(interfaceContext, amount, from, onTransaction, onReceipt, onError);
+            return addStakeVesting(
+                interfaceContext,
+                amount,
+                from,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         } else {
-            return addStake(interfaceContext, amount, from, onTransaction, onReceipt, onError);
+            return addStake(
+                interfaceContext,
+                amount,
+                from,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         }
     };
 
     const interfaceStakingDelayMachineWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
-            return delayMachineWithdrawVesting(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
+            return delayMachineWithdrawVesting(
+                interfaceContext,
+                idWithdraw,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         } else {
-            return delayMachineWithdraw(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
+            return delayMachineWithdraw(
+                interfaceContext,
+                idWithdraw,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         }
     };
 
-    const interfaceStakingDelayMachineCancelWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
+    const interfaceStakingDelayMachineCancelWithdraw = async (
+        idWithdraw,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
-            return delayMachineCancelWithdrawVesting(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
+            return delayMachineCancelWithdrawVesting(
+                interfaceContext,
+                idWithdraw,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         } else {
-            return delayMachineCancelWithdraw(interfaceContext, idWithdraw, onTransaction, onReceipt, onError);
+            return delayMachineCancelWithdraw(
+                interfaceContext,
+                idWithdraw,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         }
     };
 
     const isVestingLoaded = () => {
-        return !!(userBalanceData && (typeof userBalanceData.vestingmachine !== 'undefined'));
+        return !!(
+            userBalanceData &&
+            typeof userBalanceData.vestingmachine !== 'undefined'
+        );
     };
 
     const vestingAddress = () => {
         if (isVestingLoaded()) {
-             return userBalanceData.vestingmachine.address
+            return userBalanceData.vestingmachine.address;
         }
     };
 

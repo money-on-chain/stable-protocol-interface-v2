@@ -4,12 +4,18 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import SelectCurrency from '../SelectCurrency';
 
-import { TokenSettings, TokenBalance, AmountToVisibleValue, ConvertAmount } from '../../helpers/currencies';
+import {
+    TokenSettings,
+    TokenBalance,
+    AmountToVisibleValue,
+    ConvertAmount
+} from '../../helpers/currencies';
 import { tokenExchange } from '../../helpers/exchange';
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
-import InputAmount from '../InputAmount';
+// import InputAmount from '../InputAmount';
+import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import ModalConfirmSend from '../Modals/ConfirmSend';
@@ -29,8 +35,12 @@ export default function Send() {
 
     const [isDirtyYouSend, setIsDirtyYouSend] = useState(false);
 
-    const [inputValidationErrorText, setInputValidationErrorText] = useState('');
-    const [inputValidationAddressErrorText, setInputValidationAddressErrorText] = useState('');
+    const [inputValidationErrorText, setInputValidationErrorText] =
+        useState('');
+    const [
+        inputValidationAddressErrorText,
+        setInputValidationAddressErrorText
+    ] = useState('');
     const [inputValidationError, setInputValidationError] = useState(false);
 
     useEffect(() => {
@@ -65,7 +75,10 @@ export default function Send() {
 
         // 1. User Send Token Validation
         const totalBalance = new BigNumber(
-            fromContractPrecisionDecimals(TokenBalance(auth, currencyYouSend), TokenSettings(currencyYouSend).decimals)
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouSend),
+                TokenSettings(currencyYouSend).decimals
+            )
         );
         console.log('amount you send', amountYouSend.toString());
         if (amountYouSend.gt(totalBalance)) {
@@ -86,7 +99,10 @@ export default function Send() {
         // 2. Input address valid
         if (destinationAddress === '') {
             addressInputError = true;
-        } else if (destinationAddress.length < 42 || destinationAddress.length > 42) {
+        } else if (
+            destinationAddress.length < 42 ||
+            destinationAddress.length > 42
+        ) {
             setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
             addressInputError = true;
         }
@@ -117,9 +133,20 @@ export default function Send() {
                 setAmountYouSend(newAmountBig);
             }
 
-            const convertAmount = ConvertAmount(auth, currencyYouSend, 'CA', newAmountBig, false);
+            const convertAmount = ConvertAmount(
+                auth,
+                currencyYouSend,
+                'CA',
+                newAmountBig,
+                false
+            );
 
-            const priceCA = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[0], settings.tokens.CA[0].decimals));
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[0],
+                    settings.tokens.CA[0].decimals
+                )
+            );
 
             const convertAmountUSD = convertAmount.times(priceCA);
             setSendingUSD(convertAmountUSD);
@@ -138,33 +165,56 @@ export default function Send() {
         setIsDirtyYouSend(false);
 
         const tokenSettings = TokenSettings(currencyYouSend);
-        const totalYouSend = new BigNumber(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouSend), tokenSettings.decimals));
+        const totalYouSend = new BigNumber(
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouSend),
+                tokenSettings.decimals
+            )
+        );
         setAmountYouSend(totalYouSend);
-        onChangeAmountYouSend(fromContractPrecisionDecimals(TokenBalance(auth, currencyYouSend), tokenSettings.decimals), true);
+        console.log(totalYouSend);
+        onChangeAmountYouSend(
+            fromContractPrecisionDecimals(
+                TokenBalance(auth, currencyYouSend),
+                tokenSettings.decimals
+            ),
+            true
+        );
     };
 
     return (
         <div>
-            <div className="exchange-send-content">
-                <div className="fields">
-                    <div className="swap-from">
+            <div className="sectionSend__Content">
+                <div className="inputFields">
+                    <div className="tokenSelector">
                         <SelectCurrency
                             className="select-token"
                             value={currencyYouSend}
                             currencyOptions={tokenExchange()}
                             onChange={onChangeCurrencyYouSend}
+                            action={'send'}
                         />
 
                         <InputAmount
-                            InputValue={amountYouSend.toString() === '0' ? 0 : AmountToVisibleValue(amountYouSend, currencyYouSend, 3, false)}
+                            InputValue={
+                                amountYouSend.toString() === '0'
+                                    ? 0
+                                    : AmountToVisibleValue(
+                                          amountYouSend,
+                                          currencyYouSend,
+                                          3,
+                                          false
+                                      )
+                            }
                             placeholder={'0.0'}
                             onValueChange={onChangeAmountYouSend}
                             validateError={false}
-                            isDirty={isDirtyYouSend}
                             balance={PrecisionNumbers({
                                 amount: TokenBalance(auth, currencyYouSend),
                                 token: TokenSettings(currencyYouSend),
-                                decimals: TokenSettings(currencyYouSend).visibleDecimals,
+                                decimals:
+                                    TokenSettings(currencyYouSend)
+                                        .visibleDecimals,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns
@@ -173,44 +223,65 @@ export default function Send() {
                             action={t('send.labelSending')}
                             balanceText={t('send.labelBalance')}
                         />
-                        <div className="input-validation-error">{inputValidationErrorText}</div>
+                        <div className="amountInput__feedback amountInput__feedback--error">
+                            {inputValidationErrorText}
+                        </div>
                     </div>
 
-                    <div className="swap-arrow">
-                        <i className="icon-arrow-down"></i>
+                    <div className="tx-direction">
+                        <div className="icon-arrow-down"></div>
                     </div>
+                    <div className="amountInput">
+                        <div className="amountInput__infoBar">
+                            <div className="captionOLD amountInput__label">
+                                {t('send.labelDestination')}
+                            </div>{' '}
+                        </div>
 
-                    <div className="swap-to">
-                        <div className="caption">{t('send.labelDestination')}</div>
-                        <Input type="text" placeholder={t('send.placeholder')} className="input-address" onChange={onChangeDestinationAddress} />
-                        <div className="input-validation-error">{inputValidationAddressErrorText}</div>
+                        <Input
+                            type="text"
+                            placeholder={t('send.placeholder')}
+                            className="input-addressOLD amountInput__value "
+                            onChange={onChangeDestinationAddress}
+                        />
+                        <div className="amountInput__feedback amountInput__feedback--error">
+                            {inputValidationAddressErrorText}
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div className="exchange-send-footer">
-                <div className="exchanging">
-                    <span className={'token_exchange'}>{t('send.sendingSummary')} </span>
-                    <span className={'symbol'}> {t('send.sendingSign')} </span>
-                    {sendingUSD.toString() !== 'NaN' ? (
-                        <span className={'token_receive'}>
-                            {PrecisionNumbers({
-                                amount: sendingUSD,
-                                token: TokenSettings('CA_0'),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
+            <div className="cta-container">
+                <div className="cta-info-group">
+                    <div className="cta-info-summary">
+                        <span className={'token_exchange'}>
+                            {t('send.sendingSummary')}{' '}
                         </span>
-                    ) : (
-                        <span>0</span>
-                    )}
-                    <span className={'token_receive_name'}> {t('send.sendingCurrency')}</span>
+                        <span className={'symbol'}>
+                            {t('send.sendingSign')}
+                        </span>
+                        {sendingUSD.toString() !== 'NaN' ? (
+                            <span className={'token_receive_label'}>
+                                {PrecisionNumbers({
+                                    amount: sendingUSD,
+                                    token: TokenSettings('CA_0'),
+                                    decimals: 2,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                            </span>
+                        ) : (
+                            <span>0</span>
+                        )}
+                        <span className={'token_receive_name'}>
+                            {' '}
+                            {t('send.sendingCurrency')}
+                        </span>
+                    </div>
                 </div>
 
-                <div className="actions-buttons">
+                <div className="cta-options-group">
                     <ModalConfirmSend
                         currencyYouExchange={currencyYouSend}
                         exchangingUSD={sendingUSD}

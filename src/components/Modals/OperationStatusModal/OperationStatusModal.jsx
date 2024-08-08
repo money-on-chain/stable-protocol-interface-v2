@@ -1,18 +1,10 @@
-import Modal, {Fragment} from 'antd/lib/modal/Modal';
+import Modal, { Fragment } from 'antd/lib/modal/Modal';
 import React from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
-import './style.scss';
 import CopyAddress from '../../CopyAddress';
 
-const OperationStatusModal = ({
-    className,
-    visible,
-    onCancel,
-    title,
-    operationStatus,
-    txHash
-}) => {
+const OperationStatusModal = ({ className, visible, onCancel, title, operationStatus, txHash }) => {
     const [t] = useProjectTranslation();
 
     let sentIcon = '';
@@ -23,7 +15,7 @@ const OperationStatusModal = ({
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
             break;
         case 'pending':
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_pending');
             break;
         case 'success':
@@ -35,55 +27,45 @@ const OperationStatusModal = ({
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_failed');
             break;
         default:
-            sentIcon = 'icon-tx-waiting rotate';
+            sentIcon = 'icon-tx-waiting';
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
     }
 
     return (
-        <Modal
-            className={'OperationStatusModal ' + className || ''}
-            footer={null}
-            open={visible}
-            onCancel={onCancel}
-        >
+        <Modal className={'OperationStatusModal ' + className || ''} footer={null} open={visible} onCancel={onCancel}>
+            <h1 className={'StakingOptionsModal_Title'}>{title || t('staking.modal.StatusModal_Modal_Title')}</h1>
 
-            <h1 className={'StakingOptionsModal_Title'}>
-                {title || t('staking.modal.StatusModal_Modal_Title')}
-            </h1>
-
-            <div className="tx-sent">
-                <div className="status">
-
-                    {(operationStatus === 'pending' ||
-                        operationStatus === 'success' ) && (
-
-                        <div className="transaction-id">
-                            <div className="label">Transaction ID</div>
-                            <div className="address-section">
-                                <CopyAddress address={txHash} type={'tx'}></CopyAddress>
-                                {/*<span className="address">*/}
-                                {/*    {truncateTxId(txID)}*/}
-                                {/*</span>*/}
-                                {/*<i className="icon-copy"></i>*/}
+            <div className="tx-amount-group">
+                <div className="tx-id-container">
+                    <div className="tx-id-data">
+                        {(operationStatus === 'pending' || operationStatus === 'success') && (
+                            <div className="transaction-id tx-id-container">
+                                <div className="tx-id-label">{t('txFeedback.txIdLabel')}</div>
+                                <div className="tx-id-address">
+                                    <CopyAddress address={txHash} type={'tx'}></CopyAddress>
+                                    {/*<span className="address">*/}
+                                    {/*    {truncateTxId(txID)}*/}
+                                    {/*</span>*/}
+                                    {/*<i className="icon-copy"></i>*/}
+                                </div>
                             </div>
-                        </div>
-
-                    )}
-
-                    <div className="tx-logo-status">
-                        <i className={sentIcon}></i>
+                        )}
                     </div>
+                </div>
 
-                    <div className="status-label">{statusLabel}</div>
-
-                    <button type="primary" className="secondary-button btn-clear" onClick={onCancel}>
+                <div className="cta-container">
+                    {' '}
+                    <div className="tx-feedback-container">
+                        <div className="tx-feedback-icon tx-logo-status">
+                            <div className={sentIcon}></div>
+                        </div>
+                        <p className="tx-feedback-text">{statusLabel}</p>
+                    </div>
+                    <button type="primary" className="button secondary" onClick={onCancel}>
                         {t('staking.modal.StatusModal_Modal_Close')}
                     </button>
-
                 </div>
             </div>
-
-
         </Modal>
     );
 };

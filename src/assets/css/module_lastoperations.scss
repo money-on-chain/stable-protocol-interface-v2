@@ -1,62 +1,135 @@
+/*
+module_lastoperations.scss contains all the css code for Last Operations Table not contained in global.scss
+*/
+
+:root {
+    // For table heights use '' -> '200px' 'auto', etc.
+    --lastOperationsHeight: 'auto';
+}
+
+.content-last-operations .ant-table-tbody > tr.ant-table-row:hover > td,
+.content-last-operations .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-2) !important;
+}
+
+.content-last-operations .table-event-name,
+.content-last-operations .table-date-name {
+    color: var(--color-text-secondary);
+    font-style: SemiBold;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.content-last-operations .table-amount,
+.content-last-operations .table-date {
+    color: var(--color-text-primary);
+    font-style: SemiBold;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.61px;
+}
+
+.content-last-operations .table-asset-name {
+    color: var(--color-text-primary);
+    font-style: SemiBold;
+    font-weight: 600;
+    font-size: 8px;
+    letter-spacing: 0.35px;
+}
+
+.content-last-operations .anticon-up-circle {
+    color: var(--color-controls-foreground-on) !important;
+    font-size: 24px !important;
+}
+
+.content-last-operations .anticon-down-circle {
+    color: var(--color-controls-foreground-on) !important;
+    font-size: 24px !important;
+}
+
+.content-last-operations {
+    .ant-table-measure-row {
+        display: none; // Hide header spacer (not used) to make scrollbar taller
+    }
+    .table-expanded-row {
+        img {
+            filter: var(--color-icon-link-filter);
+        }
+
+        a:link {
+            color: var(--color-text-link);
+        }
+        a:visited {
+            color: var(--color-text-link);
+        }
+
+        a:hover {
+            text-decoration: underline !important;
+        }
+    }
+}
+
 .tx-status-icon-QUEUING {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../assets/icons/Queuing.svg');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    flex-grow: 0;
     filter: var(--filter-semantic-positive);
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    flex-grow: 0;
+    background-image: url('../../assets/icons/Queuing.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
 }
 .tx-status-icon-QUEUED {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../assets/icons/Queued.svg');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    flex-grow: 0;
     filter: var(--filter-semantic-positive);
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    flex-grow: 0;
+    background-image: url('../../assets/icons/Queued.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
 }
 .tx-status-icon-CONFIRMED {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../assets/icons/Confirmed.svg');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    flex-grow: 0;
     filter: var(--filter-semantic-positive);
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    flex-grow: 0;
+    background-image: url('../../assets/icons/Confirmed.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
 }
 .tx-status-icon-CONFIRMING {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../assets/icons/Confirming.svg');
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
+    flex-grow: 0;
     filter: var(--filter-semantic-positive);
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    flex-grow: 0;
-}
-.tx-status-icon-FAILED {
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../assets/icons/Failed.svg');
+    background-image: url('../../assets/icons/Confirming.svg');
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+}
+.tx-status-icon-FAILED {
+    flex-grow: 0;
     filter: var(--filter-semantic-negative);
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    flex-grow: 0;
+    background-image: url('../../assets/icons/Failed.svg');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
 }
 
 .custom-table .ant-table-tbody > tr:nth-child(n + 2) > td {
@@ -64,8 +137,8 @@
     background-color: var(--surface-color-2);
 }
 .custom-table-light .ant-table-tbody > tr:nth-child(n + 2) > td {
-    background-color: rgb(255, 255, 255);
     border-bottom: 0px;
+    background-color: var(--surface-color-2);
 }
 .ant-empty-description {
     color: white;
@@ -80,11 +153,11 @@
 }
 
 .table-status-icon {
-    font-size: 12px;
     color: var(--color-semantic-positive);
-    font-family: var(--main-font);
     font-weight: 800;
+    font-size: 12px;
     line-height: 11px;
+    font-family: var(--main-font);
     letter-spacing: 0px;
     text-align: left;
     text-transform: uppercase;
@@ -107,8 +180,8 @@
 
 .custom-table-light .ant-table-expanded-row > td,
 .custom-table-light .ant-table-expanded-row:hover > td {
-    background: #fafafafa !important;
     box-shadow: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    background: #fafafafa !important;
 }
 
 .currency-tx {
@@ -119,14 +192,14 @@
 }
 
 .custom-table .ant-pagination-item {
+    border: none;
     background-color: transparent;
     color: var(--color-text-secondary);
-    border: none;
 }
 .custom-table-light .ant-pagination-item {
+    border: none;
     background-color: transparent;
     color: rgb(0, 0, 0);
-    border: none;
 }
 
 .ant-pagination-item a {
@@ -138,15 +211,15 @@
 
 .ant-pagination-prev .ant-pagination-item-link,
 .ant-pagination-next .ant-pagination-item-link {
+    border: none;
     background-color: transparent;
     color: var(--color-text-secondary);
-    border: none;
 }
 .custom-table-light .ant-pagination-prev .ant-pagination-item-link,
 .custom-table-light .ant-pagination-next .ant-pagination-item-link {
+    border: none;
     background-color: transparent;
     color: rgb(0, 0, 0);
-    border: none;
 }
 
 .ant-pagination-item-active a {
@@ -157,14 +230,14 @@
 }
 
 .ant-pagination-item-active {
+    border: none;
     background-color: transparent;
     color: white;
-    border: none;
 }
 .custom-table-light .ant-pagination-item-active {
+    border: none;
     background-color: transparent;
     color: rgb(0, 0, 0);
-    border: none;
 }
 
 .table-expanded-row {
@@ -174,32 +247,32 @@
 
 .table-asset-name {
     padding-top: 4px;
-    font-family: var(--main-font);
-    font-size: 12px;
     font-weight: 600;
+    font-size: 12px;
     line-height: 11px;
+    font-family: var(--main-font);
     letter-spacing: 0.3499999940395355px;
     text-align: center;
 }
 
 .table-event-name {
-    font-family: var(--main-font);
+    color: #7f8999;
     font-weight: 600;
+    font-size: 12px;
     line-height: 14px;
+    font-family: var(--main-font);
     letter-spacing: 1.2000000476837158px;
     text-align: right;
-    font-size: 12px;
-    color: #7f8999;
 }
 
 .table-status-icon-green {
-    font-family: Open Sans;
-    font-size: 14px;
+    color: #2cbf12;
     font-weight: 800;
+    font-size: 14px;
     line-height: 11px;
+    font-family: Open Sans;
     letter-spacing: 0px;
     text-align: left;
-    color: #2cbf12;
 }
 
 .table-status-icon-red {
@@ -210,26 +283,26 @@
     display: 'flex';
     flex-direction: 'column';
     align-items: 'center';
+    margin-right: 0.5rem;
     min-width: 4rem;
     text-align: center;
-    margin-right: 0.5rem;
 }
 
 .table-date-name {
-    font-family: var(--main-font);
-    font-size: 12px;
+    color: #7f8999;
     font-weight: 600;
+    font-size: 12px;
     line-height: 19px;
+    font-family: var(--main-font);
     letter-spacing: 0.5px;
     text-align: left;
-    color: #7f8999;
 }
 
 .table-date {
-    font-family: var(--main-font);
-    font-size: 14px;
     font-weight: 600;
+    font-size: 14px;
     line-height: 19px;
+    font-family: var(--main-font);
     letter-spacing: 0px;
     text-align: left;
 }
@@ -237,31 +310,31 @@
 .icon-token-modif {
     display: block !important;
     margin: auto !important;
-    width: 32px !important;
-    height: 32px !important;
     background-size: 32px 32px !important;
     background-repeat: no-repeat !important;
+    width: 32px !important;
+    height: 32px !important;
 }
 
 .table-amount {
-    font-family: var(--main-font);
-    font-size: 14px;
     font-weight: 600;
+    font-size: 14px;
     line-height: 19px;
+    font-family: var(--main-font);
     letter-spacing: 0.612500011920929px;
     text-align: right;
 }
 
 .table-border-single::after,
 .ant-table-row-expand-icon-cell::after {
-    content: '';
     position: absolute;
-    right: 0;
     top: 50%;
+    right: 0;
     transform: translateY(-50%);
-    height: 70%;
-    width: 2px;
     background-color: var(--dividers);
+    width: 2px;
+    height: 70%;
+    content: '';
 }
 
 .custom-border-spacing-table .ant-table table {
@@ -269,37 +342,33 @@
 }
 
 .ant-descriptions-item-content {
+    width: 20%;
     color: var(--color-text-primary);
-    font-family: var(--main-font);
-    font-size: 14px;
     font-weight: 400;
+    font-size: 14px;
     line-height: 19px;
+    font-family: var(--main-font);
     letter-spacing: 0px;
     text-align: left;
-    width: 20%;
 }
 .ant-descriptions-item-label-th {
-    font-family: var(--main-font);
     font-size: 14px;
     line-height: 19px;
+    font-family: var(--main-font);
     letter-spacing: 0px;
     text-align: left;
 }
 
 .ant-descriptions-a {
-    color: #1890ff;
     cursor: pointer;
-}
-
-.color-confirmed {
-    color: #478210;
-}
-
-.color-confirming {
     color: #1890ff;
 }
 
-.ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+.ant-table-thead
+    > tr
+    > th:not(:last-child):not(.ant-table-selection-column):not(
+        .ant-table-row-expand-icon-cell
+    ):not([colspan])::before {
     position: fixed !important;
 }
 
@@ -316,12 +385,12 @@
 }
 
 .Tooltip {
-    color: #707070;
     cursor: pointer;
+    color: #707070;
 }
 
 .ant-tooltip-inner {
     color: white;
-    font-size: 13px;
     font-weight: 500;
+    font-size: 13px;
 }

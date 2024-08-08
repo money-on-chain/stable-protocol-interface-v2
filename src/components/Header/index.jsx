@@ -6,9 +6,8 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
 
-// import lang_en from  '../../assets/icons/lang_en.svg';
-// import lang_es from  '../../assets/icons/lang_en.svg';
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
+import { toBePartiallyChecked } from '@testing-library/jest-dom/matchers';
 const { Header } = Layout;
 
 export default function SectionHeader() {
@@ -77,7 +76,11 @@ export default function SectionHeader() {
         ]);
     }, [t, lang]);
     useEffect(() => {
-        if (auth.isLoggedIn && auth.contractStatusData && auth.userBalanceData) {
+        if (
+            auth.isLoggedIn &&
+            auth.contractStatusData &&
+            auth.userBalanceData
+        ) {
             setCssDisable('');
         }
     }, [auth]);
@@ -119,7 +122,9 @@ export default function SectionHeader() {
 
     const swapMenuOptions = (optionName) => {
         setMenuOptions((currentOptions) => {
-            const currentIndex = currentOptions.findIndex((item) => item.name === optionName);
+            const currentIndex = currentOptions.findIndex(
+                (item) => item.name === optionName
+            );
             if (currentIndex > menuLimit - 1) {
                 const newMenuOptions = [...currentOptions];
                 const [selectedOption] = newMenuOptions.splice(currentIndex, 1);
@@ -141,6 +146,7 @@ export default function SectionHeader() {
 
         return { containerClassName, iconClassName };
     };
+
     //Lang settings
     const languageOptions = [
         {
@@ -163,7 +169,24 @@ export default function SectionHeader() {
         i18n.changeLanguage(code);
         setLang(code);
         setShowLanguageMenu(false);
+        localStorage.setItem('PreferredLang', code);
     };
+
+    useEffect(() => {
+        var preferredLanguage = '';
+        if (
+            localStorage.getItem('PreferredLang') !== 'en' &&
+            localStorage.getItem('PreferredLang') !== 'es'
+        ) {
+            localStorage.setItem('PreferredLang', 'en');
+            preferredLanguage = 'en';
+        } else {
+            preferredLanguage = localStorage.getItem('PreferredLang');
+        }
+        pickLanguage(preferredLanguage);
+        // console.log('Preferred language: ' + preferredLanguage);
+    }, []);
+
     return (
         <Header>
             <div className="header-container">
@@ -172,42 +195,82 @@ export default function SectionHeader() {
                 </div>
                 <div className="central-menu">
                     {menuOptions.map((option, index) => {
-                        const { containerClassName, iconClassName } = getMenuItemClasses(option.className, option.pathMap);
+                        const { containerClassName, iconClassName } =
+                            getMenuItemClasses(
+                                option.className,
+                                option.pathMap
+                            );
                         if (option.isActive && index < menuLimit) {
                             return (
-                                <a onClick={option.action} className={containerClassName} key={option.name}>
+                                <a
+                                    onClick={option.action}
+                                    className={containerClassName}
+                                    key={option.name}
+                                >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{menuOptions[index].name}</span>
+                                    <span className="menu-nav-item-title">
+                                        {menuOptions[index].name}
+                                    </span>
                                 </a>
                             );
                         } else return null;
                     })}
                     {menuLimit > 4 && (
-                        <a onClick={() => setShowMoreDropdown(!showMoreDropdown)} className="menu-nav-item-more">
+                        <a
+                            onClick={() =>
+                                setShowMoreDropdown(!showMoreDropdown)
+                            }
+                            className="menu-nav-item-more"
+                        >
                             <i className="logo-more color-filter-invert"></i>
-                            <span className="menu-nav-item-title-more">{t('menuOptions.more')}</span>
+                            <span className="menu-nav-item-title-more">
+                                {t('menuOptions.more')}
+                            </span>
                         </a>
                     )}
-                    <div className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}>
+                    <div
+                        className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}
+                    >
                         {menuOptions.slice(-2).map((option, index) => {
-                            const { containerClassName, iconClassName } = getMenuItemClasses(option.className, option.pathMap);
+                            const { containerClassName, iconClassName } =
+                                getMenuItemClasses(
+                                    option.className,
+                                    option.pathMap
+                                );
                             return (
-                                <a onClick={option.action} className={containerClassName} key={option.name}>
+                                <a
+                                    onClick={option.action}
+                                    className={containerClassName}
+                                    key={option.name}
+                                >
                                     <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">{option.name}</span>
+                                    <span className="menu-nav-item-title">
+                                        {option.name}
+                                    </span>
                                 </a>
                             );
                         })}
                     </div>
                 </div>
                 <div className="wallet-user">
-                    <div className="wallet-translation" onClick={toggleLanguageMenu}>
-                        <a className="translation-selector"> {languageOptions.find((option) => option.code === lang).name} </a>{' '}
+                    <div
+                        className="wallet-translation"
+                        onClick={toggleLanguageMenu}
+                    >
+                        <a className="translation-selector">
+                            {
+                                languageOptions.find(
+                                    (option) => option.code === lang
+                                ).name
+                            }
+                        </a>
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
                         {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
-                        <ModalAccount truncatedAddress={auth.accountData.truncatedAddress}></ModalAccount>
+                        <ModalAccount
+                            truncatedAddress={auth.accountData.truncatedAddress}
+                        ></ModalAccount>
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">
@@ -216,10 +279,17 @@ export default function SectionHeader() {
                                     return (
                                         <div
                                             className={`menu-item${lang === option.code ? '-selected' : ''}`}
-                                            onClick={() => pickLanguage(option.code)}
+                                            onClick={() =>
+                                                pickLanguage(option.code)
+                                            }
                                         >
                                             <span>{option.name}</span>
-                                            {lang === option.code && <img src={iconArrow} alt={'ArrowUp'} />}
+                                            {lang === option.code && (
+                                                <img
+                                                    src={iconArrow}
+                                                    alt={'ArrowUp'}
+                                                />
+                                            )}
                                         </div>
                                     );
                                 })}
