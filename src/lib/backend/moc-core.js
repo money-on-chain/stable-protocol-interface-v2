@@ -84,7 +84,7 @@ const mintTC = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     console.log('parameters for minttc');
@@ -113,7 +113,7 @@ const mintTC = async (
             vendorAddress
         )
         .send({
-            from: web3.utils.toChecksumAddress(account),
+            from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
@@ -193,7 +193,7 @@ const redeemTC = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
@@ -210,7 +210,7 @@ const redeemTC = async (
             vendorAddress
         )
         .send({
-            from: web3.utils.toChecksumAddress(account),
+            from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
@@ -315,7 +315,7 @@ const mintTP = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
@@ -333,7 +333,7 @@ const mintTP = async (
             vendorAddress
         )
         .send({
-            from: web3.utils.toChecksumAddress(account),
+            from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
@@ -418,7 +418,7 @@ const redeemTP = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend });
 
     // Send tx
     const receipt = MoCContract.methods
@@ -436,7 +436,7 @@ const redeemTP = async (
             vendorAddress
         )
         .send({
-            from: web3.utils.toChecksumAddress(account),
+            from: account,
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,

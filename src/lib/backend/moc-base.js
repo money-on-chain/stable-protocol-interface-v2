@@ -21,7 +21,7 @@ const AllowanceAmount = async (
             contractAllowAddress,
             toContractPrecisionDecimals(amountAllowance, tokenDecimals)
         )
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: '0x' });
+        .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = token.methods
@@ -30,8 +30,8 @@ const AllowanceAmount = async (
             toContractPrecisionDecimals(amountAllowance, tokenDecimals)
         )
         .send({
-            from: web3.utils.toChecksumAddress(account),
-            value: '0x',
+            from: account,
+            value: 0,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas
@@ -58,14 +58,14 @@ const transferTokenTo = async (
     // Calculate estimate gas cost
     const estimateGas = await token.methods
         .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: '0x' });
+        .estimateGas({ from: account, value: '0x' });
 
     // Send tx
     const receipt = token.methods
         .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
         .send({
-            from: web3.utils.toChecksumAddress(account),
-            value: '0x',
+            from: account,
+            value: 0,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas
@@ -89,15 +89,14 @@ const AllowUseTokenMigrator = async (interfaceContext, newAllowance, onTransacti
     // Calculate estimate gas cost
     const estimateGas = await tp_legacy.methods
         .approve(tokenMigrator._address, toContractPrecisionDecimals(newAllowance, 18))
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: '0x' })
+        .estimateGas({ from: account, value: '0x' })
 
     // Send tx
     const receipt = tp_legacy.methods
         .approve(tokenMigrator._address, toContractPrecisionDecimals(newAllowance, 18))
         .send(
             {
-                from: web3.utils.toChecksumAddress(account),
-                value: '0x',
+                from: account,
                 gasPrice: await getGasPrice(web3),
                 gas: estimateGas,
                 gasLimit: estimateGas
@@ -122,15 +121,14 @@ const MigrateToken = async (interfaceContext, onTransaction, onReceipt, onError)
     // Calculate estimate gas cost
     const estimateGas = await tokenMigrator.methods
         .migrateToken()
-        .estimateGas({ from: web3.utils.toChecksumAddress(account), value: '0x' })
+        .estimateGas({ from: account, value: '0x' })
 
     // Send tx
     const receipt = tokenMigrator.methods
         .migrateToken()
         .send(
             {
-                from: web3.utils.toChecksumAddress(account),
-                value: '0x',
+                from: account,
                 gasPrice: await getGasPrice(web3),
                 gas: estimateGas,
                 gasLimit: estimateGas
