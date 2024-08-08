@@ -184,7 +184,7 @@ export default function SectionHeader() {
             preferredLanguage = localStorage.getItem('PreferredLang');
         }
         pickLanguage(preferredLanguage);
-        console.log('Preferred language: ' + preferredLanguage);
+        // console.log('Preferred language: ' + preferredLanguage);
     }, []);
 
     return (
