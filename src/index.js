@@ -13,6 +13,8 @@ import './assets/css/navigation.scss';
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
 
+import useTheme from './components/UseTheme';
+
 // import IconWaiting from './assets/icons/status-pending.png';
 import IconLoading from './assets/icons/LoaderAnim.svg';
 import Router from './router';
@@ -39,6 +41,19 @@ async function loadTranslations() {
 
 loadTranslations();
 
+function setColorMode() {
+    const defaulTheme = getComputedStyle(document.querySelector(':root'))
+        .getPropertyValue('--default-theme')
+        .split('"')
+        .join('');
+    const storedTheme = localStorage.getItem('preferredColorScheme');
+    document.documentElement.setAttribute(
+        'data-theme',
+        storedTheme ?? defaulTheme
+    );
+    localStorage.setItem('preferredColorScheme', storedTheme ?? defaulTheme);
+}
+setColorMode();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
