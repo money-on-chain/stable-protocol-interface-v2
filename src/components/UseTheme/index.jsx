@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useProjectTranslation } from '../../helpers/translations';
 
 const useTheme = () => {
+    const [t, i18n, ns] = useProjectTranslation();
+
     const [theme, setTheme] = useState(() => {
         // Verificar si el tema está guardado en localStorage
         const defaulTheme = getComputedStyle(document.querySelector(':root'))
@@ -8,6 +11,7 @@ const useTheme = () => {
             .split('"')
             .join('');
         const storedTheme = localStorage.getItem('preferredColorScheme');
+
         return storedTheme ? storedTheme : defaulTheme;
     });
 
