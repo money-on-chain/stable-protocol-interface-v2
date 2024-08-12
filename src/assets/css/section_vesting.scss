@@ -14,6 +14,7 @@ section_send.scss contains all the css code for Send section cards not contained
     row-gap: 24px;
     flex-direction: row;
     flex-wrap: wrap;
+    // border: 1px dashed red !important;
 
     #vesting-onboarding {
     }
@@ -144,6 +145,11 @@ section_send.scss contains all the css code for Send section cards not contained
             align-items: center;
             gap: 8px;
             color: var(--color-semantic-positive);
+            .vesting__verification__status {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
             .verification-icon {
                 width: 16px;
                 height: 16px;
@@ -159,6 +165,7 @@ section_send.scss contains all the css code for Send section cards not contained
             align-items: center;
             gap: 8px;
             font-size: 14px;
+            cursor: pointer;
 
             div {
                 width: 16px;

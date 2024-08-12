@@ -46,14 +46,12 @@
     /* #endregion MODALS */
 
     //Surfaces
-    --surface-background-image: linear-gradient(
-        to right bottom,
-        #ffff4080,
-        #cefa4c80,
-        #9ef25d80,
-        #68e87080,
-        #06dd8380
+    --surface-background-image: radial-gradient(
+        at left top,
+        #ecef88,
+        #82eabe
     ); // can be set to none
+
     --surface-color-1: rgba(250, 253, 248, 0.95);
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.15);
     --surface-color-2: rgba(255, 255, 255, 0.99);
@@ -71,7 +69,7 @@
 
     // UI controls
 
-    --color-controls-background: #f2f2f2;
+    --color-controls-background: #f0f6f3;
     --color-controls-foreground-disabled: #d7d7d7;
     --color-controls-foreground-off: #8c8c89;
     --color-controls-foreground-on: #3b3b3b;
@@ -91,12 +89,12 @@
 
     // Buttons - Primary
 
-    --color-button-primary-background-default: #11e18a;
+    --color-button-primary-background-default: #12d382;
     --color-button-primary-text-default: #ffffff;
     --color-button-primary-filter-default: invert(79%) sepia(44%)
         saturate(2710%) hue-rotate(96deg) brightness(94%) contrast(87%);
 
-    --color-button-primary-background-hover: #e8d421;
+    --color-button-primary-background-hover: #30d28f;
     --color-button-primary-text-hover: #0c0c08;
     --color-button-primary-filter-hover: invert(48%) sepia(46%) saturate(464%)
         hue-rotate(103deg) brightness(100%) contrast(90%);
@@ -108,12 +106,12 @@
     --color-button-primary-text-disabled: #8b9b99;
 
     --color-button-primary-background-default-shadow: 0px 4px 8px
-        rgba(41, 147, 25, 0.2);
+        rgba(91, 107, 89, 0.2);
 
     // Buttons - Secondary
 
     --color-button-secondary-background-default: transparent;
-    --color-button-secondary-text-default: #11e18a;
+    --color-button-secondary-text-default: #12d382;
 
     --color-button-secondary-background-hover: transparent;
     --color-button-secondary-text-hover: #3e9b74;
@@ -129,15 +127,15 @@
 
     // Semantic
 
-    --color-semantic-negative: #e95e5d;
-    --color-semantic-neutral: #b5b5b5;
-    --color-semantic-positive: #69e453;
-    --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%)
-        hue-rotate(320deg) brightness(106%) contrast(97%);
-    --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%)
-        hue-rotate(294deg) brightness(90%) contrast(71%);
-    --filter-semantic-positive: invert(78%) sepia(47%) saturate(620%)
-        hue-rotate(55deg) brightness(94%) contrast(93%);
+    --color-semantic-negative: #ce1717;
+    --color-semantic-neutral: #9e9c9c;
+    --color-semantic-positive: #1cb900;
+    --filter-semantic-negative: invert(21%) sepia(82%) saturate(5552%)
+        hue-rotate(353deg) brightness(82%) contrast(98%);
+    --filter-semantic-neutral: invert(75%) sepia(4%) saturate(30%)
+        hue-rotate(314deg) brightness(83%) contrast(88%);
+    --filter-semantic-positive: invert(43%) sepia(93%) saturate(1081%)
+        hue-rotate(77deg) brightness(100%) contrast(103%);
 
     // Notifications
 
@@ -169,16 +167,15 @@
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
-    --color-navigation-text-default: #064a2e;
-    --color-navigation-icon-filter-default: invert(20%) sepia(17%)
-        saturate(3350%) hue-rotate(116deg) brightness(93%) contrast(95%);
+    --color-navigation-text-default: #202423;
+    --color-navigation-icon-filter-default: invert(9%) sepia(8%) saturate(568%)
+        hue-rotate(114deg) brightness(98%) contrast(89%);
 
     --color-navigation-background-hover: transparent;
-    --color-navigation-text-hover: #064a2e;
-    --color-navigation-icon-filter-hover: invert(0%) sepia(0%) saturate(2%)
-        hue-rotate(169deg) brightness(99%) contrast(101%);
-
-    --color-navigation-background-active: #11e18a;
+    --color-navigation-text-hover: #202423;
+    --color-navigation-icon-filter-hover: invert(9%) sepia(8%) saturate(568%)
+        hue-rotate(114deg) brightness(98%) contrast(89%);
+    --color-navigation-background-active: #12d382;
     --color-navigation-text-active: #ffffff; //over hover color
     --color-navigation-icon-filter-active: invert(100%) sepia(6%)
         saturate(1546%) hue-rotate(227deg) brightness(122%) contrast(100%);
@@ -196,7 +193,7 @@
         hue-rotate(77deg) brightness(105%) contrast(106%);
 
     --color-language-background-hover: #11e18a;
-    --color-language-text-hover: #0c0c08;
+    --color-language-text-hover: #202423;
     --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
         hue-rotate(300deg) brightness(103%) contrast(110%);
 
@@ -210,19 +207,27 @@
     --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
         hue-rotate(314deg) brightness(106%) contrast(91%);
 
+    // Dropdown menus
+    --color-dropdown-background-default: var(--surface-color-1);
+    --color-dropdown-text-default: cyan;
+    --color-dropdown-background-hover: #10b16e;
+    --color-dropdown-text-hover: #ffffff;
+    --color-dropdown-background-active: #10b16e79;
+    --color-dropdown-text-active: #ffffff;
+
     // Text colors & fonts
 
-    --color-text-primary: #064a2e;
-    --color-text-secondary: #6e9283;
-    --color-text-highlight: #11e18a;
-    --color-text-link: #11e18a;
+    --color-text-primary: #202423;
+    --color-text-secondary: #799086;
+    --color-text-highlight: #10b16e;
+    --color-text-link: #10b16e;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
 
-    --color-icon-link-filter: invert(69%) sepia(70%) saturate(601%)
-        hue-rotate(96deg) brightness(94%) contrast(87%);
-    --color-icon-link-hover-filter: invert(0%) sepia(20%) saturate(6237%)
-        hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-icon-link-filter: invert(45%) sepia(97%) saturate(823%)
+        hue-rotate(119deg) brightness(92%) contrast(87%);
+    --color-icon-link-hover-filter: invert(45%) sepia(97%) saturate(823%)
+        hue-rotate(119deg) brightness(92%) contrast(87%);
 
     --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%)
         hue-rotate(174deg) brightness(93%) contrast(91%);
@@ -235,16 +240,16 @@
     // rLogin
 
     --rlogin-themeswitcher-display: none;
-    --rlogin-title-background-color: #00ff94;
+    --rlogin-title-background-color: #1fc680;
     --rlogin-content-title-color: #08374f;
     --rlogin-content-background-color: #f4f2e3;
     --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-    --rlogin-content-border-color: #00ff94;
+    --rlogin-content-border-color: #1fc680;
     --rlogin-content-text-color: var(--color-text-primary);
     --rlogin-provider-background-color: #e0e0c9;
     --rlogin-provider-border-color: #08374f;
     --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
-    --rlogin-spinner-color: #3db2a4;
+    --rlogin-spinner-color: #1fc680;
 
     --rlogin-border-radius: 4px;
     --rlogin-poweredby-color: rgb(0, 0, 0);
@@ -322,7 +327,7 @@
         --color-controls-background: #26272f;
         --color-controls-disabled: #494c50;
         --color-controls-foreground-off: #8c8c89;
-        --color-controls-foreground-on: #7f8a99;
+        --color-controls-foreground-on: #9d9d98;
         --color-controls-active: #fff383;
 
         --dividers: #3a3e40;
@@ -453,6 +458,14 @@
         --color-language-text-disabled: #e0e0e0; //over hover color
         --color-language-icon-filter-disabled: invert(85%) sepia(10%)
             saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+
+        // Dropdown menus
+        --color-dropdown-background-default: var(--surface-color-1);
+        --color-dropdown-text-default: cyan;
+        --color-dropdown-background-hover: #fff383;
+        --color-dropdown-text-hover: #000000;
+        --color-dropdown-background-active: #fff38379;
+        --color-dropdown-text-active: #000000;
 
         // Text colors & fonts
 

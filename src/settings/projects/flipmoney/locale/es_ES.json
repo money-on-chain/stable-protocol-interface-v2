@@ -601,21 +601,28 @@
             "notVerified": "Esta Vesting Machine aún no fue verificada",
             "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
         },
-        "tokensAvailableToWithdraw": "MOC disponibles para retirar",
-        "withdrawToWallet": "Retirar a mi billetera",
-        "vested": {
-            "readyToWhitdraw": "Listo para retirar",
-            "totalVested:": "Flip e ",
-            "staked": "Flip en Stake",
-            "unstaking": "Flip saliendo de Stake"
+        "tokensAvailableToWithdraw": "Balance de FLIP disponibles",
+        "withdrawToWallet": "Enviar a mi billetera",
+        "dashDistribution": {
+            "vested": "FLIP para retirar",
+            "released": "FLIP Bloqueados",
+            "staked": "FLIP en Staking",
+            "unstaking": "FLIP en progreso de unstaking"
+        },
+        "releaseSchedule": {
+            "cardTitle": "Calendario de liberación",
+            "scheduled": "Programados (bloqueados + liberados)"
         },
         "vestingScheduleColumns": {
-            "date": "Liberación",
+            "date": "Fecha de Liberación",
             "daysLeft": "Días restantes",
             "percent": "Porcentaje",
             "amount": "Cantidad",
             "status": "Estado"
         }
+    },
+    "alert": {
+        "walletNotConnected": "¡Billetera no conectada!"
     },
     "settings": {
         "protocolName": "Flipmoney",

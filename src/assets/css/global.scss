@@ -104,8 +104,8 @@ h1 {
         color: var(--color-text-primary) !important;
     }
     svg {
-        color: black; //Important to force black color for SVG before applying filter
         filter: var(--color-icon-link-secondary-filter);
+        color: black; //Important to force black color for SVG before applying filter
     }
 }
 
@@ -128,33 +128,35 @@ h1 {
     color: var(--color-controls-foreground-on);
 
     .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-        background-color: var(--color-button-primary-background-default);
-        background-color: var(--color-dropdown-backround-default) !important;
-        color: var(--color-dropdown-text-default) !important;
+        // Active
+        background-color: var(--color-dropdown-background-active) !important;
     }
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+        // Hover
         background-color: var(--color-dropdown-background-hover) !important;
-        color: var(--color-dropdown-text-hover) !important;
     }
     .ant-select-item-option {
-        color: var(--color-text-primary);
+        // default color
+        background-color: var(--color-dropdown-backround-default) !important;
     }
 }
-.ant-select-item-option-active {
-    background-color: var(--color-button-primary-background-default) !important;
-}
+// .ant-select-item-option-active {
+//     background-color: var(--color-button-primary-background-active) !important;
+// }
 .ant-select-item-option-active > div > div > div:nth-child(2),
 .ant-select-item-option-active > div > div > div:nth-child(3) {
-    color: var(--color-button-primary-text-default) !important;
+    // Hover
+    color: var(--color-dropdown-text-hover) !important;
 }
-.ant-select-item-option-selected {
-    background-color: var(
-        --color-button-secondary-background-active
-    ) !important;
-}
+// .ant-select-item-option-selected {
+//     background-color: var(
+//         --color-button-secondary-background-active
+//     ) !important;
+// }
 .ant-select-item-option-selected > div > div > div:nth-child(2),
 .ant-select-item-option-selected > div > div > div:nth-child(3) {
-    color: var(--color-button-secondary-text-active) !important;
+    // Active text color
+    color: var(--color-dropdown-text-active) !important;
 }
 
 .ant-select-dropdown .ant-select-item-option-content {
@@ -164,6 +166,18 @@ h1 {
 // Radio Buttons
 .ant-radio-inner::after {
     background-color: var(--color-controls-foreground-on) !important;
+}
+
+/* Fix Scrollbars in Chrome */
+.ant-table-body::-webkit-scrollbar {
+    width: 6px;
+}
+.ant-table-body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.ant-table-body::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(201, 214, 255, 0.24);
 }
 /* #endregion ANT DESIGN CUSTOMIZATION */
 
@@ -1128,10 +1142,10 @@ h1 {
 }
 
 .tx-direction {
+    filter: var(--color-icon-link-filter);
     // The icon that represent the flow of the transaction
     margin-top: 0px;
     margin-bottom: 0px;
-    filter: var(--color-icon-link-filter);
 }
 .tx-destination-address {
     border-radius: var(--data-background-radius);
@@ -1395,28 +1409,28 @@ h1 {
 .footer-container {
     /* Auto layout */
     margin-top: 24px;
-    padding: var(--card-padding);
+    box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
     background: var(--surface-color-1);
-    box-shadow: var(--surface-shadow-1);
+    padding: var(--card-padding);
     width: 100%;
 }
 /* Footer */
 .ant-layout-footer {
     margin: 0%;
+    background-color: transparent;
     padding: 0%;
     font-size: 14px;
-    background-color: transparent;
 
     .dashboard-footer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        font-family: var(--main-font);
-        font-weight: 400;
         margin-left: 8px;
         color: var(--color-text-secondary);
+        font-weight: 400;
+        font-family: var(--main-font);
     }
 }
 
@@ -1426,25 +1440,25 @@ h1 {
     align-items: center;
     // display: none; //turns the theme mode button off
     .lightModeSwitch {
+        border-radius: 50px;
         background: var(--color-controls-background);
+        padding: 2px;
         width: 56px;
         height: 28px;
-        padding: 2px;
-        border-radius: 50px;
     }
 
     label {
-        width: 24px;
-        height: 24px;
         display: flex;
+        filter: var(--color-icon-link-filter);
+        transition: all 0.25s ease 0s;
         cursor: pointer;
         border-radius: 50%;
-        transition: all 0.25s ease 0s;
         background-image: url('../icons/LightMode-Light.svg');
-        background-repeat: no-repeat;
-        background-size: cover;
         background-position: 50%;
-        filter: var(--color-icon-link-filter);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
     }
 
     input {
@@ -1454,29 +1468,17 @@ h1 {
     input:checked + label {
         margin-left: 28px;
         background-image: url('../icons/LightMode-Dark.svg');
-        background-repeat: no-repeat;
-        background-size: cover;
         background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .lightModeText {
-        font-family: var(--main-font);
-        font-weight: 600;
         margin-left: 12px;
         color: var(--color-text-secondary);
+        font-weight: 600;
+        font-family: var(--main-font);
     }
 }
 
 /* #endsection FOOTER */
-
-/* Fix Scrollbars in Chrome */
-.ant-table-body::-webkit-scrollbar {
-    width: 6px;
-}
-.ant-table-body::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-.ant-table-body::-webkit-scrollbar-thumb {
-    background: rgba(201, 214, 255, 0.24);
-    border-radius: 3px;
-}

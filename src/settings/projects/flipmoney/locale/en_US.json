@@ -601,12 +601,16 @@
             "notFromThisUser": "Vesting Machine doesn't belong to this account"
         },
         "tokensAvailableToWithdraw": "Available Free FLIP balance",
-        "withdrawToWallet": "Withdraw to my wallet",
+        "withdrawToWallet": "Send to my wallet",
         "dashDistribution": {
             "vested": "Ready to withdraw FLIP",
             "released": "Vested FLIP",
             "staked": "Staked FLIP",
             "unstaking": "Unstaking FLIP in progress"
+        },
+        "releaseSchedule": {
+            "cardTitle": "Vesting Release Schedule",
+            "scheduled": "Scheduled (vested + released)"
         },
         "vestingScheduleColumns": {
             "date": "Release date",
@@ -616,14 +620,14 @@
             "status": "Status"
         }
     },
+    "alert": {
+        "walletNotConnected": "Wallet not connected!"
+    },
     "settings": {
         "protocolName": "Flipmoney",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
         }
-    },
-    "alert": {
-        "walletNotConnected": "Wallet not connected!"
     }
 }

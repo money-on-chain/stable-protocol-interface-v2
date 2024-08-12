@@ -79,9 +79,9 @@
         "clipboardTo": "to the clipboard"
     },
 
-    "wallet" :{
-        "modalTitle" : "Connect Wallet",
-        "userAddress" : "Address",
+    "wallet": {
+        "modalTitle": "Your Wallet Address",
+        "userAddress": "Address",
         "useVesting": "Use vesting address",
         "inputLabel": "Select a loaded Vesting Machine",
         "loadVM": "Load Vesting Machine",
@@ -89,8 +89,8 @@
         "useClaimCode": "Use claim code",
         "disclaimer": "You can load any existing Vesting Machine address. Unloading a Vesting Machine address from the App doesn’t affect it’s funds and it can be re loaded any time. If you have a Claim Code, you can create a new Vesting Machine.",
         "cta": {
-            "disconnect" : "Disconnect",
-            "close" : "Close"
+            "disconnect": "Disconnect",
+            "close": "Close"
         }
     },
 
@@ -249,7 +249,7 @@
             "statusTitleLiquidated": "Liquidated",
             "statusDescriptionLiquidated": "No operations allowed",
 
-            "statusTitlePaused": "Pausado",
+            "statusTitlePaused": "Paused",
             "statusDescriptionPaused": "The contract is paused. No operations allowed",
 
             "statusTitleUnavailable": "Cannot operate",
@@ -336,7 +336,7 @@
             "error": "Transaction failed!",
             "default": "Wait for transaction confirmation"
         }
-     },
+    },
 
     "allowance": {
         "cardTitle": "Authorize using",
@@ -544,6 +544,7 @@
             "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
             "StatusModal_Modal_TxStatus_error": "Transaction error!"
         },
+        "confirmation": { "cardTitle": "Confirm Stake" },
         "Error_numericField": "This field should be numeric",
         "Error_separateDecimals": "Use point to separate decimals",
         "Error_numberTooSmall": "The number is too small",
@@ -587,12 +588,16 @@
             "notFromThisUser": "Vesting Machine doesn't belong to this account"
         },
         "tokensAvailableToWithdraw": "Available Free FLIP balance",
-        "withdrawToWallet": "Withdraw to my wallet",
+        "withdrawToWallet": "Send to my wallet",
         "dashDistribution": {
             "vested": "Ready to withdraw FLIP",
             "released": "Vested FLIP",
             "staked": "Staked FLIP",
             "unstaking": "Unstaking FLIP in progress"
+        },
+        "releaseSchedule": {
+            "cardTitle": "Vesting Release Schedule",
+            "scheduled": "Scheduled (vested + released)"
         },
         "vestingScheduleColumns": {
             "date": "Release date",
@@ -601,6 +606,9 @@
             "amount": "Amount",
             "status": "Status"
         }
+    },
+    "alert": {
+        "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
         "protocolName": "Rif On Chain",

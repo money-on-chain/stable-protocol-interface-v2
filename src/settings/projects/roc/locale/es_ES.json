@@ -1,13 +1,13 @@
 {
     "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
     "NoConnection_alertTitle": "¡Billetera no conectada!",
-    "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
-    "invalidValueDescription": "No value to display",
+    "NoConnection_alertPleaseConnect": "or favor, conecta tu billetera utilizando el botón “conectar” en la sección superior derecha de la plataforma.",
+    "invalidValueDescription": "No hay ningún valor para mostrar",
     "invalidValuePlaceholder": "--",
     "notification": {
-        "dismiss": "Dismiss"
+        "dismiss": "Descartar"
     },
-    "txFeedback": { "txIdLabel": "Transaction ID" },
+    "txFeedback": { "txIdLabel": "ID de transacción" },
     "button": { "inputMaxValue": "max" },
     "operations": {
         "sectionTitle": "Últimas Operaciones",
@@ -19,7 +19,7 @@
             "statusConfirming": "La transacción fue ejecutada y tiene una confirmación.",
             "statusConfirmed": "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
             "statusFailed": "La transacción falló en alguno de los pasos relacionados.",
-            "buttonClose": "Close"
+            "buttonClose": "Cerrar"
         },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
@@ -55,7 +55,7 @@
             "status": "Estado",
             "error_code": "Código de error",
             "block": "Bloque Nº",
-            "executed_tx": "Ejecutado",
+            "executed_tx": "TX Ejecutada",
             "tx": "TX Hash",
             "fee": "Tasa",
             "gas": "Tasa de Gas",
@@ -79,9 +79,9 @@
         "clipboardTo": "al portapapeles"
     },
 
-    "wallet" :{
-        "modalTitle" : "Conectar Billetera",
-        "userAddress" : "Dirección",
+    "wallet": {
+        "modalTitle": "Dirección de tu Billetera",
+        "userAddress": "Dirección",
         "useVesting": "Usar dirección de vesting",
         "inputLabel": "Selecciona una Máquina Vesting",
         "loadVM": "Cargar Máquina Vesting",
@@ -89,8 +89,8 @@
         "useClaimCode": "Usar Código de Reclamo",
         "disclaimer": "Puedes cargar cualquier dirección existente de Máquina de Vesting. Descargar una dirección de Máquina de Vesting desde la aplicación no afecta sus fondos y puede volver a cargarse en cualquier momento. Si tienes un Código de Reclamo, puedes crear una nueva Máquina de Vesting.",
         "cta": {
-            "disconnect" : "Desconectar",
-            "close" : "Cerrar"
+            "disconnect": "Desconectar",
+            "close": "Cerrar"
         }
     },
 
@@ -145,7 +145,7 @@
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
         "labelBalance": "balance",
-        "labelUpTo": "hasta",
+        "labelUpTo": "Hasta",
         "labelReceiving": "Recibiendo",
         "labelTransactionID": "ID de transacción",
         "placeholder": "Dirección",
@@ -358,7 +358,7 @@
         }
     },
     "inputFields": {
-        "maxButton": "MAX"
+        "maxButton": "Max"
     },
 
     "fees": {
@@ -422,24 +422,24 @@
 
     "staking": {
         "display_decimals": 2,
-        "title": "Staking",
+        "cardTitle": "Staking",
         "governanceToken": "MOC",
         "dashLabels": {
-            "balance": "Balance (free)",
-            "staked": "Flip Staked",
-            "unstaking": "Unstaking",
-            "ready": "Ready to Withdraw"
+            "balance": "Balance (libre)",
+            "staked": "MOC en Stake",
+            "unstaking": "Sacando de Stake",
+            "ready": "Listos para retirar"
         },
         "staking": {
             "input_decimals": 2,
-            "tabStake": "Stake",
-            "tabUnstake": "Ustake",
-            "inputStake": "Stake",
-            "inputUnstake": "Unstake",
-            "inputAvailable": "Available",
-            "stakedAmount": "Staked",
+            "tabStake": "Hacer Stake",
+            "tabUnstake": "Sacar de Stake",
+            "inputStake": "Hacer Stake",
+            "inputUnstake": "Sacar de Stake",
+            "inputAvailable": "Disponible",
+            "stakedAmount": "En Stake",
             "cta": {
-                "explanation": "You will be able to unstake at any time with a release delay of 30 days (no rewards received during this period). After this period you will be able to 'Withdraw'.",
+                "explanation": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'.",
                 "stakeButton": "Stake",
                 "unstakeButton": "Unstake",
                 "staking": "Staking",
@@ -460,9 +460,9 @@
             }
         },
         "performance": {
-            "title": "Desempeño del Staking",
+            "title": "Desempeño",
             "bar": {
-                "description": "MoC staking annualized performance",
+                "description": "Desempeño anual del MOC",
                 "base": "MoC",
                 "sign": "+",
                 "staking": "Stacking"
@@ -474,11 +474,11 @@
             "ready_to_withdraw": "Listo para retirar",
             "buttons": {
                 "withdraw": "Retirar",
-                "restake": "Re-bloquear"
+                "restake": "Restake"
             },
             "status": {
-                "PENDING": "Procesando desbloqueo",
-                "AVAILABLE": "Desbloqueado"
+                "PENDING": "Procesando Unstake",
+                "AVAILABLE": "Unstaking"
             },
             "table": {
                 "expiration": "Expiración",
@@ -502,6 +502,7 @@
                 "restake": "Restake",
                 "withdraw": "Withdraw"
             },
+            "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
             "StakingOptions_PendingExpiration": "Procesando unstake",
             "StakingOptions_WithdrawAll": "Hacer Withdraw del total",
             "StakingOptions_Restake": "Restake",
@@ -513,9 +514,9 @@
                 "cta": "Authorize"
             },
             "StakingOptionsModal_SetAllowance": "Autorizar Allowance",
-            "StakingOptionsModal_ReviewYourWallet": "Wallet",
-            "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
             "StakingOptionsModal_Authorize": "Autorizar",
+            "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
+            "StakingOptionsModal_Authorize": "Authorize",
             "StakingOptionsModal_AllowanceDescription": "Antes de continuar con el staking deberás permitir el \"allowance\" para que el sistema pueda acceder a los tokens. Esto solo debe hacerse la primera vez y no bloquea ningún token de tu billetera.",
             "StakingOptionsModal_ProccessingAllowance": "Procesando Allowance, por favor espera",
             "StakingOptionsModal_StakingDescription": "Los MoCs stakeados recibirán recompensas del Programa de Recompensas de Staking de MoC. Puedes retirar tus MoC's cuando quieras, el proceso de retiro tomará 30 días",
@@ -544,6 +545,7 @@
             "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
             "StatusModal_Modal_TxStatus_error": "Transaction error!"
         },
+        "confirmation": { "cardTitle": "Confirm Stake" },
         "Error_numericField": "Este campo debe ser numérico",
         "Error_separateDecimals": "Usa el punto para separar decimales",
         "Error_numberTooSmall": "El valor es muy pequeño",
@@ -552,55 +554,62 @@
     "vesting": {
         "vestingOnboarding": {
             "page1": {
-                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
-                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
-                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
-                "ctaPrimary": "Use Claim Code",
-                "ctaSecondary": "Load VM"
+                "stepTitle": "No tienes ninguna Vesting Machine cargada todavía",
+                "explanation1": "Una Vesting Machine es una herramienta que permite a las personas o entidades adquirir gradualmente la propiedad de un activo o inversión a lo largo del tiempo, en lugar de recibirlo todo de una vez.",
+                "explanation2": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tiene un código de reclamo.",
+                "ctaPrimary": "Usar Claim Code",
+                "ctaSecondary": "Cargar VM"
             },
             "page2": {
-                "stepTitle": "Let’s create a new Vesting Machine (VM) using a Claim Code",
-                "label": "Enter your Claim Code below",
-                "placeholder": "You can paste your claim code here or select 'load from file' button",
-                "loadButton": "Load Claim Code from file",
-                "explanation1": "After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign a transaction using your Wallet. You will only pay for the blockchain usage gas.",
-                "ctaPrimary": "Create VM",
-                "ctaSecondary": "Back"
+                "stepTitle": "Creemos una nueva Vesting Machine (VM) usando un código de reclamo",
+                "label": "Ingresa tu Claim Code abajo",
+                "placeholder": "Puedes pegar tu Claim Code aquí o seleccionar el botón 'cargar desde archivo'",
+                "loadButton": "Cargar Claim Code desde archivo",
+                "explanation1": "Después de pegar tu Claim Code, selecciona el botón a continuación para continuar con la creación de la Vesting Machine. Deberás firmar una transacción con tu billetera. Solo pagarás el gas por el uso de red.",
+                "ctaPrimary": "Crear VM",
+                "ctaSecondary": "Atrás"
             },
             "page3": {
-                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
-                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
-                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
-                "transactionId": "Transaction ID",
-                "ctaPrimary": "Continue"
+                "stepTitle": "No tienes uan Vesting Machine cargada aún",
+                "explanation1": "Una Vesting Machine herramienta que permite a las personas o entidades adquirir gradualmente la propiedad de un activo o inversión a lo largo del tiempo, en lugar de recibirlo todo de una vez.",
+                "explanation2": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tienes un Claim Code.",
+                "transactionId": "ID de Transacción",
+                "ctaPrimary": "Continuar"
             }
         },
         "alert": {
-            "title": "Using Vesting Adress",
-            "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
-            "cta": "Go to wallet settings"
+            "title": "Usando dirección de Vesting Machine",
+            "explanation": "Para usar tu billetera normalmente desactiva 'Usar Vesting Machine' en la configuración de billetera",
+            "cta": "Ir a configuración de billetera"
         },
         "cardTitle": "Vesting Machine",
         "status": {
-            "verified": "This Vesting Machine is Verified",
-            "notVerified": "This Vesting Machine is not verified yet",
-            "notFromThisUser": "Vesting Machine doesn't belong to this account"
+            "verified": "Vesting Machine verificada",
+            "notVerified": "Esta Vesting Machine aún no fue verificada",
+            "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
         },
-        "tokensAvailableToWithdraw": "Available Free FLIP balance",
-        "withdrawToWallet": "Withdraw to my wallet",
+        "tokensAvailableToWithdraw": "Balance de MOC disponibles",
+        "withdrawToWallet": "Enviar a mi billetera",
         "dashDistribution": {
-            "vested": "Ready to withdraw FLIP",
-            "released": "Vested FLIP",
-            "staked": "Staked FLIP",
-            "unstaking": "Unstaking FLIP in progress"
+            "vested": "MOC para retirar",
+            "released": "MOC Bloqueados",
+            "staked": "MOC en Staking",
+            "unstaking": "MOC en progreso de unstaking"
+        },
+        "releaseSchedule": {
+            "cardTitle": "Calendario de liberación",
+            "scheduled": "Programados (bloqueados + liberados)"
         },
         "vestingScheduleColumns": {
-            "date": "Release date",
-            "daysLeft": "Days to release",
-            "percent": "Percent",
-            "amount": "Amount",
-            "status": "Status"
+            "date": "Fecha de Liberación",
+            "daysLeft": "Días restantes",
+            "percent": "Porcentaje",
+            "amount": "Cantidad",
+            "status": "Estado"
         }
+    },
+    "alert": {
+        "walletNotConnected": "¡Billetera no conectada!"
     },
     "settings": {
         "protocolName": "Rif On Chain",

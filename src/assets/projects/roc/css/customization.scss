@@ -209,8 +209,10 @@
     // Dropdown colors
     --color-dropdown-background-default: transparent;
     --color-dropdown-text-default: #000000;
-    --color-dropdown-background-hover: #ebecfc4e;
-    --color-dropdown-text-hover: #000000;
+    --color-dropdown-background-hover: #4b5cf0;
+    --color-dropdown-text-hover: #ffffff;
+    --color-dropdown-background-active: #4b5cf04e;
+    --color-dropdown-text-active: #000000;
 
     // Text colors & fonts
 
@@ -462,9 +464,11 @@
 
         // Dropdown colors
         --color-dropdown-background-default: transparent;
-        --color-dropdown-text-default: #ebecfc;
-        --color-dropdown-background-hover: #ebecfc4e;
-        --color-dropdown-text-hover: #ebecfc;
+        --color-dropdown-text-default: #000000;
+        --color-dropdown-background-hover: #4b5cf0;
+        --color-dropdown-text-hover: #ffffff;
+        --color-dropdown-background-active: #ebecfc4e;
+        --color-dropdown-text-active: #ffffff;
 
         // Text colors & fonts
         --color-text-primary: #c3ccd9;
