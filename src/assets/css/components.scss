@@ -88,6 +88,15 @@ html {
     .cUGxCk {
         color: var(--rlogin-spinner-color) !important;
     }
+
+    .sc-hmdomO,
+    .eakXkU {
+        box-shadow: var(--rlogin-provider-border-shadow);
+        background-color: var(--rlogin-provider-background-color) !important;
+        .icon {
+            width: 0;
+        }
+    }
 }
 
 /*
