@@ -7,6 +7,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import CollateralAssets from './collateral';
 import TokensPegged from './tokenspegged';
+import TokensPeggedMobile from './tokenspeggedmobile';
 import BigNumber from 'bignumber.js';
 import CheckStatus from '../../helpers/checkStatus';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
@@ -72,9 +73,7 @@ export default function Performance(props) {
                         </div>
                         <div className="coll-2">
                             <div className="stat-icon">
-                                <div
-                                    className={`${statusIcon}`}
-                                ></div>
+                                <div className={`${statusIcon}`}></div>
                                 {statusLabel}
                             </div>
                             <div className="block-info">
@@ -90,14 +89,124 @@ export default function Performance(props) {
                 </div>
             </div>
             {/* Total Value Locked */}
-            <div>
-                <div className="section__innerCard--small dash__perfTVL">
-                    <div className="layout-card-title">
-                        <h1>{t('performance.tvl.cardTitle')}</h1>
-                    </div>
+            <div className="section__innerCard--small dash__perfTVL">
+                <div className="layout-card-title">
+                    <h1>{t('performance.tvl.cardTitle')}</h1>
+                </div>
 
-                    <div className="card-content">
-                        <div className="big-number">
+                <div className="card-content">
+                    <div className="big-number">
+                        {!auth.contractStatusData.canOperate
+                            ? '--'
+                            : PrecisionNumbers({
+                                  amount: collateralInUSD
+                                      ? collateralInUSD
+                                      : new BigNumber(0),
+                                  token: TokenSettings('CA_0'),
+                                  decimals: 2,
+                                  t: t,
+                                  i18n: i18n,
+                                  ns: ns,
+                                  skipContractConvert: true
+                              })}
+                    </div>
+                    <div className="caption">
+                        {t('performance.tvl.expressedIn')}
+                    </div>
+                </div>
+            </div>
+            {/* Leveraged Token */}
+            <div className="section__innerCard--small dash__perfLeveraged">
+                <div className="token">
+                    <div className="icon-token-tc token__icon"></div>
+                    <div className="token__name">
+                        {t(`exchange.tokens.TC.label`, { ns: ns })}
+                    </div>
+                </div>
+
+                <div className="card-content">
+                    <div className="amount">
+                        {!auth.contractStatusData.canOperate
+                            ? '--'
+                            : PrecisionNumbers({
+                                  amount: price,
+                                  token: settings.tokens.TC,
+                                  decimals: 8,
+                                  t: t,
+                                  i18n: i18n,
+                                  ns: ns,
+                                  skipContractConvert: true
+                              })}
+                        <div className="caption">
+                            {t('performance.tc.priceIn')}
+                        </div>
+                    </div>
+                    <div className="amount">
+                        {!auth.contractStatusData.canOperate
+                            ? '--'
+                            : PrecisionNumbers({
+                                  amount: auth.contractStatusData
+                                      ? auth.contractStatusData.getLeverageTC
+                                      : new BigNumber(0),
+                                  token: TokenSettings('TC'),
+                                  decimals: 8,
+                                  t: t,
+                                  i18n: i18n,
+                                  ns: ns,
+                                  skipContractConvert: false
+                              })}
+                        <div className="caption">
+                            {t('performance.tc.currentLeverage')}
+                        </div>
+                    </div>
+                    <div className="amount">
+                        {!auth.contractStatusData.canOperate
+                            ? '--'
+                            : PrecisionNumbers({
+                                  amount: auth.contractStatusData
+                                      ? auth.contractStatusData.nTCcb
+                                      : new BigNumber(0),
+                                  token: TokenSettings('TC'),
+                                  decimals: 2,
+                                  t: t,
+                                  i18n: i18n,
+                                  ns: ns,
+                                  skipContractConvert: false
+                              })}
+                        <div className="caption">
+                            {t('performance.tc.totalInSystem')}
+                        </div>
+                    </div>
+                    <div className="amount">
+                        {!auth.contractStatusData.canOperate
+                            ? '--'
+                            : PrecisionNumbers({
+                                  amount: auth.contractStatusData
+                                      ? auth.contractStatusData
+                                            .getTCAvailableToRedeem
+                                      : new BigNumber(0),
+                                  token: TokenSettings('TC'),
+                                  decimals: 2,
+                                  t: t,
+                                  i18n: i18n,
+                                  ns: ns,
+                                  skipContractConvert: false
+                              })}{' '}
+                        <div className="caption">
+                            {t('performance.tc.redeemable')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* System Collateral */}
+            <div className="section__innerCard--small dash__perfCollateral">
+                <div className="layout-card-title">
+                    <h1>{t('performance.collateral.cardTitle')}</h1>
+                </div>
+
+                <div className="card-content">
+                    <div className="dash_perfCollateral__dash">
+                        <div className="amount">
                             {!auth.contractStatusData.canOperate
                                 ? '--'
                                 : PrecisionNumbers({
@@ -111,154 +220,24 @@ export default function Performance(props) {
                                       ns: ns,
                                       skipContractConvert: true
                                   })}
-                        </div>
-                        <div className="caption">
-                            {t('performance.tvl.expressedIn')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Leveraged Token */}
-            <div className="section__innerCard--small dash__perfLeveraged">
-                    <div className='token'>
-                        <div className="icon-token-tc token__icon"></div>
-                        <div className='token__name'>{t(`exchange.tokens.TC.label`, { ns: ns })}</div>
-                    </div>
-
-                <div className="card-content">
-                    <div className="row-1">
-                        <div className="coll-1">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: price,
-                                          token: settings.tokens.TC,
-                                          decimals: 8,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: true
-                                      })}
-                            </div>
-                            <div className="caption">
-                                {' '}
-                                {t('performance.tc.priceIn')}
-                            </div>
-                        </div>
-                        <div className="coll-2">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: auth.contractStatusData
-                                              ? auth.contractStatusData
-                                                    .getLeverageTC
-                                              : new BigNumber(0),
-                                          token: TokenSettings('TC'),
-                                          decimals: 8,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: false
-                                      })}
-                            </div>
-                            <div className="caption">
-                                {' '}
-                                {t('performance.tc.currentLeverage')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row-2">
-                        <div className="coll-1">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: auth.contractStatusData
-                                              ? auth.contractStatusData.nTCcb
-                                              : new BigNumber(0),
-                                          token: TokenSettings('TC'),
-                                          decimals: 2,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: false
-                                      })}
-                            </div>
-                            <div className="caption">
-                                {t('performance.tc.totalInSystem')}
-                            </div>
-                        </div>
-                        <div className="coll-2">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: auth.contractStatusData
-                                              ? auth.contractStatusData
-                                                    .getTCAvailableToRedeem
-                                              : new BigNumber(0),
-                                          token: TokenSettings('TC'),
-                                          decimals: 2,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: false
-                                      })}
-                            </div>
-                            <div className="caption">
-                                {t('performance.tc.redeemable')}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* System Collateral */}
-            <div className="section__innerCard--small dash__perfCollateral">
-                <div className="layout-card-title">
-                    <h1>{t('performance.collateral.cardTitle')}</h1>
-                </div>
-
-                <div className="card-content">
-                    <div className="row-1">
-                        <div className="coll-1">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: collateralInUSD
-                                              ? collateralInUSD
-                                              : new BigNumber(0),
-                                          token: TokenSettings('CA_0'),
-                                          decimals: 2,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: true
-                                      })}
-                            </div>
                             <div className="caption">
                                 {t('performance.collateral.totalIn')}
                             </div>
                         </div>
-                        <div className="coll-2">
-                            <div className="amount">
-                                {!auth.contractStatusData.canOperate
-                                    ? '--'
-                                    : PrecisionNumbers({
-                                          amount: auth.contractStatusData
-                                              ? auth.contractStatusData.getCglb
-                                              : new BigNumber(0),
-                                          token: TokenSettings('CA_0'),
-                                          decimals: 6,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: false
-                                      })}
-                            </div>
+                        <div className="amount">
+                            {!auth.contractStatusData.canOperate
+                                ? '--'
+                                : PrecisionNumbers({
+                                      amount: auth.contractStatusData
+                                          ? auth.contractStatusData.getCglb
+                                          : new BigNumber(0),
+                                      token: TokenSettings('CA_0'),
+                                      decimals: 6,
+                                      t: t,
+                                      i18n: i18n,
+                                      ns: ns,
+                                      skipContractConvert: false
+                                  })}{' '}
                             <div className="caption">
                                 {t('performance.collateral.globalCoverage')}
                             </div>
@@ -272,8 +251,11 @@ export default function Performance(props) {
             </div>
             {/* Pegged tokens Performance Table */}
             <div className="section__innerCard--big dash__perfPegged">
-                <div>
+                <div className="desktop-only">
                     <TokensPegged />
+                </div>
+                <div className="mobile-only">
+                    <TokensPeggedMobile />
                 </div>
             </div>
         </div>

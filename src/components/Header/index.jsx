@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useProjectTranslation } from '../../helpers/translations';
 
@@ -16,12 +16,18 @@ export default function SectionHeader() {
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile Menu State
+    const [showLanguageSubmenu, setShowLanguageSubmenu] = useState(false); //  Mobile language Sub Menu
+    const menuRef = useRef(null); // Mobile Menu ref
+
     const [t, i18n, ns] = useProjectTranslation();
     const menuLimit = 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
     const [menuOptions, setMenuOptions] = useState([]);
+
     useEffect(() => {
         setMenuOptions([
             {
@@ -147,7 +153,7 @@ export default function SectionHeader() {
         return { containerClassName, iconClassName };
     };
 
-    //Lang settings
+    // Lang settings
     const languageOptions = [
         {
             name: t(`language.en`, {
@@ -165,6 +171,9 @@ export default function SectionHeader() {
     const toggleLanguageMenu = () => {
         setShowLanguageMenu((prevState) => !prevState);
     };
+    const toggleLanguageSubmenu = () =>
+        setShowLanguageSubmenu(!showLanguageSubmenu);
+
     const pickLanguage = (code) => {
         i18n.changeLanguage(code);
         setLang(code);
@@ -184,8 +193,34 @@ export default function SectionHeader() {
             preferredLanguage = localStorage.getItem('PreferredLang');
         }
         pickLanguage(preferredLanguage);
-        // console.log('Preferred language: ' + preferredLanguage);
     }, []);
+
+    // Close Mobile menu when user clicks outside the menu
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (
+                isMobileMenuOpen &&
+                menuRef.current &&
+                !menuRef.current.contains(event.target)
+            ) {
+                setIsMobileMenuOpen(false);
+                setShowLanguageSubmenu(false); // Close Mobile Language Submenu
+            }
+        };
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [isMobileMenuOpen]);
+
+    // Avoid Body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.classList.add('no-scroll');
+        } else {
+            document.body.classList.remove('no-scroll');
+        }
+    });
 
     return (
         <Header>
@@ -297,6 +332,90 @@ export default function SectionHeader() {
                         </div>
                     )}
                 </div>
+                {/* Mobile Menu Button */}
+                <div
+                    className="mobile__menu__button"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                    <i
+                        className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
+                    ></i>
+                </div>
+
+                {/* Overlay & Mobile Menu*/}
+                {isMobileMenuOpen && (
+                    <>
+                        <div className="mobile-menu-overlay"></div>
+                        <div className="mobile-menu" ref={menuRef}>
+                            <button
+                                className="mobile-menu-close"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                <div className="icon__close__menu"></div>
+                            </button>
+                            <div className="mobile__menu__options">
+                                {menuOptions.map((option) => (
+                                    <a
+                                        onClick={() => {
+                                            option.action();
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        className="mobile-menu-item"
+                                        key={option.name}
+                                    >
+                                        <div
+                                            className={
+                                                option.className +
+                                                ' mobile__menu__icon'
+                                            }
+                                        ></div>
+                                        <div>{option.name}</div>
+                                    </a>
+                                ))}
+                                <div className="language__options">
+                                    <div
+                                        className="mobile-language-selector"
+                                        onClick={toggleLanguageSubmenu}
+                                    >
+                                        {showLanguageSubmenu ? (
+                                            <div className="mobile-language-title">
+                                                Select Language:
+                                            </div>
+                                        ) : (
+                                            languageOptions.find(
+                                                (option) => option.code === lang
+                                            ).name
+                                        )}
+                                        {/* Language Menu for Mobile */}
+                                        {showLanguageSubmenu && (
+                                            <div className="mobile-language-submenu">
+                                                {/* Language Submenú for Mobile */}
+                                                {languageOptions.map(
+                                                    (option) => (
+                                                        <div
+                                                            key={option.code}
+                                                            className={`mobile-menu-item${lang === option.code ? '-selected' : ''}`}
+                                                            onClick={() =>
+                                                                pickLanguage(
+                                                                    option.code
+                                                                )
+                                                            }
+                                                        >
+                                                            <div>
+                                                                {option.name}
+                                                                <span> •</span>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </Header>
     );

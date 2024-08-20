@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
 
-export default function TokensPegged() {
+export default function TokensPeggedMobile() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const tokensData = [];
@@ -17,56 +17,76 @@ export default function TokensPegged() {
 
     const ProvideColumnsTP = [
         {
-            title: t('performance.pegged.colName'),
-            dataIndex: 'name',
-            align: 'left',
-            width: 210
-        },
-        {
-            title: t('performance.pegged.colTokensPer'),
-            dataIndex: 'tokens_per_usd',
-            align: 'right',
-            width: 160
-        },
-        {
-            title: t('performance.pegged.colMinted'),
-            dataIndex: 'minted',
-            align: 'right',
-            width: 140
-        },
-        {
-            title: t('performance.pegged.colMintable'),
-            dataIndex: 'mintable',
-            align: 'right',
-            width: 160
-        },
-        {
-            title: t('performance.pegged.colTargetCoverage'),
-            dataIndex: 'coverage',
-            align: 'right',
-            width: 140
-        },
-        {
-            title: t('performance.pegged.colEMA'),
-            dataIndex: 'ema',
-            align: 'right',
-            width: 100
-        },
-        {
-            title: t('performance.pegged.colTargetEMA'),
-            dataIndex: 'ctargema',
-            align: 'right',
-            width: 140
+            // title: t('performance.pegged.colName'),
+            // dataIndex: 'data',
+            // width: '100%'
         }
     ];
 
     // Columns
     ProvideColumnsTP.forEach(function (dataItem) {
         columnsData.push({
-            title: dataItem.title,
-            dataIndex: dataItem.dataIndex,
-            align: dataItem.align,
-            width: dataItem.width
+            render: (text, record) => (
+                <>
+                    <div className="token__data__container">
+                        <div className="token">
+                            <div
+                                className={`icon-token-tp_${record.key} token__icon  token--mobile`}
+                            ></div>
+                            <span className="token__name">
+                                {t(`exchange.tokens.TP_${record.key}.label`, {
+                                    ns: ns
+                                })}
+                            </span>
+                            <span className="token__ticker">
+                                {t(`exchange.tokens.TP_${record.key}.abbr`, {
+                                    ns: ns
+                                })}
+                            </span>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">
+                                Tokens por USD
+                            </div>
+                            <div className="token__data__data">
+                                {record.tokens_per_usd}
+                            </div>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">Minted</div>
+                            <div className="token__data__data">
+                                {record.minted}
+                            </div>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">Mintable</div>
+                            <div className="token__data__data">
+                                {record.mintable}
+                            </div>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">
+                                Target Coverage
+                            </div>
+                            <div className="token__data__data">
+                                {record.coverage}
+                            </div>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">EMA</div>
+                            <div className="token__data__data">
+                                {record.ema}
+                            </div>
+                        </div>
+                        <div className="token__data__group">
+                            <div className="token__data__label">Target EMA</div>
+                            <div className="token__data__data">
+                                {record.ctargema}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )
         });
     });
 
@@ -87,7 +107,7 @@ export default function TokensPegged() {
                     <div className="token">
                         <div
                             className={`icon-token-tp_${dataItem.key} token__icon`}
-                        ></div>{' '}
+                        ></div>
                         <span className="token__name">
                             {t(`exchange.tokens.TP_${dataItem.key}.label`, {
                                 ns: ns
@@ -213,7 +233,7 @@ export default function TokensPegged() {
                 columns={columnsData}
                 dataSource={tokensData}
                 pagination={false}
-                scroll={{ y: 240 }}
+                scroll={{ y: 'auto' }}
             />
         </div>
     );

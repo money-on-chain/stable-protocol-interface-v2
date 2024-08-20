@@ -10,13 +10,18 @@ export default class InputAmount extends Component {
 
     componentDidMount() {
         if (this.inputRef.current) {
-            this.inputRef.current.addEventListener('wheel', this.handleWheel, { passive: false });
+            this.inputRef.current.addEventListener('wheel', this.handleWheel, {
+                passive: false
+            });
         }
     }
 
     componentWillUnmount() {
         if (this.inputRef.current) {
-            this.inputRef.current.removeEventListener('wheel', this.handleWheel);
+            this.inputRef.current.removeEventListener(
+                'wheel',
+                this.handleWheel
+            );
         }
     }
 
@@ -28,7 +33,9 @@ export default class InputAmount extends Component {
         return (
             <div className="amountInput">
                 <div className="amountInput__infoBar">
-                    <div className="amountInput__label">{this.props.action}</div>
+                    <div className="amountInput__label">
+                        {this.props.action}
+                    </div>
                     <span className="amountInput__available">
                         {`${this.props.balanceText}: `}
                         {this.props.balance}
@@ -39,16 +46,28 @@ export default class InputAmount extends Component {
                         ref={this.inputRef}
                         placeholder={this.props.placeholder}
                         // value={this.props.InputValue}
-                        value={this.props.isDirty ? null : this.props.InputValue === 0 ? '' : this.props.InputValue}
+                        value={
+                            this.props.isDirty
+                                ? null
+                                : this.props.InputValue === 0
+                                  ? ''
+                                  : this.props.InputValue
+                        }
                         // debounceTimeout={1000}
                         onChange={(event) => {
-                            console.log('event.target.value', event.target.value);
+                            console.log(
+                                'event.target.value',
+                                event.target.value
+                            );
                             this.props.onValueChange(event.target.value);
                         }}
                         className={`amountInput__value ${this.props.validateError ? 'amountInput__feedback--error' : ''}`}
                         type={'number'}
                     />
-                    <button className="amountInput__maxButton" onClick={this.props.setAddTotalAvailable}>
+                    <button
+                        className="amountInput__maxButton"
+                        onClick={this.props.setAddTotalAvailable}
+                    >
                         {/* {t('button.inputMaxValue')} */}
                     </button>
                 </div>

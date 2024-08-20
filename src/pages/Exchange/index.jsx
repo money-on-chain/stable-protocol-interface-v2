@@ -30,7 +30,7 @@ function SectionExchange(props) {
                     <h1>{t('exchange.cardTitle')}</h1>
                 </div>
 
-                <div className={'content-bodyd layout-card-content'}>
+                <div className={'content-body layout-card-content'}>
                     {ready ? <Exchange /> : <Skeleton active />}
                 </div>
             </div>

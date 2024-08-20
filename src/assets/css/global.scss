@@ -29,6 +29,12 @@ h1 {
 .section-container {
     margin-top: 24px;
 }
+.mobile-only {
+    display: none;
+}
+.desktop-only {
+    display: block;
+}
 /* #endregion GENERAL STYLING*/
 
 /* #region ANT DESIGN CUSTOMIZATION */
@@ -102,6 +108,11 @@ h1 {
         filter: var(--color-icon-link-secondary-filter);
         color: black; //Important to force black color for SVG before applying filter
     }
+}
+
+.ShowModalConfirmOperation {
+    width: 100%;
+    text-align: center;
 }
 
 // Modal background backdrop color & blur settings
@@ -272,6 +283,9 @@ h1 {
 }
 .section__innerCard--big {
     // border: 1px dashed burlywood;
+    width: 100%;
+}
+.layout__group {
     width: 100%;
 }
 /* #endregion CARDS */

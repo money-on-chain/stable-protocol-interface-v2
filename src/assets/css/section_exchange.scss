@@ -30,3 +30,18 @@ section_exchange.scss contains all the css code for Exchange section cards not c
     font-family: var(--main-font);
 }
 /* #endregion EXCHANGE & SEND SECTION */
+
+@media (max-width: 768px) {
+    .content-body {
+    }
+
+    .sectionExchange__Content {
+        width: 100%;
+        flex-direction: column;
+        border-left: none;
+        .info {
+            border-left: none;
+            padding-left: 0;
+        }
+    }
+}

@@ -6,7 +6,16 @@ const InputAmount = (props) => {
 
     const inputRef = useRef(null);
     const [value, setValue] = useState('');
-    const { balanceText, action, balance, placeholder, inputValue, onValueChange, setAddTotalAvailable, validateError } = props;
+    const {
+        balanceText,
+        action,
+        balance,
+        placeholder,
+        inputValue,
+        onValueChange,
+        setAddTotalAvailable,
+        validateError
+    } = props;
 
     useEffect(() => {
         const handleWheel = (event) => {
@@ -16,7 +25,9 @@ const InputAmount = (props) => {
 
         const inputElement = inputRef.current;
         if (inputElement) {
-            inputElement.addEventListener('wheel', handleWheel, { passive: false });
+            inputElement.addEventListener('wheel', handleWheel, {
+                passive: false
+            });
         }
 
         return () => {
@@ -67,13 +78,17 @@ const InputAmount = (props) => {
                     ref={inputRef}
                     placeholder={placeholder}
                     value={inputValue}
+                    inputmode="decimal"
                     onChange={(event) => {
                         handleValueChange(event.target.value);
                     }}
                     className={`amountInput__value ${validateError ? 'amountInput__feedback--error' : ''}`}
-                    type={'number'}
+                    // type={'number'}
                 />
-                <button className="amountInput__maxButton" onClick={setAddTotalAvailable}>
+                <button
+                    className="amountInput__maxButton"
+                    onClick={setAddTotalAvailable}
+                >
                     {t('button.inputMaxValue')}
                 </button>
             </div>

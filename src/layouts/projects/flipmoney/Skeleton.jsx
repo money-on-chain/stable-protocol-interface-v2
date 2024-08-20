@@ -5,12 +5,14 @@ import React, { useContext } from 'react';
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
+import Header from '../../../components/Header';
 
-import '../../../assets/css/global.scss';
+// import '../../../assets/css/global.scss';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
+// import '../../../assets/css/responsive.scss';
 
 const { Content, Footer } = Layout;
 
