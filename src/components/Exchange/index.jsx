@@ -585,7 +585,6 @@ export default function Exchange() {
                                     false
                                 ),
                                 token: TokenSettings(currencyYouExchange),
-                                decimals: 6,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
@@ -619,7 +618,6 @@ export default function Exchange() {
                                     false
                                 ),
                                 token: TokenSettings(currencyYouReceive),
-                                decimals: 6,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
@@ -658,8 +656,7 @@ export default function Exchange() {
                                         <span className={'token_receive'}>
                                 {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                     amount: new BigNumber(commission),
-                                    token: TokenSettings(currencyYouExchange),
-                                    decimals: 6,
+                                    token: TokenSettings('CA_0'),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
@@ -697,8 +694,7 @@ export default function Exchange() {
                                         <span className={'token_receive'}>
                                             {(!auth.contractStatusData?.canOperate) ? '--' : PrecisionNumbers({
                                                 amount: new BigNumber(commissionFeeToken),
-                                                token: TokenSettings(currencyYouExchange),
-                                                decimals: 6,
+                                                token: TokenSettings('TF'),
                                                 t: t,
                                                 i18n: i18n,
                                                 ns: ns,

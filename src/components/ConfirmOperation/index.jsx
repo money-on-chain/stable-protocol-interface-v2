@@ -524,14 +524,13 @@ export default function ConfirmOperation(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(commissionPAY),
                             token: commissionSettings,
-                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
                         })}
                     </span>
-                    <span className={'token_receive_name'}>{commissionTokenName}</span>
+                    <span className={'token_receive_name'}> {commissionTokenName}</span>
                 </div>
                 <div className={'execution-fee'}>
                     <span className={'token_exchange'}>{t('fees.labelExecutionFee')}</span>
@@ -540,7 +539,6 @@ export default function ConfirmOperation(props) {
                                 {PrecisionNumbers({
                                     amount: executionFee,
                                     token: TokenSettings('COINBASE'),
-                                    decimals: 6,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
