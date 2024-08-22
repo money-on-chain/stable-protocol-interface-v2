@@ -27,13 +27,11 @@ import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import CheckStatus from '../../helpers/checkStatus';
-import { getMaxWithTolerance } from '../../helpers/toleranceCalculator';
 
 export default function Exchange() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [defaultTolerance, setDefaultTolerance] = useState(0.7);
     const defaultTokenExchange = tokenExchange()[0];
     const defaultTokenReceive = tokenReceive(defaultTokenExchange)[0];
 
@@ -476,14 +474,6 @@ export default function Exchange() {
                 tokenSettings.decimals
             )
         );
-        const totalYouExchange = getMaxWithTolerance(
-            defaultTolerance,
-            totalbalance,
-            new BigNumber(0),
-            currencyYouExchange,
-            currencyYouReceive
-        ).exchange;
-
         const convertAmountReceive = ConvertAmount(
             auth,
             currencyYouExchange,
@@ -500,7 +490,27 @@ export default function Exchange() {
         console.log('radio checked', e.target.value);
         setRadioSelectFee(e.target.value);
     };
+    const calculateFinalAmountExchange = () => {
+        if(currencyYouExchange === 'CA_0') {
+            const tokenSettings = TokenSettings(currencyYouExchange);
+            const totalbalance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenBalance(auth, currencyYouExchange),
+                    tokenSettings.decimals
+                )
+            );
+            const tolerance = 0.7;
+            if (amountYouExchange.gte(totalbalance)) {
+                const upperLimit = totalbalance.times(BigNumber(tolerance)).div(100).plus(amountYouExchange);
+                return totalbalance.minus(upperLimit.minus(totalbalance));
+            } else {
+                return amountYouExchange;
+            }
+        } else {
+            return amountYouExchange;
+        }
 
+    }
     return (
         <div>
             <div className="sectionExchange__Content">
@@ -620,7 +630,6 @@ export default function Exchange() {
                                                   token: TokenSettings(
                                                       currencyYouExchange
                                                   ),
-                                                  decimals: 6,
                                                   t: t,
                                                   i18n: i18n,
                                                   ns: ns,
@@ -661,7 +670,6 @@ export default function Exchange() {
                                                   token: TokenSettings(
                                                       currencyYouReceive
                                                   ),
-                                                  decimals: 6,
                                                   t: t,
                                                   i18n: i18n,
                                                   ns: ns,
@@ -717,10 +725,7 @@ export default function Exchange() {
                                                               amount: new BigNumber(
                                                                   commission
                                                               ),
-                                                              token: TokenSettings(
-                                                                  currencyYouExchange
-                                                              ),
-                                                              decimals: 6,
+                                                              token: TokenSettings('CA_0'),
                                                               t: t,
                                                               i18n: i18n,
                                                               ns: ns,
@@ -774,10 +779,7 @@ export default function Exchange() {
                                                               amount: new BigNumber(
                                                                   commissionFeeToken
                                                               ),
-                                                              token: TokenSettings(
-                                                                  currencyYouExchange
-                                                              ),
-                                                              decimals: 6,
+                                                              token: TokenSettings('TF'),
                                                               t: t,
                                                               i18n: i18n,
                                                               ns: ns,
@@ -840,7 +842,7 @@ export default function Exchange() {
                         exchangingUSD={exchangingUSD}
                         commission={commission}
                         commissionPercent={commissionPercent}
-                        amountYouExchange={amountYouExchange}
+                        inputAmountYouExchange={calculateFinalAmountExchange()}
                         amountYouReceive={amountYouReceive}
                         onClear={onClear}
                         inputValidationError={inputValidationError}

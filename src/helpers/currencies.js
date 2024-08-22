@@ -248,29 +248,49 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
     }
 
     // Fee Paying with Token
-    const feeTokenPrice = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_FeeToken, tokenReceiveSettings.decimals));
-    const feeTokenPct = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.feeTokenPct, tokenReceiveSettings.decimals));
-    const qFeeToken = amount.times(feeParam.times(feeTokenPct)).div(feeTokenPrice);
+    const feeTokenPrice = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.PP_FeeToken,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const feeTokenPct = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.feeTokenPct,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const priceCA = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.PP_CA[0],
+            settings.tokens.CA[0].decimals
+        )
+    );
+    const qFeeToken = amount.times(feeParam.times(feeTokenPct))
 
     // Markup Vendors
-    const vendorMarkup = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.vendorMarkup, tokenReceiveSettings.decimals));
-    const markOperation = amount.times(vendorMarkup);
-    const markOperationToken = amount.times(vendorMarkup).div(feeTokenPrice);
+    const vendorMarkup = new BigNumber(
+        fromContractPrecisionDecimals(
+            auth.contractStatusData.vendorMarkup,
+            tokenReceiveSettings.decimals
+        )
+    );
+    const markOperation = amount.times(vendorMarkup)
 
     // Total fee token
-    const totalFeeToken = qFeeToken.plus(markOperationToken);
+    const totalFeeToken = qFeeToken.plus(markOperation)
 
     const feeInfo = {
         fee: amount.times(feeParam).plus(markOperation),
+        feeUSD: amount.times(feeParam).plus(markOperation).times(priceCA),
         percent: feeParam.plus(vendorMarkup).times(100),
         markup: vendorMarkup,
         markOperation: markOperation,
-        markOperationToken: markOperationToken,
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
-        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100),
-        totalFeeToken: totalFeeToken,
-        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice)
+        totalFeeToken: totalFeeToken.div(feeTokenPrice),
+        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA),
+        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100)
     };
 
     return feeInfo;

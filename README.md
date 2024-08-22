@@ -20,7 +20,7 @@ You can:
 | Token | Token name       | Project     | Token Name | Collateral |
 |-------|------------------|-------------|------------|------------|
 | TP #0 | Pegged Token     | Flipmoney   | Flip ARS   | BPro       |
-| TP #1 | Pegged Token     | Flipmoney   | Flip MXN   | BPro       |
+| TP #1 | Pegged Token     | Flipmoney   | Flip COP   | BPro       |
 | TC    | Collateral Token | Flipmoney   | BProMax    | BPro       |
 | TF    | Fee Token        | Flipmoney   | Flip       | -          |
 | TP    | Pegged Token     | RoC         | USDRIF     | RIF        |
@@ -33,7 +33,7 @@ You can:
 
 Each release gets deployed to IPFS automatically.
 
-Please go to release section, there are several links to [releases](https://github.com/money-on-chain/stable-protocol-interface-v2/release) 
+Please go to release section, there are several links to [releases](https://github.com/money-on-chain/stable-protocol-interface-v2/releases) 
 
 **Notes:** The list of operations of the user is get it through an  API. We use an api also for the liquidity mining program, but is not need it to run or to exchange tokens.
 
@@ -73,6 +73,7 @@ Environment is our already deployed contracts.
 | Name              | Project | Main Gateway                         | Environment | Network | npm run                 |
 |-------------------|---------|--------------------------------------|-------------|---------|-------------------------|
 | Flipmoney Testnet | MOC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:flipmoney-testnet |
+| Flipmoney Mainnet | MOC     | [link](https://www.moneyonchain.com) | Mainnet     | RSK     | start:flipmoney-mainnet |
 | RoC Testnet       | ROC     | [link](https://www.moneyonchain.com) | Testnet     | RSK     | start:roc-testnet       |
 | RoC Mainnet       | ROC     | [link](https://dapp.rifonchain.com)  | Mainnet     | RSK     | start:roc-mainnet       |
 
