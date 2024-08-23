@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useTransition } from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import TokensCA from '../../Tables/TokensCA';
+import TokensCAmobile from '../../Tables/TokensCAmobile';
 import TokensTP from '../../Tables/TokensTP';
 import { AuthenticateContext } from '../../../context/Auth';
 import settings from '../../../settings/settings.json';
@@ -25,10 +26,16 @@ export default function Portfolio() {
         auth.userBalanceData &&
         settings.tokens.CA.forEach(function (dataItem) {
             balance = new BigNumber(
-                fromContractPrecisionDecimals(auth.userBalanceData.CA[dataItem.key].balance, settings.tokens.CA[dataItem.key].decimals)
+                fromContractPrecisionDecimals(
+                    auth.userBalanceData.CA[dataItem.key].balance,
+                    settings.tokens.CA[dataItem.key].decimals
+                )
             );
             price = new BigNumber(
-                fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[dataItem.key], settings.tokens.CA[dataItem.key].decimals)
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[dataItem.key],
+                    settings.tokens.CA[dataItem.key].decimals
+                )
             );
             balanceUSD = balance.times(price);
             totalUSD = totalUSD.plus(balanceUSD);
@@ -39,13 +46,19 @@ export default function Portfolio() {
         auth.userBalanceData &&
         settings.tokens.TP.forEach(function (dataItem) {
             balance = new BigNumber(
-                fromContractPrecisionDecimals(auth.userBalanceData.TP[dataItem.key].balance, settings.tokens.TP[dataItem.key].decimals)
+                fromContractPrecisionDecimals(
+                    auth.userBalanceData.TP[dataItem.key].balance,
+                    settings.tokens.TP[dataItem.key].decimals
+                )
             );
             price =
                 settings.project === 'roc'
                     ? 1
                     : new BigNumber(
-                          fromContractPrecisionDecimals(auth.contractStatusData.PP_TP[dataItem.key], settings.tokens.TP[dataItem.key].decimals)
+                          fromContractPrecisionDecimals(
+                              auth.contractStatusData.PP_TP[dataItem.key],
+                              settings.tokens.TP[dataItem.key].decimals
+                          )
                       );
             balanceUSD = balance.div(price);
             totalUSD = totalUSD.plus(balanceUSD);
@@ -53,9 +66,24 @@ export default function Portfolio() {
 
     // Token TC
     if (auth.contractStatusData && auth.userBalanceData) {
-        balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.TC.balance, settings.tokens.TC.decimals));
-        const priceTEC = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.getPTCac, settings.tokens.TC.decimals));
-        const priceCA = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[0], settings.tokens.CA[0].decimals));
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.TC.balance,
+                settings.tokens.TC.decimals
+            )
+        );
+        const priceTEC = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.getPTCac,
+                settings.tokens.TC.decimals
+            )
+        );
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
 
         if (auth.contractStatusData.canOperate) {
             price = priceTEC.times(priceCA);
@@ -66,16 +94,36 @@ export default function Portfolio() {
 
     // Coinbase
     if (auth.contractStatusData && auth.userBalanceData) {
-        balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.coinbase, settings.tokens.COINBASE.decimals));
-        price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_COINBASE, settings.tokens.COINBASE.decimals));
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.coinbase,
+                settings.tokens.COINBASE.decimals
+            )
+        );
+        price = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_COINBASE,
+                settings.tokens.COINBASE.decimals
+            )
+        );
         balanceUSD = balance.times(price);
         totalUSD = totalUSD.plus(balanceUSD);
     }
 
     // Fee Token (TF)
     if (auth.contractStatusData && auth.userBalanceData) {
-        balance = new BigNumber(fromContractPrecisionDecimals(auth.userBalanceData.FeeToken.balance, settings.tokens.TF.decimals));
-        price = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_FeeToken, settings.tokens.TF.decimals));
+        balance = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.userBalanceData.FeeToken.balance,
+                settings.tokens.TF.decimals
+            )
+        );
+        price = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_FeeToken,
+                settings.tokens.TF.decimals
+            )
+        );
         balanceUSD = balance.times(price);
         totalUSD = totalUSD.plus(balanceUSD);
     }
@@ -89,7 +137,8 @@ export default function Portfolio() {
                     </div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
-                            {auth.contractStatusData && !auth.contractStatusData.canOperate
+                            {auth.contractStatusData &&
+                            !auth.contractStatusData.canOperate
                                 ? '--'
                                 : PrecisionNumbers({
                                       amount: totalUSD,
@@ -99,15 +148,22 @@ export default function Portfolio() {
                                       i18n: i18n,
                                       ns: ns,
                                       skipContractConvert: true
-                                  })}{' '}
+                                  })}
                             {t('portfolio.totalCurrency')}
                         </div>
-                        <div className="tokens-list-header-balance-title">{t('portfolio.totalBalance')}</div>
+                        <div className="tokens-list-header-balance-title">
+                            {t('portfolio.totalBalance')}
+                        </div>
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    <TokensCA />
-                    {settings.project !== 'roc' && <TokensTP />}
+                    <div className="mobile-only">
+                        <TokensCAmobile />
+                    </div>
+                    <div className="desktop-only">
+                        <TokensCA />
+                        {settings.project !== 'roc' && <TokensTP />}
+                    </div>
                 </div>
             </div>
         </div>

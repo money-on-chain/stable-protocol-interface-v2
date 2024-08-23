@@ -13,6 +13,7 @@ import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 import StakingRewards from '../../../components/Dashboards/StakingRewards';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
+import DappFooter from '../../../components/Footer/index';
 
 const { Content, Footer } = Layout;
 

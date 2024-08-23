@@ -4,9 +4,6 @@
 :root {
     // Theme used by default. Use "ligth" or "dark"
     --default-theme: 'light';
-
-    --debugColor: rgba(75, 103, 36, 0.168) !important;
-    --debugBorder: 1px dashed red !important;
 }
 #root {
     font-family: var(--main-font);
@@ -21,10 +18,9 @@
 /* #region LIGHT MODE */
 :root {
     /* #region BRANDING */
-    --debugColor: rgba(75, 103, 36, 0.168) !important;
-    --debugBorder: 1px dashed red !important;
 
     --brand-logo-main: url('../icons/logo-app.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small.svg');
 
     --brand-color-darker: #2a3067;
     --brand-color-dark: #424b9a;
@@ -37,6 +33,7 @@
     // Cards
     --card-border-radius: 0px;
     --card-padding: 32px;
+    --card-padding-mobile: 8px;
 
     // Data backgrounds
     --data-background-color: #26272f;
@@ -65,7 +62,7 @@
         #cdc8d96e,
         #e0dceb6e,
         #f1eff66e
-    ); // can be set to none    --surface-color-0: #f5f5f5;
+    ); // can be set to none
     --surface-color-0: #ffffff00;
     --surface-color-1: rgba(255, 255, 255, 0.7);
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -106,9 +103,13 @@
 
     --color-button-primary-background-default: #000000;
     --color-button-primary-text-default: #ffffff;
+    --color-button-primary-filter-default: invert(79%) sepia(44%)
+        saturate(2710%) hue-rotate(96deg) brightness(94%) contrast(87%);
 
     --color-button-primary-background-hover: #4b5cf0;
     --color-button-primary-text-hover: #ffffff;
+    --color-button-primary-filter-hover: invert(48%) sepia(46%) saturate(464%)
+        hue-rotate(103deg) brightness(100%) contrast(90%);
 
     --color-button-primary-background-active: #4b5cf0;
     --color-button-primary-text-active: #ffffff;
@@ -186,7 +187,6 @@
     --color-navigation-text-hover: #000000;
     --color-navigation-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
         hue-rotate(300deg) brightness(103%) contrast(110%);
-
     --color-navigation-background-active: #000000;
     --color-navigation-text-active: #ffffff; //over hover color
     --color-navigation-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
@@ -196,6 +196,14 @@
     --color-navigation-text-disabled: #e0e0e0; //over hover color
     --color-navigation-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
         hue-rotate(314deg) brightness(106%) contrast(91%);
+
+    // Mobile Navigation
+    --color-mobilenav-header-background: #ffffff;
+    --color-mobilenav-header-shadow: 4px 4px 12px rgba(0, 0, 0, 0.102);
+    --color-mobilenav-background-default: #000000;
+    --color-mobilenav-text-default: #ffffff;
+    --color-mobilenav-icon-filter: invert(100%) sepia(100%) saturate(0%)
+        hue-rotate(152deg) brightness(103%) contrast(103%);
 
     // Language navigation colors
 
@@ -272,12 +280,14 @@
 
 /* #region DARK MODE */
 [data-theme='dark'] {
+    --default-theme: 'light';
+
     /* #region BRANDING */
     --debugColor: rgba(75, 103, 36, 0.168) !important;
     --debugBorder: 1px dashed red !important;
 
     --brand-logo-main: url('../icons/logo-app-dark.svg');
-    // --brand-background-gradient: url('../img/background-gradient-dark.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small-dark.svg');
 
     --brand-color-darker: #2a3067;
     --brand-color-dark: #4b5292;
@@ -290,6 +300,7 @@
     // Cards
     --card-border-radius: 0px;
     --card-padding: 32px;
+    --card-padding-mobile: 16px 0px;
 
     // Data backgrounds
     --data-background-color: #26272f;
@@ -455,6 +466,14 @@
     --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
         saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
+    // Mobile Navigation
+    --color-mobilenav-header-background: #201f25;
+    --color-mobilenav-header-shadow: 4px 4px 12px rgb(0, 0, 0);
+    --color-mobilenav-background-default: #1c1b22;
+    --color-mobilenav-text-default: #ffffff;
+    --color-mobilenav-icon-filter: invert(100%) sepia(100%) saturate(0%)
+        hue-rotate(152deg) brightness(103%) contrast(103%);
+
     // Language navigation colors
 
     --color-language-background-default: transparent;
@@ -486,6 +505,7 @@
     --color-dropdown-text-active: #ffffff;
 
     // Text colors & fonts
+
     --color-text-primary: #c3ccd9;
     --color-text-secondary: #8f9bac;
     --color-text-highlight: #ebecfc;
