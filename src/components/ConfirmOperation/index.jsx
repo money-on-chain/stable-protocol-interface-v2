@@ -25,12 +25,14 @@ export default function ConfirmOperation(props) {
         currencyYouReceive,
         exchangingUSD,
         commission,
+        commissionUSD,
         commissionPercent,
         inputAmountYouExchange,
         amountYouReceive,
         onCloseModal,
         executionFee,
         commissionFeeToken,
+        commissionFeeTokenUSD,
         commissionPercentFeeToken,
         radioSelectFee
     } = props;
@@ -418,8 +420,9 @@ export default function ConfirmOperation(props) {
     // Commission Select Radio
 
     let commissionPAY = commission;
+    let commissionPAYUSD = commissionUSD;
     let commissionPercentPAY = commissionPercent;
-    let commissionSettings = TokenSettings(currencyYouExchange);
+    let commissionSettings = TokenSettings('CA_0');
     let commissionTokenName;
 
     if (IS_MINT) {
@@ -435,6 +438,7 @@ export default function ConfirmOperation(props) {
     if (radioSelectFee > 0) {
         // Pay with Fee Token
         commissionPAY = commissionFeeToken;
+        commissionPAYUSD = commissionFeeTokenUSD;
         commissionPercentPAY = commissionPercentFeeToken;
         commissionSettings = TokenSettings('TF');
         commissionTokenName = t(`exchange.tokens.TF.abbr`, {
@@ -553,9 +557,32 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}>
+                        <span className={'token_receive_name'}>{' '}
                             {commissionTokenName}
                         </span>
+                        <span className={''}> (</span>
+                        <span>
+                            {!auth.contractStatusData
+                                ?.canOperate
+                                ? '--'
+                                : PrecisionNumbers({
+                                    amount: new BigNumber(
+                                        commissionPAYUSD
+                                    ),
+                                    decimals: 2,
+                                    token: TokenSettings('CA_0'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    isUSD: true,
+                                    skipContractConvert: true
+                                })}
+                        </span>
+                        <span className={''}> {' '}
+                            {t('exchange.exchangingCurrency')}
+                        </span>
+                        <span className={''}>) </span>
+
                     </div>
                     <div className={'tx-fees-item'}>
                         <span className={'token_exchange'}>

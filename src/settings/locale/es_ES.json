@@ -1,7 +1,7 @@
 {
     "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
     "NoConnection_alertTitle": "¡Billetera no conectada!",
-    "NoConnection_alertPleaseConnect": "Por favor, conecta tu billetera utilizando el botón “conectar” en la sección superior derecha de la plataforma.",
+    "NoConnection_alertPleaseConnect": "or favor, conecta tu billetera utilizando el botón “conectar” en la sección superior derecha de la plataforma.",
     "invalidValueDescription": "No hay ningún valor para mostrar",
     "invalidValuePlaceholder": "--",
     "notification": {
@@ -63,7 +63,7 @@
             "reason": "Motivo"
         },
         "errors": {
-            "qACBelow": "Subió el precio, la cantidad está debajo del mínimo requerido",
+            "qACBelow": "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
             "insufficientQAC1": "token bajó, insuficiente",
             "insufficientQAC2": "enviado",
             "lowCoverage": "El sistema está bajo cobertura global protegida",
@@ -97,28 +97,24 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "BPro",
-                "abbr": "BPRO"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "BPro Max",
-                "abbr": "BPROX"
+                "label": "RIF Pro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "ARS",
-                "abbr": "ArsFlip"
-            },
-            "TP_1": {
-                "label": "COP",
-                "abbr": "CopFlip"
+                "label": "RIF Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
 
@@ -184,29 +180,36 @@
                     "price": "Precio en USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
                 "rows": {
                     "0": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
+                        "title": "RIF",
+                        "symbol": " (RIF)",
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "1": {
-                        "title": "BPro Max",
-                        "symbol": " (BPROX)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
+                        "title": "RIFPro",
+                        "symbol": " (RIFP)",
+                        "price_decimals": 4,
+                        "balance_decimals": 4
                     },
                     "2": {
-                        "title": "Flip",
-                        "symbol": " (FLIP)",
+                        "title": "RIF US Dollar",
+                        "symbol": " (USDRIF)",
                         "price_decimals": 2,
-                        "balance_decimals": 8
+                        "balance_decimals": 2
                     },
                     "3": {
-                        "title": "Smart Bitcoin",
+                        "title": "MoC",
+                        "symbol": " (MOC)",
+                        "price_decimals": 2,
+                        "balance_decimals": 2
+                    },
+                    "4": {
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2,
                         "balance_decimals": 8
@@ -219,22 +222,10 @@
                     "price": "Tokens por USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
-                "rows": {
-                    "0": {
-                        "title": "ARS",
-                        "symbol": " (ArsFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "1": {
-                        "title": "COP",
-                        "symbol": " (CopFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    }
-                }
+                "rows": {}
             }
         },
         "sectionTitle": "Portafolio",
@@ -285,7 +276,7 @@
         },
 
         "pegged": {
-            "cardTitle": "Rendimiento de los Tokens-Pegged",
+            "cardTitle": "Rendimiento del USDRIF",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -299,28 +290,24 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "BPro",
-                "abbr": "BPRO"
+                "label": "RIF",
+                "abbr": "RIF"
             },
             "TC": {
-                "label": "BPro Max",
-                "abbr": "BPROX"
+                "label": "RIFPro",
+                "abbr": "RIFP"
             },
             "TP_0": {
-                "label": "ARS",
-                "abbr": "ArsFlip"
-            },
-            "TP_1": {
-                "label": "COP",
-                "abbr": "CopFlip"
+                "label": "RIF US Dollar",
+                "abbr": "USDRIF"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MOC",
+                "abbr": "MOC"
             }
         },
         "cardTitle": "Enviar",
@@ -436,10 +423,10 @@
     "staking": {
         "display_decimals": 2,
         "cardTitle": "Staking",
-        "governanceToken": "Flip",
+        "governanceToken": "MOC",
         "dashLabels": {
             "balance": "Balance (libre)",
-            "staked": "Flip en Stake",
+            "staked": "MOC en Stake",
             "unstaking": "Sacando de Stake",
             "ready": "Listos para retirar"
         },
@@ -461,7 +448,7 @@
             }
         },
         "distribution": {
-            "title": "Distribución de Flip",
+            "title": "Distribución de MOC",
             "graph": {
                 "balance": "Balance (libre)",
                 "processingUnstake": "Unstake en proceso",
@@ -469,14 +456,14 @@
                 "staked": "En stake"
             },
             "bar": {
-                "desc": "Desempeño del stake anual de Flip"
+                "desc": "Desempeño del stake anual de MOC"
             }
         },
         "performance": {
             "title": "Desempeño",
             "bar": {
-                "description": "Desempeño anual del Flip",
-                "base": "Flip",
+                "description": "Desempeño anual del MOC",
+                "base": "MoC",
                 "sign": "+",
                 "staking": "Stacking"
             }
@@ -502,8 +489,8 @@
         },
         "tokens": {
             "TG": {
-                "label": "Flip",
-                "abbr": "FLIP"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
         "modal": {
@@ -601,13 +588,13 @@
             "notVerified": "Esta Vesting Machine aún no fue verificada",
             "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
         },
-        "tokensAvailableToWithdraw": "Balance de FLIP disponibles",
+        "tokensAvailableToWithdraw": "Balance de MOC disponibles",
         "withdrawToWallet": "Enviar a mi billetera",
         "dashDistribution": {
-            "vested": "FLIP para retirar",
-            "released": "FLIP Bloqueados",
-            "staked": "FLIP en Staking",
-            "unstaking": "FLIP en progreso de unstaking"
+            "vested": "MOC para retirar",
+            "released": "MOC Bloqueados",
+            "staked": "MOC en Staking",
+            "unstaking": "MOC en progreso de unstaking"
         },
         "releaseSchedule": {
             "cardTitle": "Calendario de liberación",
@@ -625,7 +612,7 @@
         "walletNotConnected": "¡Billetera no conectada!"
     },
     "settings": {
-        "protocolName": "Flipmoney",
+        "protocolName": "Rif On Chain",
         "themeMode": {
             "light": "Modo claro",
             "dark": "Modo oscuro"

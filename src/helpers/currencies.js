@@ -289,7 +289,7 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
         totalFeeToken: totalFeeToken.div(feeTokenPrice),
-        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA),
+        totalFeeTokenUSD: totalFeeToken.times(priceCA),
         feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100)
     };
 

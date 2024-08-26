@@ -49,9 +49,11 @@ export default function Exchange() {
     const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
 
     const [commission, setCommission] = useState('0.0');
+    const [commissionUSD, setCommissionUSD] = useState('0.0');
     const [commissionPercent, setCommissionPercent] = useState('0.0');
 
     const [commissionFeeToken, setCommissionFeeToken] = useState('0.0');
+    const [commissionFeeTokenUSD, setCommissionFeeTokenUSD] = useState('0.0');
     const [commissionPercentFeeToken, setCommissionPercentFeeToken] =
         useState('0.0');
 
@@ -381,10 +383,12 @@ export default function Exchange() {
 
         // Commission
         setCommission(infoFee.fee);
+        setCommissionUSD(infoFee.feeUSD);
         setCommissionPercent(infoFee.percent);
 
         // Fee Token Commission
         setCommissionFeeToken(infoFee.totalFeeToken);
+        setCommissionFeeTokenUSD(infoFee.totalFeeTokenUSD);
         setCommissionPercentFeeToken(infoFee.feeTokenPercent);
 
         const priceCA = new BigNumber(
@@ -628,7 +632,7 @@ export default function Exchange() {
                                                       false
                                                   ),
                                                   token: TokenSettings(
-                                                      currencyYouExchange
+                                                      currencyYouReceive
                                                   ),
                                                   t: t,
                                                   i18n: i18n,
@@ -636,7 +640,7 @@ export default function Exchange() {
                                                   skipContractConvert: true
                                               })}
                                     </span>
-                                    <span className={'token_receive_name'}>
+                                    <span className={'token_receive_name'}>{' '}
                                         {t(
                                             `exchange.tokens.${currencyYouReceive}.abbr`,
                                             {
@@ -647,7 +651,7 @@ export default function Exchange() {
                                 </div>
                                 <div className="tx-fees-item">
                                     <span className={'token_exchange'}>
-                                        1
+                                        1 {' '}
                                         {t(
                                             `exchange.tokens.${currencyYouReceive}.abbr`,
                                             {
@@ -668,7 +672,7 @@ export default function Exchange() {
                                                       false
                                                   ),
                                                   token: TokenSettings(
-                                                      currencyYouReceive
+                                                      currencyYouExchange
                                                   ),
                                                   t: t,
                                                   i18n: i18n,
@@ -676,7 +680,7 @@ export default function Exchange() {
                                                   skipContractConvert: true
                                               })}
                                     </span>
-                                    <span className={'token_receive_name'}>
+                                    <span className={'token_receive_name'}>{' '}
                                         {t(
                                             `exchange.tokens.${currencyYouExchange}.abbr`,
                                             {
@@ -732,7 +736,7 @@ export default function Exchange() {
                                                               skipContractConvert: true
                                                           })}
                                                 </span>
-                                                <span className={''}>
+                                                <span className={''}> {' '}
                                                     {IS_MINT
                                                         ? t(
                                                               `exchange.tokens.${currencyYouExchange}.abbr`,
@@ -743,6 +747,28 @@ export default function Exchange() {
                                                               { ns: ns }
                                                           )}
                                                 </span>
+                                                <span className={''}> (</span>
+                                                <span>
+                                                    {!auth.contractStatusData
+                                                        ?.canOperate
+                                                        ? '--'
+                                                        : PrecisionNumbers({
+                                                            amount: new BigNumber(
+                                                                commissionUSD
+                                                            ),
+                                                            decimals: 2,
+                                                            token: TokenSettings('CA_0'),
+                                                            t: t,
+                                                            i18n: i18n,
+                                                            ns: ns,
+                                                            isUSD: true,
+                                                            skipContractConvert: true
+                                                        })}
+                                                </span>
+                                                <span className={''}> {' '}
+                                                    {t('exchange.exchangingCurrency')}
+                                                </span>
+                                                <span className={''}>) </span>
                                             </Radio>
                                             <Radio
                                                 value={1}
@@ -793,6 +819,29 @@ export default function Exchange() {
                                                         { ns: ns }
                                                     )}
                                                 </span>
+                                                <span className={''}> (</span>
+                                                <span>
+                                                    {!auth.contractStatusData
+                                                        ?.canOperate
+                                                        ? '--'
+                                                        : PrecisionNumbers({
+                                                            amount: new BigNumber(
+                                                                commissionFeeTokenUSD
+                                                            ),
+                                                            decimals: 2,
+                                                            token: TokenSettings('CA_0'),
+                                                            t: t,
+                                                            i18n: i18n,
+                                                            ns: ns,
+                                                            isUSD: true,
+                                                            skipContractConvert: true
+                                                        })}
+                                                </span>
+                                                <span className={''}> {' '}
+                                                    {t('exchange.exchangingCurrency')}
+                                                </span>
+                                                <span className={''}>) </span>
+
                                             </Radio>
                                         </Space>
                                     </Radio.Group>
@@ -841,6 +890,7 @@ export default function Exchange() {
                         currencyYouReceive={currencyYouReceive}
                         exchangingUSD={exchangingUSD}
                         commission={commission}
+                        commissionUSD={commissionUSD}
                         commissionPercent={commissionPercent}
                         inputAmountYouExchange={calculateFinalAmountExchange()}
                         amountYouReceive={amountYouReceive}
@@ -848,6 +898,7 @@ export default function Exchange() {
                         inputValidationError={inputValidationError}
                         executionFee={executionFee}
                         commissionFeeToken={commissionFeeToken}
+                        commissionFeeTokenUSD={commissionFeeTokenUSD}
                         commissionPercentFeeToken={commissionPercentFeeToken}
                         radioSelectFee={radioSelectFee}
                         //amountYouExchangeFee={amountYouExchangeFee}
