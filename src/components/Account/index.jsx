@@ -244,13 +244,13 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            <div className="switch switch__vesting">
-                <Switch
-                    checked={showVesting}
-                    onChange={(checked) => setShowVesting(checked)}
-                />
-                <p>{t('wallet.useVesting')}</p>
-            </div>
+            {/*<div className="switch switch__vesting">*/}
+            {/*    <Switch*/}
+            {/*        checked={showVesting}*/}
+            {/*        onChange={(checked) => setShowVesting(checked)}*/}
+            {/*    />*/}
+            {/*    <p>{t('wallet.useVesting')}</p>*/}
+            {/*</div>*/}
             {showVesting && actionVesting === 'select' && (
                 <div className="wallet__vesting__options">
                     <div className="wallet__vesting__address__label">

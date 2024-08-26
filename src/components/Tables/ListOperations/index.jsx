@@ -706,7 +706,6 @@ export default function ListOperations(props) {
                         {PrecisionNumbers({
                             amount: new BigNumber(fee['amount']),
                             token: TokenSettings(fee['token']),
-                            decimals: 6,
                             t: t,
                             i18n: i18n,
                             ns: ns,
