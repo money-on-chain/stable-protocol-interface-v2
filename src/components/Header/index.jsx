@@ -17,7 +17,7 @@ export default function SectionHeader() {
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = 5;
+    const menuLimit = 4;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -52,7 +52,7 @@ export default function SectionHeader() {
                 isActive: true,
                 pathMap: '/performance'
             },
-            {
+            /*{
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
@@ -72,7 +72,7 @@ export default function SectionHeader() {
                 action: goToVesting,
                 isActive: true,
                 pathMap: '/vesting'
-            }
+            }*/
         ]);
     }, [t, lang]);
     useEffect(() => {
