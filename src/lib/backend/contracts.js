@@ -212,17 +212,17 @@ const readContracts = async (web3) => {
         registryAddr['SUPPORTERS_ADDR']
     );
 
+    console.log(
+        'Reading Vesting Factory Contract... address: ',
+        registryAddr['MOC_VESTING_MACHINE']
+    );
+    dContracts.contracts.VestingFactory = new web3.eth.Contract(
+        VestingFactory.abi,
+        registryAddr['MOC_VESTING_MACHINE']
+    );
+
     // reading vesting machine from environment address
     if (typeof process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS !== 'undefined') {
-
-        console.log(
-            'Reading Vesting Factory Contract... address: ',
-            registryAddr['MOC_VESTING_MACHINE']
-        );
-        dContracts.contracts.VestingFactory = new web3.eth.Contract(
-            VestingFactory.abi,
-            registryAddr['MOC_VESTING_MACHINE']
-        );
 
         console.log(
             'Reading Vesting Machine Contract... address: ',

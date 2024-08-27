@@ -604,8 +604,8 @@
         "tokensAvailableToWithdraw": "Balance de FLIP disponibles",
         "withdrawToWallet": "Enviar a mi billetera",
         "dashDistribution": {
-            "vested": "FLIP para retirar",
-            "released": "FLIP Bloqueados",
+            "vested": "FLIP Bloqueados",
+            "released": "FLIP para retirar",
             "staked": "FLIP en Staking",
             "unstaking": "FLIP en progreso de unstaking"
         },

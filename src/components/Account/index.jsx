@@ -94,7 +94,7 @@ export default function AccountDialog(props) {
         setAddVestingAddressError(false);
     };
 
-    const onValidateVestingAddress = () => {
+    const onValidateVestingAddress = async () => {
         // 1. Input address valid
         if (addVestingAddress === '') {
             setAddVestingAddressErrorText('Vesting address can not be empty');
@@ -122,7 +122,7 @@ export default function AccountDialog(props) {
                 VestingMachine.abi,
                 addVestingAddress
             );
-            const holder = vestingMachine.methods.getHolder().call();
+            const holder = await vestingMachine.methods.getHolder().call();
             console.log('Holder: ', holder);
 
             return true;
@@ -149,12 +149,43 @@ export default function AccountDialog(props) {
         localStorage.setItem('default-vesting-address', vAddress);
     };
 
+    const loadVesting = async (vestingAddress) => {
+
+        let loaded = false;
+        try {
+            const vestingMachine = new auth.web3.eth.Contract(
+                VestingMachine.abi,
+                vestingAddress
+            );
+            const holder = await vestingMachine.methods.getHolder().call();
+            console.log(`Loaded Vesting Machine: ${vestingAddress} Holder: ${holder} `);
+            window.dContracts.contracts.VestingMachine = vestingMachine
+            loaded = true;
+
+            auth.loadContractsStatusAndUserBalance().then(
+                (value) => {
+                    console.log('Refresh user balance OK!');
+                }
+            );
+
+        } catch (error) {
+            console.log(`Invalid Vesting address: ${error}`);
+        }
+
+        return loaded;
+    }
+
     const onAddVesting = (e) => {
         e.stopPropagation();
         const isValidVesting = onValidateVestingAddress();
         if (isValidVesting) {
-            //add on storage
 
+            const isLoaded = loadVesting(addVestingAddress);
+            if (!isLoaded) {
+                return;
+            }
+
+            //add on storage
             // get vesting addresses
             const vestingAddresses = loadVestingAddressesFromLocalStorage();
 
@@ -182,6 +213,10 @@ export default function AccountDialog(props) {
         saveVestingAddressesToLocalStorage(removeItems);
         setVestingAddressDefault(null);
         setVestingAddresses(removeItems);
+
+        // Disable using vesting machine
+        onChangeShowVesting(false);
+
     };
 
     const onShowAddVesting = (e) => {
@@ -192,6 +227,20 @@ export default function AccountDialog(props) {
     const onCloseAddVesting = (e) => {
         e.stopPropagation();
         setActionVesting('select');
+    };
+
+
+    const onChangeShowVesting = (checked) => {
+        setShowVesting(checked);
+        console.log("Show:", checked);
+
+        if (checked) {
+
+        } else {
+            // Disable using vesting machine
+            window.dContracts.contracts.VestingMachine = undefined;
+        }
+
     };
 
     return (
@@ -244,13 +293,13 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            {/*<div className="switch switch__vesting">*/}
-            {/*    <Switch*/}
-            {/*        checked={showVesting}*/}
-            {/*        onChange={(checked) => setShowVesting(checked)}*/}
-            {/*    />*/}
-            {/*    <p>{t('wallet.useVesting')}</p>*/}
-            {/*</div>*/}
+            <div className="switch switch__vesting">
+                <Switch
+                    checked={showVesting}
+                    onChange={onChangeShowVesting}
+                />
+                <p>{t('wallet.useVesting')}</p>
+            </div>
             {showVesting && actionVesting === 'select' && (
                 <div className="wallet__vesting__options">
                     <div className="wallet__vesting__address__label">

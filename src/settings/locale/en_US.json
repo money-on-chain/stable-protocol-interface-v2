@@ -603,8 +603,8 @@
         "tokensAvailableToWithdraw": "Available Free FLIP balance",
         "withdrawToWallet": "Send to my wallet",
         "dashDistribution": {
-            "vested": "Ready to withdraw FLIP",
-            "released": "Vested FLIP",
+            "vested": "Vested FLIP",
+            "released": "Ready to withdraw FLIP",
             "staked": "Staked FLIP",
             "unstaking": "Unstaking FLIP in progress"
         },

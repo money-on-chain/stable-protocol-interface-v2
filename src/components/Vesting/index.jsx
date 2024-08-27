@@ -29,6 +29,16 @@ export default function Vesting(props) {
     }, [auth]);
 
     const vestedAmounts = () => {
+
+        const amounts = {};
+
+        if (!auth.isVestingLoaded()) {
+            amounts.released = new BigNumber(0);
+            amounts.vested = new BigNumber(0);
+            amounts.total = new BigNumber(0);
+            return amounts;
+        }
+
         const getParameters = auth.userBalanceData.vestingmachine.getParameters;
         const tgeTimestamp =
             auth.userBalanceData.vestingfactory.getTGETimestamp;
@@ -90,14 +100,14 @@ export default function Vesting(props) {
                         .div(percentMultiplier);
                 }
 
-                if (dayLefts >= 0) {
+                if (dayLefts > 0) {
                     vestedAmount = amount;
                 } else {
                     releasedAmount = amount;
                 }
             });
 
-        const amounts = {};
+
         amounts.released = releasedAmount;
         amounts.vested = vestedAmount.minus(releasedAmount);
         amounts.total = total;

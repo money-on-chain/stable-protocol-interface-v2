@@ -17,7 +17,7 @@ export default function SectionHeader() {
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = 4;
+    const menuLimit = 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -52,7 +52,7 @@ export default function SectionHeader() {
                 isActive: true,
                 pathMap: '/performance'
             },
-            /*{
+            {
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
@@ -60,19 +60,20 @@ export default function SectionHeader() {
                 pathMap: '/staking'
             },
             {
+                name: t('menuOptions.vesting'),
+                className: 'logo-vesting',
+                action: goToVesting,
+                isActive: true,
+                pathMap: '/vesting'
+            },
+            /*{
                 name: t('menuOptions.liquidityMining'),
                 className: 'logo-liquidity-mining',
                 action: goToLiquidityMining,
                 isActive: true,
                 pathMap: '/liquidity-mining'
             },
-            {
-                name: t('menuOptions.vesting'),
-                className: 'logo-vesting',
-                action: goToVesting,
-                isActive: true,
-                pathMap: '/vesting'
-            }*/
+            */
         ]);
     }, [t, lang]);
     useEffect(() => {
@@ -231,7 +232,7 @@ export default function SectionHeader() {
                     <div
                         className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}
                     >
-                        {menuOptions.slice(-2).map((option, index) => {
+                        {menuOptions.slice(-1).map((option, index) => {
                             const { containerClassName, iconClassName } =
                                 getMenuItemClasses(
                                     option.className,
