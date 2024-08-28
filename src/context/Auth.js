@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import getRLogin from '../lib/rLogin';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
@@ -41,6 +41,7 @@ import {
 } from '../lib/backend/omoc/vesting';
 
 import { getGasPrice } from '../lib/backend/utils';
+import ModalAccount from '../components/Modals/Account';
 
 const helper = addressHelper(Web3);
 
@@ -52,6 +53,7 @@ const AuthenticateContext = createContext({
     userBalanceData: null,
     contractStatusData: null,
     web3: null,
+    showModalAccount: false,
     connect: () => {},
     interfaceAllowanceAmount: async (
         currencyYouExchange,
@@ -97,7 +99,8 @@ const AuthenticateContext = createContext({
     interfaceVestingWithdraw: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
     isVestingLoaded: () => {},
-    vestingAddress: () => {}
+    vestingAddress: () => {},
+    onShowModalAccount: () => {}
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -114,6 +117,7 @@ const AuthenticateProvider = ({ children }) => {
         GasPrice: 0,
         truncatedAddress: '0x0000..0000'
     });
+    const [showModalAccount, setShowModalAccount] = useState(false);
 
     async function loadCss() {
         let css_logout = await import('../assets/css/logout.scss');
@@ -417,6 +421,15 @@ const AuthenticateProvider = ({ children }) => {
         const filteredEvents = decodeEvents(txRcp);
         return filteredEvents;
     };
+
+    const onShowModalAccount = () => {
+        setShowModalAccount(true);
+    }
+
+    const onHideModalAccount = () => {
+        setShowModalAccount(false);
+    }
+
     // OMOC
 
     const interfaceStakingApprove = async (
@@ -563,6 +576,7 @@ const AuthenticateProvider = ({ children }) => {
                 contractStatusData,
                 isLoggedIn,
                 web3,
+                showModalAccount,
                 connect,
                 disconnect,
                 interfaceAllowanceAmount,
@@ -583,10 +597,17 @@ const AuthenticateProvider = ({ children }) => {
                 isVestingLoaded,
                 vestingAddress,
                 interfaceVestingWithdraw,
-                interfaceVestingVerify
+                interfaceVestingVerify,
+                onShowModalAccount
             }}
         >
             {children}
+            <ModalAccount
+                truncatedAddress={accountData.truncatedAddress}
+                show={showModalAccount}
+                onShow={onShowModalAccount}
+                onHide={onHideModalAccount}
+            ></ModalAccount>
         </AuthenticateContext.Provider>
     );
 };

@@ -188,8 +188,8 @@ export default function Vesting(props) {
             });
     };
 
-    const onDisplayAccount = async (e) => {
-
+    const onDisplayAccount = () => {
+        auth.onShowModalAccount();
     }
 
     return (
@@ -232,19 +232,21 @@ export default function Vesting(props) {
                 <div className="wallet-button">{t('vesting.alert.cta')}</div>
             </div> */}{' '}
 
-            <Alert
-                className="alert-permanent"
-                message={t('vesting.alert.title')}
-                description={t('vesting.alert.explanation') + '. Vesting: ' + usingVestingAddress}
-                type="error"
-                showIcon
-                // closable
-                action={
-                    <Button size="small" type="custom">
-                        {t('vesting.alert.cta')}
-                    </Button>
-                }
-            />{' '}
+            {status === 'LOADED' && (
+                <Alert
+                    className="alert-permanent"
+                    message={t('vesting.alert.title')}
+                    description={t('vesting.alert.explanation') + '. Vesting: ' + usingVestingAddress}
+                    type="error"
+                    showIcon
+                    // closable
+                    action={
+                        <Button size="small" type="custom" onClick={onDisplayAccount}>
+                            {t('vesting.alert.cta')}
+                        </Button>
+                    }
+                /> )}
+
             {/*
 
              VESTING ONBOARDING PAGE 1
@@ -275,7 +277,7 @@ export default function Vesting(props) {
                                 )}
                             </p>
                             <div className="cta">
-                                <button className="button secondary">
+                                <button className="button secondary" onClick={onDisplayAccount}>
                                     {t(
                                         'vesting.vestingOnboarding.page1.ctaSecondary'
                                     )}

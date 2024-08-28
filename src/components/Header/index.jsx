@@ -10,7 +10,7 @@ import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 import { toBePartiallyChecked } from '@testing-library/jest-dom/matchers';
 const { Header } = Layout;
 
-export default function SectionHeader() {
+export default function SectionHeader(props) {
     const navigate = useNavigate();
     const location = useLocation();
     const auth = useContext(AuthenticateContext);
@@ -22,6 +22,7 @@ export default function SectionHeader() {
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
     const [menuOptions, setMenuOptions] = useState([]);
+
     useEffect(() => {
         setMenuOptions([
             {
@@ -268,10 +269,7 @@ export default function SectionHeader() {
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        {/*<a onClick={}>{auth.accountData.truncatedAddress}</a>{' '}*/}
-                        <ModalAccount
-                            truncatedAddress={auth.accountData.truncatedAddress}
-                        ></ModalAccount>
+                        <a onClick={auth.onShowModalAccount}>{auth.accountData.truncatedAddress}</a>{' '}
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">
