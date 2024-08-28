@@ -19,10 +19,12 @@ export default function Vesting(props) {
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Operation status');
+    const [usingVestingAddress, setUsingVestingAddress] = useState('');
 
     useEffect(() => {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
             setStatus('LOADED');
+            setUsingVestingAddress(auth.vestingAddress())
         } else {
             setStatus('STEP_1');
         }
@@ -186,6 +188,10 @@ export default function Vesting(props) {
             });
     };
 
+    const onDisplayAccount = async (e) => {
+
+    }
+
     return (
         <div className="section vesting">
             {/* <Alert
@@ -213,19 +219,7 @@ export default function Vesting(props) {
                 showIcon
                 closable
             />{' '}
-            <Alert
-                className="alert-permanent"
-                message={t('vesting.alert.title')}
-                description={t('vesting.alert.explanation')}
-                type="error"
-                showIcon
-                // closable
-                action={
-                    <Button size="small" type="custom">
-                        {t('vesting.alert.cta')}
-                    </Button>
-                }
-            />{' '} */}
+             */}
             {/* <div className="layout-card using-vesting-alert">
                 {' '}
                 <div className="content">
@@ -237,6 +231,20 @@ export default function Vesting(props) {
                 </div>
                 <div className="wallet-button">{t('vesting.alert.cta')}</div>
             </div> */}{' '}
+
+            <Alert
+                className="alert-permanent"
+                message={t('vesting.alert.title')}
+                description={t('vesting.alert.explanation') + '. Vesting: ' + usingVestingAddress}
+                type="error"
+                showIcon
+                // closable
+                action={
+                    <Button size="small" type="custom">
+                        {t('vesting.alert.cta')}
+                    </Button>
+                }
+            />{' '}
             {/*
 
              VESTING ONBOARDING PAGE 1

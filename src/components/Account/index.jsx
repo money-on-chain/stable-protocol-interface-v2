@@ -149,16 +149,16 @@ export default function AccountDialog(props) {
         localStorage.setItem('default-vesting-address', vAddress);
     };
 
-    const loadVesting = async (vestingAddress) => {
+    const loadVesting = async (vAddress) => {
 
         let loaded = false;
         try {
             const vestingMachine = new auth.web3.eth.Contract(
                 VestingMachine.abi,
-                vestingAddress
+                vAddress
             );
             const holder = await vestingMachine.methods.getHolder().call();
-            console.log(`Loaded Vesting Machine: ${vestingAddress} Holder: ${holder} `);
+            console.log(`Loaded Vesting Machine: ${vAddress} Holder: ${holder} `);
             window.dContracts.contracts.VestingMachine = vestingMachine
             loaded = true;
 
@@ -175,8 +175,7 @@ export default function AccountDialog(props) {
         return loaded;
     }
 
-    const onAddVesting = (e) => {
-        e.stopPropagation();
+    const addVesting = () => {
         const isValidVesting = onValidateVestingAddress();
         if (isValidVesting) {
 
@@ -187,21 +186,26 @@ export default function AccountDialog(props) {
 
             //add on storage
             // get vesting addresses
-            const vestingAddresses = loadVestingAddressesFromLocalStorage();
+            const vestingFromStorage = loadVestingAddressesFromLocalStorage();
 
             //Add the new one to the list
-            vestingAddresses.push(addVestingAddress);
+            vestingFromStorage.push(addVestingAddress);
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(vestingAddresses);
+            saveVestingAddressesToLocalStorage(vestingFromStorage);
             saveDefaultVestingToLocalStorage(addVestingAddress);
 
-            setVestingAddresses(vestingAddresses);
+            setVestingAddresses(vestingFromStorage);
             setVestingAddressDefault(addVestingAddress);
 
             // Close add panel
             setActionVesting('select');
         }
+    }
+
+    const onAddVesting = (e) => {
+        e.stopPropagation();
+        addVesting();
     };
 
     const onUnloadVM = (e) => {
@@ -227,6 +231,22 @@ export default function AccountDialog(props) {
     const onCloseAddVesting = (e) => {
         e.stopPropagation();
         setActionVesting('select');
+    };
+
+    const onChangeSelectVesting = (selectAddress) => {
+
+        if (!selectAddress) return false;
+
+        if (vestingAddressDefault === selectAddress) return false;
+
+        console.log("on change:", selectAddress);
+
+        const isLoaded = loadVesting(selectAddress);
+
+        setVestingAddressDefault(selectAddress);
+
+        return isLoaded;
+
     };
 
 
@@ -308,6 +328,7 @@ export default function AccountDialog(props) {
                     <div className="wallet__vesting__address__dropdown">
                         <Select
                             className="wallet__vesting__address__selector"
+                            onChange={onChangeSelectVesting}
                             value={vestingAddressDefault}
                         >
                             {vestingAddresses.map((possibleOption) => (
