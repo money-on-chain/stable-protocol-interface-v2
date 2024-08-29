@@ -255,10 +255,22 @@ export default function AccountDialog(props) {
         console.log("Show:", checked);
 
         if (checked) {
-
+            if (vestingAddressDefault) {
+                console.log("CHECKED:", vestingAddressDefault)  ;
+                const isLoaded = loadVesting(vestingAddressDefault);
+            }
         } else {
             // Disable using vesting machine
             window.dContracts.contracts.VestingMachine = undefined;
+            auth.userBalanceData.vestingmachine = undefined;
+
+            // Refresh status
+            auth.loadContractsStatusAndUserBalance().then(
+                (value) => {
+                    console.log('Refresh user balance OK!');
+                }
+            );
+
         }
 
     };

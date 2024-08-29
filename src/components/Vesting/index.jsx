@@ -419,7 +419,7 @@ export default function Vesting(props) {
              VESTING SCHEDULE
 
              */}
-            {status === 'LOADED' && (
+            {(window.dContracts.contracts.VestingMachine !== undefined) && (status === 'LOADED') && (
                 <div className="vesting">
                     <div
                         id="vesting-info"
