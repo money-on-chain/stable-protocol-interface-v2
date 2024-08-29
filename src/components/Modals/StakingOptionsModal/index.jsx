@@ -97,6 +97,13 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
+
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
+
                 return null;
             })
             .catch((e) => {
@@ -127,6 +134,13 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
+
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
+
                 return null;
             })
             .catch((e) => {
@@ -158,6 +172,13 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
+
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
+
                 return null;
             })
             .catch((e) => {
@@ -189,6 +210,13 @@ export default function StakingOptionsModal(props) {
             .then((res) => {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
+
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
+
                 return null;
             })
             .catch((e) => {
