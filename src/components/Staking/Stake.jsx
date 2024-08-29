@@ -32,23 +32,32 @@ const Stake = (props) => {
     const [amountToStake, setAmountToStake] = useState('');
     const [amountToUnstake, setAmountToUnstake] = useState('');
 
+    const [currentTab, setCurrentTab] = useState(activeTab);
+
     useEffect(() => {
         // if(amountToStake === '' && amountToUnstake === '') return;
         setIsUnstaking(activeTab === 'tab2');
-        setAmountToStake('');
-        setAmountToUnstake('');
+        //setAmountToStake('');
+        //setAmountToUnstake('');
         // console.log(activeTab);
+        if (activeTab !== currentTab) {
+            onClear();
+            setCurrentTab(activeTab);
+        }
+
     }, [auth, activeTab]);
 
     useEffect(() => {
         onValidate();
     }, [amountToStake, amountToUnstake]);
+
     const onValidate = () => {
         let amountInputError = false;
 
         const tokenSettings = TokenSettings(defaultTokenStake);
         const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
-        const amountToProcess = formatBigNumber(isUnstaking ? amountToUnstake : amountToStake, tokenSettings.decimals);
+        const amountToProcess = new BigNumber(isUnstaking ? amountToUnstake : amountToStake);
+
         //1. Input amount valid
         if (isUnstaking && isNaN(parseFloat(amountToUnstake))) {
             setInputValidationErrorText('Invalid amount');
@@ -81,6 +90,7 @@ const Stake = (props) => {
     const onChangeCurrency = (newCurrency) => {
         onClear();
     };
+
     const onClear = () => {
         setAmountToStake('');
         setAmountToUnstake('');

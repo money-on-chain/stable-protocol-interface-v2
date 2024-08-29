@@ -212,7 +212,7 @@ export default function StakingOptionsModal(props) {
                         <div className="">
                             <h1 className="">
                                 {t('allowance.cardTitle')}
-                                <nbsp> </nbsp>
+
                                 {t('staking.tokens.TG.label')}
                             </h1>
                             <div className="modal-content">
@@ -246,7 +246,7 @@ export default function StakingOptionsModal(props) {
                         <div className="AllowanceDialog">
                             <h1>
                                 {t('allowance.cardTitle')}
-                                <nbsp> </nbsp>
+
                                 {t('staking.tokens.TG.label')}
                             </h1>
                             <div className="modal-content">
@@ -275,7 +275,7 @@ export default function StakingOptionsModal(props) {
                         <div className="AllowanceDialog">
                             <h1>
                                 {t('allowance.cardTitle')}
-                                <nbsp> </nbsp>
+
                                 {t('staking.tokens.TG.label')}
                             </h1>{' '}
                             <div className="tx-amount-group">

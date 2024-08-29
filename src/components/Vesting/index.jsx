@@ -30,6 +30,11 @@ export default function Vesting(props) {
         }
     }, [auth]);
 
+    const truncateAddress = (address) => {
+        return address.substring(0, 6) +  '...' +  address.substring(address.length - 4, address.length);
+
+    }
+
     const vestedAmounts = () => {
 
         const amounts = {};
@@ -149,7 +154,12 @@ export default function Vesting(props) {
                 onError
             )
             .then((res) => {
-                //console.log('DONE!');
+                // Refresh status
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
             })
             .catch((e) => {
                 console.error(e);
@@ -236,7 +246,7 @@ export default function Vesting(props) {
                 <Alert
                     className="alert-permanent"
                     message={t('vesting.alert.title')}
-                    description={t('vesting.alert.explanation') + '. Vesting: ' + usingVestingAddress}
+                    description={t('vesting.alert.explanation') + '. Vesting: ' + truncateAddress(usingVestingAddress)}
                     type="error"
                     showIcon
                     // closable
