@@ -59,8 +59,8 @@ const Stake = (props) => {
         const amountToProcess = new BigNumber(isUnstaking ? amountToUnstake : amountToStake);
 
         //1. Input amount valid
-        if (isUnstaking && isNaN(parseFloat(amountToUnstake))) {
-            setInputValidationErrorText('Invalid amount');
+        if (isNaN(parseFloat(isUnstaking ? amountToUnstake : amountToStake))) {
+            //setInputValidationErrorText('Invalid amount');
             amountInputError = true;
         } else if (amountToProcess.gt(totalBalance)) {
             setInputValidationErrorText('Not enough balance in your wallet');
