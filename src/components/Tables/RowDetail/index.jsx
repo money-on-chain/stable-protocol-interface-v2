@@ -20,7 +20,7 @@ function RowDetail(props) {
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {props.detail.event}{' '}
+                        {props.detail.event}
                     </td>
                     <th
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
@@ -58,7 +58,7 @@ function RowDetail(props) {
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {props.detail.oper_id}{' '}
+                        {props.detail.oper_id}
                     </td>
                     <th
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
@@ -129,7 +129,9 @@ function RowDetail(props) {
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {t(`operations.columns_detailed.executed_tx`, { ns: ns })}
+                        {t(`operations.columns_detailed.executed_tx`, {
+                            ns: ns
+                        })}
                     </th>
                     <td
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
@@ -140,7 +142,9 @@ function RowDetail(props) {
                             href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
                             target="_blank"
                         >
-                            <span>{props.detail.executed_tx_hash_truncate} </span>
+                            <span>
+                                {props.detail.executed_tx_hash_truncate}{' '}
+                            </span>
                         </a>
                     </td>
                     <th

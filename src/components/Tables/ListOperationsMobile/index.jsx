@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import { Table, Skeleton, Modal } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';
-import RowDetail from '../RowDetail';
+import RowDetailMobile from '../RowDetailMobile';
 import api from '../../../services/api';
 import { myParseDate } from '../../../helpers/helper';
 import Copy from '../../Page/Copy';
@@ -615,7 +615,7 @@ export default function ListOperations(props) {
                 ),
                 key: element.key,
                 info: '',
-                description: <RowDetail detail={element.detail} />
+                description: <RowDetailMobile detail={element.detail} />
             });
         });
     };
@@ -684,20 +684,20 @@ export default function ListOperations(props) {
 
         if (fee['amount'].gt(0)) {
             return (
-                <div>
-                    <span className="value">
-                        {PrecisionNumbers({
-                            amount: new BigNumber(fee['amount']),
-                            token: TokenSettings(fee['token']),
-                            decimals: 6,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                    </span>
+                <div className="LastOp__expanded__fee">
+                    {/* <span className="value"> */}
+                    {PrecisionNumbers({
+                        amount: new BigNumber(fee['amount']),
+                        token: TokenSettings(fee['token']),
+                        decimals: 6,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                    {/* </span> */}
                     <span className="token">
-                        {' '}
+                        <nbsp></nbsp>
                         {t(`exchange.tokens.${fee['token']}.abbr`, {
                             ns: ns
                         })}{' '}
