@@ -174,6 +174,7 @@ export default function Vesting(props) {
             })
             .catch((e) => {
                 console.error(e);
+                setOperationStatus('error');
             });
     };
 
@@ -206,6 +207,7 @@ export default function Vesting(props) {
             })
             .catch((e) => {
                 console.error(e);
+                setOperationStatus('error');
             });
     };
 
