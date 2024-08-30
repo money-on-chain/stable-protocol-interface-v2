@@ -825,6 +825,7 @@ export default function Tokens(props) {
 
     return (
         <div className="tokens__table__mobile">
+            <h1>Tokens</h1>
             <Table
                 columns={columnsData}
                 dataSource={tokensData}

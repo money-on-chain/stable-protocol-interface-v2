@@ -9,28 +9,30 @@ export default function DappFooter() {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <div className="dashboard-footer">
-            {/* dApp Version */}
-            <div className="dappVersion">
-                {t('settings.protocolName')} {process.env.REACT_APP_VERSION}
-            </div>
+        <>
+            <div className="dashboard-footer">
+                {/* dApp Version */}
+                <div className="dappVersion">
+                    {t('settings.protocolName')} {process.env.REACT_APP_VERSION}
+                </div>
 
-            {/* Light/Dark mode toggle */}
-            <div className="lightModeContainer">
-                <div className="lightModeSwitch">
-                    <input
-                        type="checkbox"
-                        id="color-scheme-selector"
-                        className="color-scheme-selector"
-                        checked={theme === 'dark'}
-                        onChange={toggleTheme}
-                    ></input>
-                    <label htmlFor="color-scheme-selector"></label>
-                </div>
-                <div id="SchemeText" className="lightModeText">
-                    {t('settings.themeMode.' + theme)}
+                {/* Light/Dark mode toggle */}
+                <div className="lightModeContainer">
+                    <div className="lightModeSwitch">
+                        <input
+                            type="checkbox"
+                            id="color-scheme-selector"
+                            className="color-scheme-selector"
+                            checked={theme === 'dark'}
+                            onChange={toggleTheme}
+                        ></input>
+                        <label htmlFor="color-scheme-selector"></label>
+                    </div>
+                    <div id="SchemeText" className="lightModeText">
+                        {t('settings.themeMode.' + theme)}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

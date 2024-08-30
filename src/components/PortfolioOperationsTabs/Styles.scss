@@ -1,0 +1,12 @@
+.tab__container {
+    width: 100%;
+    height: 40px;
+    background-color: var(--color-button-primary-background-default);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: var(--button-radius-tiny);
+    position: absolute;
+
+    left: 0;
+}

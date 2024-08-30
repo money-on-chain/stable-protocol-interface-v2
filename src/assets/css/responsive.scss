@@ -107,7 +107,7 @@
         max-width: 100%;
     }
     .content-last-operations {
-        display: none;
+        // display: none;
     }
     .no-scroll {
         // avoid body scrolling when mobile menu is open
@@ -362,7 +362,7 @@
                 // box-shadow: var(--surface-shadow-1);
                 padding-bottom: 8px;
                 padding-top: 8px;
-                border-bottom: 1px solid var(--dividers);
+                //                border-bottom: 1px solid var(--dividers);
             }
             .token__details {
                 display: flex;
