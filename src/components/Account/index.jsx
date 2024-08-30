@@ -4,7 +4,6 @@ import { notification, Switch, Select, Button, Input } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
-import BigNumber from 'bignumber.js';
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 
 const { Option } = Select;
@@ -95,6 +94,8 @@ export default function AccountDialog(props) {
     };
 
     const onValidateVestingAddress = async () => {
+        console.log("INNN")
+
         // 1. Input address valid
         if (addVestingAddress === '') {
             setAddVestingAddressErrorText('Vesting address can not be empty');
@@ -110,12 +111,12 @@ export default function AccountDialog(props) {
         }
 
         // 2. Check if not in the list
-        /*const vestingLowerCase = vestingAddresses.map(function(value){return value.toLowerCase()});
-        if (vestingLowerCase.includes(addVestingAddress)) {
+        const vestingLowerCase = vestingAddresses.map(function(value){return value.toLowerCase()});
+        if (vestingLowerCase.includes(addVestingAddress.toLowerCase())) {
             setAddVestingAddressErrorText('Address is already added!');
             setAddVestingAddressError(true);
-            return false
-        }*/
+            return false;
+        }
 
         try {
             const vestingMachine = new auth.web3.eth.Contract(
@@ -175,10 +176,9 @@ export default function AccountDialog(props) {
         return loaded;
     }
 
-    const addVesting = () => {
-        const isValidVesting = onValidateVestingAddress();
+    const addVesting = async () => {
+        const isValidVesting = await onValidateVestingAddress();
         if (isValidVesting) {
-
             const isLoaded = loadVesting(addVestingAddress);
             if (!isLoaded) {
                 return;
@@ -236,13 +236,8 @@ export default function AccountDialog(props) {
     const onChangeSelectVesting = (selectAddress) => {
 
         if (!selectAddress) return false;
-
         if (vestingAddressDefault === selectAddress) return false;
-
-        console.log("on change:", selectAddress);
-
         const isLoaded = loadVesting(selectAddress);
-
         setVestingAddressDefault(selectAddress);
 
         return isLoaded;
@@ -252,11 +247,9 @@ export default function AccountDialog(props) {
 
     const onChangeShowVesting = (checked) => {
         setShowVesting(checked);
-        console.log("Show:", checked);
 
         if (checked) {
             if (vestingAddressDefault) {
-                console.log("CHECKED:", vestingAddressDefault)  ;
                 const isLoaded = loadVesting(vestingAddressDefault);
             }
         } else {
