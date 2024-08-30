@@ -8,6 +8,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { formatTimestamp } from '../../helpers/staking';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 
 export default function Vesting(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -20,11 +21,13 @@ export default function Vesting(props) {
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Operation status');
     const [usingVestingAddress, setUsingVestingAddress] = useState('');
+    const [validWithdraw, setValidWithdraw] = useState(false);
 
     useEffect(() => {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
             setStatus('LOADED');
-            setUsingVestingAddress(auth.vestingAddress())
+            setUsingVestingAddress(auth.vestingAddress());
+            onValidateWithdraw();
         } else {
             setStatus('STEP_1');
         }
@@ -32,6 +35,15 @@ export default function Vesting(props) {
 
     const truncateAddress = (address) => {
         return address.substring(0, 6) +  '...' +  address.substring(address.length - 4, address.length);
+    }
+
+    const onValidateWithdraw = () => {
+        const availableForWithdraw = new BigNumber(auth.userBalanceData.vestingmachine.getAvailable)
+        if (availableForWithdraw.gt(new BigNumber(0))) {
+            setValidWithdraw(true);
+        } else {
+            setValidWithdraw(false);
+        }
     }
 
     const vestedAmounts = () => {
@@ -493,10 +505,10 @@ export default function Vesting(props) {
                                     {t('vesting.tokensAvailableToWithdraw')}
                                 </div>
                             </div>
-                            <div id="withdraw-cta" onClick={onWithdraw}>
+                            <button id="withdraw-cta" onClick={onWithdraw} disabled={!validWithdraw}>
                                 {t('vesting.withdrawToWallet')}
                                 <div className="withdraw-button"></div>
-                            </div>
+                            </button>
                         </div>
                     </div>
                     {/* </div>{' '} */}
