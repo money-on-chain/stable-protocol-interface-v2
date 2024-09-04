@@ -697,7 +697,8 @@ export default function ListOperations(props) {
                     })}
                     {/* </span> */}
                     <span className="token">
-                        <nbsp></nbsp>
+                        {'  '}
+                        {'  '}
                         {t(`exchange.tokens.${fee['token']}.abbr`, {
                             ns: ns
                         })}{' '}
@@ -908,28 +909,6 @@ export default function ListOperations(props) {
                     <Table
                         className={`vertical-middle custom-border-spacing-table ${getClassName()}`}
                         showHeader={false}
-                        // expandable={{
-                        //     expandedRowRender: (record) => (
-                        //         <div className="table-expanded-row">
-                        //             {record.description}
-                        //         </div>
-                        //     ),
-
-                        //     expandIcon: ({ expanded, onExpand, record }) =>
-                        //         expanded ? (
-                        //             <UpCircleOutlined
-                        //                 className="flechita"
-                        //                 style={{ backgroundColor: 'red' }}
-                        //                 onClick={(e) => onExpand(record, e)}
-                        //             />
-                        //         ) : (
-                        //             <DownCircleOutlined
-                        //                 className="flechita"
-                        //                 // style={{ fontSize: '26px' }}
-                        //                 onClick={(e) => onExpand(record, e)}
-                        //             />
-                        //         )
-                        // }}
                         expandable={{
                             expandedRowKeys: expandedKeys,
                             onExpand: handleExpand,

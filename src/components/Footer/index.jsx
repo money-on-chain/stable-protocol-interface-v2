@@ -1,8 +1,8 @@
-import { func } from 'prop-types';
 import React from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
-import toggleTheme from '../UseTheme';
 import useTheme from '../UseTheme';
+import ThemeMode from '../ThemeMode';
+import DappVersion from '../DappVersion';
 
 export default function DappFooter() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -10,28 +10,9 @@ export default function DappFooter() {
 
     return (
         <>
-            <div className="dashboard-footer">
-                {/* dApp Version */}
-                <div className="dappVersion">
-                    {t('settings.protocolName')} {process.env.REACT_APP_VERSION}
-                </div>
-
-                {/* Light/Dark mode toggle */}
-                <div className="lightModeContainer">
-                    <div className="lightModeSwitch">
-                        <input
-                            type="checkbox"
-                            id="color-scheme-selector"
-                            className="color-scheme-selector"
-                            checked={theme === 'dark'}
-                            onChange={toggleTheme}
-                        ></input>
-                        <label htmlFor="color-scheme-selector"></label>
-                    </div>
-                    <div id="SchemeText" className="lightModeText">
-                        {t('settings.themeMode.' + theme)}
-                    </div>
-                </div>
+            <div className="dashboard-footer desktop-only">
+                <DappVersion />
+                <ThemeMode />
             </div>
         </>
     );

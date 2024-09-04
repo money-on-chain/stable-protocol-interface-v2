@@ -17,12 +17,16 @@ function SectionStaking(props) {
     }, [auth]);
     return (
         <Fragment>
-            <div className="sectonStaking">
-                <div className={'section-layout'}>
-                    {ready ? <StakingDashboard /> : <Skeleton active />}
-                </div>
-                <div className={'section-layout'}>
-                    {ready ? <Staking /> : <Skeleton active />}
+            <div className="section-container">
+                <div className="content-page">
+                    <div className="sectonStaking">
+                        <div className={'section-layout'}>
+                            {ready ? <StakingDashboard /> : <Skeleton active />}
+                        </div>
+                        <div className={'section-layout'}>
+                            {ready ? <Staking /> : <Skeleton active />}
+                        </div>
+                    </div>
                 </div>
             </div>
         </Fragment>

@@ -32,16 +32,9 @@ export default function Skeleton() {
             )}
             <SectionHeader />
             <Content>
-                <div className="section-container">
-                    {/* Content page*/}
-                    <div className="content-page">
-                        {/* Dashboard Staking Rewards  
-                            TODO to hide while developing the backend information
-                            <StakingRewards />*/}
-                        <Outlet />
-                    </div>
-                </div>
+                <Outlet />
             </Content>
+
             <Footer>
                 <div className="footer-container">
                     <DappFooter></DappFooter>

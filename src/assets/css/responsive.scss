@@ -1,10 +1,10 @@
 /* #region RESPONSIVE */
 @media (max-width: 768px) {
     .mobile-only {
-        display: block;
+        display: block !important;
     }
     .desktop-only {
-        display: none;
+        display: none !important;
     }
     .row {
         flex-direction: column-reverse;
@@ -108,6 +108,7 @@
     }
     .content-last-operations {
         // display: none;
+        min-height: 100dvh;
     }
     .no-scroll {
         // avoid body scrolling when mobile menu is open
@@ -190,6 +191,15 @@
         gap: 32px;
         height: 100%;
     }
+    .dappVersion {
+        color: var(--color-mobilenav-text-default);
+    }
+    .lightModeContainer {
+        .lightModeText {
+            color: var(--color-mobilenav-text-default);
+            font-size: 16px;
+        }
+    }
     .language__options {
         margin-top: auto;
         padding: 8px;
@@ -249,8 +259,8 @@
         }
         .dash_perfCollateral__dash {
             display: flex;
-            flex-direction: column;
             row-gap: 12px;
+            flex-direction: column;
         }
     }
 
@@ -279,44 +289,44 @@
     }
 
     .token--mobile {
+        background-size: contain;
         width: 24px;
         height: 24px;
-        background-size: contain;
     }
     .token__icon {
+        background-size: contain;
         width: 24px;
         height: 24px;
-        background-size: contain;
     }
     .token__data__group {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        width: 100%;
         gap: 16px;
         padding-left: 38px;
+        width: 100%;
     }
     .token__data__label {
-        font-family: var(--main-font);
+        color: var(--color-text-secondary);
         font-weight: 600;
         font-size: 16px;
-        color: var(--color-text-secondary);
+        font-family: var(--main-font);
     }
     .token__data__data {
-        font-family: var(--main-font);
-        font-weight: 400;
         color: var(--color-text-primary);
+        font-weight: 400;
         font-size: 14px;
+        font-family: var(--main-font);
         text-align: right;
     }
     .dashboard-portfolio {
-        width: 100%;
+        padding-top: 16px;
         padding-right: 8px;
         padding-left: 8px;
-        padding-top: 16px;
+        width: 100%;
         .tokens-list-table {
-            width: 100%;
             margin-top: 16px;
+            width: 100%;
         }
         // .ant-table-content {
         //     border: 1px dashed rgb(3, 22, 151) !important;
@@ -326,9 +336,9 @@
         //     width: 100% !important;
         // }
         .tokens-card-content {
+            padding: 0;
             width: 100%;
             max-width: 100%;
-            padding: 0;
 
             .ant-table-cell {
                 padding: 4px 0px !important;
@@ -343,8 +353,8 @@
             .tokens-list-header {
                 display: flex;
                 gap: 0px;
-                padding-left: 8px;
                 padding-right: 8px;
+                padding-left: 8px;
                 width: 100%;
 
                 .tokens-list-header-balance {
@@ -354,14 +364,14 @@
             .token__contents {
                 display: flex;
                 flex-direction: column;
-                // justify-content: space-between;
-                // align-items: flex-start;
-                width: 100%;
+                padding-top: 8px;
                 // padding: 16px 8px;
                 // background-color: var(--surface-color-1);
                 // box-shadow: var(--surface-shadow-1);
                 padding-bottom: 8px;
-                padding-top: 8px;
+                // justify-content: space-between;
+                // align-items: flex-start;
+                width: 100%;
                 //                border-bottom: 1px solid var(--dividers);
             }
             .token__details {
@@ -380,20 +390,20 @@
             .token__details__account {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-end;
                 justify-content: flex-start;
+                align-items: flex-end;
                 gap: 8px;
                 width: 100%;
             }
             .token__data__big {
                 display: flex;
                 flex-direction: column;
+                width: 100%;
                 color: var(--color-text-primary);
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 100%;
                 font-family: var(--main-font);
-                width: 100%;
             }
             .token__data__small {
                 color: var(--color-text-secondary);
@@ -410,13 +420,16 @@
                 text-transform: uppercase;
             }
             .right {
-                text-align: right;
                 align-items: flex-end;
+                text-align: right;
             }
         }
     }
     .LastOp__expanded__container {
         gap: 12px 8px;
+    }
+    .ant-layout-footer {
+        display: none;
     }
 }
 

@@ -5,9 +5,12 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 import { AuthenticateContext } from '../../context/Auth';
 import ModalAccount from '../Modals/Account';
+import DappVersion from '../DappVersion';
 
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 import { toBePartiallyChecked } from '@testing-library/jest-dom/matchers';
+import ThemeMode from '../ThemeMode';
+
 const { Header } = Layout;
 
 export default function SectionHeader() {
@@ -413,6 +416,8 @@ export default function SectionHeader() {
                                     </div>
                                 </div>
                             </div>
+                            <ThemeMode />
+                            <DappVersion />
                         </div>
                     </>
                 )}
