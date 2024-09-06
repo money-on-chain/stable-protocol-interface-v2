@@ -568,6 +568,7 @@ h1 {
 /* #endregion UI ELEMENTS */
 
 /* #region NOTIFICATION BANNERS */
+// DELETE AFTER MOVING FOR A CUSTOM CLASS
 .ant-alert {
     display: flex;
     flex-direction: row;
@@ -672,6 +673,127 @@ h1 {
     }
 }
 /* #endregion NOTIFICATION BANNES */
+
+/* #region CUSTOM NOTIFICATION BANNERS */
+// DELETE AFTER MOVING FOR A CUSTOM CLASS
+
+.ant-notification {
+    width: 1024px;
+    .notification {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: none;
+        border-radius: var(--card-border-radius);
+        padding: 8px 16px;
+        height: 58px;
+        color: var(--notification-permanent-text);
+        width: 100%;
+    }
+    .type-temporal {
+        background-color: var(--notification-permanent-background);
+    }
+    .type-success {
+        background-color: var(--notification-success-background);
+    }
+}
+
+.alert-success {
+    background-color: var(--color-semantic-positive);
+    > .anticon {
+        background-image: url('../icons/NotificationSuccessOutline.svg');
+        svg {
+            display: none;
+        }
+    }
+}
+.alert-info {
+    background-color: var(--notification-permanent-background);
+    > .anticon {
+        background-image: url('../icons/NotificationInformationOutline.svg');
+        svg {
+            display: none;
+        }
+    }
+}
+.alert-warning {
+    background-color: var(--color-semantic-neutral);
+    > .anticon {
+        background-image: url('../icons/NotificationWarningOutline.svg');
+        svg {
+            display: none;
+        }
+    }
+}
+.alert-error {
+    background-color: var(--color-semantic-negative);
+    > .anticon {
+        background-image: url('../icons/NotificationErrorOutline.svg');
+        svg {
+            display: none;
+        }
+    }
+}
+.ant-notification-notice {
+    width: 100%;
+}
+.ant-alert-message {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1;
+    font-family: var(--brand-font);
+}
+.ant-alert-description {
+    font-size: 14px;
+    line-height: 1;
+    font-family: var(--main-font);
+}
+.anticon {
+    filter: var(--notification-permanent-filter);
+    margin-right: 16px;
+    background-size: cover;
+    background-repeat: none;
+    width: 24px;
+    height: 24px;
+}
+.ant-btn-custom {
+    border: 1px solid var(--brand-color-overbrand);
+    border-radius: var(--button-radius-small);
+    background-color: transparent;
+    padding: 2px 16px 3px 16px;
+    height: 32px;
+    color: var(--brand-color-overbrand);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    font-family: var(--main-font);
+}
+
+.ant-btn-custom:hover {
+    // background-color: orange;
+}
+
+.ant-alert-close-icon {
+    border: none;
+    background-image: url('../icons/CloseOutline.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    svg {
+        display: none;
+    }
+    .alert-permanent {
+        background-color: var(--notification-permanent-background);
+        > .anticon {
+            background-image: url('../icons/NotificationWarningOutline.svg');
+            svg {
+                display: none;
+            }
+        }
+    }
+}
+/* #endregion CUSTOM NOTIFICATION BANNERS */
 
 /* #region BUTTONS */
 .button {

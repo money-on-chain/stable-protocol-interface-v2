@@ -1,14 +1,17 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { AuthenticateContext } from '../../context/Auth';
 import { Skeleton } from 'antd';
+import { useProjectTranslation } from '../../helpers/translations';
 import Portfolio from '../../components/Dashboards/Portfolio';
 import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 
 import './Styles.scss';
 
 export default function HomeTabs({ props }) {
+    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
+
     useEffect(() => {
         if (auth.contractStatusData) {
             setReady(true);
@@ -16,10 +19,14 @@ export default function HomeTabs({ props }) {
     }, [auth]);
 
     // Tabs for mobile
-    const tabs = [{ name: 'Portfolio' }, { name: 'Last Operations' }];
+    const tabs = [
+        { id: 0, name: t(`portfolio.mobileTabs.portfolio`) },
+        { id: 1, name: t(`portfolio.mobileTabs.lastOperations`) }
+    ];
 
     // Active tab status control
-    const [activeTab, setActiveTab] = useState(tabs[0].name);
+
+    const [activeTab, setActiveTab] = useState(tabs[0].id);
 
     return (
         <>
@@ -27,13 +34,13 @@ export default function HomeTabs({ props }) {
             <div className="tab__container">
                 {tabs.map((tab) => (
                     <button
-                        key={tab.name}
+                        key={tab.id}
                         className={
-                            activeTab === tab.name
-                                ? 'tab__button > tab__selected'
+                            activeTab === tab.id
+                                ? 'tab__button tab__selected'
                                 : 'tab__button'
                         }
-                        onClick={() => setActiveTab(tab.name)}
+                        onClick={() => setActiveTab(tab.id)}
                     >
                         {tab.name}
                     </button>
@@ -42,19 +49,7 @@ export default function HomeTabs({ props }) {
 
             {/* Content based on selected tab */}
             <div>
-                {tabs.map((tab) => (
-                    <div
-                        key={tab.name}
-                        style={{
-                            display: activeTab === tab.name ? 'block' : 'none'
-                        }}
-                    >
-                        {tab.content}
-                    </div>
-                ))}
-            </div>
-            <div>
-                {activeTab === tabs[0].name ? (
+                {activeTab === tabs[0].id ? (
                     <div className="dashboard-portfolio">
                         <Portfolio />
                     </div>
