@@ -33,6 +33,7 @@ export default function Vesting(props) {
     const [validCreateVM, setValidCreateVM] = useState(false);
     const [txClaimStatus, setTxClaimStatus] = useState('WALLET-INFO');
     const [txClaimID, setTxClaimID] = useState('');
+    const [newVestingAddress, setNewVestingAddress] = useState('');
 
     useEffect(() => {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
@@ -315,8 +316,65 @@ export default function Vesting(props) {
         auth.onShowModalAccount();
     }
 
-    const onSendCreateVM = () => {
+    const onVestingCreated = (filteredEvents) => {
+        console.log("DEBUG")
+        console.log(filteredEvents)
+        filteredEvents
+            .then((results) => {
+                results.forEach(function (events) {
+                    if (events.name === 'VestingCreated') {
+                        events.events.forEach(function (field) {
+                            if (field.name === 'vesting') {
+                                setNewVestingAddress(field.value);
+                                setTxClaimStatus('VESTING-CREATED');
+                            }
+                        });
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const onSendCreateVM = async () => {
         setTxClaimStatus('SIGN');
+
+        const onTransaction = (txHash) => {
+            console.log('Sent transaction create VM...: ', txHash);
+            setTxClaimID(txHash);
+            setTxClaimStatus('PENDING');
+        };
+        const onReceipt = async (receipt) => {
+            console.log('Transaction create VM mined!...');
+            setTxClaimStatus('SUCCESS');
+            const filteredEvents = await auth.interfaceDecodeEvents(receipt);
+            onVestingCreated(filteredEvents);
+        };
+        const onError = (error) => {
+            console.log('Transaction create VM error!...:', error);
+            setTxClaimStatus('ERROR');
+        };
+
+        await auth
+            .interfaceIncentiveV2Claim(
+                claimCode,
+                onTransaction,
+                onReceipt,
+                onError
+            )
+            .then((res) => {
+                // Refresh status
+                /*auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );*/
+            })
+            .catch((e) => {
+                console.error(e);
+                setTxClaimStatus('ERROR');
+            });
 
     }
 
@@ -586,7 +644,7 @@ export default function Vesting(props) {
 
                             {txClaimStatus === 'VESTING-CREATED' && (<div className='vesting-info-created'>
                                 <div className='vesting-new-label'>New Vesting Address</div>
-                                <div className='vesting-new-address'>0xcd8a1c9acc980ae031456573e34dc05cd7dae6e3</div>
+                                <div className='vesting-new-address'>{newVestingAddress}</div>
                                 <div className='vesting-new-warning'>Please write down vesting address for future use</div>
                             </div>)}
 

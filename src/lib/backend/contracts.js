@@ -53,6 +53,7 @@ const readContracts = async (web3) => {
     abiContracts.Supporters = Supporters;
     abiContracts.VestingMachine = VestingMachine;
     abiContracts.VotingMachine = VotingMachine;
+    abiContracts.VestingFactory = VestingFactory
     abiContracts.IncentiveV2 = IncentiveV2;
 
     addABI(abiContracts);
