@@ -8,8 +8,6 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { formatTimestamp } from '../../helpers/staking';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import CopyAddress from '../CopyAddress';
 
 
 const { TextArea } = Input;
@@ -31,8 +29,6 @@ export default function Vesting(props) {
     const [validClaimCode, setValidClaimCode] = useState(false);
     const [validClaimCodeError, setValidClaimCodeError] = useState('');
     const [validCreateVM, setValidCreateVM] = useState(false);
-    const [txClaimStatus, setTxClaimStatus] = useState('WALLET-INFO');
-    const [txClaimID, setTxClaimID] = useState('');
     const [newVestingAddress, setNewVestingAddress] = useState('');
 
     useEffect(() => {
@@ -69,71 +65,6 @@ export default function Vesting(props) {
         } else {
             setValidWithdraw(false);
         }
-    }
-
-    const onValidateIncentiveV2UserBalance = () => {
-        let valid = false;
-        if (auth.userBalanceData && typeof auth.userBalanceData.incentiveV2 !== 'undefined') {
-            if (new BigNumber(auth.userBalanceData.incentiveV2.userBalance).gt(new BigNumber(0))) {
-                valid = true;
-            }
-        }
-        setValidCreateVM(valid);
-    }
-
-    const onClickUseClaimCode = () => {
-        setStatus('STEP_2');
-    }
-
-    const onChangeClaimCode = (event) => {
-        setClaimCode(event.target.value);
-    }
-
-    const recoverMessageClaimCode = (message) => {
-
-        const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
-        const userAddress = auth.accountData.Wallet;
-        const fromAddress = userAddress.slice(2);
-        const code = `:OMoC:${chainId}:address:${fromAddress}`;
-
-        let recoveredAddress = '';
-
-        try {
-            recoveredAddress = auth.web3.eth.accounts.recover(code, message);
-        } catch (err) {
-            console.error(err);
-        }
-
-        return recoveredAddress.toLowerCase();
-    }
-
-    const onValidateClaimCode = () => {
-        let valid = false;
-
-        if (claimCode.length === 132) {
-            const claimAddress = recoverMessageClaimCode(claimCode);
-            if (claimAddress === auth.accountData.Wallet.toLowerCase()) valid = true;
-        }
-
-        if (!valid && claimCode === '') {
-            setValidClaimCode(false);
-            setValidClaimCodeError('');
-        } else if (!valid) {
-            setValidClaimCode(false);
-            setValidClaimCodeError('Not valid claim code. You need to claim with the original address');
-        } else {
-            setValidClaimCode(true);
-            setValidClaimCodeError('');
-        }
-
-    }
-
-    const onClickLoadClaimCode = () => {
-
-    }
-
-    const onClickCreateVM = () => {
-        setStatus('STEP_3');
     }
 
     const vestedAmounts = () => {
@@ -316,9 +247,68 @@ export default function Vesting(props) {
         auth.onShowModalAccount();
     }
 
+    const onValidateIncentiveV2UserBalance = () => {
+        let valid = false;
+        if (auth.userBalanceData && typeof auth.userBalanceData.incentiveV2 !== 'undefined') {
+            if (new BigNumber(auth.userBalanceData.incentiveV2.userBalance).gt(new BigNumber(0))) {
+                valid = true;
+            }
+        }
+        setValidCreateVM(valid);
+    }
+
+    const onClickUseClaimCode = () => {
+        setStatus('STEP_2');
+    }
+
+    const onChangeClaimCode = (event) => {
+        setClaimCode(event.target.value.substring(0,132));
+    }
+
+    const recoverMessageClaimCode = (message) => {
+
+        const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
+        const userAddress = auth.accountData.Wallet;
+        const fromAddress = userAddress.slice(2);
+        const code = `:OMoC:${chainId}:address:${fromAddress}`;
+
+        let recoveredAddress = '';
+
+        try {
+            recoveredAddress = auth.web3.eth.accounts.recover(code, message);
+        } catch (err) {
+            console.error(err);
+        }
+
+        return recoveredAddress.toLowerCase();
+    }
+
+    const onValidateClaimCode = () => {
+        let valid = false;
+
+        if (claimCode.length === 132) {
+            const claimAddress = recoverMessageClaimCode(claimCode);
+            if (claimAddress === auth.accountData.Wallet.toLowerCase()) valid = true;
+        }
+
+        if (!valid && claimCode === '') {
+            setValidClaimCode(false);
+            setValidClaimCodeError('');
+        } else if (!valid) {
+            setValidClaimCode(false);
+            setValidClaimCodeError('Not valid claim code. You need to claim with the original address');
+        } else {
+            setValidClaimCode(true);
+            setValidClaimCodeError('');
+        }
+
+    }
+
+    const onClickCreateVM = () => {
+        setStatus('STEP_3');
+    }
+
     const onVestingCreated = (filteredEvents) => {
-        console.log("DEBUG")
-        console.log(filteredEvents)
         filteredEvents
             .then((results) => {
                 results.forEach(function (events) {
@@ -326,7 +316,6 @@ export default function Vesting(props) {
                         events.events.forEach(function (field) {
                             if (field.name === 'vesting') {
                                 setNewVestingAddress(field.value);
-                                setTxClaimStatus('VESTING-CREATED');
                             }
                         });
                     }
@@ -337,23 +326,32 @@ export default function Vesting(props) {
             });
     }
 
-    const onSendCreateVM = async () => {
-        setTxClaimStatus('SIGN');
+    const onSendCreateVM = async (e) => {
+        setModalTitle('Create VM');
+
+        e.stopPropagation();
+
+        setOperationStatus('sign');
+        setIsOperationModalVisible(true);
 
         const onTransaction = (txHash) => {
             console.log('Sent transaction create VM...: ', txHash);
-            setTxClaimID(txHash);
-            setTxClaimStatus('PENDING');
+            setTxHash(txHash);
+            setOperationStatus('pending');
         };
-        const onReceipt = async (receipt) => {
+        const onReceipt = (receipt) => {
             console.log('Transaction create VM mined!...');
-            setTxClaimStatus('SUCCESS');
-            const filteredEvents = await auth.interfaceDecodeEvents(receipt);
+            setOperationStatus('success');
+            const filteredEvents = auth.interfaceDecodeEvents(receipt);
             onVestingCreated(filteredEvents);
+            // set go to step Nº 4
+            setStatus('STEP_4');
+            // Close the modal
+            setIsOperationModalVisible(false);
         };
         const onError = (error) => {
             console.log('Transaction create VM error!...:', error);
-            setTxClaimStatus('ERROR');
+            setOperationStatus('error');
         };
 
         await auth
@@ -373,75 +371,23 @@ export default function Vesting(props) {
             })
             .catch((e) => {
                 console.error(e);
-                setTxClaimStatus('ERROR');
+                setOperationStatus('error');
             });
 
     }
 
-    let sentIcon = '';
-    let statusLabel = '';
-    switch (txClaimStatus) {
-        case 'SIGN':
-            sentIcon = 'icon-signifier';
-            statusLabel = t('exchange.confirm.sign');
-            break;
-        case 'PENDING':
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('exchange.confirm.queuing');
-            break;
-        case 'SUCCESS':
-            sentIcon = 'icon-tx-success';
-            statusLabel = t('exchange.confirm.confirmed');
-            break;
-        case 'ERROR':
-            sentIcon = 'icon-tx-error';
-            statusLabel = t('exchange.confirm.error');
-            break;
-        default:
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('exchange.confirm.default');
+    const loadClaimCodeFromFile = async (e) => {
+        e.preventDefault()
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const text = (e.target.result.substring(0,132));
+            setClaimCode(text);
+        };
+        reader.readAsText(e.target.files[0]);
     }
 
     return (
         <div className="section vesting">
-            {/* <Alert
-                className="alert-success"
-                message="Success Tips"
-                description="This is a warning notice about copywriting."
-                type="success"
-                showIcon
-                closable
-            />{' '}
-            <Alert className="alert-info" message={t('vesting.alert.cta')} description={t('vesting.alert.cta')} type="info" showIcon closable />{' '}
-            <Alert
-                className="alert-warning"
-                message="Warning Tips"
-                description="This is a warning notice about copywriting."
-                type="warning"
-                showIcon
-                closable
-            />{' '}
-            <Alert
-                className="alert-error"
-                message="Error Tips"
-                description="This is a warning notice about copywriting."
-                type="error"
-                showIcon
-                closable
-            />{' '}
-             */}
-            {/* <div className="layout-card using-vesting-alert">
-                {' '}
-                <div className="content">
-                    <div className="alert-icon"></div>
-                    <div className="info">
-                        <h2>{t('vesting.alert.title')}</h2>
-                        <p>{t('vesting.alert.explanation')}</p>
-                    </div>
-                </div>
-                <div className="wallet-button">{t('vesting.alert.cta')}</div>
-            </div> */}{' '}
-
             {status === 'LOADED' && (
                 <Alert
                     className="alert-permanent"
@@ -498,10 +444,11 @@ export default function Vesting(props) {
                                     )}
                                 </button>)}
                             </div>
-                            <div className="pagination">
-                                <div className="page-indicator active"></div>
-                                <div className="page-indicator"></div>
-                                <div className="page-indicator"></div>
+                            <div className='pagination'>
+                                <div className='page-indicator active'></div>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator'></div>
                             </div>
                         </div>
                     </div>
@@ -541,12 +488,8 @@ export default function Vesting(props) {
                             {!validClaimCode && validClaimCodeError !=='' && (<div className="input-error">
                                 {validClaimCodeError}
                             </div>)}
-                            <div className="options">
-                                <button className="button--small" onClick={onClickLoadClaimCode}>
-                                    {t(
-                                        'vesting.vestingOnboarding.page2.loadButton'
-                                    )}
-                                </button>
+                            <div className='options'>
+                                <input  className='button--small' type='file' onChange={loadClaimCodeFromFile} />
                             </div>
                             <br />
                             <div className="explanation">
@@ -568,10 +511,11 @@ export default function Vesting(props) {
                                     )}
                                 </button>
                             </div>
-                            <div className="pagination">
-                                <div className="page-indicator"></div>
-                                <div className="page-indicator active"></div>
-                                <div className="page-indicator"></div>
+                            <div className='pagination'>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator active'></div>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator'></div>
                             </div>
                         </div>
                     </div>
@@ -591,7 +535,7 @@ export default function Vesting(props) {
                     <div className="layout-card-content">
                         <div className='vesting-content'>
 
-                            {txClaimStatus === 'WALLET-INFO' && (<div className='vesting-wallet-info'>
+                            <div className='vesting-wallet-info'>
                                 <div className="vesting-wallet-label">
                                     Your Address
                                 </div>
@@ -616,50 +560,60 @@ export default function Vesting(props) {
 
                                     {t('staking.governanceToken')}
                                 </div>
-                            </div>)}
-
-
-                            {(txClaimStatus === 'PENDING' || txClaimStatus === 'SUCCESS' || txClaimStatus === 'ERROR') && (
-                                <div className='tx-details'>
-                                    {t(
-                                        'vesting.vestingOnboarding.page3.transactionId'
-                                    )}
-                                    <div className='copy-button'>
-                                        <CopyAddress
-                                            address={txClaimID}
-                                            type={'tx'}
-                                        ></CopyAddress>
-                                        {/*oxba8cd957…72adM
-                                    <div className='copy-icon'></div>*/}
-                                    </div>
-                                </div>)}
-
-                            {(txClaimStatus === 'SIGN' || txClaimStatus === 'PENDING' || txClaimStatus === 'SUCCESS' || txClaimStatus === 'ERROR') && (
-                                <div className='tx-feedback-container'>
-                                <div className='tx-feedback-icon'>
-                                    <div className={sentIcon}></div>
-                                </div>
-                                <div className='tx-feedback-text'>{statusLabel}</div>
-                            </div>)}
-
-                            {txClaimStatus === 'VESTING-CREATED' && (<div className='vesting-info-created'>
-                                <div className='vesting-new-label'>New Vesting Address</div>
-                                <div className='vesting-new-address'>{newVestingAddress}</div>
-                                <div className='vesting-new-warning'>Please write down vesting address for future use</div>
-                            </div>)}
+                            </div>
 
                             <div className='cta'>
-                            <button className='button secondary' onClick={() => setStatus('STEP_2')}>
+                                <button className='button secondary' onClick={() => setStatus('STEP_2')}>
                                     {t(
                                         'vesting.vestingOnboarding.page2.ctaSecondary'
                                     )}
                                 </button>
-                                <button className='button' disabled={!validCreateVM || txClaimStatus === 'SIGN' || txClaimStatus === 'PENDING' || txClaimStatus === 'SUCCESS' || txClaimStatus === 'ERROR'} onClick={onSendCreateVM}>
-                                    Create VM
+                                <button className='button' disabled={!validCreateVM} onClick={onSendCreateVM}>
+                                    Confirm
                                 </button>
                             </div>
 
                             <div className='pagination'>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator'></div>
+                                <div className='page-indicator active'></div>
+                                <div className='page-indicator'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {status === 'STEP_4' && (
+                <div id="vesting-onboarding" className="layout-card page4">
+                    {' '}
+                    <div className="layout-card-title">
+                        <h1>Vesting Created Information</h1>
+                    </div>
+                    <div className="layout-card-content">
+                        <div className='vesting-content'>
+
+                            <div className='vesting-info-created'>
+                                <div className='vesting-new-label'>Vesting Address</div>
+                                <div className='vesting-new-address'>{newVestingAddress}</div>
+                                <div className='vesting-new-warning'>Please write down vesting address for future use</div>
+                            </div>
+
+                            <div className='cta'>
+                                <button className='button secondary' onClick={() => setStatus('STEP_3')}>
+                                    {t(
+                                        'vesting.vestingOnboarding.page2.ctaSecondary'
+                                    )}
+                                </button>
+                                <button className='button' onClick={onDisplayAccount}>
+                                    {t(
+                                        'vesting.vestingOnboarding.page1.ctaSecondary'
+                                    )}
+                                </button>
+                            </div>
+
+                            <div className='pagination'>
+                                <div className='page-indicator'></div>
                                 <div className='page-indicator'></div>
                                 <div className='page-indicator'></div>
                                 <div className='page-indicator active'></div>
@@ -668,6 +622,9 @@ export default function Vesting(props) {
                     </div>
                 </div>
             )}
+
+
+
             {/*
 
              VESTING SCHEDULE
