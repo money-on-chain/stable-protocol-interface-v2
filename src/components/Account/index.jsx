@@ -34,8 +34,10 @@ export default function AccountDialog(props) {
         useState('');
 
     const loadVestingAddressesFromLocalStorage = () => {
+
+        const accountAddress = auth.accountData.Wallet;
         const storageVestingAddresses =
-            localStorage.getItem('vesting-addresses');
+            localStorage.getItem(`vesting-addresses-${accountAddress}`);
         let vestingAddresses = [];
         if (storageVestingAddresses !== null) {
             vestingAddresses = JSON.parse(storageVestingAddresses);
@@ -94,7 +96,6 @@ export default function AccountDialog(props) {
     };
 
     const onValidateVestingAddress = async () => {
-        console.log("INNN")
 
         // 1. Input address valid
         if (addVestingAddress === '') {
@@ -141,13 +142,18 @@ export default function AccountDialog(props) {
         // Store vesting addresses
         const sVestingAddresses = JSON.stringify(vAddresses);
 
+        const accountAddress = auth.accountData.Wallet;
+
         // save to storage addresses
-        localStorage.setItem('vesting-addresses', sVestingAddresses);
+        localStorage.setItem(`vesting-addresses-${accountAddress}`, sVestingAddresses);
     };
 
     const saveDefaultVestingToLocalStorage = (vAddress) => {
+
+        const accountAddress = auth.accountData.Wallet;
+
         // Save as the default vesting also
-        localStorage.setItem('default-vesting-address', vAddress);
+        localStorage.setItem(`default-vesting-address-${accountAddress}`, vAddress);
     };
 
     const loadVesting = async (vAddress) => {
