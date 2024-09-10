@@ -482,6 +482,7 @@ export default function Vesting(props) {
                                             'vesting.vestingOnboarding.page2.placeholder'
                                         )}
                                         onChange={onChangeClaimCode}
+                                        value={claimCode}
                                     />
                                 </label>
                             </div>
