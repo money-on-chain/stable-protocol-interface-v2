@@ -152,8 +152,10 @@ export default function Vesting(props) {
                 }
             });
 
+        const diffVested = vestedAmount.minus(releasedAmount)
+
         amounts.released = releasedAmount;
-        amounts.vested = vestedAmount; //vestedAmount.minus(releasedAmount);
+        amounts.vested = diffVested.lt(0) ? new BigNumber(0) : diffVested;
         amounts.total = total;
         amounts.daysToRelease = daysToRelease;
 
