@@ -284,6 +284,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
     const tg = dContracts.contracts.TG
     const vestingmachine = dContracts.contracts.VestingMachine
     const vestingfactory = dContracts.contracts.VestingFactory
+    const IncentiveV2 = dContracts.contracts.IncentiveV2
 
     console.log(`Reading user balance ... account: ${userAddress}`);
 
@@ -323,6 +324,12 @@ const userBalance = async (web3, dContracts, userAddress) => {
         multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(vestingmachine.options.address).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'vestingmachine', 'staking', 'getLockingInfo')
         multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(vestingmachine.options.address).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'vestingmachine', 'delay', 'getTransactions')
         multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'getBalance')
+    }
+
+    // Incentive V2
+    if (typeof IncentiveV2 !== 'undefined') {
+        multiCallRequest.aggregate(tg, tg.methods.balanceOf(IncentiveV2.options.address).encodeABI(), 'uint256', 'incentiveV2', 'contractBalance');
+        multiCallRequest.aggregate(IncentiveV2, IncentiveV2.methods.get_balance(userAddress).encodeABI(), 'uint256', 'incentiveV2', 'userBalance')
     }
 
     let TP

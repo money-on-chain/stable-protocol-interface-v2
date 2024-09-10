@@ -19,6 +19,7 @@ import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 import VotingMachine from '../../contracts/omoc/VotingMachine.json';
 import VestingFactory from '../../contracts/omoc/VestingFactory.json';
 import IERC20 from '../../contracts/omoc/IERC20.json';
+import IncentiveV2 from '../../contracts/omoc/IncentiveV2.json';
 
 import { registryAddresses } from './multicall';
 import { addABI } from './transaction';
@@ -52,6 +53,7 @@ const readContracts = async (web3) => {
     abiContracts.Supporters = Supporters;
     abiContracts.VestingMachine = VestingMachine;
     abiContracts.VotingMachine = VotingMachine;
+    abiContracts.IncentiveV2 = IncentiveV2;
 
     addABI(abiContracts);
 
@@ -235,6 +237,18 @@ const readContracts = async (web3) => {
 
     }
 
+    // reading Incentive V2 from environment address
+    if (typeof process.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
+        console.log(
+            'Reading Incentive V2 Contract... address: ',
+            process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+        );
+        dContracts.contracts.IncentiveV2 = new web3.eth.Contract(
+            IncentiveV2.abi,
+            process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+        );
+    }
+
     console.log(
         'Reading Voting Machine Contract... address: ',
         registryAddr['MOC_VOTING_MACHINE']
@@ -253,10 +267,8 @@ const readContracts = async (web3) => {
         registryAddr['MOC_TOKEN']
     );
 
-
     // Token migrator & Legacy token
     if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {
-
         const tpLegacy = new web3.eth.Contract(TokenPegged.abi, process.env.REACT_APP_CONTRACT_LEGACY_TP)
         dContracts.contracts.tp_legacy = tpLegacy
 
@@ -265,7 +277,6 @@ const readContracts = async (web3) => {
         const tokenMigrator = new web3.eth.Contract(TokenMigrator.abi, process.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
         dContracts.contracts.token_migrator = tokenMigrator
     }
-
 
     return dContracts;
 };

@@ -40,6 +40,10 @@ import {
     vestingVerify
 } from '../lib/backend/omoc/vesting';
 
+import {
+    claimV2
+} from '../lib/backend/omoc/incentivev2';
+
 import { getGasPrice } from '../lib/backend/utils';
 import ModalAccount from '../components/Modals/Account';
 
@@ -98,6 +102,7 @@ const AuthenticateContext = createContext({
     interfaceStakingApprove: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceVestingWithdraw: async (amount, onTransaction, onReceipt, onError) => {},
     interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
+    interfaceIncentiveV2Claim: async (signDataResponse, onTransaction, onReceipt, onError) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
     onShowModalAccount: () => {}
@@ -535,6 +540,23 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
+    //  Incentive V2
+    const interfaceIncentiveV2Claim = async (
+        signDataResponse,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
+        const interfaceContext = buildInterfaceContext();
+        return claimV2(
+            interfaceContext,
+            signDataResponse,
+            onTransaction,
+            onReceipt,
+            onError
+        )
+    };
+
     const isVestingLoaded = () => {
         return !!(
             userBalanceData &&
@@ -598,6 +620,7 @@ const AuthenticateProvider = ({ children }) => {
                 vestingAddress,
                 interfaceVestingWithdraw,
                 interfaceVestingVerify,
+                interfaceIncentiveV2Claim,
                 onShowModalAccount
             }}
         >

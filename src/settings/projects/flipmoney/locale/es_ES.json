@@ -607,7 +607,8 @@
             "vested": "FLIP Bloqueados",
             "released": "FLIP para retirar",
             "staked": "FLIP en Staking",
-            "unstaking": "FLIP en progreso de unstaking"
+            "unstaking": "FLIP en progreso de unstaking",
+            "daysToRelease": "Days to next release"
         },
         "releaseSchedule": {
             "cardTitle": "Calendario de liberación",

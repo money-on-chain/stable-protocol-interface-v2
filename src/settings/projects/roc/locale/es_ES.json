@@ -594,7 +594,8 @@
             "vested": "MOC para retirar",
             "released": "MOC Bloqueados",
             "staked": "MOC en Staking",
-            "unstaking": "MOC en progreso de unstaking"
+            "unstaking": "MOC en progreso de unstaking",
+            "daysToRelease": "Days to next release"
         },
         "releaseSchedule": {
             "cardTitle": "Calendario de liberación",

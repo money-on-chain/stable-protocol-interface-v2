@@ -593,7 +593,8 @@
             "vested": "Ready to withdraw FLIP",
             "released": "Vested FLIP",
             "staked": "Staked FLIP",
-            "unstaking": "Unstaking FLIP in progress"
+            "unstaking": "Unstaking FLIP in progress",
+            "daysToRelease": "Days to next release"
         },
         "releaseSchedule": {
             "cardTitle": "Vesting Release Schedule",
