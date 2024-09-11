@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout, Alert } from 'antd';
+import { Layout } from 'antd';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 
@@ -58,14 +58,6 @@ export default function Skeleton() {
 
     return (
         <Layout>
-            {!auth.isLoggedIn && (
-                <Alert
-                    message="Warning"
-                    description="Please connect your wallet!."
-                    type="error"
-                    showIcon
-                />
-            )}
             <SectionHeader />
             <Content>
                 <div className="section-container">

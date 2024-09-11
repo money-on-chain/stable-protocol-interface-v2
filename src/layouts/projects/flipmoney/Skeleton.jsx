@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Layout, Alert } from 'antd';
+import { Layout } from 'antd';
 import React, { useContext } from 'react';
 
 import { AuthenticateContext } from '../../../context/Auth';
@@ -20,20 +20,12 @@ export default function Skeleton() {
 
     return (
         <Layout>
-            {!auth.isLoggedIn && (
-                <Alert
-                    message="Warning"
-                    description="Please connect your wallet!."
-                    type="error"
-                    showIcon
-                />
-            )}
             <SectionHeader />
             <Content>
                 <div className="section-container">
                     {/* Content page*/}
                     <div className="content-page">
-                        {/* Dashboard Staking Rewards  
+                        {/* Dashboard Staking Rewards
                             TODO to hide while developing the backend information
                             <StakingRewards />*/}
                         <Outlet />
