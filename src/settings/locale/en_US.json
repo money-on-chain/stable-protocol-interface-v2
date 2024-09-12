@@ -438,7 +438,7 @@
         "cardTitle": "Staking",
         "governanceToken": "Flip",
         "dashLabels": {
-            "balance": "Balance (free)",
+            "balance": "Balance",
             "staked": "Flip Staked",
             "unstaking": "Unstaking",
             "ready": "Ready to Withdraw"

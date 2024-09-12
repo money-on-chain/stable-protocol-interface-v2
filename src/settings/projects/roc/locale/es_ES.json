@@ -425,7 +425,7 @@
         "cardTitle": "Staking",
         "governanceToken": "MOC",
         "dashLabels": {
-            "balance": "Balance (libre)",
+            "balance": "Balance",
             "staked": "MOC en Stake",
             "unstaking": "Sacando de Stake",
             "ready": "Listos para retirar"

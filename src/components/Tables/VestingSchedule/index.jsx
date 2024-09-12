@@ -72,15 +72,16 @@ export default function VestingSchedule(props) {
     if (timeDeltas && !new BigNumber(timeDeltas[0]).isZero()) {
         deltas.unshift(new BigNumber(0));
     }
+
+    if (new BigNumber(percentages[0]).lt(percentMultiplier)) {
+        percentages.unshift(BigInt(10000));
+    }
+
+    if (percentages && percentages.length > 0) percentages[percentages.length - 1] = 0;
+
     const percents = percentages.map((x) =>
         new BigNumber(percentMultiplier).minus(x)
     );
-    if (
-        percentages &&
-        !new BigNumber(percentages[percentages.length - 1]).isZero()
-    ) {
-        percents.push(new BigNumber(percentMultiplier));
-    }
 
     let dates = [];
     if (deltas) {
@@ -95,6 +96,8 @@ export default function VestingSchedule(props) {
             dates = deltas.map((x) => x / 60 / 60 / 24);
         }
     }
+
+    const tgeFormat = formatTimestamp(new BigNumber(tgeTimestamp).times(1000).toNumber())
 
     auth.userBalanceData &&
         getParameters &&
@@ -113,11 +116,11 @@ export default function VestingSchedule(props) {
 
             vestingData.push({
                 key: itemIndex,
-                date: dates[itemIndex],
+                date: new Date(dates[itemIndex]).toLocaleString(i18n.language),
                 daysleft: dayLefts < 0 ? 0 : dayLefts,
                 percent: `${((percent.toNumber() / percentMultiplier) * 100).toFixed(2)}%`,
                 amount: formatVisibleValue(strTotal, 2),
-                status: dayLefts < 0 ? 'Released' : 'Vested'
+                status: dayLefts > 0 ? 'Vested' : tgeFormat===dates[itemIndex] ? 'TGE' : 'Released'
             });
         });
 

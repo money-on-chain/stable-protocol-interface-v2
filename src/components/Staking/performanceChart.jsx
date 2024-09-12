@@ -13,6 +13,9 @@ export default function PerformanceChart(props) {
     ).then(async (response) => {
         const data = await response.json();
         setPercent(data.annualized_value.toFixed(2));
+    }).catch((error) => {
+        console.log(error);
+        setPercent(0);
     });
 
   return (

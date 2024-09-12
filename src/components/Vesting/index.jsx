@@ -82,24 +82,25 @@ export default function Vesting(props) {
         const tgeTimestamp =
             auth.userBalanceData.vestingfactory.getTGETimestamp;
         const total = auth.userBalanceData.vestingmachine.getTotal;
+        const lockedAmount = auth.userBalanceData.vestingmachine.getLocked;
         const percentMultiplier = 10000;
         const percentages = getParameters.percentages;
-
         const timeDeltas = getParameters.timeDeltas;
         const deltas = [...timeDeltas];
+
         if (timeDeltas && !new BigNumber(timeDeltas[0]).isZero()) {
             deltas.unshift(new BigNumber(0));
         }
 
+        if (new BigNumber(percentages[0]).lt(percentMultiplier)) {
+            percentages.unshift(BigInt(10000));
+        }
+
+        if (percentages && percentages.length > 0) percentages[percentages.length - 1] = 0;
+
         const percents = percentages.map((x) =>
             new BigNumber(percentMultiplier).minus(x)
         );
-        if (
-            percentages &&
-            !new BigNumber(percentages[percentages.length - 1]).isZero()
-        ) {
-            percents.push(new BigNumber(percentMultiplier));
-        }
 
         let dates = [];
         if (deltas) {
@@ -152,10 +153,8 @@ export default function Vesting(props) {
                 }
             });
 
-        const diffVested = vestedAmount.minus(releasedAmount)
-
-        amounts.released = releasedAmount;
-        amounts.vested = diffVested.lt(0) ? new BigNumber(0) : diffVested;
+        amounts.released = new BigNumber(total).minus(new BigNumber(lockedAmount));
+        amounts.vested = lockedAmount;
         amounts.total = total;
         amounts.daysToRelease = daysToRelease;
 
