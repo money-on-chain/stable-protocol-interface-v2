@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import { PieChart } from '@opd/g2plot-react';
 import BigNumber from 'bignumber.js';
+import { PrecisionNumbers } from '../PrecisionNumbers';
+import settings from '../../settings/settings.json';
 
 const PieChartComponent = (props) => {
-    const [t] = useProjectTranslation();
+    const [t, i18n, ns] = useProjectTranslation();
     const [data, setData] = useState([]);
+    const [total, setTotal] = useState(new BigNumber(0));
     const { tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw } = props;
     useEffect(() => {
         readData();
@@ -41,6 +44,7 @@ const PieChartComponent = (props) => {
         ];*/
         // END TEST
         setData(_data);
+        setTotal(total);
     };
 
     const getTotal = () => {
@@ -96,6 +100,19 @@ const PieChartComponent = (props) => {
                         <div className="data-numbers">{item.value.toFixed(2)}%</div>
                     </div>
                 ))}
+            </div>
+            <div className='pie-chart-total'>
+                <div className='pie-chart-total-amount'>
+                    {PrecisionNumbers({
+                        amount: total,
+                        token: settings.tokens.TG,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns
+                    })} {t('staking.governanceToken')}
+                </div>
+                <div className='pie-chart-total-title'>Total {t('staking.governanceToken')} Tokens</div>
             </div>
         </div>
     );
