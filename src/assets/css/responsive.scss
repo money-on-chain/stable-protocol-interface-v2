@@ -397,6 +397,10 @@
     .ant-layout-footer {
         display: none;
     }
+
+    .ant-notification-topRight {
+        right: auto !important;
+    }
 }
 
 @media (min-width: 769px) {
@@ -406,8 +410,8 @@
 }
 
 /* #endregion RESPONSIVE */
-.ant-notification-notice {
-    background-color: var(--notification-info-background);
-    color: var(--notification-info-tex);
-    border-radius: var(--card-border-radius); /* Redondear esquinas */
-}
+// .ant-notification-notice {
+//     background-color: var(--notification-info-background);
+//     color: var(--notification-info-tex);
+//     border-radius: var(--card-border-radius); /* Redondear esquinas */
+// }

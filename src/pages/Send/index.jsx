@@ -20,7 +20,6 @@ function SectionSend(props) {
     }, [auth]);
     return (
         <Fragment>
-            {' '}
             <div className="section-container">
                 <div className="content-page">
                     {/* Send */}

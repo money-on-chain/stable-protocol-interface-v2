@@ -393,6 +393,7 @@
         "staking": "Staking",
         "liquidityMining": "Liquidity Mining",
         "vesting": "Vesting",
+        "voting": "Voting",
         "more": "More"
     },
 
@@ -622,6 +623,36 @@
             "percent": "Percent",
             "amount": "Amount",
             "status": "Status"
+        }
+    },
+    "voting": {
+        "cardTitle": "Voting",
+        "states": {
+            "stateTitle": "Current State:",
+            "proposals": "Proposals",
+            "prevoting": "Pre-Voting",
+            "voting": "Voting"
+        },
+        "info": {
+            "changeContract": "Change contract:",
+            "searchForum": "Search for this proposal in the Governance forum",
+            "stateAs": "Voring Stage as of "
+        },
+        "balanceGraph": { "against": "Against", "inFavor": "In Favor" },
+        "statusGraph": {
+            "castOverCirculation": "Voted cast over circulation",
+            "votingPower": "your voting power over circulating",
+            "positiveOverCirculation": "positive votes over circulating for passing",
+            "negativeOverCirculation": "negative votes over circulating for vetoing"
+        },
+        "votingOptions": {
+            "against": "Vote Against",
+            "inFavor": "Vote In Favor"
+        },
+        "userPower": {
+            "votingPower": "Voting power:",
+            "totalMOC": "Total MoC in circulation:",
+            "totalSupply": "Total Supply:"
         }
     },
     "alert": {
