@@ -6,11 +6,7 @@ import ConfirmSend from '../../ConfirmSend';
 import { Button } from 'antd';
 
 export default function ModalConfirmSend(props) {
-
-    const {
-        onClear,
-        inputValidationError
-    } = props;
+    const { onClear, inputValidationError } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
@@ -24,31 +20,31 @@ export default function ModalConfirmSend(props) {
     };
 
     return (
-        <div className="ShowModalConfirmSend">
+        <div className="ShowModalConfirmOperation">
             <Button
                 type="primary"
-                className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ?
-                    "primary-button btn-confirm" :
-                    "primary-button btn-confirm"}
+                className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button' : 'button'}
                 onClick={showModal}
-                disabled={(inputValidationError) ? 'disabled' : null}
+                disabled={inputValidationError ? 'disabled' : null}
             >
                 {t('send.buttonPrimary')}
             </Button>
-            {visible && <Modal
-                title={t('send.modalTitle')}
-                width={505}
-                open={visible}
-                onCancel={hideModal}
-                footer={null}
-                className="ModalConfirmOperation"
-                closable={false}
-                centered={true}
-                maskClosable={false}
-                maskStyle={{ }}
-            >
-                <ConfirmSend {...props} onCloseModal={hideModal} />
-            </Modal>}
+            {visible && (
+                <Modal
+                    title={t('send.modalTitle')}
+                    width={505}
+                    open={visible}
+                    onCancel={hideModal}
+                    footer={null}
+                    className="ModalConfirmOperation"
+                    closable={false}
+                    centered={true}
+                    maskClosable={false}
+                    maskStyle={{}}
+                >
+                    <ConfirmSend {...props} onCloseModal={hideModal} />
+                </Modal>
+            )}
         </div>
     );
 }

@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
-
+import { useTranslation } from 'react-i18next';
 import './index.css';
 import './assets/css/customization.scss';
-import './assets/css/global.scss';
+// import './assets/css/global.scss';
 import './assets/css/components.scss';
 import './assets/css/navigation.scss';
 
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
+
+import useTheme from './components/UseTheme';
 
 // import IconWaiting from './assets/icons/status-pending.png';
 import IconLoading from './assets/icons/LoaderAnim.svg';
@@ -26,7 +28,7 @@ async function loadTranslations() {
     try {
         await i18next.init({
             interpolation: { escapeValue: false },
-            lng: 'en',
+            lng: 'es',
             resources: {
                 es: { translation: es_ES },
                 en: { translation: en_US }
@@ -39,6 +41,19 @@ async function loadTranslations() {
 
 loadTranslations();
 
+function setColorMode() {
+    const defaulTheme = getComputedStyle(document.querySelector(':root'))
+        .getPropertyValue('--default-theme')
+        .split('"')
+        .join('');
+    const storedTheme = localStorage.getItem('preferredColorScheme');
+    document.documentElement.setAttribute(
+        'data-theme',
+        storedTheme ?? defaulTheme
+    );
+    localStorage.setItem('preferredColorScheme', storedTheme ?? defaulTheme);
+}
+setColorMode();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -54,14 +69,12 @@ root.render(
                                     position: 'fixed',
                                     left: '50%',
                                     top: '50%',
-                                    // transform: 'translateX(-50%) translateY(-50%)'
                                     filter: 'var(--color-navigation-icon-filter-default)'
                                 }}
                                 width={50}
                                 height={50}
                                 src={IconLoading}
                                 alt="Loading..."
-                                // className={'img-status rotate'}
                             />
                         }
                     >

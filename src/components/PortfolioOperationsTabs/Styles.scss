@@ -1,0 +1,29 @@
+.tab__container {
+    display: flex;
+    position: sticky;
+    top: calc(100dvh - 40px);
+    left: 0;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 50;
+    background-color: var(--color-button-primary-background-default);
+    width: 100%;
+    height: 40px;
+    color: var(--color-button-primary-text-default);
+    .tab__button {
+        margin: 2px 8px;
+        border: none;
+        border-bottom: 2px solid transparent;
+        background-color: transparent;
+        width: 100%;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 2;
+        font-family: var(--main-font);
+        text-align: center;
+    }
+
+    .tab__selected {
+        border-color: var(--color-button-primary-text-default);
+    }
+}

@@ -1,0 +1,446 @@
+/*
+section_staking.scss contains all the css code for Staking section cards not contained in global.scss
+*/
+
+/*
+    --- Staking ---
+*/
+
+.sectionStaking {
+    .row-section {
+        margin-top: 24px;
+    }
+    .firstCardsGroup {
+        width: 100%;
+        display: flex;
+        column-gap: 32px;
+    }
+    #stakingCard {
+        width: 475px;
+    }
+
+    #distributionCard {
+        width: 354px;
+        height: 100%;
+    }
+
+    #performanceCard {
+        width: 288px;
+    }
+    .card-content {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .staking-select-token {
+        margin-left: 8px;
+    }
+    .input-value {
+        font-family: var(--brand-font);
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .tab-button {
+        color: var(--color-text-primary);
+        font-family: var(--brand-font);
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 5px 5px;
+        padding-bottom: 0px;
+        border: none;
+        background-color: transparent;
+        border-bottom: 4px solid var(--color-controls-background-disabled);
+        cursor: pointer;
+    }
+
+    .tab-button.active {
+        color: var(--color-text-highlight);
+        border-bottom: 4px solid var(--color-controls-active);
+        background-color: transparent;
+    }
+
+    .tab-divider {
+        height: 1px;
+        border-bottom: 2px solid var(--color-controls-foreground-on);
+        margin-bottom: 20px;
+    }
+
+    .staked-text {
+        color: var(--color-text-primary);
+        font-family: var(--main-font);
+        font-size: 14px;
+        font-weight: 400;
+        text-align: left;
+        margin-top: 22px;
+    }
+
+    .ChartContainer {
+        margin-top: 40px;
+        display: flex;
+        align-items: flex-end;
+        height: 340px;
+        padding-bottom: 25px;
+        padding-left: 0px;
+
+        .ChartGraphic {
+            height: 300px;
+            display: flex;
+            flex-direction: row;
+            column-gap: 10px;
+            justify-items: center;
+            width: 120px;
+            margin: 0 auto;
+
+            .ChartColumn {
+                display: flex;
+                flex-direction: column;
+                flex-basis: 50%;
+                border: 1px solid var(--surface-color-1);
+
+                .Bar {
+                    background: var(--brand-color-base);
+                    flex-grow: 1;
+                    position: relative;
+                    border: 1px solid var(--surface-color-1);
+
+                    div {
+                        color: var(--brand-color-overbrand);
+                        font-size: 8px;
+                        line-height: 8px;
+                        bottom: 16px;
+                        position: absolute;
+                        text-align: center;
+                        width: 100%;
+                        font-weight: bold;
+                    }
+
+                    &.Percent {
+                        flex-grow: 0;
+                        height: 0;
+                        transition: ease all 0.5s;
+                        background: var(--brand-color-dark);
+
+                        &.Hidden {
+                            background: transparent;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ChartText {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            width: 86px;
+            margin-right: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .percent {
+                color: var(--color-text-primary);
+                font-family: var(--brand-font);
+                font-size: 20px;
+                line-height: 24px;
+                font-weight: 700;
+                letter-spacing: 0px;
+                text-align: left;
+                margin-bottom: 4px;
+            }
+
+            .percent-note {
+                color: var(--color-text-primary);
+                font-family: var(--main-font);
+                font-size: 14px;
+                line-height: 19px;
+                font-weight: 400;
+                letter-spacing: 0px;
+                text-align: left;
+                width: 100%;
+            }
+        }
+    }
+
+    .staking-distribution-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        overflow: hidden;
+
+        .pie-chart-container {
+            height: 250px;
+            color: var(--color-text-primary);
+        }
+        .dataContainer {
+            color: var(--color-text-primary);
+            margin-top: 4px;
+
+            :nth-child(1) > .data-bullet {
+                background-color: var(--brand-color-darker);
+            }
+            :nth-child(2) > .data-bullet {
+                background-color: var(--brand-color-dark);
+            }
+            :nth-child(3) > .data-bullet {
+                background-color: var(--brand-color-light);
+            }
+            :nth-child(4) > .data-bullet {
+                background-color: var(--brand-color-lighter);
+            }
+            .data-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 12px;
+                line-height: 16px;
+                margin-bottom: 8px;
+                width: 100%;
+                .data-bullet {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                }
+                .data-numbers {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .card-withdraw {
+        border-radius: var(--card-border-radius);
+        background-color: var(--surface-color-1);
+        box-shadow: var(--surface-shadow-1);
+        padding: var(--card-padding);
+        height: 430px;
+
+        .withdraw-header-balance {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0px;
+            gap: 4px;
+            width: 100%;
+            height: 49px;
+            flex-grow: 0;
+        }
+
+        .withdraw-header-balance-number {
+            width: 170px;
+            height: 24px;
+            font-family: var(--brand-font);
+            font-weight: 600;
+            font-size: 18px;
+            text-align: right;
+            color: var(--color-text-primary);
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+        }
+
+        .withdraw-header-balance-title {
+            width: 170px;
+            height: 21px;
+            font-family: var(--main-font);
+            font-style: normal;
+            font-size: 10px;
+            font-weight: 600;
+            font-style: SemiBold;
+            letter-spacing: 1.2px;
+            text-align: right;
+            text-transform: uppercase;
+            line-height: 16px;
+            color: (var(--color-text-secondary));
+            flex: none;
+            order: 1;
+            flex-grow: 0;
+        }
+
+        .item-data {
+            font-family: var(--main-font);
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.61px;
+            line-height: 19px;
+        }
+
+        .ant-table-body .ant-table-cell {
+            border-color: transparent !important;
+        }
+        .ant-table-cell {
+            padding: 10px 0px !important;
+        }
+        .ant-pagination {
+            display: none;
+        }
+        .group-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        // .token-description {
+        //     text-align: left;
+        //     margin-right: 5px;
+        //     color: var(--color-text-link);
+        //     color: var(--color-text-link);
+        //     cursor: pointer;
+        // }
+
+        // .token-description-disabled {
+        //     text-align: left;
+        //     margin-right: 5px;
+        //     color: var(--color-text-secondary);
+        //     cursor: not-allowed;
+        // }
+
+        .action__container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 130px;
+            margin-left: 5px;
+            cursor: pointer;
+            color: var(--color-text-highlight);
+        }
+
+        .action__container--disabled {
+            cursor: not-allowed;
+            // color: var(--color-text-secondary);
+            // opacity: 0.5;
+            filter: var(--color-icon-link-secondary-filter);
+        }
+        .action__icon--disabled {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            filter: var(--color-icon-link-secondary-filter);
+        }
+        .action__description {
+            width: 200px;
+            margin-right: 8px;
+        }
+        .action__description--disabled {
+            width: 200px;
+            margin-right: 8px;
+        }
+        .action__icon {
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            filter: var(--color-icon-link-filter);
+        }
+    }
+
+    .SelectCurrency.disabled {
+        .ant-select-selection-item {
+            width: 100%;
+        }
+    }
+    .StakingOptionsModal {
+        font-family: var(--brand-font);
+
+        .ant-modal-content {
+            background: rgb(248, 248, 249);
+            box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+        .ant-modal-header {
+            background-color: transparent !important;
+            border-bottom: 0 !important;
+            font-style: italic;
+            font-weight: 900;
+            font-size: 20px;
+            line-height: 24px;
+            padding: 24px 24px;
+        }
+
+        .ant-modal-title {
+            color: black !important;
+            font-family: 'Sora';
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            font-style: normal !important;
+            letter-spacing: 0px !important;
+            text-align: left !important;
+        }
+
+        .ant-modal-body {
+            padding: 14px 32px;
+        }
+    }
+    .input-validation-error {
+        opacity: 1;
+        color: var(--color-semantic-negative);
+        font-family: var(--main-font);
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        letter-spacing: 0px;
+        text-align: left;
+        line-height: 12px;
+        margin-top: 5px;
+    }
+}
+
+/* #region STAKING DASHBOARD */
+.dashboard-staking-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 8px 32px !important;
+    .stakingDash__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0px;
+        width: 240px;
+        height: 50px;
+    }
+    .stakingDash__icon__back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--card-border-radius);
+        background-color: var(--icon-background-color);
+    }
+    .stakingDash__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0px;
+    }
+    .stakingDash__data__amount {
+        width: 115px;
+        height: 29px;
+        font-family: var(--brand-font);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 29px;
+        display: flex;
+        align-items: center;
+        color: var(--color-text-primary);
+    }
+    .stakingDash__data__label {
+        font-family: var(--main-font);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+    }
+}
+/* #endregion STAKING DASHBOARD */

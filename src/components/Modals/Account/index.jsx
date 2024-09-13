@@ -33,7 +33,7 @@ export default function ModalAccount(props) {
                     centered={true}
                     maskStyle={{  }}
                 >
-                    <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
+                    <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} vestingOn={false} />
                 </Modal>
             </div>
             <i className="logo-wallet" onClick={showModal}></i>

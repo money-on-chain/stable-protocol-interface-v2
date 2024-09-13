@@ -86,14 +86,14 @@ export default function Tokens(props) {
             tokensData.push({
                 key: dataItem.key,
                 name: (
-                    <div className="item-token">
-                        <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
-                        <span className="token-description">
+                    <div className="token">
+                        <div className={`icon-token-tp_${dataItem.key} token__icon`}></div>
+                        <span className="token__name">
                             {t(`portfolio.tokens.TP.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>
-                        <span className="token-symbol">
+                        <span className="token__ticker">
                         {t(`portfolio.tokens.TP.rows.${dataItem.key}.symbol`, {
                             ns: ns
                         })}

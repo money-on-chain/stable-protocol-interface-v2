@@ -19,8 +19,8 @@ export default function CollateralAssets() {
                     <div className="row-token" key={i}>
                         <div className="coll-1">
                             <div className="token">
-                                <i className={`icon-token-ca_${i} display-block`}></i>
-                                {t(`portfolio.tokens.CA.rows.${i}.title`, {ns: ns})}
+                                <div className={`icon-token-ca_${i} token__icon`}></div>
+                              <div className='token__name'>  {t(`portfolio.tokens.CA.rows.${i}.title`, {ns: ns})}</div>
                             </div>
                         </div>
                         <div className="coll-2">
