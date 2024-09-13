@@ -114,14 +114,16 @@ export default function VestingSchedule(props) {
             const timeDifference = date_release.getTime() - date_now.getTime();
             const dayLefts = Math.round(timeDifference / (1000 * 3600 * 24));
 
-            vestingData.push({
-                key: itemIndex,
-                date: new Date(dates[itemIndex]).toLocaleString(i18n.language),
-                daysleft: dayLefts < 0 ? 0 : dayLefts,
-                percent: `${((percent.toNumber() / percentMultiplier) * 100).toFixed(2)}%`,
-                amount: formatVisibleValue(strTotal, 2),
-                status: dayLefts > 0 ? 'Vested' : tgeFormat===dates[itemIndex] ? 'TGE' : 'Released'
-            });
+            if (!(tgeFormat===dates[itemIndex])) {
+                vestingData.push({
+                    key: itemIndex,
+                    date: new Date(dates[itemIndex]).toLocaleString(i18n.language),
+                    daysleft: dayLefts < 0 ? 0 : dayLefts,
+                    percent: `${((percent.toNumber() / percentMultiplier) * 100).toFixed(2)}%`,
+                    amount: formatVisibleValue(strTotal, 2),
+                    status: dayLefts > 0 ? 'Vested' : tgeFormat===dates[itemIndex] ? 'TGE' : 'Released'
+                });
+            }
         });
 
     return (

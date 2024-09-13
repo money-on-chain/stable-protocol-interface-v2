@@ -53,7 +53,7 @@ function SectionStaking(props) {
                                         </Button>
                                     }
                                 />
-                            </div> )}
+                            </div>)}
 
                         <div className={'section-layout'}>
                             {ready ? <StakingDashboard /> : <Skeleton active />}
