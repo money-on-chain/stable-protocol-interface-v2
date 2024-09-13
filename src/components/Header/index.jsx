@@ -81,8 +81,14 @@ export default function SectionHeader(props) {
                 action: goToLiquidityMining,
                 isActive: true,
                 pathMap: '/liquidity-mining'
-            },
-            */
+            },*/
+            {
+                name: t('menuOptions.voting'),
+                className: 'logo-voting',
+                action: goToVoting,
+                isActive: true,
+                pathMap: '/voting'
+            }
         ]);
     }, [t, lang]);
     useEffect(() => {
@@ -128,6 +134,11 @@ export default function SectionHeader(props) {
         swapMenuOptions(t('menuOptions.vesting'));
         setShowMoreDropdown(false);
         navigate('/vesting');
+    };
+    const goToVoting = () => {
+        swapMenuOptions(t('menuOptions.voting'));
+        setShowMoreDropdown(false);
+        navigate('/voting');
     };
 
     const swapMenuOptions = (optionName) => {

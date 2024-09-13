@@ -284,3 +284,17 @@ icons.css contains all the css code for Icons across the Dapp
     width: 32px;
     height: 32px;
 }
+.icon__vote__against {
+    background-image: url('../icons/VotingAgainstOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
+.icon__vote__infavor {
+    background-image: url('../icons/VotingInfavorOutline.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
