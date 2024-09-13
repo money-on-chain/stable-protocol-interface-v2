@@ -281,7 +281,7 @@ export default function SectionHeader(props) {
                     <div
                         className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}
                     >
-                        {menuOptions.slice(-1).map((option, index) => {
+                        {menuOptions.slice(-2).map((option, index) => {
                             const { containerClassName, iconClassName } =
                                 getMenuItemClasses(
                                     option.className,
