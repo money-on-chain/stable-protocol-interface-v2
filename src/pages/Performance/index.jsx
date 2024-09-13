@@ -23,7 +23,13 @@ function SectionPerformance(props) {
 
     return (
         <Fragment>
-            <div className={'content-performance layout-card-title'}>{ready ? <Performance /> : <Skeleton active />}</div>
+            <div className="section-container">
+                <div className="content-page">
+                    <div className={'content-performance layout-card-title'}>
+                        {ready ? <Performance /> : <Skeleton active />}
+                    </div>
+                </div>
+            </div>
         </Fragment>
     );
 }

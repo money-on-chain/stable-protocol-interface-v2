@@ -10,6 +10,7 @@ import { loadVestingAddressesFromLocalStorage,
     loadVesting } from '../../helpers/vesting'
 
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
+import { withSuccess } from 'antd/lib/modal/confirm';
 
 const { Option } = Select;
 
@@ -72,9 +73,11 @@ export default function AccountDialog(props) {
         e.stopPropagation();
         navigator.clipboard.writeText(address);
         notification.open({
+            className: 'notification type-temporal',
             message: t('feedback.clipboardCopy'),
             description: `${address} ` + t('feedback.clipboardTo'),
-            placement: 'bottomRight'
+            placement: 'bottom',
+            duration: 0
         });
     };
 

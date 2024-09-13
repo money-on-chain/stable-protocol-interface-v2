@@ -230,7 +230,11 @@
         },
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",
-        "totalBalance": "Total Balance"
+        "totalBalance": "Total Balance",
+        "mobileTabs": {
+            "portfolio": "Portfolio",
+            "lastOperations": "Last Operations"
+        }
     },
     "performance": {
         "sectionTitle": "Performance",

@@ -1,0 +1,27 @@
+.LastOp__expanded__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    // border: 1px dashed green;
+    gap: 16px 16px;
+}
+.LastOp__expanded__item {
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2;
+
+    .LastOp__expanded__label {
+        width: 108px;
+        font-weight: 600;
+    }
+    .LastOp__expanded__data {
+        width: 210px;
+
+        // border: 1px dashed red;
+    }
+    .LastOp__expanded__fee {
+        display: flex;
+        flex-direction: row;
+    }
+}

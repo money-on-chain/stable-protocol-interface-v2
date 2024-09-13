@@ -22,7 +22,13 @@ function SectionVesting(props) {
 
     return (
         <Fragment>
-            <div className={'content-vesting'}>{ready ? <Vesting /> : <Skeleton active />}</div>
+            <div className="section-container">
+                <div className="content-page">
+                    <div className={'content-vesting'}>
+                        {ready ? <Vesting /> : <Skeleton active />}
+                    </div>
+                </div>
+            </div>
         </Fragment>
     );
 }

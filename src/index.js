@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import './index.css';
 import './assets/css/customization.scss';
-import './assets/css/global.scss';
+// import './assets/css/global.scss';
 import './assets/css/components.scss';
 import './assets/css/navigation.scss';
 
@@ -69,14 +69,12 @@ root.render(
                                     position: 'fixed',
                                     left: '50%',
                                     top: '50%',
-                                    // transform: 'translateX(-50%) translateY(-50%)'
                                     filter: 'var(--color-navigation-icon-filter-default)'
                                 }}
                                 width={50}
                                 height={50}
                                 src={IconLoading}
                                 alt="Loading..."
-                                // className={'img-status rotate'}
                             />
                         }
                     >
