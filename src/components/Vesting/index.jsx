@@ -8,6 +8,13 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { formatTimestamp } from '../../helpers/staking';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import {
+    loadVesting,
+    loadVestingAddressesFromLocalStorage,
+    saveDefaultVestingToLocalStorage,
+    saveVestingAddressesToLocalStorage,
+    onValidateVestingAddress
+} from '../../helpers/vesting';
 
 
 const { TextArea } = Input;
@@ -387,6 +394,34 @@ export default function Vesting(props) {
         reader.readAsText(e.target.files[0]);
     }
 
+    const addVesting = async (addVestingAddress) => {
+        const isValidVesting = await onValidateVestingAddress(auth, addVestingAddress);
+        if (isValidVesting) {
+            const isLoaded = loadVesting(auth, addVestingAddress);
+            if (!isLoaded) {
+                return false;
+            }
+            //add on storage
+            // get vesting addresses
+            const vestingFromStorage = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
+
+            //Add the new one to the list
+            vestingFromStorage.push(addVestingAddress);
+
+            // Store vesting addresses
+            saveVestingAddressesToLocalStorage(auth.accountData.Wallet, vestingFromStorage);
+            saveDefaultVestingToLocalStorage(auth.accountData.Wallet, addVestingAddress);
+
+            setNewVestingAddress('');
+
+            return true
+        }
+    }
+
+    const onClickAddVesting = async() => {
+        await addVesting(newVestingAddress);
+    }
+
     return (
         <div className="section vesting">
             {status === 'LOADED' && (
@@ -590,7 +625,7 @@ export default function Vesting(props) {
                 <div id="vesting-onboarding" className="layout-card page4">
                     {' '}
                     <div className="layout-card-title">
-                        <h1>Vesting Created Information</h1>
+                        <h1>Vesting Created Successfully!</h1>
                     </div>
                     <div className="layout-card-content">
                         <div className='vesting-content'>
@@ -607,10 +642,8 @@ export default function Vesting(props) {
                                         'vesting.vestingOnboarding.page2.ctaSecondary'
                                     )}
                                 </button>
-                                <button className='button' onClick={onDisplayAccount}>
-                                    {t(
-                                        'vesting.vestingOnboarding.page1.ctaSecondary'
-                                    )}
+                                <button className='button' onClick={onClickAddVesting} disabled={newVestingAddress===''}>
+                                    Finish & Add vesting
                                 </button>
                             </div>
 

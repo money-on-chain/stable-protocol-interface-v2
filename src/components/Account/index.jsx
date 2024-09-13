@@ -4,6 +4,11 @@ import { notification, Switch, Select, Button, Input } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
+import { loadVestingAddressesFromLocalStorage,
+    saveVestingAddressesToLocalStorage,
+    saveDefaultVestingToLocalStorage,
+    loadVesting } from '../../helpers/vesting'
+
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 
 const { Option } = Select;
@@ -33,19 +38,7 @@ export default function AccountDialog(props) {
     const [addVestingAddressErrorText, setAddVestingAddressErrorText] =
         useState('');
 
-    const loadVestingAddressesFromLocalStorage = () => {
-
-        const accountAddress = auth.accountData.Wallet;
-        const storageVestingAddresses =
-            localStorage.getItem(`vesting-addresses-${accountAddress}`);
-        let vestingAddresses = [];
-        if (storageVestingAddresses !== null) {
-            vestingAddresses = JSON.parse(storageVestingAddresses);
-        }
-        return vestingAddresses;
-    };
-
-    const defaultVestingAddresses = loadVestingAddressesFromLocalStorage();
+    const defaultVestingAddresses = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
     let defaultVestingAddress = null;
     // Select the first one from the list of vesting
     if (defaultVestingAddresses)
@@ -138,68 +131,24 @@ export default function AccountDialog(props) {
         }
     };
 
-    const saveVestingAddressesToLocalStorage = (vAddresses) => {
-        // Store vesting addresses
-        const sVestingAddresses = JSON.stringify(vAddresses);
-
-        const accountAddress = auth.accountData.Wallet;
-
-        // save to storage addresses
-        localStorage.setItem(`vesting-addresses-${accountAddress}`, sVestingAddresses);
-    };
-
-    const saveDefaultVestingToLocalStorage = (vAddress) => {
-
-        const accountAddress = auth.accountData.Wallet;
-
-        // Save as the default vesting also
-        localStorage.setItem(`default-vesting-address-${accountAddress}`, vAddress);
-    };
-
-    const loadVesting = async (vAddress) => {
-
-        let loaded = false;
-        try {
-            const vestingMachine = new auth.web3.eth.Contract(
-                VestingMachine.abi,
-                vAddress
-            );
-            const holder = await vestingMachine.methods.getHolder().call();
-            console.log(`Loaded Vesting Machine: ${vAddress} Holder: ${holder} `);
-            window.dContracts.contracts.VestingMachine = vestingMachine
-            loaded = true;
-
-            auth.loadContractsStatusAndUserBalance().then(
-                (value) => {
-                    console.log('Refresh user balance OK!');
-                }
-            );
-
-        } catch (error) {
-            console.log(`Invalid Vesting address: ${error}`);
-        }
-
-        return loaded;
-    }
-
     const addVesting = async () => {
         const isValidVesting = await onValidateVestingAddress();
         if (isValidVesting) {
-            const isLoaded = loadVesting(addVestingAddress);
+            const isLoaded = loadVesting(auth, addVestingAddress);
             if (!isLoaded) {
                 return;
             }
 
             //add on storage
             // get vesting addresses
-            const vestingFromStorage = loadVestingAddressesFromLocalStorage();
+            const vestingFromStorage = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
 
             //Add the new one to the list
             vestingFromStorage.push(addVestingAddress);
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(vestingFromStorage);
-            saveDefaultVestingToLocalStorage(addVestingAddress);
+            saveVestingAddressesToLocalStorage(auth.accountData.Wallet, vestingFromStorage);
+            saveDefaultVestingToLocalStorage(auth.accountData.Wallet, addVestingAddress);
 
             setVestingAddresses(vestingFromStorage);
             setVestingAddressDefault(addVestingAddress);
@@ -220,7 +169,7 @@ export default function AccountDialog(props) {
             vestingAddresses,
             vestingAddressDefault
         );
-        saveVestingAddressesToLocalStorage(removeItems);
+        saveVestingAddressesToLocalStorage(auth.accountData.Wallet, removeItems);
         setVestingAddressDefault(null);
         setVestingAddresses(removeItems);
 
@@ -243,20 +192,18 @@ export default function AccountDialog(props) {
 
         if (!selectAddress) return false;
         if (vestingAddressDefault === selectAddress) return false;
-        const isLoaded = loadVesting(selectAddress);
+        const isLoaded = loadVesting(auth, selectAddress);
         setVestingAddressDefault(selectAddress);
 
         return isLoaded;
-
     };
-
 
     const onChangeShowVesting = (checked) => {
         setShowVesting(checked);
 
         if (checked) {
             if (vestingAddressDefault) {
-                const isLoaded = loadVesting(vestingAddressDefault);
+                const isLoaded = loadVesting(auth, vestingAddressDefault);
             }
         } else {
             // Disable using vesting machine
@@ -269,9 +216,7 @@ export default function AccountDialog(props) {
                     console.log('Refresh user balance OK!');
                 }
             );
-
         }
-
     };
 
     return (
