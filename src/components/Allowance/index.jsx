@@ -77,7 +77,13 @@ export default function AllowanceDialog(props) {
         }
 
         setStatus('SIGN');
-        auth.interfaceAllowanceAmount(currencyYouExchange, currencyYouReceive, amountAllowance, onTransaction, onReceipt)
+        auth.interfaceAllowanceAmount(
+            currencyYouExchange,
+            currencyYouReceive,
+            amountAllowance,
+            onTransaction,
+            onReceipt
+        )
             .then((value) => {
                 onClose();
             })
@@ -106,7 +112,9 @@ export default function AllowanceDialog(props) {
                 {status === 'SUBMIT' && (
                     <div className="tx-feedback-container">
                         {disAllowance ? (
-                            <div className="tx-feedback-text">{t('allowance.statusDisallowanceText')}</div>
+                            <div className="tx-feedback-text">
+                                {t('allowance.statusDisallowanceText')}
+                            </div>
                         ) : (
                             <div className="tx-feedback-text">
                                 {t('allowance.statusText1')}
@@ -116,17 +124,28 @@ export default function AllowanceDialog(props) {
                         )}
                         <div className="option-checkbox">
                             {!disAllowance && (
-                                <Checkbox className="check-unlimited" onChange={onChange}>
+                                <Checkbox
+                                    className="check-unlimited"
+                                    onChange={onChange}
+                                >
                                     {t('allowance.setUnlimited')}
                                 </Checkbox>
                             )}
                         </div>
                         <div className="cta-container">
                             <div className="cta-options-group">
-                                <button type="secondary" className="button secondary" onClick={onClose}>
+                                <button
+                                    type="secondary"
+                                    className="button secondary"
+                                    onClick={onClose}
+                                >
                                     {t('allowance.confirm.cancel')}
                                 </button>
-                                <button type="primary" className="button" onClick={onAuthorize}>
+                                <button
+                                    type="primary"
+                                    className="button"
+                                    onClick={onAuthorize}
+                                >
                                     {t('allowance.confirm.authorize')}
                                 </button>
                             </div>
@@ -134,17 +153,25 @@ export default function AllowanceDialog(props) {
                     </div>
                 )}
 
-                {(status === 'SIGN' || status === 'WAITING' || status === 'ERROR') && (
+                {(status === 'SIGN' ||
+                    status === 'WAITING' ||
+                    status === 'ERROR') && (
                     <div className="tx-amount-group">
                         <div className="tx-feedback-container">
-                            <div className="tx-feedback-text">{statusLabel}</div>
+                            <div className="tx-feedback-text">
+                                {statusLabel}
+                            </div>
                             <div className="tx-feedback-icon tx-logo-status">
                                 <div className={sentIcon}></div>
                             </div>
                         </div>
                         <div className="cta-container">
                             <div className="cta-options-group">
-                                <button type="primary" className="button secondary" onClick={onClose}>
+                                <button
+                                    type="primary"
+                                    className="button secondary"
+                                    onClick={onClose}
+                                >
                                     {t('allowance.confirm.cancel')}
                                 </button>
                             </div>

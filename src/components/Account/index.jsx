@@ -82,8 +82,9 @@ export default function AccountDialog(props) {
             className: 'notification type-temporal',
             message: t('feedback.clipboardCopy'),
             description: `${address} ` + t('feedback.clipboardTo'),
-            placement: 'bottom',
-            duration: 0
+            placement: 'topRight',
+            duration: 2,
+            pauseOnHover: true
         });
     };
 

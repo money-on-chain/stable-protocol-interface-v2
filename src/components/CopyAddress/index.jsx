@@ -9,7 +9,11 @@ export default function CopyAddress(props) {
 
     const truncateAddress = (address) => {
         if (address === '') return '';
-        return address.substring(0, 6) + '...' + address.substring(address.length - 4, address.length);
+        return (
+            address.substring(0, 6) +
+            '...' +
+            address.substring(address.length - 4, address.length)
+        );
     };
 
     const onClick = () => {
@@ -21,10 +25,14 @@ export default function CopyAddress(props) {
         });
     };
 
-    let urlExplorer = process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/address/' + address;
+    let urlExplorer =
+        process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/address/' + address;
     switch (type) {
         case 'tx':
-            urlExplorer = process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/tx/' + address;
+            urlExplorer =
+                process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+                '/tx/' +
+                address;
             break;
         default:
             break;

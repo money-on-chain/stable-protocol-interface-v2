@@ -81,6 +81,13 @@ export default function SectionHeader() {
                 action: goToVesting,
                 isActive: true,
                 pathMap: '/vesting'
+            },
+            {
+                name: t('menuOptions.voting'),
+                className: 'logo-voting',
+                action: goToVoting,
+                isActive: true,
+                pathMap: '/voting'
             }*/
         ]);
     }, [t, lang]);
@@ -127,6 +134,11 @@ export default function SectionHeader() {
         swapMenuOptions(t('menuOptions.vesting'));
         setShowMoreDropdown(false);
         navigate('/vesting');
+    };
+    const goToVoting = () => {
+        swapMenuOptions(t('menuOptions.voting'));
+        setShowMoreDropdown(false);
+        navigate('/voting');
     };
 
     const swapMenuOptions = (optionName) => {
