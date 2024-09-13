@@ -4,9 +4,6 @@
 :root {
     // Theme used by default. Use "ligth" or "dark"
     --default-theme: 'dark';
-
-    --debugColor: rgba(75, 103, 36, 0.168) !important;
-    --debugBorder: 1px dashed red !important;
 }
 #root {
     font-family: var(--main-font);
@@ -23,6 +20,7 @@
     /* #region BRANDING */
 
     --brand-logo-main: url('../icons/logo-app.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small.svg');
 
     --brand-color-darker: #379c72;
     --brand-color-dark: #32ac79;
@@ -35,6 +33,7 @@
     // Cards
     --card-border-radius: 4px;
     --card-padding: 32px;
+    --card-padding-mobile: 8px;
 
     // Data backgrounds
     --data-background-color: #26272f;
@@ -61,7 +60,7 @@
         #ecef88,
         #82eabe
     ); // can be set to none
-
+    --surface-color-0: #ffffff00; // Can be wrong after ROC
     --surface-color-1: rgba(250, 253, 248, 0.95);
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.15);
     --surface-color-2: rgba(255, 255, 255, 0.99);
@@ -195,6 +194,14 @@
     --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
         saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
+    // Mobile Navigation
+    --color-mobilenav-header-background: #f5fffb;
+    --color-mobilenav-header-shadow: 4px 4px 12px rgb(0, 0, 0);
+    --color-mobilenav-background-default: #12d382;
+    --color-mobilenav-text-default: #202423;
+    --color-mobilenav-icon-filter: invert(11%) sepia(11%) saturate(369%)
+        hue-rotate(114deg) brightness(94%) contrast(92%);
+
     // Language navigation colors
 
     --color-language-background-default: transparent;
@@ -277,7 +284,7 @@
     --debugBorder: 1px dashed red !important;
 
     --brand-logo-main: url('../icons/logo-app-dark.svg');
-    // --brand-background-gradient: url('../img/background-gradient.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small-dark.svg');
 
     --brand-color-darker: #807d44;
     --brand-color-dark: #b3af5c;
@@ -290,6 +297,7 @@
     // Cards
     --card-border-radius: 4px;
     --card-padding: 32px;
+    --card-padding-mobile: 16px 0px;
 
     // Data backgrounds
     --data-background-color: #26272f;
@@ -360,9 +368,13 @@
 
     --color-button-primary-background-default: #fff383;
     --color-button-primary-text-default: #0c0c08;
+    --color-button-primary-filter-default: invert(100%) sepia(29%)
+        saturate(392%) hue-rotate(175deg) brightness(109%) contrast(102%);
 
     --color-button-primary-background-hover: #e8d421;
     --color-button-primary-text-hover: #0c0c08;
+    --color-button-primary-filter-hover: invert(100%) sepia(29%) saturate(392%)
+        hue-rotate(175deg) brightness(109%) contrast(102%);
 
     --color-button-primary-background-active: #c1bc3f;
     --color-button-primary-text-active: #0c0c08;
@@ -450,6 +462,14 @@
     --color-navigation-text-disabled: #e0e0e0; //over hover color
     --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
         saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    // Mobile Navigation
+    --color-mobilenav-header-background: #212128;
+    --color-mobilenav-header-shadow: 4px 4px 12px rgb(0, 0, 0);
+    --color-mobilenav-background-default: #fff383;
+    --color-mobilenav-text-default: #0c0c08;
+    --color-mobilenav-icon-filter: invert(5%) sepia(9%) saturate(1173%)
+        hue-rotate(21deg) brightness(93%) contrast(100%);
 
     // Language navigation colors
 

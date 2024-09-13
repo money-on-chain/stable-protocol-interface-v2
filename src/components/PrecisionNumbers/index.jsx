@@ -15,16 +15,20 @@ const formatLargeNumber = (numberBig, decimals) => {
 
     if (numberBig.gte(billion)) {
         const billions = numberBig.div(billion);
-        return billions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
-            decimalSeparator: '.',
-            groupSeparator: ','
-        }) + ' B ';
+        return (
+            billions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
+                decimalSeparator: '.',
+                groupSeparator: ','
+            }) + ' B '
+        );
     } else if (numberBig.gte(million)) {
         const millions = numberBig.div(million);
-        return millions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
-            decimalSeparator: '.',
-            groupSeparator: ','
-        }) + ' M ';
+        return (
+            millions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
+                decimalSeparator: '.',
+                groupSeparator: ','
+            }) + ' M '
+        );
     } else {
         return numberBig.toFormat(decimals, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
@@ -42,7 +46,7 @@ const PrecisionNumbers = ({
     i18n,
     ns,
     skipContractConvert,
-    isUSD = false,
+    isUSD = false
 }) => {
     let amountBig;
     if (skipContractConvert) {
@@ -55,7 +59,7 @@ const PrecisionNumbers = ({
         decimals = token.visibleDecimals;
     }
     let amountFormat;
-    if(!isUSD) {
+    if (!isUSD) {
         amountFormat = amountBig.toFormat(decimals, BigNumber.ROUND_UP, {
             decimalSeparator: '.',
             groupSeparator: ','
@@ -81,20 +85,16 @@ const PrecisionNumbers = ({
 
     // If is very big number
     if (amountBig.gte(new BigNumber(115792089237316200000000000000000000))) {
-        return (<span>Infinity +</span>)
+        return <span>Infinity +</span>;
     } else {
-        return (
-            isUSD ? 
-            <Fragment >
-                {amountFormat}
-            </Fragment> :
+        return isUSD ? (
+            <Fragment>{amountFormat}</Fragment>
+        ) : (
             <Tooltip title={amountBig.eq(0) ? '0' : amountBig}>
                 <NumericLabel {...{ params }}>{amountFormat}</NumericLabel>
             </Tooltip>
         );
     }
-
-
 };
 
 export { PrecisionNumbers };
