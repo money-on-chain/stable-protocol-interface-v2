@@ -83,7 +83,7 @@ export default function AccountDialog(props) {
     };
 
     const onChangeInputVestingAddress = (e) => {
-        setAddVestingAddress(e.target.value);
+        setAddVestingAddress(e.target.value.toLowerCase());
         onValidateVestingAddressClear();
     };
 
@@ -148,11 +148,11 @@ export default function AccountDialog(props) {
             const vestingFromStorage = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
 
             //Add the new one to the list
-            vestingFromStorage.push(addVestingAddress);
+            vestingFromStorage.push(addVestingAddress.toLowerCase());
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(auth.accountData.Wallet, vestingFromStorage);
-            saveDefaultVestingToLocalStorage(auth.accountData.Wallet, addVestingAddress);
+            saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), vestingFromStorage);
+            saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), addVestingAddress);
 
             setVestingAddresses(vestingFromStorage);
             setVestingAddressDefault(addVestingAddress);
@@ -173,7 +173,7 @@ export default function AccountDialog(props) {
             vestingAddresses,
             vestingAddressDefault
         );
-        saveVestingAddressesToLocalStorage(auth.accountData.Wallet, removeItems);
+        saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), removeItems);
         setVestingAddressDefault(null);
         setVestingAddresses(removeItems);
 

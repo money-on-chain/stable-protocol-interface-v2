@@ -323,7 +323,7 @@ export default function Vesting(props) {
                     if (events.name === 'VestingCreated') {
                         events.events.forEach(function (field) {
                             if (field.name === 'vesting') {
-                                setNewVestingAddress(field.value);
+                                setNewVestingAddress(field.value.toLowerCase());
                             }
                         });
                     }
@@ -409,8 +409,8 @@ export default function Vesting(props) {
             vestingFromStorage.push(addVestingAddress);
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(auth.accountData.Wallet, vestingFromStorage);
-            saveDefaultVestingToLocalStorage(auth.accountData.Wallet, addVestingAddress);
+            saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), vestingFromStorage);
+            saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), addVestingAddress);
 
             setNewVestingAddress('');
 

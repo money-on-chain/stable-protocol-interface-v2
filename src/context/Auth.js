@@ -46,6 +46,8 @@ import {
 
 import { getGasPrice } from '../lib/backend/utils';
 import ModalAccount from '../components/Modals/Account';
+import api from '../services/api';
+import { loadVestingAddressesFromLocalStorage, saveVestingAddressesToLocalStorage } from '../helpers/vesting';
 
 const helper = addressHelper(Web3);
 
@@ -372,7 +374,52 @@ const AuthenticateProvider = ({ children }) => {
 
         window.address = owner;
         setAccountData(accountData);
+        onAfterLoadAccountData();
     };
+
+    const onAfterLoadAccountData = () => {
+        readUserVesting();
+    }
+
+    const saveUserVesting = (response) => {
+
+        if (response.transactions !== undefined && response.transactions.length > 0) {
+
+            const vFromStorage = loadVestingAddressesFromLocalStorage(window.address);
+            let vLowerFromStorage = vFromStorage.map(v => v.toLowerCase());
+
+            const newVesting = []
+            response.transactions.forEach((data) => {
+                if (!vLowerFromStorage.includes(data.vesting.toLowerCase())) {
+                    newVesting.push(data.vesting.toLowerCase());
+                }
+            })
+
+            if (newVesting.length > 0) {
+                vLowerFromStorage.push(...newVesting);
+                saveVestingAddressesToLocalStorage(window.address, vLowerFromStorage);
+            }
+        }
+    }
+
+    const readUserVesting = () => {
+
+        const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
+        const queryParams = new URLSearchParams({
+            holder: window.address,
+            limit: 20,
+            skip: 0
+        }).toString();
+        const url = `${baseUrl}?${queryParams}`;
+
+        api('get', url)
+            .then((response) => {
+                saveUserVesting(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
     const getAccount = async () => {
         const [owner] = await web3.eth.getAccounts();
