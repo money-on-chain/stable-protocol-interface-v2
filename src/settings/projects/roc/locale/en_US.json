@@ -558,9 +558,9 @@
     "vesting": {
         "vestingOnboarding": {
             "page1": {
-                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
-                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
-                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "stepTitle": "You don’t have any Vesting Machine (VM) Loaded yet",
+                "explanation1": "If you have a VM address, please click 'Load VM' button to access it.",
+                "explanation2": "If you are a MOC staker with a claim code, congrats! Please click 'Use Claim Code' button to create the Vesting Machine for your Flip tokens.",
                 "ctaPrimary": "Use Claim Code",
                 "ctaSecondary": "Load VM"
             },
@@ -569,16 +569,32 @@
                 "label": "Enter your Claim Code below",
                 "placeholder": "You can paste your claim code here or select 'load from file' button",
                 "loadButton": "Load Claim Code from file",
-                "explanation1": "After pasting your Claim Code selecte the button below to proceed to the Vesting Machine creation. You’ll need to sign a transaction using your Wallet. You will only pay for the blockchain usage gas.",
+                "explanation1": "You can either paste your Claim Code from clipboard or load it from file. Then click the Create VM button to get the Vesting Machine address. As this is a transaction, you will have to sign it with your wallet.",
                 "ctaPrimary": "Create VM",
-                "ctaSecondary": "Back"
+                "ctaSecondary": "Back",
+                "feedback": {
+                    "notValid": "Not valid claim code. You need to claim with the original address"
+                }
             },
             "page3": {
-                "stepTitle": "You don’t have any Vesting Machine Loaded yet",
-                "explanation1": "A vesting machine is a tool that allows individuals or entities to gradually acquire ownership of an asset or investment over time, rather than receiving it all at once.",
-                "explanation2": "You can load any existing Vesting Machine (VM) address or create a new one If you have a Claim Code.",
+                "stepTitle": "Review Vesting Machine details",
+                "amountLabel": "Amount of tokens to claim",
+                "ownerLabel": "Owner of the Vesting Machine to be created",
                 "transactionId": "Transaction ID",
-                "ctaPrimary": "Continue"
+                "ctaInfo": "This tokens are going to be vested in the Vesting Machine related to the wallet you are currently connected. Please, verify the information above before confirming. Once the transaction is signed, it is not possible to roll it back.",
+                "ctaSecondary": "Back",
+                "ctaPrimary": "Confirm",
+                "modalTitle": "Confirm Vesting Machine"
+            },
+            "page4": {
+                "stepTitle": "Vesting Machine Created Successfully!",
+                "successMessage": "Congratulations! You have successfully claimed your Flip tokens and created a Vesting Machine (VM). Please, read carefully the information below and don't forget to save your vesting address as indicated.",
+                "addressLabel": "Created Vesting Machine Address",
+                "buttonDownloadAddress": "Download Address",
+                "buttonCopyAddress": "Copy Address",
+                "ctaInfo": "Write down the VM address and don't loose it. You will need it to load your Vesting Machine.",
+                "ctaSecondary": "Back",
+                "ctaPrimary": "View Vesting Machine"
             }
         },
         "alert": {
@@ -589,16 +605,17 @@
         "cardTitle": "Vesting Machine",
         "status": {
             "verified": "This Vesting Machine is Verified",
+            "verifyCTA": "Verify it now!",
             "notVerified": "This Vesting Machine is not verified yet",
             "notFromThisUser": "Vesting Machine doesn't belong to this account"
         },
-        "tokensAvailableToWithdraw": "Available Free FLIP balance",
+        "tokensAvailableToWithdraw": "Available Free MOC balance",
         "withdrawToWallet": "Send to my wallet",
         "dashDistribution": {
-            "vested": "Ready to withdraw FLIP",
-            "released": "Vested FLIP",
-            "staked": "Staked FLIP",
-            "unstaking": "Unstaking FLIP in progress",
+            "vested": "Ready to withdraw MOC",
+            "released": "Vested MOC",
+            "staked": "Staked MOC",
+            "unstaking": "Unstaking MOC in progress",
             "daysToRelease": "Days to next release"
         },
         "releaseSchedule": {

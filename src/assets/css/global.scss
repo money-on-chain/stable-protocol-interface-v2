@@ -642,6 +642,37 @@ h1 {
     // }
 }
 
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    color: var(--notification-permanent-text);
+
+    .ant-alert-message {
+        font-weight: 600;
+        font-size: 20px;
+        font-family: var(--brand-font);
+        color: var(--notification-permanent-text);
+    }
+    button {
+        border: none;
+        background-color: transparent;
+        span {
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+    }
+    button:hover,
+    button:focus,
+    button:active {
+        background-color: transparent;
+        border: none;
+        color: var(--color-button-primary-text-hover);
+    }
+}
 .alert-success {
     background-color: var(--color-semantic-positive);
     > .anticon {
@@ -777,12 +808,11 @@ h1 {
         color 0.3s,
         border-color 0.3s;
     cursor: pointer;
-    box-shadow: var(--color-button-secondary-background-default-shadow);
     border: 2px solid var(--color-button-secondary-text-default);
     border-color: var(--color-button-secondary-text-default);
     border-radius: var(--button-radius);
     background-color: var(--color-button-secondary-background-default);
-    padding: 0 var(--button-small-padding);
+    padding: 0px var(--button-small-padding) 1px var(--button-small-padding);
     height: var(--button-small-height);
     color: var(--color-button-secondary-text-default);
     font-weight: 700;
@@ -1213,6 +1243,7 @@ h1 {
     font-size: 14px;
     font-family: var(--main-font);
     text-align: center;
+    word-break: break-all;
 }
 .tx-fees-container {
     // Container for the fees information

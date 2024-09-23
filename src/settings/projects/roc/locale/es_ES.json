@@ -572,14 +572,30 @@
                 "loadButton": "Cargar Claim Code desde archivo",
                 "explanation1": "Después de pegar tu Claim Code, selecciona el botón a continuación para continuar con la creación de la Vesting Machine. Deberás firmar una transacción con tu billetera. Solo pagarás el gas por el uso de red.",
                 "ctaPrimary": "Crear VM",
-                "ctaSecondary": "Atrás"
+                "ctaSecondary": "Atrás",
+                "feedback": {
+                    "notValid": "Claim Code inválido. Necesitas realizar el claim con la wallet original"
+                }
             },
             "page3": {
-                "stepTitle": "No tienes uan Vesting Machine cargada aún",
-                "explanation1": "Una Vesting Machine herramienta que permite a las personas o entidades adquirir gradualmente la propiedad de un activo o inversión a lo largo del tiempo, en lugar de recibirlo todo de una vez.",
-                "explanation2": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tienes un Claim Code.",
-                "transactionId": "ID de Transacción",
-                "ctaPrimary": "Continuar"
+                "stepTitle": "Revisaa los datos de la Vesting Machine",
+                "amountLabel": "Cantidad de tokens para el claim",
+                "ownerLabel": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tienes un Claim Code.",
+                "transactionId": "ID de transacción",
+                "ctaInfo": "Los tokens serán bloqueados en la Vesting Machine vinculada a la billetera a la que estás conectado en este momento. Por favor, verifica la información de arriba antes de confirmar. Una vez que la transaccíon haya sido firmada no será posible revertirla",
+                "ctaSecondary": "Atrás",
+                "ctaPrimary": "Confirmar",
+                "modalTitle": "Confirmar Vesting Machine"
+            },
+            "page4": {
+                "stepTitle": "¡Vesting Machine creada con éxito!",
+                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens Flip y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
+                "addressLabel": "Dirección de la Vesting Machine creada",
+                "buttonDownloadAddress": "Descargar Dirección",
+                "buttonCopyAddress": "Copiar Dirección",
+                "ctaInfo": "Guarda la dirección de tu VM y no la pierdas. Vas a necesitarla para cargar tu Vesting Machine",
+                "ctaSecondary": "Atrás",
+                "ctaPrimary": "Ver Vesting Machine"
             }
         },
         "alert": {

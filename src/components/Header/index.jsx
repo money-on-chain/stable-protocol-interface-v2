@@ -317,7 +317,10 @@ export default function SectionHeader(props) {
                         <i className="logo-translation"></i>
                     </div>
                     <div className="wallet-address">
-                        <a onClick={auth.onShowModalAccount}>{auth.accountData.truncatedAddress}</a>{' '}
+                        <a onClick={auth.onShowModalAccount}>
+                            {auth.accountData.truncatedAddress}
+                        </a>
+                        <i className="logo-wallet"></i>
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">

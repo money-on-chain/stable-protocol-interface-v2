@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import './Styles.scss';
-import { BarGraph, BarBalance } from './VotingGrpah';
+import { BarGraph, BarBalance } from './VotingGraph';
 
 export default function Voting(props) {
     const [t, i18n, ns] = useProjectTranslation();
