@@ -333,7 +333,20 @@ export default function Vesting(props) {
                     if (events.name === 'VestingCreated') {
                         events.events.forEach(function (field) {
                             if (field.name === 'vesting') {
-                                setNewVestingAddress(field.value);
+                                const vNewAddress = field.value.toLowerCase();
+                                setNewVestingAddress(vNewAddress);
+
+                                // set go to step Nº 4
+                                setStatus('STEP_4');
+
+                                // Close the modal
+                                setIsOperationModalVisible(false);
+
+                                // Add vesting address to storage
+                                addVesting(vNewAddress).then((results) => {
+                                }).catch((error) => {
+                                    console.log(error);
+                                });
                             }
                         });
                     }
@@ -362,10 +375,6 @@ export default function Vesting(props) {
             setOperationStatus('success');
             const filteredEvents = auth.interfaceDecodeEvents(receipt);
             onVestingCreated(filteredEvents);
-            // set go to step Nº 4
-            setStatus('STEP_4');
-            // Close the modal
-            setIsOperationModalVisible(false);
         };
         const onError = (error) => {
             console.log('Transaction create VM error!...:', error);
@@ -448,23 +457,13 @@ export default function Vesting(props) {
             vestingFromStorage.push(addVestingAddress);
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(
-                auth.accountData.Wallet,
-                vestingFromStorage
-            );
-            saveDefaultVestingToLocalStorage(
-                auth.accountData.Wallet,
-                addVestingAddress
-            );
+            saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), vestingFromStorage);
+            saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), addVestingAddress);
 
             setNewVestingAddress('');
 
             return true;
         }
-    };
-
-    const onClickAddVesting = async () => {
-        await addVesting(newVestingAddress);
     };
 
     return (

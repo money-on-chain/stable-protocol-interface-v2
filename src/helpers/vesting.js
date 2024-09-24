@@ -2,7 +2,7 @@ import VestingMachine from '../contracts/omoc/VestingMachine.json';
 
 const loadVestingAddressesFromLocalStorage = (accountAddress) => {
     const storageVestingAddresses =
-        localStorage.getItem(`vesting-addresses-${accountAddress}`);
+        localStorage.getItem(`vesting-addresses-${accountAddress.toLowerCase()}`);
     let vestingAddresses = [];
     if (storageVestingAddresses !== null) {
         vestingAddresses = JSON.parse(storageVestingAddresses);
@@ -14,12 +14,12 @@ const saveVestingAddressesToLocalStorage = (accountAddress, vAddresses) => {
     // Store vesting addresses
     const sVestingAddresses = JSON.stringify(vAddresses);
     // save to storage addresses
-    localStorage.setItem(`vesting-addresses-${accountAddress}`, sVestingAddresses);
+    localStorage.setItem(`vesting-addresses-${accountAddress.toLowerCase()}`, sVestingAddresses);
 };
 
 const saveDefaultVestingToLocalStorage = (accountAddress, vAddress) => {
     // Save as the default vesting also
-    localStorage.setItem(`default-vesting-address-${accountAddress}`, vAddress);
+    localStorage.setItem(`default-vesting-address-${accountAddress.toLowerCase()}`, vAddress);
 };
 
 const loadVesting = async (auth, vAddress) => {
