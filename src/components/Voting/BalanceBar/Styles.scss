@@ -1,0 +1,35 @@
+.balanceBar {
+    width: 100%;
+    .balanceBar__labels {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+}
+.balanceBar__wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 24px;
+    .against {
+        border-radius: var(--button-radius-tiny) 0px 0px
+            var(--button-radius-tiny);
+        background-color: var(--color-semantic-negative);
+    }
+    .infavor {
+        border-radius: 0px var(--button-radius-tiny) var(--button-radius-tiny)
+            0px;
+        background-color: var(--color-semantic-positive);
+    }
+    .maxvalue {
+        border-radius: var(
+            --button-radius-tiny
+        ); // Round all edges if value is 100%
+    }
+    .graphDivider {
+        width: 2px;
+    }
+}

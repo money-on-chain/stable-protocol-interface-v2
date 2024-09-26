@@ -1,0 +1,38 @@
+.CompletedBar__wrapper {
+    margin-bottom: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+.CompletedBar__container {
+    display: flex;
+    position: relative;
+    justify-content: stretch;
+    margin-top: 4px;
+    border-radius: var(--button-radius-tiny);
+    background-color: var(--color-controls-background);
+    width: 100%;
+    height: 8px;
+    .needed {
+        opacity: 0.15;
+
+        height: 100%;
+    }
+    .gauge {
+        border-radius: var(--button-radius-tiny) 0px 0px
+            var(--button-radius-tiny);
+    }
+    .brand {
+        background-color: var(--brand-color-base);
+    }
+    .positive {
+        background-color: var(--color-semantic-positive);
+    }
+    .negative {
+        background-color: var(--color-semantic-negative);
+    }
+    .maxvalue {
+        border-radius: var(
+            --button-radius-tiny
+        ); // Round all edges if value is 100%
+    }
+}

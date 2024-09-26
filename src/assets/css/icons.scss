@@ -12,6 +12,16 @@ icons.css contains all the css code for Icons across the Dapp
     filter: var(--color-icon-link-filter);
 }
 
+.icon-external-link {
+    width: 22px;
+    height: 22px;
+    background-image: url('../icons/ExternalLink.svg');
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    display: block;
+    filter: var(--color-icon-primary);
+}
+
 .icon-tx-signWallet {
     display: block;
     width: 32px;

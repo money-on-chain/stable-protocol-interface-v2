@@ -1,3 +1,216 @@
 /*
-section_send.scss contains all the css code for Send section cards not contained in global.scss
+section_voting.scss contains all the css code for Voting section cards not contained in global.scss
 */
+.title {
+    color: var(--color-text-primary);
+    font-size: 16px;
+    font-family: var(--brand-font);
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+.voting__status__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 32px;
+    width: 100%;
+    // border: 1px dashed red;
+}
+
+.votingButtons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        box-shadow: none;
+        padding-right: 32px;
+        padding-left: 32px;
+        width: 100%;
+        max-width: 256px;
+        font-weight: 600;
+        font-size: 18px;
+        font-family: var(--brand-font);
+    }
+    .icon {
+        filter: var(--color-button-primary-icon-filter-default);
+        background-size: 24px 24px;
+        width: 24px;
+        height: 24px;
+    }
+    .against {
+        background-color: var(--color-semantic-negative);
+    }
+
+    .infavor {
+        background-color: var(--color-semantic-positive);
+    }
+}
+.voting__proposals {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+.votingInfo__item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    width: 100%;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    .label {
+        width: 168px;
+    }
+}
+
+.cta {
+    padding-top: 16px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    .votingButtons {
+        margin-bottom: 24px;
+    }
+    .voting__status__votingInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .voting__status__votedInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        .data,
+        .label {
+            color: var(--color-text-primary);
+        }
+    }
+}
+
+.externalLink {
+    font-weight: 600;
+    a {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+    }
+}
+.votingDetails__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+
+    .forumLink {
+        color: var(--color-text-primary);
+    }
+    .details {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+
+        .icon-external-link {
+            margin-top: 2px;
+            background-size: 16px 16px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+    .voting__status__container {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+    }
+
+    .graphs {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+        .voting__status {
+            margin-bottom: 16px;
+            color: var(--color-text-primary);
+            font-weight: 600;
+            font-size: 16px;
+            font-family: var(--brand-font);
+        }
+        .icon-external-link {
+            margin-top: 2px;
+            background-size: 16px 16px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+.proposal__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    background-color: var(--surface-color-2);
+}
+
+.proposal__content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .forumLink {
+        color: var(--color-text-primary);
+    }
+    .details {
+        width: 544px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+
+        .icon-external-link {
+            width: 16px;
+            height: 16px;
+            background-size: 16px 16px;
+            margin-top: 2px;
+        }
+    }
+    .cta {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.votingStatus__graphs {
+    margin-top: 16px;
+}
+
+.externalLink {
+    font-weight: 600;
+    a {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+    }
+}
+
+.go-back {
+    margin-top: 64px;
+    width: 100%;
+    text-align: center;
+}
