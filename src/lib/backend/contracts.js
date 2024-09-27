@@ -67,27 +67,6 @@ const readContracts = async (web3) => {
         process.env.REACT_APP_CONTRACT_MULTICALL2
     );
 
-    dContracts.contracts.TP = []
-    const contractTP = process.env.REACT_APP_CONTRACT_TP.split(",")
-    for (let i = 0; i < settings.tokens.TP.length; i++) {
-        console.log(`Reading ${settings.tokens.TP[i].name} Token Contract... address: `, contractTP[i])
-        dContracts.contracts.TP.push(new web3.eth.Contract(TokenPegged.abi, contractTP[i]))
-    }
-
-    dContracts.contracts.CA = []
-    const contractCA = process.env.REACT_APP_CONTRACT_CA.split(",")
-    for (let i = 0; i < settings.tokens.CA.length; i++) {
-        console.log(`Reading ${settings.tokens.CA[i].name} Token Contract... address: `, contractCA[i])
-        dContracts.contracts.CA.push(new web3.eth.Contract(CollateralAsset.abi, contractCA[i]))
-    }
-
-    dContracts.contracts.PP_TP = []
-    const contractPPTP = process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_TP.split(",")
-    for (let i = 0; i < settings.tokens.TP.length; i++) {
-        console.log(`Reading Price Provider ${settings.tokens.TP[i].name} Contract... address: `, contractPPTP[i])
-        dContracts.contracts.PP_TP.push(new web3.eth.Contract(IPriceProvider.abi, contractPPTP[i]))
-    }
-
     dContracts.contracts.PP_CA = []
     const contractPPCA = process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",")
     for (let i = 0; i < settings.tokens.CA.length; i++) {
@@ -113,67 +92,116 @@ const readContracts = async (web3) => {
         process.env.REACT_APP_CONTRACT_MOC
     );
 
+    // Get contracts addresses from MoC Contract
+    const feeToken = await dContracts.contracts.Moc.methods.feeToken().call()
+    const feeTokenPriceProvider = await dContracts.contracts.Moc.methods.feeTokenPriceProvider().call()
+    const acTokenAddress = await dContracts.contracts.Moc.methods.acToken().call()
+    const tcTokenAddress = await dContracts.contracts.Moc.methods.tcToken().call()
+    const maxAbsoluteOpProvider = await dContracts.contracts.Moc.methods.maxAbsoluteOpProvider().call()
+    const maxOpDiffProvider = await dContracts.contracts.Moc.methods.maxOpDiffProvider().call()
+    const mocQueueAddress = await dContracts.contracts.Moc.methods.mocQueue().call()
+    const mocVendorsAddress = await dContracts.contracts.Moc.methods.mocVendors().call()
+
+    dContracts.contracts.CA = []
+    const contractCA = [acTokenAddress]
+    for (let i = 0; i < settings.tokens.CA.length; i++) {
+        console.log(`Reading ${settings.tokens.CA[i].name} Token Contract... address: `, contractCA[i])
+        dContracts.contracts.CA.push(new web3.eth.Contract(CollateralAsset.abi, contractCA[i]))
+    }
+
+    const MAX_LEN_ARRAY_TP = 10;
+
+    const tpAddresses = [];
+    let tpAddressesProviders = []
+    let tpAddress;
+    let tpIndex;
+    let tpItem;
+    for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
+        try {
+            tpAddress = await dContracts.contracts.Moc.methods.tpTokens(i).call()
+            tpIndex = await dContracts.contracts.Moc.methods.peggedTokenIndex(tpAddress).call()
+            if (!tpIndex.exists) continue
+            tpItem = await dContracts.contracts.Moc.methods.pegContainer(tpIndex.index).call()
+            tpAddresses.push(tpAddress)
+            tpAddressesProviders.push(tpItem.priceProvider)
+        } catch (e) {
+            break;
+        }
+    }
+
+    dContracts.contracts.TP = []
+    for (let i = 0; i < settings.tokens.TP.length; i++) {
+        console.log(`Reading ${settings.tokens.TP[i].name} Token Contract... address: `, tpAddresses[i])
+        dContracts.contracts.TP.push(new web3.eth.Contract(TokenPegged.abi, tpAddresses[i]))
+    }
+
+    dContracts.contracts.PP_TP = []
+    for (let i = 0; i < settings.tokens.TP.length; i++) {
+        console.log(`Reading Price Provider ${settings.tokens.TP[i].name} Contract... address: `, tpAddressesProviders[i])
+        dContracts.contracts.PP_TP.push(new web3.eth.Contract(IPriceProvider.abi, tpAddressesProviders[i]))
+    }
+
     console.log(
         'Reading Collateral Token Contract... address: ',
-        process.env.REACT_APP_CONTRACT_TC
+        tcTokenAddress
     );
     dContracts.contracts.CollateralToken = new web3.eth.Contract(
         CollateralToken.abi,
-        process.env.REACT_APP_CONTRACT_TC
+        tcTokenAddress
     );
 
     console.log(
         'Reading Moc Vendors Contract... address: ',
-        process.env.REACT_APP_CONTRACT_MOC_VENDORS
+        mocVendorsAddress
     );
     dContracts.contracts.MocVendors = new web3.eth.Contract(
         MocVendors.abi,
-        process.env.REACT_APP_CONTRACT_MOC_VENDORS
+        mocVendorsAddress
     );
 
     console.log(
         'Reading MocQueue Contract... address: ',
-        process.env.REACT_APP_CONTRACT_MOC_QUEUE
+        mocQueueAddress
     );
     dContracts.contracts.MocQueue = new web3.eth.Contract(
         MocQueue.abi,
-        process.env.REACT_APP_CONTRACT_MOC_QUEUE
+        mocQueueAddress
     );
 
     console.log(
         'Reading FeeToken Contract... address: ',
-        process.env.REACT_APP_CONTRACT_FEE_TOKEN
+        feeToken
     );
     dContracts.contracts.FeeToken = new web3.eth.Contract(
         FeeToken.abi,
-        process.env.REACT_APP_CONTRACT_FEE_TOKEN
+        feeToken
     );
 
     console.log(
         'Reading Fee Token PP Contract... address: ',
-        process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_FEE_TOKEN
+        feeTokenPriceProvider
     );
     dContracts.contracts.PP_FeeToken = new web3.eth.Contract(
         IPriceProvider.abi,
-        process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_FEE_TOKEN
+        feeTokenPriceProvider
     );
 
     console.log(
         'Reading FC_MAX_ABSOLUTE_OP_PROVIDER Contract... address: ',
-        process.env.REACT_APP_CONTRACT_FC_MAX_ABSOLUTE_OP_PROVIDER
+        maxAbsoluteOpProvider
     );
     dContracts.contracts.FC_MAX_ABSOLUTE_OP_PROVIDER = new web3.eth.Contract(
         IPriceProvider.abi,
-        process.env.REACT_APP_CONTRACT_FC_MAX_ABSOLUTE_OP_PROVIDER
+        maxAbsoluteOpProvider
     );
 
     console.log(
         'Reading FC_MAX_OP_DIFFERENCE_PROVIDER Contract... address: ',
-        process.env.REACT_APP_CONTRACT_FC_MAX_OP_DIFFERENCE_PROVIDER
+        maxOpDiffProvider
     );
     dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER = new web3.eth.Contract(
         IPriceProvider.abi,
-        process.env.REACT_APP_CONTRACT_FC_MAX_OP_DIFFERENCE_PROVIDER
+        maxOpDiffProvider
     );
 
     console.log(
@@ -223,20 +251,6 @@ const readContracts = async (web3) => {
         VestingFactory.abi,
         registryAddr['MOC_VESTING_MACHINE']
     );
-
-    // reading vesting machine from environment address
-    if (typeof process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS !== 'undefined') {
-
-        console.log(
-            'Reading Vesting Machine Contract... address: ',
-            process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS
-        );
-        dContracts.contracts.VestingMachine = new web3.eth.Contract(
-            VestingMachine.abi,
-            process.env.REACT_APP_CONTRACT_OMOC_VESTING_ADDRESS
-        );
-
-    }
 
     // reading Incentive V2 from environment address
     if (typeof process.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
