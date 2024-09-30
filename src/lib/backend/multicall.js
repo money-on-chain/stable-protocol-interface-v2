@@ -121,14 +121,14 @@ const contractStatus = async (web3, dContracts) => {
     const FC_MAX_OP_DIFFERENCE_PROVIDER = dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER
 
     // OMOC
-    const iregistry = dContracts.contracts.iregistry
+    const iregistry = dContracts.contracts.IRegistry
     const stakingmachine = dContracts.contracts.StakingMachine
     const delaymachine = dContracts.contracts.DelayMachine
     const supporters = dContracts.contracts.Supporters
-    const votingmachine = dContracts.contracts.votingmachine
+    const votingmachine = dContracts.contracts.VotingMachine
     const tg = dContracts.contracts.TG
 
-    const proposalCountVoting = await votingmachine.methods.getProposalCount().call()
+    const proposalCountVoting = Number(BigInt(await votingmachine.methods.getProposalCount().call()))
 
     const multiCallRequest = new MultiCall(multicall, web3)
 
@@ -231,15 +231,15 @@ const contractStatus = async (web3, dContracts) => {
     }
 
     // OMOC REGISTRY CONSTANT
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_MIN_STAKE).encodeABI(), 'uint256', 'votingmachine', 'MIN_STAKE')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_EXPIRATION_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_EXPIRATION_TIME_DELTA')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_MAX_PRE_PROPOSALS).encodeABI(), 'uint256', 'votingmachine', 'MAX_PRE_PROPOSALS')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_MIN_PCT_TO_WIN).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_MIN_PCT_TO_WIN')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_VETO).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_VETO')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_FOR_QUORUM).encodeABI(), 'uint256', 'votingmachine', 'MIN_PCT_FOR_QUORUM')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_ACCEPT).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_ACCEPT')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_PCT_PRECISION).encodeABI(), 'uint256', 'votingmachine', 'PCT_PRECISION')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(configOmoc.RegistryConstants.MOC_VOTING_MACHINE_VOTING_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'VOTING_TIME_DELTA')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MIN_STAKE).encodeABI(), 'uint256', 'votingmachine', 'MIN_STAKE')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_EXPIRATION_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_EXPIRATION_TIME_DELTA')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MAX_PRE_PROPOSALS).encodeABI(), 'uint256', 'votingmachine', 'MAX_PRE_PROPOSALS')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_MIN_PCT_TO_WIN).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_MIN_PCT_TO_WIN')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_VETO).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_VETO')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_FOR_QUORUM).encodeABI(), 'uint256', 'votingmachine', 'MIN_PCT_FOR_QUORUM')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_ACCEPT).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_ACCEPT')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PCT_PRECISION).encodeABI(), 'uint256', 'votingmachine', 'PCT_PRECISION')
+    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTING_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'VOTING_TIME_DELTA')
 
     let PP_TP
     let tpAddress
@@ -432,5 +432,29 @@ const registryAddresses = async (web3, dContracts) => {
     return await multiCallRequest.tryBlockAndAggregate();
 }
 
+const mocAddresses = async (web3, dContracts) => {
 
-export { contractStatus, userBalance, registryAddresses };
+    const multicall = dContracts.contracts.multicall
+    const moc = dContracts.contracts.Moc
+
+    const multiCallRequest = new MultiCall(multicall, web3)
+    multiCallRequest.aggregate(moc, moc.methods.feeToken().encodeABI(), 'address', 'feeToken')
+    multiCallRequest.aggregate(moc, moc.methods.feeTokenPriceProvider().encodeABI(), 'address', 'feeTokenPriceProvider')
+    multiCallRequest.aggregate(moc, moc.methods.acToken().encodeABI(), 'address', 'acToken')
+    multiCallRequest.aggregate(moc, moc.methods.tcToken().encodeABI(), 'address', 'tcToken')
+    multiCallRequest.aggregate(moc, moc.methods.maxAbsoluteOpProvider().encodeABI(), 'address', 'maxAbsoluteOpProvider')
+    multiCallRequest.aggregate(moc, moc.methods.maxOpDiffProvider().encodeABI(), 'address', 'maxOpDiffProvider')
+    multiCallRequest.aggregate(moc, moc.methods.mocQueue().encodeABI(), 'address', 'mocQueue')
+    multiCallRequest.aggregate(moc, moc.methods.mocVendors().encodeABI(), 'address', 'mocVendors')
+
+    const MAX_LEN_ARRAY_TP = 4;
+    for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
+        multiCallRequest.aggregate(moc, moc.methods.tpTokens(i).encodeABI(), 'address', 'tpTokens', i)
+    }
+
+    return await multiCallRequest.tryBlockAndAggregate();
+}
+
+
+
+export { contractStatus, userBalance, registryAddresses, mocAddresses };

@@ -1,6 +1,4 @@
-import settings from '../../../settings/settings.json';
-import BigNumber from 'bignumber.js';
-import { getGasPrice, toContractPrecisionDecimals } from '../utils';
+import { getGasPrice } from '../utils';
 import Web3 from 'web3';
 
 
