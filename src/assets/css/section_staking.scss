@@ -285,21 +285,6 @@ section_staking.scss contains all the css code for Staking section cards not con
             width: 100%;
         }
 
-        // .token-description {
-        //     text-align: left;
-        //     margin-right: 5px;
-        //     color: var(--color-text-link);
-        //     color: var(--color-text-link);
-        //     cursor: pointer;
-        // }
-
-        // .token-description-disabled {
-        //     text-align: left;
-        //     margin-right: 5px;
-        //     color: var(--color-text-secondary);
-        //     cursor: not-allowed;
-        // }
-
         .action__container {
             display: flex;
             align-items: center;
@@ -312,8 +297,6 @@ section_staking.scss contains all the css code for Staking section cards not con
 
         .action__container--disabled {
             cursor: not-allowed;
-            // color: var(--color-text-secondary);
-            // opacity: 0.5;
             filter: var(--color-icon-link-secondary-filter);
         }
         .action__icon--disabled {
@@ -387,6 +370,9 @@ section_staking.scss contains all the css code for Staking section cards not con
         text-align: left;
         line-height: 12px;
         margin-top: 5px;
+    }
+    .alert {
+        margin-bottom: 24px;
     }
 }
 

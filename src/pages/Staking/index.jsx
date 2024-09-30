@@ -18,42 +18,54 @@ function SectionStaking(props) {
             setReady(true);
         }
         if (auth.userBalanceData && auth.isVestingLoaded()) {
-            setUsingVestingAddress(auth.vestingAddress())
+            setUsingVestingAddress(auth.vestingAddress());
         } else {
             setUsingVestingAddress('');
         }
     }, [auth]);
 
     const truncateAddress = (address) => {
-        return address.substring(0, 6) +  '...' +  address.substring(address.length - 4, address.length);
-    }
+        return (
+            address.substring(0, 6) +
+            '...' +
+            address.substring(address.length - 4, address.length)
+        );
+    };
 
     const onDisplayAccount = () => {
         auth.onShowModalAccount();
-    }
+    };
 
     return (
         <Fragment>
             <div className="section-container">
                 <div className="content-page">
-                    <div className="sectonStaking">
-
+                    <div className="sectionStaking">
                         {usingVestingAddress !== '' && (
                             <div className={'section-layout'}>
                                 <Alert
-                                    className="alert-permanent"
+                                    className="alert alert-info"
                                     message={t('vesting.alert.title')}
-                                    description={t('vesting.alert.explanation') + '. Vesting: ' + truncateAddress(usingVestingAddress)}
+                                    description={
+                                        t('vesting.alert.explanation') +
+                                        '. Vesting: ' +
+                                        truncateAddress(usingVestingAddress)
+                                    }
                                     type="error"
                                     showIcon
                                     // closable
                                     action={
-                                        <Button size="small" type="custom" onClick={onDisplayAccount}>
+                                        <Button
+                                            size="small"
+                                            type="custom"
+                                            onClick={onDisplayAccount}
+                                        >
                                             {t('vesting.alert.cta')}
                                         </Button>
                                     }
                                 />
-                            </div>)}
+                            </div>
+                        )}
 
                         <div className={'section-layout'}>
                             {ready ? <StakingDashboard /> : <Skeleton active />}
