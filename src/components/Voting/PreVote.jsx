@@ -14,7 +14,9 @@ function CreateBarGraph(props) {
     );
 }
 
-function PreVote(proposalData) {
+function PreVote(props) {
+
+    const { proposal, onBack } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const space = '\u00A0';
 
@@ -53,7 +55,7 @@ function PreVote(proposalData) {
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://forum.moneyonchain.com/search?q=${proposalData.changeContract}`}
+                            href={`https://forum.moneyonchain.com/search?q=${proposal.changeContract}`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -65,12 +67,12 @@ function PreVote(proposalData) {
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://rootstock.blockscout.com/address/${proposalData.changeContract}?tab=contract`}
+                            href={`https://rootstock.blockscout.com/address/${proposal.changeContract}?tab=contract`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             {t('voting.info.changeContract')} {space}
-                            {proposalData.changeContract}
+                            {proposal.changeContract}
                             <span className="icon-external-link"></span>
                         </a>
                     </div>
@@ -129,7 +131,7 @@ function PreVote(proposalData) {
                         </div>
                     </div>
                     <div className="go-back">
-                        <button className="button secondary">
+                        <button className="button secondary" onClick={() => onBack()}>
                             Back to Proposals{' '}
                         </button>
                     </div>

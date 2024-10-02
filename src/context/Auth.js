@@ -50,7 +50,7 @@ import { getGasPrice } from '../lib/backend/utils';
 import ModalAccount from '../components/Modals/Account';
 import api from '../services/api';
 import { loadVestingAddressesFromLocalStorage, saveVestingAddressesToLocalStorage } from '../helpers/vesting';
-import { acceptedStep, preVote, preVoteStep, vote, voteStep } from '../lib/backend/omoc/voting';
+import { acceptedStep, preVote, preVoteStep, vote, voteStep, unRegister } from '../lib/backend/omoc/voting';
 
 const helper = addressHelper(Web3);
 
@@ -109,6 +109,7 @@ const AuthenticateContext = createContext({
     interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
     interfaceIncentiveV2Claim: async (signDataResponse, onTransaction, onReceipt, onError) => {},
     interfaceVotingPreVote: async (changeContractAddress, onTransaction, onReceipt, onError) => {},
+    interfaceVotingUnregister: async (changeContractAddress, onTransaction, onReceipt, onError) => {},
     interfaceVotingVote: async (inFavorAgainst, onTransaction, onReceipt, onError) => {},
     interfaceVotingPreVoteStep: async (onTransaction, onReceipt, onError) => {},
     interfaceVotingVoteStep: async (onTransaction, onReceipt, onError) => {},
@@ -740,6 +741,22 @@ const AuthenticateProvider = ({ children }) => {
         )
     };
 
+    const interfaceVotingUnRegister = async (
+        changeContractAddress,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
+        const interfaceContext = buildInterfaceContext();
+        return unRegister(
+            interfaceContext,
+            changeContractAddress,
+            onTransaction,
+            onReceipt,
+            onError
+        )
+    };
+
     return (
         <AuthenticateContext.Provider
             value={{
@@ -777,7 +794,8 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceVotingVote,
                 interfaceVotingPreVoteStep,
                 interfaceVotingVoteStep,
-                interfaceVotingAcceptedStep
+                interfaceVotingAcceptedStep,
+                interfaceVotingUnRegister,
             }}
         >
             {children}
