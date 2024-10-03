@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Button, Collapse, Slider } from 'antd';
 import axios from 'axios';
 
+import api from '../../services/api';
 import { useProjectTranslation } from '../../helpers/translations';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -41,6 +42,7 @@ export default function ConfirmOperation(props) {
     const [opID, setOpID] = useState(null);
     const [toleranceError, setToleranceError] = useState('');
     const [amountChanged, setAmountChanged] = useState(false);
+    const [isFluxCapacityFull, setIsFluxCapacityFull] = useState(false);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
     useEffect(() => {
@@ -108,6 +110,10 @@ export default function ConfirmOperation(props) {
     const [showModalAllowance, setShowModalAllowance] = useState(false);
     const [showModalAllowanceFeeToken, setShowModalAllowanceFeeToken] = useState(false);
     const [disAllowanceFeeToken, setDisAllowanceFeeToken] = useState(false);
+
+    useEffect(() => {
+        validateQueueAmt();
+    }, []);
 
     useEffect(() => {
         if (amountYouExchange) {
@@ -403,6 +409,59 @@ export default function ConfirmOperation(props) {
         onCloseModal();
     };
 
+    const validateQueueAmt = async () => {
+        try {
+            const maxQACToMintTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToMintTP,
+                    18
+                )
+            );
+            const maxQACToRedeemTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.maxQACToRedeemTP,
+                    18
+                )
+            );
+            const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/queued_opers/`;
+            api('get', baseUrl)
+                .then((response) => {
+                    let TPMintQueueConvertedToAC = new BigNumber(0);
+                    let TPRedeemQueueConvertedToAC = new BigNumber(0);
+                    if (response.result.TPMint && response.result.TPRedeem) {
+                        for (let index = 0; index < response.result.TPMint.length; index++) {
+                            const _TPMintQueueConvertedToAC = ConvertAmount(
+                                auth, 
+                                `TP_${index}`, 
+                                'CA_0', 
+                                response.result.TPMint[index].qTP ?? 0
+                            );
+                            TPMintQueueConvertedToAC = TPMintQueueConvertedToAC.plus(_TPMintQueueConvertedToAC);
+                        }
+                        for (let index = 0; index < response.result.TPRedeem.length; index++) {
+                            const _TPRedeemQueueConvertedToAC = ConvertAmount(
+                                auth, 
+                                `TP_${index}`, 
+                                'CA_0', 
+                                response.result.TPRedeem[index].qTP ?? 0
+                            );
+                            TPRedeemQueueConvertedToAC = TPRedeemQueueConvertedToAC.plus(_TPRedeemQueueConvertedToAC);
+                        }
+                    }
+                    if (
+                        maxQACToMintTP.lt(TPMintQueueConvertedToAC) ||
+                        maxQACToRedeemTP.lt(TPRedeemQueueConvertedToAC)
+                    ) {
+                        setIsFluxCapacityFull(true);
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error reading queue amount: ', error);
+                });
+        } catch (error) {
+            console.log('Error validating queue amount: ', error);
+        }
+    }
     // Commission Select Radio
 
     let commissionPAY = commission
@@ -616,7 +675,9 @@ export default function ConfirmOperation(props) {
                             <span className="confirm-error">{toleranceError}</span>
                         </div>
                     )}
-
+                    {isFluxCapacityFull && <div className="info-container">
+                        <span className="confirm-error-info">{t('exchange.errors.fluxCapacityFull')}</span>
+                    </div>}
                     <div className="actions-buttons">
                         <Button type="secondary" className="secondary-button btn-clear" onClick={onClose}>
                             {t('exchange.buttonCancel')}

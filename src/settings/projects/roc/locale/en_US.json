@@ -158,7 +158,8 @@
             "amountInvalid" : "Amount must be valid",
             "notBalance" : "Not enough balance in your wallet",
             "noLiquidity" : "Not enough liquidity in the protocol",
-            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol"
+            "maxLimitedByProtocol" : "Maximum temporarily limited by the protocol",
+            "fluxCapacityFull" : "Flux capacitor is currently on its full capacity, this TX might take longer than usual"
         }
     },
     "portfolio": {
