@@ -287,9 +287,9 @@ export default function Exchange() {
                 auth,
                 currencyYouReceive,
                 currencyYouExchange,
-                mintTPValues[tIndex].qTP ?? 0,
+                mintTPValues[tIndex]?.qTP ?? 0,
             );
-            const valueToRest = mintTPValues[tIndex].qTP ? convertedQTPToAC : new BigNumber(0);
+            const valueToRest = mintTPValues[tIndex]?.qTP ? convertedQTPToAC : new BigNumber(0);
             if (new BigNumber(amountYouExchange).gt(maxQACToMintTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
