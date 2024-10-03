@@ -311,9 +311,9 @@ export default function Exchange() {
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                redeemTPValues[tIndex].qTP ?? 0,
+                redeemTPValues[tIndex]?.qTP ?? 0,
             );
-            const valueToRest = redeemTPValues[tIndex].qTP ? convertedQTPToAC : new BigNumber(0);
+            const valueToRest = redeemTPValues[tIndex]?.qTP ? convertedQTPToAC : new BigNumber(0);
             if (new BigNumber(amountYouReceive).gt(maxQACToRedeemTP.minus(valueToRest))) {
                 setInputValidationErrorText(t('exchange.errors.maxLimitedByProtocol'));
                 setInputValidationError(true);
