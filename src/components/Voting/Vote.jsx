@@ -6,6 +6,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
+import BigNumber from 'bignumber.js';
 
 function CreateBarGraph(props) {
     return (
@@ -15,6 +16,14 @@ function CreateBarGraph(props) {
             percentage={props.percentage}
             needed={props.needed}
             type={props.type}
+            labelCurrent={props.labelCurrent}
+            labelNeedIt={props.labelNeedIt}
+            labelTotal={props.labelTotal}
+            valueCurrent={props.valueCurrent}
+            valueNeedIt={props.valueNeedIt}
+            valueTotal={props.valueTotal}
+            pctCurrent={props.pctCurrent}
+            pctNeedIt={props.pctNeedIt}
         />
     );
 }
@@ -36,29 +45,17 @@ function Vote(props) {
         {
             id: 1,
             description: t('voting.statusGraph.castOverCirculation'),
-            percentage: '20%',
-            needed: '50%',
-            type: 'brand'
-        },
-        {
-            id: 2,
-            description: t('voting.statusGraph.votingPower'),
-            percentage: '60%',
-            type: 'brand'
-        },
-        {
-            id: 3,
-            description: t('voting.statusGraph.positiveOverCirculation'),
-            percentage: '53%',
-            needed: '75%',
-            type: 'positive'
-        },
-        {
-            id: 4,
-            description: t('voting.statusGraph.negativeOverCirculation'),
-            percentage: '37%',
-            needed: '72%',
-            type: 'negative'
+            percentage: `${infoVoting['votingData']['totalVotedPCT']}%`,
+            needed: `${new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])}%`,
+            type: 'brand',
+            labelCurrent: 'Current',
+            labelNeedIt: 'Need it',
+            labelTotal: 'Circulating',
+            valueCurrent: infoVoting['votingData']['totalVoted'],
+            valueNeedIt: infoVoting['MIN_FOR_QUORUM'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: infoVoting['votingData']['totalVotedPCT'],
+            pctNeedIt: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])
         }
     ];
 

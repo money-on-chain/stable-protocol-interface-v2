@@ -25,8 +25,8 @@ function BalanceBar(props) {
                 ></div>
 
             </div>
-            <div className={'balancesVotes'}>
-                <div className={'againstVotes'}>
+            <div className="balanceBar__labels">
+                <div className={'balanceBar__labels__againstVotes'}>
                     {PrecisionNumbers({
                         amount: props.againstVotes,
                         token: TokenSettings('TG'),
@@ -39,7 +39,7 @@ function BalanceBar(props) {
                     {' '}
                     against
                 </div>
-                <div className={'infavorVotes'}>
+                <div className={'balanceBar__labels__infavorVotes'}>
                     {PrecisionNumbers({
                         amount: props.infavorVotes,
                         token: TokenSettings('TG'),

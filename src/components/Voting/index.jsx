@@ -17,6 +17,8 @@ export default function Voting(props) {
         'totalSupply': new BigNumber(0),
         'PRE_VOTE_MIN_TO_WIN': new BigNumber(0),
         'PRE_VOTE_MIN_PCT_TO_WIN': new BigNumber(0),
+        'MIN_PCT_FOR_QUORUM': new BigNumber(0),
+        'MIN_FOR_QUORUM': new BigNumber(0),
         'MIN_STAKE': new BigNumber(0),
         'VOTING_POWER': new BigNumber(0),
         'proposals': [],
@@ -29,6 +31,8 @@ export default function Voting(props) {
             'againstVotes': new BigNumber(0),
             'votingExpirationTime': new BigNumber(0),
             'expired': true,
+            'totalVotedPCT': new BigNumber(0),
+            'totalVoted': new BigNumber(0)
         },
         'votingInfo': {
             'winnerProposal': '',
@@ -42,7 +46,6 @@ export default function Voting(props) {
         infoVoting['state'] = new BigNumber(auth.contractStatusData.votingmachine.getState).toNumber();
         infoVoting['readyToPreVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToPreVoteStep).toNumber();
         infoVoting['readyToVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToVoteStep).toNumber();
-
         infoVoting['globalVotingRound'] = new BigNumber(
             auth.contractStatusData.votingmachine.getVotingRound
         );
@@ -52,10 +55,15 @@ export default function Voting(props) {
                 'ether'
             )
         );
-        infoVoting['PRE_VOTE_MIN_TO_WIN'] = new BigNumber(infoVoting['totalSupply']).times(new BigNumber(
-            auth.contractStatusData.votingmachine.PRE_VOTE_MIN_PCT_TO_WIN)).div(100);
         infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'] = auth.contractStatusData.votingmachine.PRE_VOTE_MIN_PCT_TO_WIN
+        infoVoting['PRE_VOTE_MIN_TO_WIN'] = new BigNumber(infoVoting['totalSupply'])
+            .times(new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']))
+            .div(100);
         infoVoting['MIN_STAKE'] = auth.contractStatusData.votingmachine.MIN_STAKE
+        infoVoting['MIN_PCT_FOR_QUORUM'] = auth.contractStatusData.votingmachine.MIN_PCT_FOR_QUORUM
+        infoVoting['MIN_FOR_QUORUM'] = new BigNumber(infoVoting['totalSupply'])
+            .times(new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']))
+            .div(100);
 
         // Voting Data
         infoVoting['votingData']['winnerProposal'] = auth.contractStatusData.votingmachine.getVotingData['winnerProposal']
@@ -81,9 +89,11 @@ export default function Voting(props) {
         if (infoVoting['votingData']['votingExpirationTime'].gt(nowTimestamp)) expired = false
         infoVoting['votingData']['expired'] = expired
 
-        const totalVoted = infoVoting['votingData']['inFavorVotes']
+        infoVoting['votingData']['totalVoted'] = infoVoting['votingData']['inFavorVotes']
             .plus(infoVoting['votingData']['againstVotes'])
-
+        infoVoting['votingData']['totalVotedPCT'] = infoVoting['votingData']['totalVoted']
+            .times(100)
+            .div(infoVoting['totalSupply'])
         infoVoting['votingData']['inFavorVotesTotalSupplyPCT'] = infoVoting['votingData']['inFavorVotes']
             .times(100)
             .div(infoVoting['totalSupply'])
@@ -91,8 +101,12 @@ export default function Voting(props) {
             .times(100)
             .div(infoVoting['totalSupply'])
 
-        infoVoting['votingData']['inFavorVotesPCT'] = infoVoting['votingData']['inFavorVotes'].times(100).div(totalVoted)
-        infoVoting['votingData']['againstVotesPCT'] = infoVoting['votingData']['againstVotes'].times(100).div(totalVoted)
+        infoVoting['votingData']['inFavorVotesPCT'] = infoVoting['votingData']['inFavorVotes']
+            .times(100)
+            .div(infoVoting['votingData']['totalVoted'])
+        infoVoting['votingData']['againstVotesPCT'] = infoVoting['votingData']['againstVotes']
+            .times(100)
+            .div(infoVoting['votingData']['totalVoted'])
 
         // Voting Info
         infoVoting['votingInfo']['winnerProposal'] = auth.contractStatusData.votingmachine.getVoteInfo['winnerProposal']
