@@ -17,73 +17,66 @@ function CreateBarGraph(props) {
 
 function Proposal(props) {
 
-    const { data, onViewProposal, onUnRegisterProposal } = props;
+    const { proposal, onViewProposal, infoVoting } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const space = '\u00A0';
 
     const preVotingGraphs = [
         {
             id: 0,
-            description: 'votes cast over circulating',
-            percentage: '15%',
-            needed: '50%',
-            type: 'brand'
-        },
-        {
-            id: 1,
-            description: 'votes cast over needed to next stage',
-            percentage: '56%',
-            needed: '80%',
+            description: 'votes need to advance to next step',
+            percentage: `${proposal.votesPositivePCT}%`,
+            needed:  `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
             type: 'brand'
         }
     ];
 
     return (
         <div className="proposal__wrapper">
-            <div className="title">{data.changeContract}</div>
+            <div className="title">{proposal.changeContract}</div>
             <div className="proposal__content">
-                <div className="details">
-                    <div className="externalLink">
+                <div className='details'>
+                    <div className='externalLink'>
                         <a
-                            className="forumLink"
-                            href={`https://forum.moneyonchain.com/search?q=${data.changeContract}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            className='forumLink'
+                            href={`https://forum.moneyonchain.com/search?q=${proposal.changeContract}`}
+                            target='_blank'
+                            rel='noopener noreferrer'
                         >
                             {t('voting.info.searchForum')}
-                            <div className="icon-external-link"></div>
+                            <div className='icon-external-link'></div>
                         </a>
                     </div>
 
-                    <div className="externalLink">
+                    <div className='externalLink'>
                         <a
-                            className="forumLink"
-                            href={`https://rootstock.blockscout.com/address/${data.changeContract}?tab=contract`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            className='forumLink'
+                            href={`https://rootstock.blockscout.com/address/${proposal.changeContract}?tab=contract`}
+                            target='_blank'
+                            rel='noopener noreferrer'
                         >
                             {t('voting.info.changeContract')}
-                            <span className="icon-external-link"></span>
+                            <span className='icon-external-link'></span>
                         </a>
                     </div>
 
                     <p>
                         {t('voting.info.stateAs')}
-                        <span>{data.expirationTimeStampFormat} </span>
-                        <span>({data.expired ? 'Expired' : 'Ready to vote'})</span>
+                        <span>{proposal.expirationTimeStampFormat} </span>
+                        <span>({proposal.expired ? 'Expired' : 'Ready to vote'})</span>
                     </p>
 
-                    <div className="votingStatus__graphs">
+                    <p>
+                        <span>Voting round:</span> {proposal.votingRound.toString()}
+                    </p>
+
+                    <div className='votingStatus__graphs'>
                         {preVotingGraphs.map(CreateBarGraph)}
                     </div>
                 </div>
-                <div className="cta">
-                    <button className="button"
-                            onClick={() => onViewProposal(data.changeContract)}>{t('View Proposal')}</button>
-
-                    {data.canUnregister && (<button className="button"
-                            onClick={() => onUnRegisterProposal(data.changeContract)}>{t('Unregister Proposal')}</button>
-                    )}
+                <div className='cta'>
+                    <button className='button'
+                            onClick={() => onViewProposal(proposal.changeContract)}>{t('View Proposal')}</button>
                 </div>
             </div>
         </div>
