@@ -147,8 +147,7 @@ function Proposals(props) {
         setActionProposal('ADD');
     };
 
-    const onCloseAddProposal = (e) => {
-        e.stopPropagation();
+    const onCloseAddProposal = () => {
         setActionProposal('LIST');
     };
 
@@ -167,6 +166,7 @@ function Proposals(props) {
             console.log('Transaction add proposal mined!...');
             setOperationStatus('success');
             const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            onCloseAddProposal();
         };
         const onError = (error) => {
             console.log('Transaction add proposal error!...:', error);
@@ -418,7 +418,13 @@ function Proposals(props) {
             </div>
         )}
 
-        {actionProposal === 'LIST' && proposalsData !== [] && proposalsData.map((proposal) => (
+        {actionProposal === 'LIST' && proposalsData.length > 0 && (
+            <div className="proposals__voting__round">
+                Proposals voting round Nº {' '} {infoVoting['globalVotingRound'].toNumber()}
+            </div>
+        )}
+
+        {actionProposal === 'LIST' && proposalsData.length > 0 && proposalsData.map((proposal) => (
             <Proposal
                 proposal={proposal}
                 infoVoting={infoVoting}

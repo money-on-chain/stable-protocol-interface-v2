@@ -110,9 +110,6 @@ function PreVote(props) {
 
     return (
         <Fragment>
-            <div className={'layout-card-title'}>
-                <h1>Proposal</h1>
-            </div>
             <div className="votingDetails__wrapper">
                 <div className="details">
                     <div className="externalLink">
@@ -147,9 +144,6 @@ function PreVote(props) {
                                 <span>{proposal.expirationTimeStampFormat} </span>
                                 <span>({proposal.expired ? 'Expired' : 'Ready to vote'})</span>
                             </p>
-                            <p>
-                                <span>Voting round:</span> {proposal.votingRound.toString()}
-                            </p>
 
                             <div className='voting__status__graphs'>
                                 {preVotingGraphs.map(CreateBarGraph)}
@@ -158,20 +152,46 @@ function PreVote(props) {
                         </div>
                             <div className='cta'>
                                 <div className='votingButtons'>
-                                    <button className='button infavor' onClick={onVoteInFavor}>
-                                        <div className='icon icon__vote__infavor'></div>
-                                        {t('voting.votingOptions.inFavor')}
-                                    </button>
+                                    {!proposal.canRunStep && (
+                                        <button className='button infavor' onClick={onVoteInFavor}>
+                                            <div className='icon icon__vote__infavor'></div>
+                                            {t('voting.votingOptions.inFavor')}
+                                        </button>
+                                    )}
+                                    {proposal.canRunStep && (
+                                        <button className="button"
+                                                onClick={() => onRunPreVoteStep()}>
+                                            Next step
+                                        </button>
+                                    )}
                                 </div>
 
-                                <div className='voting__status__votingInfo'>
-                                    <div className='votingInfo__item'>
-                                        <div className='label'>
-                                            {t('voting.userPower.votingPower')}
-                                        </div>
-                                        <div className='data'>
-                                            {PrecisionNumbers({
-                                                amount: infoUser['Voting_Power'],
+                                {!proposal.canRunStep && (
+                                    <div className='voting__status__votingInfo'>
+                                        <div className='votingInfo__item'>
+                                            <div className='label'>
+                                                {t('voting.userPower.votingPower')}
+                                            </div>
+                                            <div className='data'>
+                                                {PrecisionNumbers({
+                                                    amount: infoUser['Voting_Power'],
+                                                    token: TokenSettings('TG'),
+                                                    decimals: 2,
+                                                    t: t,
+                                                    i18n: i18n,
+                                                    ns: ns,
+                                                    skipContractConvert: true
+                                                })}
+
+                                                {' '}
+
+                                                {t('staking.tokens.TG.abbr', {
+                                                    ns: ns
+                                                })}
+
+                                                {' '}
+                                                ({PrecisionNumbers({
+                                                amount: infoUser['Voting_Power_PCT'],
                                                 token: TokenSettings('TG'),
                                                 decimals: 2,
                                                 t: t,
@@ -179,40 +199,17 @@ function PreVote(props) {
                                                 ns: ns,
                                                 skipContractConvert: true
                                             })}
-
-                                            {' '}
-
-                                            {t('staking.tokens.TG.abbr', {
-                                                ns: ns
-                                            })}
-
-                                            {' '}
-                                            ({PrecisionNumbers({
-                                            amount: infoUser['Voting_Power_PCT'],
-                                            token: TokenSettings('TG'),
-                                            decimals: 2,
-                                            t: t,
-                                            i18n: i18n,
-                                            ns: ns,
-                                            skipContractConvert: true
-                                        })}
-                                            %)
+                                                %)
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                         <div className="go-back">
                             <button className="button secondary" onClick={() => onBack()}>
                                 Back to Proposals{' '}
                             </button>
-
-                            {proposal.canRunStep && (
-                                <button className="button"
-                                    onClick={() => onRunPreVoteStep()}>
-                                    Next step
-                                </button>
-                            )}
 
                             {proposal.canUnregister && (
                                 <button className="button"

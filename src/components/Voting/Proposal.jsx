@@ -87,10 +87,6 @@ function Proposal(props) {
                         <span>({proposal.expired ? 'Expired' : 'Ready to vote'})</span>
                     </p>
 
-                    <p>
-                        <span>Voting round:</span> {proposal.votingRound.toString()}
-                    </p>
-
                     <div className='votingStatus__graphs'>
                         {preVotingGraphs.map(CreateBarGraph)}
                     </div>
