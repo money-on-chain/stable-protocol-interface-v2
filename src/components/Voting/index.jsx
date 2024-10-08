@@ -21,6 +21,8 @@ export default function Voting(props) {
         'MIN_FOR_QUORUM': new BigNumber(0),
         'MIN_STAKE': new BigNumber(0),
         'VOTING_POWER': new BigNumber(0),
+        'VOTE_MIN_PCT_TO_VETO': new BigNumber(0),
+        'VOTE_MIN_TO_VETO': new BigNumber(0),
         'proposals': [],
         'state': 0,
         'readyToPreVoteStep': 0,
@@ -63,6 +65,10 @@ export default function Voting(props) {
         infoVoting['MIN_PCT_FOR_QUORUM'] = auth.contractStatusData.votingmachine.MIN_PCT_FOR_QUORUM
         infoVoting['MIN_FOR_QUORUM'] = new BigNumber(infoVoting['totalSupply'])
             .times(new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']))
+            .div(100);
+        infoVoting['VOTE_MIN_PCT_TO_VETO'] = auth.contractStatusData.votingmachine.VOTE_MIN_PCT_TO_VETO
+        infoVoting['VOTE_MIN_TO_VETO'] = new BigNumber(infoVoting['totalSupply'])
+            .times(new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO']))
             .div(100);
 
         // Voting Data

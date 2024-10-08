@@ -24,7 +24,7 @@ function CompletedBar(props) {
                     }}
                 ></div>
             </div>
-            <div className='CompletedBar__container'>
+            <div className='CompletedBar__labels__container'>
                 <div className='currentVotesLabel'>
                     {props.labelCurrent}:
                     {PrecisionNumbers({

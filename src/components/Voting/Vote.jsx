@@ -41,6 +41,19 @@ function Vote(props) {
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
+    let votingStatusTitle = 'Voting in progress...';
+    let votingStatusDescription = 'Voting progress OK';
+    if (auth.contractStatusData && infoVoting['votingData']['expired']) {
+        votingStatusTitle = 'Voting finished!';
+        if (infoVoting['votingData']['totalVoted'].lt(infoVoting['MIN_FOR_QUORUM'])) {
+            votingStatusDescription = 'No reach quorum for this proposal';
+        } else if (infoVoting['votingData']['againstVotesPCT'].gte(infoVoting['votingData']['VOTE_MIN_TO_VETO'])) {
+            votingStatusDescription = 'Proposal was rejected by votes against';
+        } else {
+            votingStatusDescription = 'Proposal was approved!';
+        }
+    }
+
     const votingGraphs = [
         {
             id: 1,
@@ -48,14 +61,29 @@ function Vote(props) {
             percentage: `${infoVoting['votingData']['totalVotedPCT']}%`,
             needed: `${new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])}%`,
             type: 'brand',
-            labelCurrent: 'Current',
-            labelNeedIt: 'Need it',
-            labelTotal: 'Circulating',
+            labelCurrent: 'Votes',
+            labelNeedIt: 'Quorum',
+            labelTotal: 'Total circulating tokens',
             valueCurrent: infoVoting['votingData']['totalVoted'],
             valueNeedIt: infoVoting['MIN_FOR_QUORUM'],
             valueTotal: infoVoting['totalSupply'],
             pctCurrent: infoVoting['votingData']['totalVotedPCT'],
             pctNeedIt: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])
+        },
+        {
+            id: 2,
+            description: t('voting.statusGraph.negativeOverCirculation'),
+            percentage: `${infoVoting['votingData']['againstVotes']}%`,
+            needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
+            type: 'negative',
+            labelCurrent: 'Votes against',
+            labelNeedIt: 'Reject proposal',
+            labelTotal: 'Total circulating tokens',
+            valueCurrent: infoVoting['votingData']['againstVotesPCT'],
+            valueNeedIt: infoVoting['VOTE_MIN_TO_VETO'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
+            pctNeedIt: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
         }
     ];
 
@@ -189,56 +217,40 @@ function Vote(props) {
                 <h1>{t('voting.cardTitle')}</h1>
             </div>
 
-            {infoVoting['readyToVoteStep'] === 1 && (
-                <div className="vote-step">
-                    <div className="vote-info">Please run Step to advance to accepted stage</div>
-                    <button className="button secondary" onClick={onRunVoteStep}>
-                        Run Step{' '}
-                    </button>
-                </div>
-            )}
+            <div className='details'>
 
-            {infoVoting['state'] === 2 && (
-                <div className="vote-step">
-                    <div className="vote-info">Please run "accepted step" to finish & apply the changes to contracts</div>
-                    <button className="button secondary" onClick={onRunAcceptedStep}>
-                        Accepted Step{' '}
-                    </button>
-                </div>
-            )}
+                <div className='title'>Proposal change contract</div>
+                <div className='change-contract'>{infoVoting.votingData['winnerProposal']}</div>
 
-            <div className="details">
-                <div className="externalLink">
+                <div className='status-title'>{votingStatusTitle}</div>
+                <div className='status-description'>{votingStatusDescription}</div>
+
+                <div className='externalLink'>
                     <a
-                        className="forumLink"
+                        className='forumLink'
                         href={`https://forum.moneyonchain.com/search?q=${infoVoting.votingData['winnerProposal']}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                     >
                         {t('voting.info.searchForum')}
-                        <div className="icon-external-link"></div>
+                        <div className='icon-external-link'></div>
                     </a>
                 </div>
 
-                <div className="externalLink">
+                <div className='externalLink'>
                     <a
-                        className="forumLink"
+                        className='forumLink'
                         href={`https://rootstock.blockscout.com/address/${infoVoting.votingData['winnerProposal']}?tab=contract`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                     >
                         {t('voting.info.changeContract')}
-                        <span className="icon-external-link"></span>
+                        <span className='icon-external-link'></span>
                     </a>
                 </div>
-
-                {/* 
-                <div className="votingStatus__graphs">
-                    {votingGraphs.map(CreateBarGraph)}
-                </div> */}
             </div>
-            <div className="voting__status__container">
-                <div className="graphs">
+            <div className='voting__status__container'>
+            <div className="graphs">
                     <p className="voting__status">
                         {t('voting.info.stateAs')}
                         <span>{infoVoting['votingData']['votingExpirationTimeFormat']} </span>
@@ -302,6 +314,24 @@ function Vote(props) {
                 </div>
             </div>
 
+            {infoVoting['readyToVoteStep'] === 1 && (
+                <div className="vote-step">
+                    <div className="vote-info">Please run Step to advance to next stage</div>
+                    <button className="button secondary" onClick={onRunVoteStep}>
+                        Run Step{' '}
+                    </button>
+                </div>
+            )}
+
+            {infoVoting['state'] === 2 && (
+                <div className="vote-step">
+                    <div className="vote-info">Please run "accepted step" to finish & apply the changes to contracts</div>
+                    <button className="button secondary" onClick={onRunAcceptedStep}>
+                        Accepted Step{' '}
+                    </button>
+                </div>
+            )}
+
             {isOperationModalVisible && (
                 <OperationStatusModal
                     title={modalTitle}
@@ -311,6 +341,7 @@ function Vote(props) {
                     txHash={txHash}
                 />
             )}
+
 
         </div>
     );
