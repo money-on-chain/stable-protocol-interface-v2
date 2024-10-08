@@ -16,13 +16,27 @@ function CreateBarGraph(props) {
             percentage={props.percentage}
             needed={props.needed}
             type={props.type}
+            labelCurrent={props.labelCurrent}
+            labelNeedIt={props.labelNeedIt}
+            labelTotal={props.labelTotal}
+            valueCurrent={props.valueCurrent}
+            valueNeedIt={props.valueNeedIt}
+            valueTotal={props.valueTotal}
+            pctCurrent={props.pctCurrent}
+            pctNeedIt={props.pctNeedIt}
         />
     );
 }
 
 function PreVote(props) {
 
-    const { proposal, onBack, infoVoting, infoUser, onUnRegisterProposal } = props;
+    const {
+        proposal,
+        onBack,
+        infoVoting,
+        infoUser,
+        onUnRegisterProposal,
+        onRunPreVoteStep } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const space = '\u00A0';
     const auth = useContext(AuthenticateContext);
@@ -39,7 +53,15 @@ function PreVote(props) {
             description: 'votes need to advance to next step',
             percentage: `${proposal.votesPositivePCT}%`,
             needed:  `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
-            type: 'brand'
+            type: 'brand',
+            labelCurrent: 'Votes',
+            labelNeedIt: 'Quorum',
+            labelTotal: 'Total circulating tokens',
+            valueCurrent: proposal.votesPositive,
+            valueNeedIt: infoVoting['PRE_VOTE_MIN_TO_WIN'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: proposal.votesPositivePCT,
+            pctNeedIt: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
         },
 
     ];
@@ -74,11 +96,11 @@ function PreVote(props) {
             )
             .then((res) => {
                 // Refresh status
-                /*auth.loadContractsStatusAndUserBalance().then(
+                auth.loadContractsStatusAndUserBalance().then(
                     (value) => {
                         console.log('Refresh user balance OK!');
                     }
-                );*/
+                );
             })
             .catch((e) => {
                 console.error(e);
@@ -133,46 +155,7 @@ function PreVote(props) {
                                 {preVotingGraphs.map(CreateBarGraph)}
                             </div>
 
-                            <div className='voting__status__votes'>
-                                {PrecisionNumbers({
-                                    amount: proposal.votesPositive,
-                                    token: TokenSettings('TG'),
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                                {' / '}
-                                {PrecisionNumbers({
-                                    amount: infoVoting.totalSupply,
-                                    token: TokenSettings('TG'),
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-
-                                {' '} Votes
-                            </div>
-                            <div className='voting__status__votes'>
-                                Need al least {' '}
-
-                                {PrecisionNumbers({
-                                    amount: infoVoting['PRE_VOTE_MIN_TO_WIN'],
-                                    token: TokenSettings('TG'),
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-
-                                {' '} votes to advance to vote step
-                            </div>
-
-                            </div>
+                        </div>
                             <div className='cta'>
                                 <div className='votingButtons'>
                                     <button className='button infavor' onClick={onVoteInFavor}>
@@ -220,14 +203,24 @@ function PreVote(props) {
                             </div>
                         </div>
                         <div className="go-back">
-                        <button className="button secondary" onClick={() => onBack()}>
-                            Back to Proposals{' '}
-                        </button>
+                            <button className="button secondary" onClick={() => onBack()}>
+                                Back to Proposals{' '}
+                            </button>
 
-                        {proposal.canUnregister && (<button className="button"
-                                                            onClick={() => onUnRegisterProposal(proposal.changeContract)}>{t('Unregister Proposal')}</button>
-                        )}
-                    </div>
+                            {proposal.canRunStep && (
+                                <button className="button"
+                                    onClick={() => onRunPreVoteStep()}>
+                                    Next step
+                                </button>
+                            )}
+
+                            {proposal.canUnregister && (
+                                <button className="button"
+                                    onClick={() => onUnRegisterProposal(proposal.changeContract)}>
+                                    Unregister Proposal
+                                </button>
+                            )}
+                        </div>
                 </div>
             </div>
 

@@ -1,6 +1,7 @@
 import { useProjectTranslation } from '../../helpers/translations';
 import React from 'react';
 import CompletedBar from './CompletedBar';
+import BigNumber from 'bignumber.js';
 
 
 function CreateBarGraph(props) {
@@ -11,13 +12,25 @@ function CreateBarGraph(props) {
             percentage={props.percentage}
             needed={props.needed}
             type={props.type}
+            labelCurrent={props.labelCurrent}
+            labelNeedIt={props.labelNeedIt}
+            labelTotal={props.labelTotal}
+            valueCurrent={props.valueCurrent}
+            valueNeedIt={props.valueNeedIt}
+            valueTotal={props.valueTotal}
+            pctCurrent={props.pctCurrent}
+            pctNeedIt={props.pctNeedIt}
         />
     );
 }
 
 function Proposal(props) {
 
-    const { proposal, onViewProposal, infoVoting } = props;
+    const {
+        proposal,
+        onViewProposal,
+        infoVoting,
+        onRunPreVoteStep } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const space = '\u00A0';
 
@@ -27,7 +40,15 @@ function Proposal(props) {
             description: 'votes need to advance to next step',
             percentage: `${proposal.votesPositivePCT}%`,
             needed:  `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
-            type: 'brand'
+            type: 'brand',
+            labelCurrent: 'Votes',
+            labelNeedIt: 'Quorum',
+            labelTotal: 'Total circulating tokens',
+            valueCurrent: proposal.votesPositive,
+            valueNeedIt: infoVoting['PRE_VOTE_MIN_TO_WIN'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: proposal.votesPositivePCT,
+            pctNeedIt: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
         }
     ];
 
@@ -76,7 +97,17 @@ function Proposal(props) {
                 </div>
                 <div className='cta'>
                     <button className='button'
-                            onClick={() => onViewProposal(proposal.changeContract)}>{t('View Proposal')}</button>
+                            onClick={() => onViewProposal(proposal.changeContract)}>
+                        {t('View Proposal')}
+                    </button>
+
+                    {proposal.canRunStep && (
+                        <button className="button"
+                                onClick={() => onRunPreVoteStep()}>
+                            Next step
+                        </button>
+                    )}
+
                 </div>
             </div>
         </div>

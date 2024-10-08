@@ -69,6 +69,10 @@ function Proposals(props) {
 
             votesPositivePCT = votesPositive.times(100).div(infoVoting['totalSupply'])
 
+            let canRunStep = false
+            if (votesPositivePCT.gte(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
+                && infoVoting['readyToPreVoteStep'] === 1) canRunStep = true
+
             proposalsData.push({
                 id: count,
                 changeContract: infoVoting['proposals'][i].proposalAddress,
@@ -79,7 +83,8 @@ function Proposals(props) {
                 expirationTimeStampFormat: formatTimestamp(expirationTimestamp.toNumber()),
                 positivesNeeded: 0,
                 expired: expired,
-                canUnregister: canUnregister
+                canUnregister: canUnregister,
+                canRunStep: canRunStep
             });
             count += 1
         }
@@ -177,11 +182,11 @@ function Proposals(props) {
             )
             .then((res) => {
                 // Refresh status
-                /*auth.loadContractsStatusAndUserBalance().then(
+                auth.loadContractsStatusAndUserBalance().then(
                     (value) => {
                         console.log('Refresh user balance OK!');
                     }
-                );*/
+                );
             })
             .catch((e) => {
                 console.error(e);
@@ -230,11 +235,11 @@ function Proposals(props) {
             )
             .then((res) => {
                 // Refresh status
-                /*auth.loadContractsStatusAndUserBalance().then(
+                auth.loadContractsStatusAndUserBalance().then(
                     (value) => {
                         console.log('Refresh user balance OK!');
                     }
-                );*/
+                );
             })
             .catch((e) => {
                 console.error(e);
@@ -279,11 +284,11 @@ function Proposals(props) {
             )
             .then((res) => {
                 // Refresh status
-                /*auth.loadContractsStatusAndUserBalance().then(
+                auth.loadContractsStatusAndUserBalance().then(
                     (value) => {
                         console.log('Refresh user balance OK!');
                     }
-                );*/
+                );
             })
             .catch((e) => {
                 console.error(e);
@@ -299,20 +304,19 @@ function Proposals(props) {
         {/* PRE-VOTE - VIEW PROPOSAL */}
         {actionProposal === 'VIEW_PROPOSAL' && viewProposal.changeContract !== '' && (
             <div className="section preVoting">
-                <PreVote proposal={viewProposal} infoVoting={infoVoting} infoUser={infoUser} onBack={onBackToProposalList}  onUnRegisterProposal={onUnRegisterProposal} />
+                <PreVote
+                    proposal={viewProposal}
+                    infoVoting={infoVoting}
+                    infoUser={infoUser}
+                    onBack={onBackToProposalList}
+                    onUnRegisterProposal={onUnRegisterProposal}
+                    onRunPreVoteStep={onRunPreVoteStep}
+                />
             </div>
         )}
 
-        {infoVoting['readyToPreVoteStep'] === 1 && (
-            <div className="pre-vote-step">
-                <div className="pre-vote-info">Please run Step to advance to vote stage</div>
-                <button className="button secondary" onClick={onRunPreVoteStep}>
-                    Run Step{' '}
-                </button>
-            </div>
-        )}
-
-        {actionProposal === 'LIST' && infoVoting['readyToPreVoteStep'] === 0 && (
+        {/* actionProposal === 'LIST' && infoVoting['readyToPreVoteStep'] === 0 && */}
+        {actionProposal === 'LIST' && (
             <div className="new-proposal">
                 <button className="button secondary" onClick={onShowAddProposal}>
                     Add proposal{' '}
@@ -372,13 +376,13 @@ function Proposals(props) {
                             skipContractConvert: true
                         })}
 
-                        {' '}
+                        {space}
 
                         {t('staking.tokens.TG.abbr', {
                             ns: ns
                         })}
 
-                        {' '}
+                        {space}
 
                         (
                         {PrecisionNumbers({
@@ -395,7 +399,7 @@ function Proposals(props) {
 
                 </div>
                 <div className='additional-text'>
-                    Please write the proposal Address, you need at least {' '}
+                    Please write the proposal Address, you need at least {space}
                     {PrecisionNumbers({
                         amount: infoVoting['MIN_STAKE'],
                         token: TokenSettings('TG'),
@@ -408,15 +412,29 @@ function Proposals(props) {
             </div>)}
 
 
-        {actionProposal === 'LIST' && proposalsData === [] && (
+        {actionProposal === 'LIST' && proposalsData.length === 0 && (
             <div className='proposals__empty'>
                 Proposal list is empty. Add a proposal!
             </div>
         )}
 
         {actionProposal === 'LIST' && proposalsData !== [] && proposalsData.map((proposal) => (
-            <Proposal proposal={proposal} infoVoting={infoVoting} onViewProposal={onViewProposal} />
+            <Proposal
+                proposal={proposal}
+                infoVoting={infoVoting}
+                onViewProposal={onViewProposal}
+                onRunPreVoteStep={onRunPreVoteStep}
+            />
         ))}
+
+        {/*{infoVoting['readyToPreVoteStep'] === 1 && (*/}
+        {/*    <div className="pre-vote-step">*/}
+        {/*        <div className="pre-vote-info">Please run Step to advance to vote stage</div>*/}
+        {/*        <button className="button secondary" onClick={onRunPreVoteStep}>*/}
+        {/*            Run Step{' '}*/}
+        {/*        </button>*/}
+        {/*    </div>*/}
+        {/*)}*/}
 
         {isOperationModalVisible && (
             <OperationStatusModal

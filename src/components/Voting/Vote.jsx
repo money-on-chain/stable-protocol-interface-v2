@@ -84,7 +84,22 @@ function Vote(props) {
             valueTotal: infoVoting['totalSupply'],
             pctCurrent: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
             pctNeedIt: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
-        }
+        },
+        {
+            id: 3,
+            description: t('voting.statusGraph.positiveOverCirculation'),
+            percentage: `${infoVoting['votingData']['inFavorVotes']}%`,
+            needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
+            type: 'positive',
+            labelCurrent: 'Votes positives',
+            labelNeedIt: 'Reject proposal',
+            labelTotal: 'Total circulating tokens',
+            valueCurrent: infoVoting['votingData']['inFavorVotesPCT'],
+            valueNeedIt: infoVoting['MIN_FOR_QUORUM'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: infoVoting['votingData']['inFavorVotesTotalSupplyPCT'],
+            pctNeedIt: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])
+        },
     ];
 
     const onVote = async (inFavor) => {
