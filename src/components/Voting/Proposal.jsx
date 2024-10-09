@@ -58,13 +58,13 @@ function Proposal(props) {
             <div className="proposal__content">
                 <div className='details'>
 
-                    {proposal.canRunStep && (
-                        <div className='proposal-period'>The first stage voting period is over!</div>
-                    )}
+                    {/*{proposal.canRunStep && (*/}
+                    {/*    <div className='proposal-period'>The first stage voting period is over!</div>*/}
+                    {/*)}*/}
 
-                    {!proposal.canRunStep && (
-                        <div className='proposal-period'>The first stage voting is in progress!</div>
-                    )}
+                    {/*{!proposal.canRunStep && (*/}
+                    {/*    <div className='proposal-period'>The first stage voting is in progress!</div>*/}
+                    {/*)}*/}
 
                     <div className='externalLink'>
                         <a

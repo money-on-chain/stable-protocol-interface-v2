@@ -88,7 +88,8 @@ function Proposals(props) {
                 expirationTimeStampFormat: formatTimestamp(expirationTimestamp.toNumber()),
                 expired: expired,
                 canUnregister: canUnregister,
-                canRunStep: canRunStep
+                canRunStep: canRunStep,
+                canVote: !expired && infoVoting['readyToPreVoteStep'] === 0
             });
             count += 1
         }

@@ -156,11 +156,11 @@ function PreVote(props) {
 
                         <div className='graphs'>
 
-                            {proposal.canRunStep && (
-                                <div className='proposal-period'>The first stage voting period is over!</div>
+                            {!proposal.canVote  && (
+                                <div className='proposal-period'>You cannot vote! The time window is expired or proposal wins!</div>
                             )}
 
-                            {!proposal.canRunStep && (
+                            {proposal.canVote  && (
                                 <div className='proposal-period'>The first stage voting is in progress!</div>
                             )}
 
@@ -176,7 +176,7 @@ function PreVote(props) {
                         </div>
                             <div className='cta'>
                                 <div className='votingButtons'>
-                                    {!proposal.canRunStep && (
+                                    {proposal.canVote && (
                                         <button className='button infavor' onClick={onVoteInFavor} disabled={votingInFavorError}>
                                             <div className='icon icon__vote__infavor'></div>
                                             {t('voting.votingOptions.inFavor')}
@@ -190,7 +190,7 @@ function PreVote(props) {
                                     )}
                                 </div>
 
-                                {!proposal.canRunStep && (
+                                {proposal.canVote && (
                                     <div className='voting__status__votingInfo'>
                                         <div className='votingInfo__item'>
                                             <div className='label'>
