@@ -47,42 +47,46 @@ function CompletedBar(props) {
                         skipContractConvert: true
                     })}% )
                 </div>
-                <div className='needItVotesLabel'>
-                    {props.labelNeedIt}:
-                    {PrecisionNumbers({
-                        amount: props.valueNeedIt,
-                        token: TokenSettings('TG'),
-                        decimals: 2,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}{' '}
+                {props.labelNeedIt != null && (
 
-                    ( {PrecisionNumbers({
-                        amount: props.pctNeedIt,
-                        token: TokenSettings('TG'),
-                        decimals: 2,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}% )
-                </div>
-                <div className='totalVotesLabel'>
-                    {props.labelTotal}:
-                    {PrecisionNumbers({
-                        amount: props.valueTotal,
-                        token: TokenSettings('TG'),
-                        decimals: 2,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}{' '}
-                    ( 100% )
+                    <div className='needItVotesLabel'>
+                        {props.labelNeedIt}:
+                        {PrecisionNumbers({
+                            amount: props.valueNeedIt,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}{' '}
 
-                </div>
+                        ( {PrecisionNumbers({
+                            amount: props.pctNeedIt,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}% )
+                    </div>
+                )}
+                {props.labelTotal != null && (
+                    <div className='totalVotesLabel'>
+                        {props.labelTotal}:
+                        {PrecisionNumbers({
+                            amount: props.valueTotal,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}{' '}
+                        ( 100% )
+                    </div>
+                )}
             </div>
         </div>
     );

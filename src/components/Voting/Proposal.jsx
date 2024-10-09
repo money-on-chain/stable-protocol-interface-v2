@@ -57,6 +57,15 @@ function Proposal(props) {
             <div className="title">{proposal.changeContract}</div>
             <div className="proposal__content">
                 <div className='details'>
+
+                    {proposal.canRunStep && (
+                        <div className='proposal-period'>The first stage voting period is over!</div>
+                    )}
+
+                    {!proposal.canRunStep && (
+                        <div className='proposal-period'>The first stage voting is in progress!</div>
+                    )}
+
                     <div className='externalLink'>
                         <a
                             className='forumLink'
@@ -84,7 +93,6 @@ function Proposal(props) {
                     <p>
                         {t('voting.info.stateAs')}
                         <span>{proposal.expirationTimeStampFormat} </span>
-                        <span>({proposal.expired ? 'Expired' : 'Ready to vote'})</span>
                     </p>
 
                     <div className='votingStatus__graphs'>

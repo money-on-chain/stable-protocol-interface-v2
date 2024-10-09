@@ -61,7 +61,12 @@ export default function Voting(props) {
         infoVoting['PRE_VOTE_MIN_TO_WIN'] = new BigNumber(infoVoting['totalSupply'])
             .times(new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']))
             .div(100);
-        infoVoting['MIN_STAKE'] = auth.contractStatusData.votingmachine.MIN_STAKE
+        infoVoting['MIN_STAKE'] = new BigNumber(
+            Web3.utils.fromWei(
+                auth.contractStatusData.votingmachine.MIN_STAKE,
+                'ether'
+            )
+        );
         infoVoting['MIN_PCT_FOR_QUORUM'] = auth.contractStatusData.votingmachine.MIN_PCT_FOR_QUORUM
         infoVoting['MIN_FOR_QUORUM'] = new BigNumber(infoVoting['totalSupply'])
             .times(new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']))
@@ -181,7 +186,7 @@ export default function Voting(props) {
             )}
 
             {/* VOTING STAGE */}
-            {infoVoting['state'] === 1 && (
+            {(infoVoting['state'] === 1 || infoVoting['state'] === 2) && (
                 <div className="section voting">
                     <Vote infoVoting={infoVoting} infoUser={infoUser} />
                 </div>

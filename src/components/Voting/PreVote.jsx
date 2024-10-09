@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -46,6 +46,13 @@ function PreVote(props) {
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Voting in favor');
+
+    const [votingInFavorError, setVotingInFavorError] = useState(false);
+
+    useEffect(() => {
+        onValidateVotingInFavor();
+    }, [auth]);
+
 
     const preVotingGraphs = [
         {
@@ -108,6 +115,14 @@ function PreVote(props) {
             });
     };
 
+    const onValidateVotingInFavor = () => {
+        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+            // You need at least voting power > 0
+            setVotingInFavorError(true);
+            return false;
+        } else return true;
+    };
+
     return (
         <Fragment>
             <div className="votingDetails__wrapper">
@@ -138,11 +153,20 @@ function PreVote(props) {
                     </div>
 
                     <div className="voting__status__container">
+
                         <div className='graphs'>
+
+                            {proposal.canRunStep && (
+                                <div className='proposal-period'>The first stage voting period is over!</div>
+                            )}
+
+                            {!proposal.canRunStep && (
+                                <div className='proposal-period'>The first stage voting is in progress!</div>
+                            )}
+
                             <p>
                                 {t('voting.info.stateAs')}
                                 <span>{proposal.expirationTimeStampFormat} </span>
-                                <span>({proposal.expired ? 'Expired' : 'Ready to vote'})</span>
                             </p>
 
                             <div className='voting__status__graphs'>
@@ -153,7 +177,7 @@ function PreVote(props) {
                             <div className='cta'>
                                 <div className='votingButtons'>
                                     {!proposal.canRunStep && (
-                                        <button className='button infavor' onClick={onVoteInFavor}>
+                                        <button className='button infavor' onClick={onVoteInFavor} disabled={votingInFavorError}>
                                             <div className='icon icon__vote__infavor'></div>
                                             {t('voting.votingOptions.inFavor')}
                                         </button>

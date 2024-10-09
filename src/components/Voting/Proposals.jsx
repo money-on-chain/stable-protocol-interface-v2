@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import { Input } from 'antd';
 import Web3 from 'web3';
@@ -36,6 +36,10 @@ function Proposals(props) {
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
+    useEffect(() => {
+        onValidateSubmitProposal();
+    }, [auth]);
+
     // List proposals
     const proposalsData = [];
     let count = 0;
@@ -46,7 +50,9 @@ function Proposals(props) {
     let votingRound = new BigNumber(0)
     const showLastRoundProposal = true
 
-    for (let i = 0; i < Object.keys(infoVoting['proposals']).length; i++) {
+    let lenProp = 0
+    if (infoVoting['proposals'] != null) lenProp = Object.keys(infoVoting['proposals']).length;
+    for (let i = 0; i < lenProp; i++) {
         if (infoVoting['proposals'][i] !== null) {
 
             expirationTimestamp = new BigNumber(infoVoting['proposals'][i].expirationTimeStamp).times(1000)
@@ -76,12 +82,10 @@ function Proposals(props) {
             proposalsData.push({
                 id: count,
                 changeContract: infoVoting['proposals'][i].proposalAddress,
-                circulating: 0,
                 votingRound: new BigNumber(infoVoting['proposals'][i].votingRound),
                 votesPositive: votesPositive,
                 votesPositivePCT: votesPositivePCT,
                 expirationTimeStampFormat: formatTimestamp(expirationTimestamp.toNumber()),
-                positivesNeeded: 0,
                 expired: expired,
                 canUnregister: canUnregister,
                 canRunStep: canRunStep
@@ -110,7 +114,7 @@ function Proposals(props) {
         setAddProposalAddressError(false);
     };
 
-    const onValidateAddProposal = async () => {
+    const onValidateAddressProposal = () => {
         // 1. Input address valid
         if (addProposalAddress === '') {
             setAddProposalAddressErrorText('Proposal address can not be empty');
@@ -124,10 +128,20 @@ function Proposals(props) {
             setAddProposalAddressError(true);
             return false;
         }
+
+        return true;
+    };
+
+    const onValidateSubmitProposal = () => {
+         if (infoUser['Voting_Power'].lt(infoVoting['MIN_STAKE'])) {
+            setAddProposalAddressErrorText(`You need at least ${infoVoting['MIN_STAKE'].toString()} amount of tokens to submit the proposal`);
+            setAddProposalAddressError(true);
+            return false;
+        } else return true;
     };
 
     const addProposal = () => {
-        const valid = onValidateAddProposal()
+        const valid = onValidateAddressProposal() && onValidateSubmitProposal()
         if (valid) {
             onSendAddProposal().then((res) => {
             })
@@ -316,7 +330,7 @@ function Proposals(props) {
         )}
 
         {/* actionProposal === 'LIST' && infoVoting['readyToPreVoteStep'] === 0 && */}
-        {actionProposal === 'LIST' && (
+        {actionProposal === 'LIST' && infoVoting['readyToPreVoteStep'] === 0 && (
             <div className="new-proposal">
                 <button className="button secondary" onClick={onShowAddProposal}>
                     Add proposal{' '}
@@ -355,6 +369,7 @@ function Proposals(props) {
                         type='primary'
                         className='button secondary button__small btn-confirm'
                         onClick={onAddProposal}
+                        disabled={addProposalAddressError}
                     >
                         Add
                     </button>
@@ -388,7 +403,7 @@ function Proposals(props) {
                         {PrecisionNumbers({
                             amount: infoUser['Voting_Power_PCT'],
                             token: TokenSettings('TG'),
-                            decimals: 2,
+                            decimals: 4,
                             t: t,
                             i18n: i18n,
                             ns: ns,
@@ -406,7 +421,8 @@ function Proposals(props) {
                         decimals: 2,
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
+                        skipContractConvert: true
                     })} amount of tokens to submit the proposal.
                 </div>
             </div>)}
@@ -421,6 +437,12 @@ function Proposals(props) {
         {actionProposal === 'LIST' && proposalsData.length > 0 && (
             <div className="proposals__voting__round">
                 Proposals voting round Nº {' '} {infoVoting['globalVotingRound'].toNumber()}
+            </div>
+        )}
+
+        {actionProposal === 'LIST' && proposalsData.length > 0 && infoVoting['readyToPreVoteStep'] === 1 && (
+            <div className="proposals__voting__over">
+                The first stage voting period is over!
             </div>
         )}
 

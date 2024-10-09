@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BalanceBar from './BalanceBar';
@@ -36,21 +36,31 @@ function Vote(props) {
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Voting Proposal');
+    const [votingInFavorOrAgainstError, setVotingInFavorOrAgainstError] = useState(false);
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
-    let votingStatusTitle = 'Voting in progress...';
-    let votingStatusDescription = 'Voting progress OK';
+    useEffect(() => {
+        onValidateVotingInFavorOrAgainst();
+    }, [auth]);
+
+    let votingFinish = false
+    /* Voting Finish Reason */
+    /* 0 - No reason */
+    /* 1 - Success */
+    /* 2 - No Quorum */
+    /* 3 - Proposal rejected by votes against */
+    let votingFinishReason = 0
     if (auth.contractStatusData && infoVoting['votingData']['expired']) {
-        votingStatusTitle = 'Voting finished!';
+        votingFinish = true
         if (infoVoting['votingData']['totalVoted'].lt(infoVoting['MIN_FOR_QUORUM'])) {
-            votingStatusDescription = 'No reach quorum for this proposal';
+            votingFinishReason = 2
         } else if (infoVoting['votingData']['againstVotesPCT'].gte(infoVoting['votingData']['VOTE_MIN_TO_VETO'])) {
-            votingStatusDescription = 'Proposal was rejected by votes against';
+            votingFinishReason = 3
         } else {
-            votingStatusDescription = 'Proposal was approved!';
+            votingFinishReason = 1
         }
     }
 
@@ -73,32 +83,29 @@ function Vote(props) {
         {
             id: 2,
             description: t('voting.statusGraph.negativeOverCirculation'),
-            percentage: `${infoVoting['votingData']['againstVotes']}%`,
+            percentage: `${infoVoting['votingData']['againstVotesTotalSupplyPCT']}%`,
             needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
             type: 'negative',
             labelCurrent: 'Votes against',
             labelNeedIt: 'Reject proposal',
-            labelTotal: 'Total circulating tokens',
-            valueCurrent: infoVoting['votingData']['againstVotesPCT'],
+            //labelTotal: 'Total circulating tokens',
+            valueCurrent: infoVoting['votingData']['againstVotes'],
             valueNeedIt: infoVoting['VOTE_MIN_TO_VETO'],
-            valueTotal: infoVoting['totalSupply'],
+            //valueTotal: infoVoting['totalSupply'],
             pctCurrent: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
             pctNeedIt: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
         },
         {
             id: 3,
             description: t('voting.statusGraph.positiveOverCirculation'),
-            percentage: `${infoVoting['votingData']['inFavorVotes']}%`,
-            needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
+            percentage: `${infoVoting['votingData']['inFavorVotesTotalSupplyPCT']}%`,
+            needed: `0%`,
             type: 'positive',
             labelCurrent: 'Votes positives',
-            labelNeedIt: 'Reject proposal',
-            labelTotal: 'Total circulating tokens',
-            valueCurrent: infoVoting['votingData']['inFavorVotesPCT'],
-            valueNeedIt: infoVoting['MIN_FOR_QUORUM'],
-            valueTotal: infoVoting['totalSupply'],
+            //labelTotal: 'Total circulating tokens',
+            valueCurrent: infoVoting['votingData']['inFavorVotes'],
+            //valueTotal: infoVoting['totalSupply'],
             pctCurrent: infoVoting['votingData']['inFavorVotesTotalSupplyPCT'],
-            pctNeedIt: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])
         },
     ];
 
@@ -226,6 +233,14 @@ function Vote(props) {
             });
     };
 
+    const onValidateVotingInFavorOrAgainst = () => {
+        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+            // You need at least voting power > 0
+            setVotingInFavorOrAgainstError(true);
+            return false;
+        } else return true;
+    };
+
     return (
         <div className="votingDetails__wrapper">
             <div className={'layout-card-title'}>
@@ -233,12 +248,28 @@ function Vote(props) {
             </div>
 
             <div className='details'>
-
                 <div className='title'>Proposal change contract</div>
                 <div className='change-contract'>{infoVoting.votingData['winnerProposal']}</div>
 
-                <div className='status-title'>{votingStatusTitle}</div>
-                <div className='status-description'>{votingStatusDescription}</div>
+                {votingFinish && (
+                    <div className='voting-finish'>The voting period is over!</div>
+                )}
+
+                {!votingFinish && (
+                    <div className='voting-in-progress'>The voting is in progress!</div>
+                )}
+
+                {votingFinishReason === 1 && (
+                    <div className='voting-status'>Proposal was approved!</div>
+                )}
+
+                {votingFinishReason === 2 && (
+                    <div className='voting-status'>No reach quorum for this proposal!</div>
+                )}
+
+                {votingFinishReason === 3 && (
+                    <div className='voting-status'>Proposal was rejected by votes against!</div>
+                )}
 
                 <div className='externalLink'>
                     <a
@@ -272,8 +303,8 @@ function Vote(props) {
                     </p>
                     <BalanceBar
                         key="1"
-                        infavor={`${infoVoting['votingData']['inFavorVotesPCT']}%`}
-                        against={`${infoVoting['votingData']['againstVotesPCT']}%`}
+                        infavor={`${infoVoting['votingData']['inFavorVotesPCT'].toFormat(2, BigNumber.ROUND_UP, {decimalSeparator: '.', groupSeparator: ','})}%`}
+                        against={`${infoVoting['votingData']['againstVotesPCT'].toFormat(2, BigNumber.ROUND_UP, {decimalSeparator: '.', groupSeparator: ','})}%`}
                         infavorVotes={infoVoting['votingData']['inFavorVotes']}
                         againstVotes={infoVoting['votingData']['againstVotes']}
                     />
@@ -282,70 +313,79 @@ function Vote(props) {
                     </div>
                 </div>
                 <div className="cta">
-                    <div className="votingButtons">
-                        <button className="button against" onClick={() => onVote(false)}>
-                            <div className="icon icon__vote__against"></div>
-                            {t('voting.votingOptions.against')}
-                        </button>
-                        <button className="button infavor" onClick={() => onVote(true)}>
-                            <div className="icon icon__vote__infavor"></div>
-                            {t('voting.votingOptions.inFavor')}
-                        </button>
-                    </div>
-                    <div className="voting__status__votingInfo">
-                        <div className='label'>
-                            {t('voting.userPower.votingPower')}
+                    {infoVoting['readyToVoteStep'] === 0 && (
+                        <div className="voting-buttons-section">
+                            <div className="votingButtons">
+                                <button className="button against" onClick={() => onVote(false)} disabled={votingInFavorOrAgainstError}>
+                                    <div className="icon icon__vote__against"></div>
+                                    {t('voting.votingOptions.against')}
+                                </button>
+                                <button className="button infavor" onClick={() => onVote(true)} disabled={votingInFavorOrAgainstError}>
+                                    <div className="icon icon__vote__infavor"></div>
+                                    {t('voting.votingOptions.inFavor')}
+                                </button>
+                            </div>
+                            <div className="voting__status__votingInfo">
+                                <div className='label'>
+                                    {t('voting.userPower.votingPower')}
+                                </div>
+                                <div className='data'>
+                                    {PrecisionNumbers({
+                                        amount: infoUser['Voting_Power'],
+                                        token: TokenSettings('TG'),
+                                        decimals: 2,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true
+                                    })}
+
+                                    {' '}
+
+                                    {t('staking.tokens.TG.abbr', {
+                                        ns: ns
+                                    })}
+
+                                    {' '}
+                                    ({PrecisionNumbers({
+                                    amount: infoUser['Voting_Power_PCT'],
+                                    token: TokenSettings('TG'),
+                                    decimals: 4,
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns,
+                                    skipContractConvert: true
+                                })}
+                                    %)
+                                </div>
+                            </div>
                         </div>
-                        <div className='data'>
-                            {PrecisionNumbers({
-                                amount: infoUser['Voting_Power'],
-                                token: TokenSettings('TG'),
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true
-                            })}
+                    )}
 
-                            {' '}
-
-                            {t('staking.tokens.TG.abbr', {
-                                ns: ns
-                            })}
-
-                            {' '}
-                            ({PrecisionNumbers({
-                            amount: infoUser['Voting_Power_PCT'],
-                            token: TokenSettings('TG'),
-                            decimals: 4,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}
-                            %)
+                    {infoVoting['readyToVoteStep'] === 1 && (
+                        <div className="step-buttons-section">
+                            <div className="vote-info">
+                                Please run Step to advance to next stage
+                            </div>
+                            <button className="button secondary" onClick={onRunVoteStep}>
+                                Run Step{' '}
+                            </button>
                         </div>
-                    </div>
+                    )}
+
+                    {infoVoting['state'] === 2 && (
+                        <div className="final-step-section">
+                            <div className="vote-info">
+                                Please run "accepted step" to finish & apply the changes to contracts
+                            </div>
+                            <button className="button secondary" onClick={onRunAcceptedStep}>
+                                Accepted Step{' '}
+                            </button>
+                        </div>
+                    )}
+
                 </div>
             </div>
-
-            {infoVoting['readyToVoteStep'] === 1 && (
-                <div className="vote-step">
-                    <div className="vote-info">Please run Step to advance to next stage</div>
-                    <button className="button secondary" onClick={onRunVoteStep}>
-                        Run Step{' '}
-                    </button>
-                </div>
-            )}
-
-            {infoVoting['state'] === 2 && (
-                <div className="vote-step">
-                    <div className="vote-info">Please run "accepted step" to finish & apply the changes to contracts</div>
-                    <button className="button secondary" onClick={onRunAcceptedStep}>
-                        Accepted Step{' '}
-                    </button>
-                </div>
-            )}
 
             {isOperationModalVisible && (
                 <OperationStatusModal
@@ -356,7 +396,6 @@ function Vote(props) {
                     txHash={txHash}
                 />
             )}
-
 
         </div>
     );
