@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import Web3 from 'web3';
-import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 
 function CreateBarGraph(props) {
     return (
@@ -46,8 +46,9 @@ function PreVote(props) {
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Voting in favor');
-
     const [votingInFavorError, setVotingInFavorError] = useState(false);
+    const [showProposalModal, setShowProposalModal] = useState(false);
+
 
     useEffect(() => {
         onValidateVotingInFavor();
@@ -74,7 +75,8 @@ function PreVote(props) {
     ];
 
     const onVoteInFavor= async (e) => {
-        setModalTitle(`Voting in Favor proposal ${proposal.changeContract}`);
+        setModalTitle(`Voting proposal`);
+        setShowProposalModal(true);
 
         setOperationStatus('sign');
         setIsOperationModalVisible(true);
@@ -246,12 +248,15 @@ function PreVote(props) {
             </div>
 
             {isOperationModalVisible && (
-                <OperationStatusModal
+                <VotingStatusModal
                     title={modalTitle}
                     visible={isOperationModalVisible}
                     onCancel={() => setIsOperationModalVisible(false)}
                     operationStatus={operationStatus}
                     txHash={txHash}
+                    proposalChanger={proposal.changeContract}
+                    votingInFavor={true}
+                    showProposal={showProposalModal}
                 />
             )}
 

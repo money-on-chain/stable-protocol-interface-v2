@@ -142,22 +142,24 @@ export default function Voting(props) {
     }
 
     if (auth.userBalanceData) {
+
+        let vUsing;
+        if (auth.isVestingLoaded()) {
+            vUsing = auth.userBalanceData.vestingmachine.staking;
+        } else {
+            vUsing = auth.userBalanceData.stakingmachine;
+        }
+
         const userBalance = new BigNumber(
-            Web3.utils.fromWei(
-                auth.userBalanceData.stakingmachine.getBalance,
-                'ether'
-            )
+            Web3.utils.fromWei(vUsing.getBalance,'ether')
         );
 
         const lockedAmount = new BigNumber(
-            Web3.utils.fromWei(
-                auth.userBalanceData.stakingmachine.getLockingInfo.amount,
-                'ether'
-            )
+            Web3.utils.fromWei(vUsing.getLockingInfo.amount,'ether')
         );
 
         const untilTimestamp = new BigNumber(
-            auth.userBalanceData.stakingmachine.getLockingInfo.untilTimestamp
+            vUsing.getLockingInfo.untilTimestamp
         ).times(1000)
 
         if (untilTimestamp.gt(nowTimestamp)) {
@@ -166,7 +168,9 @@ export default function Voting(props) {
             infoUser['Voting_Power'] = userBalance
         }
 
-        infoUser['Voting_Power_PCT'] = infoUser['Voting_Power'].times(100).div(infoVoting['totalSupply'])
+        infoUser['Voting_Power_PCT'] = infoUser['Voting_Power']
+            .times(100)
+            .div(infoVoting['totalSupply'])
     }
 
     return (

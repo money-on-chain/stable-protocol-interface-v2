@@ -3,7 +3,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BalanceBar from './BalanceBar';
 import { AuthenticateContext } from '../../context/Auth';
-import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import BigNumber from 'bignumber.js';
@@ -37,6 +37,8 @@ function Vote(props) {
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Voting Proposal');
     const [votingInFavorOrAgainstError, setVotingInFavorOrAgainstError] = useState(false);
+    const [voteInFavor, setVoteInFavor] = useState(true);
+    const [showProposalModal, setShowProposalModal] = useState(false);
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -110,7 +112,9 @@ function Vote(props) {
     ];
 
     const onVote = async (inFavor) => {
-        setModalTitle(`Voting in Favor proposal ${infoVoting.votingData['winnerProposal']}`);
+        setModalTitle('Vote proposal');
+        setVoteInFavor(inFavor);
+        setShowProposalModal(true);
 
         setOperationStatus('sign');
         setIsOperationModalVisible(true);
@@ -153,6 +157,7 @@ function Vote(props) {
 
     const onRunVoteStep= async () => {
         setModalTitle('Vote Step');
+        setShowProposalModal(false);
 
         setOperationStatus('sign');
         setIsOperationModalVisible(true);
@@ -194,6 +199,7 @@ function Vote(props) {
 
     const onRunAcceptedStep= async () => {
         setModalTitle('Accepted Step');
+        setShowProposalModal(false);
 
         setOperationStatus('sign');
         setIsOperationModalVisible(true);
@@ -388,12 +394,15 @@ function Vote(props) {
             </div>
 
             {isOperationModalVisible && (
-                <OperationStatusModal
+                <VotingStatusModal
                     title={modalTitle}
                     visible={isOperationModalVisible}
                     onCancel={() => setIsOperationModalVisible(false)}
                     operationStatus={operationStatus}
                     txHash={txHash}
+                    proposalChanger={infoVoting.votingData['winnerProposal']}
+                    votingInFavor={voteInFavor}
+                    showProposal={showProposalModal}
                 />
             )}
 

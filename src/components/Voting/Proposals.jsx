@@ -5,7 +5,7 @@ import Web3 from 'web3';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import Proposal from './Proposal';
-import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 import { AuthenticateContext } from '../../context/Auth';
 import { formatTimestamp } from '../../helpers/staking';
 import PreVote from './PreVote';
@@ -30,7 +30,7 @@ function Proposals(props) {
         useState(false);
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
-    const [modalTitle, setModalTitle] = useState('Operation status');
+    const [modalTitle, setModalTitle] = useState('Proposal');
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -466,12 +466,15 @@ function Proposals(props) {
         {/*)}*/}
 
         {isOperationModalVisible && (
-            <OperationStatusModal
+            <VotingStatusModal
                 title={modalTitle}
                 visible={isOperationModalVisible}
                 onCancel={() => setIsOperationModalVisible(false)}
                 operationStatus={operationStatus}
                 txHash={txHash}
+                proposalChanger={""}
+                votingInFavor={true}
+                showProposal={false}
             />
         )}
 
