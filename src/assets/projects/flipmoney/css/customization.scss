@@ -136,6 +136,23 @@
     --color-button-secondary-background-default-shadow: 0px 4px 8px
         rgba(41, 147, 25, 0.2);
 
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: transparent;
+    --color-button-tertiary-text-default: #fff383;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #000000;
+    --color-button-tertiary-text-disabled: #000000;
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
     // Semantic
 
     --color-semantic-negative: #ce1717;
@@ -242,6 +259,9 @@
     --color-text-link: #10b16e;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
+
+    --color-icon-primary: invert(11%) sepia(8%) saturate(478%)
+        hue-rotate(114deg) brightness(101%) contrast(94%);
 
     --color-icon-link-filter: invert(45%) sepia(97%) saturate(823%)
         hue-rotate(119deg) brightness(92%) contrast(87%);
@@ -406,6 +426,23 @@
     --color-button-secondary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
 
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: #2a2a32;
+    --color-button-tertiary-text-default: #fff383;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #232328;
+    --color-button-tertiary-text-disabled: rgb(104, 104, 107);
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
     // Semantic
 
     --color-semantic-negative: #e95e5d;
@@ -513,6 +550,9 @@
     --color-text-link: #fff383;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
+
+    --color-icon-primary: invert(93%) sepia(5%) saturate(859%)
+        hue-rotate(185deg) brightness(85%) contrast(99%);
 
     --color-icon-link-filter: invert(92%) sepia(7%) saturate(2601%)
         hue-rotate(347deg) brightness(107%) contrast(104%);

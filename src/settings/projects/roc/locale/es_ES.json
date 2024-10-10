@@ -458,7 +458,8 @@
                 "balance": "Balance (libre)",
                 "processingUnstake": "Unstake en proceso",
                 "readyWithdraw": "Listo para retirar",
-                "staked": "En stake"
+                "staked": "En stake",
+                "totalLabel": "Total tokens MOC"
             },
             "bar": {
                 "desc": "Desempeño del stake anual de MOC"

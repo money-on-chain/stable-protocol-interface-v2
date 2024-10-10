@@ -471,7 +471,8 @@
                 "balance": "Balance (free)",
                 "processingUnstake": "Processing unstake",
                 "readyWithdraw": "Ready for withdraw",
-                "staked": "Staked"
+                "staked": "Staked",
+                "totalLabel": "Total FLIP tokens"
             },
             "bar": {
                 "desc": "Flip staking annualized performance"
@@ -503,6 +504,18 @@
                 "amount": "Amount",
                 "status": "Status",
                 "actions": "Available actions"
+            }
+        },
+        "history": {
+            "title": "Staking Last Operations",
+            "columnDate": "Date",
+            "columnAmount": "Amount",
+            "columnOperation": "Operation",
+            "operatons": {
+                "stake": "Stake",
+                "unstake": "Unstake",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
             }
         },
         "tokens": {

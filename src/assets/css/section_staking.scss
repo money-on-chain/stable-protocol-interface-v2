@@ -174,8 +174,13 @@ section_staking.scss contains all the css code for Staking section cards not con
             color: var(--color-text-primary);
         }
         .dataContainer {
-            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
             margin-top: 4px;
+            width: 100%;
+            color: var(--color-text-primary);
 
             :nth-child(1) > .data-bullet {
                 background-color: var(--brand-color-darker);
@@ -195,131 +200,31 @@ section_staking.scss contains all the css code for Staking section cards not con
                 justify-content: flex-start;
                 align-items: center;
                 gap: 12px;
-                line-height: 16px;
                 margin-bottom: 8px;
                 width: 100%;
+                line-height: 16px;
                 .data-bullet {
+                    border-radius: 50%;
                     width: 8px;
                     height: 8px;
-                    border-radius: 50%;
                 }
                 .data-numbers {
                     font-weight: 600;
                 }
             }
-        }
-    }
-
-    .card-withdraw {
-        border-radius: var(--card-border-radius);
-        background-color: var(--surface-color-1);
-        box-shadow: var(--surface-shadow-1);
-        padding: var(--card-padding);
-        height: 430px;
-
-        .withdraw-header-balance {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0px;
-            gap: 4px;
-            width: 100%;
-            height: 49px;
-            flex-grow: 0;
-        }
-
-        .withdraw-header-balance-number {
-            width: 170px;
-            height: 24px;
-            font-family: var(--brand-font);
-            font-weight: 600;
-            font-size: 18px;
-            text-align: right;
-            color: var(--color-text-primary);
-            flex: none;
-            order: 0;
-            flex-grow: 0;
-        }
-
-        .withdraw-header-balance-title {
-            width: 170px;
-            height: 21px;
-            font-family: var(--main-font);
-            font-style: normal;
-            font-size: 10px;
-            font-weight: 600;
-            font-style: SemiBold;
-            letter-spacing: 1.2px;
-            text-align: right;
-            text-transform: uppercase;
-            line-height: 16px;
-            color: (var(--color-text-secondary));
-            flex: none;
-            order: 1;
-            flex-grow: 0;
-        }
-
-        .item-data {
-            font-family: var(--main-font);
-            font-style: normal;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.61px;
-            line-height: 19px;
-        }
-
-        .ant-table-body .ant-table-cell {
-            border-color: transparent !important;
-        }
-        .ant-table-cell {
-            padding: 10px 0px !important;
-        }
-        .ant-pagination {
-            display: none;
-        }
-        .group-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            width: 100%;
-        }
-
-        .action__container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            width: 130px;
-            margin-left: 5px;
-            cursor: pointer;
-            color: var(--color-text-highlight);
-        }
-
-        .action__container--disabled {
-            cursor: not-allowed;
-            filter: var(--color-icon-link-secondary-filter);
-        }
-        .action__icon--disabled {
-            height: 32px;
-            width: 32px;
-            display: flex;
-            align-items: center;
-            filter: var(--color-icon-link-secondary-filter);
-        }
-        .action__description {
-            width: 200px;
-            margin-right: 8px;
-        }
-        .action__description--disabled {
-            width: 200px;
-            margin-right: 8px;
-        }
-        .action__icon {
-            height: 32px;
-            width: 32px;
-            display: flex;
-            align-items: center;
-            filter: var(--color-icon-link-filter);
+            .pie-chart-total {
+                text-align: right;
+                .pie-chart-total-amount {
+                    font-size: 18px;
+                    font-weight: 600;
+                    font-family: var(--brand-font);
+                }
+                .pie-chart-total-title {
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    color: var(--color-text-secondary);
+                }
+            }
         }
     }
 
@@ -430,3 +335,231 @@ section_staking.scss contains all the css code for Staking section cards not con
     }
 }
 /* #endregion STAKING DASHBOARD */
+
+.card-stakingData {
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+    padding: var(--card-padding);
+    height: 430px;
+    .ant-table-cell {
+        border: none;
+        padding: 0;
+    }
+    .table__stakingData {
+        width: 100%;
+        .table__header {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid var(--dividers);
+            font-size: 18px;
+        }
+        .table__row {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            color: var(--color-text-primary);
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .stakingTableData__date {
+            width: 156px;
+        }
+        .stakingTableData__amount {
+            width: 128px;
+        }
+        .stakingTableData__operation {
+            width: 300px;
+        }
+    }
+}
+
+.card-withdraw {
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+    padding: var(--card-padding);
+    // height: 430px;
+
+    .withdraw-header-balance {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0px;
+        gap: 4px;
+        width: 100%;
+        height: 49px;
+        flex-grow: 0;
+    }
+
+    .withdraw-header-balance-number {
+        width: 170px;
+        height: 24px;
+        font-family: var(--brand-font);
+        font-weight: 600;
+        font-size: 18px;
+        text-align: right;
+        color: var(--color-text-primary);
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    .withdraw-header-balance-title {
+        width: 170px;
+        height: 21px;
+        font-family: var(--main-font);
+        font-style: normal;
+        font-size: 10px;
+        font-weight: 600;
+        font-style: SemiBold;
+        letter-spacing: 1.2px;
+        text-align: right;
+        text-transform: uppercase;
+        line-height: 16px;
+        color: (var(--color-text-secondary));
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+    }
+
+    .item-data {
+        font-family: var(--main-font);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.61px;
+        line-height: 19px;
+    }
+
+    .ant-table-body .ant-table-cell {
+        border-color: transparent !important;
+    }
+    .ant-table-cell {
+        padding: 16px 0px 0px 0px !important;
+    }
+    .ant-pagination {
+        display: none;
+    }
+    .group-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .action__container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 130px;
+        margin-left: 5px;
+        cursor: pointer;
+        color: var(--color-text-highlight);
+    }
+
+    .action__container--disabled {
+        cursor: not-allowed;
+        filter: var(--color-icon-link-secondary-filter);
+    }
+    // .action__icon--disabled {
+    //     height: 32px;
+    //     width: 32px;
+    //     display: flex;
+    //     align-items: center;
+    //     filter: var(--color-icon-link-secondary-filter);
+    // }
+    // .action__description {
+    //     width: 200px;
+    //     margin-right: 8px;
+    // }
+    // .action__description--disabled {
+    //     width: 200px;
+    //     margin-right: 8px;
+    // }
+    // .action__icon {
+    //     height: 32px;
+    //     width: 32px;
+    //     display: flex;
+    //     align-items: center;
+    //     filter: var(--color-icon-link-filter);
+    // }
+
+    .withdraw__row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+        border-radius: var(--card-border-radius);
+        background-color: var(--surface-color-2);
+        padding: 16px 0px 16px 32px;
+        height: 66px;
+    }
+    .withdraw__date {
+        width: 300px;
+    }
+    .withdraw__amount {
+        width: 300px;
+        text-align: right;
+    }
+    .withdraw__status {
+        width: 300px;
+    }
+    .withdraw__cta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        cursor: pointer;
+        color: var(--color-text-highlight);
+        .cta__button {
+            background-color: var(--color-button-tertiary-background-default);
+            height: 32px;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .cta__button--disabled {
+            background-color: var(--color-button-tertiary-background-disabled);
+            height: 32px;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+            color: var(--color-button-tertiary-text-disabled);
+        }
+        .restake {
+            border-radius: 0px 8px 0px 0px;
+        }
+        .withdraw {
+            border-radius: 0px 0px 8px 0px;
+        }
+        .action__description {
+            width: 200px;
+            margin-right: 8px;
+        }
+        .action__description--disabled {
+            width: 200px;
+            margin-right: 8px;
+        }
+    }
+    .withdraw__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+        margin: 0px;
+        padding: 16px 0px 0px 32px;
+        height: 66px;
+    }
+
+    .ant-table-body::-webkit-scrollbar {
+        width: 0px; /* Hide vertical scrollbar with WebKit */
+    }
+
+    .ant-table-body {
+        scrollbar-width: none; /* Hide scrollbar in Firefox */
+        -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+    }
+}

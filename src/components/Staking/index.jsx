@@ -6,8 +6,9 @@ import BigNumber from 'bignumber.js';
 import Stake from './Stake';
 import PieChartComponent from './PieChart';
 import PerformanceChart from './performanceChart';
-import Withdraw from './Withdraw';
+import Withdraw from './WithdrawV2';
 import { AuthenticateContext } from '../../context/Auth';
+import LastStakeOperations from '../../components/Staking/LastStakeOperations';
 
 const withdrawalStatus = {
     pending: 'PENDING',
@@ -179,6 +180,18 @@ export default function Staking(props) {
                         </div>
                         <div>
                             <Withdraw
+                                totalPendingExpiration={totalPendingExpiration}
+                                totalAvailableToWithdraw={
+                                    totalAvailableToWithdraw
+                                }
+                                pendingWithdrawals={pendingWithdrawals}
+                            />
+                        </div>
+                        <div
+                            id="lastStakingOperations"
+                            className="section__innerCard--big"
+                        >
+                            <LastStakeOperations
                                 totalPendingExpiration={totalPendingExpiration}
                                 totalAvailableToWithdraw={
                                     totalAvailableToWithdraw

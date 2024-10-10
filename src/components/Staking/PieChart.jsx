@@ -9,30 +9,61 @@ const PieChartComponent = (props) => {
     const [t, i18n, ns] = useProjectTranslation();
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(new BigNumber(0));
-    const { tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw } = props;
+    const {
+        tgBalance,
+        stakedBalance,
+        totalPendingExpiration,
+        totalAvailableToWithdraw
+    } = props;
     useEffect(() => {
         readData();
-    }, [tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw]);
+    }, [
+        tgBalance,
+        stakedBalance,
+        totalPendingExpiration,
+        totalAvailableToWithdraw
+    ]);
     const readData = async () => {
         const total = getTotal();
 
         const _data = [
-          {
-            type: t('staking.distribution.graph.balance'),
-            value: total > 0 ? BigNumber(tgBalance).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.processingUnstake'),
-            value: total > 0 ? BigNumber(totalPendingExpiration).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.readyWithdraw'),
-            value: total > 0 ? BigNumber(totalAvailableToWithdraw).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.staked'),
-            value: total > 0 ? BigNumber(stakedBalance).div(total).times(100).toNumber() : 0
-          }
+            {
+                type: t('staking.distribution.graph.balance'),
+                value:
+                    total > 0
+                        ? BigNumber(tgBalance).div(total).times(100).toNumber()
+                        : 0
+            },
+            {
+                type: t('staking.distribution.graph.processingUnstake'),
+                value:
+                    total > 0
+                        ? BigNumber(totalPendingExpiration)
+                              .div(total)
+                              .times(100)
+                              .toNumber()
+                        : 0
+            },
+            {
+                type: t('staking.distribution.graph.readyWithdraw'),
+                value:
+                    total > 0
+                        ? BigNumber(totalAvailableToWithdraw)
+                              .div(total)
+                              .times(100)
+                              .toNumber()
+                        : 0
+            },
+            {
+                type: t('staking.distribution.graph.staked'),
+                value:
+                    total > 0
+                        ? BigNumber(stakedBalance)
+                              .div(total)
+                              .times(100)
+                              .toNumber()
+                        : 0
+            }
         ];
         // START TEST
         /*
@@ -48,14 +79,32 @@ const PieChartComponent = (props) => {
     };
 
     const getTotal = () => {
-        return BigNumber.sum(tgBalance, stakedBalance, totalPendingExpiration, totalAvailableToWithdraw).toFixed(3);
+        return BigNumber.sum(
+            tgBalance,
+            stakedBalance,
+            totalPendingExpiration,
+            totalAvailableToWithdraw
+        ).toFixed(3);
     };
-    const colorBalance = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-darker');
-    const colorProcessing = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-dark');
-    const colorReady = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-light');
-    const colorStaked = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-base');
+    const colorBalance = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-darker');
+    const colorProcessing = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-dark');
+    const colorReady = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-light');
+    const colorStaked = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-base');
 
-    const pieColorPalette = [colorBalance, colorProcessing, colorReady, colorStaked];
+    const pieColorPalette = [
+        colorBalance,
+        colorProcessing,
+        colorReady,
+        colorStaked
+    ];
     const config = {
         title: {
             visible: false,
@@ -72,7 +121,10 @@ const PieChartComponent = (props) => {
         angleField: 'value',
         colorField: 'type',
         label: false,
-        interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+        interactions: [
+            { type: 'element-selected' },
+            { type: 'element-active' }
+        ],
         legend: {
             visible: false,
             position: 'bottom'
@@ -93,26 +145,33 @@ const PieChartComponent = (props) => {
                 <PieChart {...config} />
             </div>
             <div className="dataContainer">
-                {data.map((item) => (
-                    <div key={item.type} className="data-row">
-                        <div className="data-bullet"></div>
-                        <div>{item.type}: </div>
-                        <div className="data-numbers">{item.value.toFixed(2)}%</div>
-                    </div>
-                ))}
-            </div>
-            <div className='pie-chart-total'>
-                <div className='pie-chart-total-amount'>
-                    {PrecisionNumbers({
-                        amount: total,
-                        token: settings.tokens.TG,
-                        decimals: 2,
-                        t: t,
-                        i18n: i18n,
-                        ns: ns
-                    })} {t('staking.governanceToken')}
+                <div className="dataLabels">
+                    {data.map((item) => (
+                        <div key={item.type} className="data-row">
+                            <div className="data-bullet"></div>
+                            <div>{item.type}: </div>
+                            <div className="data-numbers">
+                                {item.value.toFixed(2)}%
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className='pie-chart-total-title'>Total {t('staking.governanceToken')} Tokens</div>
+                <div className="pie-chart-total">
+                    <div className="pie-chart-total-amount">
+                        {PrecisionNumbers({
+                            amount: total,
+                            token: settings.tokens.TG,
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns
+                        })}{' '}
+                        {t('staking.governanceToken')}
+                    </div>
+                    <div className="pie-chart-total-title">
+                        {t('staking.distribution.graph.totalLabel')}
+                    </div>
+                </div>
             </div>
         </div>
     );
