@@ -133,7 +133,6 @@ export default function Voting(props) {
                 'ether'
             )
         );
-
     }
 
     const infoUser = {

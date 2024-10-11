@@ -13,7 +13,7 @@ import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 
 export default function Withdraw(props) {
-    const { totalPendingExpiration, totalAvailableToWithdraw, pendingWithdrawals } = props;
+    const { userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [totalTable, setTotalTable] = useState(null);
@@ -52,14 +52,14 @@ export default function Withdraw(props) {
         }
     ];
     useEffect(() => {
-        if (auth && pendingWithdrawals) {
+        if (auth && userInfoStaking['pendingWithdrawals']) {
             getWithdrawals();
         }
-    }, [auth, pendingWithdrawals, i18n.language]);
+    }, [auth, userInfoStaking['pendingWithdrawals'], i18n.language]);
 
     const getWithdrawals = () => {
-        setTotalTable(pendingWithdrawals.length);
-        const tokensData = pendingWithdrawals.map((withdrawal, index) => ({
+        setTotalTable(userInfoStaking['pendingWithdrawals'].length);
+        const tokensData = userInfoStaking['pendingWithdrawals'].map((withdrawal, index) => ({
             key: index,
             expiration: (
                 <div className="item-data">
@@ -156,11 +156,11 @@ export default function Withdraw(props) {
             <div className="layout-card-title">
                 <h1>{t('staking.withdraw.title')}</h1>
                 <div className="withdraw-header-balance">
-                    {totalPendingExpiration && (
+                    {userInfoStaking['totalPendingExpiration'] && (
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
-                                    amount: totalPendingExpiration,
+                                    amount: userInfoStaking['totalPendingExpiration'],
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
                                     t: t,
@@ -172,11 +172,11 @@ export default function Withdraw(props) {
                             <div className="withdraw-header-balance-title">{t('staking.withdraw.processing_unstake')}</div>
                         </div>
                     )}
-                    {totalAvailableToWithdraw && (
+                    {userInfoStaking['totalAvailableToWithdraw'] && (
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
-                                    amount: totalAvailableToWithdraw,
+                                    amount: userInfoStaking['totalAvailableToWithdraw'],
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
                                     t: t,

@@ -16,7 +16,7 @@ import InputAmount from '../InputAmount/indexInput';
 import settings from '../../settings/settings.json';
 
 const Stake = (props) => {
-    const { activeTab, tgBalance, stakedBalance, setStakingBalances } = props;
+    const { activeTab, userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const defaultTokenStake = tokenStake()[0];
@@ -55,7 +55,7 @@ const Stake = (props) => {
         let amountInputError = false;
 
         const tokenSettings = TokenSettings(defaultTokenStake);
-        const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
+        const totalBalance = formatBigNumber(isUnstaking ? userInfoStaking['stakedBalance'] : userInfoStaking['tgBalance'], tokenSettings.decimals);
         const amountToProcess = new BigNumber(isUnstaking ? amountToUnstake : amountToStake);
 
         //1. Input amount valid
@@ -97,7 +97,7 @@ const Stake = (props) => {
     };
     const setAddTotalAvailable = () => {
         const tokenSettings = TokenSettings(defaultTokenStake);
-        const total = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
+        const total = formatBigNumber(isUnstaking ? userInfoStaking['stakedBalance'] : userInfoStaking['tgBalance'], tokenSettings.decimals);
         if (isUnstaking) setAmountToUnstake(total.toString());
         else setAmountToStake(total.toString());
     };
@@ -123,7 +123,7 @@ const Stake = (props) => {
     };
 
     const resetBalancesAndValues = () => {
-        setStakingBalances();
+        //setStakingBalances();
         setAmountToStake('');
         setAmountToUnstake('');
         setUntouchCount((prev) => prev + 1);
@@ -160,7 +160,7 @@ const Stake = (props) => {
                             balanceText={t('staking.staking.inputAvailable')}
                             action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
                             balance={PrecisionNumbers({
-                                amount: isUnstaking ? stakedBalance : tgBalance,
+                                amount: isUnstaking ? userInfoStaking['stakedBalance'] : userInfoStaking['tgBalance'],
                                 token: TokenSettings(defaultTokenStake),
                                 decimals: t('staking.staking.input_decimals'),
                                 t: t,

@@ -1,11 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
-// import React, { Fragment } from 'react';
 import { useContext } from 'react';
 import { Alert, Button, Skeleton } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
-
 
 import '../../assets/css/pages.scss';
 import Voting from '../../components/Voting';
@@ -16,13 +14,6 @@ function SectionVoting(props) {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     const [usingVestingAddress, setUsingVestingAddress] = useState('');
-
-    useEffect(() => {
-        if (auth.contractStatusData) {
-            setReady(true);
-        }
-    }, [auth]);
-
 
     useEffect(() => {
         if (auth.contractStatusData) {
