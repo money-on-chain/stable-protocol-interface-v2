@@ -401,6 +401,114 @@
     .ant-notification-topRight {
         right: auto !important;
     }
+
+    .dashboard-staking-info {
+        gap: 8px;
+        height: auto;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        flex-wrap: wrap;
+        .stakingDash__data {
+            gap: 0;
+            .stakingDash__data__amount {
+                font-size: 18px;
+                height: 18px;
+            }
+            .stakingDash__data__label {
+                font-size: 12px;
+            }
+        }
+        .stakingDash__item {
+            width: 160px;
+        }
+        .stakingDash__icon__back {
+            width: 32px;
+            height: 32px;
+            div {
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+    #lastStakingOperations {
+        // display: none;
+    }
+    .section__innerCard--big {
+        width: 100% !important;
+    }
+    .card-withdraw {
+        padding-left: 0px;
+        padding-right: 0px;
+        .withdraw__row {
+            padding-left: 8px;
+            gap: 16px;
+            justify-content: space-between;
+            width: 100%;
+            .withdraw__first__column {
+                flex-direction: column;
+            }
+            .withdraw__amount {
+                font-size: 18px;
+                width: 126px;
+            }
+        }
+        .withdraw__date {
+            font-size: 12px;
+            width: 128px;
+        }
+        .withdraw__status {
+            font-size: 12px;
+            width: 80px;
+        }
+
+        .withdraw__header {
+            .withdraw__date {
+                padding-left: 0;
+                text-align: left;
+                width: 200px;
+            }
+            .withdraw__amount {
+                text-align: left;
+            }
+            .withdraw__action {
+            }
+            .withdraw__cta {
+            }
+            .withdraw__first__column {
+                flex-direction: column;
+                width: 150px;
+            }
+        }
+    }
+
+    .card-stakingData {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        width: 100%;
+        .table__stakingData {
+            .stakingTableData__date {
+                width: 100px;
+            }
+            .stakingTableData__amount {
+                width: 100px;
+            }
+            .stakingTableData__operation {
+                width: 90px;
+            }
+            .table__header,
+            .table__row {
+                gap: 16px !important;
+            }
+        }
+    }
+    .firstCardsGroup,
+    .SecondCardsGroup {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 769px) {
@@ -410,6 +518,7 @@
 }
 
 /* #endregion RESPONSIVE */
+
 // .ant-notification-notice {
 //     background-color: var(--notification-info-background);
 //     color: var(--notification-info-tex);

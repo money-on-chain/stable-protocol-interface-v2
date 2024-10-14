@@ -109,11 +109,9 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
 
                 return null;
             })
@@ -151,11 +149,9 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
 
                 return null;
             })
@@ -189,11 +185,9 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
 
                 return null;
             })
@@ -232,11 +226,9 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? 'success' : 'error';
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
 
                 return null;
             })

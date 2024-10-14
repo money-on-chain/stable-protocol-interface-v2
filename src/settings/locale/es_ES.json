@@ -446,7 +446,8 @@
             "balance": "Balance",
             "staked": "Flip en Stake",
             "unstaking": "Sacando de Stake",
-            "ready": "Listos para retirar"
+            "ready": "Listos para retirar",
+            "lockedVoting": "Bloqueados por voto"
         },
         "staking": {
             "input_decimals": 2,

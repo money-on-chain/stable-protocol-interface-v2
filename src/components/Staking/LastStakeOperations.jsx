@@ -73,7 +73,7 @@ export default function LastStakeOperations(props) {
     });
 
     return (
-        <div className="section__innerCard--big card-stakingData">
+        <div className="section__innerCard card-stakingData">
             <div className="layout-card-title">
                 <h1>{t('staking.history.title')}</h1>
             </div>
@@ -91,6 +91,7 @@ export default function LastStakeOperations(props) {
                 </div>
                 {tableData || true ? (
                     <>
+                        <div className="divider-horizontal"></div>
                         <Table
                             columns={tableColumns}
                             dataSource={tableData}

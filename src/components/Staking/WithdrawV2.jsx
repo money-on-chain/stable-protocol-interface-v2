@@ -45,28 +45,30 @@ export default function Withdraw(props) {
             key: index,
             rowContent: (
                 <div className="withdraw__row">
-                    <div className="item-data withdraw__date">
-                        <Moment
-                            format={
-                                i18n.language === 'en'
-                                    ? date.DATE_EN
-                                    : date.DATE_ES
-                            }
-                            date={moment.tz(
-                                parseInt(withdrawal.expiration) * 1000,
-                                moment.tz.guess()
-                            )}
-                        />
-                    </div>
-                    <div className="item-data withdraw__amount">
-                        {PrecisionNumbers({
-                            amount: withdrawal.amount,
-                            token: settings.tokens.TG,
-                            decimals: t('staking.display_decimals'),
-                            t: t,
-                            i18n: i18n,
-                            ns: ns
-                        })}
+                    <div className="withdraw__first__column">
+                        <div className="item-data withdraw__date">
+                            <Moment
+                                format={
+                                    i18n.language === 'en'
+                                        ? date.DATE_EN
+                                        : date.DATE_ES
+                                }
+                                date={moment.tz(
+                                    parseInt(withdrawal.expiration) * 1000,
+                                    moment.tz.guess()
+                                )}
+                            />
+                        </div>
+                        <div className="item-data withdraw__amount">
+                            {PrecisionNumbers({
+                                amount: withdrawal.amount,
+                                token: settings.tokens.TG,
+                                decimals: t('staking.display_decimals'),
+                                t: t,
+                                i18n: i18n,
+                                ns: ns
+                            })}
+                        </div>
                     </div>
                     <div className="item-data withdraw__status">
                         {t(`staking.withdraw.status.${withdrawal.status}`)}
@@ -200,11 +202,22 @@ export default function Withdraw(props) {
             {data ? (
                 <>
                     <div className="withdraw__header ">
-                        <div className="withdraw__date">Date</div>
-                        <div className="withdraw__amount">Amount</div>
-                        <div className="withdraw__status">Status</div>
-                        <div className="withdraw__action">Actions</div>
+                        <div className="withdraw__first__column">
+                            <div className="withdraw__date">
+                                {t('staking.withdraw.table.expiration')}
+                            </div>
+                            <div className="withdraw__amount">
+                                {t('staking.withdraw.table.amount')}
+                            </div>
+                        </div>
+                        <div className="withdraw__status">
+                            {t('staking.withdraw.table.status')}
+                        </div>
+                        <div className="withdraw__cta">
+                            {t('staking.withdraw.table.actions')}
+                        </div>
                     </div>
+                    <div className="divider-horizontal"></div>
                     <Table
                         columns={columnsData}
                         dataSource={data}

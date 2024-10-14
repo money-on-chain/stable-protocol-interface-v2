@@ -5,7 +5,10 @@ import settings from '../../../settings/settings.json';
 
 import { pendingWithdrawalsFormat } from '../../../helpers/staking';
 
-import { TokenSettings, AmountToVisibleValue } from '../../../helpers/currencies';
+import {
+    TokenSettings,
+    AmountToVisibleValue
+} from '../../../helpers/currencies';
 import { tokenStake } from '../../../helpers/staking';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import { AuthenticateContext } from '../../../context/Auth';
@@ -25,7 +28,8 @@ const Dashboard = (props) => {
     const [stakedBalance, setStakedBalance] = useState('0');
     const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
     const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
-    const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] = useState('0');
+    const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] =
+        useState('0');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -37,24 +41,40 @@ const Dashboard = (props) => {
 
     const setStakingBalances = async () => {
         //try {
-        let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = ['0', '0', []];
+        let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
+            '0',
+            '0',
+            []
+        ];
         if (auth.userBalanceData) {
             if (auth.isVestingLoaded()) {
                 setTgBalance(auth.userBalanceData.vestingmachine.tgBalance);
-                _stakedBalance = auth.userBalanceData.vestingmachine.staking.balance;
-                _lockedBalance = auth.userBalanceData.vestingmachine.staking.getLockedBalance;
-                _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.vestingmachine.delay);
+                _stakedBalance =
+                    auth.userBalanceData.vestingmachine.staking.balance;
+                _lockedBalance =
+                    auth.userBalanceData.vestingmachine.staking
+                        .getLockedBalance;
+                _pendingWithdrawals = pendingWithdrawalsFormat(
+                    auth.userBalanceData.vestingmachine.delay
+                );
             } else {
                 setTgBalance(auth.userBalanceData.TG.balance);
                 _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
-                _lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
-                _pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine);
+                _lockedBalance =
+                    auth.userBalanceData.stakingmachine.getLockedBalance;
+                _pendingWithdrawals = pendingWithdrawalsFormat(
+                    auth.userBalanceData.delaymachine
+                );
             }
         }
         const pendingWithdrawalsFormatted = _pendingWithdrawals
             .filter((withdrawal) => withdrawal.expiration)
             .map((withdrawal) => {
-                const status = new Date(parseInt(withdrawal.expiration) * 1000) > new Date() ? withdrawalStatus.pending : withdrawalStatus.available;
+                const status =
+                    new Date(parseInt(withdrawal.expiration) * 1000) >
+                    new Date()
+                        ? withdrawalStatus.pending
+                        : withdrawalStatus.available;
 
                 return {
                     ...withdrawal,
@@ -65,9 +85,15 @@ const Dashboard = (props) => {
         let readyToWithdrawAmount = '0';
         pendingWithdrawalsFormatted.forEach(({ status, amount }) => {
             if (status === withdrawalStatus.pending) {
-                pendingExpirationAmount = BigNumber.sum(pendingExpirationAmount, amount).toFixed(0);
+                pendingExpirationAmount = BigNumber.sum(
+                    pendingExpirationAmount,
+                    amount
+                ).toFixed(0);
             } else {
-                readyToWithdrawAmount = BigNumber.sum(readyToWithdrawAmount, amount).toFixed(0);
+                readyToWithdrawAmount = BigNumber.sum(
+                    readyToWithdrawAmount,
+                    amount
+                ).toFixed(0);
             }
         });
         const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
@@ -91,7 +117,6 @@ const Dashboard = (props) => {
                 </div>
                 <div className="stakingDash__data">
                     <div className="stakingDash__data__amount">
-                        {' '}
                         {PrecisionNumbers({
                             amount: new BigNumber(tgBalance),
                             token: settings.tokens.TG,
@@ -101,7 +126,9 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.balance')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.balance')}
+                    </div>
                 </div>
             </div>
             {/* Staked */}
@@ -120,7 +147,9 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.staked')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.staked')}
+                    </div>
                 </div>
             </div>
             {/* Rewarded today */}
@@ -130,7 +159,6 @@ const Dashboard = (props) => {
                 </div>
                 <div className="stakingDash__data">
                     <div className="stakingDash__data__amount">
-                        {' '}
                         {PrecisionNumbers({
                             amount: new BigNumber(totalPendingExpiration),
                             token: settings.tokens.TG,
@@ -140,10 +168,11 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.unstaking')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.unstaking')}
+                    </div>
                 </div>
             </div>
-
             {/* Ready to claim */}
             <div className="stakingDash__item">
                 <div className="stakingDash__icon__back">
@@ -160,7 +189,30 @@ const Dashboard = (props) => {
                             ns: ns
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.ready')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.ready')}
+                    </div>
+                </div>
+            </div>
+            {/* Locked in voting */}
+            <div className="stakingDash__item">
+                <div className="stakingDash__icon__back">
+                    <div className="icon__govLockedTokensVoting"></div>
+                </div>
+                <div className="stakingDash__data">
+                    <div className="stakingDash__data__amount">
+                        {PrecisionNumbers({
+                            amount: new BigNumber(totalAvailableToWithdraw),
+                            token: settings.tokens.TG,
+                            decimals: t('staking.display_decimals'),
+                            t: t,
+                            i18n: i18n,
+                            ns: ns
+                        })}
+                    </div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.lockedVoting')}
+                    </div>
                 </div>
             </div>
         </div>

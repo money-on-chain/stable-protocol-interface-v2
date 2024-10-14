@@ -287,6 +287,14 @@ icons.css contains all the css code for Icons across the Dapp
     width: 32px;
     height: 32px;
 }
+.icon__govLockedTokensVoting {
+    filter: var(--color-navigation-icon-filter-default);
+    background-image: url('../icons/govLockedVoting.svg');
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+}
 .icon__close__menu {
     background-image: url('../icons/icon__close__menu.svg');
     background-size: 32px 32px;

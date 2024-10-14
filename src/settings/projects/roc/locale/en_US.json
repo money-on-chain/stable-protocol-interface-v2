@@ -433,7 +433,8 @@
             "balance": "Balance",
             "staked": "Flip Staked",
             "unstaking": "Unstaking",
-            "ready": "Ready to Withdraw"
+            "ready": "Ready to Withdraw",
+            "lockedVoting": "Locked while Voting"
         },
         "staking": {
             "input_decimals": 2,

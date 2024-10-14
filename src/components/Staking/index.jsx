@@ -110,7 +110,6 @@ export default function Staking(props) {
             {!loading && (
                 <Fragment>
                     <div className="section row-section">
-                        {' '}
                         <div className="firstCardsGroup">
                             <div id="stakingCard" className="layout-card">
                                 <div className="layout-card-title">
@@ -178,26 +177,32 @@ export default function Staking(props) {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <Withdraw
-                                totalPendingExpiration={totalPendingExpiration}
-                                totalAvailableToWithdraw={
-                                    totalAvailableToWithdraw
-                                }
-                                pendingWithdrawals={pendingWithdrawals}
-                            />
-                        </div>
-                        <div
-                            id="lastStakingOperations"
-                            className="section__innerCard--big"
-                        >
-                            <LastStakeOperations
-                                totalPendingExpiration={totalPendingExpiration}
-                                totalAvailableToWithdraw={
-                                    totalAvailableToWithdraw
-                                }
-                                pendingWithdrawals={pendingWithdrawals}
-                            />
+                        <div className="SecondCardsGroup">
+                            <div>
+                                <Withdraw
+                                    totalPendingExpiration={
+                                        totalPendingExpiration
+                                    }
+                                    totalAvailableToWithdraw={
+                                        totalAvailableToWithdraw
+                                    }
+                                    pendingWithdrawals={pendingWithdrawals}
+                                />
+                            </div>
+                            <div
+                                id="lastStakingOperations"
+                                className="section__innerCard"
+                            >
+                                <LastStakeOperations
+                                    totalPendingExpiration={
+                                        totalPendingExpiration
+                                    }
+                                    totalAvailableToWithdraw={
+                                        totalAvailableToWithdraw
+                                    }
+                                    pendingWithdrawals={pendingWithdrawals}
+                                />
+                            </div>
                         </div>
                     </div>
                 </Fragment>
