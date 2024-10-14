@@ -31,6 +31,7 @@ function Proposals(props) {
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Proposal');
+    const [proposalsData, setProposalsData] = useState([]);
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -40,60 +41,11 @@ function Proposals(props) {
         onValidateSubmitProposal();
     }, [auth]);
 
-    // List proposals
-    const proposalsData = [];
-    let count = 0;
-    const nowTimestamp = new BigNumber(Date.now())
-    let expirationTimestamp = 0
-    let votesPositivePCT = new BigNumber(0)
-    let votesPositive = new BigNumber(0)
-    let votingRound = new BigNumber(0)
-    const showLastRoundProposal = true
-
-    let lenProp = 0
-    if (infoVoting['proposals'] != null) lenProp = Object.keys(infoVoting['proposals']).length;
-    for (let i = 0; i < lenProp; i++) {
-        if (infoVoting['proposals'][i] !== null) {
-
-            expirationTimestamp = new BigNumber(infoVoting['proposals'][i].expirationTimeStamp).times(1000)
-            let expired = true
-            if (expirationTimestamp.gt(nowTimestamp)) expired = false
-
-            let canUnregister = false
-            if (new BigNumber(infoVoting['proposals'][i].votingRound).lt(
-                infoVoting['globalVotingRound'])) canUnregister = true
-
-            votingRound = new BigNumber(infoVoting['proposals'][i].votingRound)
-            if (votingRound.lt(infoVoting['globalVotingRound']) && showLastRoundProposal) continue
-
-            votesPositive = new BigNumber(
-                Web3.utils.fromWei(
-                    infoVoting['proposals'][i].votes,
-                    'ether'
-                )
-            );
-
-            votesPositivePCT = votesPositive.times(100).div(infoVoting['totalSupply'])
-
-            let canRunStep = false
-            if (votesPositivePCT.gte(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
-                && infoVoting['readyToPreVoteStep'] === 1) canRunStep = true
-
-            proposalsData.push({
-                id: count,
-                changeContract: infoVoting['proposals'][i].proposalAddress,
-                votingRound: new BigNumber(infoVoting['proposals'][i].votingRound),
-                votesPositive: votesPositive,
-                votesPositivePCT: votesPositivePCT,
-                expirationTimeStampFormat: formatTimestamp(expirationTimestamp.toNumber()),
-                expired: expired,
-                canUnregister: canUnregister,
-                canRunStep: canRunStep,
-                canVote: !expired && infoVoting['readyToPreVoteStep'] === 0
-            });
-            count += 1
+    useEffect(() => {
+        if (infoVoting['proposals'] != null) {
+            refreshProposals();
         }
-    }
+    }, [infoVoting['proposals']]);
 
     const searchProposal = (proposalAddress) => {
         let proposal = emptyProposal
@@ -104,6 +56,74 @@ function Proposals(props) {
         }
         return proposal
     };
+
+    const refreshViewProposalData = () => {
+        if (viewProposal.changeContract != null) {
+            const proposal = searchProposal(viewProposal.changeContract)
+            setViewProposal(proposal);
+        }
+    };
+
+    const refreshProposals = () => {
+
+        const propData = []
+        let count = 0;
+        const nowTimestamp = new BigNumber(Date.now())
+        let expirationTimestamp = 0
+        let votesPositivePCT = new BigNumber(0)
+        let votesPositive = new BigNumber(0)
+        let votingRound = new BigNumber(0)
+        const showLastRoundProposal = true
+
+        let lenProp = 0
+        if (infoVoting['proposals'] != null) lenProp = Object.keys(infoVoting['proposals']).length;
+        for (let i = 0; i < lenProp; i++) {
+            if (infoVoting['proposals'][i] !== null) {
+
+                expirationTimestamp = new BigNumber(infoVoting['proposals'][i].expirationTimeStamp).times(1000)
+                let expired = true
+                if (expirationTimestamp.gt(nowTimestamp)) expired = false
+
+                let canUnregister = false
+                if (new BigNumber(infoVoting['proposals'][i].votingRound).lt(
+                    infoVoting['globalVotingRound'])) canUnregister = true
+
+                votingRound = new BigNumber(infoVoting['proposals'][i].votingRound)
+                if (votingRound.lt(infoVoting['globalVotingRound']) && showLastRoundProposal) continue
+
+                votesPositive = new BigNumber(
+                    Web3.utils.fromWei(
+                        infoVoting['proposals'][i].votes,
+                        'ether'
+                    )
+                );
+
+                votesPositivePCT = votesPositive.times(100).div(infoVoting['totalSupply'])
+
+                let canRunStep = false
+                if (votesPositivePCT.gte(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
+                    && infoVoting['readyToPreVoteStep'] === 1) canRunStep = true
+
+                propData.push({
+                    id: count,
+                    changeContract: infoVoting['proposals'][i].proposalAddress,
+                    votingRound: new BigNumber(infoVoting['proposals'][i].votingRound),
+                    votesPositive: votesPositive,
+                    votesPositivePCT: votesPositivePCT,
+                    expirationTimeStampFormat: formatTimestamp(expirationTimestamp.toNumber()),
+                    expired: expired,
+                    canUnregister: canUnregister,
+                    canRunStep: canRunStep,
+                    canVote: !expired && infoVoting['readyToPreVoteStep'] === 0
+                });
+                count += 1
+            }
+        }
+        setProposalsData(propData);
+
+        // Also refresh proposal view data
+        refreshViewProposalData();
+    }
 
     const onChangeInputAddProposal = (e) => {
         setAddProposalAddress(e.target.value.toLowerCase());
@@ -310,8 +330,6 @@ function Proposals(props) {
                 setOperationStatus('error');
             });
     };
-
-
 
     return (
     <div className="proposal__wrapper">

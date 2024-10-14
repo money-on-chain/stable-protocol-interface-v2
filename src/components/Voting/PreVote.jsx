@@ -5,7 +5,6 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
-import Web3 from 'web3';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 
 function CreateBarGraph(props) {
@@ -52,7 +51,21 @@ function PreVote(props) {
 
     useEffect(() => {
         onValidateVotingInFavor();
-    }, [auth]);
+    }, [infoUser['Voting_Power'], proposal['canVote']]);
+
+    const onValidateVotingInFavor = () => {
+        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+            // You need at least voting power > 0
+            setVotingInFavorError(true);
+            return false;
+        }
+        if (!proposal['canVote']) {
+            setVotingInFavorError(true);
+            return false;
+        }
+
+        return true;
+    };
 
 
     const preVotingGraphs = [
@@ -115,14 +128,6 @@ function PreVote(props) {
                 console.error(e);
                 setOperationStatus('error');
             });
-    };
-
-    const onValidateVotingInFavor = () => {
-        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
-            // You need at least voting power > 0
-            setVotingInFavorError(true);
-            return false;
-        } else return true;
     };
 
     return (

@@ -40,29 +40,42 @@ function Vote(props) {
     const [voteInFavor, setVoteInFavor] = useState(true);
     const [showProposalModal, setShowProposalModal] = useState(false);
 
+    const [votingFinish, setVotingFinish] = useState(false);
+    const [votingFinishReason, setVotingFinishReason] = useState(0);
+
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
     useEffect(() => {
         onValidateVotingInFavorOrAgainst();
-    }, [auth]);
+    }, [infoUser['Voting_Power']]);
 
-    let votingFinish = false
-    /* Voting Finish Reason */
-    /* 0 - No reason */
-    /* 1 - Success */
-    /* 2 - No Quorum */
-    /* 3 - Proposal rejected by votes against */
-    let votingFinishReason = 0
-    if (auth.contractStatusData && infoVoting['votingData']['expired']) {
-        votingFinish = true
-        if (infoVoting['votingData']['totalVoted'].lt(infoVoting['MIN_FOR_QUORUM'])) {
-            votingFinishReason = 2
-        } else if (infoVoting['votingData']['againstVotesPCT'].gte(infoVoting['votingData']['VOTE_MIN_TO_VETO'])) {
-            votingFinishReason = 3
-        } else {
-            votingFinishReason = 1
+    useEffect(() => {
+        refreshVotingFinish();
+    }, [
+        infoVoting['votingData']['expired'],
+        infoVoting['votingData']['totalVoted'],
+        infoVoting['votingData']['againstVotesPCT']
+    ]);
+
+    const refreshVotingFinish = () => {
+        /* Voting Finish Reason */
+        /* 0 - No reason */
+        /* 1 - Success */
+        /* 2 - No Quorum */
+        /* 3 - Proposal rejected by votes against */
+
+        if (infoVoting['votingData']['expired']) {
+            setVotingFinish(true);
+            setVotingInFavorOrAgainstError(true);
+            if (infoVoting['votingData']['totalVoted'].lt(infoVoting['MIN_FOR_QUORUM'])) {
+                setVotingFinishReason(2)
+            } else if (infoVoting['votingData']['againstVotesPCT'].gte(infoVoting['votingData']['VOTE_MIN_TO_VETO'])) {
+                setVotingFinishReason(3)
+            } else {
+                setVotingFinishReason(1)
+            }
         }
     }
 
