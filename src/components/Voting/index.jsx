@@ -1,4 +1,3 @@
-import { useProjectTranslation } from '../../helpers/translations';
 import React, { useContext, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
@@ -8,11 +7,10 @@ import Vote from './Vote';
 import { formatTimestamp } from '../../helpers/staking';
 
 export default function Voting(props) {
-    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const nowTimestamp = new BigNumber(Date.now())
-    const infoVoting = {
+    const defaultInfoVoting = {
         'globalVotingRound': new BigNumber(0),
         'totalSupply': new BigNumber(0),
         'PRE_VOTE_MIN_TO_WIN': new BigNumber(0),
@@ -42,106 +40,114 @@ export default function Voting(props) {
             'againstVotes': new BigNumber(0),
         }
     }
+    const [infoVoting, setInfoVoting] = useState(defaultInfoVoting);
 
-    if (auth.contractStatusData) {
-        infoVoting['proposals'] = auth.contractStatusData.votingmachine.getProposalByIndex;
-        infoVoting['state'] = new BigNumber(auth.contractStatusData.votingmachine.getState).toNumber();
-        infoVoting['readyToPreVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToPreVoteStep).toNumber();
-        infoVoting['readyToVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToVoteStep).toNumber();
-        infoVoting['globalVotingRound'] = new BigNumber(
+    const defaultInfoUser = {
+        'Voting_Power': new BigNumber(0),
+        'Voting_Power_PCT': new BigNumber(0),
+    }
+    const [infoUser, setInfoUser] = useState(defaultInfoUser);
+
+    useEffect(() => {
+        if (auth.contractStatusData && auth.userBalanceData) {
+            refreshData();
+        }
+    }, [auth]);
+
+    const refreshData = () => {
+        const cData = { ...infoVoting };
+        cData['proposals'] = auth.contractStatusData.votingmachine.getProposalByIndex;
+        cData['state'] = new BigNumber(auth.contractStatusData.votingmachine.getState).toNumber();
+        cData['readyToPreVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToPreVoteStep).toNumber();
+        cData['readyToVoteStep'] = new BigNumber(auth.contractStatusData.votingmachine.readyToVoteStep).toNumber();
+        cData['globalVotingRound'] = new BigNumber(
             auth.contractStatusData.votingmachine.getVotingRound
         );
-        infoVoting['totalSupply'] = new BigNumber(
+        cData['totalSupply'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.totalSupply,
                 'ether'
             )
         );
-        infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'] = auth.contractStatusData.votingmachine.PRE_VOTE_MIN_PCT_TO_WIN
-        infoVoting['PRE_VOTE_MIN_TO_WIN'] = new BigNumber(infoVoting['totalSupply'])
-            .times(new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']))
+        cData['PRE_VOTE_MIN_PCT_TO_WIN'] = auth.contractStatusData.votingmachine.PRE_VOTE_MIN_PCT_TO_WIN
+        cData['PRE_VOTE_MIN_TO_WIN'] = new BigNumber(cData['totalSupply'])
+            .times(new BigNumber(cData['PRE_VOTE_MIN_PCT_TO_WIN']))
             .div(100);
-        infoVoting['MIN_STAKE'] = new BigNumber(
+        cData['MIN_STAKE'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.MIN_STAKE,
                 'ether'
             )
         );
-        infoVoting['MIN_PCT_FOR_QUORUM'] = auth.contractStatusData.votingmachine.MIN_PCT_FOR_QUORUM
-        infoVoting['MIN_FOR_QUORUM'] = new BigNumber(infoVoting['totalSupply'])
-            .times(new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']))
+        cData['MIN_PCT_FOR_QUORUM'] = auth.contractStatusData.votingmachine.MIN_PCT_FOR_QUORUM
+        cData['MIN_FOR_QUORUM'] = new BigNumber(cData['totalSupply'])
+            .times(new BigNumber(cData['MIN_PCT_FOR_QUORUM']))
             .div(100);
-        infoVoting['VOTE_MIN_PCT_TO_VETO'] = auth.contractStatusData.votingmachine.VOTE_MIN_PCT_TO_VETO
-        infoVoting['VOTE_MIN_TO_VETO'] = new BigNumber(infoVoting['totalSupply'])
-            .times(new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO']))
+        cData['VOTE_MIN_PCT_TO_VETO'] = auth.contractStatusData.votingmachine.VOTE_MIN_PCT_TO_VETO
+        cData['VOTE_MIN_TO_VETO'] = new BigNumber(cData['totalSupply'])
+            .times(new BigNumber(cData['VOTE_MIN_PCT_TO_VETO']))
             .div(100);
 
         // Voting Data
-        infoVoting['votingData']['winnerProposal'] = auth.contractStatusData.votingmachine.getVotingData['winnerProposal']
-        infoVoting['votingData']['inFavorVotes'] = new BigNumber(
+        cData['votingData']['winnerProposal'] = auth.contractStatusData.votingmachine.getVotingData['winnerProposal']
+        cData['votingData']['inFavorVotes'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.getVotingData['inFavorVotes'],
                 'ether'
             )
         );
-        infoVoting['votingData']['againstVotes'] = new BigNumber(
+        cData['votingData']['againstVotes'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.getVotingData['againstVotes'],
                 'ether'
             )
         );
-        infoVoting['votingData']['votingExpirationTime'] = new BigNumber(
+        cData['votingData']['votingExpirationTime'] = new BigNumber(
             auth.contractStatusData.votingmachine.getVotingData['votingExpirationTime']
         ).times(1000)
-        infoVoting['votingData']['votingExpirationTimeFormat'] = formatTimestamp(
-            infoVoting['votingData']['votingExpirationTime'].toNumber())
+        cData['votingData']['votingExpirationTimeFormat'] = formatTimestamp(
+            cData['votingData']['votingExpirationTime'].toNumber())
 
         let expired = true
-        if (infoVoting['votingData']['votingExpirationTime'].gt(nowTimestamp)) expired = false
-        infoVoting['votingData']['expired'] = expired
+        if (cData['votingData']['votingExpirationTime'].gt(nowTimestamp)) expired = false
+        cData['votingData']['expired'] = expired
 
-        infoVoting['votingData']['totalVoted'] = infoVoting['votingData']['inFavorVotes']
-            .plus(infoVoting['votingData']['againstVotes'])
-        infoVoting['votingData']['totalVotedPCT'] = infoVoting['votingData']['totalVoted']
+        cData['votingData']['totalVoted'] = cData['votingData']['inFavorVotes']
+            .plus(cData['votingData']['againstVotes'])
+        cData['votingData']['totalVotedPCT'] = cData['votingData']['totalVoted']
             .times(100)
-            .div(infoVoting['totalSupply'])
-        infoVoting['votingData']['inFavorVotesTotalSupplyPCT'] = infoVoting['votingData']['inFavorVotes']
+            .div(cData['totalSupply'])
+        cData['votingData']['inFavorVotesTotalSupplyPCT'] = cData['votingData']['inFavorVotes']
             .times(100)
-            .div(infoVoting['totalSupply'])
-        infoVoting['votingData']['againstVotesTotalSupplyPCT'] = infoVoting['votingData']['againstVotes']
+            .div(cData['totalSupply'])
+        cData['votingData']['againstVotesTotalSupplyPCT'] = cData['votingData']['againstVotes']
             .times(100)
-            .div(infoVoting['totalSupply'])
+            .div(cData['totalSupply'])
 
-        infoVoting['votingData']['inFavorVotesPCT'] = infoVoting['votingData']['inFavorVotes']
+        cData['votingData']['inFavorVotesPCT'] = cData['votingData']['inFavorVotes']
             .times(100)
-            .div(infoVoting['votingData']['totalVoted'])
-        infoVoting['votingData']['againstVotesPCT'] = infoVoting['votingData']['againstVotes']
+            .div(cData['votingData']['totalVoted'])
+        cData['votingData']['againstVotesPCT'] = cData['votingData']['againstVotes']
             .times(100)
-            .div(infoVoting['votingData']['totalVoted'])
+            .div(cData['votingData']['totalVoted'])
 
         // Voting Info
-        infoVoting['votingInfo']['winnerProposal'] = auth.contractStatusData.votingmachine.getVoteInfo['winnerProposal']
-        infoVoting['votingInfo']['inFavorVotes'] = new BigNumber(
+        cData['votingInfo']['winnerProposal'] = auth.contractStatusData.votingmachine.getVoteInfo['winnerProposal']
+        cData['votingInfo']['inFavorVotes'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.getVoteInfo['inFavorVotes'],
                 'ether'
             )
         );
-        infoVoting['votingInfo']['againstVotes'] = new BigNumber(
+        cData['votingInfo']['againstVotes'] = new BigNumber(
             Web3.utils.fromWei(
                 auth.contractStatusData.votingmachine.getVoteInfo['againstVotes'],
                 'ether'
             )
         );
-    }
+        setInfoVoting(cData);
 
-    const infoUser = {
-        'Voting_Power': new BigNumber(0),
-        'Voting_Power_PCT': new BigNumber(0),
-    }
-
-    if (auth.userBalanceData) {
-
+        const cDataUser = { ...infoUser };
         let vUsing;
         if (auth.isVestingLoaded()) {
             vUsing = auth.userBalanceData.vestingmachine.staking;
@@ -162,14 +168,17 @@ export default function Voting(props) {
         ).times(1000)
 
         if (untilTimestamp.gt(nowTimestamp)) {
-            infoUser['Voting_Power'] = userBalance.minus(lockedAmount)
+            cDataUser['Voting_Power'] = userBalance.minus(lockedAmount)
         } else {
-            infoUser['Voting_Power'] = userBalance
+            cDataUser['Voting_Power'] = userBalance
         }
 
-        infoUser['Voting_Power_PCT'] = infoUser['Voting_Power']
+        cDataUser['Voting_Power_PCT'] = cDataUser['Voting_Power']
             .times(100)
-            .div(infoVoting['totalSupply'])
+            .div(cData['totalSupply'])
+
+        setInfoUser(cDataUser)
+
     }
 
     return (

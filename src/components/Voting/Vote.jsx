@@ -368,7 +368,7 @@ function Vote(props) {
                         </div>
                     )}
 
-                    {infoVoting['readyToVoteStep'] === 1 && (
+                    {infoVoting['readyToVoteStep'] === 1 && infoVoting['state'] !== 2 && (
                         <div className="step-buttons-section">
                             <div className="vote-info">
                                 Please run Step to advance to next stage
