@@ -8,8 +8,9 @@ import settings from '../../settings/settings.json';
 const PieChartComponent = (props) => {
     const [t, i18n, ns] = useProjectTranslation();
     const [data, setData] = useState([]);
-    const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState(new BigNumber(0));
     const { userInfoStaking } = props;
+
     useEffect(() => {
         readData();
     }, [
@@ -21,28 +22,28 @@ const PieChartComponent = (props) => {
     ]);
 
     const readData = () => {
-        const total = getTotal();
 
+        const total = getTotal();
         const _data = [
           {
             type: t('staking.distribution.graph.balance'),
-            value: total > 0 ? BigNumber(userInfoStaking['tgBalance']).div(total).times(100).toNumber() : 0
+            value: total.gt(0) ? BigNumber(userInfoStaking['tgBalance']).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.processingUnstake'),
-            value: total > 0 ? BigNumber(userInfoStaking['totalPendingExpiration']).div(total).times(100).toNumber() : 0
+            value: total.gt(0) ? BigNumber(userInfoStaking['totalPendingExpiration']).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.readyWithdraw'),
-            value: total > 0 ? BigNumber(userInfoStaking['totalAvailableToWithdraw']).div(total).times(100).toNumber() : 0
+            value: total.gt(0) ? BigNumber(userInfoStaking['totalAvailableToWithdraw']).div(total).times(100).toNumber() : 0
           },
           {
             type: t('staking.distribution.graph.staked'),
-            value: total > 0 ? BigNumber(userInfoStaking['stakedBalance']).minus(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
+            value: total.gt(0) ? BigNumber(userInfoStaking['stakedBalance']).minus(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
           },
           {
             type: 'Staked in voting',
-            value: total > 0 ? BigNumber(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
+            value: total.gt(0) ? BigNumber(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
           }
         ];
         // START TEST
@@ -65,7 +66,7 @@ const PieChartComponent = (props) => {
             userInfoStaking['totalPendingExpiration'],
             userInfoStaking['totalAvailableToWithdraw'],
             userInfoStaking['lockedInVoting']
-        ).toFixed(3);
+        );
     };
     const colorBalance = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-darker');
     const colorProcessing = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-dark');
@@ -127,7 +128,8 @@ const PieChartComponent = (props) => {
                         decimals: 2,
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
+                        skipContractConvert: true
                     })} {t('staking.governanceToken')}
                 </div>
                 <div className='pie-chart-total-title'>Total {t('staking.governanceToken')} Tokens</div>

@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
-import { pendingWithdrawalsFormat } from '../../helpers/staking';
+import { pendingWithdrawalsFormat, tokenStake } from '../../helpers/staking';
 import BigNumber from 'bignumber.js';
 import Stake from './Stake';
 import PieChartComponent from './PieChart';
@@ -9,10 +9,19 @@ import Withdraw from './Withdraw';
 import DashBoard from './DashBoard';
 import { AuthenticateContext } from '../../context/Auth';
 import Web3 from 'web3';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import { TokenSettings } from '../../helpers/currencies';
 
 const withdrawalStatus = {
     pending: 'PENDING',
     available: 'AVAILABLE'
+};
+
+const defaultTokenStake = tokenStake()[0];
+const tokenSettingsStake = TokenSettings(defaultTokenStake);
+
+const formatBigNumber = (amount) => {
+    return new BigNumber(fromContractPrecisionDecimals(amount, tokenSettingsStake.decimals));
 };
 
 export default function Staking(props) {
@@ -44,16 +53,16 @@ export default function Staking(props) {
         let pendingWithdrawals = []
         let vUsing;
         if (auth.isVestingLoaded()) {
-            userInfoStaking['tgBalance'] = auth.userBalanceData.vestingmachine.tgBalance
-            userInfoStaking['stakedBalance'] = auth.userBalanceData.vestingmachine.staking.balance
-            userInfoStaking['lockedBalance'] = auth.userBalanceData.vestingmachine.staking.getLockedBalance
+            userInfoStaking['tgBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.tgBalance)
+            userInfoStaking['stakedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.balance)
+            userInfoStaking['lockedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.getLockedBalance)
             pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.vestingmachine.delay)
             vUsing = auth.userBalanceData.vestingmachine.staking;
 
         } else {
-            userInfoStaking['tgBalance'] = auth.userBalanceData.TG.balance
-            userInfoStaking['stakedBalance'] = auth.userBalanceData.stakingmachine.getBalance
-            userInfoStaking['lockedBalance'] = auth.userBalanceData.stakingmachine.getLockedBalance
+            userInfoStaking['tgBalance'] = formatBigNumber(auth.userBalanceData.TG.balance)
+            userInfoStaking['stakedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getBalance)
+            userInfoStaking['lockedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getLockedBalance)
             pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine)
             vUsing = auth.userBalanceData.stakingmachine;
         }
@@ -70,6 +79,8 @@ export default function Staking(props) {
         } else {
             userInfoStaking['lockedInVoting'] = new BigNumber(0)
         }
+
+        userInfoStaking['unstakeBalance'] = userInfoStaking['stakedBalance'].minus(userInfoStaking['lockedInVoting'])
 
         const pendingWithdrawalsFormatted = pendingWithdrawals
             .filter((withdrawal) => withdrawal.expiration)
@@ -91,12 +102,12 @@ export default function Staking(props) {
             if (status === withdrawalStatus.pending) {
                 pendingExpirationAmount = BigNumber.sum(
                     pendingExpirationAmount,
-                    amount
+                    formatBigNumber(amount)
                 );
             } else {
                 readyToWithdrawAmount = BigNumber.sum(
                     readyToWithdrawAmount,
-                    amount
+                    formatBigNumber(amount)
                 );
             }
         });

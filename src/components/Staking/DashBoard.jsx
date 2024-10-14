@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -27,7 +27,8 @@ const Dashboard = (props) => {
                             decimals: t('staking.display_decimals'),
                             t: t,
                             i18n: i18n,
-                            ns: ns
+                            ns: ns,
+                            skipContractConvert: true
                         })}
                     </div>
                     <div className="stakingDash__data__label">{t('staking.dashLabels.balance')}</div>
@@ -46,7 +47,8 @@ const Dashboard = (props) => {
                             decimals: t('staking.display_decimals'),
                             t: t,
                             i18n: i18n,
-                            ns: ns
+                            ns: ns,
+                            skipContractConvert: true
                         })}
                     </div>
                     <div className="stakingDash__data__label">{t('staking.dashLabels.staked')}</div>
@@ -66,7 +68,8 @@ const Dashboard = (props) => {
                             decimals: t('staking.display_decimals'),
                             t: t,
                             i18n: i18n,
-                            ns: ns
+                            ns: ns,
+                            skipContractConvert: true
                         })}
                     </div>
                     <div className="stakingDash__data__label">{t('staking.dashLabels.unstaking')}</div>
@@ -86,7 +89,8 @@ const Dashboard = (props) => {
                             decimals: t('staking.display_decimals'),
                             t: t,
                             i18n: i18n,
-                            ns: ns
+                            ns: ns,
+                            skipContractConvert: true
                         })}
                     </div>
                     <div className="stakingDash__data__label">{t('staking.dashLabels.ready')}</div>

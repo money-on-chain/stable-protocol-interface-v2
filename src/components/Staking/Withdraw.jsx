@@ -165,7 +165,8 @@ export default function Withdraw(props) {
                                     decimals: t('staking.display_decimals'),
                                     t: t,
                                     i18n: i18n,
-                                    ns: ns
+                                    ns: ns,
+                                    skipContractConvert: true
                                 })}{' '}
                                 {`${settings.tokens.TG.name}`}
                             </div>
@@ -181,7 +182,8 @@ export default function Withdraw(props) {
                                     decimals: t('staking.display_decimals'),
                                     t: t,
                                     i18n: i18n,
-                                    ns: ns
+                                    ns: ns,
+                                    skipContractConvert: true
                                 })}{' '}
                                 {`${settings.tokens.TG.name}`}
                             </div>
