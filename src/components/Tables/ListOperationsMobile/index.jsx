@@ -26,6 +26,13 @@ export default function ListOperations(props) {
     const [current, setCurrent] = useState(1);
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [ready, setReady] = useState(false);
+    /*useEffect(() => {
+        if (auth.contractStatusData) {
+            setReady(true);
+        }
+    }, [auth]);*/
+
     const { accountData = {} } = auth;
     const [dataJson, setDataJson] = useState([]);
     const [totalTable, setTotalTable] = useState(0);
@@ -63,6 +70,7 @@ export default function ListOperations(props) {
                     .then((response) => {
                         setDataJson(response);
                         setTotalTable(response.total);
+                        setReady(true);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -904,7 +912,7 @@ export default function ListOperations(props) {
                     </Modal>
                 )}
             </div>
-            {!loadingSke ? (
+            {ready ? (
                 <>
                     <Table
                         className={`vertical-middle custom-border-spacing-table ${getClassName()}`}

@@ -1,13 +1,16 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { Col, Row, Skeleton, Alert } from 'antd';
 import { useProjectTranslation } from '../../helpers/translations';
-import { pendingWithdrawalsFormat } from '../../helpers/staking';
+import { pendingWithdrawalsFormat, tokenStake } from '../../helpers/staking';
 import BigNumber from 'bignumber.js';
 import Stake from './Stake';
 import PieChartComponent from './PieChart';
 import PerformanceChart from './performanceChart';
 import Withdraw from './WithdrawV2';
+import DashBoard from './DashBoard';
 import { AuthenticateContext } from '../../context/Auth';
+import Web3 from 'web3';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import { TokenSettings } from '../../helpers/currencies';
 import LastStakeOperations from '../../components/Staking/LastStakeOperations';
 
 const withdrawalStatus = {
@@ -15,55 +18,73 @@ const withdrawalStatus = {
     available: 'AVAILABLE'
 };
 
+const defaultTokenStake = tokenStake()[0];
+const tokenSettingsStake = TokenSettings(defaultTokenStake);
+
+const formatBigNumber = (amount) => {
+    return new BigNumber(fromContractPrecisionDecimals(amount, tokenSettingsStake.decimals));
+};
+
 export default function Staking(props) {
     const auth = useContext(AuthenticateContext);
     const [t] = useProjectTranslation();
     const [activeTab, setActiveTab] = useState('tab1');
-    const [tgBalance, setTgBalance] = useState('0');
-    const [lockedBalance, setLockedBalance] = useState('0');
-    const [stakedBalance, setStakedBalance] = useState('0');
-    const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
-    const [totalPendingExpiration, setTotalPendingExpiration] = useState('0');
-    const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] =
-        useState('0');
-    const [loading, setLoading] = useState(true);
+
+    const defaultUserInfoStaking = {
+        'tgBalance': new BigNumber(0),
+        'stakedBalance': new BigNumber(0),
+        'lockedBalance': new BigNumber(0),
+        'pendingWithdrawals': [],
+        'totalPendingExpiration': new BigNumber(0),
+        'totalAvailableToWithdraw': new BigNumber(0),
+        'lockedInVoting': new BigNumber(0),
+    }
+    const [userInfoStaking, setUserInfoStaking] = useState(defaultUserInfoStaking);
 
     useEffect(() => {
         if (auth.accountData && auth.userBalanceData) {
-            setLoading(false);
-            setStakingBalances();
+            refreshBalances();
         }
     }, [auth]);
 
-    const setStakingBalances = async () => {
-        //try {
-        let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
-            '0',
-            '0',
-            []
-        ];
-        if (auth.userBalanceData) {
-            if (auth.isVestingLoaded()) {
-                setTgBalance(auth.userBalanceData.vestingmachine.tgBalance);
-                _stakedBalance =
-                    auth.userBalanceData.vestingmachine.staking.balance;
-                _lockedBalance =
-                    auth.userBalanceData.vestingmachine.staking
-                        .getLockedBalance;
-                _pendingWithdrawals = pendingWithdrawalsFormat(
-                    auth.userBalanceData.vestingmachine.delay
-                );
-            } else {
-                setTgBalance(auth.userBalanceData.TG.balance);
-                _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
-                _lockedBalance =
-                    auth.userBalanceData.stakingmachine.getLockedBalance;
-                _pendingWithdrawals = pendingWithdrawalsFormat(
-                    auth.userBalanceData.delaymachine
-                );
-            }
+
+    const refreshBalances = () => {
+
+        const cData = { ...userInfoStaking };
+        const nowTimestamp = new BigNumber(Date.now())
+        let pendingWithdrawals = []
+        let vUsing;
+        if (auth.isVestingLoaded()) {
+            cData['tgBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.tgBalance)
+            cData['stakedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.balance)
+            cData['lockedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.getLockedBalance)
+            pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.vestingmachine.delay)
+            vUsing = auth.userBalanceData.vestingmachine.staking;
+
+        } else {
+            cData['tgBalance'] = formatBigNumber(auth.userBalanceData.TG.balance)
+            cData['stakedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getBalance)
+            cData['lockedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getLockedBalance)
+            pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine)
+            vUsing = auth.userBalanceData.stakingmachine;
         }
-        const pendingWithdrawalsFormatted = _pendingWithdrawals
+
+        const lockedAmount = new BigNumber(
+            Web3.utils.fromWei(vUsing.getLockingInfo.amount, 'ether')
+        );
+        const lockedUntilTimestamp = new BigNumber(
+            vUsing.getLockingInfo.untilTimestamp
+        ).times(1000)
+
+        if (lockedUntilTimestamp.gt(nowTimestamp)) {
+            cData['lockedInVoting'] = lockedAmount
+        } else {
+            cData['lockedInVoting'] = new BigNumber(0)
+        }
+
+        cData['unstakeBalance'] = cData['stakedBalance'].minus(cData['lockedInVoting'])
+
+        const pendingWithdrawalsFormatted = pendingWithdrawals
             .filter((withdrawal) => withdrawal.expiration)
             .map((withdrawal) => {
                 const status =
@@ -77,37 +98,35 @@ export default function Staking(props) {
                     status
                 };
             });
-        let pendingExpirationAmount = '0';
-        let readyToWithdrawAmount = '0';
+        let pendingExpirationAmount = new BigNumber(0);
+        let readyToWithdrawAmount = new BigNumber(0);
         pendingWithdrawalsFormatted.forEach(({ status, amount }) => {
             if (status === withdrawalStatus.pending) {
                 pendingExpirationAmount = BigNumber.sum(
                     pendingExpirationAmount,
-                    amount
-                ).toFixed(0);
+                    formatBigNumber(amount)
+                );
             } else {
                 readyToWithdrawAmount = BigNumber.sum(
                     readyToWithdrawAmount,
-                    amount
-                ).toFixed(0);
+                    formatBigNumber(amount)
+                );
             }
         });
-        const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
+        const pendingWithdrawalsSort = pendingWithdrawalsFormatted.sort(function(a, b) {
             return b.id.toString() - a.id.toString();
         });
-        setLockedBalance(_lockedBalance);
-        setStakedBalance(_stakedBalance);
-        setTotalPendingExpiration(pendingExpirationAmount);
-        setTotalAvailableToWithdraw(readyToWithdrawAmount);
-        setPendingWithdrawals(arrayDes);
-        //} catch (error) {
-        //console.log('Error getting staking balances', error);
-        //}
+
+        cData['pendingWithdrawals'] = pendingWithdrawalsSort
+        cData['totalPendingExpiration'] = pendingExpirationAmount
+        cData['totalAvailableToWithdraw'] = readyToWithdrawAmount
+
+        setUserInfoStaking(cData)
     };
 
     return (
         <div className="cards-container sectionStaking">
-            {!loading && (
+
                 <Fragment>
                     <div className="section row-section">
                         <div className="firstCardsGroup">
@@ -206,7 +225,6 @@ export default function Staking(props) {
                         </div>
                     </div>
                 </Fragment>
-            )}
         </div>
     );
 }

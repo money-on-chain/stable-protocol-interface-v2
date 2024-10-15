@@ -78,7 +78,7 @@ const InputAmount = (props) => {
                     ref={inputRef}
                     placeholder={placeholder}
                     value={inputValue}
-                    inputmode="decimal"
+                    inputMode="decimal"
                     onChange={(event) => {
                         handleValueChange(event.target.value);
                     }}

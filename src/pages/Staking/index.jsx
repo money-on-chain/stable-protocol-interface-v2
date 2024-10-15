@@ -5,7 +5,6 @@ import { Alert, Button, Skeleton } from 'antd';
 import { AuthenticateContext } from '../../context/Auth';
 import '../../assets/css/pages.scss';
 import Staking from '../../components/Staking';
-import StakingDashboard from '../../components/Dashboards/StakingDashboard';
 import { useProjectTranslation } from '../../helpers/translations';
 
 function SectionStaking(props) {
@@ -66,12 +65,7 @@ function SectionStaking(props) {
                                 />
                             </div>
                         )}
-                        <div className={'section-layout'}>
-                            {ready ? <StakingDashboard /> : <Skeleton active />}
-                        </div>
-                        <div className={'section-layout'}>
-                            {ready ? <Staking /> : <Skeleton active />}
-                        </div>
+                        {ready ? <Staking /> : <Skeleton active />}
                     </div>
                 </div>
             </div>

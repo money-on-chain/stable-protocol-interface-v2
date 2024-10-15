@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Skeleton, Table } from 'antd';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -13,6 +13,13 @@ import NumericLabel from 'react-pretty-numbers';
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        if (auth.contractStatusData) {
+            setReady(true);
+        }
+    }, [auth]);
+
     const portfTableHeight = getComputedStyle(document.querySelector(':root'))
         .getPropertyValue('--portfolioTokenHeight')
         .split('"')
@@ -826,13 +833,13 @@ export default function Tokens(props) {
     return (
         <div className="tokens__table__mobile">
             <h1>Tokens</h1>
-            <Table
+            {ready ? <Table
                 columns={columnsData}
                 dataSource={tokensData}
                 pagination={false}
                 showHeader={false}
                 // scroll={{ y: '100%' }}
-            />
+            /> : <Skeleton active />}
         </div>
     );
 }

@@ -9,6 +9,7 @@ import Portfolio from '../../components/Dashboards/Portfolio';
 import HomeTabs from '../../components/PortfolioOperationsTabs';
 import SectionHeader from '../../components/Header';
 
+
 function Home(props) {
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const auth = useContext(AuthenticateContext);
@@ -20,15 +21,12 @@ function Home(props) {
     }, [auth]);
 
     // Tabs for mobile
-    const Tab1 = () => {
-        return ready ? (
-            <div className="dashboard-portfolio">
-                <Portfolio />
-            </div>
-        ) : (
-            <Skeleton active />
-        );
-    };
+    const Tab1 = () => (
+        <div className="dashboard-portfolio">
+            <Portfolio />
+        </div>
+    );
+
     const Tab2 = () => (
         <div className="content-last-operations">
             <ListOperationsMobile token={'all'}></ListOperationsMobile>

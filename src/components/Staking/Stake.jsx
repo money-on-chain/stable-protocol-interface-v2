@@ -1,14 +1,12 @@
 import React, { useState, useContext, Fragment, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { Button } from 'antd';
-import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { TokenSettings, AmountToVisibleValue } from '../../helpers/currencies';
 import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { tokenStake } from '../../helpers/staking';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import SelectCurrency from '../SelectCurrency';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
@@ -16,7 +14,7 @@ import InputAmount from '../InputAmount/indexInput';
 import settings from '../../settings/settings.json';
 
 const Stake = (props) => {
-    const { activeTab, tgBalance, stakedBalance, setStakingBalances } = props;
+    const { activeTab, userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const defaultTokenStake = tokenStake()[0];
@@ -54,9 +52,8 @@ const Stake = (props) => {
     const onValidate = () => {
         let amountInputError = false;
 
-        const tokenSettings = TokenSettings(defaultTokenStake);
-        const totalBalance = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
-        const amountToProcess = new BigNumber(isUnstaking ? amountToUnstake : amountToStake);
+        const totalBalance = isUnstaking ? userInfoStaking['unstakeBalance'] : userInfoStaking['tgBalance'];
+        const amountToProcess = isUnstaking ? new BigNumber(amountToUnstake) : new BigNumber(amountToStake);
 
         //1. Input amount valid
         if (isNaN(parseFloat(isUnstaking ? amountToUnstake : amountToStake))) {
@@ -96,8 +93,7 @@ const Stake = (props) => {
         setAmountToUnstake('');
     };
     const setAddTotalAvailable = () => {
-        const tokenSettings = TokenSettings(defaultTokenStake);
-        const total = formatBigNumber(isUnstaking ? stakedBalance : tgBalance, tokenSettings.decimals);
+        const total = isUnstaking ? userInfoStaking['unstakeBalance'] : userInfoStaking['tgBalance'];
         if (isUnstaking) setAmountToUnstake(total.toString());
         else setAmountToStake(total.toString());
     };
@@ -123,7 +119,7 @@ const Stake = (props) => {
     };
 
     const resetBalancesAndValues = () => {
-        setStakingBalances();
+        //setStakingBalances();
         setAmountToStake('');
         setAmountToUnstake('');
         setUntouchCount((prev) => prev + 1);
@@ -137,10 +133,6 @@ const Stake = (props) => {
         setOperationModalInfo(operationInfo);
         setIsOperationModalVisible(true);
         resetBalancesAndValues();
-    };
-    const formatBigNumber = (balance, decimals) => {
-        const total = new BigNumber(fromContractPrecisionDecimals(balance, decimals));
-        return total;
     };
 
     return (
@@ -160,12 +152,13 @@ const Stake = (props) => {
                             balanceText={t('staking.staking.inputAvailable')}
                             action={isUnstaking ? t('staking.staking.inputUnstake') : t('staking.staking.inputStake')}
                             balance={PrecisionNumbers({
-                                amount: isUnstaking ? stakedBalance : tgBalance,
+                                amount: isUnstaking ? userInfoStaking['unstakeBalance'] : userInfoStaking['tgBalance'],
                                 token: TokenSettings(defaultTokenStake),
                                 decimals: t('staking.staking.input_decimals'),
                                 t: t,
                                 i18n: i18n,
-                                ns: ns
+                                ns: ns,
+                                skipContractConvert: true
                             })}
                             placeholder={'0.0'}
                             inputValue={isUnstaking ? amountToUnstake : amountToStake}

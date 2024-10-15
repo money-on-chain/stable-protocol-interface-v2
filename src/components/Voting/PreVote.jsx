@@ -1,6 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
+import { PrecisionNumbers } from '../PrecisionNumbers';
+import BigNumber from 'bignumber.js';
+import { TokenSettings } from '../../helpers/currencies';
+import { AuthenticateContext } from '../../context/Auth';
+import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 
 function CreateBarGraph(props) {
     return (
@@ -10,50 +15,129 @@ function CreateBarGraph(props) {
             percentage={props.percentage}
             needed={props.needed}
             type={props.type}
+            labelCurrent={props.labelCurrent}
+            labelNeedIt={props.labelNeedIt}
+            labelTotal={props.labelTotal}
+            valueCurrent={props.valueCurrent}
+            valueNeedIt={props.valueNeedIt}
+            valueTotal={props.valueTotal}
+            pctCurrent={props.pctCurrent}
+            pctNeedIt={props.pctNeedIt}
         />
     );
 }
 
-function PreVote(proposalData) {
+function PreVote(props) {
+
+    const {
+        proposal,
+        onBack,
+        infoVoting,
+        infoUser,
+        onUnRegisterProposal,
+        onRunPreVoteStep } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const space = '\u00A0';
+    const auth = useContext(AuthenticateContext);
+
+    const [isOperationModalVisible, setIsOperationModalVisible] =
+        useState(false);
+    const [txHash, setTxHash] = useState('');
+    const [operationStatus, setOperationStatus] = useState('sign');
+    const [modalTitle, setModalTitle] = useState('Voting in favor');
+    const [votingInFavorError, setVotingInFavorError] = useState(false);
+    const [showProposalModal, setShowProposalModal] = useState(false);
+
+
+    useEffect(() => {
+        onValidateVotingInFavor();
+    }, [infoUser['Voting_Power'], proposal['canVote']]);
+
+    const onValidateVotingInFavor = () => {
+        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+            // You need at least voting power > 0
+            setVotingInFavorError(true);
+            return false;
+        }
+        if (!proposal['canVote']) {
+            setVotingInFavorError(true);
+            return false;
+        }
+
+        return true;
+    };
+
 
     const preVotingGraphs = [
         {
             id: 0,
-            description: 'votes cast over circulating',
-            percentage: '15%',
-            needed: '50%',
-            type: 'brand'
+            description: 'votes need to advance to next step',
+            percentage: `${proposal.votesPositivePCT}%`,
+            needed:  `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
+            type: 'brand',
+            labelCurrent: 'Votes',
+            labelNeedIt: 'Quorum',
+            labelTotal: 'Total circulating tokens',
+            valueCurrent: proposal.votesPositive,
+            valueNeedIt: infoVoting['PRE_VOTE_MIN_TO_WIN'],
+            valueTotal: infoVoting['totalSupply'],
+            pctCurrent: proposal.votesPositivePCT,
+            pctNeedIt: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
         },
-        {
-            id: 1,
-            description: 'votes cast over needed to next stage',
-            percentage: '56%',
-            needed: '80%',
-            type: 'brand'
-        },
-        {
-            id: 2,
-            description:
-                'positive votes over circulating to move to voting stage',
-            percentage: '26%',
-            needed: '80%',
-            type: 'positive'
-        }
+
     ];
+
+    const onVoteInFavor= async (e) => {
+        setModalTitle(`Voting proposal`);
+        setShowProposalModal(true);
+
+        setOperationStatus('sign');
+        setIsOperationModalVisible(true);
+
+        const onTransaction = (txHash) => {
+            console.log('Sent transaction voting in favor proposal...: ', txHash);
+            setTxHash(txHash);
+            setOperationStatus('pending');
+        };
+        const onReceipt = (receipt) => {
+            console.log('Transaction voting in favor proposal mined!...');
+            setOperationStatus('success');
+            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+        };
+        const onError = (error) => {
+            console.log('Transaction voting in favor proposal error!...:', error);
+            setOperationStatus('error');
+        };
+
+        await auth
+            .interfaceVotingPreVote(
+                proposal.changeContract,
+                onTransaction,
+                onReceipt,
+                onError
+            )
+            .then((res) => {
+                // Refresh status
+                auth.loadContractsStatusAndUserBalance().then(
+                    (value) => {
+                        console.log('Refresh user balance OK!');
+                    }
+                );
+            })
+            .catch((e) => {
+                console.error(e);
+                setOperationStatus('error');
+            });
+    };
 
     return (
         <Fragment>
-            <div className={'layout-card-title'}>
-                <h1>Pre Vote</h1>
-            </div>
             <div className="votingDetails__wrapper">
                 <div className="details">
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://forum.moneyonchain.com/search?q=${proposalData.changeContract}`}
+                            href={`https://forum.moneyonchain.com/search?q=${proposal.changeContract}`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -65,76 +149,122 @@ function PreVote(proposalData) {
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://rootstock.blockscout.com/address/${proposalData.changeContract}?tab=contract`}
+                            href={`https://rootstock.blockscout.com/address/${proposal.changeContract}?tab=contract`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             {t('voting.info.changeContract')} {space}
-                            {proposalData.changeContract}
+                            {proposal.changeContract}
                             <span className="icon-external-link"></span>
                         </a>
                     </div>
 
                     <div className="voting__status__container">
-                        <div className="graphs">
+
+                        <div className='graphs'>
+
+                            {!proposal.canVote  && (
+                                <div className='proposal-period'>You cannot vote! The time window is expired or proposal wins!</div>
+                            )}
+
+                            {proposal.canVote  && (
+                                <div className='proposal-period'>The first stage voting is in progress!</div>
+                            )}
+
                             <p>
                                 {t('voting.info.stateAs')}
-                                <span>12/14/2020, 05:28:04 PM </span>
+                                <span>{proposal.expirationTimeStampFormat} </span>
                             </p>
-                            <div className="voting__status__graphs">
+
+                            <div className='voting__status__graphs'>
                                 {preVotingGraphs.map(CreateBarGraph)}
                             </div>
+
                         </div>
-                        <div className="cta">
-                            <div className="votingButtons">
-                                <button className="button infavor">
-                                    <div className="icon icon__vote__infavor"></div>
-                                    {t('voting.votingOptions.inFavor')}
+                            <div className='cta'>
+                                <div className='votingButtons'>
+                                    {proposal.canVote && (
+                                        <button className='button infavor' onClick={onVoteInFavor} disabled={votingInFavorError}>
+                                            <div className='icon icon__vote__infavor'></div>
+                                            {t('voting.votingOptions.inFavor')}
+                                        </button>
+                                    )}
+                                    {proposal.canRunStep && (
+                                        <button className="button"
+                                                onClick={() => onRunPreVoteStep()}>
+                                            Next step
+                                        </button>
+                                    )}
+                                </div>
+
+                                {proposal.canVote && (
+                                    <div className='voting__status__votingInfo'>
+                                        <div className='votingInfo__item'>
+                                            <div className='label'>
+                                                {t('voting.userPower.votingPower')}
+                                            </div>
+                                            <div className='data'>
+                                                {PrecisionNumbers({
+                                                    amount: infoUser['Voting_Power'],
+                                                    token: TokenSettings('TG'),
+                                                    decimals: 2,
+                                                    t: t,
+                                                    i18n: i18n,
+                                                    ns: ns,
+                                                    skipContractConvert: true
+                                                })}
+
+                                                {' '}
+
+                                                {t('staking.tokens.TG.abbr', {
+                                                    ns: ns
+                                                })}
+
+                                                {' '}
+                                                ({PrecisionNumbers({
+                                                amount: infoUser['Voting_Power_PCT'],
+                                                token: TokenSettings('TG'),
+                                                decimals: 2,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                                %)
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="go-back">
+                            <button className="button secondary" onClick={() => onBack()}>
+                                Back to Proposals{' '}
+                            </button>
+
+                            {proposal.canUnregister && (
+                                <button className="button"
+                                    onClick={() => onUnRegisterProposal(proposal.changeContract)}>
+                                    Unregister Proposal
                                 </button>
-                            </div>
-                            <div className="voting__status__votedInfo">
-                                <div className="votingInfo__item">
-                                    <div className="label">
-                                        You already voted with{' '}
-                                    </div>
-                                    <div className="data">
-                                        5.0 tokens (5000000000000000000 wei)
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="voting__status__votingInfo">
-                                <div className="votingInfo__item">
-                                    <div className="label">
-                                        {t('voting.userPower.votingPower')}
-                                    </div>
-                                    <div className="data">
-                                        5.0 tokens (5000000000000000000 wei)
-                                    </div>
-                                </div>
-                                <div className="votingInfo__item">
-                                    <div className="label">
-                                        {t('voting.userPower.totalMOC')}
-                                    </div>
-                                    <div className="data">
-                                        480.0 tokens (480000000000000000000 wei)
-                                    </div>
-                                </div>
-                                <div className="votingInfo__item">
-                                    <div className="label">
-                                        {t('voting.userPower.totalSupply')}
-                                    </div>
-                                    <div className="data">1.041666 %</div>
-                                </div>
-                            </div>
+                            )}
                         </div>
-                    </div>
-                    <div className="go-back">
-                        <button className="button secondary">
-                            Back to Proposals{' '}
-                        </button>
-                    </div>
                 </div>
             </div>
+
+            {isOperationModalVisible && (
+                <VotingStatusModal
+                    title={modalTitle}
+                    visible={isOperationModalVisible}
+                    onCancel={() => setIsOperationModalVisible(false)}
+                    operationStatus={operationStatus}
+                    txHash={txHash}
+                    proposalChanger={proposal.changeContract}
+                    votingInFavor={true}
+                    showProposal={showProposalModal}
+                />
+            )}
+
         </Fragment>
     );
 }

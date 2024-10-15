@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Table } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { Skeleton, Table } from 'antd';
 import BigNumber from 'bignumber.js';
 
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -13,6 +13,12 @@ import { ConvertPeggedTokenPrice } from '../../../helpers/currencies';
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        if (auth.contractStatusData) {
+            setReady(true);
+        }
+    }, [auth]);
 
     const tokensData = [];
     // const columnsData = [];
@@ -194,13 +200,13 @@ export default function Tokens(props) {
     return (
         <div className="tokens__table__mobile">
             <h1>Pegged Tokens</h1>
-            <Table
+            {ready ? <Table
                 columns={columnsData}
                 dataSource={tokensData}
                 pagination={false}
                 showHeader={false}
                 // scroll={{ y: '100%' }}
-            />
+            /> : <Skeleton active />}
         </div>
     );
 }

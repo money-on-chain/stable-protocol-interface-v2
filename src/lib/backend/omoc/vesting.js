@@ -267,7 +267,31 @@ const approveStakingMachine = async (interfaceContext, amount, onTransaction, on
     return receipt;
 };
 
+const preVote = async (interfaceContext, changeContractAddress, onTransaction, onReceipt) => {
 
+    const dContracts = window.dContracts;
+    const VotingMachine = dContracts.contracts.VotingMachine;
+
+    const target = Web3.utils.toChecksumAddress(VotingMachine.options.address)
+    const data = VotingMachine.methods.preVote(Web3.utils.toChecksumAddress(changeContractAddress)).encodeABI()
+
+    const receipt = _callWithData(interfaceContext, target, data, onTransaction, onReceipt)
+
+    return receipt;
+};
+
+const vote = async (interfaceContext, inFavorAgainst, onTransaction, onReceipt) => {
+
+    const dContracts = window.dContracts;
+    const VotingMachine = dContracts.contracts.VotingMachine;
+
+    const target = Web3.utils.toChecksumAddress(VotingMachine.options.address)
+    const data = VotingMachine.methods.vote(inFavorAgainst).encodeABI()
+
+    const receipt = _callWithData(interfaceContext, target, data, onTransaction, onReceipt)
+
+    return receipt;
+};
 
 export {
     vestingVerify,
@@ -279,5 +303,7 @@ export {
     unStake,
     delayMachineCancelWithdraw,
     delayMachineWithdraw,
-    approveStakingMachine
+    approveStakingMachine,
+    preVote,
+    vote
 };
