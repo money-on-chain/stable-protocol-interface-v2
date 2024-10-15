@@ -14,7 +14,7 @@ import { tokenExchange } from '../../helpers/exchange';
 import settings from '../../settings/settings.json';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
-// import InputAmount from '../InputAmount';
+
 import InputAmount from '../InputAmount/indexInput';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
@@ -24,8 +24,15 @@ export default function Send() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const defaultTokenSend = tokenExchange()[0];
+    const tokenSend = tokenExchange()
 
+    // Add Token Govern
+    tokenSend.push('TG')
+
+    // Add Coinbase
+    tokenSend.push('COINBASE')
+
+    const defaultTokenSend = tokenSend[0];
     const [currencyYouSend, setCurrencyYouSend] = useState(defaultTokenSend);
 
     const [amountYouSend, setAmountYouSend] = useState(new BigNumber(0));
@@ -148,7 +155,13 @@ export default function Send() {
                 )
             );
 
-            const convertAmountUSD = convertAmount.times(priceCA);
+            let convertAmountUSD;
+            if (currencyYouSend === 'COINBASE') {
+                convertAmountUSD = convertAmount;
+            } else {
+                convertAmountUSD = convertAmount.times(priceCA);
+            }
+
             setSendingUSD(convertAmountUSD);
         }
     };
@@ -172,7 +185,7 @@ export default function Send() {
             )
         );
         setAmountYouSend(totalYouSend);
-        console.log(totalYouSend);
+
         onChangeAmountYouSend(
             fromContractPrecisionDecimals(
                 TokenBalance(auth, currencyYouSend),
@@ -190,7 +203,7 @@ export default function Send() {
                         <SelectCurrency
                             className="select-token"
                             value={currencyYouSend}
-                            currencyOptions={tokenExchange()}
+                            currencyOptions={tokenSend}
                             onChange={onChangeCurrencyYouSend}
                             action={'send'}
                         />

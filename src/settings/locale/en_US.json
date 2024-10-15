@@ -325,6 +325,10 @@
             "TF": {
                 "label": "Flip",
                 "abbr": "FLIP"
+            },
+            "TG": {
+                "label": "Flip",
+                "abbr": "FLIP"
             }
         },
         "cardTitle": "Send",
