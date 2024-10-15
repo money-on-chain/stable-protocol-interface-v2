@@ -13,11 +13,7 @@ import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 
 export default function LastStakeOperations(props) {
-    const {
-        totalPendingExpiration,
-        totalAvailableToWithdraw,
-        pendingWithdrawals
-    } = props;
+    const { userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [totalTable, setTotalTable] = useState(null);

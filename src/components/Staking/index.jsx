@@ -125,8 +125,11 @@ export default function Staking(props) {
     };
 
     return (
-        <div className="cards-container sectionStaking">
-
+        <div>
+            <div className={'section-layout'}>
+                <DashBoard userInfoStaking={userInfoStaking} />
+            </div>
+            <div className="cards-container sectionStaking">
                 <Fragment>
                     <div className="section row-section">
                         <div className="firstCardsGroup">
@@ -153,13 +156,7 @@ export default function Staking(props) {
                                 <div className="tab-content">
                                     <Stake
                                         activeTab={activeTab}
-                                        tgBalance={tgBalance}
-                                        stakedBalance={stakedBalance}
-                                        lockedBalance={lockedBalance}
-                                        setStakingBalances={setStakingBalances}
-                                        totalAvailableToWithdraw={
-                                            totalAvailableToWithdraw
-                                        }
+                                        userInfoStaking={userInfoStaking}
                                     />
                                 </div>
                             </div>
@@ -175,14 +172,7 @@ export default function Staking(props) {
                                     </div>
                                     <div className="tab-content">
                                         <PieChartComponent
-                                            tgBalance={tgBalance}
-                                            stakedBalance={stakedBalance}
-                                            totalPendingExpiration={
-                                                totalPendingExpiration
-                                            }
-                                            totalAvailableToWithdraw={
-                                                totalAvailableToWithdraw
-                                            }
+                                            userInfoStaking={userInfoStaking}
                                         />
                                     </div>
                                 </div>
@@ -199,13 +189,7 @@ export default function Staking(props) {
                         <div className="SecondCardsGroup">
                             <div>
                                 <Withdraw
-                                    totalPendingExpiration={
-                                        totalPendingExpiration
-                                    }
-                                    totalAvailableToWithdraw={
-                                        totalAvailableToWithdraw
-                                    }
-                                    pendingWithdrawals={pendingWithdrawals}
+                                    userInfoStaking={userInfoStaking}
                                 />
                             </div>
                             <div
@@ -213,18 +197,13 @@ export default function Staking(props) {
                                 className="section__innerCard"
                             >
                                 <LastStakeOperations
-                                    totalPendingExpiration={
-                                        totalPendingExpiration
-                                    }
-                                    totalAvailableToWithdraw={
-                                        totalAvailableToWithdraw
-                                    }
-                                    pendingWithdrawals={pendingWithdrawals}
+                                    userInfoStaking={userInfoStaking}
                                 />
                             </div>
                         </div>
                     </div>
                 </Fragment>
+            </div>
         </div>
     );
 }
