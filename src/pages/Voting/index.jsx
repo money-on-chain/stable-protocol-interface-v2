@@ -41,19 +41,28 @@ function SectionVoting(props) {
                 {usingVestingAddress !== '' && (
                     <div className={'section-layout'}>
                         <Alert
-                            className="alert-permanent"
+                            className="alert alert-info"
                             message={t('vesting.alert.title')}
-                            description={t('vesting.alert.explanation') + '. Vesting: ' + truncateAddress(usingVestingAddress)}
+                            description={
+                                t('vesting.alert.explanation') +
+                                '. Vesting: ' +
+                                truncateAddress(usingVestingAddress)
+                            }
                             type="error"
                             showIcon
                             // closable
                             action={
-                                <Button size="small" type="custom" onClick={onDisplayAccount}>
+                                <Button
+                                    size="small"
+                                    type="custom"
+                                    onClick={onDisplayAccount}
+                                >
                                     {t('vesting.alert.cta')}
                                 </Button>
                             }
                         />
-                    </div>)}
+                    </div>
+                )}
 
                 <div className="content-page">
                     {ready ? <Voting /> : <Skeleton active />}
