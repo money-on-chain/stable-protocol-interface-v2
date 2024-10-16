@@ -23,7 +23,7 @@ export default function SectionHeader(props) {
     const menuRef = useRef(null); // Mobile Menu ref
 
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = settings.project === 'moc' ? 4 : 5;
+    const menuLimit = settings.project === 'moc' || settings.project === 'roc' ? 4 : 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -66,20 +66,20 @@ export default function SectionHeader(props) {
                 isActive: true,
                 pathMap: '/performance'
             }] : [],
-            ... settings.project !== 'moc' ? [{
+            ... settings.project !== 'moc' && settings.project !== 'roc' ? [{
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
                 isActive: true,
                 pathMap: '/staking'
             }] : [],
-            {
+            ... settings.project !== 'roc' ? [{
                 name: t('menuOptions.vesting'),
                 className: 'logo-vesting',
                 action: goToVesting,
                 isActive: true,
                 pathMap: '/vesting'
-            },
+            }] : [],
             /*{
                 name: t('menuOptions.liquidityMining'),
                 className: 'logo-liquidity-mining',
@@ -87,13 +87,13 @@ export default function SectionHeader(props) {
                 isActive: true,
                 pathMap: '/liquidity-mining'
             },*/
-            {
+            ... settings.project !== 'roc' ? [{
                 name: t('menuOptions.voting'),
                 className: 'logo-voting',
                 action: goToVoting,
                 isActive: true,
                 pathMap: '/voting'
-            }
+            }] : []
         ]);
     }, [t, lang]);
     useEffect(() => {
