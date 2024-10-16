@@ -1,11 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { Alert, Button, Skeleton } from 'antd';
+import 'antd/dist/antd.css';
 
 import { AuthenticateContext } from '../../context/Auth';
-import '../../assets/css/pages.scss';
 import Staking from '../../components/Staking';
 import { useProjectTranslation } from '../../helpers/translations';
+import '../../assets/css/pages.scss';
+
 
 function SectionStaking(props) {
     const [t, i18n, ns] = useProjectTranslation();
