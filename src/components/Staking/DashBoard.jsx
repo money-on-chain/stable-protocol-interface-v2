@@ -111,7 +111,8 @@ const Dashboard = (props) => {
                                 decimals: t('staking.display_decimals'),
                                 t: t,
                                 i18n: i18n,
-                                ns: ns
+                                ns: ns,
+                                skipContractConvert: true
                             })}
                         </div>
                         <div className="stakingDash__data__label">
