@@ -636,7 +636,7 @@
         "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
-        "protocolName": "Rif On Chain",
+        "protocolName": "Money on Chain",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
