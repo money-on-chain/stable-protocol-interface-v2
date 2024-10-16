@@ -1,15 +1,13 @@
 import { Layout } from 'antd';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import { useProjectTranslation } from '../../helpers/translations';
-
 import { AuthenticateContext } from '../../context/Auth';
-import ModalAccount from '../Modals/Account';
 import DappVersion from '../DappVersion';
-
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
-import { toBePartiallyChecked } from '@testing-library/jest-dom/matchers';
 import ThemeMode from '../ThemeMode';
+import settings from '../../settings/settings.json';
 
 const { Header } = Layout;
 
@@ -25,7 +23,7 @@ export default function SectionHeader(props) {
     const menuRef = useRef(null); // Mobile Menu ref
 
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = 5;
+    const menuLimit = settings.project === 'moc' ? 4 : 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -33,41 +31,48 @@ export default function SectionHeader(props) {
 
     useEffect(() => {
         setMenuOptions([
-            {
+            ... settings.project !== 'moc' ? [{
                 name: t('menuOptions.portfolio'),
                 className: 'logo-portfolio',
                 action: goToPortfolio,
                 isActive: true,
                 pathMap: '/'
-            },
-            {
+            }] : [],
+            ... settings.project === 'moc' ? [{
+                name: t('menuOptions.staking'),
+                className: 'logo-staking',
+                action: goToStaking,
+                isActive: true,
+                pathMap: '/'
+            }] : [],
+            ... settings.project !== 'moc' ? [{
                 name: t('menuOptions.send'),
                 className: 'logo-send',
                 action: goToSend,
                 isActive: true,
                 pathMap: '/send'
-            },
-            {
+            }] : [],
+            ... settings.project !== 'moc' ? [{
                 name: t('menuOptions.exchange'),
                 className: 'logo-exchange',
                 action: goToExchange,
                 isActive: true,
                 pathMap: '/exchange'
-            },
-            {
+            }] : [],
+            ... settings.project !== 'moc' ? [{
                 name: t('menuOptions.performance'),
                 className: 'logo-performance',
                 action: goToPerformance,
                 isActive: true,
                 pathMap: '/performance'
-            },
-            {
+            }] : [],
+            ... settings.project !== 'moc' ? [{
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
                 isActive: true,
                 pathMap: '/staking'
-            },
+            }] : [],
             {
                 name: t('menuOptions.vesting'),
                 className: 'logo-vesting',

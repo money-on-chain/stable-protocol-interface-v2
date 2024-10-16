@@ -78,7 +78,7 @@ function Proposals(props) {
         let lenProp = 0
         if (infoVoting['proposals'] != null) lenProp = Object.keys(infoVoting['proposals']).length;
         for (let i = 0; i < lenProp; i++) {
-            if (infoVoting['proposals'][i] !== null) {
+            if (infoVoting['proposals'][i] != null) {
 
                 expirationTimestamp = new BigNumber(infoVoting['proposals'][i].expirationTimeStamp).times(1000)
                 let expired = true

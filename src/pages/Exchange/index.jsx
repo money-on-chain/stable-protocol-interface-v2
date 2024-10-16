@@ -7,7 +7,6 @@ import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 import { useProjectTranslation } from '../../helpers/translations';
 
 import '../../assets/css/pages.scss';
-import StakingRewards from '../../components/Dashboards/StakingRewards';
 import Exchange from '../../components/Exchange';
 
 function SectionExchange(props) {
@@ -24,8 +23,6 @@ function SectionExchange(props) {
         <Fragment>
             <div className="section-container">
                 <div className="content-page">
-                    {/* Dashboard Staking Rewards */}
-                    {/* <StakingRewards /> */}
 
                     {/* Exchange */}
                     <div className={'layout-card'}>
