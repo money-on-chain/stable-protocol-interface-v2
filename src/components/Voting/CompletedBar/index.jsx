@@ -6,6 +6,7 @@ import { useProjectTranslation } from '../../../helpers/translations';
 
 function CompletedBar(props) {
     const [t, i18n, ns] = useProjectTranslation();
+    const space = '\u00A0';
 
     return (
         <div className="CompletedBar__wrapper">
@@ -24,9 +25,88 @@ function CompletedBar(props) {
                     }}
                 ></div>
             </div>
-            <div className='CompletedBar__labels__container'>
-                <div className='currentVotesLabel'>
-                    {props.labelCurrent}:
+
+            <div className="extraData__container">
+                {props.label1 != null && (
+                    <div className="dataItem">
+                        {props.label1}:{space}
+                        {PrecisionNumbers({
+                            amount: props.amount1,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        {space}(
+                        {PrecisionNumbers({
+                            amount: props.percentage1,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        %)
+                    </div>
+                )}
+                {props.label2 != null && (
+                    <div className="dataItem">
+                        {props.label2}:{space}
+                        {PrecisionNumbers({
+                            amount: props.amount2,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        {space}(
+                        {PrecisionNumbers({
+                            amount: props.percentage2,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        %)
+                    </div>
+                )}
+                {props.label3 != null && (
+                    <div className="dataItem">
+                        {props.label3}:{space}
+                        {PrecisionNumbers({
+                            amount: props.amount3,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        {space}(
+                        {PrecisionNumbers({
+                            amount: props.percentage3,
+                            token: TokenSettings('TG'),
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true
+                        })}
+                        %)
+                    </div>
+                )}
+            </div>
+            {/* 
+            <div className="CompletedBar__labels__container">
+                <div className="extraData">
+                    {props.labelCurrent}:{space}
                     {PrecisionNumbers({
                         amount: props.valueCurrent,
                         token: TokenSettings('TG'),
@@ -35,9 +115,9 @@ function CompletedBar(props) {
                         i18n: i18n,
                         ns: ns,
                         skipContractConvert: true
-                    })} {' '}
-
-                    ( {PrecisionNumbers({
+                    })}
+                    {space}(
+                    {PrecisionNumbers({
                         amount: props.pctCurrent,
                         token: TokenSettings('TG'),
                         decimals: 2,
@@ -45,12 +125,12 @@ function CompletedBar(props) {
                         i18n: i18n,
                         ns: ns,
                         skipContractConvert: true
-                    })}% )
+                    })}
+                    %)
                 </div>
                 {props.labelNeedIt != null && (
-
-                    <div className='needItVotesLabel'>
-                        {props.labelNeedIt}:
+                    <div className="extraData">
+                        {props.labelNeedIt}:{space}
                         {PrecisionNumbers({
                             amount: props.valueNeedIt,
                             token: TokenSettings('TG'),
@@ -59,9 +139,9 @@ function CompletedBar(props) {
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
-                        })}{' '}
-
-                        ( {PrecisionNumbers({
+                        })}
+                        {space}(
+                        {PrecisionNumbers({
                             amount: props.pctNeedIt,
                             token: TokenSettings('TG'),
                             decimals: 2,
@@ -69,12 +149,13 @@ function CompletedBar(props) {
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
-                        })}% )
+                        })}
+                        %)
                     </div>
                 )}
                 {props.labelTotal != null && (
-                    <div className='totalVotesLabel'>
-                        {props.labelTotal}:
+                    <div className="extraData">
+                        {props.labelTotal}:{space}
                         {PrecisionNumbers({
                             amount: props.valueTotal,
                             token: TokenSettings('TG'),
@@ -83,11 +164,11 @@ function CompletedBar(props) {
                             i18n: i18n,
                             ns: ns,
                             skipContractConvert: true
-                        })}{' '}
-                        ( 100% )
+                        })}
+                        {space}(100%)
                     </div>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }

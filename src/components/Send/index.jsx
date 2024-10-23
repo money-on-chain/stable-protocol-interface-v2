@@ -227,23 +227,24 @@ export default function Send() {
                             {inputValidationErrorText}
                         </div>
                     </div>
-
                     <div className="tx-direction">
                         <div className="icon-arrow-down"></div>
                     </div>
-                    <div className="amountInput">
-                        <div className="amountInput__infoBar">
-                            <div className="captionOLD amountInput__label">
-                                {t('send.labelDestination')}
-                            </div>{' '}
-                        </div>
+                    <div className="tokenSelector">
+                        <div className="amountInput">
+                            <div className="amountInput__infoBar">
+                                <div className="captionOLD amountInput__label">
+                                    {t('send.labelDestination')}
+                                </div>
+                            </div>
 
-                        <Input
-                            type="text"
-                            placeholder={t('send.placeholder')}
-                            className="input-addressOLD amountInput__value "
-                            onChange={onChangeDestinationAddress}
-                        />
+                            <Input
+                                type="text"
+                                placeholder={t('send.placeholder')}
+                                className="input-addressOLD amountInput__value "
+                                onChange={onChangeDestinationAddress}
+                            />
+                        </div>
                         <div className="amountInput__feedback amountInput__feedback--error">
                             {inputValidationAddressErrorText}
                         </div>
@@ -254,7 +255,7 @@ export default function Send() {
                 <div className="cta-info-group">
                     <div className="cta-info-summary">
                         <span className={'token_exchange'}>
-                            {t('send.sendingSummary')}{' '}
+                            {t('send.sendingSummary')}
                         </span>
                         <span className={'symbol'}>
                             {t('send.sendingSign')}

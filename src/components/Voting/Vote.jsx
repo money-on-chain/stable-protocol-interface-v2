@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BalanceBar from './BalanceBar';
+import ProposalStats from './ProposalStats';
 import { AuthenticateContext } from '../../context/Auth';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 import { PrecisionNumbers } from '../PrecisionNumbers';
@@ -16,27 +17,36 @@ function CreateBarGraph(props) {
             percentage={props.percentage}
             needed={props.needed}
             type={props.type}
-            labelCurrent={props.labelCurrent}
-            labelNeedIt={props.labelNeedIt}
-            labelTotal={props.labelTotal}
-            valueCurrent={props.valueCurrent}
-            valueNeedIt={props.valueNeedIt}
-            valueTotal={props.valueTotal}
-            pctCurrent={props.pctCurrent}
-            pctNeedIt={props.pctNeedIt}
+            // labelCurrent={props.labelCurrent}
+            // labelNeedIt={props.labelNeedIt}
+            // labelTotal={props.labelTotal}
+            // valueCurrent={props.valueCurrent}
+            // valueNeedIt={props.valueNeedIt}
+            // valueTotal={props.valueTotal}
+            // pctCurrent={props.pctCurrent}
+            // pctNeedIt={props.pctNeedIt}
+            label1={props.label1}
+            amount1={props.amount1}
+            percentage1={props.percentage1}
+            label2={props.label2}
+            amount2={props.amount2}
+            percentage2={props.percentage2}
+            label3={props.label3}
+            amount3={props.amount3}
+            percentage3={props.percentage3}
         />
     );
 }
 
 function Vote(props) {
-
     const { infoVoting, infoUser } = props;
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
     const [txHash, setTxHash] = useState('');
     const [operationStatus, setOperationStatus] = useState('sign');
     const [modalTitle, setModalTitle] = useState('Voting Proposal');
-    const [votingInFavorOrAgainstError, setVotingInFavorOrAgainstError] = useState(false);
+    const [votingInFavorOrAgainstError, setVotingInFavorOrAgainstError] =
+        useState(false);
     const [voteInFavor, setVoteInFavor] = useState(true);
     const [showProposalModal, setShowProposalModal] = useState(false);
 
@@ -69,15 +79,23 @@ function Vote(props) {
         if (infoVoting['votingData']['expired']) {
             setVotingFinish(true);
             setVotingInFavorOrAgainstError(true);
-            if (infoVoting['votingData']['totalVoted'].lt(infoVoting['MIN_FOR_QUORUM'])) {
-                setVotingFinishReason(2)
-            } else if (infoVoting['votingData']['againstVotesPCT'].gte(infoVoting['votingData']['VOTE_MIN_TO_VETO'])) {
-                setVotingFinishReason(3)
+            if (
+                infoVoting['votingData']['totalVoted'].lt(
+                    infoVoting['MIN_FOR_QUORUM']
+                )
+            ) {
+                setVotingFinishReason(2);
+            } else if (
+                infoVoting['votingData']['againstVotesPCT'].gte(
+                    infoVoting['votingData']['VOTE_MIN_TO_VETO']
+                )
+            ) {
+                setVotingFinishReason(3);
             } else {
-                setVotingFinishReason(1)
+                setVotingFinishReason(1);
             }
         }
-    }
+    };
 
     const votingGraphs = [
         {
@@ -86,14 +104,15 @@ function Vote(props) {
             percentage: `${infoVoting['votingData']['totalVotedPCT']}%`,
             needed: `${new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])}%`,
             type: 'brand',
-            labelCurrent: 'Votes',
-            labelNeedIt: 'Quorum',
-            labelTotal: 'Total circulating tokens',
-            valueCurrent: infoVoting['votingData']['totalVoted'],
-            valueNeedIt: infoVoting['MIN_FOR_QUORUM'],
-            valueTotal: infoVoting['totalSupply'],
-            pctCurrent: infoVoting['votingData']['totalVotedPCT'],
-            pctNeedIt: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])
+            label1: 'Votes casted',
+            amount1: infoVoting['votingData']['totalVoted'],
+            percentage1: infoVoting['votingData']['totalVotedPCT'],
+            label2: 'Votes needed for Quroum',
+            amount2: infoVoting['MIN_FOR_QUORUM'],
+            percentage2: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']),
+            label3: 'Total circulating tokens',
+            amount3: infoVoting['totalSupply'],
+            percentage3: new BigNumber(100)
         },
         {
             id: 2,
@@ -101,14 +120,12 @@ function Vote(props) {
             percentage: `${infoVoting['votingData']['againstVotesTotalSupplyPCT']}%`,
             needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
             type: 'negative',
-            labelCurrent: 'Votes against',
-            labelNeedIt: 'Reject proposal',
-            //labelTotal: 'Total circulating tokens',
-            valueCurrent: infoVoting['votingData']['againstVotes'],
-            valueNeedIt: infoVoting['VOTE_MIN_TO_VETO'],
-            //valueTotal: infoVoting['totalSupply'],
-            pctCurrent: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
-            pctNeedIt: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
+            label1: 'Votes Against',
+            amount1: infoVoting['votingData']['againstVotes'],
+            percentage1: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
+            label2: 'Votes needed to reject proposal',
+            amount2: infoVoting['VOTE_MIN_TO_VETO'],
+            percentage2: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
         },
         {
             id: 3,
@@ -116,12 +133,10 @@ function Vote(props) {
             percentage: `${infoVoting['votingData']['inFavorVotesTotalSupplyPCT']}%`,
             needed: `0%`,
             type: 'positive',
-            labelCurrent: 'Votes positives',
-            //labelTotal: 'Total circulating tokens',
-            valueCurrent: infoVoting['votingData']['inFavorVotes'],
-            //valueTotal: infoVoting['totalSupply'],
-            pctCurrent: infoVoting['votingData']['inFavorVotesTotalSupplyPCT'],
-        },
+            label1: 'Votes in favor',
+            amount1: infoVoting['votingData']['inFavorVotes'],
+            percentage1: infoVoting['votingData']['inFavorVotesTotalSupplyPCT']
+        }
     ];
 
     const onVote = async (inFavor) => {
@@ -148,19 +163,12 @@ function Vote(props) {
         };
 
         await auth
-            .interfaceVotingVote(
-                inFavor,
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceVotingVote(inFavor, onTransaction, onReceipt, onError)
             .then((res) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
             })
             .catch((e) => {
                 console.error(e);
@@ -168,7 +176,7 @@ function Vote(props) {
             });
     };
 
-    const onRunVoteStep= async () => {
+    const onRunVoteStep = async () => {
         setModalTitle('Vote Step');
         setShowProposalModal(false);
 
@@ -191,18 +199,12 @@ function Vote(props) {
         };
 
         await auth
-            .interfaceVotingVoteStep(
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceVotingVoteStep(onTransaction, onReceipt, onError)
             .then((res) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
             })
             .catch((e) => {
                 console.error(e);
@@ -210,7 +212,7 @@ function Vote(props) {
             });
     };
 
-    const onRunAcceptedStep= async () => {
+    const onRunAcceptedStep = async () => {
         setModalTitle('Accepted Step');
         setShowProposalModal(false);
 
@@ -233,18 +235,12 @@ function Vote(props) {
         };
 
         await auth
-            .interfaceVotingAcceptedStep(
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceVotingAcceptedStep(onTransaction, onReceipt, onError)
             .then((res) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then(
-                    (value) => {
-                        console.log('Refresh user balance OK!');
-                    }
-                );
+                auth.loadContractsStatusAndUserBalance().then((value) => {
+                    console.log('Refresh user balance OK!');
+                });
             })
             .catch((e) => {
                 console.error(e);
@@ -261,165 +257,254 @@ function Vote(props) {
     };
 
     return (
-        <div className="votingDetails__wrapper">
-            <div className={'layout-card-title'}>
-                <h1>{t('voting.cardTitle')}</h1>
-            </div>
-
-            <div className='details'>
-                <div className='title'>Proposal change contract</div>
-                <div className='change-contract'>{infoVoting.votingData['winnerProposal']}</div>
+        <Fragment>
+            {/* STATUS */}
+            <div className="votingStatus">
+                <div className="votingStatus__round">
+                    <div className="votingStatus__title">
+                        {t('voting.status.title')}
+                    </div>
+                </div>
 
                 {votingFinish && (
-                    <div className='voting-finish'>The voting period is over!</div>
+                    <div className="voting-finish">
+                        {t('voting.status.finished')}
+                    </div>
                 )}
 
                 {!votingFinish && (
-                    <div className='voting-in-progress'>The voting is in progress!</div>
+                    <div className="voting-in-progress">
+                        {t('voting.status.ongoing')}
+                    </div>
                 )}
 
                 {votingFinishReason === 1 && (
-                    <div className='voting-status'>Proposal was approved!</div>
+                    <div className="voting-status">
+                        {t('voting.status.approved')}
+                    </div>
                 )}
 
                 {votingFinishReason === 2 && (
-                    <div className='voting-status'>No reach quorum for this proposal!</div>
+                    <div className="voting-status">
+                        {t('voting.status.noQuorum')}
+                    </div>
                 )}
 
                 {votingFinishReason === 3 && (
-                    <div className='voting-status'>Proposal was rejected by votes against!</div>
+                    <div className="voting-status">
+                        {t('voting.status.rejected')}
+                    </div>
                 )}
-
-                <div className='externalLink'>
-                    <a
-                        className='forumLink'
-                        href={`https://forum.moneyonchain.com/search?q=${infoVoting.votingData['winnerProposal']}`}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                    >
-                        {t('voting.info.searchForum')}
-                        <div className='icon-external-link'></div>
-                    </a>
-                </div>
-
-                <div className='externalLink'>
-                    <a
-                        className='forumLink'
-                        href={`https://rootstock.blockscout.com/address/${infoVoting.votingData['winnerProposal']}?tab=contract`}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                    >
-                        {t('voting.info.changeContract')}
-                        <span className='icon-external-link'></span>
-                    </a>
-                </div>
             </div>
-            <div className='voting__status__container'>
-            <div className="graphs">
-                    <p className="voting__status">
-                        {t('voting.info.stateAs')}
-                        <span>{infoVoting['votingData']['votingExpirationTimeFormat']} </span>
-                    </p>
-                    <BalanceBar
-                        key="1"
-                        infavor={`${infoVoting['votingData']['inFavorVotesPCT'].toFormat(2, BigNumber.ROUND_UP, {decimalSeparator: '.', groupSeparator: ','})}%`}
-                        against={`${infoVoting['votingData']['againstVotesPCT'].toFormat(2, BigNumber.ROUND_UP, {decimalSeparator: '.', groupSeparator: ','})}%`}
-                        infavorVotes={infoVoting['votingData']['inFavorVotes']}
-                        againstVotes={infoVoting['votingData']['againstVotes']}
-                    />
-                    <div className="voting__status__graphs">
-                        {votingGraphs.map(CreateBarGraph)}
+            <div className="votingDetails__wrapper">
+                <div className={'layout-card-title'}>
+                    <h1>{t('voting.cardTitle.votingStage')}</h1>
+                </div>
+
+                <div className="details">
+                    <div className="title">
+                        {infoVoting.votingData['winnerProposal']}
+                    </div>
+                    {/* <div className="change-contract">
+                        {infoVoting.votingData['winnerProposal']}
+                    </div> */}
+                    {/* 
+                    {votingFinish && (
+                        <div className="voting-finish">
+                            The voting period is over!
+                        </div>
+                    )}
+
+                    {!votingFinish && (
+                        <div className="voting-in-progress">
+                            The voting is in progress!
+                        </div>
+                    )}
+
+                    {votingFinishReason === 1 && (
+                        <div className="voting-status">
+                            Proposal was approved!
+                        </div>
+                    )}
+
+                    {votingFinishReason === 2 && (
+                        <div className="voting-status">
+                            No reach quorum for this proposal!
+                        </div>
+                    )}
+
+                    {votingFinishReason === 3 && (
+                        <div className="voting-status">
+                            Proposal was rejected by votes against!
+                        </div>
+                    )} */}
+
+                    <div className="externalLink">
+                        <a
+                            className="forumLink"
+                            href={`https://forum.moneyonchain.com/search?q=${infoVoting.votingData['winnerProposal']}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t('voting.info.searchForum')}
+                            <div className="icon-external-link"></div>
+                        </a>
+                    </div>
+
+                    <div className="externalLink">
+                        <a
+                            className="forumLink"
+                            href={`https://rootstock.blockscout.com/address/${infoVoting.votingData['winnerProposal']}?tab=contract`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {t('voting.info.changeContract')}
+                            <span className="icon-external-link"></span>
+                        </a>
                     </div>
                 </div>
-                <div className="cta">
-                    {infoVoting['readyToVoteStep'] === 0 && (
-                        <div className="voting-buttons-section">
-                            <div className="votingButtons">
-                                <button className="button against" onClick={() => onVote(false)} disabled={votingInFavorOrAgainstError}>
-                                    <div className="icon icon__vote__against"></div>
-                                    {t('voting.votingOptions.against')}
-                                </button>
-                                <button className="button infavor" onClick={() => onVote(true)} disabled={votingInFavorOrAgainstError}>
-                                    <div className="icon icon__vote__infavor"></div>
-                                    {t('voting.votingOptions.inFavor')}
-                                </button>
-                            </div>
-                            <div className="voting__status__votingInfo">
-                                <div className='label'>
-                                    {t('voting.userPower.votingPower')}
+                <div className="voting__status__container">
+                    <div className="graphs">
+                        <p className="voting__status">
+                            {t('voting.info.stateAs')}
+                            <span>
+                                {
+                                    infoVoting['votingData'][
+                                        'votingExpirationTimeFormat'
+                                    ]
+                                }
+                            </span>
+                        </p>
+                        <BalanceBar
+                            key="1"
+                            infavor={`${infoVoting['votingData']['inFavorVotesPCT'].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: '.', groupSeparator: ',' })}%`}
+                            against={`${infoVoting['votingData']['againstVotesPCT'].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: '.', groupSeparator: ',' })}%`}
+                            infavorVotes={
+                                infoVoting['votingData']['inFavorVotes']
+                            }
+                            againstVotes={
+                                infoVoting['votingData']['againstVotes']
+                            }
+                        />
+                        <div className="voting__status__graphs">
+                            {votingGraphs.map(CreateBarGraph)}
+                        </div>
+                    </div>
+                    <div className="cta">
+                        <div className="cta-container">
+                            {infoVoting['readyToVoteStep'] === 0 && (
+                                <>
+                                    <div className="cta-info-group">
+                                        <div className="cta-info-summary">
+                                            {t('voting.userPower.votingPower')}
+                                            {space}
+                                            {PrecisionNumbers({
+                                                amount: infoUser[
+                                                    'Voting_Power'
+                                                ],
+                                                token: TokenSettings('TG'),
+                                                decimals: 2,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                            {t('staking.tokens.TG.abbr', {
+                                                ns: ns
+                                            })}
+                                            {space} {space}(
+                                            {PrecisionNumbers({
+                                                amount: infoUser[
+                                                    'Voting_Power_PCT'
+                                                ],
+                                                token: TokenSettings('TG'),
+                                                decimals: 4,
+                                                t: t,
+                                                i18n: i18n,
+                                                ns: ns,
+                                                skipContractConvert: true
+                                            })}
+                                            %)
+                                        </div>{' '}
+                                    </div>
+                                    <div className="cta-options-group votingButtons">
+                                        <button
+                                            className="button against"
+                                            onClick={() => onVote(false)}
+                                            disabled={
+                                                votingInFavorOrAgainstError
+                                            }
+                                        >
+                                            <div className="icon icon__vote__against"></div>
+                                            {t('voting.votingOptions.against')}
+                                        </button>
+                                        <button
+                                            className="button infavor"
+                                            onClick={() => onVote(true)}
+                                            disabled={
+                                                votingInFavorOrAgainstError
+                                            }
+                                        >
+                                            <div className="icon icon__vote__infavor"></div>
+                                            {t('voting.votingOptions.inFavor')}
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                            {infoVoting['readyToVoteStep'] === 1 &&
+                                infoVoting['state'] !== 2 && (
+                                    <>
+                                        <div className="cta-info-group center">
+                                            <div className="cta-info-detail">
+                                                {t('voting.cta.infoAdvance')}
+                                            </div>
+                                            <div className="cta-info-summary "></div>
+                                            <div className="cta-options-group">
+                                                <button
+                                                    className="button secondary"
+                                                    onClick={onRunVoteStep}
+                                                >
+                                                    {t(
+                                                        'voting.cta.btnPushNextStep'
+                                                    )}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            {infoVoting['state'] === 2 && (
+                                <div className="final-step-section">
+                                    <div className="vote-info">
+                                        {t('voting.cta.infoApplyChanges')}
+                                    </div>
+                                    <button
+                                        className="button secondary"
+                                        onClick={onRunAcceptedStep}
+                                    >
+                                        {t('voting.cta.btn')}
+                                    </button>
                                 </div>
-                                <div className='data'>
-                                    {PrecisionNumbers({
-                                        amount: infoUser['Voting_Power'],
-                                        token: TokenSettings('TG'),
-                                        decimals: 2,
-                                        t: t,
-                                        i18n: i18n,
-                                        ns: ns,
-                                        skipContractConvert: true
-                                    })}
-
-                                    {' '}
-
-                                    {t('staking.tokens.TG.abbr', {
-                                        ns: ns
-                                    })}
-
-                                    {' '}
-                                    ({PrecisionNumbers({
-                                    amount: infoUser['Voting_Power_PCT'],
-                                    token: TokenSettings('TG'),
-                                    decimals: 4,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    skipContractConvert: true
-                                })}
-                                    %)
-                                </div>
-                            </div>
+                            )}
                         </div>
-                    )}
-
-                    {infoVoting['readyToVoteStep'] === 1 && infoVoting['state'] !== 2 && (
-                        <div className="step-buttons-section">
-                            <div className="vote-info">
-                                Please run Step to advance to next stage
-                            </div>
-                            <button className="button secondary" onClick={onRunVoteStep}>
-                                Run Step{' '}
-                            </button>
-                        </div>
-                    )}
-
-                    {infoVoting['state'] === 2 && (
-                        <div className="final-step-section">
-                            <div className="vote-info">
-                                Please run "accepted step" to finish & apply the changes to contracts
-                            </div>
-                            <button className="button secondary" onClick={onRunAcceptedStep}>
-                                Accepted Step{' '}
-                            </button>
-                        </div>
-                    )}
-
+                    </div>
                 </div>
+
+                {isOperationModalVisible && (
+                    <VotingStatusModal
+                        title={modalTitle}
+                        visible={isOperationModalVisible}
+                        onCancel={() => setIsOperationModalVisible(false)}
+                        operationStatus={operationStatus}
+                        txHash={txHash}
+                        proposalChanger={
+                            infoVoting.votingData['winnerProposal']
+                        }
+                        votingInFavor={voteInFavor}
+                        showProposal={showProposalModal}
+                    />
+                )}
             </div>
-
-            {isOperationModalVisible && (
-                <VotingStatusModal
-                    title={modalTitle}
-                    visible={isOperationModalVisible}
-                    onCancel={() => setIsOperationModalVisible(false)}
-                    operationStatus={operationStatus}
-                    txHash={txHash}
-                    proposalChanger={infoVoting.votingData['winnerProposal']}
-                    votingInFavor={voteInFavor}
-                    showProposal={showProposalModal}
-                />
-            )}
-
-        </div>
+        </Fragment>
     );
 }
 

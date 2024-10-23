@@ -6,27 +6,12 @@ import { useProjectTranslation } from '../../../helpers/translations';
 
 function BalanceBar(props) {
     const [t, i18n, ns] = useProjectTranslation();
+    const space = '\u00A0';
+
     return (
         <div className="balanceBar">
             <div className="balanceBar__labels">
-                <div className="label">{props.against} Against</div>
-                <div className="label">{props.infavor} In favor</div>
-            </div>
-            <div className='balanceBar__wrapper'>
-                <div
-                    className={`against ${props.against === '100%' ? ' maxvalue' : ''}`}
-                    style={{ width: props.against }}
-                ></div>
-
-                <div className='graphDivider'></div>
-                <div
-                    className={`infavor ${props.infavor === '100%' ? ' maxvalue' : ''}`}
-                    style={{ width: props.infavor }}
-                ></div>
-
-            </div>
-            <div className="balanceBar__labels">
-                <div className={'balanceBar__labels__againstVotes'}>
+                <div className="label">
                     {PrecisionNumbers({
                         amount: props.againstVotes,
                         token: TokenSettings('TG'),
@@ -36,10 +21,9 @@ function BalanceBar(props) {
                         ns: ns,
                         skipContractConvert: true
                     })}
-                    {' '}
-                    against
+                    {space}({props.against}) against
                 </div>
-                <div className={'balanceBar__labels__infavorVotes'}>
+                <div className="label">
                     {PrecisionNumbers({
                         amount: props.infavorVotes,
                         token: TokenSettings('TG'),
@@ -49,9 +33,20 @@ function BalanceBar(props) {
                         ns: ns,
                         skipContractConvert: true
                     })}
-                    {' '}
-                    in favor
+                    {space}({props.infavor}) in favor
                 </div>
+            </div>
+            <div className="balanceBar__wrapper">
+                <div
+                    className={`against ${props.against === '100%' ? ' maxvalue' : ''}`}
+                    style={{ width: props.against }}
+                ></div>
+
+                <div className="graphDivider"></div>
+                <div
+                    className={`infavor ${props.infavor === '100%' ? ' maxvalue' : ''}`}
+                    style={{ width: props.infavor }}
+                ></div>
             </div>
         </div>
     );

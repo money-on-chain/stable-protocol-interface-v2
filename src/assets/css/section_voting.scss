@@ -6,7 +6,12 @@ section_voting.scss contains all the css code for Voting section cards not conta
     font-size: 16px;
     font-family: var(--brand-font);
     font-weight: 600;
-    margin-bottom: 24px;
+    width: 100%;
+    text-align: left;
+    span {
+        color: var(--color-text-secondary);
+        margin-bottom: 24px;
+    }
 }
 .voting__status__container {
     display: flex;
@@ -14,7 +19,6 @@ section_voting.scss contains all the css code for Voting section cards not conta
     align-items: flex-end;
     gap: 32px;
     width: 100%;
-    // border: 1px dashed red;
 }
 
 .votingButtons {
@@ -105,12 +109,21 @@ section_voting.scss contains all the css code for Voting section cards not conta
         gap: 8px;
     }
 }
+
+.sectionPreVoting {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    width: 100%;
+}
 .votingDetails__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 26px;
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-2);
+    padding: var(--card-padding);
     width: 100%;
-
     .forumLink {
         color: var(--color-text-primary);
     }
@@ -155,16 +168,78 @@ section_voting.scss contains all the css code for Voting section cards not conta
         }
     }
 }
-.proposal__wrapper {
+.proposalsList__wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 26px;
     border-radius: var(--card-border-radius);
     padding: var(--card-padding);
     background-color: var(--surface-color-2);
+    .button__addProposal {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: var(--brand-font);
+        color: var(--color-text-link);
+        .icon__addProposal {
+            filter: var(--color-icon-link-filter);
+        }
+    }
+    .button__addProposal:hover {
+        .icon__addProposal {
+            filter: var(--color-icon-link-hover-filter);
+        }
+    }
+    .proposals__empty {
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        border: 2px dashed var(--dividers);
+        color: var(--color-text-secondary);
+        font-size: 16px;
+    }
 }
+.proposal__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    background-color: var(--surface-color-2);
+    border: 1px solid var(--dividers);
 
+    .button__addProposal {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: var(--brand-font);
+        color: var(--color-text-link);
+        .icon__addProposal {
+            filter: var(--color-icon-link-filter);
+        }
+    }
+    .button__addProposal:hover {
+        .icon__addProposal {
+            filter: var(--color-icon-link-hover-filter);
+        }
+    }
+    .proposals__empty {
+        padding: var(--card-padding);
+        border-radius: var(--card-border-radius);
+        border: 2px dashed var(--dividers);
+        color: var(--color-text-secondary);
+        font-size: 16px;
+    }
+}
 .proposal__content {
     width: 100%;
     display: flex;
@@ -179,7 +254,8 @@ section_voting.scss contains all the css code for Voting section cards not conta
         width: 544px;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        color: var(--color-text-secondary);
+        gap: 2px;
         flex: 1;
 
         .icon-external-link {
@@ -193,9 +269,31 @@ section_voting.scss contains all the css code for Voting section cards not conta
         flex: 1;
         justify-content: center;
         align-items: center;
+        .cta-container {
+            margin-top: 0px;
+        }
     }
 }
+.proposalsContainer {
+    display: flex;
+    justify-content: center;
+}
+.addProposal {
+    font-family: var(--brand-font);
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    width: 600px;
+    .inputFields {
+    }
 
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+    .amountInput {
+        // width: 500px;
+    }
+}
 .votingStatus__graphs {
     margin-top: 16px;
 }
@@ -213,4 +311,87 @@ section_voting.scss contains all the css code for Voting section cards not conta
     margin-top: 64px;
     width: 100%;
     text-align: center;
+}
+.center {
+    // border: 1px dashed greenyellow;
+    display: flex !important;
+    align-items: center !important;
+}
+.votingPowerContainer {
+    width: fit-content;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    border: 1px solid var(--dividers);
+    padding: 16px;
+    border-radius: var(--card-border-radius);
+    .votingPowerLabel {
+        margin-bottom: 8px;
+    }
+    .votingPowerData {
+    }
+}
+
+.votingStatus {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    border: 1px solid var(--dividers);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    .votingStatus__title {
+        font-weight: 600;
+        font-family: var(--brand-font);
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+}
+.votingStatusProposal {
+    width: 100%;
+}
+.ProposalVoteModal {
+    .proposalChanger__container {
+        color: var(--color-text-primary);
+        .proposalChanger__label {
+        }
+        .proposalChanger__data {
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+    }
+    .Link {
+        color: var(--color-text-primary);
+    }
+    .whatIsVoting {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--card-border-radius);
+        height: 100px;
+        gap: 16px;
+        font-weight: 600;
+        font-size: 16px;
+
+        .whatIsVoging__text {
+            margin-top: 5px;
+            color: var(--color-button-primary-text-default);
+        }
+        .icon {
+            filter: var(--color-button-primary-icon-filter-default);
+        }
+    }
+    .inFavor {
+        background-color: var(--color-semantic-positive);
+    }
+    .against {
+        background-color: var(--color-semantic-negative);
+    }
+}
+
+.voting__status__graphs {
+    margin-top: 24px;
 }
