@@ -274,7 +274,7 @@ function PreVote(props) {
                                     )}
                                     <div className="cta-info-summary "> </div>
                                 </div>
-                                <div className="cta-options-group">
+                                <div className="cta-options-group votingButtons">
                                     {proposal.canVote && (
                                         <button
                                             className="button infavor"

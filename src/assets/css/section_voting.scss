@@ -228,6 +228,8 @@ section_voting.scss contains all the css code for Voting section cards not conta
         }
     }
     .button__addProposal:hover {
+        cursor: pointer;
+
         .icon__addProposal {
             filter: var(--color-icon-link-hover-filter);
         }
@@ -375,6 +377,7 @@ section_voting.scss contains all the css code for Voting section cards not conta
         gap: 16px;
         font-weight: 600;
         font-size: 16px;
+        margin-bottom: 24px;
 
         .whatIsVoging__text {
             margin-top: 5px;
