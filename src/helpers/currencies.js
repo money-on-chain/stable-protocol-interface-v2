@@ -122,6 +122,10 @@ function TokenPrice(auth, tokenName) {
         case 'COINBASE':
             price = auth.contractStatusData.PP_COINBASE;
             break;
+        case 'TG':
+            price = auth.contractStatusData.PP_FeeToken;
+            break;
+
         default:
             throw new Error('Invalid token name');
     }
@@ -171,6 +175,16 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei
             break;
         case 'TC,CA':
             // Redeem Operation
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            cAmount = amount.times(price);
+            break;
+        case 'TG,CA':
+            // TG
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            cAmount = amount.times(price);
+            break;
+        case 'COINBASE,CA':
+            // COINBASE
             price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
             cAmount = amount.times(price);
             break;

@@ -27,21 +27,41 @@ export default function ConfirmSend(props) {
         // Real send transaction
         setStatus('SIGN');
 
-        auth.interfaceTransferToken(
-            currencyYouExchange,
-            amountYouExchange,
-            destinationAddress.toLowerCase(),
-            onTransaction,
-            onReceipt
-        )
-            .then((value) => {
-                console.log('DONE!');
-            })
-            .catch((error) => {
-                console.log('ERROR');
-                setStatus('ERROR');
-                console.log(error);
-            });
+        if (currencyYouExchange === 'COINBASE') {
+
+            auth.interfaceTransferCoinbase(
+                amountYouExchange,
+                destinationAddress.toLowerCase(),
+                onTransaction,
+                onReceipt
+            )
+                .then((value) => {
+                    console.log('DONE!');
+                })
+                .catch((error) => {
+                    console.log('ERROR');
+                    setStatus('ERROR');
+                    console.log(error);
+                });
+
+        } else {
+
+            auth.interfaceTransferToken(
+                currencyYouExchange,
+                amountYouExchange,
+                destinationAddress.toLowerCase(),
+                onTransaction,
+                onReceipt
+            )
+                .then((value) => {
+                    console.log('DONE!');
+                })
+                .catch((error) => {
+                    console.log('ERROR');
+                    setStatus('ERROR');
+                    console.log(error);
+                });
+        }
     };
 
     const onTransaction = (transactionHash) => {
@@ -96,6 +116,9 @@ export default function ConfirmSend(props) {
         onCloseModal();
     };
 
+    console.log("DEBUG")
+    console.log(currencyYouExchange)
+
     return (
         <div className="confirm-operation">
             {/* <div className="exchange"> */}
@@ -114,7 +137,7 @@ export default function ConfirmSend(props) {
                             })}
                         </div>
                         <div className="tx-token">
-                            {t(`exchange.tokens.${currencyYouExchange}.label`, {
+                            {t(`send.tokens.${currencyYouExchange}.label`, {
                                 ns: ns
                             })}
                         </div>

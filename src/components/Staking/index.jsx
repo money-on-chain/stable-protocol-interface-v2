@@ -192,14 +192,14 @@ export default function Staking(props) {
                                     userInfoStaking={userInfoStaking}
                                 />
                             </div>
-                            <div
-                                id="lastStakingOperations"
-                                className="section__innerCard"
-                            >
-                                <LastStakeOperations
-                                    userInfoStaking={userInfoStaking}
-                                />
-                            </div>
+                            {/*<div*/}
+                            {/*    id="lastStakingOperations"*/}
+                            {/*    className="section__innerCard"*/}
+                            {/*>*/}
+                            {/*    <LastStakeOperations*/}
+                            {/*        userInfoStaking={userInfoStaking}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </Fragment>

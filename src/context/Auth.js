@@ -18,7 +18,8 @@ import {
     AllowanceAmount,
     transferTokenTo,
     MigrateToken,
-    AllowUseTokenMigrator
+    AllowUseTokenMigrator,
+    transferCoinbaseTo
 } from '../lib/backend/moc-base';
 
 import {
@@ -73,6 +74,12 @@ const AuthenticateContext = createContext({
     ) => {},
     interfaceTransferToken: async (
         currencyYouExchange,
+        amount,
+        destinationAddress,
+        onTransaction,
+        onReceipt
+    ) => {},
+    interfaceTransferCoinbase: async (
         amount,
         destinationAddress,
         onTransaction,
@@ -295,6 +302,22 @@ const AuthenticateProvider = ({ children }) => {
                 onReceipt
             );
         }
+    };
+
+    const interfaceTransferCoinbase = async (
+        amount,
+        destinationAddress,
+        onTransaction,
+        onReceipt
+    ) => {
+        const interfaceContext = buildInterfaceContext();
+        await transferCoinbaseTo(
+            interfaceContext,
+            destinationAddress,
+            amount,
+            onTransaction,
+            onReceipt
+        );
     };
 
     const interfaceExchangeMethod = async (
@@ -771,6 +794,7 @@ const AuthenticateProvider = ({ children }) => {
                 disconnect,
                 interfaceAllowanceAmount,
                 interfaceTransferToken,
+                interfaceTransferCoinbase,
                 interfaceExchangeMethod,
                 getTransactionReceipt,
                 getSpendableBalance,

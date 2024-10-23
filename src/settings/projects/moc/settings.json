@@ -1,0 +1,42 @@
+{
+    "collateral": "rc20",
+    "project": "moc",
+    "tokens": {
+        "COINBASE": {
+            "name": "RBTC",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "CA": [
+            {
+                "key": 0,
+                "name": "RIF",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TP": [
+            {
+                "key": 0,
+                "name": "USDRIF",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TC": {
+            "name": "RIF PRO",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "TF": {
+            "name": "MOC",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "TG": {
+            "name": "MOC",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }
+    }
+}

@@ -97,26 +97,32 @@ const Dashboard = (props) => {
                 </div>
             </div>
             {/* Locked in voting */}
-            <div className="stakingDash__item">
-                <div className="stakingDash__icon__back">
-                    <div className="icon__govLockedTokensVoting"></div>
-                </div>
-                <div className="stakingDash__data">
-                    <div className="stakingDash__data__amount">
-                        {PrecisionNumbers({
-                            amount: new BigNumber(userInfoStaking['lockedInVoting']),
-                            token: settings.tokens.TG,
-                            decimals: t('staking.display_decimals'),
-                            t: t,
-                            i18n: i18n,
-                            ns: ns
-                        })}
+
+            {userInfoStaking['lockedInVoting'].gt(0) && (
+                <div className="stakingDash__item">
+                    <div className="stakingDash__icon__back">
+                        <div className="icon__govLockedTokensVoting"></div>
                     </div>
-                    <div className="stakingDash__data__label">
-                        {t('staking.dashLabels.lockedVoting')}
+                    <div className="stakingDash__data">
+                        <div className="stakingDash__data__amount">
+                            {PrecisionNumbers({
+                                amount: new BigNumber(userInfoStaking['lockedInVoting']),
+                                token: settings.tokens.TG,
+                                decimals: t('staking.display_decimals'),
+                                t: t,
+                                i18n: i18n,
+                                ns: ns,
+                                skipContractConvert: true
+                            })}
+                        </div>
+                        <div className="stakingDash__data__label">
+                            {t('staking.dashLabels.lockedVoting')}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )
+            }
+
         </div>
     );
 };

@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { Alert, Button, Skeleton } from 'antd';
+import 'antd/dist/antd.css';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
-
-import '../../assets/css/pages.scss';
 import Voting from '../../components/Voting';
+import '../../assets/css/pages.scss';
 
 
 function SectionVoting(props) {

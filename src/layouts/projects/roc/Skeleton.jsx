@@ -10,7 +10,7 @@ import SectionHeader from '../../../components/Header';
 import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 
 // import '../../../assets/css/global.scss';
-import StakingRewards from '../../../components/Dashboards/StakingRewards';
+
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
@@ -68,9 +68,6 @@ export default function Skeleton() {
                         {notifStatus && (
                             <NotificationBody notifStatus={notifStatus} />
                         )}
-                        {/* Dashboard Staking Rewards  
-                            TODO to hide while developing the backend information
-                            <StakingRewards />*/}
                         <Outlet />
                     </div>
                 </div>
