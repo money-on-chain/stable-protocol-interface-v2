@@ -13,7 +13,6 @@ import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 
 export default function Withdraw(props) {
-
     const { userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -38,81 +37,83 @@ export default function Withdraw(props) {
 
     const getWithdrawals = () => {
         setTotalTable(userInfoStaking['pendingWithdrawals'].length);
-        const tokensData = userInfoStaking['pendingWithdrawals'].map((withdrawal, index) => ({
-            key: index,
-            rowContent: (
-                <div className="withdraw__row">
-                    <div className="withdraw__first__column">
-                        <div className="item-data withdraw__date">
-                            <Moment
-                                format={
-                                    i18n.language === 'en'
-                                        ? date.DATE_EN
-                                        : date.DATE_ES
+        const tokensData = userInfoStaking['pendingWithdrawals'].map(
+            (withdrawal, index) => ({
+                key: index,
+                rowContent: (
+                    <div className="withdraw__row">
+                        <div className="withdraw__first__column">
+                            <div className="item-data withdraw__date">
+                                <Moment
+                                    format={
+                                        i18n.language === 'en'
+                                            ? date.DATE_EN
+                                            : date.DATE_ES
+                                    }
+                                    date={moment.tz(
+                                        parseInt(withdrawal.expiration) * 1000,
+                                        moment.tz.guess()
+                                    )}
+                                />
+                            </div>
+                            <div className="item-data withdraw__amount">
+                                {PrecisionNumbers({
+                                    amount: withdrawal.amount,
+                                    token: settings.tokens.TG,
+                                    decimals: t('staking.display_decimals'),
+                                    t: t,
+                                    i18n: i18n,
+                                    ns: ns
+                                })}
+                            </div>
+                        </div>
+                        <div className="item-data withdraw__status">
+                            {t(`staking.withdraw.status.${withdrawal.status}`)}
+                        </div>
+                        <div className="withdraw__cta">
+                            <div
+                                className={`cta__button restake action__container${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? ' action__container--disabled' : ''}`}
+                                onClick={() =>
+                                    handleActionClick('restake', withdrawal)
                                 }
-                                date={moment.tz(
-                                    parseInt(withdrawal.expiration) * 1000,
-                                    moment.tz.guess()
-                                )}
-                            />
-                        </div>
-                        <div className="item-data withdraw__amount">
-                            {PrecisionNumbers({
-                                amount: withdrawal.amount,
-                                token: settings.tokens.TG,
-                                decimals: t('staking.display_decimals'),
-                                t: t,
-                                i18n: i18n,
-                                ns: ns
-                            })}
-                        </div>
-                    </div>
-                    <div className="item-data withdraw__status">
-                        {t(`staking.withdraw.status.${withdrawal.status}`)}
-                    </div>
-                    <div className="withdraw__cta">
-                        <div
-                            className={`cta__button restake action__container${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? ' action__container--disabled' : ''}`}
-                            onClick={() =>
-                                handleActionClick('restake', withdrawal)
-                            }
-                        >
-                            <span
-                                className={`action__description${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? '--disabled' : ''}`}
                             >
-                                {t('staking.withdraw.buttons.restake')}
-                            </span>
-                            {/* <div className="action__icon">
+                                <span
+                                    className={`action__description${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? '--disabled' : ''}`}
+                                >
+                                    {t('staking.withdraw.buttons.restake')}
+                                </span>
+                                {/* <div className="action__icon">
                                 <Image
                                     src={ActionIcon}
                                     alt="Action"
                                     preview={false}
                                 />
                             </div> */}
-                        </div>
-                        <div
-                            className={`cta__button withdraw  action__container${withdrawal.status === 'PENDING' ? ' cta__button--disabled' : ''}`}
-                            onClick={() =>
-                                handleActionClick('withdraw', withdrawal)
-                            }
-                        >
-                            <span
-                                className={`action__description${withdrawal.status === 'PENDING' ? '--disabled' : ''}`}
+                            </div>
+                            <div
+                                className={`cta__button withdraw  action__container${withdrawal.status === 'PENDING' ? ' cta__button--disabled' : ''}`}
+                                onClick={() =>
+                                    handleActionClick('withdraw', withdrawal)
+                                }
                             >
-                                {t('staking.withdraw.buttons.withdraw')}
-                            </span>
-                            {/* <div className="action__icon">
+                                <span
+                                    className={`action__description${withdrawal.status === 'PENDING' ? '--disabled' : ''}`}
+                                >
+                                    {t('staking.withdraw.buttons.withdraw')}
+                                </span>
+                                {/* <div className="action__icon">
                                 <Image
                                     src={ActionIcon}
                                     alt="Action"
                                     preview={false}
                                 />
                             </div> */}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )
-        }));
+                )
+            })
+        );
         setData(tokensData);
     };
 
@@ -154,7 +155,10 @@ export default function Withdraw(props) {
     };
 
     return (
-        <div className="section__innerCard--big card-withdraw">
+        <div
+            id="stakingWithdrawCard"
+            className="section__innerCard--big card-withdraw"
+        >
             <div className="layout-card-title">
                 <h1>{t('staking.withdraw.title')}</h1>
                 <div className="withdraw-header-balance">
@@ -162,7 +166,9 @@ export default function Withdraw(props) {
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
-                                    amount: userInfoStaking['totalPendingExpiration'],
+                                    amount: userInfoStaking[
+                                        'totalPendingExpiration'
+                                    ],
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
                                     t: t,
@@ -181,7 +187,9 @@ export default function Withdraw(props) {
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
-                                    amount: userInfoStaking['totalAvailableToWithdraw'],
+                                    amount: userInfoStaking[
+                                        'totalAvailableToWithdraw'
+                                    ],
                                     token: settings.tokens.TG,
                                     decimals: t('staking.display_decimals'),
                                     t: t,

@@ -118,6 +118,8 @@
 
     --color-button-primary-background-disabled: #d5d5d5;
     --color-button-primary-text-disabled: #959595;
+    --color-button-primary-filter-disabled: invert(61%) sepia(0%) saturate(0%)
+        hue-rotate(37deg) brightness(97%) contrast(93%);
 
     --color-button-primary-background-default-shadow: 0px 4px 8px
         rgba(27, 25, 147, 0.2);
@@ -139,7 +141,28 @@
     --color-button-secondary-background-default-shadow: 0px 4px 8px
         rgba(27, 25, 147, 0.2);
 
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: transparent;
+    --color-button-tertiary-text-default: #fff383;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #000000;
+    --color-button-tertiary-text-disabled: #000000;
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
     // Semantic
+
+    --color-button-semantic-text-default: #ffffff;
+    --color-button-semantic-icon-filter-default: invert(100%) sepia(34%)
+        saturate(1%) hue-rotate(210deg) brightness(108%) contrast(101%);
 
     --color-semantic-negative: #e54a49;
     --color-semantic-neutral: #b5b5b5;
@@ -245,6 +268,9 @@
     --color-text-link: #000000;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
+
+    --color-icon-primary: invert(11%) sepia(8%) saturate(478%)
+        hue-rotate(114deg) brightness(101%) contrast(94%);
 
     --color-icon-link-filter: invert(0%) sepia(90%) saturate(1895%)
         hue-rotate(225deg) brightness(99%) contrast(90%);
@@ -409,7 +435,28 @@
     --color-button-secondary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
 
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: #2a2a32;
+    --color-button-tertiary-text-default: #fff383;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #232328;
+    --color-button-tertiary-text-disabled: rgb(104, 104, 107);
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
     // Semantic
+
+    --color-button-semantic-text-default: #0c0c08;
+    --color-button-semantic-icon-filter-default: invert(6%) sepia(18%)
+        saturate(447%) hue-rotate(22deg) brightness(93%) contrast(102%);
 
     --color-semantic-negative: #e54a49;
     --color-semantic-neutral: #b5b5b5;
@@ -517,6 +564,9 @@
     --color-text-notification: #ffffff;
     --link-text-style: underline;
 
+    --color-icon-primary: invert(93%) sepia(5%) saturate(859%)
+        hue-rotate(185deg) brightness(85%) contrast(99%);
+
     --color-icon-link-filter: invert(92%) sepia(9%) saturate(184%)
         hue-rotate(174deg) brightness(94%) contrast(92%);
 
@@ -580,3 +630,13 @@
 //     height: 100%;
 // }
 /* #endregion HIDE GOVERNANCE TOKEN PERFORMANCE CARD */
+
+/* #region WITHDRAW CARD WIDE  */
+#stakingWithdrawCard {
+    width: 100% !important;
+}
+.SecondCardsGroup {
+    display: flex !important;
+    width: 100%;
+}
+/* #endregion WITHDRAW CARD WIDE  */

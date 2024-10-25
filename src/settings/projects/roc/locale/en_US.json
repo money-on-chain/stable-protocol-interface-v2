@@ -312,7 +312,8 @@
             "TF": {
                 "label": "MOC",
                 "abbr": "MOC"
-            }
+            },
+            "TG": { "label": "MOC", "abbr": "MOC" }
         },
         "cardTitle": "Send",
         "labelSending": "Sending",
@@ -494,6 +495,18 @@
                 "actions": "Acciones disponibles"
             }
         },
+        "history": {
+            "title": "Staking Last Operations",
+            "columnDate": "Date",
+            "columnAmount": "Amount",
+            "columnOperation": "Operation",
+            "operatons": {
+                "stake": "Stake",
+                "unstake": "Unstake",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
+            }
+        },
         "tokens": {
             "TG": {
                 "label": "MoC",
@@ -630,6 +643,77 @@
             "percent": "Percent",
             "amount": "Amount",
             "status": "Status"
+        }
+    },
+    "voting": {
+        "cardTitle": {
+            "section": "Voting",
+            "proposalsList": "Proposals",
+            "proposalDetails": "Proposal Details",
+            "votingStage": "Proposal Details",
+            "addNewProposal": "Add New Proposal"
+        },
+        "feedback": {
+            "noProposals": "It looks like there are no proposals. Submit yours by selecting 'Add New Proposal'",
+            "stakeRequiered1": "You need a minimum of",
+            "stakeRequiered2": "tokens to submit a proposal. Don’t forget to share the details in the community forum."
+        },
+        "states": {
+            "stateTitle": "Current State:",
+            "proposals": "Proposals",
+            "prevoting": "Pre-Voting",
+            "voting": "Voting"
+        },
+        "info": {
+            "changeContract": "Change contract:",
+            "searchForum": "Search for this proposal in the Governance forum",
+            "stateAs": "Voting Stage as of "
+        },
+        "status": {
+            "title": "Current Voting Status",
+            "openForSubmissions": "• Open for proposal submissions.",
+            "active": "• Proposal voting is currently active.",
+            "firstStageActive": " First-stage voting is active—cast your vote now!",
+            "firstStageOver": "• The first stage voting period is over!",
+            "firstStageClosed": "Voting is closed—either the time has expired or a proposal has already won.",
+            "finished": "• The voting period is over!",
+            "ongoing": "• The voting is in progress!",
+            "approved": "• Proposal was approved",
+            "noQuorum": "• No reach quorum for this proposal!",
+            "rejected": "• Proposal was rejected by votess against!"
+        },
+        "balanceGraph": { "against": "Against", "inFavor": "In Favor" },
+        "statusGraph": {
+            "castOverCirculation": "Voted cast over circulation",
+            "votingPower": "your voting power over circulating",
+            "positiveOverCirculation": "positive votes over circulating for passing",
+            "negativeOverCirculation": "negative votes over circulating for vetoing"
+        },
+        "labels": { "proposalChangerContract": "Proposal Changer Contract" },
+        "votingOptions": {
+            "against": "Vote Against",
+            "inFavor": "Vote In Favor"
+        },
+        "userPower": {
+            "votingPower": "Voting power:",
+            "totalMOC": "Total MoC in circulation:",
+            "totalSupply": "Total Supply:"
+        },
+        "cta": {
+            "viewProposal": "View Proposal",
+            "infoAdvance": "Please run Step to advance to next voting stage",
+            "btnPushNextStep": "Push to Next Step",
+            "infoApplyChanges": "Please run 'accepted step' to finish & apply the changes to contracts",
+            "btnApplyChangesToContracts": "Change Contracts",
+            "addNewProposal": " Add New Proposal",
+            "cancel": "Cancel",
+            "addProposal": "Add Proposal"
+        },
+        "confirmationModal": {
+            "cardTitle": "Confirm Vote",
+            "changerAddress": "Proposal Changer Address",
+            "votingInFavor": "You are voting in favor!",
+            "votingAgainst": "You are voting against!"
         }
     },
     "alert": {

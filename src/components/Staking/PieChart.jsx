@@ -10,6 +10,7 @@ const PieChartComponent = (props) => {
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(new BigNumber(0));
     const { userInfoStaking } = props;
+    const space = '\u00A0';
 
     useEffect(() => {
         readData();
@@ -22,29 +23,54 @@ const PieChartComponent = (props) => {
     ]);
 
     const readData = () => {
-
         const total = getTotal();
         const _data = [
-          {
-            type: t('staking.distribution.graph.balance'),
-            value: total.gt(0) ? BigNumber(userInfoStaking['tgBalance']).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.processingUnstake'),
-            value: total.gt(0) ? BigNumber(userInfoStaking['totalPendingExpiration']).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.readyWithdraw'),
-            value: total.gt(0) ? BigNumber(userInfoStaking['totalAvailableToWithdraw']).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: t('staking.distribution.graph.staked'),
-            value: total.gt(0) ? BigNumber(userInfoStaking['stakedBalance']).minus(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
-          },
-          {
-            type: 'Staked in voting',
-            value: total.gt(0) ? BigNumber(userInfoStaking['lockedInVoting']).div(total).times(100).toNumber() : 0
-          }
+            {
+                type: t('staking.distribution.graph.balance'),
+                value: total.gt(0)
+                    ? BigNumber(userInfoStaking['tgBalance'])
+                          .div(total)
+                          .times(100)
+                          .toNumber()
+                    : 0
+            },
+            {
+                type: t('staking.distribution.graph.processingUnstake'),
+                value: total.gt(0)
+                    ? BigNumber(userInfoStaking['totalPendingExpiration'])
+                          .div(total)
+                          .times(100)
+                          .toNumber()
+                    : 0
+            },
+            {
+                type: t('staking.distribution.graph.readyWithdraw'),
+                value: total.gt(0)
+                    ? BigNumber(userInfoStaking['totalAvailableToWithdraw'])
+                          .div(total)
+                          .times(100)
+                          .toNumber()
+                    : 0
+            },
+            {
+                type: t('staking.distribution.graph.staked'),
+                value: total.gt(0)
+                    ? BigNumber(userInfoStaking['stakedBalance'])
+                          .minus(userInfoStaking['lockedInVoting'])
+                          .div(total)
+                          .times(100)
+                          .toNumber()
+                    : 0
+            },
+            {
+                type: 'Staked in voting',
+                value: total.gt(0)
+                    ? BigNumber(userInfoStaking['lockedInVoting'])
+                          .div(total)
+                          .times(100)
+                          .toNumber()
+                    : 0
+            }
         ];
         // START TEST
         /*
@@ -62,19 +88,37 @@ const PieChartComponent = (props) => {
     const getTotal = () => {
         return BigNumber.sum(
             userInfoStaking['tgBalance'],
-            new BigNumber(userInfoStaking['stakedBalance']).minus(new BigNumber(userInfoStaking['lockedInVoting'])),
+            new BigNumber(userInfoStaking['stakedBalance']).minus(
+                new BigNumber(userInfoStaking['lockedInVoting'])
+            ),
             userInfoStaking['totalPendingExpiration'],
             userInfoStaking['totalAvailableToWithdraw'],
             userInfoStaking['lockedInVoting']
         );
     };
-    const colorBalance = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-darker');
-    const colorProcessing = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-dark');
-    const colorReady = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-light');
-    const colorStaked = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-base');
-    const colorStakedInVoting = getComputedStyle(document.querySelector(':root')).getPropertyValue('--brand-color-base');
+    const colorBalance = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-darker');
+    const colorProcessing = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-dark');
+    const colorReady = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-base');
+    const colorStaked = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-light');
+    const colorStakedInVoting = getComputedStyle(
+        document.querySelector(':root')
+    ).getPropertyValue('--brand-color-lighter');
 
-    const pieColorPalette = [colorBalance, colorProcessing, colorReady, colorStaked, colorStakedInVoting];
+    const pieColorPalette = [
+        colorBalance,
+        colorProcessing,
+        colorReady,
+        colorStaked,
+        colorStakedInVoting
+    ];
     const config = {
         title: {
             visible: false,
@@ -111,6 +155,24 @@ const PieChartComponent = (props) => {
 
     return (
         <div>
+            <div className="pie-chart-total">
+                <div className="pie-chart-total-amount">
+                    {PrecisionNumbers({
+                        amount: total,
+                        token: settings.tokens.TG,
+                        decimals: 2,
+                        t: t,
+                        i18n: i18n,
+                        ns: ns,
+                        skipContractConvert: true
+                    })}
+                    {space}
+                    {t('staking.governanceToken')}
+                </div>
+                <div className="pie-chart-total-title">
+                    {t('staking.distribution.graph.totalLabel')}
+                </div>
+            </div>
             <div className="pie-chart-container">
                 <PieChart {...config} />
             </div>
@@ -125,23 +187,6 @@ const PieChartComponent = (props) => {
                             </div>
                         </div>
                     ))}
-                </div>
-                <div className="pie-chart-total">
-                    <div className="pie-chart-total-amount">
-                        {PrecisionNumbers({
-                            amount: total,
-                            token: settings.tokens.TG,
-                            decimals: 2,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
-                        })}{' '}
-                        {t('staking.governanceToken')}
-                    </div>
-                    <div className="pie-chart-total-title">
-                        {t('staking.distribution.graph.totalLabel')}
-                    </div>
                 </div>
             </div>
         </div>

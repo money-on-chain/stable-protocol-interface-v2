@@ -168,16 +168,32 @@ section_staking.scss contains all the css code for Staking section cards not con
         justify-content: space-between;
         align-items: stretch;
         overflow: hidden;
+        .pie-chart-total {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 16px;
 
+            .pie-chart-total-amount {
+                font-weight: 600;
+                font-size: 18px;
+                font-family: var(--brand-font);
+                line-height: normal;
+            }
+            .pie-chart-total-title {
+                color: var(--color-text-secondary);
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+        }
         .pie-chart-container {
             height: 250px;
             color: var(--color-text-primary);
         }
         .dataContainer {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-start;
             margin-top: 4px;
             width: 100%;
             color: var(--color-text-primary);
@@ -189,9 +205,12 @@ section_staking.scss contains all the css code for Staking section cards not con
                 background-color: var(--brand-color-dark);
             }
             :nth-child(3) > .data-bullet {
-                background-color: var(--brand-color-light);
+                background-color: var(--brand-color-base);
             }
             :nth-child(4) > .data-bullet {
+                background-color: var(--brand-color-light);
+            }
+            :nth-child(5) > .data-bullet {
                 background-color: var(--brand-color-lighter);
             }
             .data-row {
@@ -199,10 +218,10 @@ section_staking.scss contains all the css code for Staking section cards not con
                 flex-direction: row;
                 justify-content: flex-start;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
                 margin-bottom: 8px;
                 width: 100%;
-                line-height: 16px;
+                line-height: 12px;
                 .data-bullet {
                     border-radius: 50%;
                     width: 8px;
@@ -210,19 +229,7 @@ section_staking.scss contains all the css code for Staking section cards not con
                 }
                 .data-numbers {
                     font-weight: 600;
-                }
-            }
-            .pie-chart-total {
-                text-align: right;
-                .pie-chart-total-amount {
-                    font-weight: 600;
-                    font-size: 18px;
-                    font-family: var(--brand-font);
-                }
-                .pie-chart-total-title {
-                    color: var(--color-text-secondary);
-                    font-size: 10px;
-                    text-transform: uppercase;
+                    font-size: 12px;
                 }
             }
         }
@@ -463,13 +470,13 @@ section_staking.scss contains all the css code for Staking section cards not con
         padding: 16px 0px 16px 32px;
         height: 66px;
         .withdraw__first__column {
-            width: 100%;
+            // width: 100%;
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
         }
     }
     .withdraw__date {
-        width: 128;
+        width: 128px;
     }
     .withdraw__amount {
         width: 120px;
@@ -478,6 +485,7 @@ section_staking.scss contains all the css code for Staking section cards not con
     .withdraw__status {
         width: 120px;
         text-align: left;
+        width: 100%;
     }
     .withdraw__cta {
         display: flex;
@@ -529,12 +537,13 @@ section_staking.scss contains all the css code for Staking section cards not con
         font-size: 14px;
         font-weight: 600;
         .withdraw__first__column {
-            width: 340px;
+            // width: 340px;
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
         }
         .withdraw__date {
             padding-left: 32px;
+            margin-right: 32px;
         }
         .withdraw__action {
         }

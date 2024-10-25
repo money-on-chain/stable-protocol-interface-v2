@@ -8,7 +8,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 import Voting from '../../components/Voting';
 import '../../assets/css/pages.scss';
 
-
 function SectionVoting(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -20,24 +19,27 @@ function SectionVoting(props) {
             setReady(true);
         }
         if (auth.userBalanceData && auth.isVestingLoaded()) {
-            setUsingVestingAddress(auth.vestingAddress())
+            setUsingVestingAddress(auth.vestingAddress());
         } else {
             setUsingVestingAddress('');
         }
     }, [auth]);
 
     const truncateAddress = (address) => {
-        return address.substring(0, 6) +  '...' +  address.substring(address.length - 4, address.length);
-    }
+        return (
+            address.substring(0, 6) +
+            '...' +
+            address.substring(address.length - 4, address.length)
+        );
+    };
 
     const onDisplayAccount = () => {
         auth.onShowModalAccount();
-    }
+    };
 
     return (
         <Fragment>
             <div className="section-container">
-
                 {usingVestingAddress !== '' && (
                     <div className={'section-layout'}>
                         <Alert
@@ -63,7 +65,6 @@ function SectionVoting(props) {
                         />
                     </div>
                 )}
-
                 <div className="content-page">
                     {ready ? <Voting /> : <Skeleton active />}
                 </div>

@@ -312,7 +312,8 @@
             "TF": {
                 "label": "MOC",
                 "abbr": "MOC"
-            }
+            },
+            "TG": { "label": "MOC", "abbr": "MOC" }
         },
         "cardTitle": "Enviar",
         "labelSending": "enviando",

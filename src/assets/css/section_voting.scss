@@ -38,9 +38,10 @@ section_voting.scss contains all the css code for Voting section cards not conta
         font-weight: 600;
         font-size: 18px;
         font-family: var(--brand-font);
+        color: var(--color-button-semantic-text-default);
     }
     .icon {
-        filter: var(--color-button-primary-icon-filter-default);
+        filter: var(--color-button-semantic-icon-filter-default);
         background-size: 24px 24px;
         width: 24px;
         height: 24px;

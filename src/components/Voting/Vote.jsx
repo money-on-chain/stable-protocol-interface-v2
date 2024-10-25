@@ -425,7 +425,7 @@ function Vote(props) {
                                                 skipContractConvert: true
                                             })}
                                             %)
-                                        </div>{' '}
+                                        </div>
                                     </div>
                                     <div className="cta-options-group votingButtons">
                                         <button
