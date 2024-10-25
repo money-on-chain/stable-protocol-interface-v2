@@ -125,10 +125,10 @@
     // Buttons - Secondary
 
     --color-button-secondary-background-default: transparent;
-    --color-button-secondary-text-default: #08374f;
+    --color-button-secondary-text-default: #5dc9bc;
 
     --color-button-secondary-background-hover: transparent;
-    --color-button-secondary-text-hover: #3db2a4;
+    --color-button-secondary-text-hover: #08374f;
 
     --color-button-secondary-background-active: #000000;
     --color-button-secondary-text-active: #ffffff;
@@ -141,8 +141,8 @@
 
     // Buttons - Tertiary
 
-    --color-button-tertiary-background-default: transparent;
-    --color-button-tertiary-text-default: #fff383;
+    --color-button-tertiary-background-default: #5dc9bc;
+    --color-button-tertiary-text-default: #ffffff;
 
     --color-button-tertiary-background-hover: transparent;
     --color-button-tertiary-text-hover: #e8d421;
@@ -150,8 +150,8 @@
     --color-button-tertiary-background-active: transparent;
     --color-button-tertiary-text-active: #c1bc3f;
 
-    --color-button-tertiary-background-disabled: #000000;
-    --color-button-tertiary-text-disabled: #000000;
+    --color-button-tertiary-background-disabled: #d5d5d5;
+    --color-button-tertiary-text-disabled: #959595;
 
     --color-button-tertiary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
@@ -421,7 +421,7 @@
     // Buttons - Secondary
 
     --color-button-secondary-background-default: transparent;
-    --color-button-secondary-text-default: #f3ebeb;
+    --color-button-secondary-text-default: #5dc9bc;
 
     --color-button-secondary-background-hover: transparent;
     --color-button-secondary-text-hover: #1b5674;
@@ -437,14 +437,14 @@
 
     // Buttons - Tertiary
 
-    --color-button-tertiary-background-default: #2a2a32;
-    --color-button-tertiary-text-default: #fff383;
+    --color-button-tertiary-background-default: #5dc9bc;
+    --color-button-tertiary-text-default: #ffffff;
 
     --color-button-tertiary-background-hover: transparent;
-    --color-button-tertiary-text-hover: #e8d421;
+    --color-button-tertiary-text-hover: #08374f;
 
     --color-button-tertiary-background-active: transparent;
-    --color-button-tertiary-text-active: #c1bc3f;
+    --color-button-tertiary-text-active: #5dc9bc;
 
     --color-button-tertiary-background-disabled: #232328;
     --color-button-tertiary-text-disabled: rgb(104, 104, 107);
@@ -560,15 +560,15 @@
     --color-text-primary: #c3ccd9;
     --color-text-secondary: #8f9bac;
     --color-text-highlight: #ebecfc;
-    --color-text-link: #d6d9f5;
+    --color-text-link: #5dc9bc;
     --color-text-notification: #ffffff;
     --link-text-style: underline;
 
     --color-icon-primary: invert(93%) sepia(5%) saturate(859%)
         hue-rotate(185deg) brightness(85%) contrast(99%);
 
-    --color-icon-link-filter: invert(92%) sepia(9%) saturate(184%)
-        hue-rotate(174deg) brightness(94%) contrast(92%);
+    --color-icon-link-filter: invert(67%) sepia(49%) saturate(385%)
+        hue-rotate(123deg) brightness(97%) contrast(86%);
 
     --color-icon-link-hover-filter: invert(0%) sepia(20%) saturate(6237%)
         hue-rotate(317deg) brightness(107%) contrast(115%);
