@@ -220,43 +220,39 @@ export default function Voting(props) {
 
     return (
         <div className="section-container">
-            <div className="content-page">
-                <div className={'layout-card'}>
-                    <div className={'layout-card-title'}>
-                        <h1>{t('voting.cardTitle.section')}</h1>
-                    </div>
-                    {/* PROPOSAL STAGE */}
-                    {infoVoting['state'] === 0 && (
-                        <div>
-                            {/* <div className={'layout-card-title'}>
+            {/* <div className="content-page"> */}
+            <div className={'layout-card'}>
+                <div className={'layout-card-title'}>
+                    <h1>{t('voting.cardTitle.section')}</h1>
+                </div>
+                {/* PROPOSAL STAGE */}
+                {infoVoting['state'] === 0 && (
+                    <div>
+                        {/* <div className={'layout-card-title'}>
                         <h1>Proposals</h1>
                     </div> */}
 
-                            <div className="section voting__proposals">
-                                <Proposals
-                                    infoVoting={infoVoting}
-                                    infoUser={infoUser}
-                                />
-                            </div>
+                        <div className="section voting__proposals">
+                            <Proposals
+                                infoVoting={infoVoting}
+                                infoUser={infoUser}
+                            />
                         </div>
-                    )}
-                    {/* VOTING STAGE */}
-                    {(infoVoting['state'] === 1 ||
-                        infoVoting['state'] === 2) && (
-                        <div>
-                            {/* <div className={'layout-card-title'}>
+                    </div>
+                )}
+                {/* VOTING STAGE */}
+                {(infoVoting['state'] === 1 || infoVoting['state'] === 2) && (
+                    <div>
+                        {/* <div className={'layout-card-title'}>
                         <h1>{t('voting.cardTitle.votingStaged')}</h1>
                     </div> */}
-                            <div className="section voting">
-                                <Vote
-                                    infoVoting={infoVoting}
-                                    infoUser={infoUser}
-                                />
-                            </div>
+                        <div className="section voting">
+                            <Vote infoVoting={infoVoting} infoUser={infoUser} />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
+            {/* </div> */}
         </div>
     );
 }

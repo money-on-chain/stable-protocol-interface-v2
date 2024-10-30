@@ -24,39 +24,7 @@ export default function VestingSchedule(props) {
 
     const vestingColumns = [
         {
-            title: t('vesting.vestingScheduleColumns.date'),
-            dataIndex: 'date',
-            align: 'left',
-            width: 210,
-            className: 'date-column'
-        },
-        {
-            title: t('vesting.vestingScheduleColumns.daysLeft'),
-            dataIndex: 'daysleft',
-            align: 'right',
-            width: 150,
-            className: 'percent-column'
-        },
-        {
-            title: t('vesting.vestingScheduleColumns.percent'),
-            dataIndex: 'percent',
-            align: 'right',
-            width: 150,
-            className: 'percent-column'
-        },
-        {
-            title: t('vesting.vestingScheduleColumns.amount'),
-            dataIndex: 'amount',
-            align: 'right',
-            width: 150,
-            className: 'amount-column'
-        },
-        {
-            title: t('vesting.vestingScheduleColumns.status'),
-            dataIndex: 'status',
-            align: 'left',
-            width: 'auto',
-            className: 'status-column'
+            dataIndex: 'renderRow'
         }
     ];
     const vestingData = [];
@@ -77,7 +45,8 @@ export default function VestingSchedule(props) {
         percentages.unshift(BigInt(10000));
     }
 
-    if (percentages && percentages.length > 0) percentages[percentages.length - 1] = 0;
+    if (percentages && percentages.length > 0)
+        percentages[percentages.length - 1] = 0;
 
     const percents = percentages.map((x) =>
         new BigNumber(percentMultiplier).minus(x)
@@ -97,7 +66,9 @@ export default function VestingSchedule(props) {
         }
     }
 
-    const tgeFormat = formatTimestamp(new BigNumber(tgeTimestamp).times(1000).toNumber())
+    const tgeFormat = formatTimestamp(
+        new BigNumber(tgeTimestamp).times(1000).toNumber()
+    );
 
     auth.userBalanceData &&
         getParameters &&
@@ -114,24 +85,61 @@ export default function VestingSchedule(props) {
             const timeDifference = date_release.getTime() - date_now.getTime();
             const dayLefts = Math.round(timeDifference / (1000 * 3600 * 24));
 
-            if (!(tgeFormat===dates[itemIndex])) {
+            if (!(tgeFormat === dates[itemIndex])) {
                 vestingData.push({
                     key: itemIndex,
-                    date: new Date(dates[itemIndex]).toLocaleString(i18n.language),
-                    daysleft: dayLefts < 0 ? 0 : dayLefts,
-                    percent: `${((percent.toNumber() / percentMultiplier) * 100).toFixed(2)}%`,
-                    amount: formatVisibleValue(strTotal, 2),
-                    status: dayLefts > 0 ? 'Vested' : tgeFormat===dates[itemIndex] ? 'TGE' : 'Released'
+                    renderRow: (
+                        <div className="renderRow">
+                            <div className="releaseDate">
+                                {new Date(dates[itemIndex]).toLocaleString(
+                                    i18n.language
+                                )}
+                            </div>
+                            <div className="daysToRelease">
+                                {dayLefts < 0 ? 0 : dayLefts}
+                            </div>
+                            <div className="percentage">{`${((percent.toNumber() / percentMultiplier) * 100).toFixed(2)}%`}</div>
+                            <div className="amount">
+                                {formatVisibleValue(strTotal, 2)}
+                            </div>
+                            <div className="status">
+                                {dayLefts > 0
+                                    ? 'Vested'
+                                    : tgeFormat === dates[itemIndex]
+                                      ? 'TGE'
+                                      : 'Released'}
+                            </div>
+                        </div>
+                    )
                 });
             }
         });
 
     return (
-        <Table
-            columns={vestingColumns}
-            dataSource={vestingData}
-            pagination={false}
-            scroll={{ y: 'auto' }}
-        />
+        <>
+            <div className="renderHeader">
+                <div className="releaseDate">
+                    {t('vesting.vestingScheduleColumns.date')}
+                </div>
+                <div className="daysToRelease">
+                    {t('vesting.vestingScheduleColumns.daysLeft')}
+                </div>
+                <div className="percentage">
+                    {t('vesting.vestingScheduleColumns.percent')}
+                </div>
+                <div className="amount">
+                    {t('vesting.vestingScheduleColumns.amount')}
+                </div>
+                <div className="status">
+                    {t('vesting.vestingScheduleColumns.status')}
+                </div>
+            </div>
+            <Table
+                columns={vestingColumns}
+                dataSource={vestingData}
+                pagination={false}
+                scroll={{ y: 'auto' }}
+            />
+        </>
     );
 }

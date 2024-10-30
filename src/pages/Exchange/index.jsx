@@ -22,25 +22,22 @@ function SectionExchange(props) {
     return (
         <Fragment>
             <div className="section-container">
-                <div className="content-page">
-
-                    {/* Exchange */}
-                    <div className={'layout-card'}>
-                        <div className={'layout-card-title'}>
-                            <h1>{t('exchange.cardTitle')}</h1>
-                        </div>
-
-                        <div className={'content-body layout-card-content'}>
-                            {ready ? <Exchange /> : <Skeleton active />}
-                        </div>
+                {/* <div className="content-page"> */}
+                {/* Exchange */}
+                <div className={'layout-card'}>
+                    <div className={'layout-card-title'}>
+                        <h1>{t('exchange.cardTitle')}</h1>
                     </div>
 
-                    <div className="section__innerCard--big content-last-operations">
-                        <ListOperationsMobile
-                            token={'all'}
-                        ></ListOperationsMobile>
+                    <div className={'content-body layout-card-content'}>
+                        {ready ? <Exchange /> : <Skeleton active />}
                     </div>
                 </div>
+
+                <div className="section__innerCard--big content-last-operations">
+                    <ListOperationsMobile token={'all'}></ListOperationsMobile>
+                </div>
+                {/* </div> */}
             </div>
         </Fragment>
     );

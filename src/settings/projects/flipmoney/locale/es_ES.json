@@ -658,6 +658,79 @@
             "status": "Estado"
         }
     },
+    "voting": {
+        "cardTitle": {
+            "section": "Votación",
+            "proposalsList": "Propuestas",
+            "proposalDetails": "Detalle de la Propuesta",
+            "votingStage": "Detalle de la Propuesta",
+            "addNewProposal": "Agregar Nueva Propuesta"
+        },
+        "feedback": {
+            "noProposals": "Parece que no hay propuestas. Envía la tuya seleccionando 'Agregar nueva propuesta'",
+            "stakeRequiered1": "Necesitas un mínimo de",
+            "stakeRequiered2": "tokens para enviar una propuesta. No olvides compartir los detalles en el foro de la comunidad."
+        },
+        "states": {
+            "stateTitle": "Estado Actual:",
+            "proposals": "Propuestas",
+            "prevoting": "Pre-Votación",
+            "voting": "Votación"
+        },
+        "info": {
+            "changeContract": "Cambiar contrato",
+            "searchForum": "Busca esta propuesta en el foro de Gobernanza",
+            "stateAs": "Etapa de Votación al "
+        },
+        "status": {
+            "title": "Estado Actual de la Votación",
+            "openForSubmissions": "• Abierto para enviar propuestas.",
+            "active": "• La votación de la propuesta está actualmente activa.",
+            "firstStageActive": "¡La votación de la primera etapa está activa! ¡Emite tu voto ahora!",
+            "firstStageOver": "• ¡El período de votación de la primera etapa ha finalizado!",
+            "firstStageClosed": "La votación ha terminado—ya sea porque expiró el tiempo o una propuesta ya ha ganado.",
+            "finished": "• ¡El período de votación ha terminado!",
+            "ongoing": "• ¡La votación está en progreso!",
+            "approved": "• La propuesta fue aprobada",
+            "noQuorum": "• ¡No se alcanzó el quórum para esta propuesta!",
+            "rejected": "• ¡La propuesta fue rechazada por votos en contra!"
+        },
+        "balanceGraph": { "against": "En Contra", "inFavor": "A Favor" },
+        "statusGraph": {
+            "castOverCirculation": "Votos emitidos sobre circulación",
+            "votingPower": "tu poder de voto sobre la circulación",
+            "positiveOverCirculation": "votos a favor sobre la circulación para aprobar",
+            "negativeOverCirculation": "votos en contra sobre la circulación para vetar"
+        },
+        "labels": {
+            "proposalChangerContract": "Contrato de Cambio de Propuesta"
+        },
+        "votingOptions": {
+            "against": "Votar en Contra",
+            "inFavor": "Votar a Favor"
+        },
+        "userPower": {
+            "votingPower": "Poder de voto:",
+            "totalMOC": "Total de MOC en circulación:",
+            "totalSupply": "Suministro Total:"
+        },
+        "cta": {
+            "viewProposal": "Ver Propuesta",
+            "infoAdvance": "Por favor, ejecuta el paso para avanzar a la siguiente etapa de votación",
+            "btnPushNextStep": "Avanzar Etapa",
+            "infoApplyChanges": "Por favor, ejecuta el 'paso aceptado' para finalizar y aplicar los cambios en los contratos",
+            "btnApplyChangesToContracts": "Cambiar Contratos",
+            "addNewProposal": "Agregar Nueva Propuesta",
+            "cancel": "Cancelar",
+            "addProposal": "Agregar Propuesta"
+        },
+        "confirmationModal": {
+            "cardTitle": "Confirmar Voto",
+            "changerAddress": "Dirección del Cambio de Propuesta",
+            "votingInFavor": "¡Estás votando a favor!",
+            "votingAgainst": "¡Estás votando en contra!"
+        }
+    },
     "alert": {
         "walletNotConnected": "¡Billetera no conectada!"
     },

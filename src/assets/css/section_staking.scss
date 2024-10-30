@@ -1,7 +1,8 @@
 /*
 section_staking.scss contains all the css code for Staking section cards not contained in global.scss
 */
-
+// Variables
+$breakpoint-mobile: 600px;
 /*
     --- Staking ---
 */
@@ -246,7 +247,7 @@ section_staking.scss contains all the css code for Staking section cards not con
         .ant-modal-content {
             box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
             background: rgb(248, 248, 249);
-            background-color: red !important;
+            // background-color: red !important;
         }
         .ant-modal-header {
             border-bottom: 0 !important;
@@ -568,5 +569,53 @@ section_staking.scss contains all the css code for Staking section cards not con
     grid-column-gap: 32px;
     .card-stakingData {
         height: 100%;
+    }
+}
+
+.sectionStaking {
+    @media (max-width: $breakpoint-mobile) {
+        padding: 0px;
+        width: 100%;
+        .dashboard-staking-info {
+            flex-wrap: wrap;
+            .stakingDash__item {
+                width: 156px;
+                .stakingDash__data {
+                    width: 110px;
+                }
+                .stakingDash__data__amount {
+                    font-size: 16px;
+                }
+            }
+        }
+        .withdraw__row {
+            gap: 12px !important;
+            .withdraw__first__column {
+                border-right: 1px solid var(--dividers);
+                width: 120px;
+                padding-right: 8px;
+                .withdraw__date {
+                    width: 100% !important;
+                    font-size: 12px !important;
+                    line-height: 120%;
+                }
+                .withdraw__amount {
+                    width: 100% !important;
+                    font-size: 16px !important;
+                }
+            }
+            .withdraw__status {
+            }
+            .cta__button {
+                width: auto;
+            }
+        }
+        .firstCardsGroup {
+            flex-direction: column;
+            gap: 32px;
+            #performanceCard {
+                width: 100%;
+            }
+        }
     }
 }

@@ -39,36 +39,36 @@ function SectionVoting(props) {
 
     return (
         <Fragment>
-            <div className="section-container">
-                {usingVestingAddress !== '' && (
-                    <div className={'section-layout'}>
-                        <Alert
-                            className="alert alert-info"
-                            message={t('vesting.alert.title')}
-                            description={
-                                t('vesting.alert.explanation') +
-                                '. Vesting: ' +
-                                truncateAddress(usingVestingAddress)
-                            }
-                            type="error"
-                            showIcon
-                            // closable
-                            action={
-                                <Button
-                                    size="small"
-                                    type="custom"
-                                    onClick={onDisplayAccount}
-                                >
-                                    {t('vesting.alert.cta')}
-                                </Button>
-                            }
-                        />
-                    </div>
-                )}
-                <div className="content-page">
-                    {ready ? <Voting /> : <Skeleton active />}
+            {/* <div className="section-container"> */}
+            {usingVestingAddress !== '' && (
+                <div className={'section-layout'}>
+                    <Alert
+                        className="alert alert-info"
+                        message={t('vesting.alert.title')}
+                        description={
+                            t('vesting.alert.explanation') +
+                            '. Vesting: ' +
+                            truncateAddress(usingVestingAddress)
+                        }
+                        type="error"
+                        showIcon
+                        // closable
+                        action={
+                            <Button
+                                size="small"
+                                type="custom"
+                                onClick={onDisplayAccount}
+                            >
+                                {t('vesting.alert.cta')}
+                            </Button>
+                        }
+                    />
                 </div>
+            )}
+            <div className="content-page">
+                {ready ? <Voting /> : <Skeleton active />}
             </div>
+            {/* </div> */}
         </Fragment>
     );
 }

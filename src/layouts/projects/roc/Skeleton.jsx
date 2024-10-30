@@ -60,17 +60,15 @@ export default function Skeleton() {
         <Layout>
             <SectionHeader />
             <Content>
-                <div className="section-container">
-                    {/* Content page*/}
-                    <div className="content-page">
-                        {canSwap && <ModalTokenMigration />}
-                        {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
-                        {notifStatus && (
-                            <NotificationBody notifStatus={notifStatus} />
-                        )}
-                        <Outlet />
-                    </div>
-                </div>
+                {/* <div className="section-container"> */}
+                {/* Content page*/}
+                {/* <div className="content-page"> */}
+                {canSwap && <ModalTokenMigration />}
+                {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
+                {notifStatus && <NotificationBody notifStatus={notifStatus} />}
+                <Outlet />
+                {/* </div> */}
+                {/* </div> */}
             </Content>
             <Footer>
                 <div className="footer-container">

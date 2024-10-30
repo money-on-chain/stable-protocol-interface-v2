@@ -632,6 +632,7 @@
             "status": "Status"
         }
     },
+
     "voting": {
         "cardTitle": {
             "section": "Voting",
@@ -652,7 +653,7 @@
             "voting": "Voting"
         },
         "info": {
-            "changeContract": "Change contract:",
+            "changeContract": "Change contract",
             "searchForum": "Search for this proposal in the Governance forum",
             "stateAs": "Voting Stage as of "
         },
@@ -677,6 +678,7 @@
             "negativeOverCirculation": "negative votes over circulating for vetoing"
         },
         "labels": { "proposalChangerContract": "Proposal Changer Contract" },
+
         "votingOptions": {
             "against": "Vote Against",
             "inFavor": "Vote In Favor"
@@ -690,7 +692,8 @@
             "viewProposal": "View Proposal",
             "infoAdvance": "Please run Step to advance to next voting stage",
             "btnPushNextStep": "Push to Next Step",
-            "infoApplyChanges": "Please run 'accepted step' to finish & apply the changes to contracts",
+            "infoApplyChanges": "Please run 'Change Contracts' to finish & apply the changes to contracts",
+            "btn": "Change Contracts",
             "btnApplyChangesToContracts": "Change Contracts",
             "addNewProposal": " Add New Proposal",
             "cancel": "Cancel",

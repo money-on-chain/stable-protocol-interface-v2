@@ -8,6 +8,8 @@ section_voting.scss contains all the css code for Voting section cards not conta
     font-weight: 600;
     width: 100%;
     text-align: left;
+    text-wrap: wrap;
+    word-break: break-all;
     span {
         color: var(--color-text-secondary);
         margin-bottom: 24px;
@@ -350,6 +352,7 @@ section_voting.scss contains all the css code for Voting section cards not conta
         font-family: var(--brand-font);
         font-size: 16px;
         margin-bottom: 16px;
+        max-width: 100%;
     }
 }
 .votingStatusProposal {
@@ -398,4 +401,37 @@ section_voting.scss contains all the css code for Voting section cards not conta
 
 .voting__status__graphs {
     margin-top: 24px;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .votingStatus {
+        padding: var(--card-padding-mobile);
+    }
+    .votingDetails__wrapper {
+        padding: var(--card-padding-mobile);
+        align-items: stretch;
+        gap: 16px;
+        .title {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .externalLink {
+            flex-direction: column;
+            .forumLink {
+                span {
+                }
+            }
+        }
+        .voting__status__container {
+            flex-direction: column;
+            .voting__status {
+                font-size: 12px;
+            }
+        }
+    }
+    .cta {
+        .cta-container {
+            margin-top: 0px;
+        }
+    }
 }

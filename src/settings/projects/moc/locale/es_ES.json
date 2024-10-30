@@ -501,7 +501,6 @@
             }
         },
         "modal": {
-            "StakingOptions_AvailableToWithdraw": "Listo para hacer Withdraw",
             "options": {
                 "availableToWithdraw": "Ready to Withdraw",
                 "unstaking": "Processing unstake",
@@ -521,8 +520,8 @@
                 "cta": "Authorize"
             },
             "StakingOptionsModal_SetAllowance": "Autorizar Allowance",
-            "StakingOptionsModal_Authorize": "Autorizar",
-            "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
+            "StakingOptionsModal_ReviewYour": "Billetera",
+            "WalletDescription": "Por favor revise su billetera",
             "StakingOptionsModal_Authorize": "Authorize",
             "StakingOptionsModal_AllowanceDescription": "Antes de continuar con el staking deberás permitir el \"allowance\" para que el sistema pueda acceder a los tokens. Esto solo debe hacerse la primera vez y no bloquea ningún token de tu billetera.",
             "StakingOptionsModal_ProccessingAllowance": "Procesando Allowance, por favor espera",
@@ -608,6 +607,7 @@
         "cardTitle": "Vesting Machine",
         "status": {
             "verified": "Vesting Machine verificada",
+            "verifyCTA": "Verificar ahroa!",
             "notVerified": "Esta Vesting Machine aún no fue verificada",
             "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
         },
@@ -625,11 +625,84 @@
             "scheduled": "Programados (bloqueados + liberados)"
         },
         "vestingScheduleColumns": {
-            "date": "Fecha de Liberación",
-            "daysLeft": "Días restantes",
-            "percent": "Porcentaje",
-            "amount": "Cantidad",
-            "status": "Estado"
+            "date": "Release date",
+            "daysLeft": "Days to release",
+            "percent": "Percent",
+            "amount": "Amount",
+            "status": "Status"
+        }
+    },
+    "voting": {
+        "cardTitle": {
+            "section": "Votación",
+            "proposalsList": "Propuestas",
+            "proposalDetails": "Detalle de la Propuesta",
+            "votingStage": "Detalle de la Propuesta",
+            "addNewProposal": "Agregar Nueva Propuesta"
+        },
+        "feedback": {
+            "noProposals": "Parece que no hay propuestas. Envía la tuya seleccionando 'Agregar nueva propuesta'",
+            "stakeRequiered1": "Necesitas un mínimo de",
+            "stakeRequiered2": "tokens para enviar una propuesta. No olvides compartir los detalles en el foro de la comunidad."
+        },
+        "states": {
+            "stateTitle": "Estado Actual:",
+            "proposals": "Propuestas",
+            "prevoting": "Pre-Votación",
+            "voting": "Votación"
+        },
+        "info": {
+            "changeContract": "Cambiar contrato",
+            "searchForum": "Busca esta propuesta en el foro de Gobernanza",
+            "stateAs": "Etapa de Votación al "
+        },
+        "status": {
+            "title": "Estado Actual de la Votación",
+            "openForSubmissions": "• Abierto para enviar propuestas.",
+            "active": "• La votación de la propuesta está actualmente activa.",
+            "firstStageActive": "¡La votación de la primera etapa está activa! ¡Emite tu voto ahora!",
+            "firstStageOver": "• ¡El período de votación de la primera etapa ha finalizado!",
+            "firstStageClosed": "La votación ha terminado—ya sea porque expiró el tiempo o una propuesta ya ha ganado.",
+            "finished": "• ¡El período de votación ha terminado!",
+            "ongoing": "• ¡La votación está en progreso!",
+            "approved": "• La propuesta fue aprobada",
+            "noQuorum": "• ¡No se alcanzó el quórum para esta propuesta!",
+            "rejected": "• ¡La propuesta fue rechazada por votos en contra!"
+        },
+        "balanceGraph": { "against": "En Contra", "inFavor": "A Favor" },
+        "statusGraph": {
+            "castOverCirculation": "Votos emitidos sobre circulación",
+            "votingPower": "tu poder de voto sobre la circulación",
+            "positiveOverCirculation": "votos a favor sobre la circulación para aprobar",
+            "negativeOverCirculation": "votos en contra sobre la circulación para vetar"
+        },
+        "labels": {
+            "proposalChangerContract": "Contrato de Cambio de Propuesta"
+        },
+        "votingOptions": {
+            "against": "Votar en Contra",
+            "inFavor": "Votar a Favor"
+        },
+        "userPower": {
+            "votingPower": "Poder de voto:",
+            "totalMOC": "Total de MOC en circulación:",
+            "totalSupply": "Suministro Total:"
+        },
+        "cta": {
+            "viewProposal": "Ver Propuesta",
+            "infoAdvance": "Por favor, ejecuta el paso para avanzar a la siguiente etapa de votación",
+            "btnPushNextStep": "Avanzar Etapa",
+            "infoApplyChanges": "Por favor, ejecuta el 'paso aceptado' para finalizar y aplicar los cambios en los contratos",
+            "btnApplyChangesToContracts": "Cambiar Contratos",
+            "addNewProposal": "Agregar Nueva Propuesta",
+            "cancel": "Cancelar",
+            "addProposal": "Agregar Propuesta"
+        },
+        "confirmationModal": {
+            "cardTitle": "Confirmar Voto",
+            "changerAddress": "Dirección del Cambio de Propuesta",
+            "votingInFavor": "¡Estás votando a favor!",
+            "votingAgainst": "¡Estás votando en contra!"
         }
     },
     "alert": {

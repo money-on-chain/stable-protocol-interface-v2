@@ -1,4 +1,7 @@
 /* #region RESPONSIVE */
+// Variables
+$breakpoint-mobile: 600px;
+
 @media (max-width: 768px) {
     .mobile-only {
         display: block !important;
@@ -77,12 +80,24 @@
         margin-left: 8px;
         max-width: 100%;
     }
+    .alert {
+        flex-direction: column;
+        .ant-alert-description {
+            line-height: 120%;
+        }
+    }
     .central-menu {
         display: none;
     }
     .layout-card {
         width: 100%;
         max-width: 100%;
+        padding: 16px 12px 16px 12px;
+        .layout-card-title {
+            h1 {
+                font-size: 18px;
+            }
+        }
     }
     .section__innerCard--small {
         padding-right: 8px;
@@ -266,7 +281,7 @@
 
     .thead {
         display: none;
-        background-color: red;
+        // background-color: red;
     }
     .token--mobile {
         background-size: contain;
@@ -435,8 +450,12 @@
     #lastStakingOperations {
         // display: none;
     }
+
+    .sectionStaking {
+    }
     .section__innerCard--big {
         width: 100% !important;
+        padding: 16px 12px 16px 12px !important;
     }
     .card-withdraw {
         padding-left: 0px;
@@ -511,7 +530,7 @@
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: #{$breakpoint-mobile + 1}) {
     .mobile__menu__button {
         display: none;
     }

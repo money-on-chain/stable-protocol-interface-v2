@@ -8,7 +8,6 @@ import Staking from '../../components/Staking';
 import { useProjectTranslation } from '../../helpers/translations';
 import '../../assets/css/pages.scss';
 
-
 function SectionStaking(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -40,36 +39,36 @@ function SectionStaking(props) {
     return (
         <Fragment>
             <div className="section-container">
-                <div className="content-page">
-                    <div className="sectionStaking">
-                        {usingVestingAddress !== '' && (
-                            <div className={'section-layout'}>
-                                <Alert
-                                    className="alert alert-info"
-                                    message={t('vesting.alert.title')}
-                                    description={
-                                        t('vesting.alert.explanation') +
-                                        '. Vesting: ' +
-                                        truncateAddress(usingVestingAddress)
-                                    }
-                                    type="error"
-                                    showIcon
-                                    // closable
-                                    action={
-                                        <Button
-                                            size="small"
-                                            type="custom"
-                                            onClick={onDisplayAccount}
-                                        >
-                                            {t('vesting.alert.cta')}
-                                        </Button>
-                                    }
-                                />
-                            </div>
-                        )}
-                        {ready ? <Staking /> : <Skeleton active />}
-                    </div>
+                {/* <div className="content-page"> */}
+                <div className="sectionStaking">
+                    {usingVestingAddress !== '' && (
+                        <div className={'section-layout'}>
+                            <Alert
+                                className="alert alert-info"
+                                message={t('vesting.alert.title')}
+                                description={
+                                    t('vesting.alert.explanation') +
+                                    '. Vesting: ' +
+                                    truncateAddress(usingVestingAddress)
+                                }
+                                type="error"
+                                showIcon
+                                // closable
+                                action={
+                                    <Button
+                                        size="small"
+                                        type="custom"
+                                        onClick={onDisplayAccount}
+                                    >
+                                        {t('vesting.alert.cta')}
+                                    </Button>
+                                }
+                            />
+                        </div>
+                    )}
+                    {ready ? <Staking /> : <Skeleton active />}
                 </div>
+                {/* </div> */}
             </div>
         </Fragment>
     );

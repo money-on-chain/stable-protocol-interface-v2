@@ -21,24 +21,22 @@ function SectionSend(props) {
     return (
         <Fragment>
             <div className="section-container">
-                <div className="content-page">
-                    {/* Send */}
-                    <div className="layout-card">
-                        <div className={'layout-card-title'}>
-                            <h1>{t('send.cardTitle')}</h1>
-                        </div>
-
-                        <div className={'content-body'}>
-                            {ready ? <Send /> : <Skeleton active />}
-                        </div>
+                {/* <div className="content-page"> */}
+                {/* Send */}
+                <div className="layout-card">
+                    <div className={'layout-card-title'}>
+                        <h1>{t('send.cardTitle')}</h1>
                     </div>
 
-                    <div className="section__innerCard--big content-last-operations">
-                        <ListOperationsMobile
-                            token={'all'}
-                        ></ListOperationsMobile>
+                    <div className={'content-body'}>
+                        {ready ? <Send /> : <Skeleton active />}
                     </div>
                 </div>
+
+                <div className="section__innerCard--big content-last-operations">
+                    <ListOperationsMobile token={'all'}></ListOperationsMobile>
+                </div>
+                {/* </div> */}
             </div>
         </Fragment>
     );

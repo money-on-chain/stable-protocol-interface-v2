@@ -343,10 +343,11 @@ export default function Vesting(props) {
                                 setIsOperationModalVisible(false);
 
                                 // Add vesting address to storage
-                                addVesting(vNewAddress).then((results) => {
-                                }).catch((error) => {
-                                    console.log(error);
-                                });
+                                addVesting(vNewAddress)
+                                    .then((results) => {})
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
                             }
                         });
                     }
@@ -457,8 +458,14 @@ export default function Vesting(props) {
             vestingFromStorage.push(addVestingAddress);
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), vestingFromStorage);
-            saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), addVestingAddress);
+            saveVestingAddressesToLocalStorage(
+                auth.accountData.Wallet.toLowerCase(),
+                vestingFromStorage
+            );
+            saveDefaultVestingToLocalStorage(
+                auth.accountData.Wallet.toLowerCase(),
+                addVestingAddress
+            );
 
             setNewVestingAddress('');
 

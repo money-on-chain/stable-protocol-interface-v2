@@ -6,8 +6,6 @@ import '../../assets/css/pages.scss';
 import Portfolio from '../../components/Dashboards/Portfolio';
 import HomeTabs from '../../components/PortfolioOperationsTabs';
 
-
-
 function Home(props) {
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const auth = useContext(AuthenticateContext);
@@ -44,14 +42,14 @@ function Home(props) {
                 </div>
             ) : (
                 <div className="section-container desktop-only">
-                    <div className="content-page">
-                        <Portfolio />
-                        <div className="content-last-operations">
-                            <ListOperationsMobile
-                                token={'all'}
-                            ></ListOperationsMobile>
-                        </div>
+                    {/* <div className="content-page"> */}
+                    <Portfolio />
+                    <div className="content-last-operations">
+                        <ListOperationsMobile
+                            token={'all'}
+                        ></ListOperationsMobile>
                     </div>
+                    {/* </div> */}
                 </div>
             )}
         </>

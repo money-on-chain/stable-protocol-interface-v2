@@ -22,7 +22,9 @@ const defaultTokenStake = tokenStake()[0];
 const tokenSettingsStake = TokenSettings(defaultTokenStake);
 
 const formatBigNumber = (amount) => {
-    return new BigNumber(fromContractPrecisionDecimals(amount, tokenSettingsStake.decimals));
+    return new BigNumber(
+        fromContractPrecisionDecimals(amount, tokenSettingsStake.decimals)
+    );
 };
 
 export default function Staking(props) {
@@ -31,15 +33,17 @@ export default function Staking(props) {
     const [activeTab, setActiveTab] = useState('tab1');
 
     const defaultUserInfoStaking = {
-        'tgBalance': new BigNumber(0),
-        'stakedBalance': new BigNumber(0),
-        'lockedBalance': new BigNumber(0),
-        'pendingWithdrawals': [],
-        'totalPendingExpiration': new BigNumber(0),
-        'totalAvailableToWithdraw': new BigNumber(0),
-        'lockedInVoting': new BigNumber(0),
-    }
-    const [userInfoStaking, setUserInfoStaking] = useState(defaultUserInfoStaking);
+        tgBalance: new BigNumber(0),
+        stakedBalance: new BigNumber(0),
+        lockedBalance: new BigNumber(0),
+        pendingWithdrawals: [],
+        totalPendingExpiration: new BigNumber(0),
+        totalAvailableToWithdraw: new BigNumber(0),
+        lockedInVoting: new BigNumber(0)
+    };
+    const [userInfoStaking, setUserInfoStaking] = useState(
+        defaultUserInfoStaking
+    );
 
     useEffect(() => {
         if (auth.accountData && auth.userBalanceData) {
@@ -47,25 +51,38 @@ export default function Staking(props) {
         }
     }, [auth]);
 
-
     const refreshBalances = () => {
-
         const cData = { ...userInfoStaking };
-        const nowTimestamp = new BigNumber(Date.now())
-        let pendingWithdrawals = []
+        const nowTimestamp = new BigNumber(Date.now());
+        let pendingWithdrawals = [];
         let vUsing;
         if (auth.isVestingLoaded()) {
-            cData['tgBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.tgBalance)
-            cData['stakedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.balance)
-            cData['lockedBalance'] = formatBigNumber(auth.userBalanceData.vestingmachine.staking.getLockedBalance)
-            pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.vestingmachine.delay)
+            cData['tgBalance'] = formatBigNumber(
+                auth.userBalanceData.vestingmachine.tgBalance
+            );
+            cData['stakedBalance'] = formatBigNumber(
+                auth.userBalanceData.vestingmachine.staking.balance
+            );
+            cData['lockedBalance'] = formatBigNumber(
+                auth.userBalanceData.vestingmachine.staking.getLockedBalance
+            );
+            pendingWithdrawals = pendingWithdrawalsFormat(
+                auth.userBalanceData.vestingmachine.delay
+            );
             vUsing = auth.userBalanceData.vestingmachine.staking;
-
         } else {
-            cData['tgBalance'] = formatBigNumber(auth.userBalanceData.TG.balance)
-            cData['stakedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getBalance)
-            cData['lockedBalance'] = formatBigNumber(auth.userBalanceData.stakingmachine.getLockedBalance)
-            pendingWithdrawals = pendingWithdrawalsFormat(auth.userBalanceData.delaymachine)
+            cData['tgBalance'] = formatBigNumber(
+                auth.userBalanceData.TG.balance
+            );
+            cData['stakedBalance'] = formatBigNumber(
+                auth.userBalanceData.stakingmachine.getBalance
+            );
+            cData['lockedBalance'] = formatBigNumber(
+                auth.userBalanceData.stakingmachine.getLockedBalance
+            );
+            pendingWithdrawals = pendingWithdrawalsFormat(
+                auth.userBalanceData.delaymachine
+            );
             vUsing = auth.userBalanceData.stakingmachine;
         }
 
@@ -74,15 +91,17 @@ export default function Staking(props) {
         );
         const lockedUntilTimestamp = new BigNumber(
             vUsing.getLockingInfo.untilTimestamp
-        ).times(1000)
+        ).times(1000);
 
         if (lockedUntilTimestamp.gt(nowTimestamp)) {
-            cData['lockedInVoting'] = lockedAmount
+            cData['lockedInVoting'] = lockedAmount;
         } else {
-            cData['lockedInVoting'] = new BigNumber(0)
+            cData['lockedInVoting'] = new BigNumber(0);
         }
 
-        cData['unstakeBalance'] = cData['stakedBalance'].minus(cData['lockedInVoting'])
+        cData['unstakeBalance'] = cData['stakedBalance'].minus(
+            cData['lockedInVoting']
+        );
 
         const pendingWithdrawalsFormatted = pendingWithdrawals
             .filter((withdrawal) => withdrawal.expiration)
@@ -113,15 +132,17 @@ export default function Staking(props) {
                 );
             }
         });
-        const pendingWithdrawalsSort = pendingWithdrawalsFormatted.sort(function(a, b) {
-            return b.id.toString() - a.id.toString();
-        });
+        const pendingWithdrawalsSort = pendingWithdrawalsFormatted.sort(
+            function (a, b) {
+                return b.id.toString() - a.id.toString();
+            }
+        );
 
-        cData['pendingWithdrawals'] = pendingWithdrawalsSort
-        cData['totalPendingExpiration'] = pendingExpirationAmount
-        cData['totalAvailableToWithdraw'] = readyToWithdrawAmount
+        cData['pendingWithdrawals'] = pendingWithdrawalsSort;
+        cData['totalPendingExpiration'] = pendingExpirationAmount;
+        cData['totalAvailableToWithdraw'] = readyToWithdrawAmount;
 
-        setUserInfoStaking(cData)
+        setUserInfoStaking(cData);
     };
 
     return (
@@ -188,9 +209,7 @@ export default function Staking(props) {
                         </div>
                         <div className="SecondCardsGroup">
                             <div>
-                                <Withdraw
-                                    userInfoStaking={userInfoStaking}
-                                />
+                                <Withdraw userInfoStaking={userInfoStaking} />
                             </div>
                             {/*<div*/}
                             {/*    id="lastStakingOperations"*/}

@@ -665,7 +665,7 @@
             "voting": "Voting"
         },
         "info": {
-            "changeContract": "Change contract:",
+            "changeContract": "Change contract",
             "searchForum": "Search for this proposal in the Governance forum",
             "stateAs": "Voting Stage as of "
         },

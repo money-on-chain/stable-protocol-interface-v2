@@ -232,7 +232,7 @@ section_send.scss contains all the css code for Send section cards not contained
     }
 
     #vesting-schedudle {
-        height: 550px;
+        min-height: 550px;
         h1 {
             line-height: 0%;
             margin-top: 7px;
@@ -249,49 +249,144 @@ section_send.scss contains all the css code for Send section cards not contained
                 margin-top: 6px;
             }
         }
+        // .ant-table-cell {
+        //     border-bottom: 1px solid var(--dividers);
+        // }
+        // .ant-table-body .ant-table-cell {
+        //     border: none !important;
+        // }
+        // .ant-table {
+        // }
+        // .date-column {
+        //     padding-left: 0px !important;
+        // }
+        // .percent-column {
+        //     padding-left: 0px !important;
+        // }
+        // .amount-column {
+        //     padding-left: 0px !important;
+        // }
+        // .status-column {
+        //     width: 400px !important;
+        //     padding-left: 24px !important;
+        // }
+
+        // .ant-table-header {
+        //     margin-top: 40px;
+        //     margin-bottom: 0px;
+        //     padding-bottom: 12px !important;
+        // }
+        // .ant-table-measure-row {
+        //     line-height: 0px;
+        // }
+        // .ant-table-body {
+        //     margin-top: 0px !important;
+        // }
+
+        // tbody > tr {
+        //     height: 40px;
+        // }
+
+        // .ant-table-tbody {
+        //     margin-top: 0px;
+        //     padding-top: 0px;
+        // }
+        // .ant-table-measure-row {
+        // }
+    }
+}
+
+// table with one row
+
+.renderHeader,
+.renderRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    .releaseDate {
+        width: 210px;
+    }
+    .daysToRelease {
+        width: 150px;
+    }
+    .percentage {
+        width: 90px;
+        text-align: right;
+    }
+    .amount {
+        width: 150px;
+        text-align: right;
+    }
+    .status {
+        // width: auto;
+        text-align: left;
+    }
+}
+.renderHeader {
+    margin-top: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 14px;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .vesting {
+        width: 100%;
+
+        .vesting-content {
+            width: 100%;
+            h2 {
+                width: 100%;
+            }
+        }
+    }
+    #vesting-schedule-table {
+        padding: var(--padding-mobile) !important;
         .ant-table-cell {
-            border-bottom: 1px solid var(--dividers);
+            padding: 0%;
         }
-        .ant-table-body .ant-table-cell {
-            border: none !important;
+    }
+    .renderHeader,
+    .renderRow {
+        width: 100%;
+        line-height: 110%;
+        display: flex;
+        gap: 4px;
+        font-size: 10px;
+        .releaseDate {
+            width: 80px;
         }
-        .ant-table {
+        .daysToRelease {
+            width: 50px;
         }
-        .date-column {
-            padding-left: 0px !important;
+        .percentage {
+            width: 56px;
+            text-align: right;
         }
-        .percent-column {
-            padding-left: 0px !important;
+        .amount {
+            width: 70px;
         }
-        .amount-column {
-            padding-left: 0px !important;
+        .status {
+            width: auto;
+            font-size: 8px;
         }
-        .status-column {
-            width: 400px !important;
-            padding-left: 24px !important;
-        }
-
-        .ant-table-header {
-            margin-top: 40px;
-            margin-bottom: 0px;
-            padding-bottom: 12px !important;
-        }
-        .ant-table-measure-row {
-            line-height: 0px;
-        }
-        .ant-table-body {
-            margin-top: 0px !important;
-        }
-
-        tbody > tr {
-            height: 40px;
-        }
-
-        .ant-table-tbody {
-            margin-top: 0px;
-            padding-top: 0px;
-        }
-        .ant-table-measure-row {
+    }
+    .renderHeader {
+        margin-top: 40px;
+        // font-size: 12px;
+        font-weight: 600;
+        margin-left: 0;
+    }
+    #moc-total {
+        text-align: right;
+        margin-top: 32px;
+        .total-data {
+            font-family: var(--brand-font);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 17px;
+            margin-top: 6px;
         }
     }
 }

@@ -11,6 +11,9 @@
 @import './section_voting.scss';
 @import './module_lastoperations.scss';
 
+// Variables
+$breakpoint-mobile: 600px;
+
 /* #region GENERAL STYLING*/
 * {
     margin: 0;
@@ -287,7 +290,6 @@ h2 {
     // outline: 1px dashed rgb(15, 163, 255);
 }
 .section__innerCard--small {
-    // border: 1px dashed greenyellow;
     width: 576px;
 }
 .section__innerCard--big {
@@ -605,7 +607,21 @@ h2 {
         height: 58px;
         color: var(--notification-permanent-text);
         width: 100%;
+
+        @media (max-width: $breakpoint-mobile) {
+            .vesting {
+                width: 100%;
+
+                .vesting-content {
+                    width: 100%;
+                    h2 {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
+
     .type-temporal {
         background-color: var(--notification-permanent-background);
     }
@@ -684,6 +700,7 @@ h2 {
         color: var(--color-button-primary-text-hover);
     }
 }
+
 .alert-success {
     background-color: var(--color-semantic-positive);
     > .anticon {
@@ -930,6 +947,9 @@ h2 {
     align-items: center;
     gap: 40px;
     width: 318px;
+    @media (max-width: $breakpoint-mobile) {
+        width: 100%;
+    }
 }
 .tokenSelector {
     display: flex;
