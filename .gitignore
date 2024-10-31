@@ -7,9 +7,9 @@ public/*.*
 src/assets/icons
 src/assets/img
 src/assets/css/customization.scss
-logout.scss
-Oval.svg
-pages.scss
+src/assets/css/logout.scss
+src/assets/css/pages.scss
+src/assets/img/Oval.svg
 # settings
 src/settings/locale/en_US.json
 src/settings/locale/es_ES.json
