@@ -509,7 +509,6 @@ export default function Vesting(props) {
                     id="vesting-onboarding"
                     className="layout-card section__innerCard--big page1"
                 >
-                    {' '}
                     <div className="layout-card-title">
                         <h1>{t('vesting.cardTitle')}</h1>
                     </div>
@@ -523,7 +522,7 @@ export default function Vesting(props) {
                                     'vesting.vestingOnboarding.page1.explanation1'
                                 )}
                             </p>
-                            <p>
+                            <p id="vestingOnboardingClaimCodeExplanation">
                                 {t(
                                     'vesting.vestingOnboarding.page1.explanation2'
                                 )}
@@ -538,22 +537,23 @@ export default function Vesting(props) {
                                             'vesting.vestingOnboarding.page1.ctaSecondary'
                                         )}
                                     </button>
-                                    {typeof process.env
-                                        .REACT_APP_CONTRACT_INCENTIVE_V2 !==
-                                        'undefined' && (
-                                        <button
-                                            className="button"
-                                            onClick={onClickUseClaimCode}
-                                        >
-                                            {t(
-                                                'vesting.vestingOnboarding.page1.ctaPrimary'
-                                            )}
-                                        </button>
-                                    )}
-                                </div>{' '}
+
+                                    <button
+                                        id="vestingOnboardingUseClaimCode"
+                                        className="button"
+                                        onClick={onClickUseClaimCode}
+                                    >
+                                        {t(
+                                            'vesting.vestingOnboarding.page1.ctaPrimary'
+                                        )}
+                                    </button>
+                                </div>
                             </div>
 
-                            <div className="pagination">
+                            <div
+                                id="vestingOnboardingPagination"
+                                className="pagination"
+                            >
                                 <div className="page-indicator active"></div>
                                 <div className="page-indicator"></div>
                                 <div className="page-indicator"></div>
