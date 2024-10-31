@@ -29,6 +29,10 @@ $breakpoint-mobile: 600px;
         width: 100%;
         max-width: 100%;
     }
+    .ant-modal-content {
+        padding: var(--card-padding) var(--card-padding-mobile)
+            var(--card-padding) var(--card-padding-mobile) !important;
+    }
     .header-container {
         display: flex;
         flex-direction: row;

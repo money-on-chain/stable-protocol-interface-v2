@@ -79,7 +79,7 @@ h2 {
     font-size: 14px;
 }
 .ant-modal-content {
-    padding: 32px !important;
+    padding: var(--card-padding) !important;
 }
 .ant-modal-header {
     margin-bottom: 32px;
