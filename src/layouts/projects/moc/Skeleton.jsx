@@ -51,8 +51,6 @@ export default function Skeleton() {
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
-                <button onClick={auth.onShowModalAccountVesting}>Show</button>
-
                 {
                     auth.web3Error && (
                         <Alert
