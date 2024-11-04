@@ -37,12 +37,14 @@ export default function Vesting(props) {
     const [validClaimCodeError, setValidClaimCodeError] = useState('');
     const [validCreateVM, setValidCreateVM] = useState(false);
     const [newVestingAddress, setNewVestingAddress] = useState('');
+    const [isHolderVesting, setIsHolderVesting] = useState(false);
 
     useEffect(() => {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
             setStatus('LOADED');
             setUsingVestingAddress(auth.vestingAddress());
             onValidateWithdraw();
+            onCheckIsHolderVesting();
         } else {
             // Reset in case the previous status is Loaded, this occurs when switch off vesting in account
             if (status === 'LOADED') setStatus('STEP_1');
@@ -65,6 +67,10 @@ export default function Vesting(props) {
     };
 
     const onValidateWithdraw = () => {
+        if (!getIsHolderVesting()) {
+            setValidWithdraw(false);
+            return;
+        }
         const availableForWithdraw = new BigNumber(
             auth.userBalanceData.vestingmachine.getAvailable
         );
@@ -78,6 +84,15 @@ export default function Vesting(props) {
             setValidWithdraw(false);
         }
     };
+
+    const getIsHolderVesting = () => {
+        return auth.userBalanceData.vestingmachine.getHolder.toLowerCase() === auth.accountData.Wallet.toLowerCase();
+    }
+
+    const onCheckIsHolderVesting = () => {
+        const isHolder = getIsHolderVesting();
+        setIsHolderVesting(isHolder);
+    }
 
     const vestedAmounts = () => {
         const amounts = {};
@@ -201,7 +216,6 @@ export default function Vesting(props) {
 
         await auth
             .interfaceVestingWithdraw(
-                new BigNumber(1),
                 onTransaction,
                 onReceipt,
                 onError
@@ -255,7 +269,7 @@ export default function Vesting(props) {
     };
 
     const onDisplayAccount = () => {
-        auth.onShowModalAccount();
+        auth.onShowModalAccount(true);
     };
 
     const onValidateIncentiveV2UserBalance = () => {
@@ -888,7 +902,7 @@ export default function Vesting(props) {
                                 <div id="vesting-verification">
                                     {auth.userBalanceData &&
                                         auth.userBalanceData.vestingmachine
-                                            .isVerified && (
+                                            .isVerified && isHolderVesting && (
                                             <div
                                                 className={
                                                     'vesting__verification__status'
@@ -898,9 +912,19 @@ export default function Vesting(props) {
                                                 {t('vesting.status.verified')}
                                             </div>
                                         )}
+                                    {!isHolderVesting && (
+                                            <div
+                                                className={
+                                                    'vesting__verification__status'
+                                                }
+                                            >
+                                                <div className="verification-icon"></div>
+                                                The owner of this vesting machine is not this wallet
+                                            </div>
+                                        )}
                                     {auth.userBalanceData &&
                                         !auth.userBalanceData.vestingmachine
-                                            .isVerified && (
+                                            .isVerified && isHolderVesting && (
                                             <div
                                                 className={
                                                     'vesting__verification__status'

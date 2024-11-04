@@ -142,6 +142,7 @@ const AuthenticateProvider = ({ children }) => {
         truncatedAddress: '0x0000..0000'
     });
     const [showModalAccount, setShowModalAccount] = useState(false);
+    const [vestingOn, setVestingOn] = useState(false);
 
     async function loadCss() {
         let css_logout = await import('../assets/css/logout.scss');
@@ -507,7 +508,8 @@ const AuthenticateProvider = ({ children }) => {
         return filteredEvents;
     };
 
-    const onShowModalAccount = () => {
+    const onShowModalAccount = (vestingOn) => {
+        if (vestingOn) setVestingOn(true);
         setShowModalAccount(true);
     }
 
@@ -659,9 +661,9 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
-    const interfaceVestingWithdraw = async (amount, onTransaction, onReceipt, onError) => {
+    const interfaceVestingWithdraw = async (onTransaction, onReceipt, onError) => {
         const interfaceContext = buildInterfaceContext();
-        return withdraw(interfaceContext, amount, onTransaction, onReceipt, onError);
+        return withdrawAll(interfaceContext, onTransaction, onReceipt, onError);
     };
 
     const interfaceVestingVerify = async (onTransaction, onReceipt, onError) => {
@@ -828,6 +830,7 @@ const AuthenticateProvider = ({ children }) => {
                 show={showModalAccount}
                 onShow={onShowModalAccount}
                 onHide={onHideModalAccount}
+                vestingOn={vestingOn}
             ></ModalAccount>
         </AuthenticateContext.Provider>
     );
