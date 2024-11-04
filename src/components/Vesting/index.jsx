@@ -919,8 +919,9 @@ export default function Vesting(props) {
                                             }
                                         >
                                             <div className="verification-icon--notOwnedWallet"></div>
-                                            The owner of this vesting machine is
-                                            not this wallet
+                                            {t(
+                                                'vesting.status.notFromThisUser'
+                                            )}
                                         </div>
                                     )}
                                     {auth.userBalanceData &&
