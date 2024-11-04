@@ -166,19 +166,33 @@ section_send.scss contains all the css code for Send section cards not contained
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--color-semantic-positive);
-            .vesting__verification__status {
+            .vesting__verification__status--OwnedWallet {
                 display: flex;
                 align-items: center;
                 gap: 8px;
+                color: var(--color-semantic-positive);
             }
-            .verification-icon {
+            .vesting__verification__status--notOwnedWallet {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--color-semantic-negative);
+            }
+            .verification-icon--ownedWallet {
                 width: 16px;
                 height: 16px;
                 background-image: url('../icons/SuccessOutline.svg');
                 background-repeat: none;
                 background-size: cover;
                 filter: var(--filter-semantic-positive);
+            }
+            .verification-icon--notOwnedWallet {
+                width: 16px;
+                height: 16px;
+                background-image: url('../icons/AttentionOutline.svg');
+                background-repeat: none;
+                background-size: cover;
+                filter: var(--filter-semantic-negative);
             }
             .verify__button {
                 margin-left: 16px;
