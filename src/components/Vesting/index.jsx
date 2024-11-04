@@ -86,13 +86,16 @@ export default function Vesting(props) {
     };
 
     const getIsHolderVesting = () => {
-        return auth.userBalanceData.vestingmachine.getHolder.toLowerCase() === auth.accountData.Wallet.toLowerCase();
-    }
+        return (
+            auth.userBalanceData.vestingmachine.getHolder.toLowerCase() ===
+            auth.accountData.Wallet.toLowerCase()
+        );
+    };
 
     const onCheckIsHolderVesting = () => {
         const isHolder = getIsHolderVesting();
         setIsHolderVesting(isHolder);
-    }
+    };
 
     const vestedAmounts = () => {
         const amounts = {};
@@ -215,11 +218,7 @@ export default function Vesting(props) {
         };
 
         await auth
-            .interfaceVestingWithdraw(
-                onTransaction,
-                onReceipt,
-                onError
-            )
+            .interfaceVestingWithdraw(onTransaction, onReceipt, onError)
             .then((res) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((value) => {
@@ -902,29 +901,32 @@ export default function Vesting(props) {
                                 <div id="vesting-verification">
                                     {auth.userBalanceData &&
                                         auth.userBalanceData.vestingmachine
-                                            .isVerified && isHolderVesting && (
+                                            .isVerified &&
+                                        isHolderVesting && (
                                             <div
                                                 className={
-                                                    'vesting__verification__status'
+                                                    'vesting__verification__status--OwnedWallet'
                                                 }
                                             >
-                                                <div className="verification-icon"></div>
+                                                <div className="verification-icon--ownedWallet"></div>
                                                 {t('vesting.status.verified')}
                                             </div>
                                         )}
                                     {!isHolderVesting && (
-                                            <div
-                                                className={
-                                                    'vesting__verification__status'
-                                                }
-                                            >
-                                                <div className="verification-icon"></div>
-                                                The owner of this vesting machine is not this wallet
-                                            </div>
-                                        )}
+                                        <div
+                                            className={
+                                                'vesting__verification__status--notOwnedWallet'
+                                            }
+                                        >
+                                            <div className="verification-icon--notOwnedWallet"></div>
+                                            The owner of this vesting machine is
+                                            not this wallet
+                                        </div>
+                                    )}
                                     {auth.userBalanceData &&
                                         !auth.userBalanceData.vestingmachine
-                                            .isVerified && isHolderVesting && (
+                                            .isVerified &&
+                                        isHolderVesting && (
                                             <div
                                                 className={
                                                     'vesting__verification__status'
