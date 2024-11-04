@@ -269,7 +269,7 @@ export default function Vesting(props) {
     };
 
     const onDisplayAccount = () => {
-        auth.onShowModalAccount(true);
+        auth.onShowModalAccountVesting();
     };
 
     const onValidateIncentiveV2UserBalance = () => {

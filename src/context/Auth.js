@@ -64,6 +64,7 @@ const AuthenticateContext = createContext({
     contractStatusData: null,
     web3: null,
     showModalAccount: false,
+    web3Error: false,
     connect: () => {},
     interfaceAllowanceAmount: async (
         currencyYouExchange,
@@ -123,8 +124,8 @@ const AuthenticateContext = createContext({
     interfaceVotingAcceptedStep: async (onTransaction, onReceipt, onError) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
-    // OMOC Voting
-    onShowModalAccount: () => {}
+    onShowModalAccount: () => {},
+    onShowModalAccountVesting: () => {}
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -143,6 +144,7 @@ const AuthenticateProvider = ({ children }) => {
     });
     const [showModalAccount, setShowModalAccount] = useState(false);
     const [vestingOn, setVestingOn] = useState(false);
+    const [web3Error, setWeb3Error] = useState(false);
 
     async function loadCss() {
         let css_logout = await import('../assets/css/logout.scss');
@@ -368,8 +370,22 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const initContractsConnection = async () => {
-        window.dContracts = await readContracts(web3);
-        await loadContractsStatusAndUserBalance();
+
+        let error = false;
+
+        try {
+            window.dContracts = await readContracts(web3);
+        } catch (e) {
+            console.error(e);
+            error = true;
+        }
+
+        if (!error) {
+            await loadContractsStatusAndUserBalance();
+        } else {
+            setWeb3Error(true);
+        }
+
     };
 
     const loadContractsStatusAndUserBalance = async () => {
@@ -377,19 +393,39 @@ const AuthenticateProvider = ({ children }) => {
 
         // Read info from different contract
         // in one call through Multicall
-        const dataContractStatus = await contractStatus(
-            web3,
-            window.dContracts
-        );
 
-        const accountBalance = await userBalance(
-            web3,
-            window.dContracts,
-            account
-        );
+        let error = false;
+        let dataContractStatus
+        let accountBalance
 
-        setContractStatusData(dataContractStatus);
-        setUserBalanceData(accountBalance);
+        try {
+            dataContractStatus = await contractStatus(
+                web3,
+                window.dContracts
+            );
+        } catch (e) {
+            console.error(e);
+            error = true;
+        }
+
+        try {
+            accountBalance = await userBalance(
+                web3,
+                window.dContracts,
+                account
+            );
+        } catch (e) {
+            console.error(e);
+            error = true;
+        }
+
+        if (!error) {
+            setContractStatusData(dataContractStatus);
+            setUserBalanceData(accountBalance);
+        } else {
+            setWeb3Error(true);
+        }
+
     };
 
     const loadAccountData = async () => {
@@ -508,8 +544,12 @@ const AuthenticateProvider = ({ children }) => {
         return filteredEvents;
     };
 
-    const onShowModalAccount = (vestingOn) => {
-        if (vestingOn) setVestingOn(true);
+    const onShowModalAccount = () => {
+        setShowModalAccount(true);
+    }
+
+    const onShowModalAccountVesting = () => {
+        setVestingOn(true);
         setShowModalAccount(true);
     }
 
@@ -791,6 +831,7 @@ const AuthenticateProvider = ({ children }) => {
                 contractStatusData,
                 isLoggedIn,
                 web3,
+                web3Error,
                 showModalAccount,
                 connect,
                 disconnect,
@@ -816,6 +857,7 @@ const AuthenticateProvider = ({ children }) => {
                 interfaceVestingVerify,
                 interfaceIncentiveV2Claim,
                 onShowModalAccount,
+                onShowModalAccountVesting,
                 interfaceVotingPreVote,
                 interfaceVotingVote,
                 interfaceVotingPreVoteStep,
@@ -831,6 +873,7 @@ const AuthenticateProvider = ({ children }) => {
                 onShow={onShowModalAccount}
                 onHide={onHideModalAccount}
                 vestingOn={vestingOn}
+                setVestingOn={setVestingOn}
             ></ModalAccount>
         </AuthenticateContext.Provider>
     );

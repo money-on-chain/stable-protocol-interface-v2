@@ -22,6 +22,11 @@ const saveDefaultVestingToLocalStorage = (accountAddress, vAddress) => {
     localStorage.setItem(`default-vesting-address-${accountAddress.toLowerCase()}`, vAddress);
 };
 
+const loadDefaultVestingFromLocalStorage = (accountAddress) => {
+    // Save as the default vesting also
+    return localStorage.getItem(`default-vesting-address-${accountAddress.toLowerCase()}`);
+};
+
 const loadVesting = async (auth, vAddress) => {
 
     let loaded = false;
@@ -80,5 +85,6 @@ export {
     saveVestingAddressesToLocalStorage,
     saveDefaultVestingToLocalStorage,
     loadVesting,
-    onValidateVestingAddress
+    onValidateVestingAddress,
+    loadDefaultVestingFromLocalStorage
 };
