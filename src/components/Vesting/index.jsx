@@ -18,6 +18,7 @@ import {
 import './Styles.scss';
 
 const { TextArea } = Input;
+const space = '\u00A0';
 
 export default function Vesting(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -480,9 +481,16 @@ export default function Vesting(props) {
                     className="alert alert-info"
                     message={t('vesting.alert.title')}
                     description={
-                        t('vesting.alert.explanation') +
-                        '. Vesting: ' +
-                        truncateAddress(usingVestingAddress)
+                        <div>
+                            <div className="address desktop-only">
+                                Using VM:{space} {usingVestingAddress}
+                            </div>
+                            <div className="address mobile-only">
+                                Using VM:{space}
+                                {truncateAddress(usingVestingAddress)}
+                            </div>
+                            <div>{t('vesting.alert.explanation')}</div>
+                        </div>
                     }
                     type="error"
                     showIcon

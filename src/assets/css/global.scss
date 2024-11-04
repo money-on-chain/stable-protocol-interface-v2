@@ -658,6 +658,7 @@ h2 {
         top: 8px;
         right: 8px;
     }
+
     // .anticon {
     //     filter: var(--notification-permanent-filter);
     //     margin-right: 16px;
@@ -698,6 +699,10 @@ h2 {
         background-color: transparent;
         border: none;
         color: var(--color-button-primary-text-hover);
+    }
+    .address {
+        font-weight: 600;
+        margin-bottom: 16px;
     }
 }
 
