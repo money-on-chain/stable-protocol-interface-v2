@@ -6,6 +6,8 @@ import 'antd/dist/antd.css';
 import { AuthenticateContext } from '../../context/Auth';
 import Staking from '../../components/Staking';
 import { useProjectTranslation } from '../../helpers/translations';
+import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
+
 import '../../assets/css/pages.scss';
 
 function SectionStaking(props) {
@@ -42,29 +44,30 @@ function SectionStaking(props) {
                 {/* <div className="content-page"> */}
                 <div className="sectionStaking">
                     {usingVestingAddress !== '' && (
-                        <div className={'section-layout'}>
-                            <Alert
-                                className="alert alert-info"
-                                message={t('vesting.alert.title')}
-                                description={
-                                    t('vesting.alert.explanation') +
-                                    '. Vesting: ' +
-                                    truncateAddress(usingVestingAddress)
-                                }
-                                type="error"
-                                showIcon
-                                // closable
-                                action={
-                                    <Button
-                                        size="small"
-                                        type="custom"
-                                        onClick={onDisplayAccount}
-                                    >
-                                        {t('vesting.alert.cta')}
-                                    </Button>
-                                }
-                            />
-                        </div>
+                        // <div className={'section-layout'}>
+                        //     <Alert
+                        //         className="alert alert-info"
+                        //         message={t('vesting.alert.title')}
+                        //         description={
+                        //             t('vesting.alert.explanation') +
+                        //             '. Vesting: ' +
+                        //             truncateAddress(usingVestingAddress)
+                        //         }
+                        //         type="error"
+                        //         showIcon
+                        //         // closable
+                        //         action={
+                        //             <Button
+                        //                 size="small"
+                        //                 type="custom"
+                        //                 onClick={onDisplayAccount}
+                        //             >
+                        //                 {t('vesting.alert.cta')}
+                        //             </Button>
+                        //         }
+                        //     />
+                        // </div>
+                        <UseVestingAlert address={usingVestingAddress} />
                     )}
                     {ready ? <Staking /> : <Skeleton active />}
                 </div>

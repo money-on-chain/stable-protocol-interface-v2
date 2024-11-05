@@ -6,6 +6,8 @@ import 'antd/dist/antd.css';
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 import Voting from '../../components/Voting';
+import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
+
 import '../../assets/css/pages.scss';
 
 function SectionVoting(props) {
@@ -41,8 +43,8 @@ function SectionVoting(props) {
         <Fragment>
             {/* <div className="section-container"> */}
             {usingVestingAddress !== '' && (
-                <div className={'section-layout'}>
-                    <Alert
+                <div className={'content-page'}>
+                    {/* <Alert
                         className="alert alert-info"
                         message={t('vesting.alert.title')}
                         description={
@@ -62,10 +64,11 @@ function SectionVoting(props) {
                                 {t('vesting.alert.cta')}
                             </Button>
                         }
-                    />
+                    /> */}
                 </div>
             )}
-            <div className="content-page">
+            <div className="section-container">
+                <UseVestingAlert address={usingVestingAddress} />
                 {ready ? <Voting /> : <Skeleton active />}
             </div>
             {/* </div> */}

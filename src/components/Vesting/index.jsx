@@ -8,6 +8,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import BigNumber from 'bignumber.js';
 import { formatTimestamp } from '../../helpers/staking';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import UseVestingAlert from '../Notification/UsingVestingAlert';
 import {
     loadVesting,
     loadVestingAddressesFromLocalStorage,
@@ -489,7 +490,7 @@ export default function Vesting(props) {
 
     return (
         <div className="section vesting">
-            {status === 'LOADED' && (
+            {/* {status === 'LOADED' && (
                 <Alert
                     className="alert alert-info"
                     message={t('vesting.alert.title')}
@@ -518,8 +519,11 @@ export default function Vesting(props) {
                         </Button>
                     }
                 />
-            )}
+            )} */}
 
+            {status === 'LOADED' && (
+                <UseVestingAlert address={usingVestingAddress} />
+            )}
             {/*
 
              VESTING ONBOARDING PAGE 1
