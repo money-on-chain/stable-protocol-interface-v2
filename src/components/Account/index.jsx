@@ -7,7 +7,8 @@ import { AuthenticateContext } from '../../context/Auth';
 import { loadVestingAddressesFromLocalStorage,
     saveVestingAddressesToLocalStorage,
     saveDefaultVestingToLocalStorage,
-    loadVesting } from '../../helpers/vesting'
+    loadVesting,
+    loadDefaultVestingFromLocalStorage } from '../../helpers/vesting'
 
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 import { withSuccess } from 'antd/lib/modal/confirm';
@@ -27,12 +28,11 @@ function removeAllItem(arr, value) {
 }
 
 export default function AccountDialog(props) {
-    const { onCloseModal, truncatedAddress, vestingOn } = props;
+    const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [qrValue, setQrValue] = useState(null);
-    const [showVesting, setShowVesting] = useState(vestingOn);
     const [actionVesting, setActionVesting] = useState('select');
     const [addVestingAddress, setAddVestingAddress] = useState('');
     const [addVestingAddressError, setAddVestingAddressError] = useState(false);
@@ -40,9 +40,10 @@ export default function AccountDialog(props) {
         useState('');
 
     const defaultVestingAddresses = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
-    let defaultVestingAddress = null;
-    // Select the first one from the list of vesting
-    if (defaultVestingAddresses)
+    let defaultVestingAddress = loadDefaultVestingFromLocalStorage(auth.accountData.Wallet);
+    //let defaultVestingAddress = null;
+    // Select the first one from the list of vesting if not default vesting address
+    if (defaultVestingAddresses && !defaultVestingAddress)
         defaultVestingAddress = defaultVestingAddresses[0];
 
     const [vestingAddresses, setVestingAddresses] = useState(
@@ -51,6 +52,9 @@ export default function AccountDialog(props) {
     const [vestingAddressDefault, setVestingAddressDefault] = useState(
         defaultVestingAddress
     );
+
+    useEffect(() => {
+    }, [vestingOn]);
 
     useEffect(() => {
         const url =
@@ -203,7 +207,7 @@ export default function AccountDialog(props) {
     };
 
     const onChangeShowVesting = (checked) => {
-        setShowVesting(checked);
+        setVestingOn(checked);
 
         if (checked) {
             if (vestingAddressDefault) {
@@ -275,12 +279,12 @@ export default function AccountDialog(props) {
 
             <div className="switch switch__vesting">
                 <Switch
-                    checked={showVesting}
+                    checked={vestingOn}
                     onChange={onChangeShowVesting}
                 />
                 <p>{t('wallet.useVesting')}</p>
             </div>
-            {showVesting && actionVesting === 'select' && (
+            {vestingOn && actionVesting === 'select' && (
                 <div className="wallet__vesting__options">
                     <div className="wallet__vesting__address__label">
                         {t('wallet.inputLabel')}
@@ -328,7 +332,7 @@ export default function AccountDialog(props) {
                     </div>
                 </div>
             )}
-            {showVesting && actionVesting === 'add' && (
+            {vestingOn && actionVesting === 'add' && (
                 <div className="wallet__vesting__options">
                     <div className=".wallet__vesting__address__label">
                         Add Vesting

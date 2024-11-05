@@ -5,7 +5,7 @@ import { useProjectTranslation } from '../../../helpers/translations';
 import Account from '../../Account';
 
 export default function ModalAccount(props) {
-    const { truncatedAddress, show, onShow, onHide, vestingOn } = props;
+    const { truncatedAddress, show, onShow, onHide, vestingOn, setVestingOn } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
 
@@ -23,7 +23,7 @@ export default function ModalAccount(props) {
                     centered={true}
                     maskStyle={{  }}
                 >
-                    <Account {...props} onCloseModal={onHide} truncatedAddress={truncatedAddress} vestingOn={vestingOn} />
+                    <Account {...props} onCloseModal={onHide} truncatedAddress={truncatedAddress} vestingOn={vestingOn} setVestingOn={setVestingOn} />
                 </Modal>
             </div>
             <i className="logo-wallet" onClick={onShow}></i>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Alert, Layout } from 'antd';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -50,7 +50,28 @@ export default function Skeleton() {
                 {/* <div className="content-page"> */}
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
-                <Outlet />
+
+                {
+                    auth.web3Error && (
+                        <Alert
+                            className="alert alert-error"
+                            message="Web3 connection Error!"
+                            description={
+                                <div>There is a problem connecting to the blockchain, please review the internet connection.</div>
+                            }
+                            type="error"
+                            showIcon
+                            // closable
+                        />
+                    )
+                }
+
+                {
+                    !auth.web3Error && (
+                        <Outlet />
+                    )
+                }
+
                 {/* </div> */}
                 {/* </div> */}
             </Content>
