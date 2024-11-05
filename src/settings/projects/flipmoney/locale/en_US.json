@@ -628,7 +628,8 @@
         "alert": {
             "title": "Using Vesting Adress",
             "explanation": "To use your regular wallet turn of 'Use Vesting Address' in the wallet settings",
-            "cta": "Go to wallet settings"
+            "cta": "Go to wallet settings",
+            "address": "Using VM:"
         },
         "cardTitle": "Vesting Machine",
         "status": {

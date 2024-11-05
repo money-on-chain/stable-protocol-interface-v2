@@ -21,11 +21,9 @@ section_performance.scss contains all the css code for Performance section cards
         display: flex;
         flex-direction: row;
         gap: 15px;
-        @media (max-width: 768px) {
-            flex-direction: column-reverse;
-            width: 100%;
-        }
+
         .coll-1 {
+            width: 50%;
             .stat-text {
                 color: var(--color-text-primary);
                 font-style: normal;
@@ -47,6 +45,7 @@ section_performance.scss contains all the css code for Performance section cards
         }
 
         .coll-2 {
+            width: 50%;
             border-left: 1px solid var(--dividers);
             padding-left: 20px;
             @media (max-width: 768px) {
@@ -80,7 +79,20 @@ section_performance.scss contains all the css code for Performance section cards
             }
         }
     }
+    @media (max-width: 768px) {
+        height: auto;
+        .card-content {
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+            .coll-1,
+            .coll-2 {
+                width: 100%;
+            }
+        }
+    }
 }
+
 .dash__perfTVL {
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);

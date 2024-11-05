@@ -42,33 +42,12 @@ function SectionVoting(props) {
     return (
         <Fragment>
             {/* <div className="section-container"> */}
-            {usingVestingAddress !== '' && (
-                <div className={'content-page'}>
-                    {/* <Alert
-                        className="alert alert-info"
-                        message={t('vesting.alert.title')}
-                        description={
-                            t('vesting.alert.explanation') +
-                            '. Vesting: ' +
-                            truncateAddress(usingVestingAddress)
-                        }
-                        type="error"
-                        showIcon
-                        // closable
-                        action={
-                            <Button
-                                size="small"
-                                type="custom"
-                                onClick={onDisplayAccount}
-                            >
-                                {t('vesting.alert.cta')}
-                            </Button>
-                        }
-                    /> */}
-                </div>
-            )}
             <div className="section-container">
-                <UseVestingAlert address={usingVestingAddress} />
+                {usingVestingAddress !== '' && (
+                    <div className={'content-page'}>
+                        {<UseVestingAlert address={usingVestingAddress} />}
+                    </div>
+                )}
                 {ready ? <Voting /> : <Skeleton active />}
             </div>
             {/* </div> */}

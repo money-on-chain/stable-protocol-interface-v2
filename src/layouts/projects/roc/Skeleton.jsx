@@ -14,6 +14,7 @@ import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
+import W3ErrorAlert from '../../../components/Notification/W3ErrorAlert';
 
 const { Content, Footer } = Layout;
 
@@ -67,26 +68,21 @@ export default function Skeleton() {
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
-                {
-                    auth.web3Error && (
-                        <Alert
-                            className="alert alert-error"
-                            message="Web3 connection Error!"
-                            description={
-                                <div>There is a problem connecting to the blockchain, please review the internet connection.</div>
-                            }
-                            type="error"
-                            showIcon
-                            // closable
-                        />
-                    )
-                }
+                {auth.web3Error && (
+                    <W3ErrorAlert />
+                    // <Alert
+                    //     className="alert alert-error"
+                    //     message="Web3 connection Error!"
+                    //     description={
+                    //         <div>There is a problem connecting to the blockchain, please review the internet connection.</div>
+                    //     }
+                    //     type="error"
+                    //     showIcon
+                    //     // closable
+                    // />
+                )}
 
-                {
-                    !auth.web3Error && (
-                        <Outlet />
-                    )
-                }
+                {!auth.web3Error && <Outlet />}
 
                 {/* </div> */}
                 {/* </div> */}
