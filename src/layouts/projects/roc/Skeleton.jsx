@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Alert, Layout } from 'antd';
+import { Layout } from 'antd';
 import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 
@@ -8,9 +8,6 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
 import ModalTokenMigration from '../../../components/TokenMigration/Modal';
-
-// import '../../../assets/css/global.scss';
-
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
@@ -61,31 +58,15 @@ export default function Skeleton() {
         <Layout>
             <SectionHeader />
             <Content>
-                {/* <div className="section-container"> */}
-                {/* Content page*/}
-                {/* <div className="content-page"> */}
                 {canSwap && <ModalTokenMigration />}
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
                 {auth.web3Error && (
                     <W3ErrorAlert />
-                    // <Alert
-                    //     className="alert alert-error"
-                    //     message="Web3 connection Error!"
-                    //     description={
-                    //         <div>There is a problem connecting to the blockchain, please review the internet connection.</div>
-                    //     }
-                    //     type="error"
-                    //     showIcon
-                    //     // closable
-                    // />
                 )}
 
-                {!auth.web3Error && <Outlet />}
-
-                {/* </div> */}
-                {/* </div> */}
+                {(!auth.web3Error && auth.isLoggedIn) && <Outlet />}
             </Content>
             <Footer>
                 <div className="footer-container">
