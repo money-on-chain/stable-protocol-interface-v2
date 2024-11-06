@@ -407,8 +407,8 @@
     --color-button-primary-filter-hover: invert(100%) sepia(29%) saturate(392%)
         hue-rotate(175deg) brightness(109%) contrast(102%);
 
-    --color-button-primary-background-active: #f3ebeb;
-    --color-button-primary-text-active: #0c0c08;
+    --color-button-primary-background-active: #5dc9bc;
+    --color-button-primary-text-active: #e4e4e4;
 
     --color-button-primary-background-disabled: #26272f;
     --color-button-primary-text-disabled: #3f414a;
@@ -591,9 +591,9 @@
     --rlogin-content-border-color: #212128;
     --rlogin-content-text-color: var(--color-text-primary);
     --rlogin-provider-background-color: #3e424a;
-    --rlogin-provider-border-color: #4b5cf0;
+    --rlogin-provider-border-color: #5dc9bc;
     --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
-    --rlogin-spinner-color: #4b5cf0;
+    --rlogin-spinner-color: #5dc9bc;
 
     --rlogin-border-radius: 0px;
     --rlogin-poweredby-color: white;

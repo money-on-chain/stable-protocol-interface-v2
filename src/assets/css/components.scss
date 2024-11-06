@@ -42,15 +42,13 @@ html {
     .rlogin-provider-container {
         box-shadow: var(--rlogin-provider-border-shadow);
         background-color: var(--rlogin-provider-background-color) !important;
-
-        // Providers name
-        .rlogin-header3 {
-            color: var(--rlogin-content-text-color) !important;
-            font-weight: 600 !important;
-            font-family: var(--main-font) !important;
-        }
     }
 
+    .rlogin-header3 {
+        color: var(--rlogin-content-text-color) !important;
+        font-weight: 600 !important;
+        font-family: var(--main-font) !important;
+    }
     // display none to avoid an extra gap when div is empty
     // ONLY if there is NO custodial wallet support
     .rlogin-providers-custodial {
@@ -115,8 +113,8 @@ html {
         background-color: var(
             --color-button-primary-background-default
         ) !important;
-        width: var(--button-width);
-        height: var(--button-height);
+        // width: var(--button-width);
+        // height: var(--button-height);
         color: var(--color-button-primary-text-default);
         font-weight: 700;
         font-size: 18px;
@@ -141,6 +139,45 @@ html {
     .cancel {
         box-shadow: var(--color-button-secondary-background-default-shadow);
         border: 2px solid var(--color-button-secondary-text-default);
+        background-color: var(
+            --color-button-secondary-background-default
+        ) !important;
+        color: var(--color-button-secondary-text-default);
+    }
+
+    .kRsGLN {
+        // Wallet list row active/hover
+        background-color: var(
+            --color-button-primary-background-active
+        ) !important;
+        color: var(--color-button-primary-text-active);
+    }
+    .PSDUo:hover {
+        // Wallet list row hover (different class than active)
+
+        background-color: var(
+            --color-button-primary-background-hover
+        ) !important;
+        color: var(--color-button-primary-text-active) !important;
+    }
+    .jfpzdm {
+        // Wallet list pagination buttons
+        margin-right: 8px;
+        margin-left: 8px;
+        padding: 2px 32px;
+        border: 2px solid var(--color-button-secondary-text-default);
+        border-color: var(--color-button-secondary-text-default) !important;
+        background-color: var(
+            --color-button-secondary-background-default
+        ) !important;
+        color: var(--color-button-secondary-text-default);
+    }
+    .jfpzdm:hover {
+        // Wallet list pagination buttons
+        margin-right: 8px;
+        margin-left: 8px;
+        border: 2px solid var(--color-button-secondary-text-default);
+        border-color: var(--color-button-secondary-text-default) !important;
         background-color: var(
             --color-button-secondary-background-default
         ) !important;
