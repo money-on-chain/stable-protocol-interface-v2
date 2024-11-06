@@ -186,7 +186,7 @@ const AuthenticateProvider = ({ children }) => {
             if (account) {
                 loadContractsStatusAndUserBalance();
             }
-        }, 30000);
+        }, process.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
         return () => clearInterval(interval);
     }, [account]);
 
