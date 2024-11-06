@@ -41,6 +41,7 @@ export default function AccountDialog(props) {
 
     const defaultVestingAddresses = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
     let defaultVestingAddress = loadDefaultVestingFromLocalStorage(auth.accountData.Wallet);
+
     //let defaultVestingAddress = null;
     // Select the first one from the list of vesting if not default vesting address
     if (defaultVestingAddresses && !defaultVestingAddress)
@@ -213,6 +214,7 @@ export default function AccountDialog(props) {
         if (vestingAddressDefault === selectAddress) return false;
         const isLoaded = loadVesting(auth, selectAddress);
         setVestingAddressDefault(selectAddress);
+        saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), selectAddress);
 
         return isLoaded;
     };
