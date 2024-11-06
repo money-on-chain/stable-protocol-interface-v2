@@ -54,6 +54,7 @@ export default function AccountDialog(props) {
     );
 
     useEffect(() => {
+        onVestingOn()
     }, [vestingOn]);
 
     useEffect(() => {
@@ -76,15 +77,25 @@ export default function AccountDialog(props) {
     const onCopy = (e) => {
         e.stopPropagation();
         navigator.clipboard.writeText(address);
+        showNotificationCopiedAddress(address);
+    };
+
+    const onCopyVesting = (e) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(vestingAddressDefault);
+        showNotificationCopiedAddress(vestingAddressDefault);
+    };
+
+    const showNotificationCopiedAddress = (copiedAddress) => {
         notification.open({
             className: 'notification type-temporal',
             message: t('feedback.clipboardCopy'),
-            description: `${address} ` + t('feedback.clipboardTo'),
+            description: `${copiedAddress} ` + t('feedback.clipboardTo'),
             placement: 'topRight',
-            duration: 2,
+            duration: 4,
             pauseOnHover: true
         });
-    };
+    }
 
     const onChangeInputVestingAddress = (e) => {
         setAddVestingAddress(e.target.value.toLowerCase());
@@ -206,14 +217,17 @@ export default function AccountDialog(props) {
         return isLoaded;
     };
 
-    const onChangeShowVesting = (checked) => {
-        setVestingOn(checked);
+    const onVestingOn = () => {
 
-        if (checked) {
+        let isLoaded = false;
+        if (vestingOn && window.dContracts.contracts.VestingMachine === undefined) {
+            console.log("Vesting Switch: ON")
+            // switch On Vesting
             if (vestingAddressDefault) {
-                const isLoaded = loadVesting(auth, vestingAddressDefault);
+                isLoaded = loadVesting(auth, vestingAddressDefault);
             }
-        } else {
+        } else if (!vestingOn && window.dContracts.contracts.VestingMachine !== undefined) {
+            console.log("Vesting Switch: OFF")
             // Disable using vesting machine
             window.dContracts.contracts.VestingMachine = undefined;
             auth.userBalanceData.vestingmachine = undefined;
@@ -225,6 +239,12 @@ export default function AccountDialog(props) {
                 }
             );
         }
+
+        return isLoaded;
+    }
+
+    const onChangeShowVesting = (checked) => {
+        setVestingOn(checked);
     };
 
     return (
@@ -308,7 +328,7 @@ export default function AccountDialog(props) {
                             className="address__copy__button"
                             onClick={onCopy}
                         > */}
-                        <div className="icon-copy" onClick={onCopy}></div>
+                        <div className="icon-copy" onClick={onCopyVesting}></div>
                         {/* </Button> */}
                     </div>
                     <div className="wallet__vesting__options__cta">
