@@ -17,6 +17,21 @@ $breakpoint-mobile: 600px;
     .icon {
         margin-top: 10px;
     }
+    .ShowTokenMigration {
+        margin-top: 24px;
+        .NotificationMigration {
+            height: auto;
+            flex-direction: column;
+            .Information {
+                width: 100%;
+                text-align: justify;
+            }
+            .cta-options-group {
+                margin-top: 16px;
+                width: 100%;
+            }
+        }
+    }
     .ant-layout-header {
         position: sticky;
         top: 0;

@@ -51,7 +51,6 @@ export default function Skeleton() {
             setCanSwap(true);
         } else {
             setCanSwap(false);
-        }
     };
 
     return (
@@ -62,11 +61,9 @@ export default function Skeleton() {
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
-                {auth.web3Error && (
-                    <W3ErrorAlert />
-                )}
+                {auth.web3Error && <W3ErrorAlert />}
 
-                {(!auth.web3Error && auth.isLoggedIn) && <Outlet />}
+                {!auth.web3Error && auth.isLoggedIn && <Outlet />}
             </Content>
             <Footer>
                 <div className="footer-container">
