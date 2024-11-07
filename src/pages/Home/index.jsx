@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
-import ListOperations from '../../components/Tables/ListOperations';
 import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 import { AuthenticateContext } from '../../context/Auth';
-import '../../assets/css/pages.scss';
 import Portfolio from '../../components/Dashboards/Portfolio';
 import HomeTabs from '../../components/PortfolioOperationsTabs';
 
@@ -42,14 +40,12 @@ function Home(props) {
                 </div>
             ) : (
                 <div className="section-container desktop-only">
-                    {/* <div className="content-page"> */}
                     <Portfolio />
                     <div className="content-last-operations">
                         <ListOperationsMobile
                             token={'all'}
                         ></ListOperationsMobile>
                     </div>
-                    {/* </div> */}
                 </div>
             )}
         </>

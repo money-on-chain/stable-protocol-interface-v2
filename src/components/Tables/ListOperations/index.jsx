@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css';
 import { Table, Skeleton, Modal } from 'antd';
 import classnames from 'classnames';
 import Moment from 'react-moment';

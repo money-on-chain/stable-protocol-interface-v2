@@ -1,14 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { Alert, Button, Skeleton } from 'antd';
-import 'antd/dist/antd.css';
+import { Skeleton } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 import Voting from '../../components/Voting';
 import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
 
-import '../../assets/css/pages.scss';
 
 function SectionVoting(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -27,21 +25,9 @@ function SectionVoting(props) {
         }
     }, [auth]);
 
-    const truncateAddress = (address) => {
-        return (
-            address.substring(0, 6) +
-            '...' +
-            address.substring(address.length - 4, address.length)
-        );
-    };
-
-    const onDisplayAccount = () => {
-        auth.onShowModalAccount();
-    };
 
     return (
         <Fragment>
-            {/* <div className="section-container"> */}
             <div className="section-container">
                 {usingVestingAddress !== '' && (
                     <div className={'content-page'}>
@@ -50,7 +36,6 @@ function SectionVoting(props) {
                 )}
                 {ready ? <Voting /> : <Skeleton active />}
             </div>
-            {/* </div> */}
         </Fragment>
     );
 }

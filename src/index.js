@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
+
+import 'antd/dist/antd.css';
 import './index.css';
 import './assets/css/customization.scss';
-// import './assets/css/global.scss';
 import './assets/css/components.scss';
 import './assets/css/navigation.scss';
+import './assets/css/global.scss';
+import './assets/css/responsive.scss';
+
 
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
 
-import useTheme from './components/UseTheme';
-
-// import IconWaiting from './assets/icons/status-pending.png';
 import IconLoading from './assets/icons/LoaderAnim.svg';
 import Router from './router';
 
