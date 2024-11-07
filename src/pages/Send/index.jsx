@@ -1,12 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { Skeleton } from 'antd';
+
 import { AuthenticateContext } from '../../context/Auth';
-import ListOperations from '../../components/Tables/ListOperations';
+import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 import { useProjectTranslation } from '../../helpers/translations';
 import Send from '../../components/Send';
-
-import '../../assets/css/pages.scss';
 
 
 function SectionSend(props) {
@@ -17,28 +16,25 @@ function SectionSend(props) {
         if (auth) {
             setReady(true);
         }
-    }, [auth])
+    }, [auth]);
     return (
         <Fragment>
+            <div className="section-container">
+                {/* Send */}
+                <div className="layout-card">
+                    <div className={'layout-card-title'}>
+                        <h1>{t('send.cardTitle')}</h1>
+                    </div>
 
-            {/* Send */}
-            <div className='dashboard-exchange'>
-
-                <div className={'title'}>
-                    <h1>{t('send.cardTitle')}</h1>
+                    <div className={'content-body'}>
+                        {ready ? <Send /> : <Skeleton active />}
+                    </div>
                 </div>
 
-                <div className={'content-body'}>
-                    {ready ? <Send /> : <Skeleton active />}
+                <div className="section__innerCard--big content-last-operations">
+                    <ListOperationsMobile token={'all'}></ListOperationsMobile>
                 </div>
-
             </div>
-
-            <div className="content-last-operations">
-                <ListOperations token={'all'}></ListOperations>
-            </div> 
-
-
         </Fragment>
     );
 }

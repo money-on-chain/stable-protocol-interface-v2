@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Table } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { Skeleton, Table } from 'antd';
 import BigNumber from 'bignumber.js';
 
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -13,6 +13,12 @@ import { ConvertPeggedTokenPrice } from '../../../helpers/currencies';
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        if (auth.contractStatusData) {
+            setReady(true);
+        }
+    }, [auth]);
 
     const tokensData = [];
     const columnsData = [];
@@ -86,14 +92,14 @@ export default function Tokens(props) {
             tokensData.push({
                 key: dataItem.key,
                 name: (
-                    <div className="item-token">
-                        <i className={`icon-token-tp_${dataItem.key}`}></i>{' '}
-                        <span className="token-description">
+                    <div className="token">
+                        <div className={`icon-token-tp_${dataItem.key} token__icon`}></div>
+                        <span className="token__name">
                             {t(`portfolio.tokens.TP.rows.${dataItem.key}.title`, {
                                 ns: ns
                             })}
                         </span>
-                        <span className="token-symbol">
+                        <span className="token__ticker">
                         {t(`portfolio.tokens.TP.rows.${dataItem.key}.symbol`, {
                             ns: ns
                         })}
@@ -154,11 +160,11 @@ export default function Tokens(props) {
         });
 
     return (
-        <Table
+        ready ? <Table
             columns={columnsData}
             dataSource={tokensData}
             pagination={false}
             scroll={{ y: 240 }}
-        />
+        /> : <Skeleton active />
     );
 }

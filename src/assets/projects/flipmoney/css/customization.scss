@@ -1,21 +1,361 @@
 @import '~antd/dist/antd.css';
 
+/* #region COMMON */
 :root {
-    // Variables
+    // Theme used by default. Use "ligth" or "dark"
+    --default-theme: 'dark';
+}
+#root {
+    font-family: var(--main-font);
+    background-color: var(--surface-color-0) !important;
+    background-image: var(--surface-background-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+/* #endregion COMMON */
+
+/* #region LIGHT MODE */
+:root {
+    /* #region BRANDING */
+
+    --brand-logo-main: url('../icons/logo-app.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small.svg');
+
+    --brand-color-darker: #379c72;
+    --brand-color-dark: #32ac79;
+    --brand-color-base: #11e18a;
+    --brand-color-light: #2cea9b;
+    --brand-color-lighter: #55f0b0;
+    --brand-color-overbrand: #0c0c08;
+    /* #endregion BRANDING */
 
     // Cards
     --card-border-radius: 4px;
     --card-padding: 32px;
+    --card-padding-mobile: 8px;
 
-    // Modals
+    // Data backgrounds
+    --data-background-color: #26272f;
+    --data-background-radius: 4px;
+    --data-background-padding: 16px 32px;
+
+    // Common Margins
+    --margin-vertical-small: 16px;
+    --margin-vertical-medium: 32px;
+    --margin-vertical-large: 40px;
+
+    /* #region MODALS */
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
-    --modals-backdrop-color: rgba(18, 17, 17, 0.3);
-    --modals-backdrop-blur: 1.8px;
+    --modals-backdrop-color: rgba(24, 24, 26, 0.1);
+    --modals-backdrop-blur: 2px;
     --modals-padding: 16px 16px 16px 16px;
     --modals-border-radius: 4px;
+    /* #endregion MODALS */
 
     //Surfaces
+    --surface-background-image: radial-gradient(
+        at left top,
+        #ecef88,
+        #82eabe
+    ); // can be set to none
+    --surface-color-0: #ffffff00; // Can be wrong after ROC
+    --surface-color-1: rgba(250, 253, 248, 0.95);
+    --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    --surface-color-2: rgba(255, 255, 255, 0.99);
+    --surface-shadow-2: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    --surface-color-3: #ffffff;
+    --surface-shadow-3: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    --surface-color-inset: #f9f9f3;
+    --surface-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+    // Token icons
+    --icon-token-size: 32px;
+
+    // Dashboard icons background color
+    --icon-background-color: #e7f4ef;
+
+    // UI controls
+
+    --color-controls-background: #f0f6f3;
+    --color-controls-foreground-disabled: #d7d7d7;
+    --color-controls-foreground-off: #8c8c89;
+    --color-controls-foreground-on: #3b3b3b;
+    --color-controls-active: #000000;
+
+    --dividers: #3a3e40;
+
+    // Buttons - common
+
+    --button-radius: 28px;
+    --button-radius-tiny: 4px;
+    --button-width: 200px;
+    --button-height: 54px;
+    --button-transition: 0.3s;
+    --button-small-height: 32px;
+    --button-small-padding: 16px;
+
+    // Buttons - Primary
+
+    --color-button-primary-background-default: #12d382;
+    --color-button-primary-text-default: #ffffff;
+    --color-button-primary-filter-default: invert(79%) sepia(44%)
+        saturate(2710%) hue-rotate(96deg) brightness(94%) contrast(87%);
+    --color-button-primary-icon-filter-default: invert(100%) sepia(100%)
+        saturate(0%) hue-rotate(102deg) brightness(102%) contrast(101%);
+
+    --color-button-primary-background-hover: #30d28f;
+    --color-button-primary-text-hover: #0c0c08;
+    --color-button-primary-filter-hover: invert(48%) sepia(46%) saturate(464%)
+        hue-rotate(103deg) brightness(100%) contrast(90%);
+
+    --color-button-primary-background-active: #3e9b74;
+    --color-button-primary-text-active: #ffffff;
+
+    --color-button-primary-background-disabled: #f1f3ed;
+    --color-button-primary-text-disabled: #8b9b99;
+    --color-button-primary-filter-disabled: invert(61%) sepia(0%) saturate(0%)
+        hue-rotate(37deg) brightness(97%) contrast(93%);
+
+    --color-button-primary-background-default-shadow: 0px 4px 8px
+        rgba(91, 107, 89, 0.2);
+
+    // Buttons - Secondary
+
+    --color-button-secondary-background-default: transparent;
+    --color-button-secondary-text-default: #12d382;
+
+    --color-button-secondary-background-hover: transparent;
+    --color-button-secondary-text-hover: #3e9b74;
+
+    --color-button-secondary-background-active: transparent;
+    --color-button-secondary-text-active: #3e9b74;
+
+    --color-button-secondary-background-disabled: #f1f3ed;
+    --color-button-secondary-text-disabled: #334543;
+
+    --color-button-secondary-background-default-shadow: 0px 4px 8px
+        rgba(41, 147, 25, 0.2);
+
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: #12d382;
+    --color-button-tertiary-text-default: #ffffff;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #cfe3da;
+    --color-button-tertiary-text-disabled: rgb(172, 181, 177);
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
+    // Semantic
+
+    --color-button-semantic-text-default: #ffffff;
+    --color-button-semantic-icon-filter-default: invert(100%) sepia(34%)
+        saturate(1%) hue-rotate(210deg) brightness(108%) contrast(101%);
+
+    --color-semantic-negative: #ce1717;
+    --color-semantic-neutral: #9e9c9c;
+    --color-semantic-positive: #1cb900;
+    --filter-semantic-negative: invert(21%) sepia(82%) saturate(5552%)
+        hue-rotate(353deg) brightness(82%) contrast(98%);
+    --filter-semantic-neutral: invert(75%) sepia(4%) saturate(30%)
+        hue-rotate(314deg) brightness(83%) contrast(88%);
+    --filter-semantic-positive: invert(43%) sepia(93%) saturate(1081%)
+        hue-rotate(77deg) brightness(100%) contrast(103%);
+
+    // Notifications
+
+    --notification-success-background: var(--color-semantic-positive);
+    --notification-success-text: #0c0c08;
+    --notification-success-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-error-background: var(--color-semantic-negative);
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-warning-background: #0d0d0d;
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-info-background: #b5b5b5;
+    --notification-info-text: #0c0c08;
+    --notification-info-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-permanent-background: #fff383;
+    --notification-permanent-text: #0c0c08;
+    --notification-permanent-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    // Main navigation colors
+
+    --color-navigation-background-default: transparent;
+    --color-navigation-text-default: #202423;
+    --color-navigation-icon-filter-default: invert(9%) sepia(8%) saturate(568%)
+        hue-rotate(114deg) brightness(98%) contrast(89%);
+
+    --color-navigation-background-hover: transparent;
+    --color-navigation-text-hover: #202423;
+    --color-navigation-icon-filter-hover: invert(9%) sepia(8%) saturate(568%)
+        hue-rotate(114deg) brightness(98%) contrast(89%);
+    --color-navigation-background-active: #12d382;
+    --color-navigation-text-active: #ffffff; //over hover color
+    --color-navigation-icon-filter-active: invert(100%) sepia(6%)
+        saturate(1546%) hue-rotate(227deg) brightness(122%) contrast(100%);
+
+    --color-navigation-background-disabled: transparent;
+    --color-navigation-text-disabled: #e0e0e0; //over hover color
+    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    // Mobile Navigation
+    --color-mobilenav-header-background: #f5fffb;
+    --color-mobilenav-header-shadow: 0px 4px -2px rgb(0, 0, 0);
+    --color-mobilenav-background-default: #12d382;
+    --color-mobilenav-text-default: #202423;
+    --color-mobilenav-icon-filter: invert(11%) sepia(11%) saturate(369%)
+        hue-rotate(114deg) brightness(94%) contrast(92%);
+
+    // Language navigation colors
+
+    --color-language-background-default: transparent;
+    --color-language-text-default: #7f8a99;
+    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
+        hue-rotate(77deg) brightness(105%) contrast(106%);
+
+    --color-language-background-hover: #11e18a;
+    --color-language-text-hover: #202423;
+    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --color-language-background-active: transparent;
+    --color-language-text-active: #3db2a4; //over hover color
+    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
+        hue-rotate(288deg) brightness(102%) contrast(102%);
+
+    --color-language-background-disabled: transparent;
+    --color-language-text-disabled: #e0e0e0; //over hover color
+    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
+        hue-rotate(314deg) brightness(106%) contrast(91%);
+
+    // Dropdown menus
+    --color-dropdown-background-default: var(--surface-color-1);
+    --color-dropdown-text-default: cyan;
+    --color-dropdown-background-hover: #10b16e;
+    --color-dropdown-text-hover: #ffffff;
+    --color-dropdown-background-active: #10b16e79;
+    --color-dropdown-text-active: #ffffff;
+
+    // Text colors & fonts
+
+    --color-text-primary: #202423;
+    --color-text-secondary: #799086;
+    --color-text-highlight: #10b16e;
+    --color-text-link: #10b16e;
+    --color-text-notification: #ffffff;
+    --link-text-style: underline;
+
+    --color-icon-primary: invert(11%) sepia(8%) saturate(478%)
+        hue-rotate(114deg) brightness(101%) contrast(94%);
+
+    --color-icon-link-filter: invert(45%) sepia(97%) saturate(823%)
+        hue-rotate(119deg) brightness(92%) contrast(87%);
+    --color-icon-link-hover-filter: invert(45%) sepia(97%) saturate(823%)
+        hue-rotate(119deg) brightness(92%) contrast(87%);
+
+    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%)
+        hue-rotate(174deg) brightness(93%) contrast(91%);
+    --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
+        saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
+
+    --brand-font: 'Chivo', sans-serif;
+    --main-font: 'Open Sans', sans-serif;
+
+    // rLogin
+
+    --rlogin-themeswitcher-display: none;
+    --rlogin-title-background-color: #1fc680;
+    --rlogin-content-title-color: #08374f;
+    --rlogin-content-background-color: #f4f2e3;
+    --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    --rlogin-content-border-color: #1fc680;
+    --rlogin-content-text-color: var(--color-text-primary);
+    --rlogin-provider-background-color: #e0e0c9;
+    --rlogin-provider-border-color: #08374f;
+    --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
+    --rlogin-spinner-color: #1fc680;
+
+    --rlogin-border-radius: 4px;
+    --rlogin-poweredby-color: rgb(0, 0, 0);
+    --rlogin-logo-filter-color: invert(26%) sepia(90%) saturate(1895%)
+        hue-rotate(225deg) brightness(0%) contrast(90%);
+}
+/* #endregion LIGHT MODE */
+
+/* #region DARK MODE */
+[data-theme='dark'] {
+    --default-theme: 'dark';
+
+    /* #region BRANDING */
+    --debugColor: rgba(75, 103, 36, 0.168) !important;
+    --debugBorder: 1px dashed red !important;
+
+    --brand-logo-main: url('../icons/logo-app-dark.svg');
+    --brand-logo-main-small: url('../icons/logo-app-small-dark.svg');
+
+    --brand-color-darker: #807d44;
+    --brand-color-dark: #b3af5c;
+    --brand-color-base: #fff383;
+    --brand-color-light: #fffdc1;
+    --brand-color-lighter: #fffee0;
+    --brand-color-overbrand: #0c0c08;
+    /* #endregion BRANDING */
+
+    // Cards
+    --card-border-radius: 4px;
+    --card-padding: 32px;
+    --card-padding-mobile: 16px 0px;
+
+    // Data backgrounds
+    --data-background-color: #26272f;
+    --data-background-radius: 4px;
+    --data-background-padding: 16px 32px;
+
+    // Common Margins
+    --margin-vertical-small: 16px;
+    --margin-vertical-medium: 32px;
+    --margin-vertical-large: 40px;
+
+    /* #region MODALS */
+    --modals-padding: 16px 16px 16px 16px;
+    --modals-border-radius: 4px;
+    --modals-backdrop-color: rgba(24, 24, 26, 0.1);
+    --modals-backdrop-blur: 2px;
+    --modals-padding: 16px 16px 16px 16px;
+    --modals-border-radius: 4px;
+    /* #endregion MODALS */
+
+    //Surfaces
+    --surface-background-image: linear-gradient(
+        to right bottom,
+        #1312156e,
+        #161518,
+        #131215,
+        #1b1a1e6e,
+        #131215
+    ); // can be set to none
+
     --surface-color-0: #131215;
     --surface-color-1: #1c1b21;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -37,7 +377,7 @@
     --color-controls-background: #26272f;
     --color-controls-disabled: #494c50;
     --color-controls-foreground-off: #8c8c89;
-    --color-controls-foreground-on: #7f8a99;
+    --color-controls-foreground-on: #9d9d98;
     --color-controls-active: #fff383;
 
     --dividers: #3a3e40;
@@ -45,25 +385,37 @@
     // Buttons - common
 
     --button-radius: 28px;
+    --button-radius-tiny: 4px;
     --button-width: 200px;
     --button-height: 54px;
     --button-transition: 0.3s;
+    --button-small-height: 32px;
+    --button-small-padding: 16px;
 
     // Buttons - Primary
 
     --color-button-primary-background-default: #fff383;
     --color-button-primary-text-default: #0c0c08;
+    --color-button-primary-filter-default: invert(100%) sepia(29%)
+        saturate(392%) hue-rotate(175deg) brightness(109%) contrast(102%);
+    --color-button-primary-icon-filter-default: invert(7%) sepia(25%)
+        saturate(242%) hue-rotate(21deg) brightness(97%) contrast(107%);
 
     --color-button-primary-background-hover: #e8d421;
     --color-button-primary-text-hover: #0c0c08;
+    --color-button-primary-filter-hover: invert(6%) sepia(18%) saturate(447%)
+        hue-rotate(22deg) brightness(93%) contrast(102%);
 
     --color-button-primary-background-active: #c1bc3f;
     --color-button-primary-text-active: #0c0c08;
 
     --color-button-primary-background-disabled: #2c2c2c;
     --color-button-primary-text-disabled: #212020;
+    --color-button-primary-filter-disabled: invert(12%) sepia(1%) saturate(0%)
+        hue-rotate(177deg) brightness(101%) contrast(98%);
 
-    --color-button-primary-background-default-shadow: 0px 4px 8px rgba(147, 144, 25, 0.2);
+    --color-button-primary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.6);
 
     // Buttons - Secondary
 
@@ -79,57 +431,128 @@
     --color-button-secondary-background-disabled: #000000;
     --color-button-secondary-text-disabled: #000000;
 
-    --color-button-secondary-background-default-shadow: 0px 4px 8px rgba(147, 144, 25, 0.2);
+    --color-button-secondary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
+
+    // Buttons - Tertiary
+
+    --color-button-tertiary-background-default: #2a2a32;
+    --color-button-tertiary-text-default: #fff383;
+
+    --color-button-tertiary-background-hover: transparent;
+    --color-button-tertiary-text-hover: #e8d421;
+
+    --color-button-tertiary-background-active: transparent;
+    --color-button-tertiary-text-active: #c1bc3f;
+
+    --color-button-tertiary-background-disabled: #232328;
+    --color-button-tertiary-text-disabled: rgb(104, 104, 107);
+
+    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+        rgba(147, 144, 25, 0.2);
 
     // Semantic
+
+    --color-button-semantic-text-default: #0c0c08;
+    --color-button-semantic-icon-filter-default: invert(6%) sepia(18%)
+        saturate(447%) hue-rotate(22deg) brightness(93%) contrast(102%);
 
     --color-semantic-negative: #e95e5d;
     --color-semantic-neutral: #b5b5b5;
     --color-semantic-positive: #69e453;
-    --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%) hue-rotate(320deg) brightness(106%) contrast(97%);
-    --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%) hue-rotate(294deg) brightness(90%) contrast(71%);
-    --filter-semantic-positive: invert(63%) sepia(23%) saturate(7464%) hue-rotate(73deg) brightness(99%) contrast(91%);
+    --filter-semantic-negative: invert(33%) sepia(83%) saturate(710%)
+        hue-rotate(320deg) brightness(106%) contrast(97%);
+    --filter-semantic-neutral: invert(88%) sepia(0%) saturate(2518%)
+        hue-rotate(294deg) brightness(90%) contrast(71%);
+    --filter-semantic-positive: invert(78%) sepia(47%) saturate(620%)
+        hue-rotate(55deg) brightness(94%) contrast(93%);
+
+    // Notifications
 
     --notification-success-background: var(--color-semantic-positive);
+    --notification-success-text: #0c0c08;
+    --notification-success-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-error-background: var(--color-semantic-negative);
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-warning-background: #0d0d0d;
+    --notification-error-text: #0c0c08;
+    --notification-error-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
     --notification-info-background: #b5b5b5;
+    --notification-info-text: #0c0c08;
+    --notification-info-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
+
+    --notification-permanent-background: #fff383;
+    --notification-permanent-text: #0c0c08;
+    --notification-permanent-filter: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     // Main navigation colors
 
     --color-navigation-background-default: transparent;
     --color-navigation-text-default: #7f8a99;
-    --color-navigation-icon-filter-default: invert(57%) sepia(8%) saturate(592%) hue-rotate(175deg) brightness(93%) contrast(92%);
+    --color-navigation-icon-filter-default: invert(57%) sepia(8%) saturate(592%)
+        hue-rotate(175deg) brightness(93%) contrast(92%);
 
     --color-navigation-background-hover: transparent;
     --color-navigation-text-hover: #fff383;
-    --color-navigation-icon-filter-hover: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-hover: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
     --color-navigation-background-active: #202028;
     --color-navigation-text-active: #fff383; //over hover color
-    --color-navigation-icon-filter-active: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-active: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
 
     --color-navigation-background-disabled: transparent;
     --color-navigation-text-disabled: #e0e0e0; //over hover color
-    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
+        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+
+    // Mobile Navigation
+    --color-mobilenav-header-background: #212128;
+    --color-mobilenav-header-shadow: 0px 4px -2px rgb(0, 0, 0);
+    --color-mobilenav-background-default: #fff383;
+    --color-mobilenav-text-default: #0c0c08;
+    --color-mobilenav-icon-filter: invert(5%) sepia(9%) saturate(1173%)
+        hue-rotate(21deg) brightness(93%) contrast(100%);
 
     // Language navigation colors
 
     --color-language-background-default: transparent;
     --color-language-text-default: #7f8a99;
-    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%) hue-rotate(77deg) brightness(105%) contrast(106%);
+    --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
+        hue-rotate(77deg) brightness(105%) contrast(106%);
 
     --color-language-background-hover: #fff383;
     --color-language-text-hover: #0c0c08;
-    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%) hue-rotate(300deg) brightness(103%) contrast(110%);
+    --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
+        hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --color-language-background-active: transparent;
     --color-language-text-active: #fff383; //over hover color
-    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
+        hue-rotate(288deg) brightness(102%) contrast(102%);
 
     --color-language-background-disabled: transparent;
     --color-language-text-disabled: #e0e0e0; //over hover color
-    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%) hue-rotate(314deg) brightness(106%) contrast(91%);
+    --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
+        hue-rotate(314deg) brightness(106%) contrast(91%);
+
+    // Dropdown menus
+    --color-dropdown-background-default: var(--surface-color-1);
+    --color-dropdown-text-default: cyan;
+    --color-dropdown-background-hover: #fff383;
+    --color-dropdown-text-hover: #000000;
+    --color-dropdown-background-active: #fff38379;
+    --color-dropdown-text-active: #000000;
 
     // Text colors & fonts
 
@@ -140,8 +563,19 @@
     --color-text-notification: #ffffff;
     --link-text-style: underline;
 
-    --color-icon-link-filter: invert(100%) sepia(20%) saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
-    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
+    --color-icon-primary: invert(93%) sepia(5%) saturate(859%)
+        hue-rotate(185deg) brightness(85%) contrast(99%);
+
+    --color-icon-link-filter: invert(92%) sepia(7%) saturate(2601%)
+        hue-rotate(347deg) brightness(107%) contrast(104%);
+
+    --color-icon-link-hover-filter: invert(92%) sepia(7%) saturate(2601%)
+        hue-rotate(347deg) brightness(107%) contrast(104%);
+
+    --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%)
+        hue-rotate(174deg) brightness(93%) contrast(91%);
+    --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
+        saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
 
     --brand-font: 'Chivo', sans-serif;
     --main-font: 'Open Sans', sans-serif;
@@ -162,17 +596,46 @@
 
     --rlogin-border-radius: 4px;
     --rlogin-poweredby-color: white;
-    --rlogin-logo-filter-color: invert(100%) sepia(0%) saturate(7438%) hue-rotate(319deg) brightness(108%) contrast(113%);
+    --rlogin-logo-filter-color: invert(100%) sepia(0%) saturate(7438%)
+        hue-rotate(319deg) brightness(108%) contrast(113%);
 }
+/* #endregion DARK MODE */
 
-body,
-html {
-    // body + html css
+/* #region HIDE OPTION TO PAY FEES WITH GOVERNANCE TOKEN */
+// .sectionExchange__Content {
+//     .ant-radio,
+//     .ant-radio-disabled {
+//         display: none !important;
+//     }
+//     .ant-space > div:last-child {
+//         display: none !important;
+//     }
+//     .ant-radio.ant-radio-checked > span {
+//         margin-left: 0px;
+//     }
+//     .ant-radio-wrapper > span {
+//         padding: 0px !important;
+//         cursor: default !important;
+//     }
+// }
+/* #endregion HIDE OPTION TO PAY FEES WITH GOVERNANCE TOKEN */
 
-    font-family: var(--main-font);
-    background-color: var(--surface-color-0) !important;
-    background-image: url('../img/Oval.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+/* #region HIDE GOVERNANCE TOKEN PERFORMANCE CARD */
+#performanceCard {
+    display: none;
 }
+#distributionCard {
+    width: 680px !important;
+    height: 100%;
+}
+/* #endregion HIDE GOVERNANCE TOKEN PERFORMANCE CARD */
+
+/* #region WITHDRAW CARD WIDE  */
+#stakingWithdrawCard {
+    width: 100% !important;
+}
+.SecondCardsGroup {
+    display: flex !important;
+    width: 100%;
+}
+/* #endregion WITHDRAW CARD WIDE  */

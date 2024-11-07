@@ -1,20 +1,25 @@
 {
     "CustomizePrize_VariationToleranceTitle": "Tolerancia a la variación de precio",
     "NoConnection_alertTitle": "¡Billetera no conectada!",
-    "NoConnection_alertPleaseConnect": "Please, connect your wallet using the “connect” button on the top right section of the platform.",
-    "invalidValueDescription": "No value to display",
+    "NoConnection_alertPleaseConnect": "or favor, conecta tu billetera utilizando el botón “conectar” en la sección superior derecha de la plataforma.",
+    "invalidValueDescription": "No hay ningún valor para mostrar",
     "invalidValuePlaceholder": "--",
+    "notification": {
+        "dismiss": "Descartar"
+    },
+    "txFeedback": { "txIdLabel": "ID de transacción" },
+    "button": { "inputMaxValue": "max" },
     "operations": {
         "sectionTitle": "Últimas Operaciones",
-        "aboutQueue" : {
-        "button" : "Acerca de la cola",
-            "title" : "Acerca de la cola - Ciclo de una transacción",
-            "statusQueuing" : "La transacción entró a la cola con la primera confirmación.",
-            "statusQueued" : "La transacción está en la cola esperando por ejecución.",
-            "statusConfirming" : "La transacción fue ejecutada y tiene una confirmación.", 
-            "statusConfirmed" : "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
-            "statusFailed" : "La transacción falló en alguno de los pasos relacionados.",
-            "buttonClose" : "Close"
+        "aboutQueue": {
+            "button": "Acerca de la cola",
+            "title": "Acerca de la cola - Ciclo de una transacción",
+            "statusQueuing": "La transacción entró a la cola con la primera confirmación.",
+            "statusQueued": "La transacción está en la cola esperando por ejecución.",
+            "statusConfirming": "La transacción fue ejecutada y tiene una confirmación.",
+            "statusConfirmed": "La transacción fue ejecutada y tiene al menos diez confirmaciones.",
+            "statusFailed": "La transacción falló en alguno de los pasos relacionados.",
+            "buttonClose": "Cerrar"
         },
         "tooltip": {
             "text": "Only list >= 1 block confirmation.\nConfirming: Transaction with at least one confirmation and less than 10.\nConfirmed: Transaction with more than 10 confirmations.\nOpen: Transaction confirmed, transaction successfully queued to processed on next settlement.\nSettled: Transaction executed on last settlement."
@@ -23,19 +28,19 @@
         "headers": {
             "amountReserve": "This amount include platform commission + gas fee + interest if its applied"
         },
-        "actions" : {
-            "transfer" : "Transferencia",
-            "exchanging" : "Cambiando",
-            "exchanged" : "Cambiado",
-            "receiving" : "Recibiendo",
-            "received" : "Recibido",
-            "origin" : "Origen",
-            "destination" : "Destino",
-            "statusQueuing" : "Encolando",
-            "statusQueued" : "Encolado",
-            "statusConfirming" : "Confirmando",
-            "statusConfirmed" : "Confirmado",
-            "statusFailed" : "Fallado"
+        "actions": {
+            "transfer": "Transferencia",
+            "exchanging": "Cambiando",
+            "exchanged": "Cambiado",
+            "receiving": "Recibiendo",
+            "received": "Recibido",
+            "origin": "Origen",
+            "destination": "Destino",
+            "statusQueuing": "Encolando",
+            "statusQueued": "Encolado",
+            "statusConfirming": "Confirmando",
+            "statusConfirmed": "Confirmado",
+            "statusFailed": "Fallado"
         },
         "columns": {
             "date": "Fecha"
@@ -50,7 +55,7 @@
             "status": "Estado",
             "error_code": "Código de error",
             "block": "Bloque Nº",
-            "executed_tx": "Ejecutado",
+            "executed_tx": "TX Ejecutada",
             "tx": "TX Hash",
             "fee": "Tasa",
             "gas": "Tasa de Gas",
@@ -58,28 +63,34 @@
             "reason": "Motivo"
         },
         "errors": {
-            "qACBelow" : "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
-            "insufficientQAC1" : "token bajó, insuficiente",
-            "insufficientQAC2" : "enviado",
-            "lowCoverage" : "El sistema está bajo cobertura global protegida",
-            "fluxCapacitor" : "Error en el Flux Capacitor",
-            "noMessage" : "Sin mensaje"
+            "qACBelow": "${this.ex} precio subió, la cantidad está debajo del mínimo requerido",
+            "insufficientQAC1": "token bajó, insuficiente",
+            "insufficientQAC2": "enviado",
+            "lowCoverage": "El sistema está bajo cobertura global protegida",
+            "fluxCapacitor": "Error en el Flux Capacitor",
+            "noMessage": "Sin mensaje"
         },
-        "table":{
-            "itemsPerPage" : "Página"
+        "table": {
+            "itemsPerPage": "Página"
         }
     },
-    "feedback" :{
-        "clipboardCopy" : "Copiado",
-        "clipboardTo" : "al portapapeles"
+    "feedback": {
+        "clipboardCopy": "Copiado",
+        "clipboardTo": "al portapapeles"
     },
 
-    "wallet" :{
-        "modalTitle" : "Conectar Billetera",
-        "userAddress" : "Dirección",
+    "wallet": {
+        "modalTitle": "Dirección de tu Billetera",
+        "userAddress": "Dirección",
+        "useVesting": "Usar dirección de vesting",
+        "inputLabel": "Selecciona una Máquina Vesting",
+        "loadVM": "Cargar Máquina Vesting",
+        "unloadVM": "Bajar Máquina Vesting",
+        "useClaimCode": "Usar Código de Reclamo",
+        "disclaimer": "Puedes cargar cualquier dirección existente de Máquina de Vesting. Descargar una dirección de Máquina de Vesting desde la aplicación no afecta sus fondos y puede volver a cargarse en cualquier momento. Si tienes un Código de Reclamo, puedes crear una nueva Máquina de Vesting.",
         "cta": {
-            "disconnect" : "Desconectar",
-            "close" : "Cerrar"
+            "disconnect": "Desconectar",
+            "close": "Cerrar"
         }
     },
 
@@ -118,23 +129,23 @@
             "queuing": "Encolando la transacción…",
             "queued": "Operación encolada. Esperando ejecución…",
             "confirming": "Operación en confirmación",
-            "confirmed" : "Operación confirmada",
+            "confirmed": "Operación confirmada",
             "success": "Operación exitosa",
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción",
-            "minimumWarning" : "Mínimo a recibir",
-            "minimumExplanation" : "(Ver tolerancia de variación de precio)"
+            "minimumWarning": "Mínimo a recibir",
+            "minimumExplanation": "(Ver tolerancia de variación de precio)"
         },
 
         "priceVariation": {
             "title": "Personalizar Tolerancia de Variación de Precio",
-            "sliderLabel" : "Tolerancia de Variación de Precio",
-            "warning" : "Cantidad actualizada debido a tolerancia de variación de precio"
+            "sliderLabel": "Tolerancia de Variación de Precio",
+            "warning": "Cantidad actualizada debido a tolerancia de variación de precio"
         },
         "cardTitle": "Cambiar",
         "labelSending": "cambiando",
         "labelBalance": "balance",
-        "labelUpTo" : "hasta",
+        "labelUpTo": "Hasta",
         "labelReceiving": "Recibiendo",
         "labelTransactionID": "ID de transacción",
         "placeholder": "Dirección",
@@ -144,32 +155,32 @@
         "buttonPrimary": "Cambiar",
         "modalTitle": "Confirmar Cambio",
         "buttonCancel": "Cancelar",
-        "buttonConfirm" : "Confirmar",
+        "buttonConfirm": "Confirmar",
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
         "infoAddressEmpty": "Falta la dirección de destino",
         "infoAddressInvalid": "Dirección de destino inválida",
-        "errors" : {
-            "notOperational" : "No operacional debido a bajo Global Coverage ratio",
-            "cantOperate" : "No se puede operar con el estado actual",
-            "requestTimeout" : "Mucho tiempo procesando",
-            "connectYourWallet" : "Please connect your wallet Por favor conectar billetera",
-            "amountTooLow" : "La cantidad debe ser mayor a cero",
-            "amountInvalid" : "La cantidad debe ser válida",
-            "notBalance" : "No hay balance suficiente en tu billetera",
-            "noLiquidity" : "No hay suficiente liquidez en el protocolo",
-            "maxLimitedByProtocol" : "Maximos limitados temporalmente por el protocolo"
+        "errors": {
+            "notOperational": "No operacional debido a bajo Global Coverage ratio",
+            "cantOperate": "No se puede operar con el estado actual",
+            "requestTimeout": "Mucho tiempo procesando",
+            "connectYourWallet": "Please connect your wallet Por favor conectar billetera",
+            "amountTooLow": "La cantidad debe ser mayor a cero",
+            "amountInvalid": "La cantidad debe ser válida",
+            "notBalance": "No hay balance suficiente en tu billetera",
+            "noLiquidity": "No hay suficiente liquidez en el protocolo",
+            "maxLimitedByProtocol": "Maximos limitados temporalmente por el protocolo"
         }
     },
     "portfolio": {
         "tokens": {
             "CA": {
                 "columns": {
-                    "name": "Name",
+                    "name": "Nombre",
                     "price": "Precio en USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
                 "rows": {
@@ -207,11 +218,11 @@
             },
             "TP": {
                 "columns": {
-                    "name": "Name",
+                    "name": "Nombre",
                     "price": "Tokens por USD",
                     "variation": "Variación 24hs",
                     "balance": "Balance",
-                    "rif" : "RIF",
+                    "rif": "RIF",
                     "usd": "USD"
                 },
                 "rows": {}
@@ -219,8 +230,11 @@
         },
         "sectionTitle": "Portafolio",
         "totalCurrency": "USD",
-        "totalBalance": "Balance Total"
-   
+        "totalBalance": "Balance Total",
+        "mobileTabs": {
+            "portfolio": "Portafolio",
+            "lastOperations": "Últimas Operaciones"
+        }
     },
     "performance": {
         "sectionTitle": "Desempeño",
@@ -238,15 +252,14 @@
 
             "statusTitleLiquidated": "Liquidado",
             "statusDescriptionLiquidated": "No hay operaciones permitidas",
-            
+
             "statusTitlePaused": "Pausado",
             "statusDescriptionPaused": "El contrato está pausado. No hay operaciones permitidas",
 
-            "statusTitleUnavailable" : "No puede operar",
-            "statusDescreiptionUnavailable" : "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
+            "statusTitleUnavailable": "No puede operar",
+            "statusDescreiptionUnavailable": "Uno o más contratos se encuentran temporalmente no disponibles. Intenta nuevamente más tarde.",
 
             "showingBlock": "Mostrando bloque"
-
         },
         "tvl": {
             "cardTitle": "Valor Total Bloqueado",
@@ -257,16 +270,16 @@
             "priceIn": "Precio en USD",
             "currentLeverage": "Apalancamiento actual",
             "totalInSystem": "Total en el sistema",
-            "redeemable" : "Disponible para redimir"
-         },
+            "redeemable": "Disponible para redimir"
+        },
 
-         "collateral": {
+        "collateral": {
             "cardTitle": "Colateral",
             "totalIn": "Colateral total en USD",
             "globalCoverage": "Cobertura Global"
-         },
+        },
 
-         "pegged": {
+        "pegged": {
             "cardTitle": "Rendimiento del USDRIF",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
@@ -275,10 +288,33 @@
             "colTargetCoverage": "Cobertura Obj.",
             "colEMA": "EMA",
             "colTargetEMA": "EMA Objetivo"
-         }
+        }
     },
 
     "send": {
+        "tokens": {
+            "CA_0": {
+                "label": "RIF",
+                "abbr": "RIF"
+            },
+            "TC": {
+                "label": "RIFPro",
+                "abbr": "RIFP"
+            },
+            "TP_0": {
+                "label": "RIF US Dollar",
+                "abbr": "USDRIF"
+            },
+            "COINBASE": {
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "MOC",
+                "abbr": "MOC"
+            },
+            "TG": { "label": "MOC", "abbr": "MOC" }
+        },
         "cardTitle": "Enviar",
         "labelSending": "enviando",
         "labelBalance": "balance",
@@ -291,10 +327,10 @@
         "buttonPrimary": "Enviar",
         "modalTitle": "Confirmar Envío",
         "buttonCancel": "Cancelar",
-        "buttonConfirm" : "Confirmar",
+        "buttonConfirm": "Confirmar",
         "buttonClose": "Cerrar",
         "infoNoBalance": "Saldo insuficiente",
-        "noNegativeValues" : "El valor debe ser mayor a cero",
+        "noNegativeValues": "El valor debe ser mayor a cero",
         "infoAddressEmpty": "Falta la dirección de destino",
         "infoAddressInvalid": "Dirección de destino inválida",
         "feedback": {
@@ -305,87 +341,380 @@
             "error": "La operación falló",
             "default": "Espera la confirmación de la transacción"
         }
-     },
+    },
 
-     "allowance": {
-        "cardTitle" : "Autorizar uso de",
-        "disallowanceTitle" : "Revocar autorización de gasto de",
-        "statusText1" : "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
-        "statusText2" : "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
-        "statusDisallowanceText" : "Antes de continuar con la operación, firma una transacción para revocar la autorización de gasto.",
-        "setUnlimited" : "Configurar autorización ilimitada. No preguntarme nuevamente.",
-        "confirm" : {
+    "allowance": {
+        "cardTitle": "Autorizar uso de",
+        "disallowanceTitle": "Revocar autorización de gasto de",
+        "statusText1": "Antes de continuar con la operación, firma una transacción de autorización para que el sistema pueda acceder a los tokens.",
+        "statusText2": "Opcionalmente, puedes establecer un permiso de gasto ilimitado marcando la casilla de verificación. Advertencia: si no conoces las implicaciones de hacer esto, déjalo sin seleccionar.",
+        "statusDisallowanceText": "Antes de continuar con la operación, firma una transacción para revocar la autorización de gasto.",
+        "setUnlimited": "Configurar autorización ilimitada. No preguntarme nuevamente.",
+        "confirm": {
             "cancel": "Cancelar",
             "authorize": "Autorizar"
         },
-        "feedback" : {
-            "submit" : "",
-            "sign" : "Por favor, firma la transacción de autorización utilizando tu billetera.",
-            "waiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
-            "error" : "¡Transacción fallada!",
-            "default" : "Espera a la confirmación de la transacción"
+        "feedback": {
+            "submit": "",
+            "sign": "Por favor, firma la transacción de autorización utilizando tu billetera.",
+            "waiting": "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+            "error": "¡Transacción fallada!",
+            "default": "Espera a la confirmación de la transacción"
         }
-     },
-     "inputFields": {
-        "maxButton" : "MAX"
-     },
+    },
+    "inputFields": {
+        "maxButton": "Max"
+    },
 
-     "fees": {
-        "labelFee" : "Tasa",
-        "labelExecutionFee" : "Tasa de ejecución",
+    "fees": {
+        "labelFee": "Tasa",
+        "labelExecutionFee": "Tasa de ejecución",
         "disclaimer1": "Esta tasa será restada del monto a ser transferido.",
         "disclaimer2": "Los montos pueden variar al momento de la confirmación de la transacción."
     },
 
-     "menuOptions": {
+    "menuOptions": {
         "portfolio": "Portafolio",
-        "send" : "Enviar",
-        "exchange" : "Cambiar",
-        "performance" : "Rendimiento",
-        "staking" : "Staking",
-        "liquidityMining" : "Liquidity Mining",
-        "vesting" : "Bloqueo",
-        "more" : "Más"
+        "send": "Enviar",
+        "exchange": "Cambiar",
+        "performance": "Rendimiento",
+        "staking": "Staking",
+        "liquidityMining": "Liquidity Mining",
+        "vesting": "Bloqueo",
+        "voting": "Votación",
+        "more": "Más"
     },
 
-    "language" : {
+    "language": {
         "en": "🇬🇧 English",
         "es": "🇪🇸 Español"
     },
 
-    "defaultCTA" : {
-        "buttonSubmit" : "Confirmar",
-        "buttonCancel" : "Cancelar",
-        "buttonExchange" : "Cambiar",
-        "buttonClose" : "Cerrar"
+    "defaultCTA": {
+        "buttonSubmit": "Confirmar",
+        "buttonCancel": "Cancelar",
+        "buttonExchange": "Cambiar",
+        "buttonClose": "Cerrar"
     },
 
-    "numberFormat" : {
-        "thousandsSeparator" : ",",
-        "decimalSeparator" : "."
+    "numberFormat": {
+        "thousandsSeparator": ",",
+        "decimalSeparator": "."
     },
 
-    "swapModal" : {
-        "text1" : "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
-        "text2" : "botón 'Cambiar Ahora'",
-        "button" : "Cambiar Ahora",
-        "modalTitle1" : "AVISO IMPORTANTE",
-        "modalTitle2" : "Confirmar Migración",
-        "explanation1" : "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva dApp. No podrás ver más tu balance de RDOC en la dApp.",
-        "explanation2" : "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
-        "explanation3" : "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todo tu balance de RDOC será convertido a USDRIF",
-        "buttonCancel" : "Cancelar",
-        "buttonConfirm" : "Confirmar",
-        "exchanging" : "Cambiando",
-        "receiving" : "Recibiendo",
-        "authorizing" : "AUTORIZACIÓN DE TOKEN",
-        "migrating" : "MIGRACIÓN DE TOKEN",
-        "allowanceSignText" : "Por favor, firma la autorización utilizando tu billetera.",
-        "migrationTransactionSignText" : "Por favor, firma la transacción de migración utilizando tu billetera.",
-        "allowanceWaiting" : "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
-        "transactionHash" : "Hash de la transacción",
-        "operationFailed" : "La operación falló !.",
-        "tokenMigrationWaitingText" : "Por favor, espera mientras la transacción de minado del token de migración se completa.",
-        "operationSuccessful" : "Operación exitosa."
+    "swapModal": {
+        "text1": "RIF Dollar (RDOC) ha cambiado a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollars para usar la nueva dApp. No vas a poder ver tu balance de RDOC en la dApp. Házlo usando el ",
+        "text2": "botón 'Cambiar Ahora'",
+        "button": "Cambiar Ahora",
+        "modalTitle1": "AVISO IMPORTANTE",
+        "modalTitle2": "Confirmar Migración",
+        "explanation1": "RIF Dollar on Chain (RDOC) cambia a RIF US Dollar (USDRIF). Necesitas cambiar tus RIF Dollar on Chain (RDOC) para operar con la nueva dApp. No podrás ver más tu balance de RDOC en la dApp.",
+        "explanation2": "El tipo de cambio es de 1 RDOC = 1 USDRIF. No se te cobrará ninguna tasa por la transacción. Solo pagarás el gas por el uso de la red.",
+        "explanation3": "Al hacer click en el botón 'Confirmar' tu billetera te pedirá firmar la transacción. Todo tu balance de RDOC será convertido a USDRIF",
+        "buttonCancel": "Cancelar",
+        "buttonConfirm": "Confirmar",
+        "exchanging": "Cambiando",
+        "receiving": "Recibiendo",
+        "authorizing": "AUTORIZACIÓN DE TOKEN",
+        "migrating": "MIGRACIÓN DE TOKEN",
+        "allowanceSignText": "Por favor, firma la autorización utilizando tu billetera.",
+        "migrationTransactionSignText": "Por favor, firma la transacción de migración utilizando tu billetera.",
+        "allowanceWaiting": "Por favor, espera mientras se mina la autorización. Una vez que esté minada, se enviará la transacción a tu billetera.",
+        "transactionHash": "Hash de la transacción",
+        "operationFailed": "La operación falló !.",
+        "tokenMigrationWaitingText": "Por favor, espera mientras la transacción de minado del token de migración se completa.",
+        "operationSuccessful": "Operación exitosa."
+    },
+
+    "staking": {
+        "display_decimals": 2,
+        "cardTitle": "Staking",
+        "governanceToken": "MOC",
+        "dashLabels": {
+            "balance": "Balance",
+            "staked": "MOC en Stake",
+            "unstaking": "Sacando de Stake",
+            "ready": "Listos para retirar",
+            "lockedVoting": "Bloqueados por voto"
+        },
+        "staking": {
+            "input_decimals": 2,
+            "tabStake": "Hacer Stake",
+            "tabUnstake": "Sacar de Stake",
+            "inputStake": "Hacer Stake",
+            "inputUnstake": "Sacar de Stake",
+            "inputAvailable": "Disponible",
+            "stakedAmount": "En Stake",
+            "cta": {
+                "explanation": "Podrás desbloquear tus fondos en cualquier momento con un período de espera de 30 días (sin recibir recompensas durante este período). Después de este período podrás 'Retirar'.",
+                "stakeButton": "Stake",
+                "unstakeButton": "Unstake",
+                "staking": "Staking",
+                "unstaking": "Unstaking",
+                "stakingSign": "≈"
+            }
+        },
+        "distribution": {
+            "title": "Distribución de MOC",
+            "graph": {
+                "balance": "Balance (libre)",
+                "processingUnstake": "Unstake en proceso",
+                "readyWithdraw": "Listo para retirar",
+                "staked": "En stake",
+                "totalLabel": "Total tokens MOC"
+            },
+            "bar": {
+                "desc": "Desempeño del stake anual de MOC"
+            }
+        },
+        "performance": {
+            "title": "Desempeño",
+            "bar": {
+                "description": "Desempeño anual del MOC",
+                "base": "MoC",
+                "sign": "+",
+                "staking": "Stacking"
+            }
+        },
+        "withdraw": {
+            "title": "Retiros",
+            "processing_unstake": "Procesando desbloqueo",
+            "ready_to_withdraw": "Listo para retirar",
+            "buttons": {
+                "withdraw": "Retirar",
+                "restake": "Restake"
+            },
+            "status": {
+                "PENDING": "Procesando Unstake",
+                "AVAILABLE": "Unstaking"
+            },
+            "table": {
+                "expiration": "Expiración",
+                "amount": "Cantidad",
+                "status": "Estado",
+                "actions": "Acciones disponibles"
+            }
+        },
+        "tokens": {
+            "TG": {
+                "label": "MoC",
+                "abbr": "MoC"
+            }
+        },
+        "modal": {
+            "StakingOptions_AvailableToWithdraw": "Listo para hacer Withdraw",
+            "options": {
+                "availableToWithdraw": "Ready to Withdraw",
+                "unstaking": "Processing unstake",
+                "withdrawAll": "Withdraw all available",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
+            },
+            "StakingOptions_AvailableToWithdraw": "Ready to Withdraw",
+            "StakingOptions_PendingExpiration": "Procesando unstake",
+            "StakingOptions_WithdrawAll": "Hacer Withdraw del total",
+            "StakingOptions_Restake": "Restake",
+            "StakingOptions_Withdraw": "Withdraw",
+            "allowance": {
+                "title": "Set the allowance",
+                "description": "Before continuing with the staking you must set the allowance so that the staking system can access the tokens. This has to be done only once and it doesn't lock any tokens from your wallet.",
+                "setUnlimited": "Set unlimited allowance. Don't ask me again.",
+                "cta": "Authorize"
+            },
+            "StakingOptionsModal_SetAllowance": "Autorizar Allowance",
+            "StakingOptionsModal_Authorize": "Autorizar",
+            "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
+            "StakingOptionsModal_Authorize": "Authorize",
+            "StakingOptionsModal_AllowanceDescription": "Antes de continuar con el staking deberás permitir el \"allowance\" para que el sistema pueda acceder a los tokens. Esto solo debe hacerse la primera vez y no bloquea ningún token de tu billetera.",
+            "StakingOptionsModal_ProccessingAllowance": "Procesando Allowance, por favor espera",
+            "StakingOptionsModal_StakingDescription": "Los MoCs stakeados recibirán recompensas del Programa de Recompensas de Staking de MoC. Puedes retirar tus MoC's cuando quieras, el proceso de retiro tomará 30 días",
+            "StakingOptionsModal_AmountToStake": "Cantidad para Stake",
+            "StakingOptionsModal_Title": "Stake",
+            "StakingOptionsModal_Comfirm": "Confirmar",
+            "StakingOptionsModal_Cancel": "Cancelar",
+
+            "StakingOptionsModal_UnstakeTitle": "Unstake",
+            "StakingOptionsModal_AmountToUnstake": "Cantidad para Unstake",
+            "StakingOptionsModal_UnstakingDescription": "Puedes retirar tus MoC's a tu billetera en 30 días. Puedes restakearlos en cualquier momento durante este período.",
+
+            "StakingOptionsModal_WithdrawTitle": "Retiro",
+            "StakingOptionsModal_AmountToWithdraw": "Cantidad a Retirar",
+            "StakingOptionsModal_WithdrawDescription": "Luego del retiro tus MoC tokens estarán disponibles en tu billetera.",
+
+            "StakingOptionsModal_RestakeTitle": "Restake",
+            "StakingOptionsModal_AmountToRestake": "Monto para Restake",
+            "StakingOptionsModal_RestakeDescription": "Luego de hacer el Restaking de tus tokens comenzarás a recibir recompensas del Programa de Staking Rewards de MoC. ",
+
+            "StatusModal_Modal_Title": "Operation details",
+            "StatusModal_Modal_Close": "Close",
+            "StatusModal_Modal_TxStatus_sign": "Sign the transaction in your wallet",
+            "StatusModal_Modal_TxStatus_success": "Transaction successful",
+            "StatusModal_Modal_TxStatus_failed": "Transaction failed!",
+            "StatusModal_Modal_TxStatus_pending": "Wait for transaction confirmation",
+            "StatusModal_Modal_TxStatus_error": "Transaction error!"
+        },
+        "confirmation": { "cardTitle": "Confirm Stake" },
+        "Error_numericField": "Este campo debe ser numérico",
+        "Error_separateDecimals": "Usa el punto para separar decimales",
+        "Error_numberTooSmall": "El valor es muy pequeño",
+        "Error_maxExceeded": "El número excede el máximo permitido"
+    },
+    "vesting": {
+        "vestingOnboarding": {
+            "page1": {
+                "stepTitle": "No tienes ninguna Vesting Machine cargada todavía",
+                "explanation1": "Una Vesting Machine es una herramienta que permite a las personas o entidades adquirir gradualmente la propiedad de un activo o inversión a lo largo del tiempo, en lugar de recibirlo todo de una vez.",
+                "explanation2": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tiene un código de reclamo.",
+                "ctaPrimary": "Usar Claim Code",
+                "ctaSecondary": "Cargar VM"
+            },
+            "page2": {
+                "stepTitle": "Creemos una nueva Vesting Machine (VM) usando un código de reclamo",
+                "label": "Ingresa tu Claim Code abajo",
+                "placeholder": "Puedes pegar tu Claim Code aquí o seleccionar el botón 'cargar desde archivo'",
+                "loadButton": "Cargar Claim Code desde archivo",
+                "explanation1": "Después de pegar tu Claim Code, selecciona el botón a continuación para continuar con la creación de la Vesting Machine. Deberás firmar una transacción con tu billetera. Solo pagarás el gas por el uso de red.",
+                "ctaPrimary": "Crear VM",
+                "ctaSecondary": "Atrás",
+                "feedback": {
+                    "notValid": "Claim Code inválido. Necesitas realizar el claim con la wallet original"
+                }
+            },
+            "page3": {
+                "stepTitle": "Revisaa los datos de la Vesting Machine",
+                "amountLabel": "Cantidad de tokens para el claim",
+                "ownerLabel": "Puede cargar cualquier dirección de Vesting Machine (VM) existente o crear una nueva si tienes un Claim Code.",
+                "transactionId": "ID de transacción",
+                "ctaInfo": "Los tokens serán bloqueados en la Vesting Machine vinculada a la billetera a la que estás conectado en este momento. Por favor, verifica la información de arriba antes de confirmar. Una vez que la transaccíon haya sido firmada no será posible revertirla",
+                "ctaSecondary": "Atrás",
+                "ctaPrimary": "Confirmar",
+                "modalTitle": "Confirmar Vesting Machine"
+            },
+            "page4": {
+                "stepTitle": "¡Vesting Machine creada con éxito!",
+                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens Flip y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
+                "addressLabel": "Dirección de la Vesting Machine creada",
+                "buttonDownloadAddress": "Descargar Dirección",
+                "buttonCopyAddress": "Copiar Dirección",
+                "ctaInfo": "Guarda la dirección de tu VM y no la pierdas. Vas a necesitarla para cargar tu Vesting Machine",
+                "ctaSecondary": "Atrás",
+                "ctaPrimary": "Ver Vesting Machine"
+            }
+        },
+        "alert": {
+            "title": "Usando dirección de Vesting Machine",
+            "explanation": "Para usar tu billetera normalmente desactiva 'Usar Vesting Machine' en la configuración de billetera",
+            "cta": "Ir a configuración de billetera",
+            "address": "Usando VM:"
+        },
+        "cardTitle": "Vesting Machine",
+        "status": {
+            "verified": "Vesting Machine verificada",
+            "notVerified": "Esta Vesting Machine aún no fue verificada",
+            "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
+        },
+        "tokensAvailableToWithdraw": "Balance de MOC disponibles",
+        "withdrawToWallet": "Enviar a mi billetera",
+        "dashDistribution": {
+            "vested": "MOC para retirar",
+            "released": "MOC Bloqueados",
+            "staked": "MOC en Staking",
+            "unstaking": "MOC en progreso de unstaking",
+            "daysToRelease": "Days to next release"
+        },
+        "releaseSchedule": {
+            "cardTitle": "Calendario de liberación",
+            "scheduled": "Programados (bloqueados + liberados)"
+        },
+        "vestingScheduleColumns": {
+            "date": "Fecha de Liberación",
+            "daysLeft": "Días restantes",
+            "percent": "Porcentaje",
+            "amount": "Cantidad",
+            "status": "Estado"
+        }
+    },
+    "voting": {
+        "cardTitle": {
+            "section": "Votación",
+            "proposalsList": "Propuestas",
+            "proposalDetails": "Detalle de la Propuesta",
+            "votingStage": "Detalle de la Propuesta",
+            "addNewProposal": "Agregar Nueva Propuesta"
+        },
+        "feedback": {
+            "noProposals": "Parece que no hay propuestas. Envía la tuya seleccionando 'Agregar nueva propuesta'",
+            "stakeRequiered1": "Necesitas un mínimo de",
+            "stakeRequiered2": "tokens para enviar una propuesta. No olvides compartir los detalles en el foro de la comunidad."
+        },
+        "states": {
+            "stateTitle": "Estado Actual:",
+            "proposals": "Propuestas",
+            "prevoting": "Pre-Votación",
+            "voting": "Votación"
+        },
+        "info": {
+            "changeContract": "Cambiar contrato",
+            "searchForum": "Busca esta propuesta en el foro de Gobernanza",
+            "stateAs": "Etapa de Votación al "
+        },
+        "status": {
+            "title": "Estado Actual de la Votación",
+            "openForSubmissions": "• Abierto para enviar propuestas.",
+            "active": "• La votación de la propuesta está actualmente activa.",
+            "firstStageActive": "¡La votación de la primera etapa está activa! ¡Emite tu voto ahora!",
+            "firstStageOver": "• ¡El período de votación de la primera etapa ha finalizado!",
+            "firstStageClosed": "La votación ha terminado—ya sea porque expiró el tiempo o una propuesta ya ha ganado.",
+            "finished": "• ¡El período de votación ha terminado!",
+            "ongoing": "• ¡La votación está en progreso!",
+            "approved": "• La propuesta fue aprobada",
+            "noQuorum": "• ¡No se alcanzó el quórum para esta propuesta!",
+            "rejected": "• ¡La propuesta fue rechazada por votos en contra!"
+        },
+        "balanceGraph": { "against": "En Contra", "inFavor": "A Favor" },
+        "statusGraph": {
+            "castOverCirculation": "Votos emitidos sobre circulación",
+            "votingPower": "tu poder de voto sobre la circulación",
+            "positiveOverCirculation": "votos a favor sobre la circulación para aprobar",
+            "negativeOverCirculation": "votos en contra sobre la circulación para vetar"
+        },
+        "labels": {
+            "proposalChangerContract": "Contrato de Cambio de Propuesta"
+        },
+        "votingOptions": {
+            "against": "Votar en Contra",
+            "inFavor": "Votar a Favor"
+        },
+        "userPower": {
+            "votingPower": "Poder de voto:",
+            "totalMOC": "Total de MOC en circulación:",
+            "totalSupply": "Suministro Total:"
+        },
+        "cta": {
+            "viewProposal": "Ver Propuesta",
+            "infoAdvance": "Por favor, ejecuta el paso para avanzar a la siguiente etapa de votación",
+            "btnPushNextStep": "Avanzar Etapa",
+            "infoApplyChanges": "Por favor, ejecuta el 'paso aceptado' para finalizar y aplicar los cambios en los contratos",
+            "btnApplyChangesToContracts": "Cambiar Contratos",
+            "addNewProposal": "Agregar Nueva Propuesta",
+            "cancel": "Cancelar",
+            "addProposal": "Agregar Propuesta"
+        },
+        "confirmationModal": {
+            "cardTitle": "Confirmar Voto",
+            "changerAddress": "Dirección del Cambio de Propuesta",
+            "votingInFavor": "¡Estás votando a favor!",
+            "votingAgainst": "¡Estás votando en contra!"
+        }
+    },
+    "alert": {
+        "walletNotConnected": "¡Billetera no conectada!"
+    },
+    "settings": {
+        "protocolName": "Rif On Chain",
+        "themeMode": {
+            "light": "Modo claro",
+            "dark": "Modo oscuro"
+        }
     }
 }

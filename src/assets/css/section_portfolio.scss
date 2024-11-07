@@ -1,0 +1,137 @@
+/*
+section_portfolio.scss contains all the css code for Portfolio card not contained in global.scss
+*/
+:root {
+    // For table heights use '' -> '200px' 'auto', etc.
+    --portfolioTokenHeight: 'auto';
+    --portfolioPeggedHeight: 'auto';
+}
+.dashboard-portfolio {
+    // Portfolio card
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    // margin-top: 24px;
+    box-shadow: var(--surface-shadow-1);
+    border-radius: var(--card-border-radius);
+    background: var(--surface-color-1);
+    padding: 32px 0px 8px;
+    width: 1184px;
+    .tokens-card-content {
+        // Portfolio card contents
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 0px 32px;
+        width: 1184px;
+        /*height: 372px;*/
+    }
+    .token {
+        margin-left: 8px;
+    }
+}
+
+.tokens-list-header {
+    // Portfolio card header Title + Total Balance
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 311px;
+    padding: 0px;
+    width: 1120px;
+    height: 80px;
+}
+
+.tokens-list-header-balance {
+    // Portfolio Total balance
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    margin-top: 30px;
+    padding: 0px;
+    width: 141px;
+    width: 100%;
+    height: 49px;
+}
+
+.tokens-list-header-balance-number {
+    width: 600px;
+    width: 100%;
+    height: 24px;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 18px;
+    font-family: var(--brand-font);
+    text-align: right;
+}
+
+.tokens-list-header-balance-title {
+    width: 600px;
+    width: 100%;
+    height: 21px;
+    color: (var(--color-text-secondary));
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    font-family: var(--main-font);
+    letter-spacing: 1.2px;
+    text-align: right;
+
+    text-transform: uppercase;
+}
+
+/* region PORTFOLIO TABLES */
+.tokens-list-table {
+    width: 1120px;
+    margin-top: 40px;
+}
+// Portfolio table
+.tokens-card-content .ant-table-tbody > tr.ant-table-row:hover > td,
+.tokens-card-content .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    // background: #d0d0d0;
+    background: var(--surface-color-1) !important;
+}
+
+// Performance Pegged-Tokens table
+.card-tps .ant-table-tbody > tr.ant-table-row:hover > td,
+.ccard-tps .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--surface-color-1) !important;
+}
+
+// Variation Indicator
+.variation-indicator {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0px;
+}
+.positive-indicator {
+    background-color: var(--color-semantic-positive);
+}
+.negative-indicator {
+    background-color: var(--color-semantic-negative);
+}
+.neutral-indicator {
+    background-color: var(--color-semantic-neutral);
+}
+.ant-layout-footer,
+.footer-container {
+    // position: fixed !important;
+    // bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 10px);
+}
+
+/* endregion PORTFOLIO TABLES */

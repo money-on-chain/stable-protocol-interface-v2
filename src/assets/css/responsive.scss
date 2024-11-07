@@ -1,0 +1,564 @@
+/* #region RESPONSIVE */
+// Variables
+$breakpoint-mobile: 600px;
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block !important;
+    }
+    .desktop-only {
+        display: none !important;
+    }
+    .row {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+    }
+    .icon {
+        margin-top: 10px;
+    }
+    .ShowTokenMigration {
+        margin-top: 24px;
+        .NotificationMigration {
+            height: auto;
+            flex-direction: column;
+            .Information {
+                width: 100%;
+                text-align: justify;
+            }
+            .cta-options-group {
+                margin-top: 16px;
+                width: 100%;
+            }
+        }
+    }
+    .ant-layout-header {
+        position: sticky;
+        top: 0;
+        z-index: 500;
+        margin-top: 0;
+        height: 56px;
+    }
+    .ant-layout {
+        padding-bottom: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .ant-modal-content {
+        padding: var(--card-padding) var(--card-padding-mobile)
+            var(--card-padding) var(--card-padding-mobile) !important;
+    }
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--color-mobilenav-header-shadow);
+        background-color: var(--color-mobilenav-header-background);
+        padding: 0px 12px;
+        width: 100%;
+        height: 100%;
+        .header-logo {
+            box-shadow: none;
+            background-color: transparent;
+            width: 32px;
+            height: 32px;
+            .logo-app {
+                margin: 0;
+                background-image: var(--brand-logo-main-small);
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 32px;
+                height: 32px;
+            }
+        }
+        .wallet-user {
+            margin: 0;
+            box-shadow: none;
+            background-color: transparent !important;
+            height: 100%;
+            .wallet-address {
+                margin: 0;
+                color: var(--color-text-primary);
+            }
+            .wallet-translation {
+                display: none;
+            }
+        }
+        .mobile__menu__button {
+            filter: var(--color-icon-link-secondary-filter);
+            background-image: url(../icons/mobile_menu.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 32px;
+            height: 32px;
+        }
+    }
+    .section-container {
+        margin-right: 8px;
+        margin-left: 8px;
+        max-width: 100%;
+    }
+    .alert {
+        flex-direction: column;
+        .ant-alert-description {
+            line-height: 120%;
+        }
+    }
+    .central-menu {
+        display: none;
+    }
+    .layout-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 12px 16px 12px;
+        .layout-card-title {
+            h1 {
+                font-size: 18px;
+            }
+        }
+    }
+    .section__innerCard--small {
+        padding-right: 8px;
+        padding-left: 8px;
+        width: 100%;
+    }
+    .content-body {
+        padding: var(--card-padding-mobile);
+        max-width: 100%;
+    }
+    .dashboard-portfolio {
+        max-width: 100%;
+    }
+    .content-last-operations {
+        min-height: 100dvh;
+        .ant-table-pagination {
+            margin-bottom: 54px;
+        }
+    }
+    .central-menu {
+        display: none;
+    }
+    .mobile__menu__button {
+        display: block;
+        cursor: pointer;
+    }
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        background: var(--modals-backdrop-color);
+        width: 100%;
+        height: 100%;
+    }
+    .mobile-menu {
+        display: flex;
+        position: absolute;
+        top: 0; /* adjust according to your header height */
+        left: 0;
+        flex-direction: column;
+        gap: 32px;
+        // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        background-color: var(--color-mobilenav-background-default);
+        padding: 32px;
+        min-width: 300px;
+        max-width: 90%;
+        height: 100vh;
+    }
+    .mobile-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--color-mobilenav-text-default);
+        font-weight: 600;
+        font-size: 18px;
+        font-family: var(--brand-font);
+        // padding: 15px;
+        text-align: left;
+        span {
+            display: none;
+        }
+    }
+    .mobile-menu-item-selected {
+        font-weight: 600;
+        font-size: 18px;
+        font-family: var(--brand-font);
+    }
+    .mobile__menu__icon {
+        filter: var(--color-mobilenav-icon-filter);
+        background-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+    .mobile-menu-item:hover {
+        // background-color: #f0f0f0;
+        color: black;
+    }
+    .mobile-menu-close {
+        align-self: flex-end;
+        filter: var(--color-mobilenav-icon-filter);
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-size: 24px;
+    }
+    .mobile__menu__options {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        height: 100%;
+    }
+    .dappVersion {
+        color: var(--color-mobilenav-text-default);
+    }
+    .lightModeContainer {
+        .lightModeText {
+            color: var(--color-mobilenav-text-default);
+            font-size: 16px;
+        }
+    }
+    .language__options {
+        margin-top: auto;
+        padding: 8px;
+    }
+    .mobile-language-selector {
+        cursor: pointer;
+        border-radius: var(--card-border-radius);
+        color: var(--color-mobilenav-text-default);
+        font-weight: 600;
+        font-size: 18px;
+        line-height: normal;
+        font-family: var(--brand-font);
+    }
+    .mobile-language-submenu {
+        display: flex;
+        bottom: 64px;
+        left: 0;
+        flex-direction: column;
+        gap: 16px;
+        padding-left: 0;
+        font-size: 16px;
+        span {
+            color: black;
+        }
+    }
+    .mobile-language-title {
+        margin-bottom: 24px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .cta-container {
+        .cta-options-group {
+            flex-direction: column;
+        }
+    }
+    .button {
+        width: 100%;
+        height: 48px;
+    }
+    .tx-amount-group {
+        .address.wallet__columns {
+            flex-direction: column !important;
+            gap: 32px;
+        }
+    }
+    .dash__perfLeveraged {
+        height: 100%;
+        .card-content {
+            row-gap: 12px;
+        }
+    }
+    .dash__perfCollateral {
+        height: 100%;
+        .card-content {
+        }
+        .dash_perfCollateral__dash {
+            display: flex;
+            row-gap: 12px;
+            flex-direction: column;
+        }
+    }
+    .card-tps {
+        .ant-table-thead .ant-table-cell {
+            border-bottom: none;
+        }
+    }
+    .dash__perfPegged {
+        height: 100%;
+    }
+
+    .token__data__container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .token__data__container .token {
+        margin-bottom: 8px;
+    }
+
+    .thead {
+        display: none;
+        // background-color: red;
+    }
+    .token--mobile {
+        background-size: contain;
+        width: 24px;
+        height: 24px;
+    }
+    .token__icon {
+        background-size: contain;
+        width: 24px;
+        height: 24px;
+    }
+    .token__data__group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 16px;
+        padding-left: 38px;
+        width: 100%;
+    }
+    .token__data__label {
+        color: var(--color-text-secondary);
+        font-weight: 600;
+        font-size: 16px;
+        font-family: var(--main-font);
+    }
+    .token__data__data {
+        color: var(--color-text-primary);
+        font-weight: 400;
+        font-size: 14px;
+        font-family: var(--main-font);
+        text-align: right;
+    }
+    .dashboard-portfolio {
+        padding-top: 16px;
+        padding-right: 8px;
+        padding-left: 8px;
+        width: 100%;
+        .tokens-list-table {
+            margin-top: 16px;
+            width: 100%;
+        }
+        .tokens-card-content {
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+
+            .ant-table-cell {
+                padding: 4px 0px !important;
+            }
+            .tokens__table__mobile,
+            .token {
+                margin-left: 0;
+            }
+            .tokens__table__mobile {
+                width: 100%;
+            }
+            .tokens-list-header {
+                display: flex;
+                gap: 0px;
+                padding-right: 8px;
+                padding-left: 8px;
+                width: 100%;
+
+                .tokens-list-header-balance {
+                }
+            }
+            .token__contents {
+                display: flex;
+                flex-direction: column;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                width: 100%;
+            }
+            .token__details {
+                display: flex;
+                flex-direction: row;
+                padding-top: 24px;
+                width: 100%;
+            }
+            .token__details__token {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 8px;
+                width: 100%;
+            }
+            .token__details__account {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-end;
+                gap: 8px;
+                width: 100%;
+            }
+            .token__data__big {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                color: var(--color-text-primary);
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                font-family: var(--main-font);
+            }
+            .token__data__small {
+                color: var(--color-text-secondary);
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                font-family: var(--main-font);
+            }
+            .token__label {
+                color: var(--color-text-secondary);
+                font-weight: 400;
+                font-size: 10px;
+                font-family: var(--main-font);
+                text-transform: uppercase;
+            }
+            .right {
+                align-items: flex-end;
+                text-align: right;
+            }
+        }
+    }
+    .LastOp__expanded__container {
+        gap: 12px 8px;
+    }
+    .ant-layout-footer {
+        display: none;
+    }
+
+    .ant-notification-topRight {
+        right: auto !important;
+    }
+
+    .dashboard-staking-info {
+        gap: 8px;
+        height: auto;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        flex-wrap: wrap;
+        .stakingDash__data {
+            gap: 0;
+            .stakingDash__data__amount {
+                font-size: 18px;
+                height: 18px;
+            }
+            .stakingDash__data__label {
+                font-size: 12px;
+            }
+        }
+        .stakingDash__item {
+            width: 160px;
+        }
+        .stakingDash__icon__back {
+            width: 32px;
+            height: 32px;
+            div {
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+    #lastStakingOperations {
+        // display: none;
+    }
+
+    .sectionStaking {
+    }
+    .section__innerCard--big {
+        width: 100% !important;
+        padding: 16px 12px 16px 12px !important;
+    }
+    .card-withdraw {
+        padding-left: 0px;
+        padding-right: 0px;
+        .withdraw__row {
+            padding-left: 8px;
+            gap: 16px;
+            justify-content: space-between;
+            width: 100%;
+            .withdraw__first__column {
+                flex-direction: column;
+            }
+            .withdraw__amount {
+                font-size: 18px;
+                width: 126px;
+            }
+        }
+        .withdraw__date {
+            font-size: 12px;
+            width: 128px;
+        }
+        .withdraw__status {
+            font-size: 12px;
+            width: 80px;
+        }
+
+        .withdraw__header {
+            .withdraw__date {
+                padding-left: 0;
+                text-align: left;
+                width: 200px;
+            }
+            .withdraw__amount {
+                text-align: left;
+            }
+            .withdraw__action {
+            }
+            .withdraw__cta {
+            }
+            .withdraw__first__column {
+                flex-direction: column;
+                width: 150px;
+            }
+        }
+    }
+
+    .card-stakingData {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        width: 100%;
+        .table__stakingData {
+            .stakingTableData__date {
+                width: 100px;
+            }
+            .stakingTableData__amount {
+                width: 100px;
+            }
+            .stakingTableData__operation {
+                width: 90px;
+            }
+            .table__header,
+            .table__row {
+                gap: 16px !important;
+            }
+        }
+    }
+    .firstCardsGroup,
+    .SecondCardsGroup {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: #{$breakpoint-mobile + 1}) {
+    .mobile__menu__button {
+        display: none;
+    }
+}
+
+/* #endregion RESPONSIVE */
+
+// .ant-notification-notice {
+//     background-color: var(--notification-info-background);
+//     color: var(--notification-info-tex);
+//     border-radius: var(--card-border-radius); /* Redondear esquinas */
+// }

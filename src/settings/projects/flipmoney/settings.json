@@ -37,6 +37,11 @@
             "name": "FLIP",
             "decimals": 18,
             "visibleDecimals": 8
+        },
+        "TG": {
+            "name": "FLIP",
+            "decimals": 18,
+            "visibleDecimals": 8
         }
     }
 }

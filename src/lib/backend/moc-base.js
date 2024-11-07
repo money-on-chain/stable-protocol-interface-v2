@@ -76,6 +76,31 @@ const transferTokenTo = async (
     return receipt;
 };
 
+const transferCoinbaseTo = async (
+    interfaceContext,
+    to,
+    amount,
+    onTransaction,
+    onReceipt
+) => {
+    const { web3, account } = interfaceContext;
+
+    amount = new BigNumber(amount);
+
+    const receipt = web3.eth.sendTransaction({
+        from: account.toLowerCase(),
+        to: to.toLowerCase(),
+        gasPrice: await getGasPrice(web3),
+        gas: 100000,
+        gasLimit: 100000,
+        value: toContractPrecisionDecimals(amount, 18)
+    })
+        .on('transactionHash', onTransaction)
+        .on('receipt', onReceipt);
+
+    return receipt;
+};
+
 const AllowUseTokenMigrator = async (interfaceContext, newAllowance, onTransaction, onReceipt, onError) => {
 
     const { web3, account } = interfaceContext;
@@ -145,5 +170,6 @@ export {
     AllowanceAmount,
     transferTokenTo,
     AllowUseTokenMigrator,
-    MigrateToken
+    MigrateToken,
+    transferCoinbaseTo
 };

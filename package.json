@@ -1,10 +1,11 @@
 {
   "name": "stable-protocol-interface-v2",
-  "version": "0.8.4",
+  "version": "0.8.6",
   "private": true,
   "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.8.1",
+    "@opd/g2plot-react": "^2.13.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,6 +20,7 @@
     "lint-staged": "^15.2.1",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
     "prettier": "^3.2.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -52,6 +54,12 @@
     "reload:roc-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocMainnet react-app-rewired start",
     "start:roc-mainnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocMainnet react-app-rewired start",
     "build:roc-mainnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocMainnet react-app-rewired build && rm build/projects/ -R",
+    "reload:moc-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocTestnet react-app-rewired start",
+    "start:moc-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocTestnet react-app-rewired start",
+    "build:moc-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocTestnet react-app-rewired build && rm build/projects/ -R",
+    "reload:moc-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocMainnet react-app-rewired start",
+    "start:moc-mainnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocMainnet react-app-rewired start",
+    "build:moc-mainnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocMainnet react-app-rewired build && rm build/projects/ -R",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -75,6 +83,8 @@
   },
   "devDependencies": {
     "buffer": "^6.0.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.33.2",
     "process": "^0.11.10",
     "react-app-rewired": "^2.2.1"
   }

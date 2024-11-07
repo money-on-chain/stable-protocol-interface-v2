@@ -1,0 +1,18 @@
+.statContainer {
+    display: flex;
+    margin-bottom: 4px;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    .statLabel {
+        width: 168px;
+    }
+    .statAmount {
+        width: 100px;
+        text-align: right;
+    }
+    .statPercentage {
+        width: 75px;
+        text-align: right;
+    }
+}

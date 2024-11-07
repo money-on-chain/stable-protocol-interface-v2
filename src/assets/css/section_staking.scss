@@ -1,0 +1,621 @@
+/*
+section_staking.scss contains all the css code for Staking section cards not contained in global.scss
+*/
+// Variables
+$breakpoint-mobile: 600px;
+/*
+    --- Staking ---
+*/
+
+.sectionStaking {
+    .row-section {
+        margin-top: 24px;
+    }
+    .firstCardsGroup {
+        display: flex;
+        column-gap: 32px;
+        width: 100%;
+    }
+    #stakingCard {
+        width: 475px;
+    }
+
+    #distributionCard {
+        width: 354px;
+        height: 100%;
+    }
+
+    #performanceCard {
+        width: 288px;
+    }
+    .card-content {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .staking-select-token {
+        margin-left: 8px;
+    }
+    .input-value {
+        font-weight: 700;
+        font-size: 20px;
+        font-family: var(--brand-font);
+    }
+    .tab-button {
+        cursor: pointer;
+        margin-right: 5px;
+        border: none;
+        border-bottom: 4px solid var(--color-controls-background-disabled);
+        background-color: transparent;
+        padding: 5px 5px;
+        padding-bottom: 0px;
+        color: var(--color-text-primary);
+        font-weight: 600;
+        font-family: var(--brand-font);
+    }
+
+    .tab-button.active {
+        border-bottom: 4px solid var(--color-controls-active);
+        background-color: transparent;
+        color: var(--color-text-highlight);
+    }
+
+    .tab-divider {
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--color-controls-foreground-on);
+        height: 1px;
+    }
+
+    .staked-text {
+        margin-top: 22px;
+        color: var(--color-text-primary);
+        font-weight: 400;
+        font-size: 14px;
+        font-family: var(--main-font);
+        text-align: left;
+    }
+
+    .ChartContainer {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 40px;
+        padding-bottom: 25px;
+        padding-left: 0px;
+        height: 340px;
+
+        .ChartGraphic {
+            display: flex;
+            column-gap: 10px;
+            flex-direction: row;
+            justify-items: center;
+            margin: 0 auto;
+            width: 120px;
+            height: 300px;
+
+            .ChartColumn {
+                display: flex;
+                flex-basis: 50%;
+                flex-direction: column;
+                border: 1px solid var(--surface-color-1);
+
+                .Bar {
+                    position: relative;
+                    flex-grow: 1;
+                    border: 1px solid var(--surface-color-1);
+                    background: var(--brand-color-base);
+
+                    div {
+                        position: absolute;
+                        bottom: 16px;
+                        width: 100%;
+                        color: var(--brand-color-overbrand);
+                        font-weight: bold;
+                        font-size: 8px;
+                        line-height: 8px;
+                        text-align: center;
+                    }
+
+                    &.Percent {
+                        flex-grow: 0;
+                        transition: ease all 0.5s;
+                        background: var(--brand-color-dark);
+                        height: 0;
+
+                        &.Hidden {
+                            background: transparent;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ChartText {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-right: 20px;
+            width: 86px;
+
+            .percent {
+                margin-bottom: 4px;
+                color: var(--color-text-primary);
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 24px;
+                font-family: var(--brand-font);
+                letter-spacing: 0px;
+                text-align: left;
+            }
+
+            .percent-note {
+                width: 100%;
+                color: var(--color-text-primary);
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 19px;
+                font-family: var(--main-font);
+                letter-spacing: 0px;
+                text-align: left;
+            }
+        }
+    }
+
+    .staking-distribution-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        overflow: hidden;
+        .pie-chart-total {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 16px;
+
+            .pie-chart-total-amount {
+                font-weight: 600;
+                font-size: 18px;
+                font-family: var(--brand-font);
+                line-height: normal;
+            }
+            .pie-chart-total-title {
+                color: var(--color-text-secondary);
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+        }
+        .pie-chart-container {
+            height: 250px;
+            color: var(--color-text-primary);
+        }
+        .dataContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 4px;
+            width: 100%;
+            color: var(--color-text-primary);
+
+            :nth-child(1) > .data-bullet {
+                background-color: var(--brand-color-darker);
+            }
+            :nth-child(2) > .data-bullet {
+                background-color: var(--brand-color-dark);
+            }
+            :nth-child(3) > .data-bullet {
+                background-color: var(--brand-color-base);
+            }
+            :nth-child(4) > .data-bullet {
+                background-color: var(--brand-color-light);
+            }
+            :nth-child(5) > .data-bullet {
+                background-color: var(--brand-color-lighter);
+            }
+            .data-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 8px;
+                width: 100%;
+                line-height: 12px;
+                .data-bullet {
+                    border-radius: 50%;
+                    width: 8px;
+                    height: 8px;
+                }
+                .data-numbers {
+                    font-weight: 600;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    .SelectCurrency.disabled {
+        .ant-select-selection-item {
+            width: 100%;
+        }
+    }
+    .StakingOptionsModal {
+        font-family: var(--brand-font);
+
+        .ant-modal-content {
+            box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+            background: rgb(248, 248, 249);
+            // background-color: red !important;
+        }
+        .ant-modal-header {
+            border-bottom: 0 !important;
+            background-color: transparent !important;
+            padding: 24px 24px;
+            font-style: italic;
+            font-weight: 900;
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        .ant-modal-title {
+            color: black !important;
+            font-style: normal !important;
+            font-weight: 700 !important;
+            font-size: 20px !important;
+            font-family: 'Sora';
+            letter-spacing: 0px !important;
+            text-align: left !important;
+        }
+
+        .ant-modal-body {
+            padding: 14px 32px;
+        }
+    }
+    .input-validation-error {
+        opacity: 1;
+        margin-top: 5px;
+        color: var(--color-semantic-negative);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 12px;
+        font-family: var(--main-font);
+        letter-spacing: 0px;
+        text-align: left;
+    }
+    .alert {
+        margin-bottom: 24px;
+    }
+}
+
+/* #region STAKING DASHBOARD */
+.dashboard-staking-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px !important;
+    height: 80px;
+    .stakingDash__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0px;
+        width: 240px;
+        height: 50px;
+    }
+    .stakingDash__icon__back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--card-border-radius);
+        background-color: var(--icon-background-color);
+        width: 48px;
+        height: 48px;
+    }
+    .stakingDash__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0px;
+    }
+    .stakingDash__data__amount {
+        display: flex;
+        align-items: center;
+        width: 115px;
+        height: 29px;
+        color: var(--color-text-primary);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 29px;
+        font-family: var(--brand-font);
+    }
+    .stakingDash__data__label {
+        color: var(--color-text-secondary);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        font-family: var(--main-font);
+    }
+}
+/* #endregion STAKING DASHBOARD */
+
+.card-stakingData {
+    box-shadow: var(--surface-shadow-1);
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-1);
+    padding: var(--card-padding);
+    width: 576px;
+    .ant-table-cell {
+        border: none;
+        padding: 0;
+    }
+    .table__stakingData {
+        width: 100%;
+        .table__header {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .table__row {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            color: var(--color-text-primary);
+        }
+        .stakingTableData__date {
+            width: 156px;
+        }
+        .stakingTableData__amount {
+            width: 128px;
+        }
+        .stakingTableData__operation {
+            width: 128px;
+        }
+    }
+}
+
+.card-withdraw {
+    box-shadow: var(--surface-shadow-1);
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-1);
+    padding: var(--card-padding);
+    width: 576px !important;
+    // height: 430px;
+
+    .withdraw-header-balance {
+        display: flex;
+        flex-grow: 0;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+        padding: 0px;
+        width: 100%;
+        height: 49px;
+    }
+
+    .withdraw-header-balance-number {
+        flex: none;
+        flex-grow: 0;
+        order: 0;
+        width: 170px;
+        height: 24px;
+        color: var(--color-text-primary);
+        font-weight: 600;
+        font-size: 18px;
+        font-family: var(--brand-font);
+        text-align: right;
+    }
+
+    .withdraw-header-balance-title {
+        flex: none;
+        flex-grow: 0;
+        order: 1;
+        width: 170px;
+        height: 21px;
+        color: (var(--color-text-secondary));
+        font-style: normal;
+        font-style: SemiBold;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 16px;
+        font-family: var(--main-font);
+        letter-spacing: 1.2px;
+        text-align: right;
+        text-transform: uppercase;
+    }
+
+    .item-data {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        font-family: var(--main-font);
+        letter-spacing: 0.61px;
+    }
+
+    .ant-table-body .ant-table-cell {
+        border-color: transparent !important;
+    }
+    .ant-table-cell {
+        padding: 16px 0px 0px 0px !important;
+    }
+    .ant-pagination {
+        display: none;
+    }
+    .group-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+    }
+
+    .withdraw__row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+        border-radius: var(--card-border-radius);
+        background-color: var(--surface-color-2);
+        padding: 16px 0px 16px 32px;
+        height: 66px;
+        .withdraw__first__column {
+            // width: 100%;
+            display: flex;
+            // justify-content: space-between;
+        }
+    }
+    .withdraw__date {
+        width: 128px;
+    }
+    .withdraw__amount {
+        width: 120px;
+        text-align: right;
+    }
+    .withdraw__status {
+        width: 120px;
+        text-align: left;
+        width: 100%;
+    }
+    .withdraw__cta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        cursor: pointer;
+        width: 124px;
+        color: var(--color-button-tertiary-text-default);
+
+        .cta__button {
+            display: flex;
+            align-items: center;
+            background-color: var(--color-button-tertiary-background-default);
+            padding-left: 16px;
+            height: 32px;
+        }
+        .cta__button--disabled {
+            display: flex;
+            align-items: center;
+            background-color: var(--color-button-tertiary-background-disabled);
+            padding-left: 16px;
+            height: 32px;
+            color: var(--color-button-tertiary-text-disabled);
+        }
+        .restake {
+            border-radius: 0px 8px 0px 0px;
+        }
+        .withdraw {
+            border-radius: 0px 0px 8px 0px;
+        }
+        .action__description {
+            margin-right: 8px;
+            width: 200px;
+        }
+        .action__description--disabled {
+            margin-right: 8px;
+            width: 200px;
+        }
+    }
+    .withdraw__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+        margin: 0px;
+        margin-top: 32px;
+        height: 20px;
+        color: var(--color-text-secondary);
+        font-size: 14px;
+        font-weight: 600;
+        .withdraw__first__column {
+            // width: 340px;
+            display: flex;
+            // justify-content: space-between;
+        }
+        .withdraw__date {
+            padding-left: 32px;
+            margin-right: 32px;
+        }
+        .withdraw__action {
+        }
+        .withdraw__cta {
+            color: transparent;
+        }
+    }
+
+    .ant-table-body::-webkit-scrollbar {
+        width: 0px; /* Hide vertical scrollbar with WebKit */
+    }
+
+    .ant-table-body {
+        -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+        scrollbar-width: none; /* Hide scrollbar in Firefox */
+    }
+}
+.SecondCardsGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(0, auto);
+    grid-column-gap: 32px;
+    .card-stakingData {
+        height: 100%;
+    }
+}
+
+.sectionStaking {
+    @media (max-width: $breakpoint-mobile) {
+        padding: 0px;
+        width: 100%;
+        .dashboard-staking-info {
+            flex-wrap: wrap;
+            .stakingDash__item {
+                width: 156px;
+                .stakingDash__data {
+                    width: 110px;
+                }
+                .stakingDash__data__amount {
+                    font-size: 16px;
+                }
+            }
+        }
+        .withdraw__row {
+            gap: 12px !important;
+            .withdraw__first__column {
+                border-right: 1px solid var(--dividers);
+                width: 120px;
+                padding-right: 8px;
+                .withdraw__date {
+                    width: 100% !important;
+                    font-size: 12px !important;
+                    line-height: 120%;
+                }
+                .withdraw__amount {
+                    width: 100% !important;
+                    font-size: 16px !important;
+                }
+            }
+            .withdraw__status {
+            }
+            .cta__button {
+                width: auto;
+            }
+        }
+        .firstCardsGroup {
+            flex-direction: column;
+            gap: 32px;
+            #performanceCard {
+                width: 100%;
+            }
+        }
+    }
+}

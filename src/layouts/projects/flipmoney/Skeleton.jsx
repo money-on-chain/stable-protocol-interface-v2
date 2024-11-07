@@ -1,44 +1,65 @@
+import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout, Alert } from 'antd';
-import React, { useContext } from 'react';
+import { Layout } from 'antd';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
-
-import '../../../assets/css/global.scss';
-import StakingRewards from '../../../components/Dashboards/StakingRewards';
+import NotificationBody from '../../../components/Notification';
+import CheckStatus from '../../../helpers/checkStatus';
+import DappFooter from '../../../components/Footer/index';
+import W3ErrorAlert from '../../../components/Notification/W3ErrorAlert';
 
 const { Content, Footer } = Layout;
 
 export default function Skeleton() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const [notifStatus, setNotifStatus] = useState(null);
+    const { checkerStatus } = CheckStatus();
+    useEffect(() => {
+        if (auth.contractStatusData && auth.userBalanceData) {
+            readProtocolStatus();
+        }
+    }, [auth.contractStatusData, auth.userBalanceData]);
+
+    const readProtocolStatus = () => {
+        const { isValid, statusIcon, statusLabel, statusText } =
+            checkerStatus();
+        if (!isValid) {
+            console.log('is not valid');
+            setNotifStatus({
+                id: -1,
+                title: `Warning, protocol status is ${statusLabel}`,
+                textContent: statusText,
+                notifClass: 'warning',
+                iconLeft: statusIcon,
+                isDismisable: false,
+                dismissTime: 0
+            });
+        } else {
+            setNotifStatus(null);
+        }
+    };
 
     return (
         <Layout>
-            {!auth.isLoggedIn && (
-                <Alert
-                message="Warning"
-                description="Please connect your wallet!."
-                type="error"
-                showIcon
-                />
-            )}
             <SectionHeader />
             <Content>
-                <div className="content-container">
-                    {/* Content page*/}
-                    <div className="content-page">
-                        {/* Dashboard Staking Rewards  
-                            TODO to hide while developing the backend information
-                            <StakingRewards />*/}
-                        <Outlet />
-                    </div>
-                </div>
+                {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
+                {notifStatus && <NotificationBody notifStatus={notifStatus} />}
+
+                {auth.web3Error && (
+                    <W3ErrorAlert />
+                )}
+
+                {(!auth.web3Error && auth.isLoggedIn) && <Outlet />}
+
             </Content>
             <Footer>
-                <div className="footer-container"></div>
+                <div className="footer-container">
+                    <DappFooter></DappFooter>
+                </div>
             </Footer>
         </Layout>
     );

@@ -4,8 +4,6 @@ import { useContext } from 'react';
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 
-import '../../assets/css/pages.scss';
-
 
 function SectionLiquidityMining(props) {
     const [t, i18n, ns] = useProjectTranslation();

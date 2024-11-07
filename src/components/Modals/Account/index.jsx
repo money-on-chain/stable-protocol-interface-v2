@@ -1,42 +1,32 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import Account from '../../Account';
 
 export default function ModalAccount(props) {
-    const { truncatedAddress } = props;
+    const { truncatedAddress, show, onShow, onHide, vestingOn, setVestingOn } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
-
-    const [visible, setVisible] = useState(false);
-
-    const showModal = () => {
-        setVisible(true);
-    };
-
-    const hideModal = () => {
-        setVisible(false);
-    };
 
     return (
         <Fragment>
             <div className="ShowModalAccount">
-                <a onClick={showModal}>{truncatedAddress}</a>{' '}
+                {/*<a onClick={onShow}>{truncatedAddress}</a>*/}
                 <Modal
                     width={505}
-                    open={visible}
-                    onCancel={hideModal}
+                    open={show}
+                    onCancel={onHide}
                     footer={null}
                     closable={false}
                     className="ModalAccount"
                     centered={true}
                     maskStyle={{  }}
                 >
-                    <Account {...props} onCloseModal={hideModal} truncatedAddress={truncatedAddress} />
+                    <Account {...props} onCloseModal={onHide} truncatedAddress={truncatedAddress} vestingOn={vestingOn} setVestingOn={setVestingOn} />
                 </Modal>
             </div>
-            <i className="logo-wallet" onClick={showModal}></i>
+            <i className="logo-wallet" onClick={onShow}></i>
         </Fragment>
     );
 }

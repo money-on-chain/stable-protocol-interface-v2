@@ -4,20 +4,23 @@ import { ReactComponent as LogoIconCOINBASE } from '../assets/icons/tokens/coinb
 import { ReactComponent as LogoIconTC } from '../assets/icons/tokens/tc.svg';
 import { ReactComponent as LogoIconTP_0 } from '../assets/icons/tokens/tp_0.svg';
 import { ReactComponent as LogoIconTP_1 } from '../assets/icons/tokens/tp_1.svg';
+import { ReactComponent as LogoIconTG_0 } from '../assets/icons/tokens/tg_0.svg';
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 
 const currencies = [
-    { value: 'CA_0', image: <LogoIconCA_0 className="currencyImage" /> },
-    { value: 'CA_1', image: <LogoIconCA_1 className="currencyImage" /> },
-    { value: 'TC', image: <LogoIconTC className="currencyImage" /> },
+    { value: 'CA_0', image: <LogoIconCA_0 className="token__icon" /> },
+    { value: 'CA_1', image: <LogoIconCA_1 className="token__icon" /> },
+    { value: 'TC', image: <LogoIconTC className="token__icon" /> },
     {
         value: 'COINBASE',
-        image: <LogoIconCOINBASE className="currencyImage" />
+        image: <LogoIconCOINBASE className="token__icon" />
     },
-    { value: 'TP_0', image: <LogoIconTP_0 className="currencyImage" /> },
-    { value: 'TP_1', image: <LogoIconTP_1 className="currencyImage" /> }
+    { value: 'TP_0', image: <LogoIconTP_0 className="token__icon" /> },
+    { value: 'TP_1', image: <LogoIconTP_1 className="token__icon" /> },
+    { value: 'TF', image: <LogoIconTG_0 className="token__icon" /> },
+    { value: 'TG', image: <LogoIconTG_0 className="token__icon" /> }
 ].map((it) => ({
     ...it
 }));
@@ -26,7 +29,7 @@ const getCurrenciesDetail = () => currencies;
 
 function TokenSettings(tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
-    const aTokenName = tokenName.split('_')
+    const aTokenName = tokenName.split('_');
     let token = settings.tokens.CA[0];
     switch (aTokenName[0]) {
         case 'CA':
@@ -44,6 +47,9 @@ function TokenSettings(tokenName) {
         case 'TF':
             token = settings.tokens.TF;
             break;
+        case 'TG':
+            token = settings.tokens.TG;
+            break;
         default:
             throw new Error('Invalid token name');
     }
@@ -55,9 +61,9 @@ function TokenBalance(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let balance = 0;
 
-    if (!auth.userBalanceData) return balance
+    if (!auth.userBalanceData) return balance;
 
-    const aTokenName = tokenName.split('_')
+    const aTokenName = tokenName.split('_');
     switch (aTokenName[0]) {
         case 'CA':
             balance = auth.userBalanceData.CA[parseInt(aTokenName[1])].balance;
@@ -71,6 +77,12 @@ function TokenBalance(auth, tokenName) {
         case 'COINBASE':
             balance = auth.userBalanceData.coinbase;
             break;
+        case 'TF':
+            balance = auth.userBalanceData.FeeToken.balance;
+            break;
+        case 'TG':
+            balance = auth.userBalanceData.TG.balance;
+            break;
         default:
             throw new Error('Invalid token name');
     }
@@ -79,31 +91,24 @@ function TokenBalance(auth, tokenName) {
 }
 
 function ConvertPeggedTokenPrice(auth, price) {
-
     switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
         case 'flipmoney':
-            const priceCA = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_CA[0],
-                    settings.tokens.CA[0].decimals
-                )
-            );
+            const priceCA = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[0], settings.tokens.CA[0].decimals));
             return price.div(priceCA);
         case 'roc':
             return price;
         default:
             return price;
     }
-
 }
 
 function TokenPrice(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let price = 0;
 
-    if (!auth.contractStatusData) return 0
+    if (!auth.contractStatusData) return 0;
 
-    const aTokenName = tokenName.split('_')
+    const aTokenName = tokenName.split('_');
     switch (aTokenName[0]) {
         case 'CA':
             price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])];
@@ -117,6 +122,10 @@ function TokenPrice(auth, tokenName) {
         case 'COINBASE':
             price = auth.contractStatusData.PP_COINBASE;
             break;
+        case 'TG':
+            price = auth.contractStatusData.PP_FeeToken;
+            break;
+
         default:
             throw new Error('Invalid token name');
     }
@@ -129,25 +138,14 @@ function ConvertBalance(auth, tokenExchange, tokenReceive) {
     return ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount);
 }
 
-function ConvertAmount(
-    auth,
-    tokenExchange,
-    tokenReceive,
-    rawAmount,
-    amountInWei = true
-) {
+function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei = true) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
     const tokenReceiveSettings = TokenSettings(tokenReceive);
     let price = new BigNumber(0);
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(
-            fromContractPrecisionDecimals(
-                rawAmount,
-                tokenReceiveSettings.decimals
-            )
-        );
+        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenReceiveSettings.decimals));
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -156,48 +154,38 @@ function ConvertAmount(
 
     // [tokenExchange,tokenReceive]
     //const tokenMap = `${tokenExchange},${tokenReceive}`;
-    const aTokenExchange = tokenExchange.split('_')
-    const aTokenReceive = tokenReceive.split('_')
+    const aTokenExchange = tokenExchange.split('_');
+    const aTokenReceive = tokenReceive.split('_');
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
 
     switch (aTokenMap) {
         case 'CA,TC':
-            price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenReceive),
-                    tokenReceiveSettings.decimals
-                )
-            );
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals));
             cAmount = amount.div(price);
             break;
         case 'TP,CA':
             // Redeem Operation
-            price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
-                    tokenExchangeSettings.decimals
-                )
-            );
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
             cAmount = amount.div(price);
             break;
         case 'CA,TP':
             // Mint Operation
-            price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenReceive),
-                    tokenReceiveSettings.decimals
-                )
-            );
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals));
             cAmount = amount.times(price);
             break;
         case 'TC,CA':
             // Redeem Operation
-            price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
-                    tokenExchangeSettings.decimals
-                )
-            );
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            cAmount = amount.times(price);
+            break;
+        case 'TG,CA':
+            // TG
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            cAmount = amount.times(price);
+            break;
+        case 'COINBASE,CA':
+            // COINBASE
+            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
             cAmount = amount.times(price);
             break;
         case 'CA,CA':
@@ -210,22 +198,15 @@ function ConvertAmount(
     return cAmount;
 }
 
-const precision = (contractDecimals) =>
-    new BigNumber(10).exponentiatedBy(contractDecimals);
+const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals);
 
-const AmountToVisibleValue = (
-    rawAmount,
-    tokenName,
-    decimals,
-    amountInWei = true
-) => {
+const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei = true) => {
+    console.log('tokenname is ', tokenName);
     const tokenSettings = TokenSettings(tokenName);
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(
-            fromContractPrecisionDecimals(rawAmount, tokenSettings.decimals)
-        );
+        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenSettings.decimals));
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -235,13 +216,7 @@ const AmountToVisibleValue = (
     });
 };
 
-function CalcCommission(
-    auth,
-    tokenExchange,
-    tokenReceive,
-    rawAmount,
-    amountInWei = true
-) {
+function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWei = true) {
     // Calc commissions
 
     const tokenExchangeSettings = TokenSettings(tokenExchange);
@@ -249,12 +224,7 @@ function CalcCommission(
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(
-            fromContractPrecisionDecimals(
-                rawAmount,
-                tokenExchangeSettings.decimals
-            )
-        );
+        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenExchangeSettings.decimals));
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -262,46 +232,30 @@ function CalcCommission(
     let feeParam;
 
     const tokenMap = `${tokenExchange},${tokenReceive}`;
-    const aTokenExchange = tokenExchange.split('_')
-    const aTokenReceive = tokenReceive.split('_')
+    const aTokenExchange = tokenExchange.split('_');
+    const aTokenReceive = tokenReceive.split('_');
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
 
     switch (aTokenMap) {
         case 'CA,TC':
             // Mint TC
-            feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tcMintFee,
-                    tokenReceiveSettings.decimals
-                )
-            );
+            feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcMintFee, tokenReceiveSettings.decimals));
             break;
         case 'TP,CA':
             // Redeem TP
             feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpRedeemFees[parseInt(aTokenExchange[1])],
-                    tokenReceiveSettings.decimals
-                )
+                fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFees[parseInt(aTokenExchange[1])], tokenReceiveSettings.decimals)
             );
             break;
         case 'CA,TP':
             // Mint TP
             feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpMintFees[parseInt(aTokenReceive[1])],
-                    tokenReceiveSettings.decimals
-                )
+                fromContractPrecisionDecimals(auth.contractStatusData.tpMintFees[parseInt(aTokenReceive[1])], tokenReceiveSettings.decimals)
             );
             break;
         case 'TC,CA':
             // Redeem TC
-            feeParam = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.tcRedeemFee,
-                    tokenReceiveSettings.decimals
-                )
-            );
+            feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcRedeemFee, tokenReceiveSettings.decimals));
             break;
         default:
             throw new Error('Invalid token name');
@@ -349,7 +303,7 @@ function CalcCommission(
         feeTokenPrice: feeTokenPrice,
         feeTokenPct: feeTokenPct,
         totalFeeToken: totalFeeToken.div(feeTokenPrice),
-        totalFeeTokenUSD: totalFeeToken.times(feeTokenPrice).times(priceCA),
+        totalFeeTokenUSD: totalFeeToken.times(priceCA),
         feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100)
     };
 
@@ -445,24 +399,9 @@ function AmountsWithCommissions(
     let amountYouReceive;
     let commissionsValue;
     if (amountInWei) {
-        amountYouExchange = new BigNumber(
-            fromContractPrecisionDecimals(
-                rawAmountYouExchange,
-                tokenExchangeSettings.decimals
-            )
-        );
-        amountYouReceive = new BigNumber(
-            fromContractPrecisionDecimals(
-                rawAmountYouReceive,
-                tokenReceiveSettings.decimals
-            )
-        );
-        commissionsValue = new BigNumber(
-            fromContractPrecisionDecimals(
-                rawCommissionsValue,
-                commissionsValueSettings.decimals
-            )
-        );
+        amountYouExchange = new BigNumber(fromContractPrecisionDecimals(rawAmountYouExchange, tokenExchangeSettings.decimals));
+        amountYouReceive = new BigNumber(fromContractPrecisionDecimals(rawAmountYouReceive, tokenReceiveSettings.decimals));
+        commissionsValue = new BigNumber(fromContractPrecisionDecimals(rawCommissionsValue, commissionsValueSettings.decimals));
     } else {
         amountYouExchange = new BigNumber(rawAmountYouExchange);
         amountYouReceive = new BigNumber(rawAmountYouReceive);
@@ -470,8 +409,8 @@ function AmountsWithCommissions(
     }
 
     const tokenMap = `${tokenExchange},${tokenReceive}`;
-    const aTokenExchange = tokenExchange.split('_')
-    const aTokenReceive = tokenReceive.split('_')
+    const aTokenExchange = tokenExchange.split('_');
+    const aTokenReceive = tokenReceive.split('_');
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
 
     switch (aTokenMap) {

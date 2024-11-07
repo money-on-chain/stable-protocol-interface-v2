@@ -9,6 +9,10 @@ const addABI = (abiContracts) => {
     abiDecoder.addABI(abiContracts.Moc.abi);
     abiDecoder.addABI(abiContracts.MocVendors.abi);
     abiDecoder.addABI(abiContracts.MocQueue.abi);
+
+    // OMOC
+    abiDecoder.addABI(abiContracts.VestingFactory.abi);
+    abiDecoder.addABI(abiContracts.IncentiveV2.abi);
 };
 
 const renderEventField = (eveName, eveValue) => {
@@ -83,7 +87,9 @@ const decodeEvents = (receipt) => {
         'OperationQueued',
         'OperationExecuted',
         'LiqTPRedeemed',
-        'PeggedTokenChange'
+        'PeggedTokenChange',
+        'ClaimOK',
+        'VestingCreated'
     ];
 
     const filteredEvents = decodedLogs.filter((event) =>

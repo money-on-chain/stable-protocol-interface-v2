@@ -1,0 +1,406 @@
+/*
+section_send.scss contains all the css code for Send section cards not contained in global.scss
+*/
+
+.vesting {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--color-text-primary);
+    font-family: var(--main-font);
+
+    display: flex;
+    column-gap: 32px;
+    row-gap: 24px;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    #vesting-onboarding {
+        min-height: 500px;
+        .options {
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            gap: 16px;
+        }
+        .button--small {
+            height: 28px;
+        }
+    }
+
+    .page1 {
+    }
+    .page2 {
+        .primary-button {
+            width: 314px;
+        }
+
+        .explanation {
+            margin-top: 0px;
+            margin-bottom: 16px;
+        }
+    }
+    .page3 {
+        .claim__details {
+            font-size: 18px;
+        }
+        .vesting-wallet-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .copy-button {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            color: var(--color-text-link);
+        }
+        .copy-icon {
+            width: 22px;
+            height: 22px;
+            background-image: url('../icons/CopyOutline.svg');
+            background-size: 22px 22px;
+            background-repeat: no-repeat;
+            display: block;
+            filter: var(--color-icon-link-filter);
+        }
+    }
+    .page4 {
+        .options {
+            margin-top: 8px;
+            margin-bottom: 32px;
+        }
+        .success-message {
+            margin-bottom: 32px;
+        }
+    }
+
+    .vesting-content {
+        width: 500px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+
+        h2 {
+            font-family: var(--brand-font);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 40px;
+            text-align: center;
+            width: 410px;
+        }
+
+        p {
+            font-family: var(--main-font);
+            font-size: 12px;
+        }
+        .cta {
+            display: flex;
+            gap: 32px;
+            margin: var(--margin-vertical-small) 0px
+                var(--margin-vertical-small) 0px;
+        }
+        .input-container {
+            width: 100%;
+        }
+        TextArea {
+            color: var(--color-text-primary);
+        }
+    }
+
+    .pagination {
+        margin-top: 32px;
+        width: 100%;
+        height: 32px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        .page-indicator {
+            width: 16px;
+            height: 16px;
+            background-image: url('../icons/PaginationDeselectedOutlined.svg');
+            background-repeat: none;
+            background-size: cover;
+            filter: var(--color-icon-link-filter);
+        }
+        .page-indicator.active {
+            background-image: url('../icons/PaginationSelectedOutlined.svg');
+        }
+    }
+
+    .claim-code-input {
+        min-width: 100%;
+        height: 132px;
+        margin-top: 8px;
+        margin-bottom: 16px;
+        padding: 32px;
+        background-color: var(--surface-color-2);
+        font-size: 14px;
+        border: none;
+        border-radius: var(--card-border-radius);
+        word-break: break-all;
+        display: block;
+        float: left;
+    }
+
+    #vesting-info {
+        width: 576px;
+        height: 171px;
+        line-height: 24px;
+        display: flex;
+        flex-direction: column;
+        h1 {
+            line-height: 0%;
+        }
+        #vesting-info-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        #vesting-verification {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            .vesting__verification__status--OwnedWallet {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--color-semantic-positive);
+            }
+            .vesting__verification__status--notOwnedWallet {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--color-semantic-negative);
+            }
+            .verification-icon--ownedWallet {
+                width: 16px;
+                height: 16px;
+                background-image: url('../icons/SuccessOutline.svg');
+                background-repeat: none;
+                background-size: cover;
+                filter: var(--filter-semantic-positive);
+            }
+            .verification-icon--notOwnedWallet {
+                width: 16px;
+                height: 16px;
+                background-image: url('../icons/AttentionOutline.svg');
+                background-repeat: none;
+                background-size: cover;
+                filter: var(--filter-semantic-negative);
+            }
+            .verify__button {
+                margin-left: 16px;
+                color: var(--color-text-highlight);
+            }
+            .icon__button__arrow {
+                filter: var(--color-icon-link-filter);
+            }
+        }
+
+        #withdraw-cta {
+            color: var(--color-text-highlight);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            .icon__button__arrow {
+                filter: var(--color-icon-link-filter);
+            }
+        }
+        #withdraw-cta:disabled {
+            display: none;
+        }
+    }
+    #vesting-distribution {
+        width: 576px;
+        height: 171px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px 32px;
+    }
+
+    .vesting__data {
+        font-family: var(--brand-font);
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 17px;
+        margin-top: 6px;
+    }
+
+    .vesting__label {
+        font-family: var(--main-font);
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+        margin-top: 4px;
+    }
+
+    #vesting-schedudle {
+        min-height: 550px;
+        h1 {
+            line-height: 0%;
+            margin-top: 7px;
+            margin-bottom: 0px;
+        }
+        #moc-total {
+            text-align: right;
+
+            .total-data {
+                font-family: var(--brand-font);
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 17px;
+                margin-top: 6px;
+            }
+        }
+        // .ant-table-cell {
+        //     border-bottom: 1px solid var(--dividers);
+        // }
+        // .ant-table-body .ant-table-cell {
+        //     border: none !important;
+        // }
+        // .ant-table {
+        // }
+        // .date-column {
+        //     padding-left: 0px !important;
+        // }
+        // .percent-column {
+        //     padding-left: 0px !important;
+        // }
+        // .amount-column {
+        //     padding-left: 0px !important;
+        // }
+        // .status-column {
+        //     width: 400px !important;
+        //     padding-left: 24px !important;
+        // }
+
+        // .ant-table-header {
+        //     margin-top: 40px;
+        //     margin-bottom: 0px;
+        //     padding-bottom: 12px !important;
+        // }
+        // .ant-table-measure-row {
+        //     line-height: 0px;
+        // }
+        // .ant-table-body {
+        //     margin-top: 0px !important;
+        // }
+
+        // tbody > tr {
+        //     height: 40px;
+        // }
+
+        // .ant-table-tbody {
+        //     margin-top: 0px;
+        //     padding-top: 0px;
+        // }
+        // .ant-table-measure-row {
+        // }
+    }
+}
+
+// table with one row
+
+.renderHeader,
+.renderRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    .releaseDate {
+        width: 210px;
+    }
+    .daysToRelease {
+        width: 150px;
+    }
+    .percentage {
+        width: 90px;
+        text-align: right;
+    }
+    .amount {
+        width: 150px;
+        text-align: right;
+    }
+    .status {
+        // width: auto;
+        text-align: left;
+    }
+}
+.renderHeader {
+    margin-top: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 14px;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .vesting {
+        width: 100%;
+
+        .vesting-content {
+            width: 100%;
+            h2 {
+                width: 100%;
+            }
+        }
+    }
+    #vesting-schedule-table {
+        padding: var(--padding-mobile) !important;
+        .ant-table-cell {
+            padding: 0%;
+        }
+    }
+    .renderHeader,
+    .renderRow {
+        width: 100%;
+        line-height: 110%;
+        display: flex;
+        gap: 4px;
+        font-size: 10px;
+        .releaseDate {
+            width: 80px;
+        }
+        .daysToRelease {
+            width: 50px;
+        }
+        .percentage {
+            width: 56px;
+            text-align: right;
+        }
+        .amount {
+            width: 70px;
+        }
+        .status {
+            width: auto;
+            font-size: 8px;
+        }
+    }
+    .renderHeader {
+        margin-top: 40px;
+        // font-size: 12px;
+        font-weight: 600;
+        margin-left: 0;
+    }
+    #moc-total {
+        text-align: right;
+        margin-top: 32px;
+        .total-data {
+            font-family: var(--brand-font);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 17px;
+            margin-top: 6px;
+        }
+    }
+}
