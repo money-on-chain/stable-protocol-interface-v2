@@ -24,6 +24,7 @@ export default function Skeleton() {
     useEffect(() => {
         if (auth.contractStatusData && auth.userBalanceData) {
             readProtocolStatus();
+            readTpLegacyBalance();
         }
     }, [auth.contractStatusData, auth.userBalanceData]);
 
@@ -46,14 +47,16 @@ export default function Skeleton() {
         }
     }
 
-    const tpLegacyBalance = new BigNumber(
-        Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
-    );
+    const readTpLegacyBalance = () => {
+        const tpLegacyBalance = new BigNumber(
+            Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
+        );
 
-    if (tpLegacyBalance.gt(0)) {
-        setCanSwap(true);
-    } else {
-        setCanSwap(false);
+        if (tpLegacyBalance.gt(0)) {
+            setCanSwap(true);
+        } else {
+            setCanSwap(false);
+        }
     }
 
     return (
@@ -61,6 +64,7 @@ export default function Skeleton() {
             <SectionHeader />
             <Content>
                 {canSwap && <ModalTokenMigration />}
+
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
