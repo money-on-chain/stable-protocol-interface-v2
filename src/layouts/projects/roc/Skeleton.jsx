@@ -44,14 +44,17 @@ export default function Skeleton() {
         } else {
             setNotifStatus(null);
         }
-        const tpLegacyBalance = new BigNumber(
-            Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
-        );
-        if (tpLegacyBalance.gt(0)) {
-            setCanSwap(true);
-        } else {
-            setCanSwap(false);
-    };
+    }
+
+    const tpLegacyBalance = new BigNumber(
+        Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, 'ether')
+    );
+
+    if (tpLegacyBalance.gt(0)) {
+        setCanSwap(true);
+    } else {
+        setCanSwap(false);
+    }
 
     return (
         <Layout>
