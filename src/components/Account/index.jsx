@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
-import { notification, Switch, Select, Button, Input } from 'antd';
+import { notification, Switch, Select, Input } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
@@ -12,6 +12,7 @@ import { loadVestingAddressesFromLocalStorage,
 
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 import { withSuccess } from 'antd/lib/modal/confirm';
+import settings from '../../settings/settings.json';
 
 const { Option } = Select;
 
@@ -299,16 +300,19 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            <div className="switch switch__vesting">
-                <Switch
-                    checked={vestingOn}
-                    onChange={onChangeShowVesting}
-                />
-                <p>{t('wallet.useVesting')}</p>
-            </div>
+            {settings.project !== 'roc' && (
+                <div className='switch switch__vesting'>
+                    <Switch
+                        checked={vestingOn}
+                        onChange={onChangeShowVesting}
+                    />
+                    <p>{t('wallet.useVesting')}</p>
+                </div>
+            )}
+
             {vestingOn && actionVesting === 'select' && (
-                <div className="wallet__vesting__options">
-                    <div className="wallet__vesting__address__label">
+                <div className='wallet__vesting__options'>
+                    <div className='wallet__vesting__address__label'>
                         {t('wallet.inputLabel')}
                     </div>
                     <div className="wallet__vesting__address__dropdown">
