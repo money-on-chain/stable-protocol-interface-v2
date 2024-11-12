@@ -66,7 +66,7 @@
 .menu-nav-item:hover::after,
 .menu-nav-item-more:hover::after {
     background-color: var(
-                    --color-navigation-text-hover
+        --color-navigation-text-hover
     ); /* Color de la línea al hacer hover */
 }
 
@@ -74,7 +74,7 @@
     color: var(--color-navigation-text-hover);
     .logo-portfolio {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/PortfolioFilled.svg');
+        // background-image: url('../icons/PortfolioFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -82,7 +82,7 @@
     }
     .logo-send {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/SendFilled.svg');
+        // background-image: url('../icons/SendFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -90,7 +90,7 @@
     }
     .logo-exchange {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/ExchangeFilled.svg');
+        // background-image: url('../icons/ExchangeFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -98,7 +98,7 @@
     }
     .logo-performance {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/PerformanceFilled.svg');
+        // background-image: url('../icons/PerformanceFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -106,7 +106,7 @@
     }
     .logo-staking {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/StakeFilled.svg');
+        // background-image: url('../icons/StakeFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -114,7 +114,7 @@
     }
     .logo-liquidity-mining {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/LiquidityMiningFilled.svg');
+        // background-image: url('../icons/LiquidityMiningFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -122,7 +122,7 @@
     }
     .logo-vesting {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/VestingFilled.svg');
+        // background-image: url('../icons/VestingFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -130,7 +130,7 @@
     }
     .logo-voting {
         filter: var(--color-navigation-icon-filter-default);
-        background-image: url('../icons/VotingFilled.svg');
+        // background-image: url('../icons/VotingFilled.svg');
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
