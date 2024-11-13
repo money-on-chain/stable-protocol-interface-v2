@@ -741,5 +741,26 @@
             "light": "Modo claro",
             "dark": "Modo oscuro"
         }
+    },
+    "liquidityMining": {
+        "cardTitle": "Liquidity Mining",
+        "cta": {
+            "infoDetail": "Usa el botón de abajo para reclamar tus tokens del programa de incentivos de Liquidity Mining de MOC. Solo necesitarás pagar las tarifas de gas para esta transacción en cadena. Una vez que los tokens estén en tu balance, puedes apostarlos para ganar aún más recompensas.",
+            "infoSummary": "MoC listos para reclamar",
+            "button": "Reclamar"
+        },
+        "stakingCTA": {
+            "button": "Ir a Staking",
+            "explanation": "Stakea tokens MOC — ¡es rápido y sencillo!"
+        },
+        "claimsTable": {
+            "date": "Fecha",
+            "asset": "Token",
+            "amount": "Cantidad",
+            "event": "Evento",
+            "status": "Estado",
+            "statusReceived": "Recibido",
+            "statusInProgress": "En progreso"
+        }
     }
 }

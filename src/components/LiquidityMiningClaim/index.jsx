@@ -2,64 +2,43 @@ import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import { pendingWithdrawalsFormat, tokenStake } from '../../helpers/staking';
 import BigNumber from 'bignumber.js';
-import Stake from './Stake';
-import PieChartComponent from './PieChart';
-import PerformanceChart from './performanceChart';
-import Withdraw from './WithdrawV2';
-import DashBoard from './DashBoard';
+import { Button } from 'antd';
+import PerformanceChart from '../Staking/performanceChart';
 import { AuthenticateContext } from '../../context/Auth';
+import LiquidityMiningClaims from '../Tables/LiquidityMiningClaims';
 import Web3 from 'web3';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { TokenSettings } from '../../helpers/currencies';
+import './Styles.scss';
 
 export default function LiquidityMiningClaim(props) {
     const auth = useContext(AuthenticateContext);
     const [t] = useProjectTranslation();
+    const space = '\u00A0';
 
     return (
         <Fragment>
             <div className="section row-section">
                 <div className="firstCardsGroup">
-                    TEST LIQUIDITY MINING
-                    <div id="stakingCard" className="layout-card">
+                    <div id="claimCard" className="layout-card">
                         <div className="layout-card-title">
-                            <h1>{t('staking.cardTitle')}</h1>
+                            <h1>{t('liquidityMining.cardTitle')}</h1>
                         </div>
-                        <div className="tabs">
-                            <button
-                                onClick={() => setActiveTab('tab1')}
-                                className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
-                            >
-                                {t('staking.staking.tabStake')}
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('tab2')}
-                                className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
-                            >
-                                {t('staking.staking.tabUnstake')}
-                            </button>
-                        </div>
-                        <div className="tab-divider"></div>
-                        {/* Tab Content */}
-                        <div className="tab-content">
-                            <Stake
-                                activeTab={activeTab}
-                                userInfoStaking={userInfoStaking}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <div
-                            id="distributionCard"
-                            className="layout-card staking-distribution-card"
-                        >
-                            <div className="layout-card-title">
-                                <h1>{t('staking.distribution.title')}</h1>
+
+                        <div className="cta-container">
+                            <div className="cta-info-group">
+                                <div className="cta-info-detail">
+                                    {t('liquidityMining.cta.infoDetail')}
+                                </div>
+                                <div className="cta-info-summary">
+                                    23984723948{space}
+                                    {t('liquidityMining.cta.infoSummary')}
+                                </div>
                             </div>
-                            <div className="tab-content">
-                                <PieChartComponent
-                                    userInfoStaking={userInfoStaking}
-                                />
+                            <div className="cta-options-group">
+                                <Button type="primary" className={'button'}>
+                                    {t('liquidityMining.cta.button')}
+                                </Button>
                             </div>
                         </div>
                     </div>
@@ -68,9 +47,18 @@ export default function LiquidityMiningClaim(props) {
                             <h1>{t('staking.performance.title')}</h1>
                         </div>
                         <div className="tab-content">
+                            <div className="stakeCTA">
+                                {t('liquidityMining.stakingCTA.explanation')}
+                                <button className="button secondary">
+                                    {t('liquidityMining.stakingCTA.button')}
+                                </button>
+                            </div>
                             <PerformanceChart />
                         </div>
                     </div>
+                </div>
+                <div className="secondCardsGroup">
+                    <LiquidityMiningClaims />
                 </div>
             </div>
         </Fragment>
