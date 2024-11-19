@@ -8,12 +8,15 @@ import DappVersion from '../DappVersion';
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 import ThemeMode from '../ThemeMode';
 import settings from '../../settings/settings.json';
+import Brand from './Brand';
+
+import './Styles.scss';
 
 const { Header } = Layout;
 
 export default function SectionHeader(props) {
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
@@ -43,16 +46,16 @@ export default function SectionHeader(props) {
             allowedProjects: ['flipmoney', 'roc']
         },
         {
-            name: () => t('menuOptions.staking'),
-            className: 'logo-staking',
-            path: '/staking',
-            allowedProjects: ['moc', 'flipmoney']
-        },
-        {
             name: () => t('menuOptions.exchange'),
             className: 'logo-exchange',
             path: '/exchange',
             allowedProjects: ['flipmoney', 'roc']
+        },
+        {
+            name: () => t('menuOptions.staking'),
+            className: 'logo-staking',
+            path: '/staking',
+            allowedProjects: ['moc', 'flipmoney']
         },
         {
             name: () => t('menuOptions.performance'),
@@ -83,7 +86,6 @@ export default function SectionHeader(props) {
     // Filter options based on project and language changes
     const [displayOptions, setDisplayOptions] = useState([]);
     const currentProject = settings.project;
-
     useEffect(() => {
         const filteredOptions = menuOptions
             .filter(
@@ -149,9 +151,7 @@ export default function SectionHeader(props) {
     return (
         <Header>
             <div className="header-container">
-                <div className="header-logo">
-                    <div className="logo-app"></div>
-                </div>
+                <Brand />
                 <div className="central-menu">
                     {mainMenuOptions.map((option) => (
                         <a
@@ -159,9 +159,9 @@ export default function SectionHeader(props) {
                             className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? 'menu-nav-item-selected' : ''}`}
                             key={option.path}
                         >
-                            <i
+                            <div
                                 className={`${option.className}${location.pathname === option.path ? '-selected' : ''}`}
-                            ></i>
+                            ></div>
                             <span className="menu-nav-item-title">
                                 {option.name()}
                             </span>
@@ -174,7 +174,7 @@ export default function SectionHeader(props) {
                             }
                             className="menu-nav-item-more"
                         >
-                            <i className="logo-more"></i>
+                            <div className="logo-more"></div>
                             <span className="menu-nav-item-title-more">
                                 {t('menuOptions.more')}
                             </span>
@@ -255,7 +255,6 @@ export default function SectionHeader(props) {
                         className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
                     ></i>
                 </div>
-
                 {/* Overlay & Mobile Menu*/}
                 {isMobileMenuOpen && (
                     <>

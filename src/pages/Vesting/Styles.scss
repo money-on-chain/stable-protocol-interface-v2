@@ -2,6 +2,9 @@
 section_send.scss contains all the css code for Send section cards not contained in global.scss
 */
 
+// Variables
+$breakpoint-mobile: 600px;
+
 .vesting {
     display: flex;
     flex-direction: column;
@@ -59,7 +62,7 @@ section_send.scss contains all the css code for Send section cards not contained
         .copy-icon {
             width: 22px;
             height: 22px;
-            background-image: url('../icons/CopyOutline.svg');
+            background-image: url('../../assets/icons/CopyOutline.svg');
             background-size: 22px 22px;
             background-repeat: no-repeat;
             display: block;
@@ -122,13 +125,13 @@ section_send.scss contains all the css code for Send section cards not contained
         .page-indicator {
             width: 16px;
             height: 16px;
-            background-image: url('../icons/PaginationDeselectedOutlined.svg');
+            background-image: url('../../assets/icons/PaginationDeselectedOutlined.svg');
             background-repeat: none;
             background-size: cover;
             filter: var(--color-icon-link-filter);
         }
         .page-indicator.active {
-            background-image: url('../icons/PaginationSelectedOutlined.svg');
+            background-image: url('../../assets/icons/PaginationSelectedOutlined.svg');
         }
     }
 
@@ -181,7 +184,7 @@ section_send.scss contains all the css code for Send section cards not contained
             .verification-icon--ownedWallet {
                 width: 16px;
                 height: 16px;
-                background-image: url('../icons/SuccessOutline.svg');
+                background-image: url('../../assets/icons/SuccessOutline.svg');
                 background-repeat: none;
                 background-size: cover;
                 filter: var(--filter-semantic-positive);
@@ -189,7 +192,7 @@ section_send.scss contains all the css code for Send section cards not contained
             .verification-icon--notOwnedWallet {
                 width: 16px;
                 height: 16px;
-                background-image: url('../icons/AttentionOutline.svg');
+                background-image: url('../../assets/icons/AttentionOutline.svg');
                 background-repeat: none;
                 background-size: cover;
                 filter: var(--filter-semantic-negative);

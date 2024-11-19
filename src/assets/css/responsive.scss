@@ -1,4 +1,3 @@
-/* #region RESPONSIVE */
 // Variables
 $breakpoint-mobile: 600px;
 
@@ -61,11 +60,12 @@ $breakpoint-mobile: 600px;
         .header-logo {
             box-shadow: none;
             background-color: transparent;
+            padding: 0;
             width: 32px;
-            height: 32px;
+            height: 24px !important;
             .logo-app {
-                margin: 0;
-                background-image: var(--brand-logo-main-small);
+                margin: 0 !important;
+                background-image: var(--brand-logo-main-small) !important;
                 background-size: contain;
                 background-repeat: no-repeat;
                 width: 32px;
@@ -554,8 +554,6 @@ $breakpoint-mobile: 600px;
         display: none;
     }
 }
-
-/* #endregion RESPONSIVE */
 
 // .ant-notification-notice {
 //     background-color: var(--notification-info-background);
