@@ -7,6 +7,8 @@ import Vote from './Vote';
 import { formatTimestamp } from '../../helpers/staking';
 import { useProjectTranslation } from '../../helpers/translations';
 
+import './Styles.scss';
+
 export default function Voting(props) {
     const [t, i18n, ns] = useProjectTranslation();
 
