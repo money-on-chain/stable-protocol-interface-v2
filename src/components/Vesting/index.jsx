@@ -1095,6 +1095,7 @@ export default function Vesting(props) {
                                         i18n: i18n,
                                         ns: ns
                                     })}
+                                    {space}
                                     {t('staking.tokens.TG.abbr', { ns: ns })}
                                 </div>
                                 <div className="vesting__label">
