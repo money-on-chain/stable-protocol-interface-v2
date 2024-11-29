@@ -23,7 +23,7 @@ export default function SectionHeader(props) {
     const menuRef = useRef(null); // Mobile Menu ref
 
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = settings.project === 'moc' || settings.project === 'roc' ? 4 : 5;
+    const menuLimit = settings.project === 'voting' || settings.project === 'moc' || settings.project === 'roc' ? 4 : 5;
 
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
@@ -31,42 +31,42 @@ export default function SectionHeader(props) {
 
     useEffect(() => {
         setMenuOptions([
-            ... settings.project !== 'moc' ? [{
+            ... settings.project !== 'voting' ? [{
                 name: t('menuOptions.portfolio'),
                 className: 'logo-portfolio',
                 action: goToPortfolio,
                 isActive: true,
                 pathMap: '/'
             }] : [],
-            ... settings.project === 'moc' ? [{
+            ... settings.project === 'voting' ? [{
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,
                 isActive: true,
                 pathMap: '/'
             }] : [],
-            ... settings.project !== 'moc' ? [{
+            ... settings.project !== 'voting' ? [{
                 name: t('menuOptions.send'),
                 className: 'logo-send',
                 action: goToSend,
                 isActive: true,
                 pathMap: '/send'
             }] : [],
-            ... settings.project !== 'moc' ? [{
+            ... settings.project !== 'voting' ? [{
                 name: t('menuOptions.exchange'),
                 className: 'logo-exchange',
                 action: goToExchange,
                 isActive: true,
                 pathMap: '/exchange'
             }] : [],
-            ... settings.project !== 'moc' ? [{
+            ... settings.project !== 'voting' ? [{
                 name: t('menuOptions.performance'),
                 className: 'logo-performance',
                 action: goToPerformance,
                 isActive: true,
                 pathMap: '/performance'
             }] : [],
-            ... settings.project !== 'moc' && settings.project !== 'roc' ? [{
+            ... settings.project !== 'voting' && settings.project !== 'roc' ? [{
                 name: t('menuOptions.staking'),
                 className: 'logo-staking',
                 action: goToStaking,

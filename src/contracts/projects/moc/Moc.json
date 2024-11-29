@@ -254,6 +254,11 @@
     },
     {
       "inputs": [],
+      "name": "RecipientMustBeSender",
+      "type": "error"
+    },
+    {
+      "inputs": [],
       "name": "TransferFailed",
       "type": "error"
     },
@@ -527,19 +532,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "acToken",
-      "outputs": [
-        {
-          "internalType": "contract IERC20",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "components": [
@@ -587,6 +579,19 @@
       "name": "addPeggedToken",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "allowDifferentRecipient",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -652,6 +657,19 @@
       "name": "changeGovernor",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "coinbaseFailedTransferFallback",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -1888,6 +1906,11 @@
                       "internalType": "uint256",
                       "name": "decayBlockSpan",
                       "type": "uint256"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "allowDifferentRecipient",
+                      "type": "bool"
                     }
                   ],
                   "internalType": "struct MocBaseBucket.InitializeBaseBucketParams",
@@ -1925,12 +1948,17 @@
               "type": "tuple"
             },
             {
+              "internalType": "uint256",
+              "name": "transferMaxGas",
+              "type": "uint256"
+            },
+            {
               "internalType": "address",
-              "name": "acTokenAddress",
+              "name": "coinbaseFailedTransferFallback",
               "type": "address"
             }
           ],
-          "internalType": "struct MocCARC20.InitializeParams",
+          "internalType": "struct MocCACoinbase.InitializeParams",
           "name": "initializeParams_",
           "type": "tuple"
         }
@@ -2099,11 +2127,6 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "qAC_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
           "name": "qTC_",
           "type": "uint256"
         },
@@ -2133,11 +2156,6 @@
         {
           "internalType": "uint256",
           "name": "qTC_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "qACmax_",
           "type": "uint256"
         },
         {
@@ -2172,11 +2190,6 @@
         {
           "internalType": "uint256",
           "name": "qTP_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "qACmax_",
           "type": "uint256"
         },
         {
@@ -2224,11 +2237,6 @@
         {
           "internalType": "uint256",
           "name": "qTP_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "qACmax_",
           "type": "uint256"
         },
         {
@@ -2608,8 +2616,14 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "refreshACBalance",
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "allowDifferentRecipient_",
+          "type": "bool"
+        }
+      ],
+      "name": "setAllowDifferentRecipient",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -3005,6 +3019,19 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "transferMaxGas_",
+          "type": "uint256"
+        }
+      ],
+      "name": "setTransferMaxGas",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "shouldCalculateEma",
       "outputs": [
@@ -3061,11 +3088,6 @@
           "type": "uint256"
         },
         {
-          "internalType": "uint256",
-          "name": "qACmax_",
-          "type": "uint256"
-        },
-        {
           "internalType": "address",
           "name": "recipient_",
           "type": "address"
@@ -3115,11 +3137,6 @@
         {
           "internalType": "uint256",
           "name": "qTCmin_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "qACmax_",
           "type": "uint256"
         },
         {
@@ -3177,11 +3194,6 @@
         {
           "internalType": "uint256",
           "name": "qTPmin_",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "qACmax_",
           "type": "uint256"
         },
         {
@@ -3424,6 +3436,19 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "transferMaxGas",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -3526,6 +3551,10 @@
       "outputs": [],
       "stateMutability": "payable",
       "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
     }
   ]
 }
