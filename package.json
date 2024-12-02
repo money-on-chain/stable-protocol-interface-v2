@@ -60,6 +60,9 @@
     "reload:voting-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingMainnet react-app-rewired start",
     "start:voting-mainnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingMainnet react-app-rewired start",
     "build:voting-mainnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.votingMainnet react-app-rewired build && rm build/projects/ -R",
+    "reload:moc-alpha-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocAlphaTestnet react-app-rewired start",
+    "start:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocAlphaTestnet react-app-rewired start",
+    "build:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocAlphaTestnet react-app-rewired build && rm build/projects/ -R",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

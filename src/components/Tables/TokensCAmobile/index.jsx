@@ -398,7 +398,8 @@ export default function Tokens(props) {
     if (
         auth.contractStatusData &&
         auth.userBalanceData &&
-        settings.project === 'roc'
+        (settings.project === 'roc' ||
+         settings.project === 'moc')
     ) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(

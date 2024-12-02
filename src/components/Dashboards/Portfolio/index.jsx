@@ -53,7 +53,7 @@ export default function Portfolio() {
                 )
             );
             price =
-                settings.project === 'roc'
+                settings.project === 'roc' || settings.project === 'moc'
                     ? 1
                     : new BigNumber(
                           fromContractPrecisionDecimals(
@@ -157,11 +157,11 @@ export default function Portfolio() {
                 <div className="tokens-list-table">
                     <div className="mobile-only">
                         <TokensCAmobile />
-                        {settings.project !== 'roc' && <TokensTPmobile />}
+                        {settings.project !== 'roc' || settings.project !== 'moc' && <TokensTPmobile />}
                     </div>
                     <div className="desktop-only">
                         <TokensCA />
-                        {settings.project !== 'roc' && <TokensTP />}
+                        {settings.project !== 'roc' || settings.project !== 'moc' && <TokensTP />}
                     </div>
                 </div>
             </div>

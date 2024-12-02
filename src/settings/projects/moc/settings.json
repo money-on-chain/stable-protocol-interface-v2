@@ -10,7 +10,7 @@
         "CA": [
             {
                 "key": 0,
-                "name": "RIF",
+                "name": "RBTC",
                 "decimals": 18,
                 "visibleDecimals": 6
             }
@@ -18,13 +18,13 @@
         "TP": [
             {
                 "key": 0,
-                "name": "USDRIF",
+                "name": "DOC",
                 "decimals": 18,
                 "visibleDecimals": 6
             }
         ],
         "TC": {
-            "name": "RIF PRO",
+            "name": "BitPRO",
             "decimals": 18,
             "visibleDecimals": 6
         },

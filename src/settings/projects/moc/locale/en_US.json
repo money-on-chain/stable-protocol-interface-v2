@@ -97,16 +97,16 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "RBTC",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "BitPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "COINBASE": {
                 "label": "rBTC",
@@ -185,20 +185,20 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
+                        "title": "RBTC",
+                        "symbol": " (RBTC)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
+                        "title": "BitPro",
+                        "symbol": " (BPRO)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
+                        "title": "Dollar on Chain",
+                        "symbol": " (DOC)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
@@ -294,16 +294,16 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "RBTC",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIFPro",
-                "abbr": "RIFP"
+                "label": "BitPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF US Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",

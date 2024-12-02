@@ -9,7 +9,6 @@ import {
 } from './utils';
 import { ConvertAmount } from '../../helpers/currencies';
 
-// NOTE: Only Support collateral RC20
 
 const mintTC = async (
     interfaceContext,
@@ -86,19 +85,6 @@ const mintTC = async (
         )
         .estimateGas({ from: account, value: valueToSend });
 
-    // Send tx
-    console.log('parameters for minttc');
-    console.log(toContractPrecisionDecimals(
-        new BigNumber(qTC),
-        settings.tokens.TC.decimals
-    ));
-    console.log(toContractPrecisionDecimals(
-        limitAmount,
-        settings.tokens.CA[caIndex].decimals
-    ));
-    console.log(account);
-    console.log(vendorAddress);
-    console.log('value to send', valueToSend);
     const receipt = MoCContract.methods
         .mintTC(
             toContractPrecisionDecimals(
@@ -239,11 +225,8 @@ const mintTP = async (
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
     const tpAddress = dContracts.contracts.TP[tpIndex].options.address
-    console.log('tpAddress', tpAddress);
-    console.log('contractStatusData', contractStatusData);
-    console.log('vendor address is ', vendorAddress);
-    // Verifications
 
+    // Verifications
     // User have sufficient reserve to pay?
     console.log(
         `To mint ${qTP} ${
