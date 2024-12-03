@@ -31,6 +31,8 @@ export default function SectionHeader(props) {
 
     const MAX_MAIN_MENU_ITEMS = 5;
 
+    const location = useLocation();
+
     const menuOptions = [
         {
             name: () => t('menuOptions.portfolio'),

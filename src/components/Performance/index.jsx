@@ -205,7 +205,7 @@ export default function Performance(props) {
                 </div>
 
                 <div className="card-content">
-                    <div className="dash_perfCollateral__dash">
+                    <div className="dash__perfCollateral__dash">
                         <div className="amount">
                             {!auth.contractStatusData.canOperate
                                 ? '--'

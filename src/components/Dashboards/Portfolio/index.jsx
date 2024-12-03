@@ -14,6 +14,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 export default function Portfolio() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
+    const space = '\u00A0';
 
     let balance;
     let price;
@@ -66,7 +67,6 @@ export default function Portfolio() {
         });
 
     if (auth.contractStatusData && auth.userBalanceData) {
-
         // Token TC
         balance = new BigNumber(
             fromContractPrecisionDecimals(
@@ -147,7 +147,7 @@ export default function Portfolio() {
                                       ns: ns,
                                       skipContractConvert: true
                                   })}
-                            {t('portfolio.totalCurrency')}
+                            {space} {t('portfolio.totalCurrency')}
                         </div>
                         <div className="tokens-list-header-balance-title">
                             {t('portfolio.totalBalance')}
@@ -157,11 +157,13 @@ export default function Portfolio() {
                 <div className="tokens-list-table">
                     <div className="mobile-only">
                         <TokensCAmobile />
-                        {settings.project !== 'roc' || settings.project !== 'moc' && <TokensTPmobile />}
+                        {settings.project !== 'roc' ||
+                            (settings.project !== 'moc' && <TokensTPmobile />)}
                     </div>
                     <div className="desktop-only">
                         <TokensCA />
-                        {settings.project !== 'roc' || settings.project !== 'moc' && <TokensTP />}
+                        {settings.project !== 'roc' ||
+                            (settings.project !== 'moc' && <TokensTP />)}
                     </div>
                 </div>
             </div>
