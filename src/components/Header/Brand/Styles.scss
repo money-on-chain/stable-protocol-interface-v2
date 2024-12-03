@@ -1,0 +1,41 @@
+// Variables
+$breakpoint-mobile: 600px;
+
+.header-logo {
+    width: 192px;
+    height: 80px;
+
+    background: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+
+    line-height: 80px;
+    border-radius: var(--card-border-radius);
+
+    .logo-app {
+        width: 127.25px;
+        height: 42px;
+        background-image: var(--brand-logo-main);
+        background-size: 127.25px 42px;
+        background-repeat: no-repeat;
+        margin-left: 32px;
+        margin-top: 19px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        box-shadow: none;
+        background-color: transparent;
+        padding: 0;
+        width: 32px;
+        height: 24px !important;
+        .logo-app {
+            margin: 0 !important;
+            background-image: var(--brand-logo-main-small) !important;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 32px;
+            height: 32px;
+        }
+    }
+}

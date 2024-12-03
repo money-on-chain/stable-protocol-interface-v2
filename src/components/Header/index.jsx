@@ -8,192 +8,129 @@ import DappVersion from '../DappVersion';
 import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 import ThemeMode from '../ThemeMode';
 import settings from '../../settings/settings.json';
+import Brand from './Brand';
+
+import './Styles.scss';
 
 const { Header } = Layout;
 
 export default function SectionHeader(props) {
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+    const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile Menu State
-    const [showLanguageSubmenu, setShowLanguageSubmenu] = useState(false); //  Mobile language Sub Menu
-    const menuRef = useRef(null); // Mobile Menu ref
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [showLanguageSubmenu, setShowLanguageSubmenu] = useState(false);
+    const menuRef = useRef(null);
 
     const [t, i18n, ns] = useProjectTranslation();
-    const menuLimit = settings.project === 'voting' || settings.project === 'moc' || settings.project === 'roc' ? 4 : 5;
-
-    const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [lang, setLang] = useState('en');
-    const [menuOptions, setMenuOptions] = useState([]);
 
-    useEffect(() => {
-        setMenuOptions([
-            ... settings.project !== 'voting' ? [{
-                name: t('menuOptions.portfolio'),
-                className: 'logo-portfolio',
-                action: goToPortfolio,
-                isActive: true,
-                pathMap: '/'
-            }] : [],
-            ... settings.project === 'voting' ? [{
-                name: t('menuOptions.staking'),
-                className: 'logo-staking',
-                action: goToStaking,
-                isActive: true,
-                pathMap: '/'
-            }] : [],
-            ... settings.project !== 'voting' ? [{
-                name: t('menuOptions.send'),
-                className: 'logo-send',
-                action: goToSend,
-                isActive: true,
-                pathMap: '/send'
-            }] : [],
-            ... settings.project !== 'voting' ? [{
-                name: t('menuOptions.exchange'),
-                className: 'logo-exchange',
-                action: goToExchange,
-                isActive: true,
-                pathMap: '/exchange'
-            }] : [],
-            ... settings.project !== 'voting' ? [{
-                name: t('menuOptions.performance'),
-                className: 'logo-performance',
-                action: goToPerformance,
-                isActive: true,
-                pathMap: '/performance'
-            }] : [],
-            ... settings.project !== 'voting' && settings.project !== 'roc' ? [{
-                name: t('menuOptions.staking'),
-                className: 'logo-staking',
-                action: goToStaking,
-                isActive: true,
-                pathMap: '/staking'
-            }] : [],
-            ... settings.project !== 'roc' ? [{
-                name: t('menuOptions.vesting'),
-                className: 'logo-vesting',
-                action: goToVesting,
-                isActive: true,
-                pathMap: '/vesting'
-            }] : [],
-            /*{
-                name: t('menuOptions.liquidityMining'),
-                className: 'logo-liquidity-mining',
-                action: goToLiquidityMining,
-                isActive: true,
-                pathMap: '/liquidity-mining'
-            },*/
-            ... settings.project !== 'roc' ? [{
-                name: t('menuOptions.voting'),
-                className: 'logo-voting',
-                action: goToVoting,
-                isActive: true,
-                pathMap: '/voting'
-            }] : []
-        ]);
-    }, [t, lang]);
-    useEffect(() => {
-        if (
-            auth.isLoggedIn &&
-            auth.contractStatusData &&
-            auth.userBalanceData
-        ) {
-            setCssDisable('');
-        }
-    }, [auth]);
+    const MAX_MAIN_MENU_ITEMS = 5;
 
-    const goToPortfolio = () => {
-        setShowMoreDropdown(false);
-        navigate('/');
-    };
-
-    const goToExchange = () => {
-        setShowMoreDropdown(false);
-        navigate('/exchange');
-    };
-
-    const goToSend = () => {
-        setShowMoreDropdown(false);
-        navigate('/send');
-    };
-
-    const goToPerformance = () => {
-        setShowMoreDropdown(false);
-        navigate('/performance');
-    };
-    const goToStaking = () => {
-        swapMenuOptions(t('menuOptions.staking'));
-        setShowMoreDropdown(false);
-        navigate('/staking');
-    };
-    const goToLiquidityMining = () => {
-        swapMenuOptions(t('menuOptions.liquidityMining'));
-        setShowMoreDropdown(false);
-        navigate('/liquidity-mining');
-    };
-    const goToVesting = () => {
-        swapMenuOptions(t('menuOptions.vesting'));
-        setShowMoreDropdown(false);
-        navigate('/vesting');
-    };
-    const goToVoting = () => {
-        swapMenuOptions(t('menuOptions.voting'));
-        setShowMoreDropdown(false);
-        navigate('/voting');
-    };
-
-    const swapMenuOptions = (optionName) => {
-        setMenuOptions((currentOptions) => {
-            const currentIndex = currentOptions.findIndex(
-                (item) => item.name === optionName
-            );
-            if (currentIndex > menuLimit - 1) {
-                const newMenuOptions = [...currentOptions];
-                const [selectedOption] = newMenuOptions.splice(currentIndex, 1);
-                newMenuOptions.splice(menuLimit - 1, 0, selectedOption);
-                return newMenuOptions;
-            }
-            return currentOptions;
-        });
-    };
-
-    const getMenuItemClasses = (logoClass, path) => {
-        let containerClassName = `menu-nav-item ` + css_disable;
-        const isSelected = path === location.pathname;
-        let iconClassName = `${logoClass}${isSelected ? '-selected' : ''} ${isSelected ? 'color-filter-disabled' : 'color-filter-invert'}`;
-
-        if (isSelected) {
-            containerClassName += ' menu-nav-item-selected';
-        }
-
-        return { containerClassName, iconClassName };
-    };
-
-    // Lang settings
-    const languageOptions = [
+    const menuOptions = [
         {
-            name: t(`language.en`, {
-                ns: ns
-            }),
-            code: 'en'
+            name: () => t('menuOptions.portfolio'),
+            className: 'logo-portfolio',
+            path: '/',
+            allowedProjects: ['flipmoney', 'roc']
+        },
+
+        {
+            name: () => t('menuOptions.send'),
+            className: 'logo-send',
+            path: '/send',
+            allowedProjects: ['flipmoney', 'roc']
         },
         {
-            name: t(`language.es`, {
-                ns: ns
-            }),
-            code: 'es'
+            name: () => t('menuOptions.exchange'),
+            className: 'logo-exchange',
+            path: '/exchange',
+            allowedProjects: ['flipmoney', 'roc']
+        },
+        {
+            name: () => t('menuOptions.staking'),
+            className: 'logo-staking',
+            path: '/staking',
+            allowedProjects: ['moc', 'flipmoney']
+        },
+        {
+            name: () => t('menuOptions.performance'),
+            className: 'logo-performance',
+            path: '/performance',
+            allowedProjects: ['flipmoney', 'roc']
+        },
+        {
+            name: () => t('menuOptions.vesting'),
+            className: 'logo-vesting',
+            path: '/vesting',
+            allowedProjects: ['flipmoney', 'moc']
+        },
+        {
+            name: () => t('menuOptions.liquidityMining'),
+            className: 'logo-liquidity-mining',
+            path: '/liquidity-mining',
+            allowedProjects: ['moc']
+        },
+        {
+            name: () => t('menuOptions.voting'),
+            className: 'logo-voting',
+            path: '/voting',
+            allowedProjects: ['all']
         }
     ];
+
+    // Filter options based on project and language changes
+    const [displayOptions, setDisplayOptions] = useState([]);
+    const currentProject = settings.project;
+    useEffect(() => {
+        const filteredOptions = menuOptions
+            .filter(
+                (option) =>
+                    option.allowedProjects.includes(currentProject) ||
+                    option.allowedProjects.includes('all')
+            )
+            .map((option) => ({
+                ...option,
+                name: option.name // No ejecutamos name() aquí, mantenemos la función
+            }));
+        setDisplayOptions(filteredOptions);
+    }, [currentProject, lang, t]);
+
+    // Manage main and more menu options
+    const mainMenuOptions = displayOptions.slice(0, MAX_MAIN_MENU_ITEMS);
+    const moreMenuOptions = displayOptions.slice(MAX_MAIN_MENU_ITEMS);
+
+    const handleOptionClick = (path) => {
+        setShowMoreDropdown(false);
+        navigate(path);
+        // Swap selected "More" option to main menu if it's in the "More" list
+        const indexInMoreMenu = moreMenuOptions.findIndex(
+            (opt) => opt.path === path
+        );
+        if (indexInMoreMenu > -1) {
+            const newDisplayOptions = [...displayOptions];
+            const selectedOption = newDisplayOptions.splice(
+                MAX_MAIN_MENU_ITEMS + indexInMoreMenu,
+                1
+            )[0];
+            newDisplayOptions.splice(
+                MAX_MAIN_MENU_ITEMS - 1,
+                0,
+                selectedOption
+            );
+            setDisplayOptions(newDisplayOptions);
+        }
+    };
+
     const toggleLanguageMenu = () => {
         setShowLanguageMenu((prevState) => !prevState);
     };
     const toggleLanguageSubmenu = () =>
         setShowLanguageSubmenu(!showLanguageSubmenu);
-
     const pickLanguage = (code) => {
         i18n.changeLanguage(code);
         setLang(code);
@@ -201,111 +138,68 @@ export default function SectionHeader(props) {
         localStorage.setItem('PreferredLang', code);
     };
 
+    const languageOptions = [
+        { name: t('language.en', { ns: ns }), code: 'en' },
+        { name: t('language.es', { ns: ns }), code: 'es' }
+    ];
+
     useEffect(() => {
-        var preferredLanguage = '';
-        if (
-            localStorage.getItem('PreferredLang') !== 'en' &&
-            localStorage.getItem('PreferredLang') !== 'es'
-        ) {
-            localStorage.setItem('PreferredLang', 'en');
-            preferredLanguage = 'en';
-        } else {
-            preferredLanguage = localStorage.getItem('PreferredLang');
-        }
+        const preferredLanguage = localStorage.getItem('PreferredLang') || 'en';
         pickLanguage(preferredLanguage);
     }, []);
-
-    // Close Mobile menu when user clicks outside the menu
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (
-                isMobileMenuOpen &&
-                menuRef.current &&
-                !menuRef.current.contains(event.target)
-            ) {
-                setIsMobileMenuOpen(false);
-                setShowLanguageSubmenu(false); // Close Mobile Language Submenu
-            }
-        };
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [isMobileMenuOpen]);
-
-    // Avoid Body scroll when mobile menu is open
-    useEffect(() => {
-        if (isMobileMenuOpen) {
-            document.body.classList.add('no-scroll');
-        } else {
-            document.body.classList.remove('no-scroll');
-        }
-    });
 
     return (
         <Header>
             <div className="header-container">
-                <div className="header-logo">
-                    <div className="logo-app"></div>
-                </div>
+                <Brand />
                 <div className="central-menu">
-                    {menuOptions.map((option, index) => {
-                        const { containerClassName, iconClassName } =
-                            getMenuItemClasses(
-                                option.className,
-                                option.pathMap
-                            );
-                        if (option.isActive && index < menuLimit) {
-                            return (
-                                <a
-                                    onClick={option.action}
-                                    className={containerClassName}
-                                    key={option.name}
-                                >
-                                    <i className={iconClassName}></i>
-                                    <span className="menu-nav-item-title">
-                                        {menuOptions[index].name}
-                                    </span>
-                                </a>
-                            );
-                        } else return null;
-                    })}
-                    {menuLimit > 4 && (
+                    {mainMenuOptions.map((option) => (
+                        <a
+                            onClick={() => handleOptionClick(option.path)}
+                            className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? 'menu-nav-item-selected' : ''}`}
+                            key={option.path}
+                        >
+                            <div
+                                className={`${option.className}${location.pathname === option.path ? '-selected' : ''}`}
+                            ></div>
+                            <span className="menu-nav-item-title">
+                                {option.name()}
+                            </span>
+                        </a>
+                    ))}
+                    {moreMenuOptions.length > 0 && (
                         <a
                             onClick={() =>
                                 setShowMoreDropdown(!showMoreDropdown)
                             }
                             className="menu-nav-item-more"
                         >
-                            <i className="logo-more color-filter-invert"></i>
+                            <div className="logo-more"></div>
                             <span className="menu-nav-item-title-more">
                                 {t('menuOptions.more')}
                             </span>
                         </a>
                     )}
-                    <div
-                        className={`dropdown-menu ${showMoreDropdown ? 'show' : ''}`}
-                    >
-                        {menuOptions.slice(-2).map((option, index) => {
-                            const { containerClassName, iconClassName } =
-                                getMenuItemClasses(
-                                    option.className,
-                                    option.pathMap
-                                );
-                            return (
+                    {showMoreDropdown && (
+                        <div className="dropdown-menu show">
+                            {moreMenuOptions.map((option) => (
                                 <a
-                                    onClick={option.action}
-                                    className={containerClassName}
-                                    key={option.name}
+                                    onClick={() =>
+                                        handleOptionClick(option.path)
+                                    }
+                                    className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? 'menu-nav-item-selected' : ''}`}
+                                    key={option.path}
                                 >
-                                    <i className={iconClassName}></i>
+                                    <i
+                                        className={`${option.className}${location.pathname === option.path ? '-selected' : ''}`}
+                                    ></i>
                                     <span className="menu-nav-item-title">
-                                        {option.name}
+                                        {option.name()}
                                     </span>
                                 </a>
-                            );
-                        })}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="wallet-user">
                     <div
@@ -361,7 +255,6 @@ export default function SectionHeader(props) {
                         className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
                     ></i>
                 </div>
-
                 {/* Overlay & Mobile Menu*/}
                 {isMobileMenuOpen && (
                     <>
@@ -374,22 +267,20 @@ export default function SectionHeader(props) {
                                 <div className="icon__close__menu"></div>
                             </button>
                             <div className="mobile__menu__options">
-                                {menuOptions.map((option) => (
+                                {displayOptions.map((option) => (
                                     <a
                                         onClick={() => {
-                                            option.action();
+                                            navigate(option.path);
                                             setIsMobileMenuOpen(false);
                                         }}
                                         className="mobile-menu-item"
-                                        key={option.name}
+                                        key={option.path}
                                     >
                                         <div
-                                            className={
-                                                option.className +
-                                                ' mobile__menu__icon'
-                                            }
+                                            className={`${option.className} mobile__menu__icon`}
                                         ></div>
-                                        <div>{option.name}</div>
+                                        <div>{option.name()}</div>{' '}
+                                        {/* Ahora option.name() debería funcionar */}
                                     </a>
                                 ))}
                                 <div className="language__options">

@@ -5,7 +5,7 @@ import { Skeleton } from 'antd';
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 import Performance from '../../components/Performance';
-
+import './Styles.scss';
 
 function SectionPerformance(props) {
     const [t, i18n, ns] = useProjectTranslation();

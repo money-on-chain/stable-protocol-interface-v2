@@ -5,12 +5,12 @@ import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 
 import 'antd/dist/antd.css';
-import './index.css';
-import './assets/css/components.scss';
-import './assets/css/navigation.scss';
-import './assets/css/global.scss';
-import './assets/css/responsive.scss';
+import './assets/css/icons.scss';
 import './assets/css/customization.scss';
+// import './index-.css';
+import './assets/css/components.scss';
+import './assets/css/global.scss';
+// import './assets/css/responsive.scss';
 
 import reportWebVitals from './reportWebVitals';
 import { AuthenticateProvider } from './context/Auth';
@@ -19,9 +19,7 @@ import Router from './router';
 import es_ES from './settings/locale/es_ES.json';
 import en_US from './settings/locale/en_US.json';
 
-
 console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
-
 
 async function loadTranslations() {
     try {

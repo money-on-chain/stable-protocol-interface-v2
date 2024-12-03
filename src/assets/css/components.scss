@@ -5,6 +5,39 @@ html {
     scrollbar-width: thin;
 }
 
+html {
+    /* For browsers that support scrollbar-color */
+    scrollbar-color: var(--color-controls-foreground-on) transparent;
+    scrollbar-width: thin; /* For Firefox */
+}
+
+@supports (scrollbar-gutter: stable) {
+    html {
+        /* Ensures consistent scrollbar gutter spacing in supported browsers */
+        scrollbar-gutter: stable; /* Avoids 'both-edges' to prevent extra margins */
+    }
+}
+
+/* Custom styles for Chrome and other WebKit-based browsers */
+html::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the vertical scrollbar */
+    height: 8px; /* Adjust the height of the horizontal scrollbar */
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--color-controls-foreground-on); /* Thumb color */
+    border-radius: 4px; /* Optional: make the scrollbar thumb rounded */
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent; /* Track background */
+}
+
+/* Prevent any unexpected left margin in Chrome */
+html {
+    margin-left: 0; /* Ensures no additional margin is added */
+}
+
 /*
     --- rLOGIN ---
 */
@@ -18,6 +51,7 @@ html {
     .rlogin-modal-lightbox {
         backdrop-filter: blur(5px) !important;
     }
+
     #theme-switcher {
         display: var(--rlogin-themeswitcher-display) !important;
     }

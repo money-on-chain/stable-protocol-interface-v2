@@ -5,7 +5,7 @@ import { Skeleton } from 'antd';
 import { AuthenticateContext } from '../../context/Auth';
 import { useProjectTranslation } from '../../helpers/translations';
 import Vesting from '../../components/Vesting';
-
+import './Styles.scss';
 
 function SectionVesting(props) {
     const [t, i18n, ns] = useProjectTranslation();

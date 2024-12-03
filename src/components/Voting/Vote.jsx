@@ -481,7 +481,9 @@ function Vote(props) {
                                         className="button secondary"
                                         onClick={onRunAcceptedStep}
                                     >
-                                        {t('voting.cta.btn')}
+                                        {t(
+                                            'voting.cta.btnApplyChangesToContracts'
+                                        )}
                                     </button>
                                 </div>
                             )}

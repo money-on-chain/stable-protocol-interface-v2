@@ -4,6 +4,8 @@ import { AuthenticateContext } from '../../context/Auth';
 import Portfolio from '../../components/Dashboards/Portfolio';
 import HomeTabs from '../../components/PortfolioOperationsTabs';
 
+import './Styles.scss';
+
 function Home(props) {
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const auth = useContext(AuthenticateContext);

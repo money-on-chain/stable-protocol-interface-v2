@@ -6,7 +6,7 @@ import Stake from './Stake';
 import PieChartComponent from './PieChart';
 import PerformanceChart from './performanceChart';
 import Withdraw from './WithdrawV2';
-import DashBoard from './DashBoard';
+import DashBoard from './StakingDashboard';
 import { AuthenticateContext } from '../../context/Auth';
 import Web3 from 'web3';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';

@@ -17,7 +17,7 @@ import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../../helpers/currencies';
 import AboutQueue from '../../Modals/AboutQueue';
-import Nada from './Operations';
+// import Nada from './Operations';
 import './Styles.scss';
 
 export default function ListOperations(props) {
@@ -834,25 +834,25 @@ export default function ListOperations(props) {
         switch (name) {
             case 'CA_0':
                 return {
-                    image: <i className="icon-token-ca_0 icon-token-modif" />,
+                    image: <div className="icon-token-ca_0 icon-token-modif" />,
                     color: 'color-token-tp',
                     txt: 'TP'
                 };
             case 'TC':
                 return {
-                    image: <i className="icon-token-tc icon-token-modif" />,
+                    image: <div className="icon-token-tc icon-token-modif" />,
                     color: 'color-token-tc',
                     txt: 'TC'
                 };
             case 'TP_0':
                 return {
-                    image: <i className="icon-token-tp_0 icon-token-modif" />,
+                    image: <div className="icon-token-tp_0 icon-token-modif" />,
                     color: 'color-token-tc',
                     txt: 'TC'
                 };
             case 'TP_1':
                 return {
-                    image: <i className="icon-token-tp_1 icon-token-modif" />,
+                    image: <div className="icon-token-tp_1 icon-token-modif" />,
                     color: 'color-token-tc',
                     txt: 'TP'
                 };
@@ -860,7 +860,7 @@ export default function ListOperations(props) {
                 console.log('UNRECOGNIZED TOKEN: ' + name);
                 return {
                     image: (
-                        <i
+                        <div
                             className="icon-token-MOC"
                             style={{ display: 'block', margin: 'auto' }}
                         />
@@ -895,7 +895,7 @@ export default function ListOperations(props) {
                 </h1>
                 <div className="aboutQueue__button" onClick={showModal}>
                     {t(`operations.aboutQueue.button`, { ns: ns })}
-                    <i className="logo-queue"></i>
+                    <div className="logo-queue"></div>
                 </div>
                 {queueModal && (
                     <Modal

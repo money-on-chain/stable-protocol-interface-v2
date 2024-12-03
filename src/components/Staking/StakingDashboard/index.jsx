@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import settings from '../../settings/settings.json';
-import { useProjectTranslation } from '../../helpers/translations';
-
+import { PrecisionNumbers } from '../../PrecisionNumbers';
+import settings from '../../../settings/settings.json';
+import { useProjectTranslation } from '../../../helpers/translations';
+import './Styles.scss';
 
 const Dashboard = (props) => {
-
     const [t, i18n, ns] = useProjectTranslation();
     const { userInfoStaking } = props;
 
@@ -31,7 +30,9 @@ const Dashboard = (props) => {
                             skipContractConvert: true
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.balance')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.balance')}
+                    </div>
                 </div>
             </div>
             {/* Staked */}
@@ -42,7 +43,9 @@ const Dashboard = (props) => {
                 <div className="stakingDash__data">
                     <div className="stakingDash__data__amount">
                         {PrecisionNumbers({
-                            amount: new BigNumber(userInfoStaking['unstakeBalance']),
+                            amount: new BigNumber(
+                                userInfoStaking['unstakeBalance']
+                            ),
                             token: settings.tokens.TG,
                             decimals: t('staking.display_decimals'),
                             t: t,
@@ -51,7 +54,9 @@ const Dashboard = (props) => {
                             skipContractConvert: true
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.staked')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.staked')}
+                    </div>
                 </div>
             </div>
             {/* Rewarded today */}
@@ -63,7 +68,9 @@ const Dashboard = (props) => {
                     <div className="stakingDash__data__amount">
                         {' '}
                         {PrecisionNumbers({
-                            amount: new BigNumber(userInfoStaking['totalPendingExpiration']),
+                            amount: new BigNumber(
+                                userInfoStaking['totalPendingExpiration']
+                            ),
                             token: settings.tokens.TG,
                             decimals: t('staking.display_decimals'),
                             t: t,
@@ -72,7 +79,9 @@ const Dashboard = (props) => {
                             skipContractConvert: true
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.unstaking')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.unstaking')}
+                    </div>
                 </div>
             </div>
 
@@ -84,7 +93,9 @@ const Dashboard = (props) => {
                 <div className="stakingDash__data">
                     <div className="stakingDash__data__amount">
                         {PrecisionNumbers({
-                            amount: new BigNumber(userInfoStaking['totalAvailableToWithdraw']),
+                            amount: new BigNumber(
+                                userInfoStaking['totalAvailableToWithdraw']
+                            ),
                             token: settings.tokens.TG,
                             decimals: t('staking.display_decimals'),
                             t: t,
@@ -93,7 +104,9 @@ const Dashboard = (props) => {
                             skipContractConvert: true
                         })}
                     </div>
-                    <div className="stakingDash__data__label">{t('staking.dashLabels.ready')}</div>
+                    <div className="stakingDash__data__label">
+                        {t('staking.dashLabels.ready')}
+                    </div>
                 </div>
             </div>
             {/* Locked in voting */}
@@ -106,7 +119,9 @@ const Dashboard = (props) => {
                     <div className="stakingDash__data">
                         <div className="stakingDash__data__amount">
                             {PrecisionNumbers({
-                                amount: new BigNumber(userInfoStaking['lockedInVoting']),
+                                amount: new BigNumber(
+                                    userInfoStaking['lockedInVoting']
+                                ),
                                 token: settings.tokens.TG,
                                 decimals: t('staking.display_decimals'),
                                 t: t,
@@ -120,9 +135,7 @@ const Dashboard = (props) => {
                         </div>
                     </div>
                 </div>
-            )
-            }
-
+            )}
         </div>
     );
 };

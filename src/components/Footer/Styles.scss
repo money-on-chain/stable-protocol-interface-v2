@@ -1,0 +1,67 @@
+/* Footer */
+.ant-layout-footer {
+    margin: 0%;
+    background-color: transparent;
+    padding: 0%;
+    font-size: 14px;
+
+    .dashboard-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 8px;
+        color: var(--color-text-secondary);
+        font-weight: 400;
+        font-family: var(--main-font);
+    }
+}
+
+.lightModeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // display: none; //turns the theme mode button off
+    .lightModeSwitch {
+        border-radius: 50px;
+        background: var(--color-controls-background);
+        padding: 2px;
+        width: 56px;
+        height: 28px;
+    }
+
+    label {
+        display: flex;
+        filter: var(--color-icon-link-filter);
+        transition: all 0.25s ease 0s;
+        cursor: pointer;
+        border-radius: 50%;
+        background-image: url('../../assets/icons/LightMode-Light.svg');
+        background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+    }
+
+    input {
+        display: none;
+    }
+
+    input:checked + label {
+        margin-left: 28px;
+        background-image: url('../../assets/icons/LightMode-Dark.svg');
+        background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .lightModeText {
+        margin-left: 12px;
+        color: var(--color-text-secondary);
+        font-weight: 600;
+        font-family: var(--main-font);
+    }
+}
+
+/* #endsection FOOTER */

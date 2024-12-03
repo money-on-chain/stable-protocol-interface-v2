@@ -726,5 +726,26 @@
             "light": "Light Mode",
             "dark": "Dark mode"
         }
+    },
+    "liquidityMining": {
+        "cardTitle": "Liquidity Mining",
+        "cta": {
+            "infoDetail": "Use the button below to claim your tokens from the MOC Liquidity Mining incentive program. You’ll only need to pay the gas fees for this on-chain transaction. Once the tokens are in your balance, you can stake them to earn even more rewards!",
+            "infoSummary": "MoC ready to claim",
+            "button": "Claim"
+        },
+        "stakingCTA": {
+            "button": "Go to Staking",
+            "explanation": "Stake MOC tokens — it’s quick and simple!"
+        },
+        "claimsTable": {
+            "date": "Date",
+            "asset": "Asset",
+            "amount": "Amount",
+            "event": "Event",
+            "status": "Status",
+            "statusReceived": "Received",
+            "statusInProgress": "In progress"
+        }
     }
 }
