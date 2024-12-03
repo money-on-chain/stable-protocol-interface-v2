@@ -36,20 +36,20 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.portfolio'),
             className: 'logo-portfolio',
             path: '/',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'moc']
         },
 
         {
             name: () => t('menuOptions.send'),
             className: 'logo-send',
             path: '/send',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'moc']
         },
         {
             name: () => t('menuOptions.exchange'),
             className: 'logo-exchange',
             path: '/exchange',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'moc']
         },
         {
             name: () => t('menuOptions.staking'),
@@ -61,7 +61,7 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.performance'),
             className: 'logo-performance',
             path: '/performance',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'moc']
         },
         {
             name: () => t('menuOptions.vesting'),
@@ -79,7 +79,7 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.voting'),
             className: 'logo-voting',
             path: '/voting',
-            allowedProjects: ['all']
+            allowedProjects: ['flipmoney', 'moc']
         }
     ];
 
