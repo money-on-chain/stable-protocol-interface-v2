@@ -16,7 +16,11 @@ export default function Copy(props) {
         notification.open({
             message: 'Copied',
             description: `${textToCopy} to clipboard`,
-            placement: 'bottomRight'
+            placement: 'bottomRight',
+            onClose: () => {
+                // Destruye el contenedor cuando se cierra la notificación
+                notification.destroy();
+            }
         });
     };
 

@@ -632,6 +632,7 @@ h2 {
     }
     .ant-notification-notice {
         width: 100%;
+        border-radius: var(--card-border-radius);
     }
     .ant-notification-notice-content {
         max-width: 100%;
@@ -641,6 +642,7 @@ h2 {
         font-size: 16px;
         line-height: 1;
         font-family: var(--brand-font);
+        color: var(--notification-permanent-text);
     }
     .ant-notification-notice-description {
         font-size: 14px;

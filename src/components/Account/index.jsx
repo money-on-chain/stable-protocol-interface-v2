@@ -4,11 +4,13 @@ import { notification, Switch, Select, Input } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
-import { loadVestingAddressesFromLocalStorage,
+import {
+    loadVestingAddressesFromLocalStorage,
     saveVestingAddressesToLocalStorage,
     saveDefaultVestingToLocalStorage,
     loadVesting,
-    loadDefaultVestingFromLocalStorage } from '../../helpers/vesting'
+    loadDefaultVestingFromLocalStorage
+} from '../../helpers/vesting';
 
 import VestingMachine from '../../contracts/omoc/VestingMachine.json';
 import { withSuccess } from 'antd/lib/modal/confirm';
@@ -40,8 +42,12 @@ export default function AccountDialog(props) {
     const [addVestingAddressErrorText, setAddVestingAddressErrorText] =
         useState('');
 
-    const defaultVestingAddresses = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
-    let defaultVestingAddress = loadDefaultVestingFromLocalStorage(auth.accountData.Wallet);
+    const defaultVestingAddresses = loadVestingAddressesFromLocalStorage(
+        auth.accountData.Wallet
+    );
+    let defaultVestingAddress = loadDefaultVestingFromLocalStorage(
+        auth.accountData.Wallet
+    );
 
     //let defaultVestingAddress = null;
     // Select the first one from the list of vesting if not default vesting address
@@ -56,7 +62,7 @@ export default function AccountDialog(props) {
     );
 
     useEffect(() => {
-        onVestingOn()
+        onVestingOn();
     }, [vestingOn]);
 
     useEffect(() => {
@@ -95,9 +101,13 @@ export default function AccountDialog(props) {
             description: `${copiedAddress} ` + t('feedback.clipboardTo'),
             placement: 'topRight',
             duration: 4,
-            pauseOnHover: true
+            pauseOnHover: true,
+            onClose: () => {
+                // destroys container when closed
+                notification.destroy();
+            }
         });
-    }
+    };
 
     const onChangeInputVestingAddress = (e) => {
         setAddVestingAddress(e.target.value.toLowerCase());
@@ -110,7 +120,6 @@ export default function AccountDialog(props) {
     };
 
     const onValidateVestingAddress = async () => {
-
         // 1. Input address valid
         if (addVestingAddress === '') {
             setAddVestingAddressErrorText('Vesting address can not be empty');
@@ -126,7 +135,9 @@ export default function AccountDialog(props) {
         }
 
         // 2. Check if not in the list
-        const vestingLowerCase = vestingAddresses.map(function(value){return value.toLowerCase()});
+        const vestingLowerCase = vestingAddresses.map(function (value) {
+            return value.toLowerCase();
+        });
         if (vestingLowerCase.includes(addVestingAddress.toLowerCase())) {
             setAddVestingAddressErrorText('Address is already added!');
             setAddVestingAddressError(true);
@@ -162,14 +173,22 @@ export default function AccountDialog(props) {
 
             //add on storage
             // get vesting addresses
-            const vestingFromStorage = loadVestingAddressesFromLocalStorage(auth.accountData.Wallet);
+            const vestingFromStorage = loadVestingAddressesFromLocalStorage(
+                auth.accountData.Wallet
+            );
 
             //Add the new one to the list
             vestingFromStorage.push(addVestingAddress.toLowerCase());
 
             // Store vesting addresses
-            saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), vestingFromStorage);
-            saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), addVestingAddress);
+            saveVestingAddressesToLocalStorage(
+                auth.accountData.Wallet.toLowerCase(),
+                vestingFromStorage
+            );
+            saveDefaultVestingToLocalStorage(
+                auth.accountData.Wallet.toLowerCase(),
+                addVestingAddress
+            );
 
             setVestingAddresses(vestingFromStorage);
             setVestingAddressDefault(addVestingAddress);
@@ -177,7 +196,7 @@ export default function AccountDialog(props) {
             // Close add panel
             setActionVesting('select');
         }
-    }
+    };
 
     const onAddVesting = (e) => {
         e.stopPropagation();
@@ -190,13 +209,15 @@ export default function AccountDialog(props) {
             vestingAddresses,
             vestingAddressDefault
         );
-        saveVestingAddressesToLocalStorage(auth.accountData.Wallet.toLowerCase(), removeItems);
+        saveVestingAddressesToLocalStorage(
+            auth.accountData.Wallet.toLowerCase(),
+            removeItems
+        );
         setVestingAddressDefault(null);
         setVestingAddresses(removeItems);
 
         // Disable using vesting machine
         onChangeShowVesting(false);
-
     };
 
     const onShowAddVesting = (e) => {
@@ -210,41 +231,46 @@ export default function AccountDialog(props) {
     };
 
     const onChangeSelectVesting = (selectAddress) => {
-
         if (!selectAddress) return false;
         if (vestingAddressDefault === selectAddress) return false;
         const isLoaded = loadVesting(auth, selectAddress);
         setVestingAddressDefault(selectAddress);
-        saveDefaultVestingToLocalStorage(auth.accountData.Wallet.toLowerCase(), selectAddress);
+        saveDefaultVestingToLocalStorage(
+            auth.accountData.Wallet.toLowerCase(),
+            selectAddress
+        );
 
         return isLoaded;
     };
 
     const onVestingOn = () => {
-
         let isLoaded = false;
-        if (vestingOn && window.dContracts.contracts.VestingMachine === undefined) {
-            console.log("Vesting Switch: ON")
+        if (
+            vestingOn &&
+            window.dContracts.contracts.VestingMachine === undefined
+        ) {
+            console.log('Vesting Switch: ON');
             // switch On Vesting
             if (vestingAddressDefault) {
                 isLoaded = loadVesting(auth, vestingAddressDefault);
             }
-        } else if (!vestingOn && window.dContracts.contracts.VestingMachine !== undefined) {
-            console.log("Vesting Switch: OFF")
+        } else if (
+            !vestingOn &&
+            window.dContracts.contracts.VestingMachine !== undefined
+        ) {
+            console.log('Vesting Switch: OFF');
             // Disable using vesting machine
             window.dContracts.contracts.VestingMachine = undefined;
             auth.userBalanceData.vestingmachine = undefined;
 
             // Refresh status
-            auth.loadContractsStatusAndUserBalance().then(
-                (value) => {
-                    console.log('Refresh user balance OK!');
-                }
-            );
+            auth.loadContractsStatusAndUserBalance().then((value) => {
+                console.log('Refresh user balance OK!');
+            });
         }
 
         return isLoaded;
-    }
+    };
 
     const onChangeShowVesting = (checked) => {
         setVestingOn(checked);
@@ -301,7 +327,7 @@ export default function AccountDialog(props) {
             </div>
 
             {settings.project !== 'roc' && (
-                <div className='switch switch__vesting'>
+                <div className="switch switch__vesting">
                     <Switch
                         checked={vestingOn}
                         onChange={onChangeShowVesting}
@@ -311,8 +337,8 @@ export default function AccountDialog(props) {
             )}
 
             {vestingOn && actionVesting === 'select' && (
-                <div className='wallet__vesting__options'>
-                    <div className='wallet__vesting__address__label'>
+                <div className="wallet__vesting__options">
+                    <div className="wallet__vesting__address__label">
                         {t('wallet.inputLabel')}
                     </div>
                     <div className="wallet__vesting__address__dropdown">
@@ -334,7 +360,10 @@ export default function AccountDialog(props) {
                             className="address__copy__button"
                             onClick={onCopy}
                         > */}
-                        <div className="icon-copy" onClick={onCopyVesting}></div>
+                        <div
+                            className="icon-copy"
+                            onClick={onCopyVesting}
+                        ></div>
                         {/* </Button> */}
                     </div>
                     <div className="wallet__vesting__options__cta">

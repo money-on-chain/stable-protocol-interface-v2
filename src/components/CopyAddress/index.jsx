@@ -21,7 +21,11 @@ export default function CopyAddress(props) {
         notification.open({
             message: t('feedback.clipboardCopy'),
             description: `${address} ` + t('feedback.clipboardTo'),
-            placement: 'bottomRight'
+            placement: 'bottomRight',
+            onClose: () => {
+                // Destruye el contenedor cuando se cierra la notificación
+                notification.destroy();
+            }
         });
     };
 
