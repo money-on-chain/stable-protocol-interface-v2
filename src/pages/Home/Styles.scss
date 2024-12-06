@@ -1,6 +1,3 @@
-/*
-section_portfolio.scss contains all the css code for Portfolio card not contained in global.scss
-*/
 :root {
     // For table heights use '' -> '200px' 'auto', etc.
     --portfolioTokenHeight: 'auto';
@@ -121,17 +118,3 @@ section_portfolio.scss contains all the css code for Portfolio card not containe
 .neutral-indicator {
     background-color: var(--color-semantic-neutral);
 }
-.ant-layout-footer,
-.footer-container {
-    // position: fixed !important;
-    // bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 10px);
-}
-
-/* endregion PORTFOLIO TABLES */

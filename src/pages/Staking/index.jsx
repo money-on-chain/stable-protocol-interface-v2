@@ -7,6 +7,7 @@ import Staking from '../../components/Staking';
 import { useProjectTranslation } from '../../helpers/translations';
 import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
 
+import './Styles.scss';
 
 function SectionStaking(props) {
     const [t, i18n, ns] = useProjectTranslation();

@@ -5,6 +5,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 import { useProjectTranslation } from '../../helpers/translations';
 import Exchange from '../../components/Exchange';
+import './Styles.scss';
 
 function SectionExchange(props) {
     const [t, i18n, ns] = useProjectTranslation();

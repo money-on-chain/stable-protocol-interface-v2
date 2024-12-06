@@ -1,6 +1,10 @@
 /*
 section_voting.scss contains all the css code for Voting section cards not contained in global.scss
 */
+
+// Variables
+$breakpoint-mobile: 600px;
+
 .title {
     color: var(--color-text-primary);
     font-size: 16px;

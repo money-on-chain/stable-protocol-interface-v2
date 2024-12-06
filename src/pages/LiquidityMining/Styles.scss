@@ -1,0 +1,43 @@
+.sectionClaim {
+    .row-section {
+        margin-top: 24px;
+    }
+    .firstCardsGroup {
+        display: flex;
+        column-gap: 32px;
+        width: 100%;
+    }
+    #claimCard {
+        width: 386px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #performanceCard {
+        width: 768px;
+        .tab-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 32px;
+            align-items: flex-end;
+            .ChartContainer {
+                padding-bottom: 0px;
+            }
+        }
+        .stakeCTA {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+    }
+    .card-content {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .alert {
+        margin-bottom: 24px;
+    }
+}

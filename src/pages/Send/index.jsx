@@ -6,7 +6,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
 import { useProjectTranslation } from '../../helpers/translations';
 import Send from '../../components/Send';
-
+import './Styles.scss';
 
 function SectionSend(props) {
     const [t, i18n, ns] = useProjectTranslation();

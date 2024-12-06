@@ -1,5 +1,6 @@
 {
     "collateral": "rc20",
+     "project": "flipmoney",
     "tokens": {
         "COINBASE": {
             "name": "RBTC",

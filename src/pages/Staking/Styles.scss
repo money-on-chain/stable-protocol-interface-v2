@@ -618,4 +618,24 @@ $breakpoint-mobile: 600px;
             }
         }
     }
+    .card-stakingData {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        width: 100%;
+        .table__stakingData {
+            .stakingTableData__date {
+                width: 100px;
+            }
+            .stakingTableData__amount {
+                width: 100px;
+            }
+            .stakingTableData__operation {
+                width: 90px;
+            }
+            .table__header,
+            .table__row {
+                gap: 16px !important;
+            }
+        }
+    }
 }
