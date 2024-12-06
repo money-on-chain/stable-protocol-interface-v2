@@ -481,7 +481,7 @@ export default function Tokens(props) {
     }
 
     // TF
-    if (auth.contractStatusData && auth.userBalanceData && settings.project !== 'roc') {
+    if (auth.contractStatusData && auth.userBalanceData) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,

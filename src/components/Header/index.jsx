@@ -79,7 +79,7 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.voting'),
             className: 'logo-voting',
             path: '/voting',
-            allowedProjects: ['all']
+            allowedProjects: ['moc']
         }
     ];
 
