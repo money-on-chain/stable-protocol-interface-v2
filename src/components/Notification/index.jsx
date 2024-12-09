@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 import { useProjectTranslation } from '../../helpers/translations';
+import './Styles.scss';
 
 export default function NotificationBody(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -30,7 +31,9 @@ export default function NotificationBody(props) {
             <div>
                 {notifStatus.isDismisable && (
                     <div className="action">
-                        <button onClick={hideModal}>{t('notification.dismiss')}</button>
+                        <button onClick={hideModal}>
+                            {t('notification.dismiss')}
+                        </button>
                     </div>
                 )}
             </div>
