@@ -36,44 +36,44 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.portfolio'),
             className: 'logo-portfolio',
             path: '/',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'stablex']
         },
 
         {
             name: () => t('menuOptions.send'),
             className: 'logo-send',
             path: '/send',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'stablex']
         },
         {
             name: () => t('menuOptions.exchange'),
             className: 'logo-exchange',
             path: '/exchange',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'stablex']
         },
         {
             name: () => t('menuOptions.staking'),
             className: 'logo-staking',
             path: '/staking',
-            allowedProjects: ['moc', 'flipmoney']
+            allowedProjects: ['moc', 'flipmoney', 'stablex']
         },
         {
             name: () => t('menuOptions.performance'),
             className: 'logo-performance',
             path: '/performance',
-            allowedProjects: ['flipmoney', 'roc']
+            allowedProjects: ['flipmoney', 'roc', 'stablex']
         },
         {
             name: () => t('menuOptions.vesting'),
             className: 'logo-vesting',
             path: '/vesting',
-            allowedProjects: ['flipmoney', 'moc']
+            allowedProjects: ['flipmoney', 'moc', 'stablex']
         },
         {
             name: () => t('menuOptions.liquidityMining'),
             className: 'logo-liquidity-mining',
             path: '/liquidity-mining',
-            allowedProjects: ['moc']
+            allowedProjects: ['moc', 'stablex']
         },
         {
             name: () => t('menuOptions.voting'),

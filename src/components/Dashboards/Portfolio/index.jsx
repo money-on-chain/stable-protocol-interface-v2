@@ -66,7 +66,6 @@ export default function Portfolio() {
         });
 
     if (auth.contractStatusData && auth.userBalanceData) {
-
         // Token TC
         balance = new BigNumber(
             fromContractPrecisionDecimals(
@@ -155,13 +154,21 @@ export default function Portfolio() {
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    <div className="mobile-only">
+                    {/* <div className="mobile-only">
                         <TokensCAmobile />
                         {settings.project !== 'roc' && <TokensTPmobile />}
                     </div>
                     <div className="desktop-only">
                         <TokensCA />
                         {settings.project !== 'roc' && <TokensTP />}
+                    </div> */}
+                    <div className="mobile-only">
+                        <TokensCAmobile />
+                        {settings.hasNonUSDPeggedTokens && <TokensTPmobile />}
+                    </div>
+                    <div className="desktop-only">
+                        <TokensCA />
+                        {settings.hasNonUSDPeggedTokens && <TokensTP />}
                     </div>
                 </div>
             </div>
