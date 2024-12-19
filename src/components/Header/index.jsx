@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
 import DappVersion from '../DappVersion';
-import iconArrow from '../../assets/icons/arrow-sm-down.svg';
 import ThemeMode from '../ThemeMode';
 import settings from '../../settings/settings.json';
 import Brand from './Brand';
@@ -219,7 +218,7 @@ export default function SectionHeader(props) {
                         <a onClick={auth.onShowModalAccount}>
                             {auth.accountData.truncatedAddress}
                         </a>
-                        <i className="logo-wallet"></i>
+                        <div className="logo-wallet"></div>
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">
@@ -234,10 +233,7 @@ export default function SectionHeader(props) {
                                         >
                                             <span>{option.name}</span>
                                             {lang === option.code && (
-                                                <img
-                                                    src={iconArrow}
-                                                    alt={'ArrowUp'}
-                                                />
+                                                <div className="icon-checked"></div>
                                             )}
                                         </div>
                                     );
@@ -251,9 +247,9 @@ export default function SectionHeader(props) {
                     className="mobile__menu__button"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    <i
+                    <div
                         className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
-                    ></i>
+                    ></div>
                 </div>
                 {/* Overlay & Mobile Menu*/}
                 {isMobileMenuOpen && (

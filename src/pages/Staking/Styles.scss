@@ -50,7 +50,7 @@ $breakpoint-mobile: 600px;
         background-color: transparent;
         padding: 5px 5px;
         padding-bottom: 0px;
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-weight: 600;
         font-family: var(--brand-font);
     }
@@ -58,7 +58,7 @@ $breakpoint-mobile: 600px;
     .tab-button.active {
         border-bottom: 4px solid var(--color-controls-active);
         background-color: transparent;
-        color: var(--color-text-highlight);
+        color: var(--color-txt-highlight);
     }
 
     .tab-divider {
@@ -69,7 +69,7 @@ $breakpoint-mobile: 600px;
 
     .staked-text {
         margin-top: 22px;
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-weight: 400;
         font-size: 14px;
         font-family: var(--main-font);
@@ -141,7 +141,7 @@ $breakpoint-mobile: 600px;
 
             .percent {
                 margin-bottom: 4px;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
                 font-weight: 700;
                 font-size: 20px;
                 line-height: 24px;
@@ -152,7 +152,7 @@ $breakpoint-mobile: 600px;
 
             .percent-note {
                 width: 100%;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 19px;
@@ -181,14 +181,14 @@ $breakpoint-mobile: 600px;
                 line-height: normal;
             }
             .pie-chart-total-title {
-                color: var(--color-text-secondary);
+                color: var(--color-txt-secondary);
                 font-size: 10px;
                 text-transform: uppercase;
             }
         }
         .pie-chart-container {
             height: 250px;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
         }
         .dataContainer {
             display: flex;
@@ -197,7 +197,7 @@ $breakpoint-mobile: 600px;
             align-items: flex-start;
             margin-top: 4px;
             width: 100%;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
 
             :nth-child(1) > .data-bullet {
                 background-color: var(--brand-color-darker);
@@ -311,7 +311,7 @@ $breakpoint-mobile: 600px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: var(--card-border-radius);
+        border-radius: var(--icon-background-radius);
         background-color: var(--icon-background-color);
         width: 48px;
         height: 48px;
@@ -328,7 +328,7 @@ $breakpoint-mobile: 600px;
         align-items: center;
         width: 115px;
         height: 29px;
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-style: normal;
         font-weight: 600;
         font-size: 22px;
@@ -336,7 +336,7 @@ $breakpoint-mobile: 600px;
         font-family: var(--brand-font);
     }
     .stakingDash__data__label {
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -361,7 +361,7 @@ $breakpoint-mobile: 600px;
             display: flex;
             flex-direction: row;
             gap: 32px;
-            color: var(--color-text-secondary);
+            color: var(--color-txt-secondary);
             font-size: 14px;
             font-weight: 600;
         }
@@ -371,7 +371,7 @@ $breakpoint-mobile: 600px;
             gap: 32px;
             padding-top: 8px;
             padding-bottom: 8px;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
         }
         .stakingTableData__date {
             width: 156px;
@@ -411,7 +411,7 @@ $breakpoint-mobile: 600px;
         order: 0;
         width: 170px;
         height: 24px;
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-weight: 600;
         font-size: 18px;
         font-family: var(--brand-font);
@@ -424,7 +424,7 @@ $breakpoint-mobile: 600px;
         order: 1;
         width: 170px;
         height: 21px;
-        color: (var(--color-text-secondary));
+        color: (var(--color-txt-secondary));
         font-style: normal;
         font-style: SemiBold;
         font-weight: 600;
@@ -494,22 +494,22 @@ $breakpoint-mobile: 600px;
         gap: 2px;
         cursor: pointer;
         width: 124px;
-        color: var(--color-button-tertiary-text-default);
+        color: var(--color-btn-tertiary-txt-default);
 
         .cta__button {
             display: flex;
             align-items: center;
-            background-color: var(--color-button-tertiary-background-default);
+            background-color: var(--color-btn-tertiary-background-default);
             padding-left: 16px;
             height: 32px;
         }
         .cta__button--disabled {
             display: flex;
             align-items: center;
-            background-color: var(--color-button-tertiary-background-disabled);
+            background-color: var(--color-btn-tertiary-background-disabled);
             padding-left: 16px;
             height: 32px;
-            color: var(--color-button-tertiary-text-disabled);
+            color: var(--color-btn-tertiary-txt-disabled);
         }
         .restake {
             border-radius: 0px 8px 0px 0px;
@@ -534,7 +534,7 @@ $breakpoint-mobile: 600px;
         margin: 0px;
         margin-top: 32px;
         height: 20px;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-size: 14px;
         font-weight: 600;
         .withdraw__first__column {

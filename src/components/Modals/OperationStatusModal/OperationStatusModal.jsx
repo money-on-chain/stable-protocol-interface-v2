@@ -4,14 +4,21 @@ import React from 'react';
 import { useProjectTranslation } from '../../../helpers/translations';
 import CopyAddress from '../../CopyAddress';
 
-const OperationStatusModal = ({ className, visible, onCancel, title, operationStatus, txHash }) => {
+const OperationStatusModal = ({
+    className,
+    visible,
+    onCancel,
+    title,
+    operationStatus,
+    txHash
+}) => {
     const [t] = useProjectTranslation();
 
     let sentIcon = '';
     let statusLabel = '';
     switch (operationStatus) {
         case 'sign':
-            sentIcon = 'icon-signifier';
+            sentIcon = 'icon-tx-signWallet';
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
             break;
         case 'pending':
@@ -32,17 +39,30 @@ const OperationStatusModal = ({ className, visible, onCancel, title, operationSt
     }
 
     return (
-        <Modal className={'OperationStatusModal ' + className || ''} footer={null} open={visible} onCancel={onCancel}>
-            <h1 className={'StakingOptionsModal_Title'}>{title || t('staking.modal.StatusModal_Modal_Title')}</h1>
+        <Modal
+            className={'OperationStatusModal ' + className || ''}
+            footer={null}
+            open={visible}
+            onCancel={onCancel}
+        >
+            <h1 className={'StakingOptionsModal_Title'}>
+                {title || t('staking.modal.StatusModal_Modal_Title')}
+            </h1>
 
             <div className="tx-amount-group">
                 <div className="tx-id-container">
                     <div className="tx-id-data">
-                        {(operationStatus === 'pending' || operationStatus === 'success') && (
+                        {(operationStatus === 'pending' ||
+                            operationStatus === 'success') && (
                             <div className="transaction-id tx-id-container">
-                                <div className="tx-id-label">{t('txFeedback.txIdLabel')}</div>
+                                <div className="tx-id-label">
+                                    {t('txFeedback.txIdLabel')}
+                                </div>
                                 <div className="tx-id-address">
-                                    <CopyAddress address={txHash} type={'tx'}></CopyAddress>
+                                    <CopyAddress
+                                        address={txHash}
+                                        type={'tx'}
+                                    ></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
                                     {/*</span>*/}
@@ -61,7 +81,11 @@ const OperationStatusModal = ({ className, visible, onCancel, title, operationSt
                         </div>
                         <p className="tx-feedback-text">{statusLabel}</p>
                     </div>
-                    <button type="primary" className="button secondary" onClick={onCancel}>
+                    <button
+                        type="primary"
+                        className="button secondary"
+                        onClick={onCancel}
+                    >
                         {t('staking.modal.StatusModal_Modal_Close')}
                     </button>
                 </div>

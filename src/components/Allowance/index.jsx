@@ -30,7 +30,7 @@ export default function AllowanceDialog(props) {
             statusLabel = t('allowance.feedback.submit');
             break;
         case 'SIGN':
-            sentIcon = 'icon-signifier';
+            sentIcon = 'icon-tx-signWallet';
             statusLabel = t('allowance.feedback.sign');
             break;
         case 'WAITING':

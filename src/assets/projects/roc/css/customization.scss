@@ -91,77 +91,77 @@
 
     // Buttons - common
 
-    --button-radius: 28px;
-    --button-radius-tiny: 2px;
-    --button-width: 200px;
-    --button-height: 54px;
-    --button-transition: 0.3s;
-    --button-small-height: 32px;
-    --button-small-padding: 16px;
+    --btn-radius: 28px;
+    --btn-radius-tiny: 2px;
+    --btn-width: 200px;
+    --btn-height: 54px;
+    --btn-transition: 0.3s;
+    --btn-small-height: 32px;
+    --btn-small-padding: 16px;
 
     // Buttons - Primary
 
-    --color-button-primary-background-default: #000000;
-    --color-button-primary-text-default: #ffffff;
-    --color-button-primary-filter-default: invert(79%) sepia(44%)
-        saturate(2710%) hue-rotate(96deg) brightness(94%) contrast(87%);
-    --color-button-primary-icon-filter-default: nvert(100%) sepia(12%)
+    --color-btn-primary-background-default: #000000;
+    --color-btn-primary-txt-default: #ffffff;
+    --color-btn-primary-filter-default: invert(79%) sepia(44%) saturate(2710%)
+        hue-rotate(96deg) brightness(94%) contrast(87%);
+    --color-btn-primary-icon-filter-default: nvert(100%) sepia(12%)
         saturate(6798%) hue-rotate(242deg) brightness(118%) contrast(109%);
 
-    --color-button-primary-background-hover: #4b5cf0;
-    --color-button-primary-text-hover: #ffffff;
-    --color-button-primary-filter-hover: invert(48%) sepia(46%) saturate(464%)
+    --color-btn-primary-background-hover: #4b5cf0;
+    --color-btn-primary-txt-hover: #ffffff;
+    --color-btn-primary-filter-hover: invert(48%) sepia(46%) saturate(464%)
         hue-rotate(103deg) brightness(100%) contrast(90%);
 
-    --color-button-primary-background-active: #4b5cf0;
-    --color-button-primary-text-active: #ffffff;
+    --color-btn-primary-background-active: #4b5cf0;
+    --color-btn-primary-txt-active: #ffffff;
 
-    --color-button-primary-background-disabled: #d5d5d5;
-    --color-button-primary-text-disabled: #959595;
-    --color-button-primary-filter-disabled: invert(61%) sepia(0%) saturate(0%)
+    --color-btn-primary-background-disabled: #d5d5d5;
+    --color-btn-primary-txt-disabled: #959595;
+    --color-btn-primary-filter-disabled: invert(61%) sepia(0%) saturate(0%)
         hue-rotate(37deg) brightness(97%) contrast(93%);
 
-    --color-button-primary-background-default-shadow: 0px 4px 8px
+    --color-btn-primary-background-default-shadow: 0px 4px 8px
         rgba(27, 25, 147, 0.2);
 
     // Buttons - Secondary
 
-    --color-button-secondary-background-default: transparent;
-    --color-button-secondary-text-default: #000000;
+    --color-btn-secondary-background-default: transparent;
+    --color-btn-secondary-txt-default: #000000;
 
-    --color-button-secondary-background-hover: transparent;
-    --color-button-secondary-text-hover: #4b5cf0;
+    --color-btn-secondary-background-hover: transparent;
+    --color-btn-secondary-txt-hover: #4b5cf0;
 
-    --color-button-secondary-background-active: #000000;
-    --color-button-secondary-text-active: #ffffff;
+    --color-btn-secondary-background-active: #000000;
+    --color-btn-secondary-txt-active: #ffffff;
 
-    --color-button-secondary-background-disabled: #000000;
-    --color-button-secondary-text-disabled: #000000;
+    --color-btn-secondary-background-disabled: #000000;
+    --color-btn-secondary-txt-disabled: #000000;
 
-    --color-button-secondary-background-default-shadow: 0px 4px 8px
+    --color-btn-secondary-background-default-shadow: 0px 4px 8px
         rgba(27, 25, 147, 0.2);
 
     // Buttons - Tertiary
 
-    --color-button-tertiary-background-default: transparent;
-    --color-button-tertiary-text-default: #fff383;
+    --color-btn-tertiary-background-default: transparent;
+    --color-btn-tertiary-txt-default: #fff383;
 
-    --color-button-tertiary-background-hover: transparent;
-    --color-button-tertiary-text-hover: #e8d421;
+    --color-btn-tertiary-background-hover: transparent;
+    --color-btn-tertiary-txt-hover: #e8d421;
 
-    --color-button-tertiary-background-active: transparent;
-    --color-button-tertiary-text-active: #c1bc3f;
+    --color-btn-tertiary-background-active: transparent;
+    --color-btn-tertiary-txt-active: #c1bc3f;
 
-    --color-button-tertiary-background-disabled: #000000;
-    --color-button-tertiary-text-disabled: #000000;
+    --color-btn-tertiary-background-disabled: #000000;
+    --color-btn-tertiary-txt-disabled: #000000;
 
-    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+    --color-btn-tertiary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
 
     // Semantic
 
-    --color-button-semantic-text-default: #ffffff;
-    --color-button-semantic-icon-filter-default: invert(100%) sepia(34%)
+    --color-btn-semantic-txt-default: #ffffff;
+    --color-btn-semantic-icon-filter-default: invert(100%) sepia(34%)
         saturate(1%) hue-rotate(210deg) brightness(108%) contrast(101%);
 
     --color-semantic-negative: #e54a49;
@@ -201,73 +201,73 @@
     --notification-permanent-filter: invert(100%) sepia(91%) saturate(38%)
         hue-rotate(321deg) brightness(110%) contrast(110%);
 
-    // Main navigation colors
+    // Main nav colors
 
-    --color-navigation-background-default: transparent;
-    --color-navigation-text-default: #000000;
-    --color-navigation-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
+    --color-nav-background-default: transparent;
+    --color-nav-txt-default: #000000;
+    --color-nav-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
         hue-rotate(77deg) brightness(105%) contrast(106%);
 
-    --color-navigation-background-hover: transparent;
-    --color-navigation-text-hover: #000000;
-    --color-navigation-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
+    --color-nav-background-hover: transparent;
+    --color-nav-txt-hover: #000000;
+    --color-nav-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
         hue-rotate(300deg) brightness(103%) contrast(110%);
-    --color-navigation-background-active: #000000;
-    --color-navigation-text-active: #ffffff; //over hover color
-    --color-navigation-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
+    --color-nav-background-active: #000000;
+    --color-nav-txt-active: #ffffff; //over hover color
+    --color-nav-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
         hue-rotate(288deg) brightness(102%) contrast(102%);
 
-    --color-navigation-background-disabled: transparent;
-    --color-navigation-text-disabled: #e0e0e0; //over hover color
-    --color-navigation-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
+    --color-nav-background-disabled: transparent;
+    --color-nav-txt-disabled: #e0e0e0; //over hover color
+    --color-nav-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
         hue-rotate(314deg) brightness(106%) contrast(91%);
 
-    // Mobile Navigation
+    // Mobile nav
     --color-mobilenav-header-background: #ffffff;
     --color-mobilenav-header-shadow: 4px 4px 12px rgba(0, 0, 0, 0.102);
     --color-mobilenav-background-default: #000000;
-    --color-mobilenav-text-default: #ffffff;
+    --color-mobilenav-txt-default: #ffffff;
     --color-mobilenav-icon-filter: invert(100%) sepia(100%) saturate(0%)
         hue-rotate(152deg) brightness(103%) contrast(103%);
 
-    // Language navigation colors
+    // Language nav colors
 
     --color-language-background-default: transparent;
-    --color-language-text-default: #000000;
+    --color-language-txt-default: #000000;
     --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
         hue-rotate(77deg) brightness(105%) contrast(106%);
 
     --color-language-background-hover: #000000;
-    --color-language-text-hover: #ffffff;
+    --color-language-txt-hover: #ffffff;
     --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
         hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --color-language-background-active: transparent;
-    --color-language-text-active: #4b5cf0; //over hover color
+    --color-language-txt-active: #4b5cf0; //over hover color
     --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
         hue-rotate(288deg) brightness(102%) contrast(102%);
 
     --color-language-background-disabled: transparent;
-    --color-language-text-disabled: #e0e0e0; //over hover color
+    --color-language-txt-disabled: #e0e0e0; //over hover color
     --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
         hue-rotate(314deg) brightness(106%) contrast(91%);
 
     // Dropdown colors
     --color-dropdown-background-default: transparent;
-    --color-dropdown-text-default: #000000;
+    --color-dropdown-txt-default: #000000;
     --color-dropdown-background-hover: #4b5cf0;
-    --color-dropdown-text-hover: #ffffff;
+    --color-dropdown-txt-hover: #ffffff;
     --color-dropdown-background-active: #4b5cf04e;
-    --color-dropdown-text-active: #000000;
+    --color-dropdown-txt-active: #000000;
 
     // Text colors & fonts
 
-    --color-text-primary: #000000;
-    --color-text-secondary: #7f8a99;
-    --color-text-highlight: #000000;
-    --color-text-link: #000000;
-    --color-text-notification: #ffffff;
-    --link-text-style: underline;
+    --color-txt-primary: #000000;
+    --color-txt-secondary: #7f8a99;
+    --color-txt-highlight: #000000;
+    --color-txt-link: #000000;
+    --color-txt-notification: #ffffff;
+    --link-txt-style: underline;
 
     --color-icon-primary: invert(11%) sepia(8%) saturate(478%)
         hue-rotate(114deg) brightness(101%) contrast(94%);
@@ -293,7 +293,7 @@
     --rlogin-content-background-color: white;
     --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
     --rlogin-content-border-color: black;
-    --rlogin-content-text-color: var(--color-text-primary);
+    --rlogin-content-txt-color: var(--color-txt-primary);
     --rlogin-provider-background-color: #f2f2f2;
     --rlogin-provider-border-color: #fff383;
     --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);
@@ -387,75 +387,75 @@
 
     // Buttons - common
 
-    --button-radius: 28px;
-    --button-radius-tiny: 2px;
-    --button-width: 200px;
-    --button-height: 54px;
-    --button-transition: 0.3s;
-    --button-small-height: 32px;
-    --button-small-padding: 16px;
+    --btn-radius: 28px;
+    --btn-radius-tiny: 2px;
+    --btn-width: 200px;
+    --btn-height: 54px;
+    --btn-transition: 0.3s;
+    --btn-small-height: 32px;
+    --btn-small-padding: 16px;
 
     // Buttons - Primary
 
-    --color-button-primary-background-default: #f3ebeb;
-    --color-button-primary-text-default: #08090c;
-    --color-button-primary-filter-default: invert(100%) sepia(29%)
-        saturate(392%) hue-rotate(175deg) brightness(109%) contrast(102%);
-    --color-button-primary-icon-filter-default: invert(3%) sepia(5%)
+    --color-btn-primary-background-default: #f3ebeb;
+    --color-btn-primary-txt-default: #08090c;
+    --color-btn-primary-filter-default: invert(100%) sepia(29%) saturate(392%)
+        hue-rotate(175deg) brightness(109%) contrast(102%);
+    --color-btn-primary-icon-filter-default: invert(3%) sepia(5%)
         saturate(3082%) hue-rotate(187deg) brightness(98%) contrast(98%);
 
-    --color-button-primary-background-hover: #4b5cf0;
-    --color-button-primary-text-hover: #08090c;
-    --color-button-primary-filter-hover: invert(100%) sepia(29%) saturate(392%)
+    --color-btn-primary-background-hover: #4b5cf0;
+    --color-btn-primary-txt-hover: #08090c;
+    --color-btn-primary-filter-hover: invert(100%) sepia(29%) saturate(392%)
         hue-rotate(175deg) brightness(109%) contrast(102%);
 
-    --color-button-primary-background-active: #f3ebeb;
-    --color-button-primary-text-active: #0c0c08;
+    --color-btn-primary-background-active: #f3ebeb;
+    --color-btn-primary-txt-active: #0c0c08;
 
-    --color-button-primary-background-disabled: #26272f;
-    --color-button-primary-text-disabled: #3f414a;
+    --color-btn-primary-background-disabled: #26272f;
+    --color-btn-primary-txt-disabled: #3f414a;
 
-    --color-button-primary-background-default-shadow: 0px 4px 8px
+    --color-btn-primary-background-default-shadow: 0px 4px 8px
         rgba(25, 41, 147, 0.2);
 
     // Buttons - Secondary
 
-    --color-button-secondary-background-default: transparent;
-    --color-button-secondary-text-default: #f3ebeb;
+    --color-btn-secondary-background-default: transparent;
+    --color-btn-secondary-txt-default: #f3ebeb;
 
-    --color-button-secondary-background-hover: transparent;
-    --color-button-secondary-text-hover: #4b5cf0;
+    --color-btn-secondary-background-hover: transparent;
+    --color-btn-secondary-txt-hover: #4b5cf0;
 
-    --color-button-secondary-background-active: #000000;
-    --color-button-secondary-text-active: #ffffff;
+    --color-btn-secondary-background-active: #000000;
+    --color-btn-secondary-txt-active: #ffffff;
 
-    --color-button-secondary-background-disabled: #000000;
-    --color-button-secondary-text-disabled: #000000;
+    --color-btn-secondary-background-disabled: #000000;
+    --color-btn-secondary-txt-disabled: #000000;
 
-    --color-button-secondary-background-default-shadow: 0px 4px 8px
+    --color-btn-secondary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
 
     // Buttons - Tertiary
 
-    --color-button-tertiary-background-default: #2a2a32;
-    --color-button-tertiary-text-default: #fff383;
+    --color-btn-tertiary-background-default: #2a2a32;
+    --color-btn-tertiary-txt-default: #fff383;
 
-    --color-button-tertiary-background-hover: transparent;
-    --color-button-tertiary-text-hover: #e8d421;
+    --color-btn-tertiary-background-hover: transparent;
+    --color-btn-tertiary-txt-hover: #e8d421;
 
-    --color-button-tertiary-background-active: transparent;
-    --color-button-tertiary-text-active: #c1bc3f;
+    --color-btn-tertiary-background-active: transparent;
+    --color-btn-tertiary-txt-active: #c1bc3f;
 
-    --color-button-tertiary-background-disabled: #232328;
-    --color-button-tertiary-text-disabled: rgb(104, 104, 107);
+    --color-btn-tertiary-background-disabled: #232328;
+    --color-btn-tertiary-txt-disabled: rgb(104, 104, 107);
 
-    --color-button-tertiary-background-default-shadow: 0px 4px 8px
+    --color-btn-tertiary-background-default-shadow: 0px 4px 8px
         rgba(147, 144, 25, 0.2);
 
     // Semantic
 
-    --color-button-semantic-text-default: #0c0c08;
-    --color-button-semantic-icon-filter-default: invert(6%) sepia(18%)
+    --color-btn-semantic-txt-default: #0c0c08;
+    --color-btn-semantic-icon-filter-default: invert(6%) sepia(18%)
         saturate(447%) hue-rotate(22deg) brightness(93%) contrast(102%);
 
     --color-semantic-negative: #e54a49;
@@ -495,74 +495,74 @@
     --notification-permanent-filter: invert(100%) sepia(91%) saturate(38%)
         hue-rotate(321deg) brightness(110%) contrast(110%);
 
-    // Main navigation colors
+    // Main nav colors
 
-    --color-navigation-background-default: transparent;
-    --color-navigation-text-default: #d4dae2;
-    --color-navigation-icon-filter-default: invert(92%) sepia(9%) saturate(184%)
+    --color-nav-background-default: transparent;
+    --color-nav-txt-default: #d4dae2;
+    --color-nav-icon-filter-default: invert(92%) sepia(9%) saturate(184%)
         hue-rotate(174deg) brightness(94%) contrast(92%);
 
-    --color-navigation-background-hover: transparent;
-    --color-navigation-text-hover: #d4dae2;
-    --color-navigation-icon-filter-hover: invert(92%) sepia(9%) saturate(184%)
+    --color-nav-background-hover: transparent;
+    --color-nav-txt-hover: #d4dae2;
+    --color-nav-icon-filter-hover: invert(92%) sepia(9%) saturate(184%)
         hue-rotate(174deg) brightness(94%) contrast(92%);
 
-    --color-navigation-background-active: #d4dae2;
-    --color-navigation-text-active: #000000; //over hover color
-    --color-navigation-icon-filter-active: invert(0%) sepia(0%) saturate(0%)
+    --color-nav-background-active: #d4dae2;
+    --color-nav-txt-active: #000000; //over hover color
+    --color-nav-icon-filter-active: invert(0%) sepia(0%) saturate(0%)
         hue-rotate(288deg) brightness(102%) contrast(103%);
 
-    --color-navigation-background-disabled: transparent;
-    --color-navigation-text-disabled: #e0e0e0; //over hover color
-    --color-navigation-icon-filter-disabled: invert(100%) sepia(20%)
-        saturate(6237%) hue-rotate(317deg) brightness(107%) contrast(115%);
+    --color-nav-background-disabled: transparent;
+    --color-nav-txt-disabled: #e0e0e0; //over hover color
+    --color-nav-icon-filter-disabled: invert(100%) sepia(20%) saturate(6237%)
+        hue-rotate(317deg) brightness(107%) contrast(115%);
 
-    // Mobile Navigation
+    // Mobile nav
     --color-mobilenav-header-background: #201f25;
     --color-mobilenav-header-shadow: 4px 4px 12px rgb(0, 0, 0);
     --color-mobilenav-background-default: #1c1b22;
-    --color-mobilenav-text-default: #ffffff;
+    --color-mobilenav-txt-default: #ffffff;
     --color-mobilenav-icon-filter: invert(100%) sepia(100%) saturate(0%)
         hue-rotate(152deg) brightness(103%) contrast(103%);
 
-    // Language navigation colors
+    // Language nav colors
 
     --color-language-background-default: transparent;
-    --color-language-text-default: #000000;
+    --color-language-txt-default: #000000;
     --color-language-icon-filter-default: invert(0%) sepia(6%) saturate(0%)
         hue-rotate(77deg) brightness(105%) contrast(106%);
 
     --color-language-background-hover: #000000;
-    --color-language-text-hover: #ffffff;
+    --color-language-txt-hover: #ffffff;
     --color-language-icon-filter-hover: invert(0%) sepia(8%) saturate(7469%)
         hue-rotate(300deg) brightness(103%) contrast(110%);
 
     --color-language-background-active: transparent;
-    --color-language-text-active: #4b5cf0; //over hover color
+    --color-language-txt-active: #4b5cf0; //over hover color
     --color-language-icon-filter-active: invert(100%) sepia(100%) saturate(0%)
         hue-rotate(288deg) brightness(102%) contrast(102%);
 
     --color-language-background-disabled: transparent;
-    --color-language-text-disabled: #e0e0e0; //over hover color
+    --color-language-txt-disabled: #e0e0e0; //over hover color
     --color-language-icon-filter-disabled: invert(85%) sepia(10%) saturate(1%)
         hue-rotate(314deg) brightness(106%) contrast(91%);
 
     // Dropdown colors
     --color-dropdown-background-default: transparent;
-    --color-dropdown-text-default: #000000;
+    --color-dropdown-txt-default: #000000;
     --color-dropdown-background-hover: #4b5cf0;
-    --color-dropdown-text-hover: #ffffff;
+    --color-dropdown-txt-hover: #ffffff;
     --color-dropdown-background-active: #ebecfc4e;
-    --color-dropdown-text-active: #ffffff;
+    --color-dropdown-txt-active: #ffffff;
 
     // Text colors & fonts
 
-    --color-text-primary: #c3ccd9;
-    --color-text-secondary: #8f9bac;
-    --color-text-highlight: #ebecfc;
-    --color-text-link: #d6d9f5;
-    --color-text-notification: #ffffff;
-    --link-text-style: underline;
+    --color-txt-primary: #c3ccd9;
+    --color-txt-secondary: #8f9bac;
+    --color-txt-highlight: #ebecfc;
+    --color-txt-link: #d6d9f5;
+    --color-txt-notification: #ffffff;
+    --link-txt-style: underline;
 
     --color-icon-primary: invert(93%) sepia(5%) saturate(859%)
         hue-rotate(185deg) brightness(85%) contrast(99%);
@@ -585,11 +585,11 @@
 
     --rlogin-themeswitcher-display: none;
     --rlogin-title-background-color: #3e424a;
-    --rlogin-content-title-color: var(--color-text-primary);
+    --rlogin-content-title-color: var(--color-txt-primary);
     --rlogin-content-background-color: #26272f;
     --rlogin-content-shadow-inset: inset 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
     --rlogin-content-border-color: #212128;
-    --rlogin-content-text-color: var(--color-text-primary);
+    --rlogin-content-txt-color: var(--color-txt-primary);
     --rlogin-provider-background-color: #3e424a;
     --rlogin-provider-border-color: #4b5cf0;
     --rlogin-provider-border-shadow: 0px 0px 0px rgba(18, 18, 19, 0.1);

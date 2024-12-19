@@ -26,7 +26,7 @@ $breakpoint-mobile: 600px;
 
 h1 {
     margin-bottom: 20px;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -36,7 +36,7 @@ h1 {
 }
 h2 {
     margin-bottom: 20px;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -75,10 +75,10 @@ h2 {
 }
 .ant-layout-header {
     margin-top: 32px;
-    background-color: var(--surface-color-0) !important;
+    background-color: transparent;
     padding: 0;
     height: 80px;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     line-height: 0;
 }
 .ant-layout-footer {
@@ -108,7 +108,7 @@ h2 {
     padding: 0px;
 }
 .ant-modal-title {
-    color: var(--color-text-primary) !important;
+    color: var(--color-txt-primary) !important;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -122,7 +122,7 @@ h2 {
 }
 .ant-pagination {
     a {
-        color: var(--color-text-primary) !important;
+        color: var(--color-txt-primary) !important;
     }
     svg {
         filter: var(--color-icon-link-secondary-filter);
@@ -153,36 +153,39 @@ h2 {
     background-color: var(--color-controls-background);
     color: var(--color-controls-foreground-on);
 
-    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-        // Active
-        background-color: var(--color-dropdown-background-active) !important;
+    .ant-select-item-option {
+        // default color
+        background-color: var(--color-dropdown-backround-default);
+        color: var(--color-dropdown-txt-default);
     }
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
         // Hover
-        background-color: var(--color-dropdown-background-hover) !important;
+        background-color: var(--color-dropdown-background-hover);
+        color: var(--color-dropdown-txt-hover);
     }
-    .ant-select-item-option {
-        // default color
-        background-color: var(--color-dropdown-backround-default) !important;
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+        // Active
+        background-color: var(--color-dropdown-background-active);
+        color: var(--color-dropdown-txt-active);
     }
 }
 // .ant-select-item-option-active {
-//     background-color: var(--color-button-primary-background-active) !important;
+//     background-color: var(--color-btn-primary-background-active) !important;
 // }
 .ant-select-item-option-active > div > div > div:nth-child(2),
 .ant-select-item-option-active > div > div > div:nth-child(3) {
     // Hover
-    color: var(--color-dropdown-text-hover) !important;
+    color: var(--color-dropdown-txt-hover) !important;
 }
 // .ant-select-item-option-selected {
 //     background-color: var(
-//         --color-button-secondary-background-active
+//         --color-btn-secondary-background-active
 //     ) !important;
 // }
 .ant-select-item-option-selected > div > div > div:nth-child(2),
 .ant-select-item-option-selected > div > div > div:nth-child(3) {
     // Active text color
-    color: var(--color-dropdown-text-active) !important;
+    color: var(--color-dropdown-txt-active) !important;
 }
 
 .ant-select-dropdown .ant-select-item-option-content {
@@ -223,7 +226,7 @@ h2 {
 }
 .ant-table {
     background-color: transparent;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-style: normal;
     font-style: SemiBold;
     font-weight: 600;
@@ -233,8 +236,8 @@ h2 {
     letter-spacing: 0.61px;
 }
 .ant-table-thead .ant-table-cell {
-    border-bottom: 1px solid var(--dividers);
-    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--dividers) !important;
+    color: var(--color-txt-secondary);
     font-style: Bold;
     font-weight: 700;
     font-size: 16px;
@@ -277,6 +280,7 @@ h2 {
 /* #region CARDS */
 .layout-card {
     box-shadow: var(--surface-shadow-1);
+    border: var(--card-border);
     border-radius: var(--card-border-radius);
     background-color: var(--surface-color-1);
     padding: var(--card-padding);
@@ -293,16 +297,18 @@ h2 {
     row-gap: 24px;
     flex-direction: row;
     flex-wrap: wrap;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-family: var(--main-font);
     // outline: 1px dashed rgb(15, 163, 255);
 }
 .section__innerCard--small {
     width: 576px;
+    border: var(--card-border);
 }
 .section__innerCard--big {
     // border: 1px dashed burlywood;
     width: 100%;
+    border: var(--card-border);
 }
 .layout__group {
     width: 100%;
@@ -320,7 +326,7 @@ h2 {
     font-family: var(--main-font);
     h1 {
         margin-bottom: 20px;
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-style: normal;
         font-weight: 700;
         font-size: 20px;
@@ -330,7 +336,7 @@ h2 {
     }
 
     p {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
 
     .modal-content {
@@ -353,7 +359,7 @@ h2 {
 
         .check-unlimited {
             height: 17px;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -405,7 +411,7 @@ h2 {
 
         .check-unlimited {
             height: 17px;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -442,15 +448,15 @@ h2 {
         line-height: 1;
         font-family: var(--brand-font);
         .amount {
-            color: (var(--color-text-primary));
+            color: (var(--color-txt-primary));
         }
         .token {
-            color: (var(--color-text-secondary));
+            color: (var(--color-txt-secondary));
         }
     }
     .tx-info-container {
         .tx-info {
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
         }
     }
 
@@ -482,12 +488,12 @@ h2 {
         width: 100%;
 
         a {
-            color: (var(--color-text-link));
+            color: (var(--color-txt-link));
             text-decoration: underline;
         }
     }
     .icon {
-        color: (var(--color-text-secondary));
+        color: (var(--color-txt-secondary));
     }
 
     .tx-options-container {
@@ -502,7 +508,7 @@ h2 {
         width: 424px;
         height: 32px;
         .check-unlimited {
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -529,7 +535,7 @@ h2 {
         justify-content: flex-start;
         gap: 12px;
         width: 100%;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-weight: 400;
         font-size: 14px;
         line-height: 1.3;
@@ -543,13 +549,13 @@ h2 {
         align-items: center;
         gap: 4px;
         width: 100%;
-        color: var(--color-text-highlight);
+        color: var(--color-txt-highlight);
         font-weight: 700;
         font-size: 16px;
         font-family: var(--brand-font);
     }
     .cta-info-detail {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .cta-options-group {
         display: flex;
@@ -691,7 +697,7 @@ h2 {
     button:active {
         background-color: transparent;
         border: none;
-        color: var(--color-button-primary-text-hover);
+        color: var(--color-btn-primary-txt-hover);
     }
     .address {
         font-weight: 600;
@@ -738,7 +744,7 @@ h2 {
 
 .ant-btn-custom {
     border: 1px solid var(--brand-color-overbrand);
-    border-radius: var(--button-radius-small);
+    border-radius: var(--btn-radius-small);
     background-color: transparent;
     padding: 2px 16px 3px 16px;
     height: 32px;
@@ -782,14 +788,14 @@ h2 {
         color 0.3s,
         border-color 0.3s;
     cursor: pointer;
-    box-shadow: var(--color-button-primary-background-default-shadow);
+    box-shadow: var(--color-btn-primary-background-default-shadow);
     border-width: 0px;
-    border-color: var(--color-button-primary-text-default);
-    border-radius: var(--button-radius);
-    background-color: var(--color-button-primary-background-default);
-    width: var(--button-width);
-    height: var(--button-height);
-    color: var(--color-button-primary-text-default);
+    border-color: var(--color-btn-primary-txt-default);
+    border-radius: var(--btn-radius);
+    background-color: var(--color-btn-primary-background-default);
+    width: var(--btn-width);
+    height: var(--btn-height);
+    color: var(--color-btn-primary-txt-default);
     font-weight: 700;
     font-size: 18px;
     font-family: var(--main-font);
@@ -798,34 +804,34 @@ h2 {
 .button:disabled,
 .button:disabled:hover {
     box-shadow: none;
-    background-color: var(--color-button-primary-background-disabled);
-    color: var(--color-button-primary-text-disabled);
+    background-color: var(--color-btn-primary-background-disabled);
+    color: var(--color-btn-primary-txt-disabled);
     .icon {
-        filter: var(--color-button-primary-filter-disabled);
+        filter: var(--color-btn-primary-filter-disabled);
     }
 }
 
 .button:hover,
 .button:focus {
-    border-color: var(--color-button-primary-text-hover);
-    background: var(--color-button-primary-background-hover);
-    color: var(--color-button-primary-text-hover);
+    border-color: var(--color-btn-primary-txt-hover);
+    background: var(--color-btn-primary-background-hover);
+    color: var(--color-btn-primary-txt-hover);
     .icon {
-        filter: var(--color-button-primary-filter-hover);
+        filter: var(--color-btn-primary-filter-hover);
     }
 }
 
 .secondary {
-    box-shadow: var(--color-button-secondary-background-default-shadow);
-    border: 2px solid var(--color-button-secondary-text-default);
-    background-color: var(--color-button-secondary-background-default);
-    color: var(--color-button-secondary-text-default);
+    box-shadow: var(--color-btn-secondary-background-default-shadow);
+    border: 2px solid var(--color-btn-secondary-txt-default);
+    background-color: var(--color-btn-secondary-background-default);
+    color: var(--color-btn-secondary-txt-default);
 }
 .secondary:hover,
 .secondary:focus {
-    border-color: var(--color-button-secondary-text-hover);
-    background: var(--color-button-primary-secondary-hover);
-    color: var(--color-button-secondary-text-hover);
+    border-color: var(--color-btn-secondary-txt-hover);
+    background: var(--color-btn-primary-secondary-hover);
+    color: var(--color-btn-secondary-txt-hover);
 }
 
 .buttonSwap {
@@ -840,13 +846,13 @@ h2 {
         color 0.3s,
         border-color 0.3s;
     cursor: pointer;
-    border: 2px solid var(--color-button-secondary-text-default);
-    border-color: var(--color-button-secondary-text-default);
-    border-radius: var(--button-radius);
-    background-color: var(--color-button-secondary-background-default);
-    padding: 0px var(--button-small-padding) 1px var(--button-small-padding);
-    height: var(--button-small-height);
-    color: var(--color-button-secondary-text-default);
+    border: 2px solid var(--color-btn-secondary-txt-default);
+    border-color: var(--color-btn-secondary-txt-default);
+    border-radius: var(--btn-radius);
+    background-color: var(--color-btn-secondary-background-default);
+    padding: 0px var(--btn-small-padding) 1px var(--btn-small-padding);
+    height: var(--btn-small-height);
+    color: var(--color-btn-secondary-txt-default);
     font-weight: 700;
     font-size: 14px;
     font-family: var(--main-font);
@@ -855,9 +861,9 @@ h2 {
 
 .button--small:hover,
 .button--small:focus {
-    border-color: var(--color-button-secondary-text-hover);
-    background: var(--color-button-primary-secondary-hover);
-    color: var(--color-button-secondary-text-hover);
+    border-color: var(--color-btn-secondary-txt-hover);
+    background: var(--color-btn-primary-secondary-hover);
+    color: var(--color-btn-secondary-txt-hover);
 }
 
 /* #endregion BUTTONS */
@@ -872,7 +878,7 @@ h2 {
 
         .PriceVariationContainer {
             .warningSlider {
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
                 font-style: normal;
                 font-weight: 400;
                 font-size: 12px;
@@ -902,7 +908,7 @@ h2 {
                 }
 
                 .ant-slider-mark-text,
-                .ant-slider-mark-text-active {
+                .ant-slider-mark-txt-active {
                     color: var(--color-controls-foreground-on) !important;
                 }
             }
@@ -915,7 +921,7 @@ h2 {
             width: 100%;
             .SliderText {
                 margin-left: 8px;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
             }
         }
     }
@@ -983,8 +989,9 @@ h2 {
 .amountInput {
     display: flex;
     flex-direction: column;
-    border-radius: var(--card-border-radius);
-    background-color: var(--color-controls-background);
+    border-radius: var(--data-background-radius);
+    background-color: var(--data-background-color);
+    box-shadow: var(--data-shadows-inset);
     padding: 4px 7px;
     width: 318px;
 }
@@ -993,7 +1000,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
 }
 .amountInput__label {
     font-weight: 600;
@@ -1038,11 +1045,11 @@ h2 {
     border: none;
     background-color: transparent;
     padding-left: 2px !important;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     text-align: left;
 }
 .amountInput__amount::placeholder {
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
 }
 
 .amountInput__maxButton {
@@ -1070,13 +1077,13 @@ h2 {
     margin-top: 10px;
     margin-bottom: 3px;
     margin-left: 15px;
-    border: 1px solid var(--color-button-secondary-text-default);
+    border: 1px solid var(--color-btn-secondary-txt-default);
     border-radius: 4px;
-    background-color: var(--color-button-secondary-background-default);
+    background-color: var(--color-btn-secondary-background-default);
     padding-left: 1px;
     width: 38px;
     height: 17px;
-    color: var(--color-button-secondary-text-default);
+    color: var(--color-btn-secondary-txt-default);
     font-weight: 700;
     font-size: 11px;
     line-height: 0px;
@@ -1087,8 +1094,8 @@ h2 {
 }
 
 .amountInput__maxButton:hover {
-    border-color: var(--color-button-secondary-text-hover);
-    color: var(--color-button-secondary-text-hover);
+    border-color: var(--color-btn-secondary-txt-hover);
+    color: var(--color-btn-secondary-txt-hover);
 }
 /* #endregion AMOUNT INPUT */
 
@@ -1100,47 +1107,49 @@ h2 {
     justify-content: space-between;
     align-items: center;
     border-radius: var(--card-border-radius);
-    // margin-bottom: 16px;
-    // gap: 8px;
-    background-color: var(--surface-color-2);
-    width: 100%;
-}
-.tx-amount-container {
-    // One item containing Amount + Token, plus optional extra information below
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    // background-color: var(--surface-color-2);
+    // border: var(--card-border);
     gap: 8px;
-    border: 1 solid var(--dividers);
-    padding-bottom: 8px;
     width: 100%;
-    max-width: 368px;
+    // padding: 32px;
 }
-.tx-amount-data {
-    // Amount + Token in one line
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: var(--data-background-radius);
-    background-color: var(--surface-color-inset);
-    padding: var(--data-background-padding);
-    width: 100%;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    font-family: var(--brand-font);
-    .tx-amount {
-        color: var(--color-text-primary);
-        text-align: left;
-    }
-    .tx-token {
-        width: 100%;
-        color: var(--color-text-secondary);
-        text-align: right;
-    }
-}
+// .tx-amount-container {
+//     // One item containing Amount + Token, plus optional extra information below
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     align-items: center;
+//     gap: 8px;
+//     border: 1 solid var(--dividers);
+//     padding-bottom: 8px;
+//     width: 100%;
+//     max-width: 368px;
+// }
+// .tx-amount-data {
+//     // Amount + Token in one line
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
+//     border-radius: var(--data-background-radius);
+//     background-color: var(--data-background-color);
+//     padding: var(--data-background-padding);
+//     width: 100%;
+//     font-style: normal;
+//     font-weight: 700;
+//     font-size: 20px;
+//     font-family: var(--brand-font);
+
+//     .tx-amount {
+//         color: var(--color-txt-primary);
+//         text-align: left;
+//     }
+//     .tx-token {
+//         width: 100%;
+//         color: var(--color-txt-secondary);
+//         text-align: right;
+//     }
+// }
 .tx-amount-info {
     // Optional information below an Amount + Token line
     display: flex;
@@ -1148,7 +1157,7 @@ h2 {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
@@ -1167,12 +1176,12 @@ h2 {
     }
     .tx-fees-item {
         // For each fee data
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .tx-fees-info {
         // For information about the fees
         margin-top: 4px;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
     }
 }
 .tx-id-container {
@@ -1192,7 +1201,7 @@ h2 {
         .tx-id-label {
             width: 100%;
             // Transaction ID text/label
-            color: (var(--color-text-primary));
+            color: (var(--color-txt-primary));
         }
         .tx-id-address {
             // Container that uses CopyAddress address + copy icon
@@ -1202,7 +1211,7 @@ h2 {
             align-items: flex-end;
             gap: 8px;
             width: 100%;
-            color: var(--color-text-link);
+            color: var(--color-txt-link);
             font-weight: 600;
             font-family: var(--main-font);
             text-decoration: underline;
@@ -1221,6 +1230,7 @@ h2 {
     padding-bottom: 8px;
     width: 100%;
     max-width: 368px;
+
     .tx-amount-data {
         // Amount + Token in one line
         display: flex;
@@ -1228,7 +1238,7 @@ h2 {
         justify-content: space-between;
         align-items: center;
         border-radius: var(--data-background-radius);
-        background-color: var(--color-controls-background);
+        background-color: var(--data-background-color);
         padding: var(--data-background-padding);
         width: 100%;
         font-style: normal;
@@ -1236,12 +1246,12 @@ h2 {
         font-size: 20px;
         font-family: var(--brand-font);
         .tx-amount {
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             text-align: left;
         }
         .tx-token {
             width: 100%;
-            color: var(--color-text-secondary);
+            color: var(--color-txt-secondary);
             text-align: right;
         }
     }
@@ -1252,7 +1262,7 @@ h2 {
         justify-content: flex-start;
         align-items: flex-start;
         width: 100%;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-style: normal;
         font-weight: 400;
         font-size: 11px;
@@ -1264,16 +1274,16 @@ h2 {
 .tx-direction {
     filter: var(--color-icon-link-filter);
     // The icon that represent the flow of the transaction
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .tx-destination-address {
     border-radius: var(--data-background-radius);
-    background-color: var(--surface-color-inset);
+    background-color: var(--data-background-color);
     padding: var(--data-background-padding);
     // The target addresss for send transactions
     width: 100%;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 400;
     font-size: 14px;
     font-family: var(--main-font);
@@ -1289,12 +1299,12 @@ h2 {
     }
     .tx-fees-item {
         // For each fee data
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .tx-fees-info {
         // For information about the fees
         margin-top: 4px;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
     }
 }
 .tx-id-container {
@@ -1314,7 +1324,7 @@ h2 {
         .tx-id-label {
             // Transaction ID text/label
             width: 100%;
-            color: (var(--color-text-primary));
+            color: (var(--color-txt-primary));
         }
         .tx-id-address {
             // Container that uses CopyAddress address + copy icon
@@ -1324,7 +1334,7 @@ h2 {
             align-items: flex-end;
             gap: 8px;
             width: 100%;
-            color: var(--color-text-link);
+            color: var(--color-txt-link);
             font-weight: 600;
             font-family: var(--main-font);
             text-decoration: underline;
@@ -1336,7 +1346,7 @@ h2 {
 }
 .radioButton {
     .ant-radio-wrapper {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         line-height: 14px;
     }
     .ant-radio-disabled + span {
@@ -1373,7 +1383,7 @@ h2 {
     height: var(--icon-token-size);
 }
 .token__name {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0px;
@@ -1381,7 +1391,7 @@ h2 {
 }
 .token__ticker {
     cursor: default;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
@@ -1409,7 +1419,7 @@ h2 {
     width: 100%;
     .tx-feedback-text {
         // Explanation about the status
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .tx-feedback-icon {
         // Container for the feedback icon
@@ -1430,6 +1440,7 @@ h2 {
     margin-top: 24px;
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
+    border: var(--card-border);
     background: var(--surface-color-1);
     padding: var(--card-padding);
     width: 100%;

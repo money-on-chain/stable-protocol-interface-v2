@@ -15,18 +15,16 @@
     width: 100%;
     height: 24px;
     .against {
-        border-radius: var(--button-radius-tiny) 0px 0px
-            var(--button-radius-tiny);
+        border-radius: var(--btn-radius-tiny) 0px 0px var(--btn-radius-tiny);
         background-color: var(--color-semantic-negative);
     }
     .infavor {
-        border-radius: 0px var(--button-radius-tiny) var(--button-radius-tiny)
-            0px;
+        border-radius: 0px var(--btn-radius-tiny) var(--btn-radius-tiny) 0px;
         background-color: var(--color-semantic-positive);
     }
     .maxvalue {
         border-radius: var(
-            --button-radius-tiny
+            --btn-radius-tiny
         ); // Round all edges if value is 100%
     }
     .graphDivider {

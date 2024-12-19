@@ -6,10 +6,10 @@
     justify-content: space-around;
     align-items: center;
     z-index: 50;
-    background-color: var(--color-button-primary-background-default);
+    background-color: var(--color-btn-primary-background-default);
     width: 100%;
     height: 40px;
-    color: var(--color-button-primary-text-default);
+    color: var(--color-btn-primary-txt-default);
     .tab__button {
         margin: 2px 8px;
         border: none;
@@ -24,6 +24,6 @@
     }
 
     .tab__selected {
-        border-color: var(--color-button-primary-text-default);
+        border-color: var(--color-btn-primary-txt-default);
     }
 }

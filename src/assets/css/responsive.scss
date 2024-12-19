@@ -79,7 +79,7 @@ $breakpoint-mobile: 600px;
             height: 100%;
             .wallet-address {
                 margin: 0;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
             }
             .wallet-translation {
                 display: none;
@@ -171,7 +171,7 @@ $breakpoint-mobile: 600px;
         display: flex;
         align-items: center;
         gap: 16px;
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
         font-weight: 600;
         font-size: 18px;
         font-family: var(--brand-font);
@@ -211,11 +211,11 @@ $breakpoint-mobile: 600px;
         height: 100%;
     }
     .dappVersion {
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
     }
     .lightModeContainer {
         .lightModeText {
-            color: var(--color-mobilenav-text-default);
+            color: var(--color-mobilenav-txt-default);
             font-size: 16px;
         }
     }
@@ -226,7 +226,7 @@ $breakpoint-mobile: 600px;
     .mobile-language-selector {
         cursor: pointer;
         border-radius: var(--card-border-radius);
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
         font-weight: 600;
         font-size: 18px;
         line-height: normal;
@@ -321,13 +321,13 @@ $breakpoint-mobile: 600px;
         width: 100%;
     }
     .token__data__label {
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-weight: 600;
         font-size: 16px;
         font-family: var(--main-font);
     }
     .token__data__data {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-weight: 400;
         font-size: 14px;
         font-family: var(--main-font);
@@ -399,21 +399,21 @@ $breakpoint-mobile: 600px;
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 100%;
                 font-family: var(--main-font);
             }
             .token__data__small {
-                color: var(--color-text-secondary);
+                color: var(--color-txt-secondary);
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 100%;
                 font-family: var(--main-font);
             }
             .token__label {
-                color: var(--color-text-secondary);
+                color: var(--color-txt-secondary);
                 font-weight: 400;
                 font-size: 10px;
                 font-family: var(--main-font);

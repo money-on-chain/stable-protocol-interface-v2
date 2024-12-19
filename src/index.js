@@ -6,7 +6,12 @@ import i18next from 'i18next';
 
 import 'antd/dist/antd.css';
 import './assets/css/icons.scss';
-import './assets/css/customization.scss';
+
+import './assets/css/customize1Defaults.scss';
+import './assets/css/customize2Light.scss';
+import './assets/css/customize3Dark.scss';
+import './assets/css/customize4Overwrites.scss';
+
 // import './index-.css';
 import './assets/css/components.scss';
 import './assets/css/global.scss';
@@ -66,7 +71,7 @@ root.render(
                                     position: 'fixed',
                                     left: '50%',
                                     top: '50%',
-                                    filter: 'var(--color-navigation-icon-filter-default)'
+                                    filter: 'var(--color-nav-icon-filter-default)'
                                 }}
                                 width={50}
                                 height={50}

@@ -252,7 +252,7 @@ const SwapToken = (props) => {
                 {status === 'ALLOWANCE-SIGN' && (
                     <div>
                         <div className="tx-logo-status">
-                            <i className="icon-signifier"></i>
+                            <i className="icon-tx-signWallet"></i>
                         </div>
                         <p className="Center">
                             {t('swapModal.allowanceSignText')}
@@ -302,7 +302,7 @@ const SwapToken = (props) => {
                 {status === 'TOKEN-MIGRATION-SIGN' && (
                     <div>
                         <div className="tx-logo-status">
-                            <i className="icon-signifier"></i>
+                            <i className="icon-tx-signWallet"></i>
                         </div>
                         <p className="Center">
                             {t('swapModal.migrationTransactionSignText')}

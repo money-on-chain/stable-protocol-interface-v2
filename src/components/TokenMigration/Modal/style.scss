@@ -1,26 +1,26 @@
 .NotificationMigration {
-  padding: 20px;
-  margin-bottom: 24px;
-  
-  background-color: var(--surface-color-1);
-  box-shadow: var(--surface-shadow-1);
-  color: var(--color-text-primary);
-  justify-content: space-between;
-  
-  display: flex;
-  align-items: center;
+    padding: 20px;
+    margin-bottom: 24px;
 
-  width: 100%;
-  height: 86px;
+    background-color: var(--surface-color-1);
+    box-shadow: var(--surface-shadow-1);
+    color: var(--color-txt-primary);
+    justify-content: space-between;
 
-  .Information {
-    font-family: var(--main-font);
-    font-size: 14px;
-    width: 860px;
-    font-weight: 700;
-  }
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 86px;
+
+    .Information {
+        font-family: var(--main-font);
+        font-size: 14px;
+        width: 860px;
+        font-weight: 700;
+    }
 }
 .swapNow {
-  font-weight: bold;
-  text-decoration: underline;
+    font-weight: bold;
+    text-decoration: underline;
 }

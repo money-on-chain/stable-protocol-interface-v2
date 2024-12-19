@@ -28,7 +28,6 @@ export default function ConfirmSend(props) {
         setStatus('SIGN');
 
         if (currencyYouExchange === 'COINBASE') {
-
             auth.interfaceTransferCoinbase(
                 amountYouExchange,
                 destinationAddress.toLowerCase(),
@@ -43,9 +42,7 @@ export default function ConfirmSend(props) {
                     setStatus('ERROR');
                     console.log(error);
                 });
-
         } else {
-
             auth.interfaceTransferToken(
                 currencyYouExchange,
                 amountYouExchange,
@@ -91,7 +88,7 @@ export default function ConfirmSend(props) {
             statusLabel = t('send.feedback.submit');
             break;
         case 'SIGN':
-            sentIcon = 'icon-signifier';
+            sentIcon = 'icon-tx-signWallet';
             statusLabel = t('send.feedback.sign');
             break;
         case 'WAITING':
@@ -116,8 +113,8 @@ export default function ConfirmSend(props) {
         onCloseModal();
     };
 
-    console.log("DEBUG")
-    console.log(currencyYouExchange)
+    console.log('DEBUG');
+    console.log(currencyYouExchange);
 
     return (
         <div className="confirm-operation">
