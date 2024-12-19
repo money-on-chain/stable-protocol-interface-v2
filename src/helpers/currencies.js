@@ -1,10 +1,10 @@
-import { ReactComponent as LogoIconCA_0 } from '../assets/icons/tokens/ca_0.svg';
-import { ReactComponent as LogoIconCA_1 } from '../assets/icons/tokens/ca_1.svg';
-import { ReactComponent as LogoIconCOINBASE } from '../assets/icons/tokens/coinbase.svg';
-import { ReactComponent as LogoIconTC } from '../assets/icons/tokens/tc.svg';
-import { ReactComponent as LogoIconTP_0 } from '../assets/icons/tokens/tp_0.svg';
-import { ReactComponent as LogoIconTP_1 } from '../assets/icons/tokens/tp_1.svg';
-import { ReactComponent as LogoIconTG_0 } from '../assets/icons/tokens/tg_0.svg';
+import { ReactComponent as LogoIconCA_0 } from '../assets/tokens/ca_0.svg';
+import { ReactComponent as LogoIconCA_1 } from '../assets/tokens/ca_1.svg';
+import { ReactComponent as LogoIconCOINBASE } from '../assets/tokens/coinbase.svg';
+import { ReactComponent as LogoIconTC } from '../assets/tokens/tc.svg';
+import { ReactComponent as LogoIconTP_0 } from '../assets/tokens/tp_0.svg';
+import { ReactComponent as LogoIconTP_1 } from '../assets/tokens/tp_1.svg';
+import { ReactComponent as LogoIconTG_0 } from '../assets/tokens/tg_0.svg';
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
@@ -93,7 +93,12 @@ function TokenBalance(auth, tokenName) {
 function ConvertPeggedTokenPrice(auth, price) {
     switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
         case 'flipmoney':
-            const priceCA = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.PP_CA[0], settings.tokens.CA[0].decimals));
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.PP_CA[0],
+                    settings.tokens.CA[0].decimals
+                )
+            );
             return price.div(priceCA);
         case 'roc':
             return price;
@@ -138,14 +143,25 @@ function ConvertBalance(auth, tokenExchange, tokenReceive) {
     return ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount);
 }
 
-function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei = true) {
+function ConvertAmount(
+    auth,
+    tokenExchange,
+    tokenReceive,
+    rawAmount,
+    amountInWei = true
+) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
     const tokenReceiveSettings = TokenSettings(tokenReceive);
     let price = new BigNumber(0);
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenReceiveSettings.decimals));
+        amount = new BigNumber(
+            fromContractPrecisionDecimals(
+                rawAmount,
+                tokenReceiveSettings.decimals
+            )
+        );
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -160,32 +176,62 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei
 
     switch (aTokenMap) {
         case 'CA,TC':
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenReceive),
+                    tokenReceiveSettings.decimals
+                )
+            );
             cAmount = amount.div(price);
             break;
         case 'TP,CA':
             // Redeem Operation
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenExchange),
+                    tokenExchangeSettings.decimals
+                )
+            );
             cAmount = amount.div(price);
             break;
         case 'CA,TP':
             // Mint Operation
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenReceive), tokenReceiveSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenReceive),
+                    tokenReceiveSettings.decimals
+                )
+            );
             cAmount = amount.times(price);
             break;
         case 'TC,CA':
             // Redeem Operation
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenExchange),
+                    tokenExchangeSettings.decimals
+                )
+            );
             cAmount = amount.times(price);
             break;
         case 'TG,CA':
             // TG
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenExchange),
+                    tokenExchangeSettings.decimals
+                )
+            );
             cAmount = amount.times(price);
             break;
         case 'COINBASE,CA':
             // COINBASE
-            price = new BigNumber(fromContractPrecisionDecimals(TokenPrice(auth, tokenExchange), tokenExchangeSettings.decimals));
+            price = new BigNumber(
+                fromContractPrecisionDecimals(
+                    TokenPrice(auth, tokenExchange),
+                    tokenExchangeSettings.decimals
+                )
+            );
             cAmount = amount.times(price);
             break;
         case 'CA,CA':
@@ -198,15 +244,23 @@ function ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount, amountInWei
     return cAmount;
 }
 
-const precision = (contractDecimals) => new BigNumber(10).exponentiatedBy(contractDecimals);
+const precision = (contractDecimals) =>
+    new BigNumber(10).exponentiatedBy(contractDecimals);
 
-const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei = true) => {
+const AmountToVisibleValue = (
+    rawAmount,
+    tokenName,
+    decimals,
+    amountInWei = true
+) => {
     console.log('tokenname is ', tokenName);
     const tokenSettings = TokenSettings(tokenName);
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenSettings.decimals));
+        amount = new BigNumber(
+            fromContractPrecisionDecimals(rawAmount, tokenSettings.decimals)
+        );
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -216,7 +270,13 @@ const AmountToVisibleValue = (rawAmount, tokenName, decimals, amountInWei = true
     });
 };
 
-function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWei = true) {
+function CalcCommission(
+    auth,
+    tokenExchange,
+    tokenReceive,
+    rawAmount,
+    amountInWei = true
+) {
     // Calc commissions
 
     const tokenExchangeSettings = TokenSettings(tokenExchange);
@@ -224,7 +284,12 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
 
     let amount;
     if (amountInWei) {
-        amount = new BigNumber(fromContractPrecisionDecimals(rawAmount, tokenExchangeSettings.decimals));
+        amount = new BigNumber(
+            fromContractPrecisionDecimals(
+                rawAmount,
+                tokenExchangeSettings.decimals
+            )
+        );
     } else {
         amount = new BigNumber(rawAmount);
     }
@@ -239,23 +304,43 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
     switch (aTokenMap) {
         case 'CA,TC':
             // Mint TC
-            feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcMintFee, tokenReceiveSettings.decimals));
+            feeParam = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.tcMintFee,
+                    tokenReceiveSettings.decimals
+                )
+            );
             break;
         case 'TP,CA':
             // Redeem TP
             feeParam = new BigNumber(
-                fromContractPrecisionDecimals(auth.contractStatusData.tpRedeemFees[parseInt(aTokenExchange[1])], tokenReceiveSettings.decimals)
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.tpRedeemFees[
+                        parseInt(aTokenExchange[1])
+                    ],
+                    tokenReceiveSettings.decimals
+                )
             );
             break;
         case 'CA,TP':
             // Mint TP
             feeParam = new BigNumber(
-                fromContractPrecisionDecimals(auth.contractStatusData.tpMintFees[parseInt(aTokenReceive[1])], tokenReceiveSettings.decimals)
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.tpMintFees[
+                        parseInt(aTokenReceive[1])
+                    ],
+                    tokenReceiveSettings.decimals
+                )
             );
             break;
         case 'TC,CA':
             // Redeem TC
-            feeParam = new BigNumber(fromContractPrecisionDecimals(auth.contractStatusData.tcRedeemFee, tokenReceiveSettings.decimals));
+            feeParam = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.tcRedeemFee,
+                    tokenReceiveSettings.decimals
+                )
+            );
             break;
         default:
             throw new Error('Invalid token name');
@@ -280,7 +365,7 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
             settings.tokens.CA[0].decimals
         )
     );
-    const qFeeToken = amount.times(feeParam.times(feeTokenPct))
+    const qFeeToken = amount.times(feeParam.times(feeTokenPct));
 
     // Markup Vendors
     const vendorMarkup = new BigNumber(
@@ -289,10 +374,10 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
             tokenReceiveSettings.decimals
         )
     );
-    const markOperation = amount.times(vendorMarkup)
+    const markOperation = amount.times(vendorMarkup);
 
     // Total fee token
-    const totalFeeToken = qFeeToken.plus(markOperation)
+    const totalFeeToken = qFeeToken.plus(markOperation);
 
     const feeInfo = {
         fee: amount.times(feeParam).plus(markOperation),
@@ -304,7 +389,10 @@ function CalcCommission(auth, tokenExchange, tokenReceive, rawAmount, amountInWe
         feeTokenPct: feeTokenPct,
         totalFeeToken: totalFeeToken.div(feeTokenPrice),
         totalFeeTokenUSD: totalFeeToken.times(priceCA),
-        feeTokenPercent: feeParam.times(feeTokenPct).plus(vendorMarkup).times(100)
+        feeTokenPercent: feeParam
+            .times(feeTokenPct)
+            .plus(vendorMarkup)
+            .times(100)
     };
 
     return feeInfo;
@@ -399,9 +487,24 @@ function AmountsWithCommissions(
     let amountYouReceive;
     let commissionsValue;
     if (amountInWei) {
-        amountYouExchange = new BigNumber(fromContractPrecisionDecimals(rawAmountYouExchange, tokenExchangeSettings.decimals));
-        amountYouReceive = new BigNumber(fromContractPrecisionDecimals(rawAmountYouReceive, tokenReceiveSettings.decimals));
-        commissionsValue = new BigNumber(fromContractPrecisionDecimals(rawCommissionsValue, commissionsValueSettings.decimals));
+        amountYouExchange = new BigNumber(
+            fromContractPrecisionDecimals(
+                rawAmountYouExchange,
+                tokenExchangeSettings.decimals
+            )
+        );
+        amountYouReceive = new BigNumber(
+            fromContractPrecisionDecimals(
+                rawAmountYouReceive,
+                tokenReceiveSettings.decimals
+            )
+        );
+        commissionsValue = new BigNumber(
+            fromContractPrecisionDecimals(
+                rawCommissionsValue,
+                commissionsValueSettings.decimals
+            )
+        );
     } else {
         amountYouExchange = new BigNumber(rawAmountYouExchange);
         amountYouReceive = new BigNumber(rawAmountYouReceive);

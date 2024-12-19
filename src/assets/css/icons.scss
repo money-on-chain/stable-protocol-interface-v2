@@ -84,7 +84,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Queuing.svg');
+    background-image: url('../icons/StatusOperation-Queuing.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -93,7 +93,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Queued.svg');
+    background-image: url('../icons/StatusOperation-Queued.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -102,7 +102,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Confirming.svg');
+    background-image: url('../icons/StatusOperation-Confirming.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -111,7 +111,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Confirmed.svg');
+    background-image: url('../icons/StatusOperation-Confirmed.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -120,7 +120,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Failed.svg');
+    background-image: url('../icons/StatusOperation-Failed.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -175,7 +175,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-coinbase {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/coinbase.svg');
+    background-image: url('../tokens/coinbase.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -183,7 +183,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-ca_0 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/ca_0.svg');
+    background-image: url('../tokens/ca_0.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -191,7 +191,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-ca_1 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/ca_1.svg');
+    background-image: url('../tokens/ca_1.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -199,7 +199,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tc {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tc.svg');
+    background-image: url('../tokens/tc.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -207,7 +207,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tf {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tf.svg');
+    background-image: url('../tokens/tf.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -215,7 +215,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tp_0 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tp_0.svg');
+    background-image: url('../tokens/tp_0.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -223,7 +223,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tp_1 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tp_1.svg');
+    background-image: url('../tokens/tp_1.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -231,7 +231,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tx {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tx.svg');
+    background-image: url('../tokens/tx.svg');
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
