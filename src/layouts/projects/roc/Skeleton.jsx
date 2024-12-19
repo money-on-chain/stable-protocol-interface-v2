@@ -45,7 +45,7 @@ export default function Skeleton() {
         } else {
             setNotifStatus(null);
         }
-    }
+    };
 
     const readTpLegacyBalance = () => {
         const tpLegacyBalance = new BigNumber(
@@ -57,7 +57,7 @@ export default function Skeleton() {
         } else {
             setCanSwap(false);
         }
-    }
+    };
 
     return (
         <Layout>

@@ -16,7 +16,7 @@ const { Header } = Layout;
 
 export default function SectionHeader(props) {
     const navigate = useNavigate();
-    // const location = useLocation();
+    const location = useLocation();
     const auth = useContext(AuthenticateContext);
     const [css_disable, setCssDisable] = useState('disable-nav-item');
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
@@ -30,8 +30,6 @@ export default function SectionHeader(props) {
     const [lang, setLang] = useState('en');
 
     const MAX_MAIN_MENU_ITEMS = 5;
-
-    const location = useLocation();
 
     const menuOptions = [
         {
