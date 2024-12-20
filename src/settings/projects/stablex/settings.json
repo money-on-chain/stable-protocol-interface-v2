@@ -1,5 +1,5 @@
 {
-    "collateral": "rc20",
+    "collateral": "coinbase",
     "project": "stablex",
     "hasNonUSDPeggedTokens":false,
     "tokens": {

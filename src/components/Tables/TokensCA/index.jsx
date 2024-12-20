@@ -371,7 +371,8 @@ export default function Tokens(props) {
     if (
         auth.contractStatusData &&
         auth.userBalanceData &&
-        settings.project === 'roc'
+        (settings.project === 'roc' ||
+        settings.project === 'moc')
     ) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
@@ -620,7 +621,7 @@ export default function Tokens(props) {
     }
 
     // Coinbase
-    if (auth.contractStatusData && auth.userBalanceData) {
+    if (auth.contractStatusData && auth.userBalanceData && settings.collateral !== 'coinbase') {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,

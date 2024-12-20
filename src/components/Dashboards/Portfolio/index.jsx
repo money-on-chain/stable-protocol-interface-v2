@@ -53,7 +53,7 @@ export default function Portfolio() {
                 )
             );
             price =
-                settings.project === 'roc'
+                !settings.hasNonUSDPeggedTokens
                     ? 1
                     : new BigNumber(
                           fromContractPrecisionDecimals(
@@ -154,14 +154,6 @@ export default function Portfolio() {
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    {/* <div className="mobile-only">
-                        <TokensCAmobile />
-                        {settings.project !== 'roc' && <TokensTPmobile />}
-                    </div>
-                    <div className="desktop-only">
-                        <TokensCA />
-                        {settings.project !== 'roc' && <TokensTP />}
-                    </div> */}
                     <div className="mobile-only">
                         <TokensCAmobile />
                         {settings.hasNonUSDPeggedTokens && <TokensTPmobile />}

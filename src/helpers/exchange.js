@@ -9,6 +9,12 @@ import {
     mintTP,
     redeemTP
 } from '../lib/backend/moc-rc20';
+import {
+    mintTC as mintTC_coinbase,
+    redeemTC as redeemTC_coinbase,
+    mintTP as mintTP_coinbase,
+    redeemTP as redeemTP_coinbase
+} from '../lib/backend/moc-coinbase';
 
 /*
 const tokenMap = {
@@ -241,44 +247,88 @@ function exchangeMethod(
     switch (aTokenMap) {
         case 'CA,TC':
             caIndex = parseInt(aTokenExchange[1]);
-            return mintTC(
-                interfaceContext,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
+            if (settings.collateral === 'coinbase') {
+                return mintTC_coinbase(
+                    interfaceContext,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            } else {
+                return mintTC(
+                    interfaceContext,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            }
         case 'TC,CA':
             caIndex = parseInt(aTokenReceive[1]);
-            return redeemTC(
-                interfaceContext,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
+            if (settings.collateral === 'coinbase') {
+                return redeemTC_coinbase(
+                    interfaceContext,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            } else {
+                return redeemTC(
+                    interfaceContext,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            }
+
         case 'CA,TP':
             caIndex = parseInt(aTokenExchange[1]);
             tpIndex = parseInt(aTokenReceive[1]);
-            return mintTP(
-                interfaceContext,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
+            if (settings.collateral === 'coinbase') {
+                return mintTP_coinbase(
+                    interfaceContext,
+                    tpIndex,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            } else {
+                return mintTP(
+                    interfaceContext,
+                    tpIndex,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            }
         case 'TP,CA':
             tpIndex = parseInt(aTokenExchange[1]);
             caIndex = parseInt(aTokenReceive[1]);
-            return redeemTP(
-                interfaceContext,
-                tpIndex,
-                tokenAmount,
-                limitAmount,
-                onTransaction,
-                onReceipt
-            );
+
+            if (settings.collateral === 'coinbase') {
+                return redeemTP_coinbase(
+                    interfaceContext,
+                    tpIndex,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            } else {
+                return redeemTP(
+                    interfaceContext,
+                    tpIndex,
+                    tokenAmount,
+                    limitAmount,
+                    onTransaction,
+                    onReceipt
+                );
+            }
         default:
             throw new Error('Invalid Exchange Method');
     }

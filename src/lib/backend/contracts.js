@@ -4,7 +4,6 @@ import TokenPegged from '../../contracts/TokenPegged.json';
 import CollateralToken from '../../contracts/CollateralToken.json';
 import IPriceProvider from '../../contracts/IPriceProvider.json';
 import Moc from '../../contracts/Moc.json';
-import MocWrapper from '../../contracts/MocWrapper.json';
 import MocVendors from '../../contracts/MocVendors.json';
 import FeeToken from '../../contracts/FeeToken.json';
 import MocQueue from '../../contracts/MocQueue.json';
@@ -40,7 +39,6 @@ const readContracts = async (web3) => {
     abiContracts.CollateralToken = CollateralToken;
     abiContracts.IPriceProvider = IPriceProvider;
     abiContracts.Moc = Moc;
-    abiContracts.MocWrapper = MocWrapper;
     abiContracts.MocVendors = MocVendors
     abiContracts.FeeToken = FeeToken
     abiContracts.MocQueue = MocQueue
@@ -96,10 +94,13 @@ const readContracts = async (web3) => {
     const mocAddr = await mocAddresses(web3, dContracts)
 
     dContracts.contracts.CA = []
-    const contractCA = [mocAddr['acToken']]
-    for (let i = 0; i < settings.tokens.CA.length; i++) {
-        console.log(`Reading ${settings.tokens.CA[i].name} Token Contract... address: `, contractCA[i])
-        dContracts.contracts.CA.push(new web3.eth.Contract(CollateralAsset.abi, contractCA[i]))
+
+    if (settings.collateral !== 'coinbase') {
+        const contractCA = [mocAddr['acToken']]
+        for (let i = 0; i < settings.tokens.CA.length; i++) {
+            console.log(`Reading ${settings.tokens.CA[i].name} Token Contract... address: `, contractCA[i])
+            dContracts.contracts.CA.push(new web3.eth.Contract(CollateralAsset.abi, contractCA[i]))
+        }
     }
 
     const MAX_LEN_ARRAY_TP = 4;

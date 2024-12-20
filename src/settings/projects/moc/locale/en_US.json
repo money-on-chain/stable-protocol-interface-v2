@@ -97,19 +97,19 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "COINBASE": {
-                "label": "rBTC",
+                "label": "Smart Bitcoin",
                 "abbr": "RBTC"
             },
             "TF": {
@@ -185,20 +185,20 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
+                        "title": "Smart Bitcoin",
+                        "symbol": " (RBTC)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
+                        "title": "BPro",
+                        "symbol": " (BPRO)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
+                        "title": "Dollar on Chain",
+                        "symbol": " (DOC)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
@@ -209,7 +209,7 @@
                         "balance_decimals": 2
                     },
                     "4": {
-                        "title": "rBTC",
+                        "title": "Smart Bitcoin",
                         "symbol": " (RBTC)",
                         "price_decimals": 2,
                         "balance_decimals": 8
@@ -280,7 +280,7 @@
         },
 
         "pegged": {
-            "cardTitle": "USDRIF Performance",
+            "cardTitle": "Dollar On Chain",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
@@ -294,24 +294,24 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIFPro",
-                "abbr": "RIFP"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF US Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
+            },
+            "TG": {
+                "label": "MOC",
+                "abbr": "MOC"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
                 "abbr": "RBTC"
-            },
-            "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
             }
         },
         "cardTitle": "Send",

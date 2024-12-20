@@ -633,6 +633,8 @@ export default function ListOperations(props) {
         setTimeout(() => setLoadingSke(false), timeSke);
     }, [auth]);
     function TruncatedAddress(address, length = 6) {
+        if (!address) return "";
+
         return (
             address.substring(0, length + 2) +
             '…' +

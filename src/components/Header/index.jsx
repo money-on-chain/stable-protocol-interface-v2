@@ -35,50 +35,50 @@ export default function SectionHeader(props) {
             name: () => t('menuOptions.portfolio'),
             className: 'logo-portfolio',
             path: '/',
-            allowedProjects: ['flipmoney', 'roc', 'stablex']
+            allowedProjects: ['flipmoney', 'roc', 'stablex', 'moc']
         },
 
         {
             name: () => t('menuOptions.send'),
             className: 'logo-send',
             path: '/send',
-            allowedProjects: ['flipmoney', 'roc', 'stablex']
+            allowedProjects: ['flipmoney', 'roc', 'stablex', 'moc']
         },
         {
             name: () => t('menuOptions.exchange'),
             className: 'logo-exchange',
             path: '/exchange',
-            allowedProjects: ['flipmoney', 'roc', 'stablex']
+            allowedProjects: ['flipmoney', 'roc', 'stablex', 'moc']
         },
         {
             name: () => t('menuOptions.staking'),
             className: 'logo-staking',
             path: '/staking',
-            allowedProjects: ['moc', 'flipmoney', 'stablex']
+            allowedProjects: ['moc', 'flipmoney']
         },
         {
             name: () => t('menuOptions.performance'),
             className: 'logo-performance',
             path: '/performance',
-            allowedProjects: ['flipmoney', 'roc', 'stablex']
+            allowedProjects: ['flipmoney', 'roc', 'stablex', 'moc']
         },
         {
             name: () => t('menuOptions.vesting'),
             className: 'logo-vesting',
             path: '/vesting',
-            allowedProjects: ['flipmoney', 'moc', 'stablex']
+            allowedProjects: ['flipmoney', 'moc']
         },
         {
             name: () => t('menuOptions.liquidityMining'),
             className: 'logo-liquidity-mining',
             path: '/liquidity-mining',
-            allowedProjects: ['moc', 'stablex']
+            allowedProjects: ['moc']
         },
         {
             name: () => t('menuOptions.voting'),
             className: 'logo-voting',
             path: '/voting',
-            allowedProjects: ['moc']
+            allowedProjects: ['flipmoney', 'moc']
         }
     ];
 
