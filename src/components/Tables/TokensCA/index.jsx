@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Table, Skeleton } from 'antd';
+import React, { useContext, useEffect, useState } from "react";
+import { Table, Skeleton } from "antd";
 
-import { AuthenticateContext } from '../../../context/Auth';
-import { useProjectTranslation } from '../../../helpers/translations';
-import settings from '../../../settings/settings.json';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
-import { ProvideColumnsCA } from '../../../helpers/tokensTables';
-import NumericLabel from 'react-pretty-numbers';
+import { AuthenticateContext } from "../../../context/Auth";
+import { useProjectTranslation } from "../../../helpers/translations";
+import settings from "../../../settings/settings.json";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
+import BigNumber from "bignumber.js";
+import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
+import { ProvideColumnsCA } from "../../../helpers/tokensTables";
+import NumericLabel from "react-pretty-numbers";
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
@@ -20,36 +20,36 @@ export default function Tokens(props) {
         }
     }, [auth]);
 
-    const portfTableHeight = getComputedStyle(document.querySelector(':root'))
-        .getPropertyValue('--portfolioTokenHeight')
+    const portfTableHeight = getComputedStyle(document.querySelector(":root"))
+        .getPropertyValue("--portfolioTokenHeight")
         .split('"')
-        .join('');
-    const portfPeggedHeight = getComputedStyle(document.querySelector(':root'))
-        .getPropertyValue('--portfolioPeggedHeight')
+        .join("");
+    const portfPeggedHeight = getComputedStyle(document.querySelector(":root"))
+        .getPropertyValue("--portfolioPeggedHeight")
         .split('"')
-        .join('');
+        .join("");
     const tokensData = [];
     const columnsData = [];
     const params = Object.assign({
         shortFormat: true,
-        justification: 'L',
+        justification: "L",
         locales: i18n.languages[0],
         shortFormatMinValue: 1000000,
         commafy: true,
         shortFormatPrecision: 2,
         precision: 2,
-        title: '',
-        cssClass: ['display-inline']
+        title: "",
+        cssClass: ["display-inline"],
     });
     // Columns
     ProvideColumnsCA().forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.CA.columns.${dataItem.dataIndex}`, {
-                ns: ns
+                ns: ns,
             }),
             dataIndex: dataItem.dataIndex,
             align: dataItem.align,
-            width: dataItem.width
+            width: dataItem.width,
         });
     });
 
@@ -95,23 +95,23 @@ export default function Tokens(props) {
                 t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
                 BigNumber.ROUND_UP,
                 {
-                    decimalSeparator: '.',
-                    groupSeparator: ','
+                    decimalSeparator: ".",
+                    groupSeparator: ",",
                 }
             );
             const getSign = () => {
                 if (priceDelta.isZero()) {
-                    return '';
+                    return "";
                 }
                 if (priceDelta.isPositive()) {
-                    return '+';
+                    return "+";
                 }
-                return '-';
+                return "-";
             };
 
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: t('numberFormat.decimalSeparator'),
-                groupSeparator: t('numberFormat.thousandsSeparator')
+                decimalSeparator: t("numberFormat.decimalSeparator"),
+                groupSeparator: t("numberFormat.thousandsSeparator"),
             });
 
             tokensData.push({
@@ -120,12 +120,12 @@ export default function Tokens(props) {
                     <div className="token">
                         <div
                             className={`icon-token-ca_${dataItem.key} token__icon`}
-                        ></div>{' '}
+                        ></div>{" "}
                         <span className="token__name">
                             {t(
                                 `portfolio.tokens.CA.rows.${dataItem.key}.title`,
                                 {
-                                    ns: ns
+                                    ns: ns,
                                 }
                             )}
                         </span>
@@ -133,7 +133,7 @@ export default function Tokens(props) {
                             {t(
                                 `portfolio.tokens.CA.rows.${dataItem.key}.symbol`,
                                 {
-                                    ns: ns
+                                    ns: ns,
                                 }
                             )}
                         </span>
@@ -142,7 +142,7 @@ export default function Tokens(props) {
                 price: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData.PP_CA[
                                       dataItem.key
@@ -153,26 +153,26 @@ export default function Tokens(props) {
                                   ),
                                   t: t,
                                   i18n: i18n,
-                                  ns: ns
+                                  ns: ns,
                               })}
                     </div>
                 ),
                 variation: !auth.contractStatusData.canOperate ? (
-                    '--'
+                    "--"
                 ) : (
                     <div>
                         {`${getSign()} `}
                         <NumericLabel {...{ params }}>
                             {variationFormat}
                         </NumericLabel>
-                        {' %'}
+                        {" %"}
                         <span
                             className={`variation-indicator ${
-                                getSign() === '+'
-                                    ? 'positive-indicator'
-                                    : getSign() === '-'
-                                      ? 'negative-indicator'
-                                      : 'neutral-indicator'
+                                getSign() === "+"
+                                    ? "positive-indicator"
+                                    : getSign() === "-"
+                                      ? "negative-indicator"
+                                      : "neutral-indicator"
                             }`}
                         ></span>
                     </div>
@@ -188,7 +188,7 @@ export default function Tokens(props) {
                             ),
                             t: t,
                             i18n: i18n,
-                            ns: ns
+                            ns: ns,
                         })}
                     </div>
                 ),
@@ -207,7 +207,7 @@ export default function Tokens(props) {
                 usd: (
                     <div className="item-usd">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: balanceUSD,
                                   token: settings.tokens.CA[dataItem.key],
@@ -215,10 +215,10 @@ export default function Tokens(props) {
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: true
+                                  skipContractConvert: true,
                               })}
                     </div>
-                )
+                ),
             });
             count += 1;
         });
@@ -265,18 +265,18 @@ export default function Tokens(props) {
 
         const getSign = () => {
             if (priceDelta.isZero()) {
-                return '';
+                return "";
             }
             if (priceDelta.isPositive()) {
-                return '+';
+                return "+";
             }
-            return '-';
+            return "-";
         };
         const variationFormat = variation
             .abs()
             .toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: '.',
-                groupSeparator: ','
+                decimalSeparator: ".",
+                groupSeparator: ",",
             });
 
         tokensData.push({
@@ -286,12 +286,12 @@ export default function Tokens(props) {
                     <div className="icon-token-tc token__icon"></div>
                     <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                     <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                 </div>
@@ -299,7 +299,7 @@ export default function Tokens(props) {
             price: (
                 <div>
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: price,
                               token: settings.tokens.TC,
@@ -309,26 +309,26 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
             ),
             variation: !auth.contractStatusData.canOperate ? (
-                '--'
+                "--"
             ) : (
                 <div>
                     {`${getSign()} `}
                     <NumericLabel {...{ params }}>
                         {variationFormat}
                     </NumericLabel>
-                    {' %'}
+                    {" %"}
                     <span
                         className={`variation-indicator ${
-                            getSign() === '+'
-                                ? 'positive-indicator'
-                                : getSign() === '-'
-                                  ? 'negative-indicator'
-                                  : 'neutral-indicator'
+                            getSign() === "+"
+                                ? "positive-indicator"
+                                : getSign() === "-"
+                                  ? "negative-indicator"
+                                  : "neutral-indicator"
                         }`}
                     ></span>
                 </div>
@@ -343,14 +343,14 @@ export default function Tokens(props) {
                         ),
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
                     })}
                 </div>
             ),
             usd: (
                 <div className="item-usd">
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
                               token: settings.tokens.TC,
@@ -358,10 +358,10 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
-            )
+            ),
         });
 
         count += 1;
@@ -369,10 +369,12 @@ export default function Tokens(props) {
 
     // Token TP only in Roc
     if (
+        // auth.contractStatusData &&
+        // auth.userBalanceData &&
+        // (settings.project === "roc" || settings.project === "moc")
         auth.contractStatusData &&
         auth.userBalanceData &&
-        (settings.project === 'roc' ||
-        settings.project === 'moc')
+        settings.hasUSDPeggedTokens
     ) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
@@ -394,12 +396,12 @@ export default function Tokens(props) {
         const variation = priceDelta.abs().div(priceHistory).times(100);
 
         const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
 
         const itemIndex = count;
@@ -408,15 +410,15 @@ export default function Tokens(props) {
             key: itemIndex,
             name: (
                 <div className="token">
-                    <div className="icon-token-tp_0 token__icon"></div>{' '}
+                    <div className="icon-token-tp_0 token__icon"></div>{" "}
                     <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                     <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                 </div>
@@ -424,7 +426,7 @@ export default function Tokens(props) {
             price: (
                 <div>
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: price,
                               token: settings.tokens.TP[0],
@@ -434,18 +436,18 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
             ),
             variation: !auth.contractStatusData.canOperate ? (
-                '--'
+                "--"
             ) : (
                 <div>
                     <NumericLabel {...{ params }}>{0}</NumericLabel>
-                    {' %'}
+                    {" %"}
                     <span
-                        className={'variation-indicator neutral-indicator'}
+                        className={"variation-indicator neutral-indicator"}
                     ></span>
                 </div>
             ),
@@ -457,14 +459,14 @@ export default function Tokens(props) {
                         decimals: 2,
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
                     })}
                 </div>
             ),
             usd: (
                 <div className="item-usd">
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
                               token: settings.tokens.TP[0],
@@ -472,10 +474,10 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
-            )
+            ),
         });
 
         count += 1;
@@ -519,22 +521,22 @@ export default function Tokens(props) {
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
             {
-                decimalSeparator: '.',
-                groupSeparator: ','
+                decimalSeparator: ".",
+                groupSeparator: ",",
             }
         );
         const getSign = () => {
             if (priceDelta.isZero()) {
-                return '';
+                return "";
             }
             if (priceDelta.isPositive()) {
-                return '+';
+                return "+";
             }
-            return '-';
+            return "-";
         };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
 
         tokensData.push({
@@ -544,45 +546,49 @@ export default function Tokens(props) {
                     <div className="icon-token-tf token__icon"></div>
                     <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                     <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                 </div>
             ),
             price: (
                 <div>
-                    {(!auth.contractStatusData.canOperate) ? '--' : PrecisionNumbers({
-                        amount: price.times(priceCA),
-                        token: settings.tokens.TF,
-                        decimals: t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
-                        t: t,
-                        i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
-                    })}
+                    {!auth.contractStatusData.canOperate
+                        ? "--"
+                        : PrecisionNumbers({
+                              amount: price.times(priceCA),
+                              token: settings.tokens.TF,
+                              decimals: t(
+                                  `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
+                              ),
+                              t: t,
+                              i18n: i18n,
+                              ns: ns,
+                              skipContractConvert: true,
+                          })}
                 </div>
             ),
             variation: !auth.contractStatusData.canOperate ? (
-                '--'
+                "--"
             ) : (
                 <div>
                     {`${getSign()} `}
                     <NumericLabel {...{ params }}>
                         {variationFormat}
                     </NumericLabel>
-                    {' %'}
+                    {" %"}
                     <span
                         className={`variation-indicator ${
-                            getSign() === '+'
-                                ? 'positive-indicator'
-                                : getSign() === '-'
-                                  ? 'negative-indicator'
-                                  : 'neutral-indicator'
+                            getSign() === "+"
+                                ? "positive-indicator"
+                                : getSign() === "-"
+                                  ? "negative-indicator"
+                                  : "neutral-indicator"
                         }`}
                     ></span>
                 </div>
@@ -595,14 +601,14 @@ export default function Tokens(props) {
                         decimals: 2,
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
                     })}
                 </div>
             ),
             usd: (
                 <div className="item-usd">
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
                               token: settings.tokens.TF,
@@ -610,10 +616,10 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
-            )
+            ),
         });
         count += 1;
     } else {
@@ -621,7 +627,11 @@ export default function Tokens(props) {
     }
 
     // Coinbase
-    if (auth.contractStatusData && auth.userBalanceData && settings.collateral !== 'coinbase') {
+    if (
+        auth.contractStatusData &&
+        auth.userBalanceData &&
+        settings.collateral !== "coinbase"
+    ) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
@@ -652,22 +662,22 @@ export default function Tokens(props) {
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
             {
-                decimalSeparator: '.',
-                groupSeparator: ','
+                decimalSeparator: ".",
+                groupSeparator: ",",
             }
         );
         const getSign = () => {
             if (priceDelta.isZero()) {
-                return '';
+                return "";
             }
             if (priceDelta.isPositive()) {
-                return '+';
+                return "+";
             }
-            return '-';
+            return "-";
         };
         const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
 
         tokensData.push({
@@ -677,12 +687,12 @@ export default function Tokens(props) {
                     <div className="icon-token-coinbase token__icon"></div>
                     <span className="token__name">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                     <span className="token__ticker">
                         {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </span>
                 </div>
@@ -690,7 +700,7 @@ export default function Tokens(props) {
             price: (
                 <div>
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: auth.contractStatusData.PP_COINBASE,
                               token: settings.tokens.COINBASE,
@@ -699,26 +709,26 @@ export default function Tokens(props) {
                               ),
                               t: t,
                               i18n: i18n,
-                              ns: ns
+                              ns: ns,
                           })}
                 </div>
             ),
             variation: !auth.contractStatusData.canOperate ? (
-                '--'
+                "--"
             ) : (
                 <div>
                     {`${getSign()} `}
                     <NumericLabel {...{ params }}>
                         {variationFormat}
                     </NumericLabel>
-                    {' %'}
+                    {" %"}
                     <span
                         className={`variation-indicator ${
-                            getSign() === '+'
-                                ? 'positive-indicator'
-                                : getSign() === '-'
-                                  ? 'negative-indicator'
-                                  : 'neutral-indicator'
+                            getSign() === "+"
+                                ? "positive-indicator"
+                                : getSign() === "-"
+                                  ? "negative-indicator"
+                                  : "neutral-indicator"
                         }`}
                     ></span>
                 </div>
@@ -733,14 +743,14 @@ export default function Tokens(props) {
                         ),
                         t: t,
                         i18n: i18n,
-                        ns: ns
+                        ns: ns,
                     })}
                 </div>
             ),
             usd: (
                 <div className="item-usd">
                     {!auth.contractStatusData.canOperate
-                        ? '--'
+                        ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
                               token: settings.tokens.COINBASE,
@@ -748,18 +758,21 @@ export default function Tokens(props) {
                               t: t,
                               i18n: i18n,
                               ns: ns,
-                              skipContractConvert: true
+                              skipContractConvert: true,
                           })}
                 </div>
-            )
+            ),
         });
     }
 
-    return ready ? <Table
+    return ready ? (
+        <Table
             columns={columnsData}
             dataSource={tokensData}
             pagination={false}
             scroll={{ y: portfTableHeight }}
-        />: <Skeleton active />
-    ;
+        />
+    ) : (
+        <Skeleton active />
+    );
 }

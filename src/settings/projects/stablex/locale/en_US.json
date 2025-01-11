@@ -97,24 +97,24 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Ethereum",
+                "abbr": "ETH"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "XETH",
+                "abbr": "XETH"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "USDX",
+                "abbr": "USDX"
             },
             "COINBASE": {
                 "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "StableX",
+                "abbr": "XSTA"
             }
         },
 
@@ -185,26 +185,26 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
+                        "title": "Ethereum",
+                        "symbol": " (ETH)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
+                        "title": "XETH",
+                        "symbol": " (XETH)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
+                        "title": "USDX",
+                        "symbol": " (USDX)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
                     "3": {
-                        "title": "MOC",
-                        "symbol": " (MOC)",
+                        "title": "StableX",
+                        "symbol": " (XSTA)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
@@ -294,24 +294,28 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Ethereum",
+                "abbr": "ETH"
             },
             "TC": {
-                "label": "RIFPro",
-                "abbr": "RIFP"
+                "label": "XETH",
+                "abbr": "XETH"
             },
             "TP_0": {
-                "label": "RIF US Dollar",
-                "abbr": "USDRIF"
+                "label": "USDX",
+                "abbr": "USDX"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "StableX",
+                "abbr": "XSTA"
+            },
+            "TG": {
+                "label": "StableX",
+                "abbr": "XSTA"
             }
         },
         "cardTitle": "Send",
