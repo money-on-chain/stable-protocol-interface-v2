@@ -36,3 +36,9 @@
     width: 100%;
 }
 /* #endregion WITHDRAW CARD WIDE  */
+
+// Removes border for mobile topbar
+.header-logo,
+.wallet-user {
+    border: none !important;
+}

@@ -1,10 +1,10 @@
-[data-theme='dark'] {
-    --default-theme: 'dark';
+[data-theme="dark"] {
+    --default-theme: "dark";
 
     // BRANDING
 
-    --brand-logo-main: url('../branding/logo-app-dark.svg');
-    --brand-logo-main-small: url('../branding/logo-app-small-dark.svg');
+    --brand-logo-main: url("../branding/logo-app-dark.svg");
+    --brand-logo-main-small: url("../branding/logo-app-small-dark.svg");
 
     --brand-color-darker: #298f97;
     --brand-color-dark: #27afb9;
@@ -50,7 +50,7 @@
     ); // can be set to none
 
     --surface-color-0: #3a3057;
-    --surface-color-1: #27262c;
+    --surface-color-1: #1a1a1d;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
     --surface-color-2: #372f47;
     --surface-shadow-2: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -102,7 +102,7 @@
     --color-btn-primary-background-active: #7a6eaa;
     --color-btn-primary-txt-active: #0c0c08;
 
-    --color-btn-primary-background-disabled: #2c2c2c;
+    --color-btn-primary-background-disabled: #272327;
     --color-btn-primary-txt-disabled: #212020;
     --color-btn-primary-filter-disabled: invert(12%) sepia(1%) saturate(0%)
         hue-rotate(177deg) brightness(101%) contrast(98%);
@@ -269,8 +269,8 @@
     --color-icon-link-secondary-hover-filter: invert(69%) sepia(95%)
         saturate(575%) hue-rotate(138deg) brightness(87%) contrast(90%);
 
-    --brand-font: 'Inter', sans-serif;
-    --main-font: 'Open Sans', sans-serif;
+    --brand-font: "Inter", sans-serif;
+    --main-font: "Open Sans", sans-serif;
 
     // rLogin
 

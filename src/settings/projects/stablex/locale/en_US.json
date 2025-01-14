@@ -715,7 +715,7 @@
         "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
-        "protocolName": "Money on Chain",
+        "protocolName": "StableX",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
