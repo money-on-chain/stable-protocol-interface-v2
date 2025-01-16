@@ -2,7 +2,7 @@ import { Button, Input } from 'antd';
 import React, { useContext, useState, useEffect } from 'react';
 
 import { useProjectTranslation } from '../../helpers/translations';
-import SelectCurrency from '../SelectCurrency';
+import SelectCurrency from '../CurrencySelector';
 
 import {
     TokenSettings,
@@ -24,13 +24,13 @@ export default function Send() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const tokenSend = tokenExchange()
+    const tokenSend = tokenExchange();
 
     // Add Token Govern
-    tokenSend.push('TG')
+    tokenSend.push('TG');
 
     // Add Coinbase
-    tokenSend.push('COINBASE')
+    tokenSend.push('COINBASE');
 
     const defaultTokenSend = tokenSend[0];
     const [currencyYouSend, setCurrencyYouSend] = useState(defaultTokenSend);
@@ -206,6 +206,7 @@ export default function Send() {
                             currencyOptions={tokenSend}
                             onChange={onChangeCurrencyYouSend}
                             action={'send'}
+                            title="Custom Title (send, from, to)"
                         />
 
                         <InputAmount

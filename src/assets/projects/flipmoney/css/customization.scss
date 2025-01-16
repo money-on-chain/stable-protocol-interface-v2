@@ -83,6 +83,8 @@
     --color-controls-foreground-off: #8c8c89;
     --color-controls-foreground-on: #3b3b3b;
     --color-controls-active: #000000;
+    --color-controls-foreground-on-filter: invert(64%) sepia(14%) saturate(52%)
+        hue-rotate(21deg) brightness(96%) contrast(84%);
 
     --dividers: #3a3e40;
 
@@ -379,6 +381,8 @@
     --color-controls-foreground-off: #8c8c89;
     --color-controls-foreground-on: #9d9d98;
     --color-controls-active: #fff383;
+    --color-controls-foreground-on-filter: invert(64%) sepia(14%) saturate(52%)
+        hue-rotate(21deg) brightness(96%) contrast(84%);
 
     --dividers: #3a3e40;
 

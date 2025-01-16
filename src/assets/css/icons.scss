@@ -330,3 +330,19 @@ icons.css contains all the css code for Icons across the Dapp
     width: 48px;
     height: 48px;
 }
+.icon__toggle__expand {
+    filter: var(--color-controls-foreground-on-filter);
+    background-image: url('../icons/IconToggleExpand.svg');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+.icon__selected {
+    filter: var(--color-controls-foreground-on-filter);
+    background-image: url('../icons/Selected.svg');
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
