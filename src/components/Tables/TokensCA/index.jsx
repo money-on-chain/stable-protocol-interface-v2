@@ -372,7 +372,8 @@ export default function Tokens(props) {
         auth.contractStatusData &&
         auth.userBalanceData &&
         (settings.project === 'roc' ||
-        settings.project === 'moc')
+        settings.project === 'moc' ||
+        settings.project === 'stablex')
     ) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
