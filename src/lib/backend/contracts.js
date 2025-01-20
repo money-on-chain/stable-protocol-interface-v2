@@ -198,83 +198,87 @@ const readContracts = async (web3) => {
         mocAddr['maxOpDiffProvider']
     );
 
-    console.log(
-        'Reading IRegistry Contract... address: ',
-        process.env.REACT_APP_CONTRACT_IREGISTRY
-    );
-    dContracts.contracts.IRegistry = new web3.eth.Contract(
-        IRegistry.abi,
-        process.env.REACT_APP_CONTRACT_IREGISTRY
-    );
+    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
 
-    // Read contracts addresses from registry
-    const registryAddr = await registryAddresses(web3, dContracts)
-
-    console.log(
-        'Reading StakingMachine Contract... address: ',
-        registryAddr['MOC_STAKING_MACHINE']
-    );
-    dContracts.contracts.StakingMachine = new web3.eth.Contract(
-        StakingMachine.abi,
-        registryAddr['MOC_STAKING_MACHINE']
-    );
-
-    console.log(
-        'Reading Delay Machine Contract... address: ',
-        registryAddr['MOC_DELAY_MACHINE']
-    );
-    dContracts.contracts.DelayMachine = new web3.eth.Contract(
-        DelayMachine.abi,
-        registryAddr['MOC_DELAY_MACHINE']
-    );
-
-    console.log(
-        'Reading Supporters Contract... address: ',
-        registryAddr['SUPPORTERS_ADDR']
-    );
-    dContracts.contracts.Supporters = new web3.eth.Contract(
-        Supporters.abi,
-        registryAddr['SUPPORTERS_ADDR']
-    );
-
-    console.log(
-        'Reading Vesting Factory Contract... address: ',
-        registryAddr['MOC_VESTING_MACHINE']
-    );
-    dContracts.contracts.VestingFactory = new web3.eth.Contract(
-        VestingFactory.abi,
-        registryAddr['MOC_VESTING_MACHINE']
-    );
-
-    // reading Incentive V2 from environment address
-    if (typeof process.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
         console.log(
-            'Reading Incentive V2 Contract... address: ',
-            process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+            'Reading IRegistry Contract... address: ',
+            process.env.REACT_APP_CONTRACT_IREGISTRY
         );
-        dContracts.contracts.IncentiveV2 = new web3.eth.Contract(
-            IncentiveV2.abi,
-            process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+        dContracts.contracts.IRegistry = new web3.eth.Contract(
+            IRegistry.abi,
+            process.env.REACT_APP_CONTRACT_IREGISTRY
         );
+
+        // Read contracts addresses from registry
+        const registryAddr = await registryAddresses(web3, dContracts)
+
+        console.log(
+            'Reading StakingMachine Contract... address: ',
+            registryAddr['MOC_STAKING_MACHINE']
+        );
+        dContracts.contracts.StakingMachine = new web3.eth.Contract(
+            StakingMachine.abi,
+            registryAddr['MOC_STAKING_MACHINE']
+        );
+
+        console.log(
+            'Reading Delay Machine Contract... address: ',
+            registryAddr['MOC_DELAY_MACHINE']
+        );
+        dContracts.contracts.DelayMachine = new web3.eth.Contract(
+            DelayMachine.abi,
+            registryAddr['MOC_DELAY_MACHINE']
+        );
+
+        console.log(
+            'Reading Supporters Contract... address: ',
+            registryAddr['SUPPORTERS_ADDR']
+        );
+        dContracts.contracts.Supporters = new web3.eth.Contract(
+            Supporters.abi,
+            registryAddr['SUPPORTERS_ADDR']
+        );
+
+        console.log(
+            'Reading Vesting Factory Contract... address: ',
+            registryAddr['MOC_VESTING_MACHINE']
+        );
+        dContracts.contracts.VestingFactory = new web3.eth.Contract(
+            VestingFactory.abi,
+            registryAddr['MOC_VESTING_MACHINE']
+        );
+
+        // reading Incentive V2 from environment address
+        if (typeof process.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
+            console.log(
+                'Reading Incentive V2 Contract... address: ',
+                process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+            );
+            dContracts.contracts.IncentiveV2 = new web3.eth.Contract(
+                IncentiveV2.abi,
+                process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+            );
+        }
+
+        console.log(
+            'Reading Voting Machine Contract... address: ',
+            registryAddr['MOC_VOTING_MACHINE']
+        );
+        dContracts.contracts.VotingMachine = new web3.eth.Contract(
+            VotingMachine.abi,
+            registryAddr['MOC_VOTING_MACHINE']
+        );
+
+        console.log(
+            'Reading Token Govern Contract... address: ',
+            registryAddr['MOC_TOKEN']
+        );
+        dContracts.contracts.TG = new web3.eth.Contract(
+            IERC20.abi,
+            registryAddr['MOC_TOKEN']
+        );
+
     }
-
-    console.log(
-        'Reading Voting Machine Contract... address: ',
-        registryAddr['MOC_VOTING_MACHINE']
-    );
-    dContracts.contracts.VotingMachine = new web3.eth.Contract(
-        VotingMachine.abi,
-        registryAddr['MOC_VOTING_MACHINE']
-    );
-
-    console.log(
-        'Reading Token Govern Contract... address: ',
-        registryAddr['MOC_TOKEN']
-    );
-    dContracts.contracts.TG = new web3.eth.Contract(
-        IERC20.abi,
-        registryAddr['MOC_TOKEN']
-    );
 
     // Token migrator & Legacy token
     if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {

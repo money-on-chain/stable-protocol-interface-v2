@@ -65,6 +65,7 @@
     "build:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocAlphaTestnet react-app-rewired build && rm build/projects/ -R",
     "reload:stablex-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.stablexTestnet react-app-rewired start",
     "start:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.stablexTestnet react-app-rewired start",
+    "build:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.stablexTestnet react-app-rewired build && rm build/projects/ -R",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
