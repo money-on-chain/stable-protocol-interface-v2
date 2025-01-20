@@ -1,6 +1,7 @@
 {
     "collateral": "coinbase",
     "project": "stablex",
+    "hasUSDPeggedTokens":true,
     "hasNonUSDPeggedTokens":false,
     "tokens": {
         "COINBASE": {

@@ -97,24 +97,24 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "Smart Bitcoin",
-                "abbr": "RBTC"
+                "label": "Ethereum",
+                "abbr": "ETH"
             },
             "TC": {
-                "label": "BPro",
-                "abbr": "BPRO"
+                "label": "XETH",
+                "abbr": "XETH"
             },
             "TP_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
+                "label": "USDX",
+                "abbr": "USDX"
             },
             "COINBASE": {
-                "label": "Smart Bitcoin",
+                "label": "rBTC",
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "StableX",
+                "abbr": "XSTA"
             }
         },
 
@@ -185,31 +185,31 @@
                 },
                 "rows": {
                     "0": {
-                        "title": "Smart Bitcoin",
-                        "symbol": " (RBTC)",
+                        "title": "Ethereum",
+                        "symbol": " (ETH)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "1": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
+                        "title": "XETH",
+                        "symbol": " (XETH)",
                         "price_decimals": 4,
                         "balance_decimals": 4
                     },
                     "2": {
-                        "title": "Dollar on Chain",
-                        "symbol": " (DOC)",
+                        "title": "USDX",
+                        "symbol": " (USDX)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
                     "3": {
-                        "title": "MOC",
-                        "symbol": " (MOC)",
+                        "title": "StableX",
+                        "symbol": " (XSTA)",
                         "price_decimals": 2,
                         "balance_decimals": 2
                     },
                     "4": {
-                        "title": "Smart Bitcoin",
+                        "title": "rBTC",
                         "symbol": " (RBTC)",
                         "price_decimals": 2,
                         "balance_decimals": 8
@@ -280,7 +280,7 @@
         },
 
         "pegged": {
-            "cardTitle": "Dollar On Chain",
+            "cardTitle": "USDRIF Performance",
             "colName": "Name",
             "colTokensPer": "Tokens per USD",
             "colMinted": "Minted",
@@ -294,24 +294,28 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "Smart Bitcoin",
-                "abbr": "RBTC"
+                "label": "Ethereum",
+                "abbr": "ETH"
             },
             "TC": {
-                "label": "BPro",
-                "abbr": "BPRO"
+                "label": "XETH",
+                "abbr": "XETH"
             },
             "TP_0": {
-                "label": "Dollar on Chain",
-                "abbr": "DOC"
-            },
-            "TG": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "USDX",
+                "abbr": "USDX"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
                 "abbr": "RBTC"
+            },
+            "TF": {
+                "label": "StableX",
+                "abbr": "XSTA"
+            },
+            "TG": {
+                "label": "StableX",
+                "abbr": "XSTA"
             }
         },
         "cardTitle": "Send",
@@ -711,7 +715,7 @@
         "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
-        "protocolName": "Money on Chain",
+        "protocolName": "StableX",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
