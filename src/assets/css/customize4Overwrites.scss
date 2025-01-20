@@ -1,5 +1,3 @@
-/* #endregion DARK MODE */
-
 /* #region HIDE OPTION TO PAY FEES WITH GOVERNANCE TOKEN */
 // .sectionExchange__Content {
 //     .ant-radio,
@@ -38,3 +36,9 @@
     width: 100%;
 }
 /* #endregion WITHDRAW CARD WIDE  */
+
+// Removes border for mobile topbar
+.header-logo,
+.wallet-user {
+    border: none !important;
+}
