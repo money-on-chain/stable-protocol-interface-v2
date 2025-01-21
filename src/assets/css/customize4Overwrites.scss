@@ -1,3 +1,6 @@
+// Variables
+$breakpoint-mobile: 600px;
+
 /* #region HIDE OPTION TO PAY FEES WITH GOVERNANCE TOKEN */
 // .sectionExchange__Content {
 //     .ant-radio,
@@ -38,7 +41,9 @@
 /* #endregion WITHDRAW CARD WIDE  */
 
 // Removes border for mobile topbar
-.header-logo,
-.wallet-user {
-    border: none !important;
+@media (max-width: $breakpoint-mobile) {
+    .header-logo,
+    .wallet-user {
+        border: none !important;
+    }
 }

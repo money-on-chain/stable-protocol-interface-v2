@@ -1,7 +1,7 @@
 :root {
     // For table heights use '' -> '200px' 'auto', etc.
-    --portfolioTokenHeight: 'auto';
-    --portfolioPeggedHeight: 'auto';
+    --portfolioTokenHeight: "auto";
+    --portfolioPeggedHeight: "auto";
 }
 .dashboard-portfolio {
     // Portfolio card
@@ -118,4 +118,102 @@
 }
 .neutral-indicator {
     background-color: var(--color-semantic-neutral);
+}
+
+@media (max-width: 768px) {
+    .section-container {
+        margin-top: 0px;
+    }
+    .dashboard-portfolio {
+        padding-top: 16px;
+        padding-right: 16px;
+        padding-left: 16px;
+        width: 100%;
+        .tokens-list-table {
+            margin-top: 16px;
+            width: 100%;
+        }
+        .tokens-card-content {
+            padding: 0px;
+            width: 100%;
+            max-width: 100%;
+
+            .ant-table-cell {
+                padding: 4px 0px !important;
+            }
+            .tokens__table__mobile,
+            .token {
+                margin-left: 0;
+            }
+            .tokens__table__mobile {
+                width: 100%;
+            }
+            .tokens-list-header {
+                display: flex;
+                gap: 0px;
+                padding-right: 0px;
+                padding-left: 0px;
+                width: 100%;
+
+                .tokens-list-header-balance {
+                }
+            }
+            .token__contents {
+                display: flex;
+                flex-direction: column;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                width: 100%;
+            }
+            .token__details {
+                display: flex;
+                flex-direction: row;
+                padding-top: 24px;
+                width: 100%;
+            }
+            .token__details__token {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 8px;
+                width: 100%;
+            }
+            .token__details__account {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-end;
+                gap: 8px;
+                width: 100%;
+            }
+            .token__data__big {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                color: var(--color-txt-primary);
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                font-family: var(--main-font);
+            }
+            .token__data__small {
+                color: var(--color-txt-secondary);
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                font-family: var(--main-font);
+            }
+            .token__label {
+                color: var(--color-txt-secondary);
+                font-weight: 400;
+                font-size: 10px;
+                font-family: var(--main-font);
+                text-transform: uppercase;
+            }
+            .right {
+                align-items: flex-end;
+                text-align: right;
+            }
+        }
+    }
 }

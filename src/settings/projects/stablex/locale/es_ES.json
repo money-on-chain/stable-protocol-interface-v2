@@ -280,7 +280,7 @@
         },
 
         "pegged": {
-            "cardTitle": "Rendimiento del USDRIF",
+            "cardTitle": "Rendimiento de Tokens Pegged",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",

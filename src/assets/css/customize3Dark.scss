@@ -18,10 +18,10 @@
         hue-rotate(210deg) brightness(90%) contrast(84%);
 
     // Cards
-    --card-border: 1px solid #383241;
+    --card-border: 1px solid #4e445d;
     --card-border-radius: 16px;
     --card-padding: 32px;
-    --card-padding-mobile: 16px 0px;
+    --card-padding-mobile: 8px;
 
     // Data backgrounds
     --data-background-color: #372f47;
@@ -52,7 +52,7 @@
     --surface-color-0: #3a3057;
     --surface-color-1: #1a1a1d;
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
-    --surface-color-2: #372f47;
+    --surface-color-2: #2f2d33;
     --surface-shadow-2: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
     --surface-color-3: #212128;
     --surface-shadow-3: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
@@ -102,8 +102,8 @@
     --color-btn-primary-background-active: #7a6eaa;
     --color-btn-primary-txt-active: #0c0c08;
 
-    --color-btn-primary-background-disabled: #272327;
-    --color-btn-primary-txt-disabled: #212020;
+    --color-btn-primary-background-disabled: #2a2933;
+    --color-btn-primary-txt-disabled: #555260;
     --color-btn-primary-filter-disabled: invert(12%) sepia(1%) saturate(0%)
         hue-rotate(177deg) brightness(101%) contrast(98%);
 
@@ -113,10 +113,12 @@
     // Buttons - Secondary
 
     --color-btn-secondary-background-default: transparent;
-    --color-btn-secondary-txt-default: #7a6eaa;
+    --color-btn-secondary-txt-default: var(
+        --color-btn-primary-background-default
+    );
 
     --color-btn-secondary-background-hover: transparent;
-    --color-btn-secondary-txt-hover: #1ec7d3;
+    --color-btn-secondary-txt-hover: var(--color-btn-primary-background-hover);
 
     --color-btn-secondary-background-active: transparent;
     --color-btn-secondary-txt-active: #7a6eaa;
@@ -129,7 +131,9 @@
 
     // Buttons - Tertiary
 
-    --color-btn-tertiary-background-default: #2a2a32;
+    --color-btn-tertiary-background-default: var(
+        --color-btn-primary-background-default
+    );
     --color-btn-tertiary-txt-default: var(--brand-color-base);
 
     --color-btn-tertiary-background-hover: transparent;
@@ -252,8 +256,8 @@
 
     --color-txt-primary: #c3ccd9;
     --color-txt-secondary: #667180;
-    --color-txt-highlight: #1ec7d3;
-    --color-txt-link: #1ec7d3;
+    --color-txt-highlight: #1ec7d4;
+    --color-txt-link: #1ec7d4;
     --color-txt-notification: #ffffff;
     --link-txt-style: underline;
 
