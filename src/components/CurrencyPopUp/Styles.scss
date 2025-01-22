@@ -72,8 +72,9 @@
     margin-left: auto; /* Pushes the icon to the right */
     // padding-left: 10px;
 }
+
 // A smaller modal than default since this list doesn't need a wider one
-.ant-modal {
+.select__token__modal {
     max-width: 368px;
     .ant-modal-content {
         // background-color: var(--surface-color-1);

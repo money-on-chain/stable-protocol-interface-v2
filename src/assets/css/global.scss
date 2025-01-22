@@ -3,15 +3,15 @@ $breakpoint-mobile: 600px;
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
 
@@ -710,7 +710,7 @@ h2 {
 .alert-success {
     background-color: var(--color-semantic-positive);
     > .anticon {
-        background-image: url('../icons/NotificationSuccessOutline.svg');
+        background-image: url("../icons/NotificationSuccessOutline.svg");
         svg {
             display: none;
         }
@@ -719,7 +719,7 @@ h2 {
 .alert-info {
     background-color: var(--notification-permanent-background);
     > .anticon {
-        background-image: url('../icons/NotificationInformationOutline.svg');
+        background-image: url("../icons/NotificationInformationOutline.svg");
         svg {
             display: none;
         }
@@ -728,7 +728,7 @@ h2 {
 .alert-warning {
     background-color: var(--color-semantic-neutral);
     > .anticon {
-        background-image: url('../icons/NotificationWarningOutline.svg');
+        background-image: url("../icons/NotificationWarningOutline.svg");
         svg {
             display: none;
         }
@@ -737,7 +737,7 @@ h2 {
 .alert-error {
     background-color: var(--color-semantic-negative);
     > .anticon {
-        background-image: url('../icons/NotificationErrorOutline.svg');
+        background-image: url("../icons/NotificationErrorOutline.svg");
         svg {
             display: none;
         }
@@ -763,7 +763,7 @@ h2 {
 
 .ant-alert-close-icon {
     border: none;
-    background-image: url('../icons/CloseOutline.svg');
+    background-image: url("../icons/CloseOutline.svg");
     background-size: cover;
     background-repeat: no-repeat;
     width: 20px;
@@ -774,7 +774,7 @@ h2 {
     .alert-permanent {
         background-color: var(--notification-permanent-background);
         > .anticon {
-            background-image: url('../icons/NotificationWarningOutline.svg');
+            background-image: url("../icons/NotificationWarningOutline.svg");
             svg {
                 display: none;
             }
@@ -837,9 +837,15 @@ h2 {
 }
 
 .buttonSwap {
+    .icon-swap {
+        filter: var(--color-icon-link-filter);
+    }
 }
 .buttonSwap:hover {
-    filter: var(--color-icon-link-hover-filter);
+    .icon-swap {
+        filter: var(--color-icon-link-hover-filter);
+        cursor: pointer;
+    }
 }
 
 .button--small {
@@ -1038,7 +1044,7 @@ h2 {
         -webkit-appearance: none;
         margin: 0;
     }
-    input[type='number'] {
+    input[type="number"] {
         -moz-appearance: textfield; /* Firefox */
     }
 }
@@ -1435,6 +1441,9 @@ h2 {
     border: 1px dashed red;
 }
 
+.wallet__settings {
+    // background-color: red;
+}
 /* #section FOOTER */
 
 .footer-container {

@@ -77,6 +77,7 @@ export default function CurrencyPopUp(props) {
                 onCancel={closeModal}
                 footer={null}
                 centered
+                className="select__token__modal"
             >
                 <div className="token-list">
                     {filteredOptions.map((currency) => (

@@ -257,16 +257,17 @@
     --color-txt-primary: #c3ccd9;
     --color-txt-secondary: #667180;
     --color-txt-highlight: #1ec7d4;
-    --color-txt-link: #1ec7d4;
+    --color-txt-link: #7a6eaa;
     --color-txt-notification: #ffffff;
     --link-txt-style: underline;
 
     --color-icon-primary: invert(36%) sepia(25%) saturate(350%)
         hue-rotate(162deg) brightness(94%) contrast(86%);
 
-    --color-icon-link-filter: var(--brand-color-base-filter);
-    --color-icon-link-hover-filter: invert(69%) sepia(95%) saturate(575%)
-        hue-rotate(138deg) brightness(87%) contrast(90%);
+    --color-icon-link-filter: invert(87%) sepia(30%) saturate(4376%)
+        hue-rotate(137deg) brightness(87%) contrast(89%);
+    --color-icon-link-hover-filter: invert(87%) sepia(30%) saturate(4376%)
+        hue-rotate(137deg) brightness(87%) contrast(89%);
 
     --color-icon-link-secondary-filter: invert(69%) sepia(95%) saturate(575%)
         hue-rotate(138deg) brightness(87%) contrast(90%);

@@ -1,34 +1,34 @@
-import React, { createContext, useEffect, useState } from 'react';
-import getRLogin from '../lib/rLogin';
-import Web3 from 'web3';
-import BigNumber from 'bignumber.js';
+import React, { createContext, useEffect, useState } from "react";
+import getRLogin from "../lib/rLogin";
+import Web3 from "web3";
+import BigNumber from "bignumber.js";
 
-import addressHelper from '../helpers/addressHelper';
+import addressHelper from "../helpers/addressHelper";
 
 import {
     ApproveTokenContract,
     exchangeMethod,
-    TokenContract
-} from '../helpers/exchange';
+    TokenContract,
+} from "../helpers/exchange";
 
-import { readContracts } from '../lib/backend/contracts';
-import { contractStatus, userBalance } from '../lib/backend/multicall';
-import { decodeEvents } from '../lib/backend/transaction';
+import { readContracts } from "../lib/backend/contracts";
+import { contractStatus, userBalance } from "../lib/backend/multicall";
+import { decodeEvents } from "../lib/backend/transaction";
 import {
     AllowanceAmount,
     transferTokenTo,
     MigrateToken,
     AllowUseTokenMigrator,
-    transferCoinbaseTo
-} from '../lib/backend/moc-base';
+    transferCoinbaseTo,
+} from "../lib/backend/moc-base";
 
 import {
     addStake,
     unStake,
     delayMachineWithdraw,
     delayMachineCancelWithdraw,
-    approveStakingMachine
-} from '../lib/backend/omoc/staking';
+    approveStakingMachine,
+} from "../lib/backend/omoc/staking";
 
 import {
     addStake as addStakeVesting,
@@ -41,17 +41,25 @@ import {
     vestingVerify,
     preVote as preVoteVesting,
     vote as voteVesting,
-} from '../lib/backend/omoc/vesting';
+} from "../lib/backend/omoc/vesting";
 
+import { claimV2 } from "../lib/backend/omoc/incentivev2";
+
+import { getGasPrice } from "../lib/backend/utils";
+import ModalAccount from "../components/Modals/Account";
+import api from "../services/api";
 import {
-    claimV2
-} from '../lib/backend/omoc/incentivev2';
-
-import { getGasPrice } from '../lib/backend/utils';
-import ModalAccount from '../components/Modals/Account';
-import api from '../services/api';
-import { loadVestingAddressesFromLocalStorage, saveVestingAddressesToLocalStorage } from '../helpers/vesting';
-import { acceptedStep, preVote, preVoteStep, vote, voteStep, unRegister } from '../lib/backend/omoc/voting';
+    loadVestingAddressesFromLocalStorage,
+    saveVestingAddressesToLocalStorage,
+} from "../helpers/vesting";
+import {
+    acceptedStep,
+    preVote,
+    preVoteStep,
+    vote,
+    voteStep,
+    unRegister,
+} from "../lib/backend/omoc/voting";
 
 const helper = addressHelper(Web3);
 
@@ -108,24 +116,79 @@ const AuthenticateContext = createContext({
     ) => {},
     interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
     //OMOC methods
-    interfaceStakingAddStake: async (amount, address, onTransaction, onReceipt, onError) => {},
-    interfaceStakingUnStake: async (amount, onTransaction, onReceipt, onError) => {},
-    interfaceStakingDelayMachineWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
-    interfaceStakingDelayMachineCancelWithdraw: async (idWithdraw, onTransaction, onReceipt, onError) => {},
-    interfaceStakingApprove: async (amount, onTransaction, onReceipt, onError) => {},
-    interfaceVestingWithdraw: async (amount, onTransaction, onReceipt, onError) => {},
+    interfaceStakingAddStake: async (
+        amount,
+        address,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceStakingUnStake: async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceStakingDelayMachineWithdraw: async (
+        idWithdraw,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceStakingDelayMachineCancelWithdraw: async (
+        idWithdraw,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceStakingApprove: async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceVestingWithdraw: async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
     interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
-    interfaceIncentiveV2Claim: async (signDataResponse, onTransaction, onReceipt, onError) => {},
-    interfaceVotingPreVote: async (changeContractAddress, onTransaction, onReceipt, onError) => {},
-    interfaceVotingUnregister: async (changeContractAddress, onTransaction, onReceipt, onError) => {},
-    interfaceVotingVote: async (inFavorAgainst, onTransaction, onReceipt, onError) => {},
+    interfaceIncentiveV2Claim: async (
+        signDataResponse,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceVotingPreVote: async (
+        changeContractAddress,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceVotingUnregister: async (
+        changeContractAddress,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
+    interfaceVotingVote: async (
+        inFavorAgainst,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
     interfaceVotingPreVoteStep: async (onTransaction, onReceipt, onError) => {},
     interfaceVotingVoteStep: async (onTransaction, onReceipt, onError) => {},
-    interfaceVotingAcceptedStep: async (onTransaction, onReceipt, onError) => {},
+    interfaceVotingAcceptedStep: async (
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
     onShowModalAccount: () => {},
-    onShowModalAccountVesting: () => {}
+    onShowModalAccountVesting: () => {},
 });
 
 const AuthenticateProvider = ({ children }) => {
@@ -136,18 +199,18 @@ const AuthenticateProvider = ({ children }) => {
     const [account, setAccount] = useState(null);
     const [userBalanceData, setUserBalanceData] = useState(null);
     const [accountData, setAccountData] = useState({
-        Wallet: '',
-        Owner: '',
+        Wallet: "",
+        Owner: "",
         Balance: 0,
         GasPrice: 0,
-        truncatedAddress: '0x0000..0000'
+        truncatedAddress: "0x0000..0000",
     });
     const [showModalAccount, setShowModalAccount] = useState(false);
     const [vestingOn, setVestingOn] = useState(false);
     const [web3Error, setWeb3Error] = useState(false);
 
     async function loadCss() {
-        let css_logout = await import('../assets/css/logout.scss');
+        let css_logout = await import("../assets/css/logout.scss");
     }
 
     useEffect(() => {
@@ -166,8 +229,8 @@ const AuthenticateProvider = ({ children }) => {
 
     const disableLogin = () => {
         document
-            .querySelectorAll('.rlogin-modal-hitbox')[0]
-            .addEventListener('click', (e) => {
+            .querySelectorAll(".rlogin-modal-hitbox")[0]
+            .addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
             });
@@ -198,7 +261,7 @@ const AuthenticateProvider = ({ children }) => {
                 setProvider(provider);
 
                 const web3 = new Web3(provider);
-                provider.on('accountsChanged', function (accounts) {
+                provider.on("accountsChanged", function (accounts) {
                     disconnect();
                     window.location.reload();
                     /*if ( accounts.length==0 ){
@@ -206,7 +269,7 @@ const AuthenticateProvider = ({ children }) => {
                     window.location.reload()
                 }*/
                 });
-                provider.on('chainChanged', function (accounts) {
+                provider.on("chainChanged", function (accounts) {
                     disconnect();
                     window.location.reload();
                 });
@@ -216,7 +279,7 @@ const AuthenticateProvider = ({ children }) => {
 
                 // request user's account
                 provider
-                    .request({ method: 'eth_accounts' })
+                    .request({ method: "eth_accounts" })
                     .then(([account]) => {
                         setAccount(account);
                         setIsLoggedIn(true);
@@ -231,11 +294,11 @@ const AuthenticateProvider = ({ children }) => {
         setProvider(null);
         setAccount(null);
         setAccountData({
-            Wallet: '',
-            Owner: '',
+            Wallet: "",
+            Owner: "",
             Balance: 0,
             GasPrice: 0,
-            truncatedAddress: ''
+            truncatedAddress: "",
         });
         setUserBalanceData(null);
         setIsLoggedIn(false);
@@ -251,7 +314,7 @@ const AuthenticateProvider = ({ children }) => {
             web3,
             contractStatusData,
             userBalanceData,
-            account
+            account,
         };
     };
 
@@ -370,7 +433,6 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const initContractsConnection = async () => {
-
         let error = false;
 
         try {
@@ -385,7 +447,6 @@ const AuthenticateProvider = ({ children }) => {
         } else {
             setWeb3Error(true);
         }
-
     };
 
     const loadContractsStatusAndUserBalance = async () => {
@@ -395,14 +456,11 @@ const AuthenticateProvider = ({ children }) => {
         // in one call through Multicall
 
         let error = false;
-        let dataContractStatus
-        let accountBalance
+        let dataContractStatus;
+        let accountBalance;
 
         try {
-            dataContractStatus = await contractStatus(
-                web3,
-                window.dContracts
-            );
+            dataContractStatus = await contractStatus(web3, window.dContracts);
         } catch (e) {
             console.error(e);
             error = true;
@@ -425,21 +483,20 @@ const AuthenticateProvider = ({ children }) => {
         } else {
             setWeb3Error(true);
         }
-
     };
 
     const loadAccountData = async () => {
         const owner = await getAccount();
         const truncateAddress =
             owner.substring(0, 6) +
-            '...' +
+            "..." +
             owner.substring(owner.length - 4, owner.length);
         const accountData = {
             Wallet: account,
             Owner: owner,
             Balance: await getBalance(account),
             GasPrice: await interfaceGasPrice(),
-            truncatedAddress: truncateAddress
+            truncatedAddress: truncateAddress,
         };
 
         window.address = owner;
@@ -449,47 +506,52 @@ const AuthenticateProvider = ({ children }) => {
 
     const onAfterLoadAccountData = () => {
         readUserVesting();
-    }
+    };
 
     const saveUserVesting = (response) => {
+        if (
+            response.transactions !== undefined &&
+            response.transactions.length > 0
+        ) {
+            const vFromStorage = loadVestingAddressesFromLocalStorage(
+                window.address
+            );
+            let vLowerFromStorage = vFromStorage.map((v) => v.toLowerCase());
 
-        if (response.transactions !== undefined && response.transactions.length > 0) {
-
-            const vFromStorage = loadVestingAddressesFromLocalStorage(window.address);
-            let vLowerFromStorage = vFromStorage.map(v => v.toLowerCase());
-
-            const newVesting = []
+            const newVesting = [];
             response.transactions.forEach((data) => {
                 if (!vLowerFromStorage.includes(data.vesting.toLowerCase())) {
                     newVesting.push(data.vesting.toLowerCase());
                 }
-            })
+            });
 
             if (newVesting.length > 0) {
                 vLowerFromStorage.push(...newVesting);
-                saveVestingAddressesToLocalStorage(window.address, vLowerFromStorage);
+                saveVestingAddressesToLocalStorage(
+                    window.address,
+                    vLowerFromStorage
+                );
             }
         }
-    }
+    };
 
     const readUserVesting = () => {
-
         const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
         const queryParams = new URLSearchParams({
             holder: window.address,
             limit: 20,
-            skip: 0
+            skip: 0,
         }).toString();
         const url = `${baseUrl}?${queryParams}`;
 
-        api('get', url)
+        api("get", url)
             .then((response) => {
                 saveUserVesting(response);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }
+    };
 
     const getAccount = async () => {
         const [owner] = await web3.eth.getAccounts();
@@ -498,7 +560,7 @@ const AuthenticateProvider = ({ children }) => {
     const getBalance = async (address) => {
         try {
             let balance = await web3.eth.getBalance(address);
-            balance = web3.utils.fromWei(balance, 'ether');
+            balance = web3.utils.fromWei(balance, "ether");
             return balance;
         } catch (e) {
             console.log(e);
@@ -546,16 +608,16 @@ const AuthenticateProvider = ({ children }) => {
 
     const onShowModalAccount = () => {
         setShowModalAccount(true);
-    }
+    };
 
     const onShowModalAccountVesting = () => {
         setVestingOn(true);
         setShowModalAccount(true);
-    }
+    };
 
     const onHideModalAccount = () => {
         setShowModalAccount(false);
-    }
+    };
 
     // OMOC
 
@@ -615,7 +677,12 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
-    const interfaceStakingDelayMachineWithdraw = async (idWithdraw, onTransaction, onReceipt, onError) => {
+    const interfaceStakingDelayMachineWithdraw = async (
+        idWithdraw,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
             return delayMachineWithdrawVesting(
@@ -676,13 +743,13 @@ const AuthenticateProvider = ({ children }) => {
             onTransaction,
             onReceipt,
             onError
-        )
+        );
     };
 
     const isVestingLoaded = () => {
         return !!(
             userBalanceData &&
-            typeof userBalanceData.vestingmachine !== 'undefined'
+            typeof userBalanceData.vestingmachine !== "undefined"
         );
     };
 
@@ -692,23 +759,53 @@ const AuthenticateProvider = ({ children }) => {
         }
     };
 
-    const interfaceStakingUnStake = async (amount, onTransaction, onReceipt, onError) => {
+    const interfaceStakingUnStake = async (
+        amount,
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
         if (isVestingLoaded()) {
-            return unStakeVesting(interfaceContext, amount, onTransaction, onReceipt, onError);
+            return unStakeVesting(
+                interfaceContext,
+                amount,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         } else {
-            return unStake(interfaceContext, amount, onTransaction, onReceipt, onError);
+            return unStake(
+                interfaceContext,
+                amount,
+                onTransaction,
+                onReceipt,
+                onError
+            );
         }
     };
 
-    const interfaceVestingWithdraw = async (onTransaction, onReceipt, onError) => {
+    const interfaceVestingWithdraw = async (
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
         return withdrawAll(interfaceContext, onTransaction, onReceipt, onError);
     };
 
-    const interfaceVestingVerify = async (onTransaction, onReceipt, onError) => {
+    const interfaceVestingVerify = async (
+        onTransaction,
+        onReceipt,
+        onError
+    ) => {
         const interfaceContext = buildInterfaceContext();
-        return vestingVerify(interfaceContext, onTransaction, onReceipt, onError);
+        return vestingVerify(
+            interfaceContext,
+            onTransaction,
+            onReceipt,
+            onError
+        );
     };
 
     // OMOC Voting
@@ -770,12 +867,7 @@ const AuthenticateProvider = ({ children }) => {
         onError
     ) => {
         const interfaceContext = buildInterfaceContext();
-        return preVoteStep(
-            interfaceContext,
-            onTransaction,
-            onReceipt,
-            onError
-        )
+        return preVoteStep(interfaceContext, onTransaction, onReceipt, onError);
     };
 
     const interfaceVotingVoteStep = async (
@@ -784,12 +876,7 @@ const AuthenticateProvider = ({ children }) => {
         onError
     ) => {
         const interfaceContext = buildInterfaceContext();
-        return voteStep(
-            interfaceContext,
-            onTransaction,
-            onReceipt,
-            onError
-        )
+        return voteStep(interfaceContext, onTransaction, onReceipt, onError);
     };
 
     const interfaceVotingAcceptedStep = async (
@@ -803,7 +890,7 @@ const AuthenticateProvider = ({ children }) => {
             onTransaction,
             onReceipt,
             onError
-        )
+        );
     };
 
     const interfaceVotingUnRegister = async (
@@ -819,7 +906,7 @@ const AuthenticateProvider = ({ children }) => {
             onTransaction,
             onReceipt,
             onError
-        )
+        );
     };
 
     return (

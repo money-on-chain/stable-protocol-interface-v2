@@ -1,8 +1,8 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 :root {
     // Theme used by default. Use "ligth" or "dark"
-    --default-theme: 'dark';
+    --default-theme: "ligth";
 }
 #root {
     font-family: var(--main-font);

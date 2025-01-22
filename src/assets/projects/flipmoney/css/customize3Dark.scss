@@ -11,8 +11,8 @@
     --brand-color-base: #fff383;
     --brand-color-light: #fffdc1;
     --brand-color-lighter: #fffee0;
-    --brand-color-base-filter: invert(60%) sepia(10%) saturate(2010%)
-        hue-rotate(124deg) brightness(98%) contrast(95%);
+    --brand-color-base-filter: invert(82%) sepia(52%) saturate(365%)
+        hue-rotate(357deg) brightness(106%) contrast(104%);
     --brand-color-overbrand-filter: invert(4%) sepia(22%) saturate(471%)
         hue-rotate(22deg) brightness(109%) contrast(100%);
     --brand-color-overbrand: #0c0c08;
@@ -245,7 +245,7 @@
 
     // Dropdown menus
     --color-dropdown-background-default: var(--surface-color-1);
-    --color-dropdown-txt-default: cyan;
+    --color-dropdown-txt-default: #fff383;
     --color-dropdown-background-hover: #fff383;
     --color-dropdown-txt-hover: #000000;
     --color-dropdown-background-active: #fff38379;
@@ -264,8 +264,8 @@
         hue-rotate(185deg) brightness(85%) contrast(99%);
 
     --color-icon-link-filter: var(--brand-color-base-filter);
-    --color-icon-link-hover-filter: invert(92%) sepia(7%) saturate(2601%)
-        hue-rotate(347deg) brightness(107%) contrast(104%);
+    --color-icon-link-hover-filter: invert(72%) sepia(90%) saturate(420%)
+        hue-rotate(5deg) brightness(102%) contrast(91%);
 
     --color-icon-link-secondary-filter: invert(44%) sepia(28%) saturate(232%)
         hue-rotate(174deg) brightness(93%) contrast(91%);

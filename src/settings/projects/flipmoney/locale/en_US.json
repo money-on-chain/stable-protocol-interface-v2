@@ -91,6 +91,12 @@
         "cta": {
             "disconnect": "Disconnect",
             "close": "Close"
+        },
+        "vestingFeedback": {
+            "empty": "You must specify a Vesting Machine address",
+            "notValid": "Vesting Machine Address not valid",
+            "alreadyLoaded": "Vesting Machine already loaded",
+            "incorrect": "Vesting Machine Address format appears to be incorrect"
         }
     },
 
