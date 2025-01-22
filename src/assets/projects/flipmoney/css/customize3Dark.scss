@@ -1,10 +1,10 @@
-[data-theme='dark'] {
-    --default-theme: 'dark';
+[data-theme="dark"] {
+    --default-theme: "dark";
 
     // BRANDING
 
-    --brand-logo-main: url('../branding/logo-app-dark.svg');
-    --brand-logo-main-small: url('../branding/logo-app-small-dark.svg');
+    --brand-logo-main: url("../branding/logo-app-dark.svg");
+    --brand-logo-main-small: url("../branding/logo-app-small-dark.svg");
 
     --brand-color-darker: #807d44;
     --brand-color-dark: #b3af5c;
@@ -215,7 +215,8 @@
     --color-mobilenav-header-background: #212128;
     --color-mobilenav-header-text: #ffffff;
     --color-mobilenav-header-shadow: 0px 4px -2px rgb(0, 0, 0);
-    --color-mobilenav-header-filter: var(--brand-color-overbrand-filter);
+    --color-mobilenav-header-filter: invert(100%) sepia(0%) saturate(5939%)
+        hue-rotate(176deg) brightness(99%) contrast(113%);
     --color-mobilenav-background-default: #fff383;
     --color-mobilenav-txt-default: var(--brand-color-overbrand);
     --color-mobilenav-icon-filter: var(--brand-color-overbrand-filter);
@@ -271,8 +272,8 @@
     --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
         saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
 
-    --brand-font: 'Chivo', sans-serif;
-    --main-font: 'Open Sans', sans-serif;
+    --brand-font: "Chivo", sans-serif;
+    --main-font: "Open Sans", sans-serif;
 
     // rLogin
 

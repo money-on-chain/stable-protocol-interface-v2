@@ -54,7 +54,7 @@ $breakpoint-mobile: 600px;
         .logo-wallet {
             width: 24px;
             height: 24px;
-            background-image: url('../../assets/icons/WalletOutline.svg');
+            background-image: url("../../assets/icons/WalletOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
             filter: var(--color-nav-icon-filter-default);
@@ -159,7 +159,7 @@ $breakpoint-mobile: 600px;
         .logo-translation {
             width: 24px;
             height: 24px;
-            background-image: url('../../assets/icons/GlobeOutline.svg');
+            background-image: url("../../assets/icons/GlobeOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
             filter: var(--color-nav-icon-filter-default);
@@ -242,7 +242,7 @@ $breakpoint-mobile: 600px;
     transition: background-color 0.3s;
     background-color: transparent;
     height: 3px;
-    content: '';
+    content: "";
 }
 
 .menu-nav-item:hover::after,
@@ -331,7 +331,7 @@ $breakpoint-mobile: 600px;
     background-color: var(--color-nav-txt-active);
     height: 2px;
     // Line below active option
-    content: '';
+    content: "";
 }
 
 .menu-nav-item:hover div.color-filter-invert {
@@ -411,7 +411,7 @@ $breakpoint-mobile: 600px;
 
 .logo-portfolio {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/PortfolioOutline.svg');
+    background-image: url("../../assets/icons/PortfolioOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -420,7 +420,7 @@ $breakpoint-mobile: 600px;
 
 .logo-portfolio-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/PortfolioOutline.svg');
+    background-image: url("../../assets/icons/PortfolioOutline.svg");
     // background-image: url('../../assets/icons/PortfolioFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -430,7 +430,7 @@ $breakpoint-mobile: 600px;
 
 .logo-send {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/SendOutline.svg');
+    background-image: url("../../assets/icons/SendOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -439,7 +439,7 @@ $breakpoint-mobile: 600px;
 
 .logo-send-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/SendOutline.svg');
+    background-image: url("../../assets/icons/SendOutline.svg");
     // background-image: url('../../assets/icons/SendFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -449,7 +449,7 @@ $breakpoint-mobile: 600px;
 
 .logo-exchange {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/ExchangeOutline.svg');
+    background-image: url("../../assets/icons/ExchangeOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -457,7 +457,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-exchange-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/ExchangeOutline.svg');
+    background-image: url("../../assets/icons/ExchangeOutline.svg");
     // background-image: url('../../assets/icons/ExchangeFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -467,7 +467,7 @@ $breakpoint-mobile: 600px;
 
 .logo-performance {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/PerformanceOutline.svg');
+    background-image: url("../../assets/icons/PerformanceOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -475,7 +475,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-performance-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/PerformanceOutline.svg');
+    background-image: url("../../assets/icons/PerformanceOutline.svg");
     // background-image: url('../../assets/icons/PerformanceFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -485,7 +485,7 @@ $breakpoint-mobile: 600px;
 
 .logo-staking {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/StakeOutline.svg');
+    background-image: url("../../assets/icons/StakeOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -493,7 +493,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-staking-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/StakeOutline.svg');
+    background-image: url("../../assets/icons/StakeOutline.svg");
     // background-image: url('../../assets/icons/StakeFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -503,7 +503,7 @@ $breakpoint-mobile: 600px;
 
 .logo-liquidity-mining {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/LiquidityMiningOutline.svg');
+    background-image: url("../../assets/icons/LiquidityMiningOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -511,7 +511,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-liquidity-mining-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/LiquidityMiningOutline.svg');
+    background-image: url("../../assets/icons/LiquidityMiningOutline.svg");
     // background-image: url('../../assets/icons/LiquidityMiningFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -521,7 +521,7 @@ $breakpoint-mobile: 600px;
 
 .logo-vesting {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/VestingOutline.svg');
+    background-image: url("../../assets/icons/VestingOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -529,7 +529,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-vesting-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/VestingFilled.svg');
+    background-image: url("../../assets/icons/VestingFilled.svg");
     // background-image: url('../../assets/icons/VestingOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -538,7 +538,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-voting {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/VotingOutline.svg');
+    background-image: url("../../assets/icons/VotingOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -546,7 +546,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-voting-selected {
     filter: var(--color-nav-icon-filter-active);
-    background-image: url('../../assets/icons/VotingOutline.svg');
+    background-image: url("../../assets/icons/VotingOutline.svg");
     // background-image: url('../../assets/icons/VotingFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
@@ -555,7 +555,7 @@ $breakpoint-mobile: 600px;
 }
 .logo-more {
     filter: var(--color-nav-icon-filter-default);
-    background-image: url('../../assets/icons/OverflowOutline.svg');
+    background-image: url("../../assets/icons/OverflowOutline.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     width: 24px;

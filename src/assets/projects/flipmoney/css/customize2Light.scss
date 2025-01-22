@@ -1,8 +1,8 @@
 :root {
     // BRANDING
 
-    --brand-logo-main: url('../branding/logo-app.svg');
-    --brand-logo-main-small: url('../branding/logo-app-small.svg');
+    --brand-logo-main: url("../branding/logo-app.svg");
+    --brand-logo-main-small: url("../branding/logo-app-small.svg");
 
     --brand-color-darker: #379c72;
     --brand-color-dark: #32ac79;
@@ -211,10 +211,10 @@
     --color-mobilenav-header-shadow: 0px 4px -2px rgb(0, 0, 0);
     --color-mobilenav-header-filter: invert(14%) sepia(17%) saturate(6056%)
         hue-rotate(175deg) brightness(97%) contrast(94%);
-    --color-mobilenav-background-default: #12d382;
-    --color-mobilenav-txt-default: #000000;
-    --color-mobilenav-icon-filter: invert(0%) sepia(8%) saturate(7469%)
-        hue-rotate(300deg) brightness(90%) contrast(110%);
+    --color-mobilenav-background-default: #049d5d;
+    --color-mobilenav-txt-default: #f5fffb;
+    --color-mobilenav-icon-filter: invert(100%) sepia(0%) saturate(5939%)
+        hue-rotate(176deg) brightness(99%) contrast(113%);
 
     // Language nav colors
 
@@ -268,8 +268,8 @@
     --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
         saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
 
-    --brand-font: 'Chivo', sans-serif;
-    --main-font: 'Open Sans', sans-serif;
+    --brand-font: "Chivo", sans-serif;
+    --main-font: "Open Sans", sans-serif;
 
     // rLogin
 

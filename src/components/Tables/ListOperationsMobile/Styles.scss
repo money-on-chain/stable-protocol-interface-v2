@@ -1,6 +1,6 @@
 :root {
     // For table heights use '' -> '200px' 'auto', etc.
-    --lastOperationsHeight: 'auto';
+    --lastOperationsHeight: "auto";
 }
 
 /* #region LAST OPERATIONS TABLE */
@@ -35,7 +35,7 @@
         display: inline-block;
         filter: var(--color-icon-link-secondary-filter);
         margin-left: 8px;
-        background-image: url('../../../assets/icons/aboutqueueicon.svg');
+        background-image: url("../../../assets/icons/aboutqueueicon.svg");
         background-size: 16px 16px;
         background-repeat: no-repeat;
         width: 16px;
@@ -177,7 +177,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Queuing.svg');
+    background-image: url("../../../assets/icons/Queuing.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -189,7 +189,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Queued.svg');
+    background-image: url("../../../assets/icons/Queued.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -201,7 +201,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Confirmed.svg');
+    background-image: url("../../../assets/icons/Confirmed.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -213,7 +213,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Confirming.svg');
+    background-image: url("../../../assets/icons/Confirming.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -225,7 +225,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Failed.svg');
+    background-image: url("../../../assets/icons/Failed.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -381,9 +381,9 @@
 }
 
 .table-icon-name {
-    display: 'flex';
-    flex-direction: 'column';
-    align-items: 'center';
+    display: "flex";
+    flex-direction: "column";
+    align-items: "center";
     margin-right: 0.5rem;
     min-width: 4rem;
     text-align: center;
@@ -435,7 +435,7 @@
     background-color: var(--dividers);
     width: 2px;
     height: 70%;
-    content: '';
+    content: "";
 }
 
 .custom-border-spacing-table .ant-table table {
@@ -637,10 +637,9 @@
 @media (max-width: 768px) {
     .content-last-operations {
         padding: 8px !important;
+        margin-top: 0px;
     }
-    // .content-last-operations {
-    //     padding: 8px !important;
-    // }
+
     .lastOp__row {
         flex-direction: row-reverse;
         justify-content: flex-start;
