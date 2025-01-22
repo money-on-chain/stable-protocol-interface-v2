@@ -18,13 +18,22 @@ export default function CurrencyPopUp(props) {
         abbreviation: t(`${action}.tokens.${currency.value}.abbr`, { ns: ns }),
     }));
 
+    // Remove duplicated items, except on action exchange & coinbase
+    const arrayAdded = []
+    const optionsFiltered = options.filter(function (item, index, array) {
+        if (!arrayAdded.includes(item.abbreviation)) {
+            if (!(action==="exchange" && item.value==="COINBASE")) arrayAdded.push(item.abbreviation);
+            return item
+        }
+    });
+
     // Get the currently selected currency
-    const selectedCurrency = options.find(
+    const selectedCurrency = optionsFiltered.find(
         (currency) => currency.value === value
     );
 
     // Filter options to only include allowed currencies
-    const filteredOptions = options.filter((currency) =>
+    const filteredOptions = optionsFiltered.filter((currency) =>
         currencyOptions.includes(currency.value)
     );
 
