@@ -132,28 +132,28 @@ export default function SectionHeader(props) {
                             <div className="logo-more"></div>
                             <span className="menu-nav-item-title-more">
                                 {t("menuOptions.more")}
-                            </span>
+                            </span>{" "}
+                            {showMoreDropdown && (
+                                <div className="dropdown-menu show">
+                                    {moreMenuOptions.map((option) => (
+                                        <a
+                                            onClick={() =>
+                                                handleOptionClick(option.path)
+                                            }
+                                            className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
+                                            key={option.path}
+                                        >
+                                            <i
+                                                className={`${option.className}${location.pathname === option.path ? "-selected" : ""}`}
+                                            ></i>
+                                            <span className="menu-nav-item-title">
+                                                {option.name()}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
                         </a>
-                    )}
-                    {showMoreDropdown && (
-                        <div className="dropdown-menu show">
-                            {moreMenuOptions.map((option) => (
-                                <a
-                                    onClick={() =>
-                                        handleOptionClick(option.path)
-                                    }
-                                    className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
-                                    key={option.path}
-                                >
-                                    <i
-                                        className={`${option.className}${location.pathname === option.path ? "-selected" : ""}`}
-                                    ></i>
-                                    <span className="menu-nav-item-title">
-                                        {option.name()}
-                                    </span>
-                                </a>
-                            ))}
-                        </div>
                     )}
                 </div>
                 <div className="wallet-user">
