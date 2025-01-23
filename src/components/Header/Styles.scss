@@ -361,6 +361,7 @@ $breakpoint-mobile: 600px;
     line-height: 24px;
     font-family: var(--main-font);
     text-align: center;
+    position: relative;
 }
 .menu-nav-item-title-more {
     flex: none;
@@ -381,8 +382,8 @@ $breakpoint-mobile: 600px;
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 116px;
-    right: 215px;
+    top: 76px;
+    right: -20px;
     z-index: 1;
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
