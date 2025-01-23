@@ -58,7 +58,6 @@ export default function Tokens(props) {
     let balance;
     let price;
     let balanceUSD;
-    // let balanceRIF;
     // Iterate Tokens CA
     let count = 0;
     auth.contractStatusData &&
@@ -77,9 +76,6 @@ export default function Tokens(props) {
                 )
             );
             balanceUSD = balance.times(price);
-
-            //TODO fetch the correct value when defined if include or not
-            //balanceRIF = balanceUSD * 0.1;
 
             // variation
             const priceHistory = new BigNumber(
@@ -192,18 +188,6 @@ export default function Tokens(props) {
                         })}
                     </div>
                 ),
-                // rif : (
-                //     <div>
-                //         {PrecisionNumbers({
-                //             amount: balanceRIF,
-                //             token: settings.tokens.CA[dataItem.key],
-                //             decimals: 6,
-                //             t: t,
-                //             i18n: i18n,
-                //             ns: ns
-                //         })}
-                //     </div>
-                // ),
                 usd: (
                     <div className="item-usd">
                         {!auth.contractStatusData.canOperate
@@ -367,19 +351,19 @@ export default function Tokens(props) {
         count += 1;
     }
 
-    // Token TP only in Roc
-    if (
-        // auth.contractStatusData &&
-        // auth.userBalanceData &&
-        // (settings.project === "roc" || settings.project === "moc")
-        auth.contractStatusData &&
-        auth.userBalanceData &&
-        settings.hasUSDPeggedTokens
-    ) {
+    const TokensTP = settings.tokens.TP;
+    // Iterate tokens TP
+    auth.contractStatusData &&
+    auth.userBalanceData &&
+    TokensTP.forEach(function (dataItem) {
+
+        // If it's not pegged to 1:1 USD not display in this table
+        if (!dataItem.peggedUSD) return
+
         balance = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.userBalanceData.TP[0].balance,
-                settings.tokens.TP[0].decimals
+                auth.userBalanceData.TP[dataItem.key].balance,
+                settings.tokens.TP[dataItem.key].decimals
             )
         );
         price = new BigNumber(1);
@@ -388,8 +372,8 @@ export default function Tokens(props) {
         // variation
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_TP[0],
-                settings.tokens.TP[0].decimals
+                auth.contractStatusData.historic.PP_TP[dataItem.key],
+                settings.tokens.TP[dataItem.key].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -428,16 +412,16 @@ export default function Tokens(props) {
                     {!auth.contractStatusData.canOperate
                         ? "--"
                         : PrecisionNumbers({
-                              amount: price,
-                              token: settings.tokens.TP[0],
-                              decimals: t(
-                                  `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                              ),
-                              t: t,
-                              i18n: i18n,
-                              ns: ns,
-                              skipContractConvert: true,
-                          })}
+                            amount: price,
+                            token: settings.tokens.TP[dataItem.key],
+                            decimals: t(
+                                `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
+                            ),
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true,
+                        })}
                 </div>
             ),
             variation: !auth.contractStatusData.canOperate ? (
@@ -454,8 +438,8 @@ export default function Tokens(props) {
             balance: (
                 <div>
                     {PrecisionNumbers({
-                        amount: auth.userBalanceData.TP[0].balance,
-                        token: settings.tokens.TP[0],
+                        amount: auth.userBalanceData.TP[dataItem.key].balance,
+                        token: settings.tokens.TP[dataItem.key],
                         decimals: 2,
                         t: t,
                         i18n: i18n,
@@ -468,20 +452,20 @@ export default function Tokens(props) {
                     {!auth.contractStatusData.canOperate
                         ? "--"
                         : PrecisionNumbers({
-                              amount: balanceUSD,
-                              token: settings.tokens.TP[0],
-                              decimals: 2,
-                              t: t,
-                              i18n: i18n,
-                              ns: ns,
-                              skipContractConvert: true,
-                          })}
+                            amount: balanceUSD,
+                            token: settings.tokens.TP[dataItem.key],
+                            decimals: 2,
+                            t: t,
+                            i18n: i18n,
+                            ns: ns,
+                            skipContractConvert: true,
+                        })}
                 </div>
             ),
         });
 
         count += 1;
-    }
+    })
 
     // TF
     if (auth.contractStatusData && auth.userBalanceData) {

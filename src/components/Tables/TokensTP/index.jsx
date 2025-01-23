@@ -39,6 +39,10 @@ export default function Tokens(props) {
     auth.contractStatusData &&
         auth.userBalanceData &&
         settings.tokens.TP.forEach(function (dataItem) {
+
+            // If it's pegged to 1:1 USD not display in this table
+            if (dataItem.peggedUSD) return
+
             const balance = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.userBalanceData.TP[dataItem.key].balance,

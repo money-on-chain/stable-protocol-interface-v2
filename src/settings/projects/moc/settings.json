@@ -1,7 +1,6 @@
 {
     "collateral": "coinbase",
     "project": "moc",
-    "hasNonUSDPeggedTokens":false,
     "tokens": {
         "COINBASE": {
             "name": "RBTC",
@@ -21,7 +20,8 @@
                 "key": 0,
                 "name": "DOC",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 6,
+                "peggedUSD": true
             }
         ],
         "TC": {

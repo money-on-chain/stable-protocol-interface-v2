@@ -107,6 +107,15 @@ function ConvertPeggedTokenPrice(auth, price) {
     }
 }
 
+function hasNonUSDPeggedTokens() {
+    let has = false;
+    for (let i = 0; i < settings.tokens.TP.length; i++) {
+        if (!settings.tokens.TP[i]["peggedUSD"]) has = true;
+    }
+
+    return has;
+}
+
 function TokenPrice(auth, tokenName) {
     // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC, COINBASE
     let price = 0;
@@ -549,5 +558,6 @@ export {
     AmountToVisibleValue,
     CalcCommission,
     AmountsWithCommissions,
-    ConvertPeggedTokenPrice
+    ConvertPeggedTokenPrice,
+    hasNonUSDPeggedTokens
 };
