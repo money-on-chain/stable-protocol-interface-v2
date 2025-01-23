@@ -1,23 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
-import { I18nextProvider } from 'react-i18next';
-import i18next from 'i18next';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { HashRouter } from "react-router-dom";
+import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
 
-import 'antd/dist/antd.css';
-import './assets/css/icons.scss';
-import './assets/css/customization.scss';
+import "antd/dist/antd.css";
+import "./assets/css/icons.scss";
+
+import "./assets/css/customize1Defaults.scss";
+import "./assets/css/customize2Light.scss";
+import "./assets/css/customize3Dark.scss";
+import "./assets/css/customize4Overwrites.scss";
+
 // import './index-.css';
-import './assets/css/components.scss';
-import './assets/css/global.scss';
+// import './assets/css/components.scss';
+import "./assets/css/global.scss";
 // import './assets/css/responsive.scss';
 
-import reportWebVitals from './reportWebVitals';
-import { AuthenticateProvider } from './context/Auth';
-import IconLoading from './assets/icons/LoaderAnim.svg';
-import Router from './router';
-import es_ES from './settings/locale/es_ES.json';
-import en_US from './settings/locale/en_US.json';
+import reportWebVitals from "./reportWebVitals";
+import { AuthenticateProvider } from "./context/Auth";
+import IconLoading from "./assets/icons/LoaderAnim.svg";
+import Router from "./router";
+import es_ES from "./settings/locale/es_ES.json";
+import en_US from "./settings/locale/en_US.json";
 
 console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
 
@@ -25,11 +30,11 @@ async function loadTranslations() {
     try {
         await i18next.init({
             interpolation: { escapeValue: false },
-            lng: 'es',
+            lng: "es",
             resources: {
                 es: { translation: es_ES },
-                en: { translation: en_US }
-            }
+                en: { translation: en_US },
+            },
         });
     } catch (error) {
         console.log(`Something wrong: ${error}`);
@@ -39,19 +44,19 @@ async function loadTranslations() {
 loadTranslations();
 
 function setColorMode() {
-    const defaulTheme = getComputedStyle(document.querySelector(':root'))
-        .getPropertyValue('--default-theme')
+    const defaulTheme = getComputedStyle(document.querySelector(":root"))
+        .getPropertyValue("--default-theme")
         .split('"')
-        .join('');
-    const storedTheme = localStorage.getItem('preferredColorScheme');
+        .join("");
+    const storedTheme = localStorage.getItem("preferredColorScheme");
     document.documentElement.setAttribute(
-        'data-theme',
+        "data-theme",
         storedTheme ?? defaulTheme
     );
-    localStorage.setItem('preferredColorScheme', storedTheme ?? defaulTheme);
+    localStorage.setItem("preferredColorScheme", storedTheme ?? defaulTheme);
 }
 setColorMode();
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
@@ -63,10 +68,10 @@ root.render(
                         fallback={
                             <img
                                 style={{
-                                    position: 'fixed',
-                                    left: '50%',
-                                    top: '50%',
-                                    filter: 'var(--color-navigation-icon-filter-default)'
+                                    position: "fixed",
+                                    left: "50%",
+                                    top: "50%",
+                                    filter: "var(--color-nav-icon-filter-default)",
                                 }}
                                 width={50}
                                 height={50}

@@ -1,20 +1,19 @@
-import React, { useContext, useState, useEffect, useTransition } from 'react';
+import React, { useContext, useState, useEffect, useTransition } from "react";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import TokensCA from '../../Tables/TokensCA';
-import TokensCAmobile from '../../Tables/TokensCAmobile';
-import TokensTP from '../../Tables/TokensTP';
-import TokensTPmobile from '../../Tables/TokensTPmobile';
-import { AuthenticateContext } from '../../../context/Auth';
-import settings from '../../../settings/settings.json';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
+import { useProjectTranslation } from "../../../helpers/translations";
+import TokensCA from "../../Tables/TokensCA";
+import TokensCAmobile from "../../Tables/TokensCAmobile";
+import TokensTP from "../../Tables/TokensTP";
+import TokensTPmobile from "../../Tables/TokensTPmobile";
+import { AuthenticateContext } from "../../../context/Auth";
+import settings from "../../../settings/settings.json";
+import BigNumber from "bignumber.js";
+import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
 
 export default function Portfolio() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const space = '\u00A0';
 
     let balance;
     let price;
@@ -53,15 +52,14 @@ export default function Portfolio() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price =
-                settings.project === 'roc' || settings.project === 'moc'
-                    ? 1
-                    : new BigNumber(
-                          fromContractPrecisionDecimals(
-                              auth.contractStatusData.PP_TP[dataItem.key],
-                              settings.tokens.TP[dataItem.key].decimals
-                          )
-                      );
+            price = !settings.hasNonUSDPeggedTokens
+                ? 1
+                : new BigNumber(
+                      fromContractPrecisionDecimals(
+                          auth.contractStatusData.PP_TP[dataItem.key],
+                          settings.tokens.TP[dataItem.key].decimals
+                      )
+                  );
             balanceUSD = balance.div(price);
             totalUSD = totalUSD.plus(balanceUSD);
         });
@@ -131,13 +129,13 @@ export default function Portfolio() {
             <div className="tokens-card-content">
                 <div className="tokens-list-header">
                     <div className="tokens-list-header-title layout-card-title">
-                        <h1>{t('portfolio.sectionTitle')}</h1>
+                        <h1>{t("portfolio.sectionTitle")}</h1>
                     </div>
                     <div className="tokens-list-header-balance">
                         <div className="tokens-list-header-balance-number">
                             {auth.contractStatusData &&
                             !auth.contractStatusData.canOperate
-                                ? '--'
+                                ? "--"
                                 : PrecisionNumbers({
                                       amount: totalUSD,
                                       token: settings.tokens.COINBASE,
@@ -145,25 +143,23 @@ export default function Portfolio() {
                                       t: t,
                                       i18n: i18n,
                                       ns: ns,
-                                      skipContractConvert: true
+                                      skipContractConvert: true,
                                   })}
-                            {space} {t('portfolio.totalCurrency')}
+                            {t("portfolio.totalCurrency")}
                         </div>
                         <div className="tokens-list-header-balance-title">
-                            {t('portfolio.totalBalance')}
+                            {t("portfolio.totalBalance")}
                         </div>
                     </div>
                 </div>
                 <div className="tokens-list-table">
                     <div className="mobile-only">
                         <TokensCAmobile />
-                        {settings.project !== 'roc' ||
-                            (settings.project !== 'moc' && <TokensTPmobile />)}
+                        {settings.hasNonUSDPeggedTokens && <TokensTPmobile />}
                     </div>
                     <div className="desktop-only">
                         <TokensCA />
-                        {settings.project !== 'roc' ||
-                            (settings.project !== 'moc' && <TokensTP />)}
+                        {settings.hasNonUSDPeggedTokens && <TokensTP />}
                     </div>
                 </div>
             </div>

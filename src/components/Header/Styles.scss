@@ -5,6 +5,7 @@ $breakpoint-mobile: 600px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 
     .wallet-user {
         display: flex;
@@ -17,8 +18,10 @@ $breakpoint-mobile: 600px;
         width: 192px;
         height: 80px;
         margin-left: 31px;
+        margin-left: 0px;
         line-height: 80px;
         background: var(--surface-color-1);
+        border: var(--card-border);
         box-shadow: var(--surface-shadow-1);
         position: relative;
         .wallet-address {
@@ -33,7 +36,7 @@ $breakpoint-mobile: 600px;
             padding: 0px;
             width: 160px;
             height: 24px;
-            color: (var(--color-text-primary));
+            color: (var(--color-txt-primary));
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
@@ -51,18 +54,18 @@ $breakpoint-mobile: 600px;
         .logo-wallet {
             width: 24px;
             height: 24px;
-            background-image: url('../../assets/icons/WalletOutline.svg');
+            background-image: url("../../assets/icons/WalletOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
-            filter: var(--color-navigation-icon-filter-default);
+            filter: var(--color-nav-icon-filter-default);
         }
 
         .wallet-address:hover {
             .logo-wallet {
                 width: 24px;
                 height: 24px;
-                background-image: url('../../assets/icons/WalletFilled.svg');
-                filter: var(--color-navigation-icon-filter-hover);
+                // background-image: url('../../assets/icons/WalletFilled.svg');
+                filter: var(--color-nav-icon-filter-hover);
             }
         }
 
@@ -77,16 +80,22 @@ $breakpoint-mobile: 600px;
             font-family: var(--main-font);
             font-weight: 600;
             border-radius: var(--card-border-radius);
+            border: var(--card-border);
+            padding-top: 16px;
+            padding-bottom: 16px;
 
             .menu-item {
                 justify-content: flex-start;
                 background-color: var(--color-language-background-default);
-                color: var(--color-language-text-default);
+                color: var(--color-language-txt-default);
             }
             .menu-item-selected {
                 justify-content: flex-start;
                 background-color: var(--color-language-background-active);
-                color: var(--color-language-text-active);
+                color: var(--color-language-txt-active);
+                .icon-checked {
+                    filter: var(--color-language-icon-filter-active);
+                }
             }
             span {
                 width: 90%;
@@ -116,7 +125,7 @@ $breakpoint-mobile: 600px;
 
         .language-menu > div > div:hover {
             background-color: var(--color-language-background-hover);
-            color: var(--color-language-text-hover);
+            color: var(--color-language-txt-hover);
         }
 
         .language-menu > div > div:last-child {
@@ -139,7 +148,7 @@ $breakpoint-mobile: 600px;
         width: 100%;
         a.translation-selector {
             opacity: 1;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             font-family: var(--main-font);
             font-size: 14px;
             font-weight: 400;
@@ -150,21 +159,21 @@ $breakpoint-mobile: 600px;
         .logo-translation {
             width: 24px;
             height: 24px;
-            background-image: url('../../assets/icons/GlobeOutline.svg');
+            background-image: url("../../assets/icons/GlobeOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
-            filter: var(--color-navigation-icon-filter-default);
+            filter: var(--color-nav-icon-filter-default);
         }
     }
     .wallet-translation:hover {
         .logo-translation {
-            background-image: url('../../assets/icons/GlobeFilled.svg');
-            filter: var(--color-navigation-icon-filter-hover);
+            // background-image: url('../../assets/icons/GlobeFilled.svg');
+            filter: var(--color-nav-icon-filter-hover);
         }
     }
 }
 /*
-    --- Main Navigation ---
+    --- Main nav ---
 */
 
 .central-menu {
@@ -176,7 +185,11 @@ $breakpoint-mobile: 600px;
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
     background: var(--surface-color-1);
+    border: var(--card-border);
     width: 736px;
+    width: 752px;
+    margin-left: 0px;
+    margin-right: 0px;
     height: 80px;
     line-height: 80px;
 }
@@ -190,14 +203,16 @@ $breakpoint-mobile: 600px;
     justify-content: center;
     align-items: center;
     order: 0;
-    gap: 4px;
+    gap: 2px;
 
     background-color: var(--surface-color-1);
+    border-top: var(--card-border);
+    border-bottom: var(--card-border);
     padding: 13px 15px;
 
     width: 132px;
     height: 80px;
-    color: var(--color-navigation-text-default);
+    color: var(--color-nav-txt-default);
 }
 .menu-nav-item-more {
     display: flex;
@@ -210,10 +225,12 @@ $breakpoint-mobile: 600px;
     order: 0;
     gap: 4px;
     background-color: var(--surface-color-1);
+    border-top: var(--card-border);
+    border-bottom: var(--card-border);
     padding: 13px 15px;
     width: 60px;
     height: 80px;
-    color: var(--color-navigation-text-default);
+    color: var(--color-nav-txt-default);
 }
 
 .menu-nav-item::after,
@@ -225,69 +242,69 @@ $breakpoint-mobile: 600px;
     transition: background-color 0.3s;
     background-color: transparent;
     height: 3px;
-    content: '';
+    content: "";
 }
 
 .menu-nav-item:hover::after,
 .menu-nav-item-more:hover::after {
     background-color: var(
-        --color-navigation-text-hover
+        --color-nav-txt-hover
     ); /* Change underline color when hover */
 }
 
 .menu-nav-item:hover {
-    color: var(--color-navigation-text-hover);
+    color: var(--color-nav-txt-hover);
     .logo-portfolio {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-send {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-exchange {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-performance {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-staking {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-liquidity-mining {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-vesting {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
         height: 32px;
     }
     .logo-voting {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
         background-size: 32px 32px;
         background-repeat: no-repeat;
         width: 32px;
@@ -295,15 +312,15 @@ $breakpoint-mobile: 600px;
     }
 }
 .menu-nav-item-more:hover {
-    color: var(--color-navigation-text-hover);
+    color: var(--color-nav-txt-hover);
     .logo-more {
-        filter: var(--color-navigation-icon-filter-hover);
+        filter: var(--color-nav-icon-filter-hover);
     }
 }
 .menu-nav-item-selected {
     position: relative;
-    background-color: var(--color-navigation-background-active);
-    color: var(--color-navigation-text-active) !important;
+    background-color: var(--color-nav-background-active);
+    color: var(--color-nav-txt-active) !important;
 }
 
 .menu-nav-item-selected::after {
@@ -311,24 +328,24 @@ $breakpoint-mobile: 600px;
     right: 4px;
     bottom: 4px;
     left: 4px;
-    background-color: var(--color-navigation-text-active);
+    background-color: var(--color-nav-txt-active);
     height: 2px;
     // Line below active option
-    content: '';
+    content: "";
 }
 
 .menu-nav-item:hover div.color-filter-invert {
-    filter: var(--color-navigation-icon-filter-hover);
+    filter: var(--color-nav-icon-filter-hover);
 }
 .menu-nav-item-more:hover div.color-filter-invert {
-    filter: var(--color-navigation-icon-filter-hover);
+    filter: var(--color-nav-icon-filter-hover);
 }
 .color-filter-invert {
     filter: var(--color-hover-icon-filter);
 }
 
 .color-filter-disabled {
-    filter: var(--color-navigation-icon-filter-disabled);
+    filter: var(--color-nav-icon-filter-disabled);
 }
 
 .menu-nav-item-title {
@@ -364,11 +381,17 @@ $breakpoint-mobile: 600px;
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 112px;
-    right: 225px;
+    top: 116px;
+    right: 215px;
     z-index: 1;
     box-shadow: var(--surface-shadow-1);
+    border-radius: var(--card-border-radius);
+    border: var(--card-border);
+    padding: 8px;
     background-color: var(--surface-color-1);
+    .menu-nav-item {
+        border: none;
+    }
 }
 
 .dropdown-menu.show {
@@ -387,8 +410,8 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-portfolio {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/PortfolioOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/PortfolioOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -396,8 +419,9 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-portfolio-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/PortfolioFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/PortfolioOutline.svg");
+    // background-image: url('../../assets/icons/PortfolioFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -405,8 +429,8 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-send {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/SendOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/SendOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -414,8 +438,9 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-send-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/SendFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/SendOutline.svg");
+    // background-image: url('../../assets/icons/SendFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -423,16 +448,17 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-exchange {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/ExchangeOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/ExchangeOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-exchange-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/ExchangeFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/ExchangeOutline.svg");
+    // background-image: url('../../assets/icons/ExchangeFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -440,16 +466,17 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-performance {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/PerformanceOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/PerformanceOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-performance-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/PerformanceFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/PerformanceOutline.svg");
+    // background-image: url('../../assets/icons/PerformanceFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -457,16 +484,17 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-staking {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/StakeOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/StakeOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-staking-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/StakeFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/StakeOutline.svg");
+    // background-image: url('../../assets/icons/StakeFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -474,16 +502,17 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-liquidity-mining {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/LiquidityMiningOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/LiquidityMiningOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-liquidity-mining-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/LiquidityMiningFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/LiquidityMiningOutline.svg");
+    // background-image: url('../../assets/icons/LiquidityMiningFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -491,40 +520,42 @@ $breakpoint-mobile: 600px;
 }
 
 .logo-vesting {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/VestingOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/VestingOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-vesting-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/VestingFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/VestingFilled.svg");
+    // background-image: url('../../assets/icons/VestingOutline.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-voting {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/VotingOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/VotingOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-voting-selected {
-    filter: var(--color-navigation-icon-filter-active);
-    background-image: url('../../assets/icons/VotingFilled.svg');
+    filter: var(--color-nav-icon-filter-active);
+    background-image: url("../../assets/icons/VotingOutline.svg");
+    // background-image: url('../../assets/icons/VotingFilled.svg');
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .logo-more {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../../assets/icons/OverflowOutline.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../../assets/icons/OverflowOutline.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     width: 24px;
@@ -596,14 +627,17 @@ $breakpoint-mobile: 600px;
             height: 100%;
             .wallet-address {
                 margin: 0;
-                color: var(--color-text-primary);
+                color: var(--color-mobilenav-header-text);
+                .logo-wallet {
+                    filter: var(--color-mobilenav-header-filter);
+                }
             }
             .wallet-translation {
                 display: none;
             }
         }
         .mobile__menu__button {
-            filter: var(--color-icon-link-secondary-filter);
+            filter: var(--color-mobilenav-header-filter);
             background-image: url(../../assets/icons/mobile_menu.svg);
             background-size: contain;
             background-repeat: no-repeat;
@@ -688,7 +722,7 @@ $breakpoint-mobile: 600px;
         display: flex;
         align-items: center;
         gap: 16px;
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
         font-weight: 600;
         font-size: 18px;
         font-family: var(--brand-font);
@@ -728,11 +762,11 @@ $breakpoint-mobile: 600px;
         height: 100%;
     }
     .dappVersion {
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
     }
     .lightModeContainer {
         .lightModeText {
-            color: var(--color-mobilenav-text-default) !important;
+            color: var(--color-mobilenav-txt-default) !important;
             font-size: 16px;
         }
     }
@@ -743,7 +777,7 @@ $breakpoint-mobile: 600px;
     .mobile-language-selector {
         cursor: pointer;
         border-radius: var(--card-border-radius);
-        color: var(--color-mobilenav-text-default);
+        color: var(--color-mobilenav-txt-default);
         font-weight: 600;
         font-size: 18px;
         line-height: normal;
@@ -837,13 +871,13 @@ $breakpoint-mobile: 600px;
         width: 100%;
     }
     .token__data__label {
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-weight: 600;
         font-size: 16px;
         font-family: var(--main-font);
     }
     .token__data__data {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         font-weight: 400;
         font-size: 14px;
         font-family: var(--main-font);
@@ -915,21 +949,21 @@ $breakpoint-mobile: 600px;
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                color: var(--color-text-primary);
+                color: var(--color-txt-primary);
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 100%;
                 font-family: var(--main-font);
             }
             .token__data__small {
-                color: var(--color-text-secondary);
+                color: var(--color-txt-secondary);
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 100%;
                 font-family: var(--main-font);
             }
             .token__label {
-                color: var(--color-text-secondary);
+                color: var(--color-txt-secondary);
                 font-weight: 400;
                 font-size: 10px;
                 font-family: var(--main-font);

@@ -1,6 +1,7 @@
 {
     "collateral": "rc20",
     "project": "roc",
+    "hasNonUSDPeggedTokens":false,
     "tokens": {
         "COINBASE": {
             "name": "RBTC",

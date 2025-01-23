@@ -21,7 +21,7 @@ const VotingStatusModal = ({
     let statusLabel = '';
     switch (operationStatus) {
         case 'sign':
-            sentIcon = 'icon-signifier';
+            sentIcon = 'icon-tx-signWallet';
             statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
             break;
         case 'pending':

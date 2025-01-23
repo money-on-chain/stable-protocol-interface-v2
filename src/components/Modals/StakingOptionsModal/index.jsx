@@ -312,7 +312,6 @@ export default function StakingOptionsModal(props) {
                                 </div>
 
                                 <div className="cta-container">
-                                    {' '}
                                     <div className="tx-cta-buttons">
                                         <Button
                                             type="secondary"
@@ -490,7 +489,7 @@ export default function StakingOptionsModal(props) {
                             <Button
                                 type="secondary"
                                 onClick={onClose}
-                                className="button"
+                                className="button secondary"
                             >
                                 {t('staking.modal.StakingOptionsModal_Cancel')}
                             </Button>

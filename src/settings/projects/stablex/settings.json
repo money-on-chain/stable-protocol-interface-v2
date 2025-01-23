@@ -1,0 +1,44 @@
+{
+    "collateral": "coinbase",
+    "project": "stablex",
+    "hasUSDPeggedTokens":true,
+    "hasNonUSDPeggedTokens":false,
+    "tokens": {
+        "COINBASE": {
+            "name": "ETH",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "CA": [
+            {
+                "key": 0,
+                "name": "ETH",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TP": [
+            {
+                "key": 0,
+                "name": "USDX",
+                "decimals": 18,
+                "visibleDecimals": 6
+            }
+        ],
+        "TC": {
+            "name": "XETH",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "TF": {
+            "name": "XSTA",
+            "decimals": 18,
+            "visibleDecimals": 6
+        },
+        "TG": {
+            "name": "XSTA",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }
+    }
+}

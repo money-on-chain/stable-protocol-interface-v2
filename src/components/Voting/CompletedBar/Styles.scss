@@ -2,14 +2,14 @@
     margin-bottom: 12px;
     font-size: 10px;
     text-transform: uppercase;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
 }
 .CompletedBar__container {
     display: flex;
     position: relative;
     justify-content: stretch;
     margin-top: 4px;
-    border-radius: var(--button-radius-tiny);
+    border-radius: var(--btn-radius-tiny);
     background-color: var(--color-controls-background);
     width: 100%;
     height: 8px;
@@ -18,8 +18,7 @@
         height: 100%;
     }
     .gauge {
-        border-radius: var(--button-radius-tiny) 0px 0px
-            var(--button-radius-tiny);
+        border-radius: var(--btn-radius-tiny) 0px 0px var(--btn-radius-tiny);
     }
     .brand {
         background-color: var(--brand-color-base);
@@ -32,13 +31,13 @@
     }
     .maxvalue {
         border-radius: var(
-            --button-radius-tiny
+            --btn-radius-tiny
         ); // Round all edges if value is 100%
     }
 }
 
 .extraData__container {
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     .dataItem {
         // color: red;
     }

@@ -21,7 +21,7 @@ const AllowanceAmount = async (
             contractAllowAddress,
             toContractPrecisionDecimals(amountAllowance, tokenDecimals)
         )
-        .estimateGas({ from: account, value: '0x' });
+        .estimateGas({ from: account, value: 0 });
 
     // Send tx
     const receipt = token.methods
@@ -58,7 +58,7 @@ const transferTokenTo = async (
     // Calculate estimate gas cost
     const estimateGas = await token.methods
         .transfer(to, toContractPrecisionDecimals(amount, tokenDecimals))
-        .estimateGas({ from: account, value: '0x' });
+        .estimateGas({ from: account, value: 0 });
 
     // Send tx
     const receipt = token.methods

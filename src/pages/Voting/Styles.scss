@@ -6,7 +6,7 @@ section_voting.scss contains all the css code for Voting section cards not conta
 $breakpoint-mobile: 600px;
 
 .title {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-size: 16px;
     font-family: var(--brand-font);
     font-weight: 600;
@@ -15,7 +15,7 @@ $breakpoint-mobile: 600px;
     text-wrap: wrap;
     word-break: break-all;
     span {
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         margin-bottom: 24px;
     }
 }
@@ -44,10 +44,10 @@ $breakpoint-mobile: 600px;
         font-weight: 600;
         font-size: 18px;
         font-family: var(--brand-font);
-        color: var(--color-button-semantic-text-default);
+        color: var(--color-btn-semantic-txt-default);
     }
     .icon {
-        filter: var(--color-button-semantic-icon-filter-default);
+        filter: var(--color-btn-semantic-icon-filter-default);
         background-size: 24px 24px;
         width: 24px;
         height: 24px;
@@ -72,7 +72,7 @@ $breakpoint-mobile: 600px;
     flex-direction: row;
     margin-bottom: 8px;
     width: 100%;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-size: 14px;
     .label {
         width: 168px;
@@ -103,7 +103,7 @@ $breakpoint-mobile: 600px;
         margin-bottom: 16px;
         .data,
         .label {
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
         }
     }
 }
@@ -132,7 +132,7 @@ $breakpoint-mobile: 600px;
     padding: var(--card-padding);
     width: 100%;
     .forumLink {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .details {
         display: flex;
@@ -162,7 +162,7 @@ $breakpoint-mobile: 600px;
         width: 100%;
         .voting__status {
             margin-bottom: 16px;
-            color: var(--color-text-primary);
+            color: var(--color-txt-primary);
             font-weight: 600;
             font-size: 16px;
             font-family: var(--brand-font);
@@ -192,7 +192,7 @@ $breakpoint-mobile: 600px;
         font-size: 18px;
         font-weight: 600;
         font-family: var(--brand-font);
-        color: var(--color-text-link);
+        color: var(--color-txt-link);
         .icon__addProposal {
             filter: var(--color-icon-link-filter);
         }
@@ -206,7 +206,7 @@ $breakpoint-mobile: 600px;
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         border: 2px dashed var(--dividers);
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-size: 16px;
     }
 }
@@ -229,7 +229,7 @@ $breakpoint-mobile: 600px;
         font-size: 18px;
         font-weight: 600;
         font-family: var(--brand-font);
-        color: var(--color-text-link);
+        color: var(--color-txt-link);
         .icon__addProposal {
             filter: var(--color-icon-link-filter);
         }
@@ -245,7 +245,7 @@ $breakpoint-mobile: 600px;
         padding: var(--card-padding);
         border-radius: var(--card-border-radius);
         border: 2px dashed var(--dividers);
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         font-size: 16px;
     }
 }
@@ -257,13 +257,13 @@ $breakpoint-mobile: 600px;
     justify-content: space-between;
 
     .forumLink {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .details {
         width: 544px;
         display: flex;
         flex-direction: column;
-        color: var(--color-text-secondary);
+        color: var(--color-txt-secondary);
         gap: 2px;
         flex: 1;
 
@@ -364,7 +364,7 @@ $breakpoint-mobile: 600px;
 }
 .ProposalVoteModal {
     .proposalChanger__container {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
         .proposalChanger__label {
         }
         .proposalChanger__data {
@@ -373,7 +373,7 @@ $breakpoint-mobile: 600px;
         }
     }
     .Link {
-        color: var(--color-text-primary);
+        color: var(--color-txt-primary);
     }
     .whatIsVoting {
         display: flex;
@@ -389,10 +389,10 @@ $breakpoint-mobile: 600px;
 
         .whatIsVoging__text {
             margin-top: 5px;
-            color: var(--color-button-primary-text-default);
+            color: var(--color-btn-primary-txt-default);
         }
         .icon {
-            filter: var(--color-button-primary-icon-filter-default);
+            filter: var(--color-btn-primary-icon-filter-default);
         }
     }
     .inFavor {

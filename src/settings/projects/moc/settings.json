@@ -1,6 +1,7 @@
 {
     "collateral": "coinbase",
     "project": "moc",
+    "hasNonUSDPeggedTokens":false,
     "tokens": {
         "COINBASE": {
             "name": "RBTC",

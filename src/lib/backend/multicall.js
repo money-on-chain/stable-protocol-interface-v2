@@ -121,14 +121,23 @@ const contractStatus = async (web3, dContracts) => {
     const FC_MAX_OP_DIFFERENCE_PROVIDER = dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER
 
     // OMOC
-    const iregistry = dContracts.contracts.IRegistry
-    const stakingmachine = dContracts.contracts.StakingMachine
-    const delaymachine = dContracts.contracts.DelayMachine
-    const supporters = dContracts.contracts.Supporters
-    const votingmachine = dContracts.contracts.VotingMachine
-    const tg = dContracts.contracts.TG
+    let iregistry
+    let stakingmachine
+    let delaymachine
+    let supporters
+    let votingmachine
+    let tg
+    let proposalCountVoting
 
-    const proposalCountVoting = Number(BigInt(await votingmachine.methods.getProposalCount().call()))
+    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
+        iregistry = dContracts.contracts.IRegistry
+        stakingmachine = dContracts.contracts.StakingMachine
+        delaymachine = dContracts.contracts.DelayMachine
+        supporters = dContracts.contracts.Supporters
+        votingmachine = dContracts.contracts.VotingMachine
+        tg = dContracts.contracts.TG
+        proposalCountVoting = Number(BigInt(await votingmachine.methods.getProposalCount().call()))
+    }
 
     const multiCallRequest = new MultiCall(multicall, web3)
 
@@ -207,45 +216,47 @@ const contractStatus = async (web3, dContracts) => {
     }
 
     // OMOC
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getWithdrawLockTime().encodeABI(), 'uint256', 'stakingmachine', 'getWithdrawLockTime')
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getSupporters().encodeABI(), 'address', 'stakingmachine', 'getSupporters')
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getOracleManager().encodeABI(), 'address', 'stakingmachine', 'getOracleManager')
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getDelayMachine().encodeABI(), 'address', 'stakingmachine', 'getDelayMachine')
-    multiCallRequest.aggregate(delaymachine, delaymachine.methods.getLastId().encodeABI(), 'uint256', 'delaymachine', 'getLastId')
-    multiCallRequest.aggregate(delaymachine, delaymachine.methods.getSource().encodeABI(), 'address', 'delaymachine', 'getSource')
-    multiCallRequest.aggregate(supporters, supporters.methods.isReadyToDistribute().encodeABI(), 'bool', 'supporters', 'isReadyToDistribute')
-    multiCallRequest.aggregate(supporters, supporters.methods.mocToken().encodeABI(), 'address', 'supporters', 'mocToken')
-    multiCallRequest.aggregate(supporters, supporters.methods.period().encodeABI(), 'uint256', 'supporters', 'period')
-    multiCallRequest.aggregate(supporters, supporters.methods.totalMoc().encodeABI(), 'uint256', 'supporters', 'totalMoc')
-    multiCallRequest.aggregate(supporters, supporters.methods.totalToken().encodeABI(), 'uint256', 'supporters', 'totalToken')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getState().encodeABI(), 'uint256', 'votingmachine', 'getState')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVotingRound().encodeABI(), 'uint256', 'votingmachine', 'getVotingRound')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVoteInfo().encodeABI(), [{ type: 'address', name: 'winnerProposal' }, { type: 'uint256', name: 'inFavorVotes' }, { type: 'uint256', name: 'againstVotes' }], 'votingmachine', 'getVoteInfo')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.readyToPreVoteStep().encodeABI(), 'uint256', 'votingmachine', 'readyToPreVoteStep')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.readyToVoteStep().encodeABI(), 'uint256', 'votingmachine', 'readyToVoteStep')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getProposalCount().encodeABI(), 'uint256', 'votingmachine', 'getProposalCount')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVotingData().encodeABI(), [{ type: 'address', name: 'winnerProposal' }, { type: 'uint256', name: 'inFavorVotes' }, { type: 'uint256', name: 'againstVotes' }, { type: 'uint256', name: 'votingExpirationTime' }], 'votingmachine', 'getVotingData')
-    multiCallRequest.aggregate(tg, tg.methods.totalSupply().encodeABI(), 'uint256', 'votingmachine', 'totalSupply')
+    if (typeof iregistry !== 'undefined') {
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getWithdrawLockTime().encodeABI(), 'uint256', 'stakingmachine', 'getWithdrawLockTime')
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getSupporters().encodeABI(), 'address', 'stakingmachine', 'getSupporters')
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getOracleManager().encodeABI(), 'address', 'stakingmachine', 'getOracleManager')
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getDelayMachine().encodeABI(), 'address', 'stakingmachine', 'getDelayMachine')
+        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getLastId().encodeABI(), 'uint256', 'delaymachine', 'getLastId')
+        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getSource().encodeABI(), 'address', 'delaymachine', 'getSource')
+        multiCallRequest.aggregate(supporters, supporters.methods.isReadyToDistribute().encodeABI(), 'bool', 'supporters', 'isReadyToDistribute')
+        multiCallRequest.aggregate(supporters, supporters.methods.mocToken().encodeABI(), 'address', 'supporters', 'mocToken')
+        multiCallRequest.aggregate(supporters, supporters.methods.period().encodeABI(), 'uint256', 'supporters', 'period')
+        multiCallRequest.aggregate(supporters, supporters.methods.totalMoc().encodeABI(), 'uint256', 'supporters', 'totalMoc')
+        multiCallRequest.aggregate(supporters, supporters.methods.totalToken().encodeABI(), 'uint256', 'supporters', 'totalToken')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getState().encodeABI(), 'uint256', 'votingmachine', 'getState')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVotingRound().encodeABI(), 'uint256', 'votingmachine', 'getVotingRound')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVoteInfo().encodeABI(), [{ type: 'address', name: 'winnerProposal' }, { type: 'uint256', name: 'inFavorVotes' }, { type: 'uint256', name: 'againstVotes' }], 'votingmachine', 'getVoteInfo')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.readyToPreVoteStep().encodeABI(), 'uint256', 'votingmachine', 'readyToPreVoteStep')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.readyToVoteStep().encodeABI(), 'uint256', 'votingmachine', 'readyToVoteStep')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getProposalCount().encodeABI(), 'uint256', 'votingmachine', 'getProposalCount')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getVotingData().encodeABI(), [{ type: 'address', name: 'winnerProposal' }, { type: 'uint256', name: 'inFavorVotes' }, { type: 'uint256', name: 'againstVotes' }, { type: 'uint256', name: 'votingExpirationTime' }], 'votingmachine', 'getVotingData')
+        multiCallRequest.aggregate(tg, tg.methods.totalSupply().encodeABI(), 'uint256', 'votingmachine', 'totalSupply')
 
-    // Proposals
-    let indexProp
-    for (let i = 1; i < 30; i++) {
-        if (proposalCountVoting - i >= 0) {
-            indexProp = proposalCountVoting - i
-            multiCallRequest.aggregate(votingmachine, votingmachine.methods.getProposalByIndex(indexProp).encodeABI(), [{ type: 'address', name: 'proposalAddress' }, { type: 'uint256', name: 'votingRound' }, { type: 'uint256', name: 'votes' }, { type: 'uint256', name: 'expirationTimeStamp' }], 'votingmachine', 'getProposalByIndex', indexProp)
+        // Proposals
+        let indexProp
+        for (let i = 1; i < 30; i++) {
+            if (proposalCountVoting - i >= 0) {
+                indexProp = proposalCountVoting - i
+                multiCallRequest.aggregate(votingmachine, votingmachine.methods.getProposalByIndex(indexProp).encodeABI(), [{ type: 'address', name: 'proposalAddress' }, { type: 'uint256', name: 'votingRound' }, { type: 'uint256', name: 'votes' }, { type: 'uint256', name: 'expirationTimeStamp' }], 'votingmachine', 'getProposalByIndex', indexProp)
+            }
         }
-    }
 
-    // OMOC REGISTRY CONSTANT
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MIN_STAKE).encodeABI(), 'uint256', 'votingmachine', 'MIN_STAKE')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_EXPIRATION_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_EXPIRATION_TIME_DELTA')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MAX_PRE_PROPOSALS).encodeABI(), 'uint256', 'votingmachine', 'MAX_PRE_PROPOSALS')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_MIN_PCT_TO_WIN).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_MIN_PCT_TO_WIN')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_VETO).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_VETO')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_FOR_QUORUM).encodeABI(), 'uint256', 'votingmachine', 'MIN_PCT_FOR_QUORUM')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_ACCEPT).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_ACCEPT')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PCT_PRECISION).encodeABI(), 'uint256', 'votingmachine', 'PCT_PRECISION')
-    multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTING_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'VOTING_TIME_DELTA')
+        // OMOC REGISTRY CONSTANT
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MIN_STAKE).encodeABI(), 'uint256', 'votingmachine', 'MIN_STAKE')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_EXPIRATION_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_EXPIRATION_TIME_DELTA')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_MAX_PRE_PROPOSALS).encodeABI(), 'uint256', 'votingmachine', 'MAX_PRE_PROPOSALS')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PRE_VOTE_MIN_PCT_TO_WIN).encodeABI(), 'uint256', 'votingmachine', 'PRE_VOTE_MIN_PCT_TO_WIN')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_VETO).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_VETO')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_FOR_QUORUM).encodeABI(), 'uint256', 'votingmachine', 'MIN_PCT_FOR_QUORUM')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTE_MIN_PCT_TO_ACCEPT).encodeABI(), 'uint256', 'votingmachine', 'VOTE_MIN_PCT_TO_ACCEPT')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_PCT_PRECISION).encodeABI(), 'uint256', 'votingmachine', 'PCT_PRECISION')
+        multiCallRequest.aggregate(iregistry, iregistry.methods.getUint(omoc.RegistryConstants.MOC_VOTING_MACHINE_VOTING_TIME_DELTA).encodeABI(), 'uint256', 'votingmachine', 'VOTING_TIME_DELTA')
+    }
 
     let PP_TP
     let tpAddress
@@ -324,13 +335,23 @@ const userBalance = async (web3, dContracts, userAddress) => {
     const FeeToken = dContracts.contracts.FeeToken
     const MoCContract = dContracts.contracts.Moc
 
-    const stakingmachine = dContracts.contracts.StakingMachine
-    const delaymachine = dContracts.contracts.DelayMachine
-    const tg = dContracts.contracts.TG
-    const vestingmachine = dContracts.contracts.VestingMachine
-    const vestingfactory = dContracts.contracts.VestingFactory
-    const IncentiveV2 = dContracts.contracts.IncentiveV2
-    const votingmachine = dContracts.contracts.VotingMachine
+    let stakingmachine
+    let delaymachine
+    let tg
+    let vestingmachine
+    let vestingfactory
+    let votingmachine
+    let IncentiveV2
+
+    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
+        stakingmachine = dContracts.contracts.StakingMachine
+        delaymachine = dContracts.contracts.DelayMachine
+        tg = dContracts.contracts.TG
+        vestingmachine = dContracts.contracts.VestingMachine
+        vestingfactory = dContracts.contracts.VestingFactory
+        IncentiveV2 = dContracts.contracts.IncentiveV2
+        votingmachine = dContracts.contracts.VotingMachine
+    }
 
     console.log(`Reading user balance ... account: ${userAddress}`);
 
@@ -341,42 +362,45 @@ const userBalance = async (web3, dContracts, userAddress) => {
     multiCallRequest.aggregate(FeeToken, FeeToken.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'FeeToken', 'balance')
     multiCallRequest.aggregate(FeeToken, FeeToken.methods.allowance(userAddress, MoCContract.options.address).encodeABI(), 'uint256', 'FeeToken', 'allowance')
 
-    // OMOC
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(userAddress).encodeABI(), 'uint256', 'stakingmachine', 'getBalance')
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockedBalance(userAddress).encodeABI(), 'uint256', 'stakingmachine', 'getLockedBalance')
-    multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(userAddress).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'stakingmachine', 'getLockingInfo')
-    multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(userAddress).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'delaymachine', 'getTransactions')
-    multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(userAddress).encodeABI(), 'uint256', 'delaymachine', 'getBalance')
-    multiCallRequest.aggregate(tg, tg.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'TG', 'balance')
-    multiCallRequest.aggregate(tg, tg.methods.allowance(userAddress, stakingmachine.options.address).encodeABI(), 'uint256', 'stakingmachine', 'tgAllowance')
-    multiCallRequest.aggregate(votingmachine, votingmachine.methods.getUserVote(userAddress).encodeABI(), [{ type: 'address', name: 'voteAddress' }, { type: 'uint256', name: 'voteRound' }], 'votingmachine', 'getUserVote')
+    if (typeof stakingmachine !== 'undefined') {
 
-    if (typeof vestingmachine !== 'undefined') {
-        multiCallRequest.aggregate(vestingfactory, vestingfactory.methods.isTGEConfigured().encodeABI(), 'bool', 'vestingfactory', 'isTGEConfigured')
-        multiCallRequest.aggregate(vestingfactory, vestingfactory.methods.getTGETimestamp().encodeABI(), 'uint256', 'vestingfactory', 'getTGETimestamp')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getParameters().encodeABI(), [{ type: 'uint256[]', name: 'percentages' }, { type: 'uint256[]', name: 'timeDeltas' }], 'vestingmachine', 'getParameters')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getHolder().encodeABI(), 'address', 'vestingmachine', 'getHolder')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getLocked().encodeABI(), 'uint256', 'vestingmachine', 'getLocked')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getAvailable().encodeABI(), 'uint256', 'vestingmachine', 'getAvailable')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.isVerified().encodeABI(), 'bool', 'vestingmachine', 'isVerified')
-        multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getTotal().encodeABI(), 'uint256', 'vestingmachine', 'getTotal')
-        multiCallRequest.aggregate(tg, tg.methods.balanceOf(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'tgBalance')
-        multiCallRequest.aggregate(tg, tg.methods.allowance(userAddress, vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'tgAllowance')
-        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'balance')
-        multiCallRequest.aggregate(tg, tg.methods.allowance(vestingmachine.options.address, stakingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'allowance')
-        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'balance')
-        multiCallRequest.aggregate(tg, tg.methods.allowance(vestingmachine.options.address, delaymachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'allowance')
-        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'getBalance')
-        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockedBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking','getLockedBalance')
-        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(vestingmachine.options.address).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'vestingmachine', 'staking', 'getLockingInfo')
-        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(vestingmachine.options.address).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'vestingmachine', 'delay', 'getTransactions')
-        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'getBalance')
-    }
+        // OMOC
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(userAddress).encodeABI(), 'uint256', 'stakingmachine', 'getBalance')
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockedBalance(userAddress).encodeABI(), 'uint256', 'stakingmachine', 'getLockedBalance')
+        multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(userAddress).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'stakingmachine', 'getLockingInfo')
+        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(userAddress).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'delaymachine', 'getTransactions')
+        multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(userAddress).encodeABI(), 'uint256', 'delaymachine', 'getBalance')
+        multiCallRequest.aggregate(tg, tg.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'TG', 'balance')
+        multiCallRequest.aggregate(tg, tg.methods.allowance(userAddress, stakingmachine.options.address).encodeABI(), 'uint256', 'stakingmachine', 'tgAllowance')
+        multiCallRequest.aggregate(votingmachine, votingmachine.methods.getUserVote(userAddress).encodeABI(), [{ type: 'address', name: 'voteAddress' }, { type: 'uint256', name: 'voteRound' }], 'votingmachine', 'getUserVote')
 
-    // Incentive V2
-    if (typeof IncentiveV2 !== 'undefined') {
-        multiCallRequest.aggregate(tg, tg.methods.balanceOf(IncentiveV2.options.address).encodeABI(), 'uint256', 'incentiveV2', 'contractBalance');
-        multiCallRequest.aggregate(IncentiveV2, IncentiveV2.methods.get_balance(userAddress).encodeABI(), 'uint256', 'incentiveV2', 'userBalance')
+        if (typeof vestingmachine !== 'undefined') {
+            multiCallRequest.aggregate(vestingfactory, vestingfactory.methods.isTGEConfigured().encodeABI(), 'bool', 'vestingfactory', 'isTGEConfigured')
+            multiCallRequest.aggregate(vestingfactory, vestingfactory.methods.getTGETimestamp().encodeABI(), 'uint256', 'vestingfactory', 'getTGETimestamp')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getParameters().encodeABI(), [{ type: 'uint256[]', name: 'percentages' }, { type: 'uint256[]', name: 'timeDeltas' }], 'vestingmachine', 'getParameters')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getHolder().encodeABI(), 'address', 'vestingmachine', 'getHolder')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getLocked().encodeABI(), 'uint256', 'vestingmachine', 'getLocked')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getAvailable().encodeABI(), 'uint256', 'vestingmachine', 'getAvailable')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.isVerified().encodeABI(), 'bool', 'vestingmachine', 'isVerified')
+            multiCallRequest.aggregate(vestingmachine, vestingmachine.methods.getTotal().encodeABI(), 'uint256', 'vestingmachine', 'getTotal')
+            multiCallRequest.aggregate(tg, tg.methods.balanceOf(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'tgBalance')
+            multiCallRequest.aggregate(tg, tg.methods.allowance(userAddress, vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'tgAllowance')
+            multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'balance')
+            multiCallRequest.aggregate(tg, tg.methods.allowance(vestingmachine.options.address, stakingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'allowance')
+            multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'balance')
+            multiCallRequest.aggregate(tg, tg.methods.allowance(vestingmachine.options.address, delaymachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'allowance')
+            multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking', 'getBalance')
+            multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockedBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'staking','getLockedBalance')
+            multiCallRequest.aggregate(stakingmachine, stakingmachine.methods.getLockingInfo(vestingmachine.options.address).encodeABI(), [{ type: 'uint256', name: 'amount' }, { type: 'uint256', name: 'untilTimestamp' }], 'vestingmachine', 'staking', 'getLockingInfo')
+            multiCallRequest.aggregate(delaymachine, delaymachine.methods.getTransactions(vestingmachine.options.address).encodeABI(), [{ type: 'uint256[]', name: 'ids' }, { type: 'uint256[]', name: 'amounts' }, { type: 'uint256[]', name: 'expirations' }], 'vestingmachine', 'delay', 'getTransactions')
+            multiCallRequest.aggregate(delaymachine, delaymachine.methods.getBalance(vestingmachine.options.address).encodeABI(), 'uint256', 'vestingmachine', 'delay', 'getBalance')
+        }
+
+        // Incentive V2
+        if (typeof IncentiveV2 !== 'undefined') {
+            multiCallRequest.aggregate(tg, tg.methods.balanceOf(IncentiveV2.options.address).encodeABI(), 'uint256', 'incentiveV2', 'contractBalance');
+            multiCallRequest.aggregate(IncentiveV2, IncentiveV2.methods.get_balance(userAddress).encodeABI(), 'uint256', 'incentiveV2', 'userBalance')
+        }
     }
 
     let TP

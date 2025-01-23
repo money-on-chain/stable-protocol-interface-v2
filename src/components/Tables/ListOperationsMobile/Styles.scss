@@ -1,6 +1,6 @@
 :root {
     // For table heights use '' -> '200px' 'auto', etc.
-    --lastOperationsHeight: 'auto';
+    --lastOperationsHeight: "auto";
 }
 
 /* #region LAST OPERATIONS TABLE */
@@ -9,6 +9,7 @@
     box-shadow: var(--surface-shadow-1);
     border-radius: var(--card-border-radius);
     background: var(--surface-color-1);
+    border: var(--card-border);
     padding: 32px;
     .ant-table-body .ant-table-cell {
         border-color: transparent !important;
@@ -23,7 +24,7 @@
     margin-right: 16px;
     margin-bottom: 8px;
     background-color: transparent;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -34,7 +35,7 @@
         display: inline-block;
         filter: var(--color-icon-link-secondary-filter);
         margin-left: 8px;
-        background-image: url('../../../assets/icons/aboutqueueicon.svg');
+        background-image: url("../../../assets/icons/aboutqueueicon.svg");
         background-size: 16px 16px;
         background-repeat: no-repeat;
         width: 16px;
@@ -94,7 +95,7 @@
     border-bottom: 1px solid var(--dividers);
     padding-top: 0px;
     padding-bottom: 12px;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-family: var(--main-font);
 }
 
@@ -113,7 +114,7 @@
 
 .content-last-operations .table-event-name,
 .content-last-operations .table-date-name {
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-style: SemiBold;
     font-weight: 600;
     font-size: 10px;
@@ -123,7 +124,7 @@
 
 .content-last-operations .table-amount,
 .content-last-operations .table-date {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-style: SemiBold;
     font-weight: 600;
     font-size: 14px;
@@ -131,7 +132,7 @@
 }
 
 .content-last-operations .table-asset-name {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-style: SemiBold;
     font-weight: 600;
     font-size: 8px;
@@ -158,10 +159,10 @@
         }
 
         a:link {
-            color: var(--color-text-link);
+            color: var(--color-txt-link);
         }
         a:visited {
-            color: var(--color-text-link);
+            color: var(--color-txt-link);
         }
 
         a:hover {
@@ -176,7 +177,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Queuing.svg');
+    background-image: url("../../../assets/icons/Queuing.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -188,7 +189,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Queued.svg');
+    background-image: url("../../../assets/icons/Queued.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -200,7 +201,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Confirmed.svg');
+    background-image: url("../../../assets/icons/Confirmed.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -212,7 +213,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Confirming.svg');
+    background-image: url("../../../assets/icons/Confirming.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -224,7 +225,7 @@
     margin: 0.5rem;
     margin-top: 3px;
     margin-right: 1rem;
-    background-image: url('../../../assets/icons/Failed.svg');
+    background-image: url("../../../assets/icons/Failed.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     width: 30px;
@@ -293,7 +294,7 @@
 .custom-table .ant-pagination-item {
     border: none;
     background-color: transparent;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
 }
 .custom-table-light .ant-pagination-item {
     border: none;
@@ -302,7 +303,7 @@
 }
 
 .ant-pagination-item a {
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
 }
 .custom-table-light .ant-pagination-item a {
     color: #000000;
@@ -312,7 +313,7 @@
 .ant-pagination-next .ant-pagination-item-link {
     border: none;
     background-color: transparent;
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
 }
 .custom-table-light .ant-pagination-prev .ant-pagination-item-link,
 .custom-table-light .ant-pagination-next .ant-pagination-item-link {
@@ -322,7 +323,7 @@
 }
 
 .ant-pagination-item-active a {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
 }
 .custom-table-light .ant-pagination-item-active a {
     color: rgb(0, 0, 0);
@@ -342,6 +343,7 @@
 .table-expanded-row {
     padding-left: 2rem;
     font-weight: 100;
+    border-radius: var(--card-border-radius);
 }
 
 .table-asset-name {
@@ -379,9 +381,9 @@
 }
 
 .table-icon-name {
-    display: 'flex';
-    flex-direction: 'column';
-    align-items: 'center';
+    display: "flex";
+    flex-direction: "column";
+    align-items: "center";
     margin-right: 0.5rem;
     min-width: 4rem;
     text-align: center;
@@ -433,7 +435,7 @@
     background-color: var(--dividers);
     width: 2px;
     height: 70%;
-    content: '';
+    content: "";
 }
 
 .custom-border-spacing-table .ant-table table {
@@ -442,7 +444,7 @@
 
 .ant-descriptions-item-content {
     width: 20%;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
@@ -590,20 +592,20 @@
     margin-left: 0;
 }
 .lastOp__detail__label {
-    color: var(--color-text-secondary);
+    color: var(--color-txt-secondary);
     font-weight: 600;
     font-size: 10px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
 }
 .lastOp__detail__amount {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 0.61px;
 }
 .lastOp__detail__date {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 0.61px;
@@ -613,7 +615,7 @@
 }
 .lastOp__detail__token__ticker {
     padding-top: 4px;
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 600;
     font-size: 8px;
     font-family: var(--main-font);
@@ -621,7 +623,7 @@
     text-align: center;
 }
 .lastOp__detail__address {
-    color: var(--color-text-primary);
+    color: var(--color-txt-primary);
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 0.61px;
@@ -635,10 +637,9 @@
 @media (max-width: 768px) {
     .content-last-operations {
         padding: 8px !important;
+        margin-top: 0px;
     }
-    // .content-last-operations {
-    //     padding: 8px !important;
-    // }
+
     .lastOp__row {
         flex-direction: row-reverse;
         justify-content: flex-start;

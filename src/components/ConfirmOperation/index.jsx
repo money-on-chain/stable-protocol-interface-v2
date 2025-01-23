@@ -41,7 +41,9 @@ export default function ConfirmOperation(props) {
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
-    const [amountYouExchange, setAmountYouExchange] = useState(inputAmountYouExchange);
+    const [amountYouExchange, setAmountYouExchange] = useState(
+        inputAmountYouExchange
+    );
     const [tolerance, setTolerance] = useState(0.7);
     const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
@@ -50,8 +52,8 @@ export default function ConfirmOperation(props) {
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
     useEffect(() => {
-      setAmountYouExchange(inputAmountYouExchange);
-    }, [])
+        setAmountYouExchange(inputAmountYouExchange);
+    }, []);
 
     useEffect(() => {
         let timerId;
@@ -347,7 +349,7 @@ export default function ConfirmOperation(props) {
             statusLabel = t('exchange.confirm.submit');
             break;
         case 'SIGN':
-            sentIcon = 'icon-signifier';
+            sentIcon = 'icon-tx-signWallet';
             statusLabel = t('exchange.confirm.sign');
             break;
         case 'QUEUING':
@@ -557,32 +559,30 @@ export default function ConfirmOperation(props) {
                                 skipContractConvert: true
                             })}
                         </span>
-                        <span className={'token_receive_name'}>{' '}
+                        <span className={'token_receive_name'}>
+                            {' '}
                             {commissionTokenName}
                         </span>
                         <span className={''}> (</span>
                         <span>
-                            {!auth.contractStatusData
-                                ?.canOperate
+                            {!auth.contractStatusData?.canOperate
                                 ? '--'
                                 : PrecisionNumbers({
-                                    amount: new BigNumber(
-                                        commissionPAYUSD
-                                    ),
-                                    decimals: 2,
-                                    token: TokenSettings('CA_0'),
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                    isUSD: true,
-                                    skipContractConvert: true
-                                })}
+                                      amount: new BigNumber(commissionPAYUSD),
+                                      decimals: 2,
+                                      token: TokenSettings('CA_0'),
+                                      t: t,
+                                      i18n: i18n,
+                                      ns: ns,
+                                      isUSD: true,
+                                      skipContractConvert: true
+                                  })}
                         </span>
-                        <span className={''}> {' '}
+                        <span className={''}>
+                            {' '}
                             {t('exchange.exchangingCurrency')}
                         </span>
                         <span className={''}>) </span>
-
                     </div>
                     <div className={'tx-fees-item'}>
                         <span className={'token_exchange'}>
@@ -623,7 +623,7 @@ export default function ConfirmOperation(props) {
                                 header={
                                     <div className="VariationHeader">
                                         <div className="PriceVariationSetting">
-                                            <i className="icon-wheel"></i>
+                                            <i className="icon-preferences"></i>
                                             <span className="SliderText">
                                                 {t(
                                                     'exchange.priceVariation.title'

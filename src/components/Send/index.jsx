@@ -1,53 +1,51 @@
-import { Button, Input } from 'antd';
-import React, { useContext, useState, useEffect } from 'react';
+import { Button, Input } from "antd";
+import React, { useContext, useState, useEffect } from "react";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import SelectCurrency from '../SelectCurrency';
+import { useProjectTranslation } from "../../helpers/translations";
+import CurrencyPopUp from "../CurrencyPopUp";
 
 import {
     TokenSettings,
     TokenBalance,
     AmountToVisibleValue,
-    ConvertAmount
-} from '../../helpers/currencies';
-import { tokenExchange } from '../../helpers/exchange';
-import settings from '../../settings/settings.json';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { AuthenticateContext } from '../../context/Auth';
+    ConvertAmount,
+} from "../../helpers/currencies";
+import { tokenExchange } from "../../helpers/exchange";
+import settings from "../../settings/settings.json";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { AuthenticateContext } from "../../context/Auth";
 
-import InputAmount from '../InputAmount/indexInput';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import ModalConfirmSend from '../Modals/ConfirmSend';
+import InputAmount from "../InputAmount/indexInput";
+import BigNumber from "bignumber.js";
+import { fromContractPrecisionDecimals } from "../../helpers/Formats";
+import ModalConfirmSend from "../Modals/ConfirmSend";
 
 export default function Send() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const tokenSend = tokenExchange()
-
+    const tokenSend = tokenExchange();
     // Add Token Govern
-    tokenSend.push('TG')
-
-    // Add Coinbase
-    tokenSend.push('COINBASE')
+    tokenSend.push("TG");
+    // Add Coinbase support at index 0
+    tokenSend.splice(0, 0, "COINBASE");
 
     const defaultTokenSend = tokenSend[0];
     const [currencyYouSend, setCurrencyYouSend] = useState(defaultTokenSend);
 
     const [amountYouSend, setAmountYouSend] = useState(new BigNumber(0));
-    const [destinationAddress, setDestinationAddress] = useState('');
+    const [destinationAddress, setDestinationAddress] = useState("");
 
     const [sendingUSD, setSendingUSD] = useState(new BigNumber(0));
 
     const [isDirtyYouSend, setIsDirtyYouSend] = useState(false);
 
     const [inputValidationErrorText, setInputValidationErrorText] =
-        useState('');
+        useState("");
     const [
         inputValidationAddressErrorText,
-        setInputValidationAddressErrorText
-    ] = useState('');
+        setInputValidationAddressErrorText,
+    ] = useState("");
     const [inputValidationError, setInputValidationError] = useState(false);
 
     useEffect(() => {
@@ -87,39 +85,39 @@ export default function Send() {
                 TokenSettings(currencyYouSend).decimals
             )
         );
-        console.log('amount you send', amountYouSend.toString());
+        console.log("amount you send", amountYouSend.toString());
         if (amountYouSend.gt(totalBalance)) {
-            setInputValidationErrorText(t('send.infoNoBalance'));
+            setInputValidationErrorText(t("send.infoNoBalance"));
             amountInputError = true;
         }
         if (amountYouSend.eq(0)) {
             amountInputError = true;
         }
         if (amountYouSend.lt(0)) {
-            setInputValidationErrorText(t('send.infoNoNegativeValues'));
+            setInputValidationErrorText(t("send.infoNoNegativeValues"));
             amountInputError = true;
         }
-        if (amountYouSend.toString() === 'NaN') {
-            setInputValidationErrorText(t('send.infoNoNegativeValues'));
+        if (amountYouSend.toString() === "NaN") {
+            setInputValidationErrorText(t("send.infoNoNegativeValues"));
             amountInputError = true;
         }
         // 2. Input address valid
-        if (destinationAddress === '') {
+        if (destinationAddress === "") {
             addressInputError = true;
         } else if (
             destinationAddress.length < 42 ||
             destinationAddress.length > 42
         ) {
-            setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
+            setInputValidationAddressErrorText(t("send.infoAddressInvalid"));
             addressInputError = true;
         }
 
         if (!amountInputError) {
-            setInputValidationErrorText('');
+            setInputValidationErrorText("");
         }
 
         if (!addressInputError) {
-            setInputValidationAddressErrorText('');
+            setInputValidationAddressErrorText("");
         }
 
         if (amountInputError || addressInputError) {
@@ -130,7 +128,7 @@ export default function Send() {
     };
 
     const onChangeAmountYouSend = (newAmount, isPriceOnly = false) => {
-        if (newAmount < 0 || newAmount === '') {
+        if (newAmount < 0 || newAmount === "") {
             newAmount = 0;
             setAmountYouSend(new BigNumber(0));
         } else {
@@ -143,7 +141,7 @@ export default function Send() {
             const convertAmount = ConvertAmount(
                 auth,
                 currencyYouSend,
-                'CA',
+                "CA",
                 newAmountBig,
                 false
             );
@@ -156,7 +154,7 @@ export default function Send() {
             );
 
             let convertAmountUSD;
-            if (currencyYouSend === 'COINBASE') {
+            if (currencyYouSend === "COINBASE") {
                 convertAmountUSD = convertAmount;
             } else {
                 convertAmountUSD = convertAmount.times(priceCA);
@@ -168,7 +166,7 @@ export default function Send() {
 
     const onChangeDestinationAddress = (event) => {
         if (event.target.value.length < 42) {
-            setInputValidationAddressErrorText(t('send.infoAddressInvalid'));
+            setInputValidationAddressErrorText(t("send.infoAddressInvalid"));
             setInputValidationError(true);
         }
         setDestinationAddress(event.target.value);
@@ -200,17 +198,17 @@ export default function Send() {
             <div className="sectionSend__Content">
                 <div className="inputFields">
                     <div className="tokenSelector">
-                        <SelectCurrency
+                        <CurrencyPopUp
                             className="select-token"
                             value={currencyYouSend}
                             currencyOptions={tokenSend}
                             onChange={onChangeCurrencyYouSend}
-                            action={'send'}
+                            action={"send"}
                         />
 
                         <InputAmount
                             InputValue={
-                                amountYouSend.toString() === '0'
+                                amountYouSend.toString() === "0"
                                     ? 0
                                     : AmountToVisibleValue(
                                           amountYouSend,
@@ -219,7 +217,7 @@ export default function Send() {
                                           false
                                       )
                             }
-                            placeholder={'0.0'}
+                            placeholder={"0.0"}
                             onValueChange={onChangeAmountYouSend}
                             validateError={false}
                             balance={PrecisionNumbers({
@@ -230,11 +228,11 @@ export default function Send() {
                                         .visibleDecimals,
                                 t: t,
                                 i18n: i18n,
-                                ns: ns
+                                ns: ns,
                             })}
                             setAddTotalAvailable={setAddTotalAvailable}
-                            action={t('send.labelSending')}
-                            balanceText={t('send.labelBalance')}
+                            action={t("send.labelSending")}
+                            balanceText={t("send.labelBalance")}
                         />
                         <div className="amountInput__feedback amountInput__feedback--error">
                             {inputValidationErrorText}
@@ -247,13 +245,13 @@ export default function Send() {
                         <div className="amountInput">
                             <div className="amountInput__infoBar">
                                 <div className="captionOLD amountInput__label">
-                                    {t('send.labelDestination')}
+                                    {t("send.labelDestination")}
                                 </div>
                             </div>
 
                             <Input
                                 type="text"
-                                placeholder={t('send.placeholder')}
+                                placeholder={t("send.placeholder")}
                                 className="input-addressOLD amountInput__value "
                                 onChange={onChangeDestinationAddress}
                             />
@@ -267,30 +265,30 @@ export default function Send() {
             <div className="cta-container">
                 <div className="cta-info-group">
                     <div className="cta-info-summary">
-                        <span className={'token_exchange'}>
-                            {t('send.sendingSummary')}
+                        <span className={"token_exchange"}>
+                            {t("send.sendingSummary")}
                         </span>
-                        <span className={'symbol'}>
-                            {t('send.sendingSign')}
+                        <span className={"symbol"}>
+                            {t("send.sendingSign")}
                         </span>
-                        {sendingUSD.toString() !== 'NaN' ? (
-                            <span className={'token_receive_label'}>
+                        {sendingUSD.toString() !== "NaN" ? (
+                            <span className={"token_receive_label"}>
                                 {PrecisionNumbers({
                                     amount: sendingUSD,
-                                    token: TokenSettings('CA_0'),
+                                    token: TokenSettings("CA_0"),
                                     decimals: 2,
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
-                                    skipContractConvert: true
+                                    skipContractConvert: true,
                                 })}
                             </span>
                         ) : (
                             <span>0</span>
                         )}
-                        <span className={'token_receive_name'}>
-                            {' '}
-                            {t('send.sendingCurrency')}
+                        <span className={"token_receive_name"}>
+                            {" "}
+                            {t("send.sendingCurrency")}
                         </span>
                     </div>
                 </div>
