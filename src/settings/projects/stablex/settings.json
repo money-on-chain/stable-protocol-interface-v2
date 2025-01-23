@@ -1,8 +1,6 @@
 {
     "collateral": "coinbase",
     "project": "stablex",
-    "hasUSDPeggedTokens":true,
-    "hasNonUSDPeggedTokens":false,
     "tokens": {
         "COINBASE": {
             "name": "ETH",
@@ -22,7 +20,8 @@
                 "key": 0,
                 "name": "USDX",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 6,
+                "peggedUSD": true
             }
         ],
         "TC": {

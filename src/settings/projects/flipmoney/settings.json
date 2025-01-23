@@ -1,7 +1,6 @@
 {
     "collateral": "rc20",
      "project": "flipmoney",
-     "hasNonUSDPeggedTokens":true,
     "tokens": {
         "COINBASE": {
             "name": "RBTC",
@@ -21,13 +20,15 @@
                 "key": 0,
                 "name": "ArsFlip",
                 "decimals": 18,
-                "visibleDecimals": 2
+                "visibleDecimals": 2,
+                "peggedUSD": false
             },
             {
                 "key": 1,
                 "name": "CopFlip",
                 "decimals": 18,
-                "visibleDecimals": 2
+                "visibleDecimals": 2,
+                "peggedUSD": false
             }
         ],
         "TC": {

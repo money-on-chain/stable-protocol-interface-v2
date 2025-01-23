@@ -10,6 +10,8 @@ import settings from "../../../settings/settings.json";
 import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
+import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
+
 
 export default function Portfolio() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -52,7 +54,7 @@ export default function Portfolio() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price = !settings.hasNonUSDPeggedTokens
+            price = dataItem.peggedUSD
                 ? 1
                 : new BigNumber(
                       fromContractPrecisionDecimals(
@@ -155,11 +157,11 @@ export default function Portfolio() {
                 <div className="tokens-list-table">
                     <div className="mobile-only">
                         <TokensCAmobile />
-                        {settings.hasNonUSDPeggedTokens && <TokensTPmobile />}
+                        {hasNonUSDPeggedTokens() && <TokensTPmobile />}
                     </div>
                     <div className="desktop-only">
                         <TokensCA />
-                        {settings.hasNonUSDPeggedTokens && <TokensTP />}
+                        {hasNonUSDPeggedTokens() && <TokensTP />}
                     </div>
                 </div>
             </div>

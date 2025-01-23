@@ -394,21 +394,21 @@ export default function Tokens(props) {
     }
     // #endregion TOKEN TC
 
-    // #region TOKEN TP - ONLY FOR ROC
-    //  (IT SHOULD BE FOR  settings.hasUSDPeggedTokens=true)
+    // #region TOKEN TP
 
-    if (
-        // auth.contractStatusData &&
-        // auth.userBalanceData &&
-        // (settings.project === "roc" || settings.project === "moc")
-        auth.contractStatusData &&
-        auth.userBalanceData &&
-        settings.hasUSDPeggedTokens
-    ) {
+    const TokensTP = settings.tokens.TP;
+    // Iterate tokens TP
+    auth.contractStatusData &&
+    auth.userBalanceData &&
+    TokensTP.forEach(function (dataItem) {
+
+        // If it's not pegged to 1:1 USD not display in this table
+        if (!dataItem.peggedUSD) return
+
         balance = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.userBalanceData.TP[0].balance,
-                settings.tokens.TP[0].decimals
+                auth.userBalanceData.TP[dataItem.key].balance,
+                settings.tokens.TP[dataItem.key].decimals
             )
         );
         price = new BigNumber(1);
@@ -417,8 +417,8 @@ export default function Tokens(props) {
         // variation
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_TP[0],
-                settings.tokens.TP[0].decimals
+                auth.contractStatusData.historic.PP_TP[dataItem.key],
+                settings.tokens.TP[dataItem.key].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -458,16 +458,16 @@ export default function Tokens(props) {
                                 {!auth.contractStatusData.canOperate
                                     ? "--"
                                     : PrecisionNumbers({
-                                          amount: price,
-                                          token: settings.tokens.TP[0],
-                                          decimals: t(
-                                              `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                          ),
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: true,
-                                      })}
+                                        amount: price,
+                                        token: settings.tokens.TP[dataItem.key],
+                                        decimals: t(
+                                            `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
+                                        ),
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true,
+                                    })}
                                 <div className="token__label">price in usd</div>
                             </div>
                             <div className="token__data__small">
@@ -495,8 +495,8 @@ export default function Tokens(props) {
                             {" "}
                             <div className="token__data__big right">
                                 {PrecisionNumbers({
-                                    amount: auth.userBalanceData.TP[0].balance,
-                                    token: settings.tokens.TP[0],
+                                    amount: auth.userBalanceData.TP[dataItem.key].balance,
+                                    token: settings.tokens.TP[dataItem.key],
                                     decimals: 2,
                                     t: t,
                                     i18n: i18n,
@@ -510,14 +510,14 @@ export default function Tokens(props) {
                                 {!auth.contractStatusData.canOperate
                                     ? "--"
                                     : PrecisionNumbers({
-                                          amount: balanceUSD,
-                                          token: settings.tokens.TP[0],
-                                          decimals: 2,
-                                          t: t,
-                                          i18n: i18n,
-                                          ns: ns,
-                                          skipContractConvert: true,
-                                      })}
+                                        amount: balanceUSD,
+                                        token: settings.tokens.TP[dataItem.key],
+                                        decimals: 2,
+                                        t: t,
+                                        i18n: i18n,
+                                        ns: ns,
+                                        skipContractConvert: true,
+                                    })}
                                 <div className="token__label right">
                                     balance in usd
                                 </div>
@@ -529,7 +529,8 @@ export default function Tokens(props) {
         });
 
         count += 1;
-    }
+
+    })
     // #endregion TOKEN TP - ONLY FOR ROC
 
     // #region TF
