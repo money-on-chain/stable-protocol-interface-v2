@@ -210,7 +210,7 @@ const AuthenticateProvider = ({ children }) => {
     const [web3Error, setWeb3Error] = useState(false);
 
     async function loadCss() {
-        let css_logout = await import("../assets/css/logout.scss");
+        // let css_logout = await import("../assets/css/logout.scss");
     }
 
     useEffect(() => {

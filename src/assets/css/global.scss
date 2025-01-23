@@ -1,6 +1,509 @@
 // Variables
 $breakpoint-mobile: 600px;
 
+html {
+    scrollbar-color: var(--color-controls-foreground-on) transparent;
+    // Scrollbars customization for Firefox
+    scrollbar-gutter: stable both-edges;
+    scrollbar-width: thin;
+}
+
+html {
+    /* For browsers that support scrollbar-color */
+    scrollbar-color: var(--color-controls-foreground-on) transparent;
+    scrollbar-width: thin; /* For Firefox */
+}
+
+@supports (scrollbar-gutter: stable) {
+    html {
+        /* Ensures consistent scrollbar gutter spacing in supported browsers */
+        scrollbar-gutter: stable; /* Avoids 'both-edges' to prevent extra margins */
+    }
+}
+
+/* Custom styles for Chrome and other WebKit-based browsers */
+html::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the vertical scrollbar */
+    height: 8px; /* Adjust the height of the horizontal scrollbar */
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--color-controls-foreground-on); /* Thumb color */
+    border-radius: 4px; /* Optional: make the scrollbar thumb rounded */
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent; /* Track background */
+}
+
+/* Prevent any unexpected left margin in Chrome */
+html {
+    margin-left: 0; /* Ensures no additional margin is added */
+}
+
+/*
+    --- rLOGIN ---
+*/
+
+.rlogin-modal-container {
+    // Hide theme switcher
+    .rlogin-modal-close-button {
+        display: none;
+    }
+
+    .rlogin-modal-lightbox {
+        backdrop-filter: blur(5px) !important;
+    }
+
+    #theme-switcher {
+        display: var(--rlogin-themeswitcher-display) !important;
+    }
+
+    // Title bar (powerded by + RIF logo)
+    .rlogin-modal-header {
+        border-radius: var(--rlogin-border-radius) var(--rlogin-border-radius) 0
+            0 !important;
+        background-color: var(--rlogin-title-background-color) !important;
+
+        .sc-jJEKmz.jtUgPh {
+            color: var(--rlogin-poweredby-color);
+        }
+        .sc-hiSbEG.fFKpiV,
+        .sc-eBMEME,
+        .gKVFYd {
+            filter: var(--rlogin-logo-filter-color) !important;
+        }
+    }
+
+    // Provider buttons
+    .rlogin-provider-container {
+        box-shadow: var(--rlogin-provider-border-shadow);
+        background-color: var(--rlogin-provider-background-color) !important;
+    }
+
+    .rlogin-header3 {
+        color: var(--rlogin-content-txt-color) !important;
+        font-weight: 600 !important;
+        font-family: var(--main-font) !important;
+    }
+    // display none to avoid an extra gap when div is empty
+    // ONLY if there is NO custodial wallet support
+    .rlogin-providers-custodial {
+        display: none;
+    }
+
+    // Language dropdown
+    #languages {
+        background-color: transparent !important;
+    }
+
+    // Content card
+    .rlogin-modal-card {
+        backdrop-filter: blur(10px);
+        border-radius: var(--rlogin-border-radius) !important;
+        background-color: var(--rlogin-content-background-color) !important;
+        background-color: var(--rlogin-content-background-color) !important;
+
+        // Title
+        .rlogin-header2 {
+            margin: 24px 0 24px 0;
+            color: var(--rlogin-content-title-color) !important;
+            font-weight: 600 !important;
+            font-family: var(--brand-font) !important;
+        }
+    }
+
+    .rlogin-modal-body {
+        box-shadow: var(--rlogin-content-shadow-inset) !important;
+        border: 4px solid var(--rlogin-content-border-color) !important;
+        border-radius: 0 0 var(--rlogin-border-radius)
+            var(--rlogin-border-radius) !important;
+    }
+
+    .cUGxCk {
+        color: var(--rlogin-spinner-color) !important;
+    }
+
+    .sc-hmdomO,
+    .eakXkU {
+        box-shadow: var(--rlogin-provider-border-shadow);
+        background-color: var(--rlogin-provider-background-color) !important;
+        .icon {
+            width: 0;
+        }
+    }
+
+    button {
+        /*background-color: red;*/
+    }
+
+    .rlogin-button {
+        transition:
+            background-color 0.3s,
+            color 0.3s,
+            border-color 0.3s;
+        cursor: pointer;
+        box-shadow: var(--color-btn-primary-background-default-shadow);
+        border-width: 0px;
+        border-color: var(--color-btn-primary-txt-default);
+        border-radius: var(--btn-radius);
+        background-color: var(
+            --color-btn-primary-background-default
+        ) !important;
+        // width: var(--btn-width);
+        // height: var(--btn-height);
+        color: var(--color-btn-primary-txt-default);
+        font-weight: 700;
+        font-size: 18px;
+        font-family: var(--main-font);
+        text-align: center;
+    }
+
+    .rlogin-button:hover {
+        box-shadow: none;
+        background-color: var(
+            --color-btn-primary-background-disabled
+        ) !important;
+        color: var(--color-btn-primary-txt-disabled) !important;
+    }
+
+    .rlogin-button:hover,
+    .rlogin-button:focus {
+        border-color: var(--color-btn-primary-txt-hover) !important;
+        background: var(--color-btn-primary-background-hover) !important;
+        color: var(--color-btn-primary-txt-hover) !important;
+    }
+    .cancel {
+        box-shadow: var(--color-btn-secondary-background-default-shadow);
+        border: 2px solid var(--color-btn-secondary-txt-default);
+        background-color: var(
+            --color-btn-secondary-background-default
+        ) !important;
+        color: var(--color-btn-secondary-txt-default);
+    }
+
+    .kRsGLN {
+        // Wallet list row active/hover
+        background-color: var(--color-btn-primary-background-active) !important;
+        color: var(--color-btn-primary-txt-active);
+    }
+    .PSDUo:hover {
+        // Wallet list row hover (different class than active)
+
+        background-color: var(--color-btn-primary-background-hover) !important;
+        color: var(--color-btn-primary-txt-active) !important;
+    }
+    .jfpzdm {
+        // Wallet list pagination buttons
+        margin-right: 8px;
+        margin-left: 8px;
+        padding: 2px 32px;
+        border: 2px solid var(--color-btn-secondary-txt-default);
+        border-color: var(--color-btn-secondary-txt-default) !important;
+        background-color: var(
+            --color-btn-secondary-background-default
+        ) !important;
+        color: var(--color-btn-secondary-txt-default);
+    }
+    .jfpzdm:hover {
+        // Wallet list pagination buttons
+        margin-right: 8px;
+        margin-left: 8px;
+        border: 2px solid var(--color-btn-secondary-txt-default);
+        border-color: var(--color-btn-secondary-txt-default) !important;
+        background-color: var(
+            --color-btn-secondary-background-default
+        ) !important;
+        color: var(--color-btn-secondary-txt-default);
+    }
+}
+
+/*
+    --- Modals ---
+*/
+
+.ant-modal-close-x {
+    color: var(--color-txt-primary) !important;
+    font-size: 21px !important;
+}
+
+.ant-modal-title,
+.ant-modal-close {
+    color: white !important;
+    text-align: center;
+}
+
+/*
+    --- Last Operations Table ---
+*/
+
+.last-operations-table {
+    .ant-table-tbody > tr > td {
+        border-bottom: none !important;
+        padding: 10px 0px !important;
+    }
+}
+
+.NotificationMigration {
+    border-radius: var(--card-border-radius);
+}
+
+.input-amount-container {
+}
+
+.SelectCurrency {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .ant-select {
+        width: 100%;
+    }
+
+    .ant-select-selection-item {
+        display: flex;
+        height: 100%;
+    }
+    .ant-select-selector {
+        border-radius: 0 !important;
+        padding-left: 0px !important;
+        height: 48px !important;
+    }
+    &.disabled {
+        cursor: not-allowed;
+        .ant-select-selection-item {
+            position: absolute;
+            right: 10px;
+            padding-right: 0;
+        }
+        .ant-select-arrow {
+            display: none;
+        }
+    }
+    .ant-select-arrow {
+        color: var(--color-controls-foreground-on) !important;
+        font-weight: 700;
+    }
+}
+
+.ant-select-selector {
+    border: none !important;
+    background-color: transparent !important;
+    padding: 0;
+    color: var(--color-txt-primary) !important;
+}
+
+.tokens-list-table {
+    .ant-table-tbody > tr > td {
+        border-bottom: none !important;
+        padding: 10px 0px !important;
+    }
+}
+
+/*
+    --- Staking ---
+*/
+
+.Staking {
+    .input-amount-container {
+        // width: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // padding: 4px 7px;
+        // background-color: var(--color-controls-background);
+
+        // .title-balance-container {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: center;
+        //     margin-bottom: 5px;
+        //     color: var(-color-txt-secondary);
+        // }
+
+        // .input-title {
+        //     font-size: 8px;
+        //     font-weight: 600;
+        //     font-family: var(--main-font);
+        //     text-transform: uppercase;
+        // }
+
+        // .input-field-container {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
+        //     flex-grow: 1;
+        // }
+
+        // .input-value {
+        //     text-align: left; /* Alinear texto a la izquierda */
+        //     flex-grow: 1;
+        //     background-color: transparent;
+        //     padding-left: 2px !important;
+        //     border: none;
+        // }
+
+        .max-button {
+            cursor: pointer;
+            margin-bottom: 3px;
+            margin-left: 15px;
+            border: 1px solid var(--color-btn-secondary-txt-default);
+            border-radius: 4px;
+            background-color: transparent; /* Ajusta según sea necesario */
+            padding-left: 5px;
+            width: 39px;
+            height: 17px;
+            color: var(--color-btn-secondary-txt-default);
+            font-weight: 800;
+            font-size: 11px;
+            line-height: 0px;
+            font-family: var(--main-font);
+            letter-spacing: 0.2px;
+            text-align: center;
+        }
+
+        .max-button:hover {
+            border-color: var(--color-btn-secondary-txt-hover);
+            color: var(--color-btn-secondary-txt-hover);
+        }
+
+        // .input-balance {
+        //     text-align: right; /* Alinear a la derecha dentro del contenedor */
+        //     font-family: var(--main-font);
+        //     font-size: 10px;
+        //     font-weight: 600;
+        //     line-height: 14px;
+        //     letter-spacing: 0px;
+        // }
+    }
+}
+
+/* #section ACCOUNT MODAL */
+.ModalAccount {
+    width: 625px !important;
+    .ant-modal-content {
+    }
+    .ant-modal-body {
+        width: 100%;
+    }
+    .wallet__columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        .tx-id-address {
+            flex-direction: row;
+            width: 100%;
+        }
+    }
+    .switch__vesting {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    .ant-switch-checked {
+        background-color: var(--color-controls-background);
+    }
+    .ant-switch {
+        background-color: var(--color-controls-background);
+        .ant-switch-handle::before {
+            background-color: var(--color-controls-foreground-off);
+        }
+    }
+    .ant-switch-checked {
+        .ant-switch-handle::before {
+            background-color: var(--color-controls-active);
+        }
+    }
+    .ant-switch:focus {
+        box-shadow: none;
+    }
+    .wallet__vesting__options {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border: 1px solid var(--dividers);
+        border-radius: var(--card-border-radius);
+        padding: 16px 32px;
+        color: var(--color-txt-primary);
+        .wallet__vesting__address__label {
+        }
+        .ant-select-arrow {
+            color: var(--color-controls-foreground-on);
+        }
+        .wallet__vesting__address__dropdown {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            color: var(--color-dropdown-txt-default) !important;
+
+            .ant-select-selector {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 100%;
+                color: var(--color-dropdown-txt-default) !important;
+            }
+        }
+
+        .wallet__vesting__address__input,
+        input {
+            border: none;
+            background-color: var(--color-controls-background);
+            width: 100%;
+            height: 46px;
+            color: var(--color-txt-primary);
+        }
+        .wallet__vesting__address__input:focus {
+            box-shadow: none;
+        }
+        .wallet__vesting__address__selector {
+            background-color: var(--color-controls-background);
+            width: 100%;
+            height: 46px;
+        }
+    }
+    .wallet__vesting__options__cta {
+        display: flex;
+        flex-direction: column;
+    }
+    .wallet__vesting__options__buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-top: 16px;
+        margin-bottom: 32px;
+        width: 100%;
+        .button__small {
+            box-shadow: none;
+            border-width: 1px;
+            border-radius: var(--btn-radius-tiny);
+            padding-right: 32px;
+            padding-left: 32px;
+            width: auto;
+            height: 22px;
+            font-size: 12px;
+            line-height: 1;
+        }
+    }
+    .wallet__vesting__options__explanation {
+        color: var(--color-txt-secondary);
+        font-size: 12px;
+        line-height: 1.2;
+    }
+}
+
+/* #endsection ACCOUNT MODAL */
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
