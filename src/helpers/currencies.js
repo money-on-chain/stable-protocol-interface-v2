@@ -10,13 +10,13 @@ import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 
 const currencies = [
-    { value: 'CA_0', image: <LogoIconCA_0 className="token__icon" /> },
-    { value: 'CA_1', image: <LogoIconCA_1 className="token__icon" /> },
-    { value: 'TC', image: <LogoIconTC className="token__icon" /> },
     {
         value: 'COINBASE',
         image: <LogoIconCOINBASE className="token__icon" />
     },
+    { value: 'CA_0', image: <LogoIconCA_0 className="token__icon" /> },
+    { value: 'CA_1', image: <LogoIconCA_1 className="token__icon" /> },
+    { value: 'TC', image: <LogoIconTC className="token__icon" /> },
     { value: 'TP_0', image: <LogoIconTP_0 className="token__icon" /> },
     { value: 'TP_1', image: <LogoIconTP_1 className="token__icon" /> },
     { value: 'TF', image: <LogoIconTG_0 className="token__icon" /> },

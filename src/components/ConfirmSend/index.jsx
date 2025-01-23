@@ -113,9 +113,6 @@ export default function ConfirmSend(props) {
         onCloseModal();
     };
 
-    console.log('DEBUG');
-    console.log(currencyYouExchange);
-
     return (
         <div className="confirm-operation">
             {/* <div className="exchange"> */}

@@ -25,12 +25,10 @@ export default function Send() {
     const auth = useContext(AuthenticateContext);
 
     const tokenSend = tokenExchange();
-
     // Add Token Govern
     tokenSend.push("TG");
-
-    // Add Coinbase
-    tokenSend.push("COINBASE");
+    // Add Coinbase support at index 0
+    tokenSend.splice(0, 0, "COINBASE");
 
     const defaultTokenSend = tokenSend[0];
     const [currencyYouSend, setCurrencyYouSend] = useState(defaultTokenSend);

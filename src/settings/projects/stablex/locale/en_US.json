@@ -96,6 +96,10 @@
 
     "exchange": {
         "tokens": {
+            "COINBASE": {
+                "label": "Ethereum",
+                "abbr": "ETH"
+            },
             "CA_0": {
                 "label": "Ethereum",
                 "abbr": "ETH"
@@ -107,10 +111,6 @@
             "TP_0": {
                 "label": "USDX",
                 "abbr": "USDX"
-            },
-            "COINBASE": {
-                "label": "rBTC",
-                "abbr": "RBTC"
             },
             "TF": {
                 "label": "StableX",
@@ -293,6 +293,10 @@
 
     "send": {
         "tokens": {
+            "COINBASE": {
+                "label": "Ethereum",
+                "abbr": "ETH"
+            },
             "CA_0": {
                 "label": "Ethereum",
                 "abbr": "ETH"
@@ -304,10 +308,6 @@
             "TP_0": {
                 "label": "USDX",
                 "abbr": "USDX"
-            },
-            "COINBASE": {
-                "label": "Smart Bitcoin",
-                "abbr": "RBTC"
             },
             "TF": {
                 "label": "StableX",
