@@ -56,7 +56,7 @@ export default function Tokens(props) {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price = ConvertPeggedTokenPrice(auth, price)
+            price = ConvertPeggedTokenPrice(auth, dataItem.key, price)
             const balanceUSD = balance.div(price);
 
             // variation
@@ -66,7 +66,7 @@ export default function Tokens(props) {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            priceHistory = ConvertPeggedTokenPrice(auth, priceHistory)
+            priceHistory = ConvertPeggedTokenPrice(auth, dataItem.key, priceHistory)
 
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);

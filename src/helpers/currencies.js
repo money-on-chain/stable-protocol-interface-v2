@@ -90,20 +90,17 @@ function TokenBalance(auth, tokenName) {
     return balance;
 }
 
-function ConvertPeggedTokenPrice(auth, price) {
-    switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-        case 'flipmoney':
-            const priceCA = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_CA[0],
-                    settings.tokens.CA[0].decimals
-                )
-            );
-            return price.div(priceCA);
-        case 'roc':
-            return price;
-        default:
-            return price;
+function ConvertPeggedTokenPrice(auth, tpIndex, price) {
+    if (settings.tokens.TP[tpIndex].peggedUSD) {
+        return price
+    } else {
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+        return price.div(priceCA);
     }
 }
 

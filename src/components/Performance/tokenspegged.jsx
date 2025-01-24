@@ -79,7 +79,7 @@ export default function TokensPegged() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price = ConvertPeggedTokenPrice(auth, price);
+            price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
 
             tokensData.push({
                 key: dataItem.key,
