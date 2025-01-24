@@ -870,16 +870,6 @@ export default function ListOperations(props) {
                 };
         }
     }
-    const getClassName = () => {
-        switch (process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
-            case "flipmoney":
-                return "custom-table";
-            case "roc":
-                return "custom-table-light";
-            default:
-                return "custom-table";
-        }
-    };
     const showModal = () => {
         setQueueModal(true);
     };
@@ -916,7 +906,7 @@ export default function ListOperations(props) {
             {ready ? (
                 <>
                     <Table
-                        className={`vertical-middle custom-border-spacing-table ${getClassName()}`}
+                        className={'vertical-middle custom-border-spacing-table custom-table'}
                         showHeader={false}
                         expandable={{
                             expandedRowKeys: expandedKeys,

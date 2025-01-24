@@ -122,8 +122,7 @@ export default function TokensPeggedMobile() {
                 ),
                 tokens_per_usd: (
                     <div>
-                        {settings.project !== 'roc'
-                            ? !auth.contractStatusData.canOperate
+                        { !auth.contractStatusData.canOperate
                                 ? '--'
                                 : PrecisionNumbers({
                                       amount: price,
@@ -134,7 +133,7 @@ export default function TokensPeggedMobile() {
                                       ns: ns,
                                       skipContractConvert: true
                                   })
-                            : 1}
+                         }
                     </div>
                 ),
                 minted: (
