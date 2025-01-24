@@ -3,8 +3,6 @@ import getRLogin from "../lib/rLogin";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
 
-import addressHelper from "../helpers/addressHelper";
-
 import {
     ApproveTokenContract,
     exchangeMethod,
@@ -61,7 +59,6 @@ import {
     unRegister,
 } from "../lib/backend/omoc/voting";
 
-const helper = addressHelper(Web3);
 
 BigNumber.config({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
@@ -585,13 +582,6 @@ const AuthenticateProvider = ({ children }) => {
             transactionReceipt = true;
         }
         return transactionReceipt;
-    };
-
-    const toCheckSumAddress = (address) => helper.toCheckSumAddress(address);
-
-    const isCheckSumAddress = (address) => {
-        if (address === undefined) return false;
-        return helper.isValidAddressChecksum(address);
     };
 
     const interfaceGasPrice = async () => {
