@@ -25,7 +25,7 @@ export default function Tokens(props) {
     const columnsData = [{ title: 'Token', dataIndex: 'details' }];
 
     // Columns
-    // ProvideColumnsTP().forEach(function (dataItem) {
+    // ProvideColumnsTP.forEach(function (dataItem) {
     //     columnsData.push({
     //         title: t(`portfolio.tokens.TP.columns.${dataItem.dataIndex}`, {
     //             ns: ns

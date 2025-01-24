@@ -326,7 +326,7 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            {settings.project !== "roc" && (
+            {typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined' && (
                 <div className="switch switch__vesting">
                     <Switch
                         checked={vestingOn}

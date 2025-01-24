@@ -242,12 +242,7 @@ export default function ConfirmSend(props) {
                         <div className="cta-options-group">
                             <button
                                 type="primary"
-                                className={
-                                    process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ===
-                                    'roc'
-                                        ? 'button secondary'
-                                        : 'button secondary'
-                                }
+                                className="button secondary"
                                 onClick={onClose}
                             >
                                 {t('send.buttonClose')}

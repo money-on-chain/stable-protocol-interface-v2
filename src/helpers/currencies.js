@@ -259,7 +259,6 @@ const AmountToVisibleValue = (
     decimals,
     amountInWei = true
 ) => {
-    console.log('tokenname is ', tokenName);
     const tokenSettings = TokenSettings(tokenName);
 
     let amount;

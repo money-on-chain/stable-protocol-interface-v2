@@ -42,7 +42,7 @@ export default function Tokens(props) {
         cssClass: ["display-inline"],
     });
     // Columns
-    ProvideColumnsCA().forEach(function (dataItem) {
+    ProvideColumnsCA.forEach(function (dataItem) {
         columnsData.push({
             title: t(`portfolio.tokens.CA.columns.${dataItem.dataIndex}`, {
                 ns: ns,
