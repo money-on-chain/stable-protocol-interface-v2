@@ -2,8 +2,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 import React from 'react';
 import CompletedBar from './CompletedBar';
 import BigNumber from 'bignumber.js';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { TokenSettings } from '../../helpers/currencies';
 import ProposalStats from './ProposalStats';
 
 function CreateBarGraph(props) {

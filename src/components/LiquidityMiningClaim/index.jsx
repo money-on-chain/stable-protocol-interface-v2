@@ -1,14 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
-import { pendingWithdrawalsFormat, tokenStake } from '../../helpers/staking';
-import BigNumber from 'bignumber.js';
 import { Button } from 'antd';
 import PerformanceChart from '../Staking/performanceChart';
 import { AuthenticateContext } from '../../context/Auth';
 import LiquidityMiningClaims from '../Tables/LiquidityMiningClaims';
-import Web3 from 'web3';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import { TokenSettings } from '../../helpers/currencies';
 import './Styles.scss';
 
 export default function LiquidityMiningClaim(props) {

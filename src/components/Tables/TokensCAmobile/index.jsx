@@ -7,8 +7,8 @@ import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import { ProvideColumnsCA } from "../../../helpers/tokensTables";
 import NumericLabel from "react-pretty-numbers";
+
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();

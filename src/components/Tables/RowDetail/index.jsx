@@ -1,7 +1,6 @@
 import React from 'react';
 import { useProjectTranslation } from '../../../helpers/translations';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import settings from '../../../settings/settings.json';
+
 
 function RowDetail(props) {
     const [t, i18n, ns] = useProjectTranslation();

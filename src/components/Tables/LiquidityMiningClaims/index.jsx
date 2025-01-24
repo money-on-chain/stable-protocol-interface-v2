@@ -1,22 +1,10 @@
 import React, { useContext } from 'react';
 import { Row, Table } from 'antd';
-import BigNumber from 'bignumber.js';
 
 import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import './Styles.scss';
 
-const precision = (contractDecimals) =>
-    new BigNumber(10).exponentiatedBy(contractDecimals);
-
-const formatVisibleValue = (amount, decimals) => {
-    return BigNumber(amount)
-        .div(precision(18))
-        .toFormat(decimals, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
-        });
-};
 
 export default function LiquidityMiningClaims(props) {
     const [t] = useProjectTranslation();

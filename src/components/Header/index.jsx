@@ -7,8 +7,7 @@ import { AuthenticateContext } from "../../context/Auth";
 import DappVersion from "../DappVersion";
 import ThemeMode from "../ThemeMode";
 import settings from "../../settings/settings.json";
-import menuOptionsData from "./menuOptions.json"; // Importamos el JSON
-
+import menuOptionsData from "./menuOptions.json";
 import Brand from "./Brand";
 
 import "./Styles.scss";

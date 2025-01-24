@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, Button, notification, Space, Input } from "antd";
+import { Input } from "antd";
 import VestingSchedule from "../../components/Tables/VestingSchedule";
 import settings from "../../settings/settings.json";
 import { useProjectTranslation } from "../../helpers/translations";

@@ -3,8 +3,8 @@ import Modal from 'antd/lib/modal/Modal';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import Swap from '../Swap';
-import { Button } from 'antd';
 import './style.scss';
+
 
 export default function ModalTokenMigration(props) {
     const [visible, setVisible] = useState(false);

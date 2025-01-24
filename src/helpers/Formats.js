@@ -20,13 +20,8 @@ const fromContractPrecisionDecimals = (amount, decimals) => {
     return new BigNumber(amount).div(new BigNumber(10).exponentiatedBy(decimals));
 };
 
-const formatLocalMap2 = {
-    es: 'es',
-    en: 'en'
-};
 
 export { 
     formatLocalMap, 
-    fromContractPrecisionDecimals, 
-    formatLocalMap2 
+    fromContractPrecisionDecimals
 };

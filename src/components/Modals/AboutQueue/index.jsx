@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Modal from 'antd/lib/modal/Modal';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Image, Skeleton, Table } from 'antd';
+import { Skeleton, Table } from 'antd';
 import Moment from 'react-moment';
 import moment from 'moment-timezone';
 
@@ -8,7 +8,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
-import ActionIcon from '../../assets/icons/Action.svg';
 import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
 import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
 

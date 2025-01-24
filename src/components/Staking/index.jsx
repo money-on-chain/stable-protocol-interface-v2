@@ -11,7 +11,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import Web3 from 'web3';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { TokenSettings } from '../../helpers/currencies';
-import LastStakeOperations from '../../components/Staking/LastStakeOperations';
+
 
 const withdrawalStatus = {
     pending: 'PENDING',

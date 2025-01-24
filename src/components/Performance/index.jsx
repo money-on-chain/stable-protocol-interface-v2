@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Col, Row } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';

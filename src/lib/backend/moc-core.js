@@ -7,7 +7,6 @@ import {
     getGasPrice,
     fromContractPrecisionDecimals
 } from './utils';
-import { ConvertAmount } from '../../helpers/currencies';
 
 
 const mintTC = async (

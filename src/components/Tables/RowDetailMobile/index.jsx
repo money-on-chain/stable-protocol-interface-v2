@@ -1,8 +1,8 @@
 import React from 'react';
 import { useProjectTranslation } from '../../../helpers/translations';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import settings from '../../../settings/settings.json';
+
 import './Styles.scss';
+
 
 function ItemData(props) {
     const [t, i18n, ns] = useProjectTranslation();

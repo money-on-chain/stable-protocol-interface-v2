@@ -7,7 +7,6 @@ import { useProjectTranslation } from '../../helpers/translations';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import {
-    ConvertAmount,
     TokenSettings,
     TokenBalance
 } from '../../helpers/currencies';
@@ -15,7 +14,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
 import ModalAllowanceOperation from '../Modals/Allowance';
 import CopyAddress from '../CopyAddress';
-import settings from '../../settings/settings.json';
+
 
 const { Panel } = Collapse;
 

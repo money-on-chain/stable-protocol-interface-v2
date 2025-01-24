@@ -1,6 +1,4 @@
-import { DebounceInput } from 'react-debounce-input';
 import React, { Component } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
 
 export default class InputAmount extends Component {
     constructor(props) {

@@ -2,7 +2,6 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BalanceBar from './BalanceBar';
-import ProposalStats from './ProposalStats';
 import { AuthenticateContext } from '../../context/Auth';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 import { PrecisionNumbers } from '../PrecisionNumbers';

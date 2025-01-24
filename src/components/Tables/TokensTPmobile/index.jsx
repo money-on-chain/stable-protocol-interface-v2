@@ -7,8 +7,8 @@ import { AuthenticateContext } from '../../../context/Auth';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import settings from '../../../settings/settings.json';
-import { ProvideColumnsTP } from '../../../helpers/tokensTables';
 import { ConvertPeggedTokenPrice } from '../../../helpers/currencies';
+
 
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();

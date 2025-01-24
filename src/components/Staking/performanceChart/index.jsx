@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Tabs } from 'antd';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import './Styles.scss';
+
+
 export default function PerformanceChart(props) {
     const [percent, setPercent] = useState(0);
     const [t, i18n, ns] = useProjectTranslation();

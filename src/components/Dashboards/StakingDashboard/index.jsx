@@ -4,15 +4,7 @@ import { PrecisionNumbers } from '../../PrecisionNumbers';
 import settings from '../../../settings/settings.json';
 
 import { pendingWithdrawalsFormat } from '../../../helpers/staking';
-
-import {
-    TokenSettings,
-    AmountToVisibleValue
-} from '../../../helpers/currencies';
-import { tokenStake } from '../../../helpers/staking';
-import { fromContractPrecisionDecimals } from '../../../helpers/Formats';
 import { AuthenticateContext } from '../../../context/Auth';
-
 import { useProjectTranslation } from '../../../helpers/translations';
 
 const withdrawalStatus = {
