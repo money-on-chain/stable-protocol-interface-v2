@@ -1559,6 +1559,7 @@ h2 {
     padding-left: 2px !important;
     color: var(--color-txt-primary);
     text-align: left;
+    max-width: 224px;
 }
 .amountInput__amount::placeholder {
     color: var(--color-txt-secondary);
