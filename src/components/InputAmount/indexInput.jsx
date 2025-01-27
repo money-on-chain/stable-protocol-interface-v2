@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
+import React, { useState, useRef, useEffect } from "react";
+import { useProjectTranslation } from "../../helpers/translations";
 
 const InputAmount = (props) => {
     const [t, i18n, ns] = useProjectTranslation();
 
     const inputRef = useRef(null);
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
     const {
         balanceText,
         action,
@@ -14,31 +14,31 @@ const InputAmount = (props) => {
         inputValue,
         onValueChange,
         setAddTotalAvailable,
-        validateError
+        validateError,
     } = props;
 
     useEffect(() => {
         const handleWheel = (event) => {
-            console.log('Wheel event triggered');
+            console.log("Wheel event triggered");
             event.preventDefault();
         };
 
         const inputElement = inputRef.current;
         if (inputElement) {
-            inputElement.addEventListener('wheel', handleWheel, {
-                passive: false
+            inputElement.addEventListener("wheel", handleWheel, {
+                passive: false,
             });
         }
 
         return () => {
             if (inputElement) {
-                inputElement.removeEventListener('wheel', handleWheel);
+                inputElement.removeEventListener("wheel", handleWheel);
             }
         };
     }, []);
 
     const isValidNumber = (value) => {
-        const num = value.replace(',', '.');
+        const num = value.replace(",", ".");
         return !isNaN(num);
     };
 
@@ -47,21 +47,21 @@ const InputAmount = (props) => {
         if (value.length > 20) {
             return;
         }
-        if (value.startsWith('.')) {
+        if (value.startsWith(".")) {
             formattedValue = `0${value}`;
         }
 
-        if (formattedValue === '') {
-            if (formattedValue.includes(',')) {
-                formattedValue = formattedValue.replace(/,/g, '');
+        if (formattedValue === "") {
+            if (formattedValue.includes(",")) {
+                formattedValue = formattedValue.replace(/,/g, "");
                 onValueChange(formattedValue);
             } else {
-                onValueChange('');
+                onValueChange("");
             }
         } else if (isValidNumber(formattedValue)) {
-            onValueChange(formattedValue.replace(',', '.'));
+            onValueChange(formattedValue.replace(",", "."));
         } else {
-            onValueChange('');
+            onValueChange("");
         }
     };
     return (
@@ -82,14 +82,14 @@ const InputAmount = (props) => {
                     onChange={(event) => {
                         handleValueChange(event.target.value);
                     }}
-                    className={`amountInput__value ${validateError ? 'amountInput__feedback--error' : ''}`}
+                    className={`amountInput__value ${validateError ? "amountInput__feedback--error" : ""}`}
                     // type={'number'}
                 />
                 <button
                     className="amountInput__maxButton"
                     onClick={setAddTotalAvailable}
                 >
-                    {t('button.inputMaxValue')}
+                    {t("button.inputMaxValue")}
                 </button>
             </div>
         </div>
