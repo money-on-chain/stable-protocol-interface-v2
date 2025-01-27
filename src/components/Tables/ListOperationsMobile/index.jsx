@@ -462,7 +462,7 @@ export default function ListOperations(props) {
                                                 t: t,
                                                 i18n: i18n,
                                                 ns: ns,
-                                            })}
+                                            })}{" "}
                                         </div>
                                     </div>
                                     <div className="lastOp__detail__token__container">

@@ -15,7 +15,7 @@ import settings from "../../settings/settings.json";
 import { PrecisionNumbers } from "../PrecisionNumbers";
 import { AuthenticateContext } from "../../context/Auth";
 
-import InputAmount from "../InputAmount/indexInput";
+import InputAmount from "../InputAmount";
 import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import ModalConfirmSend from "../Modals/ConfirmSend";
@@ -248,7 +248,6 @@ export default function Send() {
                                     {t("send.labelDestination")}
                                 </div>
                             </div>
-
                             <Input
                                 type="text"
                                 placeholder={t("send.placeholder")}

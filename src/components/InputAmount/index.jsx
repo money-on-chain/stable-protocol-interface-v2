@@ -1,77 +1,100 @@
-import { DebounceInput } from 'react-debounce-input';
-import React, { Component } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
+import React, { useState, useRef, useEffect } from "react";
+import { useProjectTranslation } from "../../helpers/translations";
 
-export default class InputAmount extends Component {
-    constructor(props) {
-        super(props);
-        this.inputRef = React.createRef();
-    }
+const InputAmount = (props) => {
+    const [t, i18n, ns] = useProjectTranslation();
 
-    componentDidMount() {
-        if (this.inputRef.current) {
-            this.inputRef.current.addEventListener('wheel', this.handleWheel, {
-                passive: false
+    const inputRef = useRef(null);
+    const [value, setValue] = useState("");
+    const {
+        balanceText,
+        action,
+        balance,
+        placeholder,
+        inputValue,
+        onValueChange,
+        setAddTotalAvailable,
+        validateError,
+    } = props;
+
+    useEffect(() => {
+        const handleWheel = (event) => {
+            console.log("Wheel event triggered");
+            event.preventDefault();
+        };
+
+        const inputElement = inputRef.current;
+        if (inputElement) {
+            inputElement.addEventListener("wheel", handleWheel, {
+                passive: false,
             });
         }
-    }
 
-    componentWillUnmount() {
-        if (this.inputRef.current) {
-            this.inputRef.current.removeEventListener(
-                'wheel',
-                this.handleWheel
-            );
-        }
-    }
+        return () => {
+            if (inputElement) {
+                inputElement.removeEventListener("wheel", handleWheel);
+            }
+        };
+    }, []);
 
-    handleWheel = (event) => {
-        event.preventDefault();
+    const isValidNumber = (value) => {
+        const num = value.replace(",", ".");
+        return !isNaN(num);
     };
 
-    render() {
-        return (
-            <div className="amountInput">
-                <div className="amountInput__infoBar">
-                    <div className="amountInput__label">
-                        {this.props.action}
-                    </div>
-                    <span className="amountInput__available">
-                        {`${this.props.balanceText}: `}
-                        {this.props.balance}
-                    </span>
-                </div>
+    const handleValueChange = (value) => {
+        let formattedValue = value;
+        if (value.length > 20) {
+            return;
+        }
+        if (value.startsWith(".")) {
+            formattedValue = `0${value}`;
+        }
+
+        if (formattedValue === "") {
+            if (formattedValue.includes(",")) {
+                formattedValue = formattedValue.replace(/,/g, "");
+                onValueChange(formattedValue);
+            } else {
+                onValueChange("");
+            }
+        } else if (isValidNumber(formattedValue)) {
+            onValueChange(formattedValue.replace(",", "."));
+        } else {
+            onValueChange("");
+        }
+    };
+    return (
+        <div className="amountInput">
+            <div className="amountInput__infoBar">
+                <div className="amountInput__label">{action}</div>
+                <span className="amountInput__available">
+                    {`${balanceText}: `}
+                    {balance}
+                </span>
+            </div>
+            <div className="amountInput__inputBar">
                 <div className="amountInput__amount">
                     <input
-                        ref={this.inputRef}
-                        placeholder={this.props.placeholder}
-                        // value={this.props.InputValue}
-                        value={
-                            this.props.isDirty
-                                ? null
-                                : this.props.InputValue === 0
-                                  ? ''
-                                  : this.props.InputValue
-                        }
-                        // debounceTimeout={1000}
+                        ref={inputRef}
+                        placeholder={placeholder}
+                        value={inputValue}
+                        inputMode="decimal"
                         onChange={(event) => {
-                            console.log(
-                                'event.target.value',
-                                event.target.value
-                            );
-                            this.props.onValueChange(event.target.value);
+                            handleValueChange(event.target.value);
                         }}
-                        className={`amountInput__value ${this.props.validateError ? 'amountInput__feedback--error' : ''}`}
-                        type={'number'}
+                        className={`amountInput__value ${validateError ? "amountInput__feedback--error" : ""}`}
                     />
-                    <button
-                        className="amountInput__maxButton"
-                        onClick={this.props.setAddTotalAvailable}
-                    >
-                        {/* {t('button.inputMaxValue')} */}
-                    </button>
                 </div>
+                <button
+                    className="amountInput__maxButton"
+                    onClick={setAddTotalAvailable}
+                >
+                    {t("button.inputMaxValue")}
+                </button>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+export default InputAmount;
