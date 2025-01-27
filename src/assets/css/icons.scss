@@ -35,7 +35,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url("../ui/feedbackSignWallet.svg");
+    background-image: url("../icons/feedback-icons/feedbackSignWallet.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-neutral);
@@ -45,7 +45,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url("../ui/feedbackWaiting.svg");
+    background-image: url("../icons/feedback-icons/feedbackWaiting.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-neutral);
@@ -54,7 +54,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-tx-success {
     width: 32px;
     height: 32px;
-    background-image: url("../ui/feedbackSuccess.svg");
+    background-image: url("../icons/feedback-icons/feedbackSuccess.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
@@ -64,7 +64,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url("../ui/feedbackError.svg");
+    background-image: url("../icons/feedback-icons/feedbackError.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
@@ -74,7 +74,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url("../ui/feedbackWaiting.svg");
+    background-image: url("../icons/feedback-icons/feedbackWaiting.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--color-icon-link-filter);
