@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useProjectTranslation } from "../../helpers/translations";
+import "./Styles.scss";
 
 const InputAmount = (props) => {
     const [t, i18n, ns] = useProjectTranslation();

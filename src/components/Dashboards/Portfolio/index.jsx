@@ -12,8 +12,8 @@ import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
 
-
 export default function Portfolio() {
+    const space = "\u00A0";
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
@@ -147,6 +147,7 @@ export default function Portfolio() {
                                       ns: ns,
                                       skipContractConvert: true,
                                   })}
+                            {space}
                             {t("portfolio.totalCurrency")}
                         </div>
                         <div className="tokens-list-header-balance-title">
