@@ -30,6 +30,33 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     filter: var(--color-icon-primary);
 }
+.icon-tx-inProgress {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackInProgress.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
+.icon-tx-checkUnchecked {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackCheckUnchecked.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
+.icon-tx-checkChecked {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackCheckChecked.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
 
 .icon-tx-signWallet {
     display: block;

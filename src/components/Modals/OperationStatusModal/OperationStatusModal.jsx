@@ -1,8 +1,8 @@
-import Modal, { Fragment } from 'antd/lib/modal/Modal';
-import React from 'react';
+import Modal, { Fragment } from "antd/lib/modal/Modal";
+import React from "react";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import CopyAddress from '../../CopyAddress';
+import { useProjectTranslation } from "../../../helpers/translations";
+import CopyAddress from "../../CopyAddress";
 
 const OperationStatusModal = ({
     className,
@@ -10,58 +10,58 @@ const OperationStatusModal = ({
     onCancel,
     title,
     operationStatus,
-    txHash
+    txHash,
 }) => {
     const [t] = useProjectTranslation();
 
-    let sentIcon = '';
-    let statusLabel = '';
+    let sentIcon = "";
+    let statusLabel = "";
     switch (operationStatus) {
-        case 'sign':
-            sentIcon = 'icon-tx-signWallet';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+        case "sign":
+            sentIcon = "icon-tx-signWallet";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_sign");
             break;
-        case 'pending':
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_pending');
+        case "pending":
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_pending");
             break;
-        case 'success':
-            sentIcon = 'icon-tx-success';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_success');
+        case "success":
+            sentIcon = "icon-tx-success";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_success");
             break;
-        case 'error':
-            sentIcon = 'icon-tx-error';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_failed');
+        case "error":
+            sentIcon = "icon-tx-error";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_failed");
             break;
         default:
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_sign");
     }
 
     return (
         <Modal
-            className={'OperationStatusModal ' + className || ''}
+            className={"OperationStatusModal " + className || ""}
             footer={null}
             open={visible}
             onCancel={onCancel}
         >
-            <h1 className={'StakingOptionsModal_Title'}>
-                {title || t('staking.modal.StatusModal_Modal_Title')}
+            <h1 className={"StakingOptionsModal_Title"}>
+                {title || t("staking.modal.StatusModal_Modal_Title")}
             </h1>
 
             <div className="tx-amount-group">
                 <div className="tx-id-container">
                     <div className="tx-id-data">
-                        {(operationStatus === 'pending' ||
-                            operationStatus === 'success') && (
+                        {(operationStatus === "pending" ||
+                            operationStatus === "success") && (
                             <div className="transaction-id tx-id-container">
                                 <div className="tx-id-label">
-                                    {t('txFeedback.txIdLabel')}
+                                    {t("txFeedback.txIdLabel")}
                                 </div>
                                 <div className="tx-id-address">
                                     <CopyAddress
                                         address={txHash}
-                                        type={'tx'}
+                                        type={"tx"}
                                     ></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
@@ -74,7 +74,7 @@ const OperationStatusModal = ({
                 </div>
 
                 <div className="cta-container">
-                    {' '}
+                    {" "}
                     <div className="tx-feedback-container">
                         <div className="tx-feedback-icon tx-logo-status">
                             <div className={sentIcon}></div>
@@ -86,7 +86,7 @@ const OperationStatusModal = ({
                         className="button secondary"
                         onClick={onCancel}
                     >
-                        {t('staking.modal.StatusModal_Modal_Close')}
+                        {t("staking.modal.StatusModal_Modal_Close")}
                     </button>
                 </div>
             </div>

@@ -1440,7 +1440,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     border-radius: var(--card-border-radius);
-    gap: 8px;
+    gap: 2px;
     width: 100%;
     // padding: 32px;
 }
@@ -1601,6 +1601,8 @@ h2 {
         // For information about the fees
         margin-top: 4px;
         color: var(--color-txt-secondary);
+        font-size: 11px;
+        line-height: 1.1;
     }
 }
 
