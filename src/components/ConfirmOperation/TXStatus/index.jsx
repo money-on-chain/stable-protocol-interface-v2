@@ -4,13 +4,13 @@ import "./Styles.scss";
 export default function TXStatus({ statusData, statusLabels }) {
     const { status } = statusData;
 
-    // Lista de pasos en el orden correcto
+    // List of steps in order
     const steps = ["SIGN", "QUEUING", "QUEUED", "SUCCESS"];
 
-    // Obtener el índice del paso actual
+    // Get the index of the current step
     const stepIndex = steps.indexOf(status);
 
-    // Mapeo de estados a clases de iconos
+    // Mapping of statuses to icon classes
     const statusIcons = {
         SIGN: "icon-tx-signWallet",
         QUEUING: "icon-operation-tx-queuing",
@@ -22,27 +22,28 @@ export default function TXStatus({ statusData, statusLabels }) {
 
     return (
         <div className="tx-container">
-            {/* Icono de estado principal */}
-            {/* <div className="tx-icon-container">
-                <div
-                    className={`tx-feedback-icon ${statusIcons[status] || "icon-waiting"}`}
-                />
-                <div
-                    className={`tx-status-${status === "ERROR" ? "negative" : "positive"}`}
-                ></div>
-            </div> */}
-
-            {/* Manejo del error */}
-            {status === "ERROR" ? (
+            {/* Handle SUCCESS case */}
+            {status === "SUCCESS" ? (
+                <div className="tx-success">
+                    <div
+                        className={`tx-success__icon tx-feedback-icon ${statusIcons[status] || "icon-waiting"} tx-status-icon-CONFIRMED`}
+                    ></div>
+                    <span className="tx-success__message">
+                        {statusLabels.SUCCESS || "Transaction successful!"}
+                    </span>
+                </div>
+            ) : status === "ERROR" ? (
+                /* Handle ERROR case */
                 <div className="tx-error">
                     <div
                         className={`tx-error__icon tx-feedback-icon ${statusIcons[status] || "icon-waiting"}`}
                     ></div>
                     <span className="tx-error__message">
-                        {statusLabels.ERROR}
+                        {statusLabels.ERROR || "Transaction failed"}
                     </span>
                 </div>
             ) : (
+                /* Default case: Show step-by-step progress */
                 <div className="txSteps-container">
                     {steps.map((step, index) => {
                         let stepClass = "stepRow txSteps--todo";
@@ -51,14 +52,10 @@ export default function TXStatus({ statusData, statusLabels }) {
 
                         if (index < stepIndex) {
                             stepClass = "stepRow txSteps--done";
-                            iconClass = "icon-tx-checkChecked"; // Marcar como completado
+                            iconClass = "icon-tx-checkChecked"; // Mark as completed
                         } else if (index === stepIndex) {
                             stepClass = "stepRow txSteps--doing";
-                            iconClass = "icon-tx-inProgress"; // Mostrar en progreso
-                        }
-
-                        if (step === "SUCCESS" && index === stepIndex) {
-                            iconClass = "icon-tx-checkChecked";
+                            iconClass = "icon-tx-inProgress"; // Show in progress
                         }
 
                         return (
