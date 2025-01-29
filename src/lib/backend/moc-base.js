@@ -91,8 +91,7 @@ const transferCoinbaseTo = async (
         from: account.toLowerCase(),
         to: to.toLowerCase(),
         gasPrice: await getGasPrice(web3),
-        gas: 100000,
-        gasLimit: 100000,
+        gasLimit: 21000,
         value: toContractPrecisionDecimals(amount, 18)
     })
         .on('transactionHash', onTransaction)

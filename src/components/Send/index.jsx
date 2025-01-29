@@ -7,7 +7,6 @@ import CurrencyPopUp from "../CurrencyPopUp";
 import {
     TokenSettings,
     TokenBalance,
-    AmountToVisibleValue,
     ConvertAmount,
 } from "../../helpers/currencies";
 import { tokenExchange } from "../../helpers/exchange";
@@ -33,7 +32,7 @@ export default function Send() {
     const defaultTokenSend = tokenSend[0];
     const [currencyYouSend, setCurrencyYouSend] = useState(defaultTokenSend);
 
-    const [amountYouSend, setAmountYouSend] = useState(new BigNumber(0));
+    const [amountYouSend, setAmountYouSend] = useState("");
     const [destinationAddress, setDestinationAddress] = useState("");
 
     const [sendingUSD, setSendingUSD] = useState(new BigNumber(0));
@@ -71,7 +70,7 @@ export default function Send() {
 
     const onClear = () => {
         setIsDirtyYouSend(false);
-        setAmountYouSend(new BigNumber(0));
+        setAmountYouSend("");
     };
 
     const onValidate = () => {
@@ -85,19 +84,20 @@ export default function Send() {
                 TokenSettings(currencyYouSend).decimals
             )
         );
-        console.log("amount you send", amountYouSend.toString());
-        if (amountYouSend.gt(totalBalance)) {
+        console.log("amount you send", amountYouSend);
+        const amountYouSendBig = new BigNumber(amountYouSend);
+        if (amountYouSendBig.gt(totalBalance)) {
             setInputValidationErrorText(t("send.infoNoBalance"));
             amountInputError = true;
         }
-        if (amountYouSend.eq(0)) {
+        if (amountYouSendBig.eq(0)) {
             amountInputError = true;
         }
-        if (amountYouSend.lt(0)) {
+        if (amountYouSendBig.lt(0)) {
             setInputValidationErrorText(t("send.infoNoNegativeValues"));
             amountInputError = true;
         }
-        if (amountYouSend.toString() === "NaN") {
+        if (amountYouSendBig.toString() === "NaN") {
             setInputValidationErrorText(t("send.infoNoNegativeValues"));
             amountInputError = true;
         }
@@ -128,40 +128,35 @@ export default function Send() {
     };
 
     const onChangeAmountYouSend = (newAmount, isPriceOnly = false) => {
-        if (newAmount < 0 || newAmount === "") {
-            newAmount = 0;
-            setAmountYouSend(new BigNumber(0));
-        } else {
-            const newAmountBig = new BigNumber(newAmount);
-            if (!isPriceOnly) {
-                setIsDirtyYouSend(true);
-                setAmountYouSend(newAmountBig);
-            }
-
-            const convertAmount = ConvertAmount(
-                auth,
-                currencyYouSend,
-                "CA",
-                newAmountBig,
-                false
-            );
-
-            const priceCA = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_CA[0],
-                    settings.tokens.CA[0].decimals
-                )
-            );
-
-            let convertAmountUSD;
-            if (currencyYouSend === "COINBASE") {
-                convertAmountUSD = convertAmount;
-            } else {
-                convertAmountUSD = convertAmount.times(priceCA);
-            }
-
-            setSendingUSD(convertAmountUSD);
+        const newAmountBig = new BigNumber(newAmount);
+        if (!isPriceOnly) {
+            setIsDirtyYouSend(true);
+            setAmountYouSend(newAmount);
         }
+
+        const convertAmount = ConvertAmount(
+            auth,
+            currencyYouSend,
+            "CA",
+            newAmountBig,
+            false
+        );
+
+        const priceCA = new BigNumber(
+            fromContractPrecisionDecimals(
+                auth.contractStatusData.PP_CA[0],
+                settings.tokens.CA[0].decimals
+            )
+        );
+
+        let convertAmountUSD;
+        if (currencyYouSend === "COINBASE") {
+            convertAmountUSD = convertAmount;
+        } else {
+            convertAmountUSD = convertAmount.times(priceCA);
+        }
+
+        setSendingUSD(convertAmountUSD);
     };
 
     const onChangeDestinationAddress = (event) => {
@@ -182,7 +177,7 @@ export default function Send() {
                 tokenSettings.decimals
             )
         );
-        setAmountYouSend(totalYouSend);
+        setAmountYouSend(totalYouSend.toString());
 
         onChangeAmountYouSend(
             fromContractPrecisionDecimals(
@@ -207,16 +202,7 @@ export default function Send() {
                         />
 
                         <InputAmount
-                            InputValue={
-                                amountYouSend.toString() === "0"
-                                    ? 0
-                                    : AmountToVisibleValue(
-                                          amountYouSend,
-                                          currencyYouSend,
-                                          3,
-                                          false
-                                      )
-                            }
+                            inputValue={amountYouSend.toString()}
                             placeholder={"0.0"}
                             onValueChange={onChangeAmountYouSend}
                             validateError={false}
