@@ -127,8 +127,8 @@
     color: var(--color-txt-primary);
     font-style: SemiBold;
     font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.61px;
+    // font-size: 14px;
+    // letter-spacing: 0.61px;
 }
 
 .content-last-operations .table-asset-name {
@@ -419,7 +419,7 @@
 
 .table-amount {
     font-weight: 600;
-    font-size: 14px;
+    // font-size: 14px;
     line-height: 19px;
     font-family: var(--main-font);
     letter-spacing: 0.612500011920929px;
@@ -502,6 +502,7 @@
     align-items: stretch;
     width: 100%;
     height: 64px;
+    font-size: 14px;
 }
 .content-last-operations .ant-table-cell {
     border-radius: var(--card-border-radius);
@@ -510,12 +511,10 @@
 // Four main columns (plus separators)
 
 .LastOp__group__details {
-    // border: 1px solid blue;
     display: flex;
     width: 100%;
 }
 .LastOp__group__dateStatus {
-    // border: 1px solid greenyellow;
     display: flex;
     width: 400px;
 }
@@ -525,7 +524,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // position: absolute;
     bottom: 16px;
     left: 8px;
 }
@@ -601,13 +599,11 @@
 .lastOp__detail__amount {
     color: var(--color-txt-primary);
     font-weight: 600;
-    font-size: 16px;
     letter-spacing: 0.61px;
 }
 .lastOp__detail__date {
     color: var(--color-txt-primary);
     font-weight: 600;
-    font-size: 16px;
     letter-spacing: 0.61px;
 }
 .lastOp__detail__token__container {
@@ -625,14 +621,8 @@
 .lastOp__detail__address {
     color: var(--color-txt-primary);
     font-weight: 600;
-    font-size: 16px;
     letter-spacing: 0.61px;
 }
-
-// .flechita {
-//     width: 80px;
-//     background-color: darkcyan;
-// }
 
 @media (max-width: 768px) {
     .content-last-operations {

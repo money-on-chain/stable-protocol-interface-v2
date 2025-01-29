@@ -102,7 +102,6 @@ html {
         backdrop-filter: blur(10px);
         border-radius: var(--rlogin-border-radius) !important;
         background-color: var(--rlogin-content-background-color) !important;
-        background-color: var(--rlogin-content-background-color) !important;
 
         // Title
         .rlogin-header2 {
@@ -193,44 +192,21 @@ html {
         background-color: var(--color-btn-primary-background-hover) !important;
         color: var(--color-btn-primary-txt-active) !important;
     }
+
     .jfpzdm {
         // Wallet list pagination buttons
         margin-right: 8px;
         margin-left: 8px;
-        padding: 2px 32px;
         border: 2px solid var(--color-btn-secondary-txt-default);
-        border-color: var(--color-btn-secondary-txt-default) !important;
         background-color: var(
             --color-btn-secondary-background-default
         ) !important;
         color: var(--color-btn-secondary-txt-default);
+        &:hover {
+            border-color: var(--color-btn-secondary-txt-hover);
+            color: var(--color-btn-secondary-txt-hover);
+        }
     }
-    .jfpzdm:hover {
-        // Wallet list pagination buttons
-        margin-right: 8px;
-        margin-left: 8px;
-        border: 2px solid var(--color-btn-secondary-txt-default);
-        border-color: var(--color-btn-secondary-txt-default) !important;
-        background-color: var(
-            --color-btn-secondary-background-default
-        ) !important;
-        color: var(--color-btn-secondary-txt-default);
-    }
-}
-
-/*
-    --- Modals ---
-*/
-
-.ant-modal-close-x {
-    color: var(--color-txt-primary) !important;
-    font-size: 21px !important;
-}
-
-.ant-modal-title,
-.ant-modal-close {
-    color: white !important;
-    text-align: center;
 }
 
 /*
@@ -305,42 +281,6 @@ html {
 
 .Staking {
     .input-amount-container {
-        // width: 100%;
-        // display: flex;
-        // flex-direction: column;
-        // padding: 4px 7px;
-        // background-color: var(--color-controls-background);
-
-        // .title-balance-container {
-        //     display: flex;
-        //     justify-content: space-between;
-        //     align-items: center;
-        //     margin-bottom: 5px;
-        //     color: var(-color-txt-secondary);
-        // }
-
-        // .input-title {
-        //     font-size: 8px;
-        //     font-weight: 600;
-        //     font-family: var(--main-font);
-        //     text-transform: uppercase;
-        // }
-
-        // .input-field-container {
-        //     display: flex;
-        //     justify-content: space-between;
-        //     align-items: flex-end; /* Alinea los hijos al final (parte inferior) */
-        //     flex-grow: 1;
-        // }
-
-        // .input-value {
-        //     text-align: left; /* Alinear texto a la izquierda */
-        //     flex-grow: 1;
-        //     background-color: transparent;
-        //     padding-left: 2px !important;
-        //     border: none;
-        // }
-
         .max-button {
             cursor: pointer;
             margin-bottom: 3px;
@@ -364,15 +304,6 @@ html {
             border-color: var(--color-btn-secondary-txt-hover);
             color: var(--color-btn-secondary-txt-hover);
         }
-
-        // .input-balance {
-        //     text-align: right; /* Alinear a la derecha dentro del contenedor */
-        //     font-family: var(--main-font);
-        //     font-size: 10px;
-        //     font-weight: 600;
-        //     line-height: 14px;
-        //     letter-spacing: 0px;
-        // }
     }
 }
 
@@ -527,25 +458,21 @@ $breakpoint-mobile: 600px;
     padding: 0;
 }
 
-h1 {
-    margin-bottom: 20px;
-    color: var(--color-txt-primary);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    font-family: var(--brand-font);
-    letter-spacing: 0px;
-    text-align: left;
-}
+h1,
 h2 {
     margin-bottom: 20px;
     color: var(--color-txt-primary);
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
     font-family: var(--brand-font);
     letter-spacing: 0px;
     text-align: left;
+}
+h1 {
+    font-size: 20px;
+}
+h2 {
+    font-size: 16px;
 }
 .section-container {
     margin-top: 24px;
@@ -562,6 +489,17 @@ h2 {
 /* #endregion GENERAL STYLING*/
 
 /* #region ANT DESIGN CUSTOMIZATION */
+
+.ant-modal-close-x {
+    color: var(--color-txt-primary) !important;
+    font-size: 21px !important;
+}
+
+.ant-modal-title,
+.ant-modal-close {
+    color: white !important;
+    text-align: center;
+}
 .ant-layout {
     display: flex;
     flex: auto;
@@ -772,7 +710,7 @@ h2 {
     border-color: var(--color-controls-foreground-on) !important;
 }
 .ant-radio-disabled .ant-radio-inner {
-    border: var(--color-controls-disabled);
+    border-color: var(--color-controls-foreground-disabled) !important;
     background-color: var(--color-controls-disabled) !important;
 }
 .ant-table-thead .ant-table-cell-scrollbar {
@@ -822,7 +760,6 @@ h2 {
 .ant-modal-content,
 .modal-container {
     border: 0px !important;
-    border-radius: var(--card-border-radius);
     border-radius: var(--modals-border-radius);
     background-color: var(--surface-color-3);
     padding: var(--modals-padding);
@@ -855,7 +792,6 @@ h2 {
         align-items: center;
         gap: 8px;
         margin-top: 30px;
-        padding: 0px;
         padding: var(--modals-padding);
         width: 424px;
         height: 32px;
@@ -951,10 +887,10 @@ h2 {
         line-height: 1;
         font-family: var(--brand-font);
         .amount {
-            color: (var(--color-txt-primary));
+            color: var(--color-txt-primary);
         }
         .token {
-            color: (var(--color-txt-secondary));
+            color: var(--color-txt-secondary);
         }
     }
     .tx-info-container {
@@ -1496,120 +1432,6 @@ h2 {
 }
 /* #endregion TOKEN SELECTOR */
 
-/* #region AMOUNT INPUT */
-.amountInput {
-    display: flex;
-    flex-direction: column;
-    border-radius: var(--data-background-radius);
-    background-color: var(--data-background-color);
-    box-shadow: var(--data-shadows-inset);
-    padding: 4px 7px;
-    width: 318px;
-}
-.amountInput__infoBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    color: var(--color-txt-secondary);
-}
-.amountInput__label {
-    font-weight: 600;
-    font-size: 8px;
-    font-family: var(--main-font);
-    text-transform: uppercase;
-}
-.amountInput__available {
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 14px;
-    font-family: var(--main-font);
-    letter-spacing: 0px;
-    text-align: right;
-}
-.amountInput__amount {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    justify-content: space-between !important;
-    align-items: flex-start;
-    gap: 8px;
-    width: 100%;
-    height: 29px;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 25.2px;
-    font-family: var(--brand-font);
-    text-align: left;
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    input[type="number"] {
-        -moz-appearance: textfield; /* Firefox */
-    }
-}
-
-.amountInput__value {
-    border: none;
-    background-color: transparent;
-    padding-left: 2px !important;
-    color: var(--color-txt-primary);
-    text-align: left;
-    max-width: 224px;
-}
-.amountInput__amount::placeholder {
-    color: var(--color-txt-secondary);
-}
-
-.amountInput__feedback {
-    width: 100%;
-    color: var(--color-semantic-neutral);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 12px;
-    font-family: var(--main-font);
-    letter-spacing: 0px;
-    text-align: left;
-}
-.amountInput__feedback--error {
-    color: var(--color-semantic-negative);
-}
-.amountInput__feedback--correct {
-    color: var(--color-semantic-positive);
-}
-
-.amountInput__maxButton {
-    position: absolute;
-    right: 0px;
-    bottom: 3px;
-    cursor: pointer;
-    border: 1px solid var(--color-btn-secondary-txt-default);
-    border-radius: 4px;
-    background-color: var(--color-btn-secondary-background-default);
-    padding-left: 1px;
-    width: 38px;
-    height: 17px;
-    color: var(--color-btn-secondary-txt-default);
-    font-weight: 700;
-    font-size: 11px;
-    line-height: 0px;
-    font-family: var(--main-font);
-    letter-spacing: 0.2px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.amountInput__maxButton:hover {
-    border-color: var(--color-btn-secondary-txt-hover);
-    color: var(--color-btn-secondary-txt-hover);
-}
-/* #endregion AMOUNT INPUT */
-
 /* #region TRANSACTION INFORMATION */
 .tx-amount-group {
     // Stacks all the groups of information vertically
@@ -1618,9 +1440,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     border-radius: var(--card-border-radius);
-    // background-color: var(--surface-color-2);
-    // border: var(--card-border);
-    gap: 8px;
+    gap: 2px;
     width: 100%;
     // padding: 32px;
 }
@@ -1672,20 +1492,21 @@ h2 {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
+        // width: 100%;
         .tx-id-label {
-            width: 100%;
+            // width: 100%;
             // Transaction ID text/label
             color: (var(--color-txt-primary));
+            margin-right: 16px;
         }
         .tx-id-address {
             // Container that uses CopyAddress address + copy icon
             display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-items: flex-end;
             gap: 8px;
-            width: 100%;
+            // width: 100%;
             color: var(--color-txt-link);
             font-weight: 600;
             font-family: var(--main-font);
@@ -1780,42 +1601,11 @@ h2 {
         // For information about the fees
         margin-top: 4px;
         color: var(--color-txt-secondary);
+        font-size: 11px;
+        line-height: 1.1;
     }
 }
-.tx-id-container {
-    // Transaction ID link container in cased some extra information is addded in the future
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 32px;
-    width: 100%;
-    max-width: 364px;
-    .tx-id-data {
-        // Label + address = copy icon
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        .tx-id-label {
-            // Transaction ID text/label
-            width: 100%;
-            color: (var(--color-txt-primary));
-        }
-        .tx-id-address {
-            // Container that uses CopyAddress address + copy icon
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: flex-end;
-            gap: 8px;
-            width: 100%;
-            color: var(--color-txt-link);
-            font-weight: 600;
-            font-family: var(--main-font);
-            text-decoration: underline;
-        }
-    }
-}
+
 .tx-fee-options {
     margin: 16px 0px;
 }

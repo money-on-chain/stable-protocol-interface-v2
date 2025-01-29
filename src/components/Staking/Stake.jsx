@@ -10,7 +10,7 @@ import { tokenStake } from "../../helpers/staking";
 import CurrencyPopUp from "../CurrencyPopUp";
 import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
-import InputAmount from "../InputAmount/indexInput";
+import InputAmount from "../InputAmount";
 import settings from "../../settings/settings.json";
 
 const Stake = (props) => {

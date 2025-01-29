@@ -1,8 +1,8 @@
 :root {
     // BRANDING
 
-    --brand-logo-main: url('../branding/logo-app.svg');
-    --brand-logo-main-small: url('../branding/logo-app-small.svg');
+    --brand-logo-main: url("../branding/logo-app.svg");
+    --brand-logo-main-small: url("../branding/logo-app-small.svg");
 
     --brand-color-darker: #08374f;
     --brand-color-dark: #396f68;
@@ -24,7 +24,7 @@
     // Data backgrounds
     --data-background-color: #ebeeee;
     --data-background-radius: 4px;
-    --data-background-padding: 16px 32px;
+    --data-background-padding: 8px 16px;
     --data-shadows-inset: none;
 
     // Common Margins
@@ -268,8 +268,8 @@
     --color-icon-link-secondary-hover-filter: invert(44%) sepia(28%)
         saturate(232%) hue-rotate(174deg) brightness(93%) contrast(91%);
 
-    --brand-font: 'Sora', sans-serif;
-    --main-font: 'Open Sans', sans-serif;
+    --brand-font: "Sora", sans-serif;
+    --main-font: "Open Sans", sans-serif;
 
     // rLogin
 

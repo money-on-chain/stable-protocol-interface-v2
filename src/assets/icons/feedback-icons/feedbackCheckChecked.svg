@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/CheckChecked</title>
+    <g id="Icons/CheckChecked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Area" x="0" y="0" width="24" height="24"></rect>
+        <g id="d-check" transform="translate(6, 8)" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <polyline id="Path" points="0 4 4 8 12 0"></polyline>
+        </g>
+        <g id="c-check" transform="translate(1, 1)" stroke="#000000" stroke-width="2">
+            <polyline id="Path" points="5 11 9 15 17 7"></polyline>
+            <circle id="Oval" cx="11" cy="11" r="11"></circle>
+        </g>
+    </g>
+</svg>

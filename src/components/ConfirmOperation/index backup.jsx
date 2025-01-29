@@ -1,21 +1,21 @@
-import BigNumber from "bignumber.js";
-import React, { useContext, useState, useEffect } from "react";
-import { Button, Collapse, Slider } from "antd";
-import axios from "axios";
+import BigNumber from 'bignumber.js';
+import React, { useContext, useState, useEffect } from 'react';
+import { Button, Collapse, Slider } from 'antd';
+import axios from 'axios';
 
-import { useProjectTranslation } from "../../helpers/translations";
-import { fromContractPrecisionDecimals } from "../../helpers/Formats";
-import { PrecisionNumbers } from "../PrecisionNumbers";
+import { useProjectTranslation } from '../../helpers/translations';
+import { fromContractPrecisionDecimals } from '../../helpers/Formats';
+import { PrecisionNumbers } from '../PrecisionNumbers';
 import {
+    ConvertAmount,
     TokenSettings,
-    TokenBalance,
-} from "../../helpers/currencies";
-import { AuthenticateContext } from "../../context/Auth";
-import { isMintOperation, UserTokenAllowance } from "../../helpers/exchange";
-import ModalAllowanceOperation from "../Modals/Allowance";
-import CopyAddress from "../CopyAddress";
-import settings from "../../settings/settings.json";
-import TXStatus from "./TXStatus";
+    TokenBalance
+} from '../../helpers/currencies';
+import { AuthenticateContext } from '../../context/Auth';
+import { isMintOperation, UserTokenAllowance } from '../../helpers/exchange';
+import ModalAllowanceOperation from '../Modals/Allowance';
+import CopyAddress from '../CopyAddress';
+import settings from '../../settings/settings.json';
 
 const { Panel } = Collapse;
 
@@ -34,20 +34,20 @@ export default function ConfirmOperation(props) {
         commissionFeeToken,
         commissionFeeTokenUSD,
         commissionPercentFeeToken,
-        radioSelectFee,
+        radioSelectFee
     } = props;
 
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [status, setStatus] = useState("SUBMIT");
+    const [status, setStatus] = useState('SUBMIT');
     const [amountYouExchange, setAmountYouExchange] = useState(
         inputAmountYouExchange
     );
     const [tolerance, setTolerance] = useState(0.7);
-    const [txID, setTxID] = useState("");
+    const [txID, setTxID] = useState('');
     const [opID, setOpID] = useState(null);
-    const [toleranceError, setToleranceError] = useState("");
+    const [toleranceError, setToleranceError] = useState('');
     const [amountChanged, setAmountChanged] = useState(false);
 
     const IS_MINT = isMintOperation(currencyYouExchange, currencyYouReceive);
@@ -57,26 +57,26 @@ export default function ConfirmOperation(props) {
 
     useEffect(() => {
         let timerId;
-        if (status === "QUEUING") {
+        if (status === 'QUEUING') {
             console.log(
-                "Operation queuing... waiting for operation execution."
+                'Operation queuing... waiting for operation execution.'
             );
             timerId = setTimeout(() => {
-                if (status === "QUEUING") {
-                    setStatus("ERROR");
+                if (status === 'QUEUING') {
+                    setStatus('ERROR');
                     console.log(
-                        "Operation failed after waiting 20 minutes for execution after queuing."
+                        'Operation failed after waiting 20 minutes for execution after queuing.'
                     );
                 }
             }, 600000);
         }
-        if (status === "QUEUED") {
-            console.log("Operation queued... waiting for operation execution.");
+        if (status === 'QUEUED') {
+            console.log('Operation queued... waiting for operation execution.');
             timerId = setTimeout(() => {
-                if (status === "QUEUED") {
-                    setStatus("ERROR");
+                if (status === 'QUEUED') {
+                    setStatus('ERROR');
                     console.log(
-                        "Operation failed after waiting 10 minutes for execution."
+                        'Operation failed after waiting 10 minutes for execution.'
                     );
                 }
             }, 600000);
@@ -105,7 +105,7 @@ export default function ConfirmOperation(props) {
 
         const limits = {
             exchange: limitExchange,
-            receive: limitReceive,
+            receive: limitReceive
         };
 
         return limits;
@@ -167,7 +167,7 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowanceFeeToken = () => {
-        const tokenAllowance = UserTokenAllowance(auth, "TF");
+        const tokenAllowance = UserTokenAllowance(auth, 'TF');
 
         if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
             // if we select not to pay with fee token, please disallow to use Fee token
@@ -205,7 +205,7 @@ export default function ConfirmOperation(props) {
 
     const onRealSendTransaction = () => {
         // Real send transaction
-        setStatus("SIGN");
+        setStatus('SIGN');
 
         let tokenAmount;
         let limitAmount;
@@ -226,46 +226,46 @@ export default function ConfirmOperation(props) {
             onReceipt
         )
             .then((value) => {
-                console.log("DONE!");
+                console.log('DONE!');
             })
             .catch((error) => {
                 console.log(error);
-                setStatus("ERROR");
+                setStatus('ERROR');
             });
     };
 
     const onTransaction = (transactionHash) => {
         // Tx receipt detected change status to waiting
-        setStatus("QUEUING");
-        console.log("On transaction: ", transactionHash);
+        setStatus('QUEUING');
+        console.log('On transaction: ', transactionHash);
         setTxID(transactionHash);
     };
 
     const opStatus = () => {
         if (!opID) {
-            console.log("Operation Status: Checking... NO.");
+            console.log('Operation Status: Checking... NO.');
             return;
         }
 
         const apiUrl =
             `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
-            "operations/oper_id/";
+            'operations/oper_id/';
         axios
             .get(apiUrl, {
                 params: {
-                    oper_id: opID,
+                    oper_id: opID
                 },
-                timeout: 10000,
+                timeout: 10000
             })
             .then((response) => {
                 if (response.status === 200) {
                     if (response.data.status === 0) {
                         // Pending executed
-                        console.log("Operation Status: OK Pending execute.");
+                        console.log('Operation Status: OK Pending execute.');
                     } else if (response.data.status === 1) {
                         // executed operation is finished
 
-                        setStatus("SUCCESS");
+                        setStatus('SUCCESS');
 
                         // Remove Op ID
                         setOpID(null);
@@ -273,19 +273,19 @@ export default function ConfirmOperation(props) {
                         // Refresh user balance
                         auth.loadContractsStatusAndUserBalance().then(
                             (value) => {
-                                console.log("Refresh user balance OK!");
+                                console.log('Refresh user balance OK!');
                             }
                         );
 
-                        console.log("Operation Status: OK Executed.");
+                        console.log('Operation Status: OK Executed.');
                     } else if (response.data.status === 1) {
-                        setStatus("ERROR");
+                        setStatus('ERROR');
 
                         // Remove Op ID
                         setOpID(null);
 
                         console.log(
-                            "Operation Status: Error! Status: ",
+                            'Operation Status: Error! Status: ',
                             response.data.status
                         );
                     }
@@ -309,10 +309,10 @@ export default function ConfirmOperation(props) {
         filteredEvents
             .then((results) => {
                 results.forEach(function (events) {
-                    if (events.name === "OperationQueued") {
+                    if (events.name === 'OperationQueued') {
                         // Is the event operation queue
                         events.events.forEach(function (field) {
-                            if (field.name === "operId_") {
+                            if (field.name === 'operId_') {
                                 operId = parseInt(field.value);
                             }
                         });
@@ -320,10 +320,10 @@ export default function ConfirmOperation(props) {
                 });
 
                 if (operId > 0) {
-                    console.log("Setting operation ID:", operId);
+                    console.log('Setting operation ID:', operId);
                     setOpID(operId);
                     //setOpID(33)
-                    setStatus("QUEUED");
+                    setStatus('QUEUED');
                 }
             })
             .catch((error) => {
@@ -333,72 +333,63 @@ export default function ConfirmOperation(props) {
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
-        console.log("On receipt: ", receipt);
+        console.log('On receipt: ', receipt);
         const filteredEvents = auth.interfaceDecodeEvents(receipt);
         //setStatus('SUCCESS');
 
         // on Queue
         onQueued(filteredEvents);
     };
-    const statusLabels = {
-        SUBMIT: t("exchange.confirm.submit"),
-        SIGN: t("exchange.confirm.sign"),
-        QUEUING: t("exchange.confirm.queuing"),
-        QUEUED: t("exchange.confirm.queued"),
-        CONFIRMING: t("exchange.confirm.confirming"),
-        SUCCESS: t("exchange.confirm.success"),
-        ERROR: t("exchange.confirm.error"),
-        DEFAULT: t("exchange.confirm.default"),
-    };
-    let sentIcon = "";
-    let statusLabel = "";
+
+    let sentIcon = '';
+    let statusLabel = '';
     switch (status) {
-        case "SUBMIT":
-            sentIcon = "icon-tx-waiting";
-            statusLabel = t("exchange.confirm.submit");
+        case 'SUBMIT':
+            sentIcon = 'icon-tx-waiting';
+            statusLabel = t('exchange.confirm.submit');
             break;
-        case "SIGN":
-            sentIcon = "icon-tx-signWallet";
-            statusLabel = t("exchange.confirm.sign");
+        case 'SIGN':
+            sentIcon = 'icon-tx-signWallet';
+            statusLabel = t('exchange.confirm.sign');
             break;
-        case "QUEUING":
-            sentIcon = "icon-tx-waiting";
-            statusLabel = t("exchange.confirm.queuing");
+        case 'QUEUING':
+            sentIcon = 'icon-tx-waiting';
+            statusLabel = t('exchange.confirm.queuing');
             break;
-        case "QUEUED":
-            sentIcon = "icon-tx-waiting";
-            statusLabel = t("exchange.confirm.queued");
+        case 'QUEUED':
+            sentIcon = 'icon-tx-waiting';
+            statusLabel = t('exchange.confirm.queued');
             break;
-        case "CONFIRMING":
-            sentIcon = "icon-operation-tx-confirming";
-            statusLabel = t("exchange.confirm.confirming");
+        case 'CONFIRMING':
+            sentIcon = 'icon-operation-tx-confirming';
+            statusLabel = t('exchange.confirm.confirming');
             break;
-        case "SUCCESS":
-            sentIcon = "icon-tx-success";
-            statusLabel = t("exchange.confirm.confirmed");
+        case 'SUCCESS':
+            sentIcon = 'icon-tx-success';
+            statusLabel = t('exchange.confirm.confirmed');
             break;
-        case "ERROR":
-            sentIcon = "icon-tx-error";
-            statusLabel = t("exchange.confirm.error");
+        case 'ERROR':
+            sentIcon = 'icon-tx-error';
+            statusLabel = t('exchange.confirm.error');
             break;
         default:
-            sentIcon = "icon-tx-waiting";
-            statusLabel = t("exchange.confirm.default");
+            sentIcon = 'icon-tx-waiting';
+            statusLabel = t('exchange.confirm.default');
     }
 
     const markStyle = {
         style: {
-            color: "#707070",
-            fontSize: 10,
-        },
+            color: '#707070',
+            fontSize: 10
+        }
     };
 
     const priceVariationToleranceMarks = {
-        0: { ...markStyle, label: "0.0%" },
-        1: { ...markStyle, label: "1%" },
-        2: { ...markStyle, label: "2%" },
-        5: { ...markStyle, label: "5%" },
-        10: { ...markStyle, label: "10%" },
+        0: { ...markStyle, label: '0.0%' },
+        1: { ...markStyle, label: '1%' },
+        2: { ...markStyle, label: '2%' },
+        5: { ...markStyle, label: '5%' },
+        10: { ...markStyle, label: '10%' }
     };
 
     const changeTolerance = (newTolerance) => {
@@ -412,19 +403,19 @@ export default function ConfirmOperation(props) {
             )
         );
         if (limits.exchange.gt(totalBalance)) {
-            console.log("Insufficient balance");
-            setToleranceError("Tolerance exceeds user balance");
+            console.log('Insufficient balance');
+            setToleranceError('Tolerance exceeds user balance');
             setAmountYouExchangeLimit(limits.exchange);
             setAmountYouReceiveLimit(limits.receive);
             return;
         }
-        setToleranceError("");
+        setToleranceError('');
         setAmountYouExchangeLimit(limits.exchange);
         setAmountYouReceiveLimit(limits.receive);
     };
 
     const onClose = () => {
-        setStatus("SUBMIT");
+        setStatus('SUBMIT');
         onCloseModal();
     };
 
@@ -433,16 +424,16 @@ export default function ConfirmOperation(props) {
     let commissionPAY = commission;
     let commissionPAYUSD = commissionUSD;
     let commissionPercentPAY = commissionPercent;
-    let commissionSettings = TokenSettings("CA_0");
+    let commissionSettings = TokenSettings('CA_0');
     let commissionTokenName;
 
     if (IS_MINT) {
         commissionTokenName = t(`exchange.tokens.${currencyYouExchange}.abbr`, {
-            ns: ns,
+            ns: ns
         });
     } else {
         commissionTokenName = t(`exchange.tokens.${currencyYouReceive}.abbr`, {
-            ns: ns,
+            ns: ns
         });
     }
 
@@ -451,9 +442,9 @@ export default function ConfirmOperation(props) {
         commissionPAY = commissionFeeToken;
         commissionPAYUSD = commissionFeeTokenUSD;
         commissionPercentPAY = commissionPercentFeeToken;
-        commissionSettings = TokenSettings("TF");
+        commissionSettings = TokenSettings('TF');
         commissionTokenName = t(`exchange.tokens.TF.abbr`, {
-            ns: ns,
+            ns: ns
         });
     }
 
@@ -472,19 +463,19 @@ export default function ConfirmOperation(props) {
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
-                                skipContractConvert: true,
+                                skipContractConvert: true
                             })}
                         </div>
                         <div className="tx-token">
                             {t(`exchange.tokens.${currencyYouExchange}.label`, {
-                                ns: ns,
+                                ns: ns
                             })}
                         </div>
                     </div>
                     {!amountChanged && IS_MINT && (
                         <div className="tx-amount-info">
                             {t(`exchange.priceVariation.warning`, {
-                                ns: ns,
+                                ns: ns
                             })}
                         </div>
                     )}
@@ -506,19 +497,19 @@ export default function ConfirmOperation(props) {
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
-                                skipContractConvert: true,
+                                skipContractConvert: true
                             })}
                         </div>
                         <div className="tx-token">
                             {t(`exchange.tokens.${currencyYouReceive}.label`, {
-                                ns: ns,
+                                ns: ns
                             })}
                         </div>
                     </div>
                     <div className="tx-amount-info">
                         {!IS_MINT && (
                             <div className="tx-amount-info">
-                                {t("exchange.confirm.minimumWarning")}
+                                {t('exchange.confirm.minimumWarning')}
                                 <div className="">
                                     {PrecisionNumbers({
                                         amount: new BigNumber(
@@ -531,10 +522,10 @@ export default function ConfirmOperation(props) {
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
-                                        skipContractConvert: true,
+                                        skipContractConvert: true
                                     })}
                                 </div>
-                                {t("exchange.confirm.minimumExplanation")}
+                                {t('exchange.confirm.minimumExplanation')}
                             </div>
                         )}
                     </div>
@@ -544,8 +535,8 @@ export default function ConfirmOperation(props) {
             <div className="tx-fees-container">
                 <div className="tx-fees-data">
                     <div className="tx-fees-item">
-                        <span className={"token_exchange"}>
-                            {t("fees.labelFee")} (
+                        <span className={'token_exchange'}>
+                            {t('fees.labelFee')} (
                             {PrecisionNumbers({
                                 amount: new BigNumber(commissionPercentPAY),
                                 token: commissionSettings,
@@ -553,77 +544,77 @@ export default function ConfirmOperation(props) {
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
-                                skipContractConvert: true,
+                                skipContractConvert: true
                             })}
                             %)
                         </span>
-                        <span className={"symbol"}> ≈ </span>
-                        <span className={"token_receive"}>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
                             {PrecisionNumbers({
                                 amount: new BigNumber(commissionPAY),
                                 token: commissionSettings,
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
-                                skipContractConvert: true,
+                                skipContractConvert: true
                             })}
                         </span>
-                        <span className={"token_receive_name"}>
-                            {" "}
+                        <span className={'token_receive_name'}>
+                            {' '}
                             {commissionTokenName}
                         </span>
-                        <span className={""}> (</span>
+                        <span className={''}> (</span>
                         <span>
                             {!auth.contractStatusData?.canOperate
-                                ? "--"
+                                ? '--'
                                 : PrecisionNumbers({
                                       amount: new BigNumber(commissionPAYUSD),
                                       decimals: 2,
-                                      token: TokenSettings("CA_0"),
+                                      token: TokenSettings('CA_0'),
                                       t: t,
                                       i18n: i18n,
                                       ns: ns,
                                       isUSD: true,
-                                      skipContractConvert: true,
+                                      skipContractConvert: true
                                   })}
                         </span>
-                        <span className={""}>
-                            {" "}
-                            {t("exchange.exchangingCurrency")}
+                        <span className={''}>
+                            {' '}
+                            {t('exchange.exchangingCurrency')}
                         </span>
-                        <span className={""}>) </span>
+                        <span className={''}>) </span>
                     </div>
-                    <div className={"tx-fees-item"}>
-                        <span className={"token_exchange"}>
-                            {t("fees.labelExecutionFee")}
+                    <div className={'tx-fees-item'}>
+                        <span className={'token_exchange'}>
+                            {t('fees.labelExecutionFee')}
                         </span>
-                        <span className={"symbol"}> ≈ </span>
-                        <span className={"token_receive"}>
+                        <span className={'symbol'}> ≈ </span>
+                        <span className={'token_receive'}>
                             {PrecisionNumbers({
                                 amount: executionFee,
-                                token: TokenSettings("COINBASE"),
+                                token: TokenSettings('COINBASE'),
                                 t: t,
                                 i18n: i18n,
                                 ns: ns,
-                                skipContractConvert: true,
+                                skipContractConvert: true
                             })}
                         </span>
-                        <span className={"token_receive_name"}>
-                            {" "}
+                        <span className={'token_receive_name'}>
+                            {' '}
                             {t(`exchange.tokens.COINBASE.abbr`, {
-                                ns: ns,
-                            })}{" "}
+                                ns: ns
+                            })}{' '}
                         </span>
                     </div>
                 </div>
                 <div className="tx-fees-info">
-                    {t("fees.disclaimer1")}
+                    {t('fees.disclaimer1')}
                     <br />
-                    {t("fees.disclaimer2")}
+                    {t('fees.disclaimer2')}
                 </div>
             </div>
             <div className="divider-horizontal"></div>
-            {status === "SUBMIT" && (
+            {status === 'SUBMIT' && (
                 <div className="tx-submit">
                     <div className="customize-tolerance">
                         <Collapse accordion className="CollapseTolerance">
@@ -635,7 +626,7 @@ export default function ConfirmOperation(props) {
                                             <i className="icon-preferences"></i>
                                             <span className="SliderText">
                                                 {t(
-                                                    "exchange.priceVariation.title"
+                                                    'exchange.priceVariation.title'
                                                 )}
                                             </span>
                                         </div>
@@ -646,7 +637,7 @@ export default function ConfirmOperation(props) {
                                 <div className="PriceVariationContainer">
                                     <div className="warningSlider">
                                         {t(
-                                            "exchange.priceVariation.sliderLabel"
+                                            'exchange.priceVariation.sliderLabel'
                                         )}
                                     </div>
                                     <Slider
@@ -666,32 +657,32 @@ export default function ConfirmOperation(props) {
                     <div className="cta-container">
                         <div className="cta-info-group">
                             <div className="cta-info-summary">
-                                <div className={"token_exchange"}>
-                                    {t("exchange.exchangingSummary")}{" "}
+                                <div className={'token_exchange'}>
+                                    {t('exchange.exchangingSummary')}{' '}
                                 </div>
-                                <div className={"symbol"}>
-                                    {" "}
-                                    {t("exchange.exchangingSign")}{" "}
+                                <div className={'symbol'}>
+                                    {' '}
+                                    {t('exchange.exchangingSign')}{' '}
                                 </div>
-                                <div className={"token_receive"}>
+                                <div className={'token_receive'}>
                                     {PrecisionNumbers({
                                         amount: exchangingUSD,
-                                        token: TokenSettings("CA_0"),
+                                        token: TokenSettings('CA_0'),
                                         decimals: 4,
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
                                         skipContractConvert: true,
-                                        isUSD: true,
+                                        isUSD: true
                                     })}
                                 </div>
-                                <div className={"token_receive_name"}>
-                                    {" "}
-                                    {t("exchange.exchangingCurrency")}
+                                <div className={'token_receive_name'}>
+                                    {' '}
+                                    {t('exchange.exchangingCurrency')}
                                 </div>
                             </div>
                         </div>
-                        {toleranceError !== "" && (
+                        {toleranceError !== '' && (
                             <div className="error-container">
                                 <span className="confirm-error">
                                     {toleranceError}
@@ -704,42 +695,42 @@ export default function ConfirmOperation(props) {
                                 className="button secondary"
                                 onClick={onClose}
                             >
-                                {t("exchange.buttonCancel")}
+                                {t('exchange.buttonCancel')}
                             </Button>
                             <button
                                 type="primary"
                                 className="button"
                                 onClick={onSendTransactionAllowFeeToken}
-                                disabled={toleranceError !== ""}
+                                disabled={toleranceError !== ''}
                             >
-                                {t("exchange.buttonConfirm")}
+                                {t('exchange.buttonConfirm')}
                             </button>
                         </div>
                     </div>
                 </div>
             )}
-            {(status === "SIGN" ||
-                status === "QUEUING" ||
-                status === "QUEUED" ||
-                status === "CONFIRMING" ||
-                status === "SUCCESS" ||
-                status === "ERROR") && (
+            {(status === 'SIGN' ||
+                status === 'QUEUING' ||
+                status === 'QUEUED' ||
+                status === 'CONFIRMING' ||
+                status === 'SUCCESS' ||
+                status === 'ERROR') && (
                 <div className="conditional-wrapper">
-                    {(status === "QUEUING" ||
-                        status === "QUEUED" ||
-                        status === "CONFIRMING" ||
-                        status === "SUCCESS" ||
-                        status === "ERROR") && (
+                    {(status === 'QUEUING' ||
+                        status === 'QUEUED' ||
+                        status === 'CONFIRMING' ||
+                        status === 'SUCCESS' ||
+                        status === 'ERROR') && (
                         <div className="tx-id-container">
                             <div className="tx-id-data">
                                 <div className="tx-id-label">
-                                    {" "}
-                                    {t("txFeedback.txIdLabel")}
+                                    {' '}
+                                    {t('txFeedback.txIdLabel')}
                                 </div>
                                 <div className="tx-id-address">
                                     <CopyAddress
                                         address={txID}
-                                        type={"tx"}
+                                        type={'tx'}
                                     ></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
@@ -750,14 +741,10 @@ export default function ConfirmOperation(props) {
                         </div>
                     )}
                     <div className="tx-feedback-container">
-                        {/* <div className="tx-feedback-icon">
+                        <div className="tx-feedback-icon">
                             <div className={sentIcon}></div>
                         </div>
-                        <div className="tx-feedback-text">{statusLabel}</div> */}
-                        <TXStatus
-                            statusData={{ status }}
-                            statusLabels={statusLabels}
-                        />
+                        <div className="tx-feedback-text">{statusLabel}</div>
                     </div>
 
                     <div className="cta-container">
@@ -767,7 +754,7 @@ export default function ConfirmOperation(props) {
                                 className="button secondary"
                                 onClick={onClose}
                             >
-                                {t("exchange.buttonClose")}
+                                {t('exchange.buttonClose')}
                             </button>
                             {/* BOOKMARK */}
                         </div>
@@ -775,7 +762,7 @@ export default function ConfirmOperation(props) {
                 </div>
             )}
             <ModalAllowanceOperation
-                title={`${t("allowance.cardTitle")}  ${t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}`}
+                title={`${t('allowance.cardTitle')}  ${t(`exchange.tokens.${currencyYouExchange}.label`, { ns: ns })}`}
                 visible={showModalAllowance}
                 onHideModalAllowance={onHideModalAllowance}
                 currencyYouExchange={currencyYouExchange}
@@ -788,13 +775,13 @@ export default function ConfirmOperation(props) {
             <ModalAllowanceOperation
                 title={
                     disAllowanceFeeToken
-                        ? `${t("allowance.disallowanceTitle")}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
-                        : `${t("allowance.cardTitle")}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
+                        ? `${t('allowance.disallowanceTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
+                        : `${t('allowance.cardTitle')}  ${t(`exchange.tokens.TF.abbr`, { ns: ns })}`
                 }
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
-                currencyYouExchange={"TF"}
-                currencyYouReceive={"TF"}
+                currencyYouExchange={'TF'}
+                currencyYouReceive={'TF'}
                 amountYouExchangeLimit={commissionFeeToken}
                 amountYouReceiveLimit={commissionFeeToken}
                 onRealSendTransaction={onSendTransaction}

@@ -23,7 +23,7 @@ import {
 import settings from "../../settings/settings.json";
 import { PrecisionNumbers } from "../PrecisionNumbers";
 import { AuthenticateContext } from "../../context/Auth";
-import InputAmount from "../InputAmount/indexInput";
+import InputAmount from "../InputAmount/";
 import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import CheckStatus from "../../helpers/checkStatus";

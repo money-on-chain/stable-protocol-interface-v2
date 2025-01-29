@@ -1,0 +1,85 @@
+/* Container */
+.tx-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--dividers);
+    border-radius: var(--data-background-radius);
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+.tx-feedback-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.stepRow {
+    gap: 8px;
+}
+.tx-icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    font-family: var(--main-font);
+}
+.tx-status-positive {
+    color: var(--color-semantic-positive);
+}
+.tx-status-negative {
+    color: var(--color-semantic-negative);
+}
+.txSteps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+}
+
+.txSteps-container > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    color: var(--color-txt-primary);
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.txSteps--done {
+    opacity: 0.8;
+}
+
+.txSteps--doing {
+    font-weight: bold;
+    font-size: 14px !important;
+}
+
+.txSteps--todo {
+    opacity: 0.3;
+}
+
+.tx-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+}
+.tx-error__message {
+    color: var(--color-semantic-negative);
+}
+.tx-error__icon {
+    margin-right: 18px !important;
+    font-size: 18px;
+}
+
+.txSteps__icon {
+    filter: var(--color-icon-link-filter);
+}
