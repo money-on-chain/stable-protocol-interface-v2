@@ -79,7 +79,10 @@ export default function TokensPegged() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
+
             price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
+
+            if (dataItem.peggedUSD) price = new BigNumber(1)
 
             tokensData.push({
                 key: dataItem.key,
