@@ -710,7 +710,7 @@ h2 {
     border-color: var(--color-controls-foreground-on) !important;
 }
 .ant-radio-disabled .ant-radio-inner {
-    border: var(--color-controls-disabled);
+    border-color: var(--color-controls-foreground-disabled) !important;
     background-color: var(--color-controls-disabled) !important;
 }
 .ant-table-thead .ant-table-cell-scrollbar {
