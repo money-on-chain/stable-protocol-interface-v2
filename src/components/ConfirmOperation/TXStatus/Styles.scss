@@ -65,7 +65,8 @@
     opacity: 0.3;
 }
 
-.tx-error {
+.tx-error,
+.tx-success {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,8 +79,16 @@
 .tx-error__icon {
     margin-right: 18px !important;
     font-size: 18px;
+    filter: var(--filter-semantic-negative);
 }
-
+.tx-success__icon {
+    margin-right: 18px !important;
+    font-size: 18px;
+    filter: var(--filter-semantic-positive);
+}
+.tx-success__message {
+    color: var(--color-semantic-positive);
+}
 .txSteps__icon {
     filter: var(--color-icon-link-filter);
 }
