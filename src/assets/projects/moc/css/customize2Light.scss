@@ -42,19 +42,19 @@
     //Surfaces
     --surface-background-image: linear-gradient(
         to right bottom,
-        #dfefee,
+        #f1fafa,
         #f3fbfa,
-        #e2fefb
+        #e1edec
     ); // can be set to none
 
     --surface-color-0: #ffffff00;
     --surface-color-1: rgba(255, 255, 255, 0.95);
     --surface-shadow-1: 0px 1px 4px rgba(0, 0, 0, 0.1);
-    --surface-color-2: rgba(255, 255, 255, 0.8);
+    --surface-color-2: rgba(242, 246, 245, 0.8);
     --surface-shadow-2: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
     --surface-color-3: #ffffff;
     --surface-shadow-3: 0px 1px 4px rgba(0, 0, 0, 0.1499125874125874);
-    --surface-color-inset: #fafafafa;
+    --surface-color-inset: rgba(242, 246, 245, 0.266);
     --surface-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 
     // Token icons
@@ -276,7 +276,7 @@
     --rlogin-themeswitcher-display: none;
     --rlogin-title-background-color: #08374f;
     --rlogin-content-title-color: var(--color-txt-primary);
-    --rlogin-content-background-color: var(--surface-color-2);
+    --rlogin-content-background-color: #edf0f1;
     --rlogin-content-shadow-inset: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
     --rlogin-content-border-color: var(--rlogin-title-background-color);
     --rlogin-content-txt-color: var(--color-txt-primary);
