@@ -4,26 +4,26 @@ $breakpoint-mobile: 600px;
 .header-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 
     .wallet-user {
         display: flex;
+        position: relative;
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
-        padding: 8px 16px;
         gap: 8px;
-        border-radius: var(--card-border-radius);
-        width: 192px;
-        height: 80px;
         margin-left: 31px;
         margin-left: 0px;
-        line-height: 80px;
-        background: var(--surface-color-1);
-        border: var(--card-border);
         box-shadow: var(--surface-shadow-1);
-        position: relative;
+        border: var(--card-border);
+        border-radius: var(--card-border-radius);
+        background: var(--surface-color-1);
+        padding: 8px 16px;
+        width: 192px;
+        height: 80px;
+        line-height: 80px;
         .wallet-address {
             display: flex;
             flex: none;
@@ -52,20 +52,20 @@ $breakpoint-mobile: 600px;
         }
 
         .logo-wallet {
-            width: 24px;
-            height: 24px;
+            filter: var(--color-nav-icon-filter-default);
             background-image: url("../../assets/icons/WalletOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
-            filter: var(--color-nav-icon-filter-default);
+            width: 24px;
+            height: 24px;
         }
 
         .wallet-address:hover {
             .logo-wallet {
-                width: 24px;
-                height: 24px;
                 // background-image: url('../../assets/icons/WalletFilled.svg');
                 filter: var(--color-nav-icon-filter-hover);
+                width: 24px;
+                height: 24px;
             }
         }
 
@@ -73,16 +73,16 @@ $breakpoint-mobile: 600px;
             position: absolute;
             top: 50%;
             right: 0;
-            background-color: var(--surface-color-3);
-            box-shadow: var(--surface-shadow-3);
             z-index: 10;
-            width: 100%;
-            font-family: var(--main-font);
-            font-weight: 600;
-            border-radius: var(--card-border-radius);
+            box-shadow: var(--surface-shadow-3);
             border: var(--card-border);
+            border-radius: var(--card-border-radius);
+            background-color: var(--surface-color-3);
             padding-top: 16px;
             padding-bottom: 16px;
+            width: 100%;
+            font-weight: 600;
+            font-family: var(--main-font);
 
             .menu-item {
                 justify-content: flex-start;
@@ -104,17 +104,17 @@ $breakpoint-mobile: 600px;
 
         .language-menu > div > div {
             display: flex;
-            align-items: center;
             justify-content: flex-start;
-            height: 40px;
+            align-items: center;
             cursor: pointer;
             padding: 0 16px;
+            height: 40px;
         }
 
         .menu-icon {
-            margin-right: 10px;
             display: flex;
             align-items: center;
+            margin-right: 10px;
             width: 18%;
         }
 
@@ -135,34 +135,34 @@ $breakpoint-mobile: 600px;
 
     .wallet-translation {
         display: flex;
+        flex: none;
+        flex-grow: 0;
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
-        padding: 0px;
-        gap: 8px;
-        width: 80px;
-        height: 24px;
-        flex: none;
         order: 0;
-        flex-grow: 0;
+        gap: 8px;
+        padding: 0px;
+        width: 80px;
         width: 100%;
+        height: 24px;
         a.translation-selector {
             opacity: 1;
             color: var(--color-txt-primary);
-            font-family: var(--main-font);
-            font-size: 14px;
-            font-weight: 400;
             font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            font-family: var(--main-font);
             letter-spacing: 0px;
             text-align: right;
         }
         .logo-translation {
-            width: 24px;
-            height: 24px;
+            filter: var(--color-nav-icon-filter-default);
             background-image: url("../../assets/icons/GlobeOutline.svg");
             background-size: 24px 24px;
             background-repeat: no-repeat;
-            filter: var(--color-nav-icon-filter-default);
+            width: 24px;
+            height: 24px;
         }
     }
     .wallet-translation:hover {
@@ -181,15 +181,15 @@ $breakpoint-mobile: 600px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-right: 0px;
     margin-left: 31px;
+    margin-left: 0px;
     box-shadow: var(--surface-shadow-1);
+    border: var(--card-border);
     border-radius: var(--card-border-radius);
     background: var(--surface-color-1);
-    border: var(--card-border);
     width: 736px;
     width: 752px;
-    margin-left: 0px;
-    margin-right: 0px;
     height: 80px;
     line-height: 80px;
 }
@@ -204,10 +204,10 @@ $breakpoint-mobile: 600px;
     align-items: center;
     order: 0;
     gap: 2px;
-
-    background-color: var(--surface-color-1);
     border-top: var(--card-border);
     border-bottom: var(--card-border);
+
+    background-color: var(--surface-color-1);
     padding: 13px 15px;
 
     width: 132px;
@@ -224,9 +224,9 @@ $breakpoint-mobile: 600px;
     align-items: center;
     order: 0;
     gap: 4px;
-    background-color: var(--surface-color-1);
     border-top: var(--card-border);
     border-bottom: var(--card-border);
+    background-color: var(--surface-color-1);
     padding: 13px 15px;
     width: 60px;
     height: 80px;
@@ -349,6 +349,7 @@ $breakpoint-mobile: 600px;
 }
 
 .menu-nav-item-title {
+    position: relative;
     flex: none;
     flex-grow: 0;
     order: 1;
@@ -361,7 +362,6 @@ $breakpoint-mobile: 600px;
     line-height: 24px;
     font-family: var(--main-font);
     text-align: center;
-    position: relative;
 }
 .menu-nav-item-title-more {
     flex: none;
@@ -386,10 +386,10 @@ $breakpoint-mobile: 600px;
     right: -20px;
     z-index: 1;
     box-shadow: var(--surface-shadow-1);
-    border-radius: var(--card-border-radius);
     border: var(--card-border);
-    padding: 8px;
+    border-radius: var(--card-border-radius);
     background-color: var(--surface-color-1);
+    padding: 8px;
     .menu-nav-item {
         border: none;
     }
@@ -582,8 +582,8 @@ $breakpoint-mobile: 600px;
     .ShowTokenMigration {
         margin-top: 24px;
         .NotificationMigration {
-            height: auto;
             flex-direction: column;
+            height: auto;
             .Information {
                 width: 100%;
                 text-align: justify;
@@ -647,6 +647,9 @@ $breakpoint-mobile: 600px;
         }
     }
     .section-container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
         margin-right: 8px;
         margin-left: 8px;
         max-width: 100%;
@@ -661,9 +664,9 @@ $breakpoint-mobile: 600px;
         display: none;
     }
     .layout-card {
+        padding: 16px 12px 16px 12px;
         width: 100%;
         max-width: 100%;
-        padding: 16px 12px 16px 12px;
         .layout-card-title {
             h1 {
                 font-size: 18px;
@@ -984,116 +987,9 @@ $breakpoint-mobile: 600px;
         right: auto !important;
     }
 
-    .dashboard-staking-info {
-        gap: 8px;
-        height: auto;
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-        flex-wrap: wrap;
-        .stakingDash__data {
-            gap: 0;
-            .stakingDash__data__amount {
-                font-size: 18px;
-                height: 18px;
-            }
-            .stakingDash__data__label {
-                font-size: 12px;
-            }
-        }
-        .stakingDash__item {
-            width: 160px;
-        }
-        .stakingDash__icon__back {
-            width: 32px;
-            height: 32px;
-            div {
-                background-size: 20px 20px;
-                background-repeat: no-repeat;
-                width: 20px;
-                height: 20px;
-            }
-        }
-    }
-    #lastStakingOperations {
-        // display: none;
-    }
-
-    .sectionStaking {
-    }
     .section__innerCard--big {
-        width: 100% !important;
         padding: 16px 12px 16px 12px !important;
-    }
-    .card-withdraw {
-        padding-left: 0px;
-        padding-right: 0px;
-        .withdraw__row {
-            padding-left: 8px;
-            gap: 16px;
-            justify-content: space-between;
-            width: 100%;
-            .withdraw__first__column {
-                flex-direction: column;
-            }
-            .withdraw__amount {
-                font-size: 18px;
-                width: 126px;
-            }
-        }
-        .withdraw__date {
-            font-size: 12px;
-            width: 128px;
-        }
-        .withdraw__status {
-            font-size: 12px;
-            width: 80px;
-        }
-
-        .withdraw__header {
-            .withdraw__date {
-                padding-left: 0;
-                text-align: left;
-                width: 200px;
-            }
-            .withdraw__amount {
-                text-align: left;
-            }
-            .withdraw__action {
-            }
-            .withdraw__cta {
-            }
-            .withdraw__first__column {
-                flex-direction: column;
-                width: 150px;
-            }
-        }
-    }
-
-    .card-stakingData {
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-        width: 100%;
-        .table__stakingData {
-            .stakingTableData__date {
-                width: 100px;
-            }
-            .stakingTableData__amount {
-                width: 100px;
-            }
-            .stakingTableData__operation {
-                width: 90px;
-            }
-            .table__header,
-            .table__row {
-                gap: 16px !important;
-            }
-        }
-    }
-    .firstCardsGroup,
-    .SecondCardsGroup {
-        display: flex;
-        flex-direction: column;
-        max-width: 100%;
+        width: 100% !important;
     }
 }
 /* #region MOBILE */

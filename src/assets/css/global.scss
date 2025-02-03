@@ -740,14 +740,12 @@ h2 {
     flex-wrap: wrap;
     color: var(--color-txt-primary);
     font-family: var(--main-font);
-    // outline: 1px dashed rgb(15, 163, 255);
 }
 .section__innerCard--small {
     width: 576px;
     border: var(--card-border);
 }
 .section__innerCard--big {
-    // border: 1px dashed burlywood;
     width: 100%;
     border: var(--card-border);
 }
