@@ -331,7 +331,7 @@ export default function Exchange() {
                     amountReceiveFee.lt(0.00000001) ? 12 : 8,
                     false
                 );
-                setValueReceive(amountFormattedReceive);
+                setValueReceive( amountReceiveFee.isZero() ? "" : amountFormattedReceive);
                 setAmountYouReceive(amountReceiveFee);
                 setAmountYouExchange(amountExchangeFee);
                 break;
@@ -352,7 +352,7 @@ export default function Exchange() {
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
-                setValueExchange(amountFormattedExchange);
+                setValueExchange(amountExchangeFee.isZero() ? "" : amountFormattedExchange);
                 setAmountYouReceive(amountReceiveFee);
                 break;
             default:
@@ -420,23 +420,14 @@ export default function Exchange() {
             setAmountYouExchange(new BigNumber(0));
             setAmountYouReceive(new BigNumber(0));
             setExchangingUSD(new BigNumber(0));
-            setValueExchange("0.0");
+            setValueExchange("");
         } else {
-            const tokenSettings = TokenSettings(currencyYouExchange);
-            const totalbalance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    TokenBalance(auth, currencyYouExchange),
-                    tokenSettings.decimals
-                )
-            );
-
             setValueExchange(newAmount);
-
             const convertAmountReceive = ConvertAmount(
                 auth,
                 currencyYouExchange,
                 currencyYouReceive,
-                newAmount,
+                newAmount === "" ? new BigNumber(0) : newAmount,
                 false
             );
             onChangeAmounts(
@@ -452,14 +443,14 @@ export default function Exchange() {
             setAmountYouExchange(new BigNumber(0));
             setAmountYouReceive(new BigNumber(0));
             setExchangingUSD(new BigNumber(0));
-            setValueReceive("0.0");
+            setValueReceive("");
         } else {
             setValueReceive(newAmount);
             const convertAmountExchange = ConvertAmount(
                 auth,
                 currencyYouReceive,
                 currencyYouExchange,
-                newAmount,
+                newAmount === "" ? new BigNumber(0) : newAmount,
                 false
             );
             onChangeAmounts(

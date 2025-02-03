@@ -1,7 +1,7 @@
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
-import { TokenPrice, TokenSettings } from './currencies';
+import { TokenSettings } from './currencies';
 import {
     mintTC,
     redeemTC,
