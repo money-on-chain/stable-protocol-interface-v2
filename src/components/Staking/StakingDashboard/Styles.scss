@@ -1,0 +1,92 @@
+// Variables
+$breakpoint-mobile: 600px;
+
+.dashboard-staking-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px !important;
+    height: 80px;
+    .stakingDash__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 0px;
+        width: 240px;
+        height: 50px;
+    }
+    .stakingDash__icon__back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--icon-background-radius);
+        background-color: var(--icon-background-color);
+        width: 48px;
+        height: 48px;
+    }
+    .stakingDash__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0px;
+    }
+    .stakingDash__data__amount {
+        display: flex;
+        align-items: center;
+        width: 115px;
+        height: 29px;
+        color: var(--color-txt-primary);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 29px;
+        font-family: var(--brand-font);
+    }
+    .stakingDash__data__label {
+        color: var(--color-txt-secondary);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        font-family: var(--main-font);
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .dashboard-staking-info {
+        flex-wrap: wrap;
+        gap: 8px;
+        height: auto;
+        .stakingDash__data {
+            gap: 0;
+            .stakingDash__data__amount {
+                height: 18px;
+                font-size: 18px;
+            }
+            .stakingDash__data__label {
+                font-size: 12px;
+            }
+        }
+        .stakingDash__item {
+            width: 156px;
+            .stakingDash__data {
+                width: 110px;
+            }
+            .stakingDash__data__amount {
+                font-size: 16px;
+            }
+        }
+        .stakingDash__icon__back {
+            width: 32px;
+            height: 32px;
+            div {
+                background-size: 20px 20px;
+                background-repeat: no-repeat;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
