@@ -12,10 +12,7 @@ import "./assets/css/customize2Light.scss";
 import "./assets/css/customize3Dark.scss";
 import "./assets/css/customize4Overwrites.scss";
 
-// import './index-.css';
-// import './assets/css/components.scss';
 import "./assets/css/global.scss";
-// import './assets/css/responsive.scss';
 
 import reportWebVitals from "./reportWebVitals";
 import { AuthenticateProvider } from "./context/Auth";

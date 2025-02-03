@@ -30,7 +30,6 @@ export default function Tokens(props) {
         .join("");
     const tokensData = [];
     const columnsData = [{ title: "Token", dataIndex: "details" }];
-    console.log(columnsData);
     const params = Object.assign({
         shortFormat: true,
         justification: "L",
@@ -413,7 +412,6 @@ export default function Tokens(props) {
         );
         price = new BigNumber(1);
         balanceUSD = balance.times(price);
-        console.log(balanceUSD);
         // variation
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
