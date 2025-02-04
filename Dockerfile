@@ -10,9 +10,16 @@ RUN npm install
 
 # copy environments targets
 COPY .env ./
-COPY .env.rocTestnet ./
+COPY .env.flipmoneyMainnet ./
 COPY .env.flipmoneyTestnet ./
+COPY .env.mocAlphaTestnet ./
+COPY .env.rocAlphaTestnet  ./
+COPY .env.rocAlphaTestnetQA  ./
 COPY .env.rocMainnet ./
+COPY .env.rocTestnet ./
+COPY .env.stablexTestnet ./
+COPY .env.votingMainnet ./
+COPY .env.votingTestnet ./
 
 # build script target
 COPY build_target.sh ./
