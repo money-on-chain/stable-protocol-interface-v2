@@ -6,7 +6,7 @@ const Skeleton = React.lazy(
     () =>
         import(
             '../../../layouts/projects/' +
-                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() +
+            import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() +
                 '/Skeleton'
         )
 );

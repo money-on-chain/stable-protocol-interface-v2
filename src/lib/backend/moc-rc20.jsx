@@ -1,6 +1,6 @@
 import {
     mintTC as mintTC_, redeemTC as redeemTC_, mintTP as mintTP_, redeemTP as redeemTP_
-} from './moc-core.js'
+} from './moc-core.jsx'
 
 const mintTC = async (
     interfaceContext,

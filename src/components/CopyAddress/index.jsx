@@ -30,11 +30,11 @@ export default function CopyAddress(props) {
     };
 
     let urlExplorer =
-        process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/address/' + address;
+        import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/address/' + address;
     switch (type) {
         case 'tx':
             urlExplorer =
-                process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+                import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
                 '/tx/' +
                 address;
             break;

@@ -24,7 +24,7 @@ const getRLogin = (port) => {
             };
     }
 
-    const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
+    const chainId = import.meta.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
     var selectedNetwork = {};
     selectedNetwork[parseInt(chainId)] = rpcUrls[parseInt(chainId)];
 
@@ -36,7 +36,7 @@ const getRLogin = (port) => {
             walletconnect: {
                 package: window.rLoginWalletConnect2Provider.WalletConnect2Provider,
                 options: {
-                    projectId: process.env.REACT_APP_RLOGIN_WALLETCONNECT2_PROJECTID,
+                    projectId: import.meta.env.REACT_APP_RLOGIN_WALLETCONNECT2_PROJECTID,
                     chains: [parseInt(chainId, 10)],
                     showQrModal: true,
                     rpcMap: rpcUrls

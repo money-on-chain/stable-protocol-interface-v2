@@ -21,7 +21,7 @@ import IERC20 from '../../contracts/omoc/IERC20.json';
 import IncentiveV2 from '../../contracts/omoc/IncentiveV2.json';
 
 import { registryAddresses, mocAddresses } from './multicall';
-import { addABI } from './transaction';
+//import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
 
 const readContracts = async (web3) => {
@@ -54,19 +54,19 @@ const readContracts = async (web3) => {
     abiContracts.VestingFactory = VestingFactory
     abiContracts.IncentiveV2 = IncentiveV2;
 
-    addABI(abiContracts);
+    //addABI(abiContracts);
 
     console.log(
         'Reading Multicall2 Contract... address: ',
-        process.env.REACT_APP_CONTRACT_MULTICALL2
+        import.meta.env.REACT_APP_CONTRACT_MULTICALL2
     );
     dContracts.contracts.multicall = new web3.eth.Contract(
         Multicall2.abi,
-        process.env.REACT_APP_CONTRACT_MULTICALL2
+        import.meta.env.REACT_APP_CONTRACT_MULTICALL2
     );
 
     dContracts.contracts.PP_CA = []
-    const contractPPCA = process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",")
+    const contractPPCA = import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",")
     for (let i = 0; i < settings.tokens.CA.length; i++) {
         console.log(`Reading Price Provider ${settings.tokens.CA[i].name} Tokens Contract... address: `, contractPPCA[i])
         dContracts.contracts.PP_CA.push(new web3.eth.Contract(IPriceProvider.abi, contractPPCA[i]))
@@ -74,20 +74,20 @@ const readContracts = async (web3) => {
 
     console.log(
         `Reading Price Provider ${settings.tokens.COINBASE.name} Contract... address: `,
-        process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE
+        import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE
     );
     dContracts.contracts.PP_COINBASE = new web3.eth.Contract(
         IPriceProvider.abi,
-        process.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE
+        import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_COINBASE
     );
 
     console.log(
         'Reading Moc Contract... address: ',
-        process.env.REACT_APP_CONTRACT_MOC
+        import.meta.env.REACT_APP_CONTRACT_MOC
     );
     dContracts.contracts.Moc = new web3.eth.Contract(
         Moc.abi,
-        process.env.REACT_APP_CONTRACT_MOC
+        import.meta.env.REACT_APP_CONTRACT_MOC
     );
 
     // Read contracts addresses from MoC
@@ -198,15 +198,15 @@ const readContracts = async (web3) => {
         mocAddr['maxOpDiffProvider']
     );
 
-    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
+    if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
 
         console.log(
             'Reading IRegistry Contract... address: ',
-            process.env.REACT_APP_CONTRACT_IREGISTRY
+            import.meta.env.REACT_APP_CONTRACT_IREGISTRY
         );
         dContracts.contracts.IRegistry = new web3.eth.Contract(
             IRegistry.abi,
-            process.env.REACT_APP_CONTRACT_IREGISTRY
+            import.meta.env.REACT_APP_CONTRACT_IREGISTRY
         );
 
         // Read contracts addresses from registry
@@ -249,14 +249,14 @@ const readContracts = async (web3) => {
         );
 
         // reading Incentive V2 from environment address
-        if (typeof process.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
+        if (typeof import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
             console.log(
                 'Reading Incentive V2 Contract... address: ',
-                process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+                import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2
             );
             dContracts.contracts.IncentiveV2 = new web3.eth.Contract(
                 IncentiveV2.abi,
-                process.env.REACT_APP_CONTRACT_INCENTIVE_V2
+                import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2
             );
         }
 
@@ -281,13 +281,13 @@ const readContracts = async (web3) => {
     }
 
     // Token migrator & Legacy token
-    if (process.env.REACT_APP_CONTRACT_LEGACY_TP) {
-        const tpLegacy = new web3.eth.Contract(TokenPegged.abi, process.env.REACT_APP_CONTRACT_LEGACY_TP)
+    if (import.meta.env.REACT_APP_CONTRACT_LEGACY_TP) {
+        const tpLegacy = new web3.eth.Contract(TokenPegged.abi, import.meta.env.REACT_APP_CONTRACT_LEGACY_TP)
         dContracts.contracts.tp_legacy = tpLegacy
 
-        if (!process.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR) console.log("Error: Please set token migrator address!")
+        if (!import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR) console.log("Error: Please set token migrator address!")
 
-        const tokenMigrator = new web3.eth.Contract(TokenMigrator.abi, process.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
+        const tokenMigrator = new web3.eth.Contract(TokenMigrator.abi, import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
         dContracts.contracts.token_migrator = tokenMigrator
     }
 

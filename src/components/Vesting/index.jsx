@@ -298,7 +298,7 @@ export default function Vesting(props) {
     };
 
     const recoverMessageClaimCode = (message) => {
-        const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
+        const chainId = import.meta.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
         const userAddress = auth.accountData.Wallet;
         const fromAddress = userAddress.slice(2);
         const code = `:OMoC:${chainId}:address:${fromAddress}`;

@@ -67,7 +67,7 @@ export default function AccountDialog(props) {
 
     useEffect(() => {
         const url =
-            process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+            import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
             "/address/" +
             auth.accountData.Wallet;
         setQrValue(url);
@@ -326,7 +326,7 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            {typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined' && (
+            {typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined' && (
                 <div className="switch switch__vesting">
                     <Switch
                         checked={vestingOn}

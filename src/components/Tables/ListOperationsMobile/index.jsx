@@ -54,7 +54,7 @@ export default function ListOperations(props) {
                 skip: (skip - 1 + (skip - 1)) * 10,
             };
             setTimeout(() => {
-                const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
+                const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
                 const queryParams = new URLSearchParams({
                     recipient: accountData.Owner,
                     limit: 1000,

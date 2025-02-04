@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { BigNumber } from 'bignumber.js';
 
-import { useProjectTranslation } from '../helpers/translations';
+import { useProjectTranslation } from './translations';
 
 import { AuthenticateContext } from '../context/Auth';
 import { fromContractPrecisionDecimals } from './Formats';

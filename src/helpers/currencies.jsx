@@ -1,10 +1,10 @@
-import { ReactComponent as LogoIconCA_0 } from '../assets/tokens/ca_0.svg';
-import { ReactComponent as LogoIconCA_1 } from '../assets/tokens/ca_1.svg';
-import { ReactComponent as LogoIconCOINBASE } from '../assets/tokens/coinbase.svg';
-import { ReactComponent as LogoIconTC } from '../assets/tokens/tc.svg';
-import { ReactComponent as LogoIconTP_0 } from '../assets/tokens/tp_0.svg';
-import { ReactComponent as LogoIconTP_1 } from '../assets/tokens/tp_1.svg';
-import { ReactComponent as LogoIconTG_0 } from '../assets/tokens/tg_0.svg';
+import LogoIconCA_0 from '../assets/tokens/ca_0.svg?react';
+import LogoIconCA_1 from '../assets/tokens/ca_1.svg?react';
+import LogoIconCOINBASE from '../assets/tokens/coinbase.svg?react';
+import LogoIconTC from '../assets/tokens/tc.svg?react';
+import LogoIconTP_0 from '../assets/tokens/tp_0.svg?react';
+import LogoIconTP_1 from '../assets/tokens/tp_1.svg?react';
+import LogoIconTG_0 from '../assets/tokens/tg_0.svg?react';
 import settings from '../settings/settings.json';
 import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';

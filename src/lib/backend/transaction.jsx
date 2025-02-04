@@ -1,7 +1,8 @@
-import abiDecoder from 'abi-decoder';
+//import abiDecoder from 'abi-decoder';
 import Web3 from 'web3';
 import settings from '../../settings/settings.json';
 
+/*
 const addABI = (abiContracts) => {
     // Abi decoder
     abiDecoder.addABI(abiContracts.TokenPegged.abi);
@@ -14,6 +15,7 @@ const addABI = (abiContracts) => {
     abiDecoder.addABI(abiContracts.VestingFactory.abi);
     abiDecoder.addABI(abiContracts.IncentiveV2.abi);
 };
+*/
 
 const renderEventField = (eveName, eveValue) => {
     const formatItemsWei = new Set([
@@ -101,4 +103,4 @@ const decodeEvents = (receipt) => {
     return filteredEvents;
 };
 
-export { addABI, decodeEvents };
+export { decodeEvents };

@@ -248,7 +248,7 @@ export default function ConfirmOperation(props) {
         }
 
         const apiUrl =
-            `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
+            `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}` +
             "operations/oper_id/";
         axios
             .get(apiUrl, {

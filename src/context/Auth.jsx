@@ -213,7 +213,7 @@ const AuthenticateProvider = ({ children }) => {
     useEffect(() => {
         if (!window.rLogin) {
             window.rLogin = getRLogin(
-                process.env.REACT_APP_ENVIRONMENT_CHAIN_ID
+                import.meta.env.REACT_APP_ENVIRONMENT_CHAIN_ID
             );
             if (window.rLogin.cachedProvider) {
                 connect();
@@ -246,7 +246,7 @@ const AuthenticateProvider = ({ children }) => {
             if (account) {
                 loadContractsStatusAndUserBalance();
             }
-        }, process.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
+        }, import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
         return () => clearInterval(interval);
     }, [account]);
 
@@ -533,7 +533,7 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const readUserVesting = () => {
-        const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
+        const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
         const queryParams = new URLSearchParams({
             holder: window.address,
             limit: 20,

@@ -181,7 +181,7 @@ export default function ConfirmSend(props) {
                         <Button
                             type="secondary"
                             className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
                                     ? 'button secondary'
                                     : 'button secondary'
                             }
@@ -192,7 +192,7 @@ export default function ConfirmSend(props) {
                         <button
                             type="primary"
                             className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
                                     ? `button`
                                     : `button`
                             }

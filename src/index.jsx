@@ -21,7 +21,7 @@ import Router from "./router";
 import es_ES from "./settings/locale/es_ES.json";
 import en_US from "./settings/locale/en_US.json";
 
-console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
+console.log(`Starting app version: ${import.meta.env.REACT_APP_VERSION}`);
 
 async function loadTranslations() {
     try {
