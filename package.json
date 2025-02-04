@@ -6,11 +6,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
     "@opd/g2plot-react": "^2.13.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react-swc": "^3.7.2",
-    "abi-decoder": "^2.4.0",
     "antd": "^4.24.16",
     "axios": "^1.7.9",
     "bignumber.js": "^9.1.2",
@@ -37,9 +33,7 @@
     "sass": "^1.83.4",
     "vite": "^6.0.11",
     "vite-tsconfig-paths": "^5.1.4",
-    "web-vitals": "^2.1.4",
-    "web3": "^4.16.0",
-    "webpack": "^5.97.1"
+    "web3": "^4.16.0"
   },
   "scripts": {
     "reload:flipmoney-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet react-app-rewired start",
@@ -96,7 +90,6 @@
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.4",
     "process": "^0.11.10",
-    "react-app-rewired": "^2.2.1",
     "vite-plugin-svgr": "^4.3.0"
   }
 }

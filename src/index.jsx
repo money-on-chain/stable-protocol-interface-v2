@@ -14,7 +14,7 @@ import "./assets/css/customize4Overwrites.scss";
 
 import "./assets/css/global.scss";
 
-import reportWebVitals from "./reportWebVitals";
+
 import { AuthenticateProvider } from "./context/Auth";
 import IconLoading from "./assets/icons/LoaderAnim.svg";
 import Router from "./router";
@@ -84,8 +84,3 @@ root.render(
         </I18nextProvider>
     </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
