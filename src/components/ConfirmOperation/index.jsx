@@ -6,10 +6,7 @@ import axios from "axios";
 import { useProjectTranslation } from "../../helpers/translations";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import { PrecisionNumbers } from "../PrecisionNumbers";
-import {
-    TokenSettings,
-    TokenBalance,
-} from "../../helpers/currencies";
+import { TokenSettings, TokenBalance } from "../../helpers/currencies";
 import { AuthenticateContext } from "../../context/Auth";
 import { isMintOperation, UserTokenAllowance } from "../../helpers/exchange";
 import ModalAllowanceOperation from "../Modals/Allowance";
@@ -484,7 +481,7 @@ export default function ConfirmOperation(props) {
                             })}
                         </div>
                         <div className="tx-token">
-                            {t(`exchange.tokens.${currencyYouExchange}.label`, {
+                            {t(`exchange.tokens.${currencyYouExchange}.abbr`, {
                                 ns: ns,
                             })}
                         </div>
@@ -518,7 +515,7 @@ export default function ConfirmOperation(props) {
                             })}
                         </div>
                         <div className="tx-token">
-                            {t(`exchange.tokens.${currencyYouReceive}.label`, {
+                            {t(`exchange.tokens.${currencyYouReceive}.abbr`, {
                                 ns: ns,
                             })}
                         </div>
