@@ -11,7 +11,6 @@ import {
 
 import { readContracts } from "../lib/backend/contracts";
 import { contractStatus, userBalance } from "../lib/backend/multicall";
-import { decodeEvents } from "../lib/backend/transaction";
 import {
     AllowanceAmount,
     transferTokenTo,
@@ -101,7 +100,6 @@ const AuthenticateContext = createContext({
     ) => {},
     disconnect: () => {},
     getTransactionReceipt: (hash) => {},
-    interfaceDecodeEvents: async (receipt) => {},
     getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (address) => {},
     getReserveAllowance: async (address) => {},
@@ -588,14 +586,6 @@ const AuthenticateProvider = ({ children }) => {
         return getGasPrice(web3);
     };
 
-    const interfaceDecodeEvents = async (receipt) => {
-        const txRcp = await web3.eth.getTransactionReceipt(
-            receipt.transactionHash
-        );
-        const filteredEvents = decodeEvents(txRcp);
-        return filteredEvents;
-    };
-
     const onShowModalAccount = () => {
         setShowModalAccount(true);
     };
@@ -919,7 +909,6 @@ const AuthenticateProvider = ({ children }) => {
                 getTransactionReceipt,
                 getSpendableBalance,
                 getReserveAllowance,
-                interfaceDecodeEvents,
                 loadContractsStatusAndUserBalance,
                 interfaceAllowUseTokenMigrator,
                 interfaceMigrateToken,

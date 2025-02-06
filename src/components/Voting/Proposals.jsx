@@ -227,7 +227,22 @@ function Proposals(props) {
         const onReceipt = (receipt) => {
             console.log('Transaction add proposal mined!...');
             setOperationStatus('success');
-            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            /*
+            // Events name list
+            const filter = [
+                'OperationError',
+                'UnhandledError',
+                'OperationQueued',
+                'OperationExecuted'
+            ];
+
+            const contractName = 'MocQueue';
+
+            const txRcp = await auth.web3.eth.getTransactionReceipt(
+                receipt.transactionHash
+            );
+            const filteredEvents = decodeEvents(txRcp, contractName, filter);
+             */
             onCloseAddProposal();
         };
         const onError = (error) => {
@@ -279,7 +294,22 @@ function Proposals(props) {
         const onReceipt = (receipt) => {
             console.log('Transaction unregister proposal mined!...');
             setOperationStatus('success');
-            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            /*
+            // Events name list
+            const filter = [
+                'OperationError',
+                'UnhandledError',
+                'OperationQueued',
+                'OperationExecuted'
+            ];
+
+            const contractName = 'MocQueue';
+
+            const txRcp = await auth.web3.eth.getTransactionReceipt(
+                receipt.transactionHash
+            );
+            const filteredEvents = decodeEvents(txRcp, contractName, filter);
+             */
         };
         const onError = (error) => {
             console.log('Transaction unregister proposal error!...:', error);
@@ -327,7 +357,22 @@ function Proposals(props) {
         const onReceipt = (receipt) => {
             console.log('Transaction pre vote step mined!...');
             setOperationStatus('success');
-            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            /*
+            // Events name list
+            const filter = [
+                'OperationError',
+                'UnhandledError',
+                'OperationQueued',
+                'OperationExecuted'
+            ];
+
+            const contractName = 'MocQueue';
+
+            const txRcp = await auth.web3.eth.getTransactionReceipt(
+                receipt.transactionHash
+            );
+            const filteredEvents = decodeEvents(txRcp, contractName, filter);
+             */
         };
         const onError = (error) => {
             console.log('Transaction pre vote step error!...:', error);

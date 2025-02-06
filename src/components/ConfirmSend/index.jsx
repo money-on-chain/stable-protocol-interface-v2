@@ -71,7 +71,24 @@ export default function ConfirmSend(props) {
     const onReceipt = async (receipt) => {
         // Tx is mined ok
         console.log('On receipt: ', receipt);
-        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+
+        /*
+        // Events name list
+        const filter = [
+            'OperationError',
+            'UnhandledError',
+            'OperationQueued',
+            'OperationExecuted'
+        ];
+
+        const contractName = 'MocQueue';
+
+        const txRcp = await auth.web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
+        const filteredEvents = decodeEvents(txRcp, contractName, filter);
+         */
+
         setStatus('SUCCESS');
 
         // Refresh user balance

@@ -69,7 +69,22 @@ const SwapToken = (props) => {
     const onReceiptTokenMigration = async (receipt) => {
         // Tx is mined ok proceed with operation transaction
         console.log("On receipt token migration: ", receipt);
-        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+        /*
+        // Events name list
+        const filter = [
+            'OperationError',
+            'UnhandledError',
+            'OperationQueued',
+            'OperationExecuted'
+        ];
+
+        const contractName = 'MocQueue';
+
+        const txRcp = await auth.web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
+        const filteredEvents = decodeEvents(txRcp, contractName, filter);
+         */
     };
 
     const onErrorTokenMigration = async (error) => {
@@ -118,7 +133,22 @@ const SwapToken = (props) => {
     const onReceiptAuthorize = async (receipt) => {
         // Tx is mined ok proceed with operation transaction
         console.log("On receipt authorize: ", receipt);
-        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+        /*
+        // Events name list
+        const filter = [
+            'OperationError',
+            'UnhandledError',
+            'OperationQueued',
+            'OperationExecuted'
+        ];
+
+        const contractName = 'MocQueue';
+
+        const txRcp = await auth.web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
+        const filteredEvents = decodeEvents(txRcp, contractName, filter);
+         */
     };
 
     const onErrorAuthorize = async (error) => {

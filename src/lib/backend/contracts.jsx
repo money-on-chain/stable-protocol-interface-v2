@@ -21,7 +21,6 @@ import IERC20 from '../../contracts/omoc/IERC20.json';
 import IncentiveV2 from '../../contracts/omoc/IncentiveV2.json';
 
 import { registryAddresses, mocAddresses } from './multicall';
-//import { addABI } from './transaction';
 import settings from '../../settings/settings.json';
 
 const readContracts = async (web3) => {
@@ -30,31 +29,6 @@ const readContracts = async (web3) => {
     dContracts.json = {};
     dContracts.contracts = {};
     dContracts.contractsAddresses = {};
-
-    // Add to abi decoder
-    const abiContracts = {};
-    abiContracts.Multicall2 = Multicall2;
-    abiContracts.CollateralAsset = CollateralAsset;
-    abiContracts.TokenPegged = TokenPegged;
-    abiContracts.CollateralToken = CollateralToken;
-    abiContracts.IPriceProvider = IPriceProvider;
-    abiContracts.Moc = Moc;
-    abiContracts.MocVendors = MocVendors
-    abiContracts.FeeToken = FeeToken
-    abiContracts.MocQueue = MocQueue
-    abiContracts.TokenMigrator = TokenMigrator;
-
-    // Abi OMOC
-    abiContracts.IRegistry = IRegistry;
-    abiContracts.StakingMachine = StakingMachine;
-    abiContracts.DelayMachine = DelayMachine;
-    abiContracts.Supporters = Supporters;
-    abiContracts.VestingMachine = VestingMachine;
-    abiContracts.VotingMachine = VotingMachine;
-    abiContracts.VestingFactory = VestingFactory
-    abiContracts.IncentiveV2 = IncentiveV2;
-
-    //addABI(abiContracts);
 
     console.log(
         'Reading Multicall2 Contract... address: ',

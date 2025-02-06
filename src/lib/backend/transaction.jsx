@@ -1,102 +1,70 @@
-//import abiDecoder from 'abi-decoder';
-import Web3 from 'web3';
-import settings from '../../settings/settings.json';
+import { parseEventLogs, decodeEventLog } from 'viem'
+import { abi as abi_MocQueue } from '../../contracts/MocQueue.json';
+import { abi as abi_Moc } from '../../contracts/Moc.json';
+import { abi as abi_MocVendors } from '../../contracts/MocVendors.json';
+import { abi as abi_VestingFactory } from '../../contracts/omoc/VestingFactory.json';
 
-/*
-const addABI = (abiContracts) => {
-    // Abi decoder
-    abiDecoder.addABI(abiContracts.TokenPegged.abi);
-    abiDecoder.addABI(abiContracts.CollateralToken.abi);
-    abiDecoder.addABI(abiContracts.Moc.abi);
-    abiDecoder.addABI(abiContracts.MocVendors.abi);
-    abiDecoder.addABI(abiContracts.MocQueue.abi);
-
-    // OMOC
-    abiDecoder.addABI(abiContracts.VestingFactory.abi);
-    abiDecoder.addABI(abiContracts.IncentiveV2.abi);
-};
-*/
-
-const renderEventField = (eveName, eveValue) => {
-    const formatItemsWei = new Set([
-        'qTC_',
-        'qAsset_',
-        'qACfee_',
-        'qAC_',
-        'oldTPema_',
-        'newTPema_',
-        'qTP_',
-        'TokenMigrated',
-        'qFeeToken_',
-        'qACVendorMarkup_',
-        'qFeeTokenVendorMarkup_',
-        'value'
-    ]);
-
-    if (formatItemsWei.has(eveName)) {
-        eveValue = Web3.utils.fromWei(eveValue, "ether");
-    }
-
-    console.log('\x1b[32m%s\x1b[0m', `${eveName}: ${eveValue}`);
-};
 
 const renderEvent = (evente) => {
     console.log('');
-    console.log('\x1b[35m%s\x1b[0m', `Event: ${evente.name}`);
+    console.log('\x1b[35m%s\x1b[0m', `Event: ${evente.eventName}`);
     console.log('');
 
-    evente.events.forEach(function (eve) {
-
-        if (eve) {
-            renderEventField(eve.name, eve.value);
-        }
-    })
-
+    for (const [eveName, eveValue] of Object.entries(evente.args)) {
+        console.log('\x1b[32m%s\x1b[0m', `${eveName}: ${eveValue}`);
+    }
 
 };
 
-const decodeEvents = (receipt) => {
+const getContractAbi = (contractName) => {
+    let abi = abi_MocQueue;
+    switch (contractName) {
+        case 'MocQueue':
+            abi = abi_MocQueue;
+            break;
+        case 'Moc':
+            abi = abi_Moc;
+            break;
+        case 'MocVendors':
+            abi = abi_MocVendors;
+            break;
+        case 'VestingFactory':
+            abi = abi_VestingFactory;
+            break;
+        default:
+            throw new Error('Invalid contract name');
+    }
+    return abi;
+}
+
+const filterEvents = (logs, contractName, filterEvents) => {
+    const contractAbi = getContractAbi(contractName);
+
+    const parsedLogs = parseEventLogs({
+        abi: contractAbi,
+        logs: logs,
+    })
+
+    const topics = []
+    for (let i = 0; i < parsedLogs.length; i++) {
+        const topic = decodeEventLog({
+            abi: contractAbi,
+            data: parsedLogs[i].data,
+            topics: parsedLogs[i].topics,
+            strict: false
+        })
+
+        if (filterEvents.includes(topic.eventName)) topics.push(topic)
+    }
+
+    return topics
+
+}
+
+const decodeEvents = (receipt, contractName, filter) => {
     if (!receipt.logs) return;
 
-    const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-
-    const filterIncludes = [
-        'Transfer',
-        'Approval',
-        'TCMinted',
-        'TCRedeemed',
-        'TPMinted',
-        'TPRedeemed',
-        'TPSwappedForTP',
-        'TPSwappedForTC',
-        'TCSwappedForTP',
-        'TCandTPRedeemed',
-        'TCandTPMinted',
-        'PeggedTokenChange',
-        'SuccessFeeDistributed',
-        'TPemaUpdated',
-        'BeaconUpgraded',
-        'ContractLiquidated',
-        'Paused',
-        'PeggedTokenChange',
-        'SettlementExecuted',
-        'SuccessFeeDistributed',
-        'TCInterestPayment',
-        'AssetModified',
-        'VendorMarkupChanged',
-        'OperationError',
-        'UnhandledError',
-        'OperationQueued',
-        'OperationExecuted',
-        'LiqTPRedeemed',
-        'PeggedTokenChange',
-        'ClaimOK',
-        'VestingCreated'
-    ];
-
-    const filteredEvents = decodedLogs.filter((event) =>
-        filterIncludes.includes(event.name)
-    );
+    const filteredEvents = filterEvents(receipt.logs, contractName, filter)
 
     filteredEvents.forEach((evente) => renderEvent(evente));
 

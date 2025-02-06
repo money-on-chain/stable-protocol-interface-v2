@@ -16,6 +16,7 @@ import ModalAllowanceOperation from "../Modals/Allowance";
 import CopyAddress from "../CopyAddress";
 import settings from "../../settings/settings.json";
 import TXStatus from "./TXStatus";
+import { decodeEvents } from '../../lib/backend/transaction';
 
 const { Panel } = Collapse;
 
@@ -306,36 +307,43 @@ export default function ConfirmOperation(props) {
 
     const onQueued = (filteredEvents) => {
         let operId = 0;
-        filteredEvents
-            .then((results) => {
-                results.forEach(function (events) {
-                    if (events.name === "OperationQueued") {
-                        // Is the event operation queue
-                        events.events.forEach(function (field) {
-                            if (field.name === "operId_") {
-                                operId = parseInt(field.value);
-                            }
-                        });
+        filteredEvents.forEach(function (events) {
+            if (events.eventName === "OperationQueued") {
+                // Is the event operation queue
+                for (const [eveName, eveValue] of Object.entries(events.args)) {
+                    if (eveName === "operId_") {
+                        operId = parseInt(eveValue);
                     }
-                });
-
-                if (operId > 0) {
-                    console.log("Setting operation ID:", operId);
-                    setOpID(operId);
-                    //setOpID(33)
-                    setStatus("QUEUED");
                 }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            }
+        });
+
+        if (operId > 0) {
+            console.log("Setting operation ID:", operId);
+            setOpID(operId);
+            //setOpID(33)
+            setStatus("QUEUED");
+        }
     };
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
         console.log("On receipt: ", receipt);
-        const filteredEvents = auth.interfaceDecodeEvents(receipt);
-        //setStatus('SUCCESS');
+
+        // Events name list
+        const filter = [
+            'OperationError',
+            'UnhandledError',
+            'OperationQueued',
+            'OperationExecuted'
+        ];
+
+        const contractName = 'MocQueue';
+
+        const txRcp = await auth.web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
+        const filteredEvents = decodeEvents(txRcp, contractName, filter);
 
         // on Queue
         onQueued(filteredEvents);
