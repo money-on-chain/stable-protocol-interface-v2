@@ -1,0 +1,68 @@
+.ant-table-body {
+    // ver como esconder el scroll bar area, que genera el margen derecho
+}
+.table__row,
+.table__header {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+.table__header {
+    border-bottom: 1px solid var(--dividers);
+    padding-bottom: 4px;
+}
+
+.table__cell__name {
+    display: flex;
+    flex-direction: row;
+    // outline: 1px dashed red;
+    width: 290px;
+    text-align: left;
+}
+.table__cell__price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    // outline: 1px dashed blue;
+    width: 240px;
+}
+.table__cell__unit {
+    font-size: 12px;
+    // outline: 1px dashed green;
+    // width: 180px;
+    line-height: 1.1;
+    margin-top: 2px;
+    width: 60px;
+    text-align: left;
+    opacity: 0.7;
+}
+
+.table__cell__variation {
+    // outline: 1px dashed purple;
+    width: 160px;
+    text-align: right;
+}
+.table__cell__amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 4px;
+    // outline: 1px dashed orange;
+    width: 180px;
+    text-align: right;
+}
+.table__cell__usdBalance {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    // outline: 1px dashed green;
+    width: 180px;
+    text-align: right;
+}
