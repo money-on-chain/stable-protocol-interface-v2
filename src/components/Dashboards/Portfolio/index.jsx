@@ -2,10 +2,17 @@ import React, { useContext } from "react";
 import BigNumber from "bignumber.js";
 
 import { useProjectTranslation } from "../../../helpers/translations";
+import TokensCA from "../../Tables/TokensCA";
+import TokensCAmobile from "../../Tables/TokensCAmobile";
+import TokensTP from "../../Tables/TokensTP";
+import TokensTPmobile from "../../Tables/TokensTPmobile";
 import { AuthenticateContext } from "../../../context/Auth";
 import settings from "../../../settings/settings.json";
+import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
+import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
+
 import PortfolioTable from "../../Tables/PortfolioTable";
 
 export default function Portfolio() {
@@ -67,13 +74,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.TC.balance,
-                settings.tokens.TC[0].decimals
+                settings.tokens.TC.decimals
             )
         );
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
-                settings.tokens.TC[0].decimals
+                settings.tokens.TC.decimals
             )
         );
         const priceCA = new BigNumber(
@@ -93,13 +100,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
-                settings.tokens.COINBASE[0].decimals
+                settings.tokens.COINBASE.decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_COINBASE,
-                settings.tokens.COINBASE[0].decimals
+                settings.tokens.COINBASE.decimals
             )
         );
         balanceUSD = balance.times(price);
@@ -109,13 +116,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF[0].decimals
+                settings.tokens.TF.decimals
             )
         );
         const priceInCA = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_FeeToken,
-                settings.tokens.TF[0].decimals
+                settings.tokens.TF.decimals
             )
         );
         balanceUSD = balance.times(priceInCA).times(priceCA);
@@ -136,7 +143,7 @@ export default function Portfolio() {
                                 ? "--"
                                 : PrecisionNumbers({
                                       amount: totalUSD,
-                                      token: settings.tokens.COINBASE[0],
+                                      token: settings.tokens.COINBASE,
                                       decimals: 2,
                                       i18n: i18n,
                                       skipContractConvert: true,
@@ -150,7 +157,15 @@ export default function Portfolio() {
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    <PortfolioTable />
+                    <div className="mobile-only">
+                        <TokensCAmobile />
+                        {hasNonUSDPeggedTokens() && <TokensTPmobile />}
+                    </div>
+                    <div className="desktop-only">
+                        <PortfolioTable />
+                        {/* <TokensCA /> */}
+                        {/* {hasNonUSDPeggedTokens() && <TokensTP />} */}
+                    </div>
                 </div>
             </div>
         </div>
