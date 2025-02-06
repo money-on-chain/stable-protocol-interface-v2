@@ -12,6 +12,8 @@ import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
 
+import PortfolioTable from "../../Tables/PortfolioTable";
+
 export default function Portfolio() {
     const space = "\u00A0";
     const [t, i18n, ns] = useProjectTranslation();
@@ -161,8 +163,9 @@ export default function Portfolio() {
                         {hasNonUSDPeggedTokens() && <TokensTPmobile />}
                     </div>
                     <div className="desktop-only">
-                        <TokensCA />
-                        {hasNonUSDPeggedTokens() && <TokensTP />}
+                        <PortfolioTable />
+                        {/* <TokensCA /> */}
+                        {/* {hasNonUSDPeggedTokens() && <TokensTP />} */}
                     </div>
                 </div>
             </div>

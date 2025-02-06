@@ -903,7 +903,9 @@ export default function ListOperations(props) {
             {ready ? (
                 <>
                     <Table
-                        className={'vertical-middle custom-border-spacing-table custom-table'}
+                        className={
+                            "vertical-middle custom-border-spacing-table custom-table"
+                        }
                         showHeader={false}
                         expandable={{
                             expandedRowKeys: expandedKeys,
