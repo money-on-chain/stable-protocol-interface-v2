@@ -1,6 +1,6 @@
 {
   "name": "stable-protocol-interface-v2",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -30,48 +30,30 @@
   "scripts": {
     "reload:flipmoney-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet vite",
     "start:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet vite",
-    "build:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyTestnet vite build",
+    "build:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyTestnet vite build && bash ./remove_build.sh",
     "reload:flipmoney-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyMainnet vite",
     "start:flipmoney-mainnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyMainnet vite",
-    "build:flipmoney-mainnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyMainnet vite build",
+    "build:flipmoney-mainnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyMainnet vite build && bash ./remove_build.sh",
     "reload:roc-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocTestnet vite",
     "start:roc-testnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocTestnet vite",
-    "build:roc-testnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocTestnet vite build",
+    "build:roc-testnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocTestnet vite build && bash ./remove_build.sh",
     "start:roc-alpha-testnet-qa": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocAlphaTestnetQA vite",
-    "build:roc-alpha-testnet-qa": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocAlphaTestnetQA vite build",
+    "build:roc-alpha-testnet-qa": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocAlphaTestnetQA vite build && bash ./remove_build.sh",
     "reload:roc-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocMainnet vite",
     "start:roc-mainnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.rocMainnet vite",
-    "build:roc-mainnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocMainnet vite build",
+    "build:roc-mainnet": "bash ./prepare_target.sh roc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.rocMainnet vite build && bash ./remove_build.sh",
     "reload:voting-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingTestnet vite",
     "start:voting-testnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingTestnet vite",
-    "build:voting-testnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.votingTestnet vite build",
+    "build:voting-testnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.votingTestnet vite build && bash ./remove_build.sh",
     "reload:voting-mainnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingMainnet vite",
     "start:voting-mainnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.votingMainnet vite",
-    "build:voting-mainnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.votingMainnet vite build",
+    "build:voting-mainnet": "bash ./prepare_target.sh voting && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.votingMainnet vite build && bash ./remove_build.sh",
     "reload:moc-alpha-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocAlphaTestnet vite",
     "start:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.mocAlphaTestnet vite",
-    "build:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocAlphaTestnet vite build",
+    "build:moc-alpha-testnet": "bash ./prepare_target.sh moc && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.mocAlphaTestnet vite build && bash ./remove_build.sh",
     "reload:stablex-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.stablexTestnet vite",
     "start:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.stablexTestnet vite",
-    "build:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.stablexTestnet vite build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.stablexTestnet vite build && bash ./remove_build.sh"
   },
   "devDependencies": {
     "vite-plugin-svgr": "^4.3.0"
