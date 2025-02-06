@@ -2,14 +2,7 @@ import React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 
 import NotFound from '../../../pages/NotFound';
-const Skeleton = React.lazy(
-    () =>
-        import(
-            '../../../layouts/projects/' +
-            import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() +
-                '/Skeleton'
-        )
-);
+const Skeleton = React.lazy(() => import('../../../layouts/projects/voting/Skeleton'));
 const Send = React.lazy(() => import('../../../pages/Send/index'));
 const Staking = React.lazy(() => import('../../../pages/Staking/index'));
 const Vesting = React.lazy(() => import('../../../pages/Vesting/index'));
