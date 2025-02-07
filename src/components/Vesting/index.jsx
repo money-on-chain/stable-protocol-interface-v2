@@ -16,6 +16,7 @@ import {
     saveVestingAddressesToLocalStorage,
     onValidateVestingAddress,
 } from "../../helpers/vesting";
+import { decodeEvents } from '../../lib/backend/transaction';
 import "./Styles.scss";
 
 const { TextArea } = Input;
@@ -298,7 +299,7 @@ export default function Vesting(props) {
     };
 
     const recoverMessageClaimCode = (message) => {
-        const chainId = process.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
+        const chainId = import.meta.env.REACT_APP_ENVIRONMENT_CHAIN_ID;
         const userAddress = auth.accountData.Wallet;
         const fromAddress = userAddress.slice(2);
         const code = `:OMoC:${chainId}:address:${fromAddress}`;
@@ -342,35 +343,30 @@ export default function Vesting(props) {
     };
 
     const onVestingCreated = (filteredEvents) => {
-        filteredEvents
-            .then((results) => {
-                results.forEach(function (events) {
-                    if (events.name === "VestingCreated") {
-                        events.events.forEach(function (field) {
-                            if (field.name === "vesting") {
-                                const vNewAddress = field.value.toLowerCase();
-                                setNewVestingAddress(vNewAddress);
+        filteredEvents.forEach(function (events) {
+            if (events.eventName === "VestingCreated") {
+                for (const [eveName, eveValue] of Object.entries(events.args)) {
+                    if (eveName === "vesting") {
+                        const vNewAddress = eveValue.toLowerCase();
+                        setNewVestingAddress(vNewAddress);
 
-                                // set go to step Nº 4
-                                setStatus("STEP_4");
+                        // set go to step Nº 4
+                        setStatus("STEP_4");
 
-                                // Close the modal
-                                setIsOperationModalVisible(false);
+                        // Close the modal
+                        setIsOperationModalVisible(false);
 
-                                // Add vesting address to storage
-                                addVesting(vNewAddress)
-                                    .then((results) => {})
-                                    .catch((error) => {
-                                        console.log(error);
-                                    });
-                            }
-                        });
+                        // Add vesting address to storage
+                        addVesting(vNewAddress)
+                            .then((results) => {})
+                            .catch((error) => {
+                                console.log(error);
+                            });
                     }
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                }
+            }
+        });
+
     };
 
     const onSendCreateVM = async (e) => {
@@ -386,10 +382,20 @@ export default function Vesting(props) {
             setTxHash(txHash);
             setOperationStatus("pending");
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = async (receipt) => {
             console.log("Transaction create VM mined!...");
             setOperationStatus("success");
-            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            // Events name list
+            const filter = [
+                'VestingCreated'
+            ];
+
+            const contractName = 'VestingFactory';
+
+            const txRcp = await auth.web3.eth.getTransactionReceipt(
+                receipt.transactionHash
+            );
+            const filteredEvents = decodeEvents(txRcp, contractName, filter);
             onVestingCreated(filteredEvents);
         };
         const onError = (error) => {

@@ -25,13 +25,13 @@ export default function Copy(props) {
     };
 
     let url_set =
-        process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+        import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
         "/address/" +
         textToCopy;
     switch (typeUrl) {
         case "tx":
             url_set =
-                process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+                import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
                 "/tx/" +
                 textToCopy;
             break;

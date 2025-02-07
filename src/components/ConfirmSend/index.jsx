@@ -71,7 +71,24 @@ export default function ConfirmSend(props) {
     const onReceipt = async (receipt) => {
         // Tx is mined ok
         console.log('On receipt: ', receipt);
-        const filteredEvents = auth.interfaceDecodeEvents(receipt);
+
+        /*
+        // Events name list
+        const filter = [
+            'OperationError',
+            'UnhandledError',
+            'OperationQueued',
+            'OperationExecuted'
+        ];
+
+        const contractName = 'MocQueue';
+
+        const txRcp = await auth.web3.eth.getTransactionReceipt(
+            receipt.transactionHash
+        );
+        const filteredEvents = decodeEvents(txRcp, contractName, filter);
+         */
+
         setStatus('SUCCESS');
 
         // Refresh user balance
@@ -181,7 +198,7 @@ export default function ConfirmSend(props) {
                         <Button
                             type="secondary"
                             className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
                                     ? 'button secondary'
                                     : 'button secondary'
                             }
@@ -192,7 +209,7 @@ export default function ConfirmSend(props) {
                         <button
                             type="primary"
                             className={
-                                process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                                import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
                                     ? `button`
                                     : `button`
                             }

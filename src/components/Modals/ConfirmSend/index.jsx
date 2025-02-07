@@ -23,7 +23,7 @@ export default function ModalConfirmSend(props) {
         <div className="ShowModalConfirmOperation">
             <Button
                 type="primary"
-                className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button' : 'button'}
+                className={import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button' : 'button'}
                 onClick={showModal}
                 disabled={inputValidationError ? 'disabled' : null}
             >

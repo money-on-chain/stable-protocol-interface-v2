@@ -7,7 +7,7 @@ export default function DappVersion() {
     return (
         <>
             <div className="dappVersion">
-                {t("settings.protocolName")} {process.env.REACT_APP_VERSION}
+                {t("settings.protocolName")} {import.meta.env.REACT_APP_VERSION}
             </div>
         </>
     );

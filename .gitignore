@@ -3,6 +3,7 @@ node_modules
 build
 .DS_Store
 public/*.*
+index.html
 # assets
 src/assets/branding/logo-app.svg
 src/assets/branding/logo-app-dark.svg

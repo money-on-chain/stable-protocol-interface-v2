@@ -11,7 +11,6 @@ import {
 
 import { readContracts } from "../lib/backend/contracts";
 import { contractStatus, userBalance } from "../lib/backend/multicall";
-import { decodeEvents } from "../lib/backend/transaction";
 import {
     AllowanceAmount,
     transferTokenTo,
@@ -101,7 +100,6 @@ const AuthenticateContext = createContext({
     ) => {},
     disconnect: () => {},
     getTransactionReceipt: (hash) => {},
-    interfaceDecodeEvents: async (receipt) => {},
     getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (address) => {},
     getReserveAllowance: async (address) => {},
@@ -213,7 +211,7 @@ const AuthenticateProvider = ({ children }) => {
     useEffect(() => {
         if (!window.rLogin) {
             window.rLogin = getRLogin(
-                process.env.REACT_APP_ENVIRONMENT_CHAIN_ID
+                import.meta.env.REACT_APP_ENVIRONMENT_CHAIN_ID
             );
             if (window.rLogin.cachedProvider) {
                 connect();
@@ -246,7 +244,7 @@ const AuthenticateProvider = ({ children }) => {
             if (account) {
                 loadContractsStatusAndUserBalance();
             }
-        }, process.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
+        }, import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
         return () => clearInterval(interval);
     }, [account]);
 
@@ -533,7 +531,7 @@ const AuthenticateProvider = ({ children }) => {
     };
 
     const readUserVesting = () => {
-        const baseUrl = `${process.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
+        const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}omoc/vesting_created/`;
         const queryParams = new URLSearchParams({
             holder: window.address,
             limit: 20,
@@ -586,14 +584,6 @@ const AuthenticateProvider = ({ children }) => {
 
     const interfaceGasPrice = async () => {
         return getGasPrice(web3);
-    };
-
-    const interfaceDecodeEvents = async (receipt) => {
-        const txRcp = await web3.eth.getTransactionReceipt(
-            receipt.transactionHash
-        );
-        const filteredEvents = decodeEvents(txRcp);
-        return filteredEvents;
     };
 
     const onShowModalAccount = () => {
@@ -919,7 +909,6 @@ const AuthenticateProvider = ({ children }) => {
                 getTransactionReceipt,
                 getSpendableBalance,
                 getReserveAllowance,
-                interfaceDecodeEvents,
                 loadContractsStatusAndUserBalance,
                 interfaceAllowUseTokenMigrator,
                 interfaceMigrateToken,

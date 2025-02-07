@@ -14,14 +14,24 @@ import "./assets/css/customize4Overwrites.scss";
 
 import "./assets/css/global.scss";
 
-import reportWebVitals from "./reportWebVitals";
+
 import { AuthenticateProvider } from "./context/Auth";
 import IconLoading from "./assets/icons/LoaderAnim.svg";
 import Router from "./router";
 import es_ES from "./settings/locale/es_ES.json";
 import en_US from "./settings/locale/en_US.json";
 
-console.log(`Starting app version: ${process.env.REACT_APP_VERSION}`);
+console.log(`Starting app version: ${import.meta.env.REACT_APP_VERSION}`);
+
+window.addEventListener('vite:preloadError', (event) => {
+    /*
+    When a new deployment occurs, the hosting service may delete the assets from previous deployments.
+    As a result, a user who visited your site before the new deployment might encounter an import error.
+    This error happens because the assets running on that user's device are outdated and it tries to import the
+    corresponding old chunk, which is deleted. This event is useful for addressing this situation.*/
+    console.log("preloadError")
+    console.log(event)
+})
 
 async function loadTranslations() {
     try {
@@ -84,8 +94,3 @@ root.render(
         </I18nextProvider>
     </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

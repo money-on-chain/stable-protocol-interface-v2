@@ -4,7 +4,7 @@ import settings from '../../settings/settings.json';
 import omoc from '../../settings/omoc/omoc.json';
 
 
-class MultiCall {
+class Multicall {
     constructor(multicall, web3) {
         this.multicall = multicall;
         this.web3 = web3;
@@ -107,7 +107,7 @@ const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
 
     const collateral = settings.collateral
-    const vendorAddress = `${process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS}`.toLowerCase()
+    const vendorAddress = `${import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS}`.toLowerCase()
 
     console.log('Reading contract status ...');
 
@@ -129,7 +129,7 @@ const contractStatus = async (web3, dContracts) => {
     let tg
     let proposalCountVoting
 
-    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
+    if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
         iregistry = dContracts.contracts.IRegistry
         stakingmachine = dContracts.contracts.StakingMachine
         delaymachine = dContracts.contracts.DelayMachine
@@ -139,7 +139,7 @@ const contractStatus = async (web3, dContracts) => {
         proposalCountVoting = Number(BigInt(await votingmachine.methods.getProposalCount().call()))
     }
 
-    const multiCallRequest = new MultiCall(multicall, web3)
+    const multiCallRequest = new Multicall(multicall, web3)
 
     multiCallRequest.aggregate(Moc, Moc.methods.protThrld().encodeABI(), 'uint256', 'protThrld')
     multiCallRequest.aggregate(Moc, Moc.methods.liqThrld().encodeABI(), 'uint256', 'liqThrld')
@@ -301,7 +301,7 @@ const contractStatus = async (web3, dContracts) => {
 
     // History Price (24hs ago)
     const d24BlockHeights = status.blockHeight - BigInt(2880);
-    const multiCallRequestHistory = new MultiCall(multicall, web3)
+    const multiCallRequestHistory = new Multicall(multicall, web3)
 
     multiCallRequestHistory.aggregate(Moc, Moc.methods.getPTCac().encodeABI(), 'uint256', 'getPTCac')
     multiCallRequestHistory.aggregate(PP_COINBASE, PP_COINBASE.methods.peek().encodeABI(), 'uint256', 'PP_COINBASE')
@@ -343,7 +343,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
     let votingmachine
     let IncentiveV2
 
-    if (typeof process.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
+    if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
         stakingmachine = dContracts.contracts.StakingMachine
         delaymachine = dContracts.contracts.DelayMachine
         tg = dContracts.contracts.TG
@@ -355,7 +355,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
 
     console.log(`Reading user balance ... account: ${userAddress}`);
 
-    const multiCallRequest = new MultiCall(multicall, web3)
+    const multiCallRequest = new Multicall(multicall, web3)
     multiCallRequest.aggregate(multicall, multicall.methods.getEthBalance(userAddress).encodeABI(), 'uint256', 'coinbase')
     multiCallRequest.aggregate(CollateralToken, CollateralToken.methods.balanceOf(userAddress).encodeABI(), 'uint256', 'TC', 'balance')
     multiCallRequest.aggregate(CollateralToken, CollateralToken.methods.allowance(userAddress, MoCContract.options.address).encodeABI(), 'uint256', 'TC', 'allowance')
@@ -461,7 +461,7 @@ const registryAddresses = async (web3, dContracts) => {
     const multicall = dContracts.contracts.multicall
     const iregistry = dContracts.contracts.IRegistry
 
-    const multiCallRequest = new MultiCall(multicall, web3)
+    const multiCallRequest = new Multicall(multicall, web3)
     multiCallRequest.aggregate(iregistry, iregistry.methods.getAddress(omoc.RegistryConstants.MOC_STAKING_MACHINE).encodeABI(), 'address', 'MOC_STAKING_MACHINE')
     multiCallRequest.aggregate(iregistry, iregistry.methods.getAddress(omoc.RegistryConstants.SUPPORTERS_ADDR).encodeABI(), 'address', 'SUPPORTERS_ADDR')
     multiCallRequest.aggregate(iregistry, iregistry.methods.getAddress(omoc.RegistryConstants.MOC_DELAY_MACHINE).encodeABI(), 'address', 'MOC_DELAY_MACHINE')
@@ -479,7 +479,7 @@ const mocAddresses = async (web3, dContracts) => {
     const multicall = dContracts.contracts.multicall
     const moc = dContracts.contracts.Moc
 
-    const multiCallRequest = new MultiCall(multicall, web3)
+    const multiCallRequest = new Multicall(multicall, web3)
     multiCallRequest.aggregate(moc, moc.methods.feeToken().encodeABI(), 'address', 'feeToken')
     multiCallRequest.aggregate(moc, moc.methods.feeTokenPriceProvider().encodeABI(), 'address', 'feeTokenPriceProvider')
     if (settings.collateral !== 'coinbase')  {

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals, getGasPrice, toContractPrecisionDecimals } from './utils';
 import {
     redeemTC as redeemTC_, redeemTP as redeemTP_
-} from './moc-core.js'
+} from './moc-core.jsx'
 
 const mintTC = async (
     interfaceContext,
@@ -17,7 +17,7 @@ const mintTC = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
 
     // Verifications
@@ -132,7 +132,7 @@ const mintTP = async (
     const { web3, contractStatusData, userBalanceData, account } =
         interfaceContext;
     const dContracts = window.dContracts;
-    const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
+    const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
     const MoCContract = dContracts.contracts.Moc
     const tpAddress = dContracts.contracts.TP[tpIndex].options.address
     console.log('tpAddress', tpAddress);

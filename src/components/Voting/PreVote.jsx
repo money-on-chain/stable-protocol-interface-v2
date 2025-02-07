@@ -121,7 +121,22 @@ function PreVote(props) {
         const onReceipt = (receipt) => {
             console.log('Transaction voting in favor proposal mined!...');
             setOperationStatus('success');
-            const filteredEvents = auth.interfaceDecodeEvents(receipt);
+            /*
+            // Events name list
+            const filter = [
+                'OperationError',
+                'UnhandledError',
+                'OperationQueued',
+                'OperationExecuted'
+            ];
+
+            const contractName = 'MocQueue';
+
+            const txRcp = await auth.web3.eth.getTransactionReceipt(
+                receipt.transactionHash
+            );
+            const filteredEvents = decodeEvents(txRcp, contractName, filter);
+             */
         };
         const onError = (error) => {
             console.log(
