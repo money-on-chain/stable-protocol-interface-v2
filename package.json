@@ -28,6 +28,10 @@
     "web3": "^4.16.0"
   },
   "scripts": {
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --max-warnings 0 --fix",
+    "prettier": "prettier \"src/**/*.{ts,tsx,js,jsx}\" --write",
+    "preview": "vite preview",
     "reload:flipmoney-testnet": "export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet vite",
     "start:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && env-cmd -f .env.flipmoneyTestnet vite",
     "build:flipmoney-testnet": "bash ./prepare_target.sh flipmoney && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.flipmoneyTestnet vite build && bash ./remove_build.sh",
@@ -56,6 +60,11 @@
     "build:stablex-testnet": "bash ./prepare_target.sh stablex && export REACT_APP_VERSION=$npm_package_version && export NODE_OPTIONS=--max_old_space_size=4096 && env-cmd -f .env.stablexTestnet vite build && bash ./remove_build.sh"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.14.0",
+    "prettier": "3.4.2",
     "vite-plugin-svgr": "^4.3.0"
   }
 }
