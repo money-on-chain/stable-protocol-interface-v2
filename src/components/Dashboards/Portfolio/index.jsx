@@ -73,13 +73,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.TC.balance,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceCA = new BigNumber(
@@ -99,13 +99,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_COINBASE,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         balanceUSD = balance.times(price);
@@ -115,13 +115,13 @@ export default function Portfolio() {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         const priceInCA = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_FeeToken,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         balanceUSD = balance.times(priceInCA).times(priceCA);
@@ -142,7 +142,7 @@ export default function Portfolio() {
                                 ? "--"
                                 : PrecisionNumbers({
                                       amount: totalUSD,
-                                      token: settings.tokens.COINBASE,
+                                      token: settings.tokens.COINBASE[0],
                                       decimals: 2,
                                       t: t,
                                       i18n: i18n,
@@ -159,8 +159,10 @@ export default function Portfolio() {
                 </div>
                 <div className="tokens-list-table">
                     <div className="mobile-only">
-                        <TokensCAmobile />
-                        {hasNonUSDPeggedTokens() && <TokensTPmobile />}
+                        <PortfolioTable />
+
+                        {/* <TokensCAmobile /> */}
+                        {/* {hasNonUSDPeggedTokens() && <TokensTPmobile />} */}
                     </div>
                     <div className="desktop-only">
                         <PortfolioTable />

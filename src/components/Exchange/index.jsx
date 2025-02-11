@@ -252,7 +252,7 @@ export default function Exchange() {
         const feeTokenBalance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
 
@@ -331,7 +331,9 @@ export default function Exchange() {
                     amountReceiveFee.lt(0.00000001) ? 12 : 8,
                     false
                 );
-                setValueReceive( amountReceiveFee.isZero() ? "" : amountFormattedReceive);
+                setValueReceive(
+                    amountReceiveFee.isZero() ? "" : amountFormattedReceive
+                );
                 setAmountYouReceive(amountReceiveFee);
                 setAmountYouExchange(amountExchangeFee);
                 break;
@@ -352,7 +354,9 @@ export default function Exchange() {
                     false
                 );
                 setAmountYouExchange(amountExchangeFee);
-                setValueExchange(amountExchangeFee.isZero() ? "" : amountFormattedExchange);
+                setValueExchange(
+                    amountExchangeFee.isZero() ? "" : amountFormattedExchange
+                );
                 setAmountYouReceive(amountReceiveFee);
                 break;
             default:
@@ -409,7 +413,7 @@ export default function Exchange() {
                         currencyYouReceive,
                         auth
                     ),
-                    settings.tokens.COINBASE.decimals
+                    settings.tokens.COINBASE[0].decimals
                 )
             )
         );

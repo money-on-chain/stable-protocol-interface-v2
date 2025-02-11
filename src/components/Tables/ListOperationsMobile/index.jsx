@@ -167,8 +167,8 @@ export default function ListOperations(props) {
                         status === "executed"
                             ? row_operation[status]["qTC_"]
                             : row_operation[status]["qTC"],
-                    name: settings.tokens.TC.name,
-                    token: settings.tokens.TC,
+                    name: settings.tokens.TC[0].name,
+                    token: settings.tokens.TC[0],
                     icon: "TC",
                     title:
                         status === "executed"
@@ -184,8 +184,8 @@ export default function ListOperations(props) {
                         status === "executed"
                             ? row_operation[status]["qTC_"]
                             : row_operation[status]["qTC"],
-                    name: settings.tokens.TC.name,
-                    token: settings.tokens.TC,
+                    name: settings.tokens.TC[0].name,
+                    token: settings.tokens.TC[0],
                     icon: "TC",
                     title:
                         status === "executed"
@@ -648,20 +648,20 @@ export default function ListOperations(props) {
             const qFeeToken = new BigNumber(
                 fromContractPrecisionDecimals(
                     row_operation["executed"]["qFeeToken_"],
-                    settings.tokens.TF.decimals
+                    settings.tokens.TF[0].decimals
                 )
             );
 
             const qFeeTokenVendorMarkup = new BigNumber(
                 fromContractPrecisionDecimals(
                     row_operation["executed"]["qFeeTokenVendorMarkup_"],
-                    settings.tokens.TF.decimals
+                    settings.tokens.TF[0].decimals
                 )
             );
 
             fee["amount"] = qFeeToken.plus(qFeeTokenVendorMarkup);
             fee["token"] = "TF";
-            fee["decimals"] = settings.tokens.TF.decimals;
+            fee["decimals"] = settings.tokens.TF[0].decimals;
         }
 
         if (
@@ -794,8 +794,8 @@ export default function ListOperations(props) {
                 };
             case "TC":
                 return {
-                    name: settings.tokens.TC.name,
-                    token: settings.tokens.TC,
+                    name: settings.tokens.TC[0].name,
+                    token: settings.tokens.TC[0],
                 };
             case "TP_0":
                 return {

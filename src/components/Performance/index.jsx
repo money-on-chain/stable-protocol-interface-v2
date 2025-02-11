@@ -1,22 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from "react";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import { AuthenticateContext } from '../../context/Auth';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { TokenSettings } from '../../helpers/currencies';
-import CollateralAssets from './collateral';
-import TokensPegged from './tokenspegged';
-import TokensPeggedMobile from './tokenspeggedmobile';
-import BigNumber from 'bignumber.js';
-import CheckStatus from '../../helpers/checkStatus';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import settings from '../../settings/settings.json';
+import { useProjectTranslation } from "../../helpers/translations";
+import { AuthenticateContext } from "../../context/Auth";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { TokenSettings } from "../../helpers/currencies";
+import CollateralAssets from "./collateral";
+import TokensPegged from "./tokenspegged";
+import TokensPeggedMobile from "./tokenspeggedmobile";
+import BigNumber from "bignumber.js";
+import CheckStatus from "../../helpers/checkStatus";
+import { fromContractPrecisionDecimals } from "../../helpers/Formats";
+import settings from "../../settings/settings.json";
 
 export default function Performance(props) {
     const [isValid, setIsValid] = useState(true);
-    const [statusIcon, setStatusIcon] = useState('');
-    const [statusLabel, setStatusLabel] = useState('--');
-    const [statusText, setStatusText] = useState('--');
+    const [statusIcon, setStatusIcon] = useState("");
+    const [statusLabel, setStatusLabel] = useState("--");
+    const [statusText, setStatusText] = useState("--");
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const { checkerStatus } = CheckStatus();
@@ -37,7 +37,7 @@ export default function Performance(props) {
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
 
@@ -52,7 +52,7 @@ export default function Performance(props) {
         const collateralTotal = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.nACcb,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         collateralInUSD = collateralTotal.times(priceCA);
@@ -63,7 +63,7 @@ export default function Performance(props) {
             <div className="section__innerCard--small dash__perfSystemStatus">
                 <div className="card-system-status">
                     <div className="layout-card-title">
-                        <h1>{t('performance.status.cardTitle')}</h1>
+                        <h1>{t("performance.status.cardTitle")}</h1>
                     </div>
 
                     <div className="card-content">
@@ -76,12 +76,12 @@ export default function Performance(props) {
                                 {statusLabel}
                             </div>
                             <div className="block-info">
-                                {t('performance.status.showingBlock')}
+                                {t("performance.status.showingBlock")}
                                 {auth.contractStatusData
                                     ? BigInt(
                                           auth.contractStatusData.blockHeight
                                       ).toString()
-                                    : '--'}
+                                    : "--"}
                             </div>
                         </div>
                     </div>
@@ -90,27 +90,27 @@ export default function Performance(props) {
             {/* Total Value Locked */}
             <div className="section__innerCard--small dash__perfTVL">
                 <div className="layout-card-title">
-                    <h1>{t('performance.tvl.cardTitle')}</h1>
+                    <h1>{t("performance.tvl.cardTitle")}</h1>
                 </div>
 
                 <div className="card-content">
                     <div className="big-number">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: collateralInUSD
                                       ? collateralInUSD
                                       : new BigNumber(0),
-                                  token: TokenSettings('CA_0'),
+                                  token: TokenSettings("CA_0"),
                                   decimals: 2,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: true
+                                  skipContractConvert: true,
                               })}
                     </div>
                     <div className="caption">
-                        {t('performance.tvl.expressedIn')}
+                        {t("performance.tvl.expressedIn")}
                     </div>
                 </div>
             </div>
@@ -126,73 +126,73 @@ export default function Performance(props) {
                 <div className="card-content">
                     <div className="amount">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: price,
-                                  token: settings.tokens.TC,
+                                  token: settings.tokens.TC[0],
                                   decimals: 8,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: true
+                                  skipContractConvert: true,
                               })}
                         <div className="caption">
-                            {t('performance.tc.priceIn')}
+                            {t("performance.tc.priceIn")}
                         </div>
                     </div>
                     <div className="amount">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
                                       ? auth.contractStatusData.getLeverageTC
                                       : new BigNumber(0),
-                                  token: TokenSettings('TC'),
+                                  token: TokenSettings("TC"),
                                   decimals: 8,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                         <div className="caption">
-                            {t('performance.tc.currentLeverage')}
+                            {t("performance.tc.currentLeverage")}
                         </div>
                     </div>
                     <div className="amount">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
                                       ? auth.contractStatusData.nTCcb
                                       : new BigNumber(0),
-                                  token: TokenSettings('TC'),
+                                  token: TokenSettings("TC"),
                                   decimals: 2,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                         <div className="caption">
-                            {t('performance.tc.totalInSystem')}
+                            {t("performance.tc.totalInSystem")}
                         </div>
                     </div>
                     <div className="amount">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
                                       ? auth.contractStatusData
                                             .getTCAvailableToRedeem
                                       : new BigNumber(0),
-                                  token: TokenSettings('TC'),
+                                  token: TokenSettings("TC"),
                                   decimals: 2,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
-                              })}{' '}
+                                  skipContractConvert: false,
+                              })}{" "}
                         <div className="caption">
-                            {t('performance.tc.redeemable')}
+                            {t("performance.tc.redeemable")}
                         </div>
                     </div>
                 </div>
@@ -200,45 +200,45 @@ export default function Performance(props) {
             {/* System Collateral */}
             <div className="section__innerCard--small dash__perfCollateral">
                 <div className="layout-card-title">
-                    <h1>{t('performance.collateral.cardTitle')}</h1>
+                    <h1>{t("performance.collateral.cardTitle")}</h1>
                 </div>
 
                 <div className="card-content">
                     <div className="dash__perfCollateral__dash">
                         <div className="amount">
                             {!auth.contractStatusData.canOperate
-                                ? '--'
+                                ? "--"
                                 : PrecisionNumbers({
                                       amount: collateralInUSD
                                           ? collateralInUSD
                                           : new BigNumber(0),
-                                      token: TokenSettings('CA_0'),
+                                      token: TokenSettings("CA_0"),
                                       decimals: 2,
                                       t: t,
                                       i18n: i18n,
                                       ns: ns,
-                                      skipContractConvert: true
+                                      skipContractConvert: true,
                                   })}
                             <div className="caption">
-                                {t('performance.collateral.totalIn')}
+                                {t("performance.collateral.totalIn")}
                             </div>
                         </div>
                         <div className="amount">
                             {!auth.contractStatusData.canOperate
-                                ? '--'
+                                ? "--"
                                 : PrecisionNumbers({
                                       amount: auth.contractStatusData
                                           ? auth.contractStatusData.getCglb
                                           : new BigNumber(0),
-                                      token: TokenSettings('CA_0'),
+                                      token: TokenSettings("CA_0"),
                                       decimals: 6,
                                       t: t,
                                       i18n: i18n,
                                       ns: ns,
-                                      skipContractConvert: false
-                                  })}{' '}
+                                      skipContractConvert: false,
+                                  })}{" "}
                             <div className="caption">
-                                {t('performance.collateral.globalCoverage')}
+                                {t("performance.collateral.globalCoverage")}
                             </div>
                         </div>
                     </div>

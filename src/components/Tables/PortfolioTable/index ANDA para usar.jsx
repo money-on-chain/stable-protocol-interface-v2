@@ -12,6 +12,7 @@ import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import "./Styles.scss";
 
 export default function PortfolioTable(props) {
+    // Setup translation and authentication context
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
@@ -23,9 +24,21 @@ export default function PortfolioTable(props) {
         }
     }, [auth]);
 
+    // Retrieve dynamic heights for tables from CSS variables
+    const portfTableHeight = getComputedStyle(document.querySelector(":root"))
+        .getPropertyValue("--portfolioTokenHeight")
+        .split('"')
+        .join("");
+    const portfPeggedHeight = getComputedStyle(document.querySelector(":root"))
+        .getPropertyValue("--portfolioPeggedHeight")
+        .split('"')
+        .join("");
+
     // Initialize arrays for token and column data
-    const usdPriceTokensData = [];
-    const nonUSDpriceTokensData = [];
+    const tokensData = [];
+    const columnsData = [];
+    var rowData = [];
+    var data = [];
 
     // Setup parameters for numeric formatting
     const params = Object.assign({
@@ -39,6 +52,8 @@ export default function PortfolioTable(props) {
         title: "",
         cssClass: ["display-inline"],
     });
+    // PORA add column for renderRow at the beginning (temporary until renderRow is fully implemented)
+    columnsData.push({ dataIndex: "renderRow", align: "center", width: 100 });
 
     // Tokens CA
     const TokensCA = settings.tokens.CA;
@@ -99,8 +114,8 @@ export default function PortfolioTable(props) {
                 groupSeparator: t("numberFormat.thousandsSeparator"),
             });
 
-            // Add token data to usdPriceTokensData array
-            usdPriceTokensData.push({
+            // Add token data to tokensData array
+            tokensData.push({
                 key: dataItem.key,
                 renderRow: (
                     <div className="table__row">
@@ -127,7 +142,7 @@ export default function PortfolioTable(props) {
                             </span>
                         </div>
                         {/* Token price */}
-                        <div className="table__cell table__cell__price">
+                        <div className="table__cell__price">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
                                 : PrecisionNumbers({
@@ -142,41 +157,31 @@ export default function PortfolioTable(props) {
                                       i18n: i18n,
                                       ns: ns,
                                   })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
-                            </div>
+                            <div className="table__cell__unit">USD</div>
                         </div>
                         {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
+                        {!auth.contractStatusData.canOperate ? (
+                            "--"
                         ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    {`${getSign()} `}
-                                    <NumericLabel {...{ params }}>
-                                        {variationFormat}
-                                    </NumericLabel>
-                                    {" %"}
-                                    <span
-                                        className={`variation-indicator ${
-                                            getSign() === "+"
-                                                ? "positive-indicator"
-                                                : getSign() === "-"
-                                                  ? "negative-indicator"
-                                                  : "neutral-indicator"
-                                        }`}
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
+                            <div className="table__cell__variation">
+                                {`${getSign()} `}
+                                <NumericLabel {...{ params }}>
+                                    {variationFormat}
+                                </NumericLabel>
+                                {" %"}
+                                <span
+                                    className={`variation-indicator ${
+                                        getSign() === "+"
+                                            ? "positive-indicator"
+                                            : getSign() === "-"
+                                              ? "negative-indicator"
+                                              : "neutral-indicator"
+                                    }`}
+                                ></span>
                             </div>
                         )}
                         {/* Token balance */}
-                        <div className="table__cell table__cell__amount">
+                        <div className="table__cell__amount">
                             {PrecisionNumbers({
                                 amount: auth.userBalanceData.CA[dataItem.key]
                                     .balance,
@@ -188,17 +193,12 @@ export default function PortfolioTable(props) {
                                 i18n: i18n,
                                 ns: ns,
                             })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${dataItem.key}.symbol`
-                                )}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
+                            {t(
+                                `portfolio.tokens.CA.rows.${dataItem.key}.symbol`
+                            )}
                         </div>
-                        {/* Token balance in USD */}
-                        <div className="table__cell table__cell__usdBalance">
+                        {/* Token price */}
+                        <div className="table__cell__usdBalance">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
                                 : PrecisionNumbers({
@@ -210,9 +210,7 @@ export default function PortfolioTable(props) {
                                       ns: ns,
                                       skipContractConvert: true,
                                   })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
+                            <div className="table__cell__unit">USD</div>
                         </div>
                     </div>
                 ),
@@ -276,8 +274,8 @@ export default function PortfolioTable(props) {
                 groupSeparator: ",",
             });
 
-        // Add TC token data to usdPriceTokensData array
-        usdPriceTokensData.push({
+        // Add TC token data to tokensData array
+        tokensData.push({
             key: itemIndex,
             renderRow: (
                 <div className="table__row">
@@ -296,7 +294,7 @@ export default function PortfolioTable(props) {
                         </span>
                     </div>
                     {/* Token price */}
-                    <div className="table__cell table__cell__price">
+                    <div className="table__cell__price">
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -309,42 +307,31 @@ export default function PortfolioTable(props) {
                                   i18n: i18n,
                                   ns: ns,
                                   skipContractConvert: true,
-                              })}{" "}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
+                              })}
+                        <div className="table__cell__unit">USD</div>
                     </div>
                     {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
+                    {!auth.contractStatusData.canOperate ? (
+                        "--"
                     ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
+                        <div className="table__cell__variation">
+                            {`${getSign()} `}
+                            <NumericLabel {...{ params }}>
+                                {variationFormat}
+                            </NumericLabel>
+                            {" %"}
+                            <span
+                                className={`variation-indicator ${
+                                    getSign() === "+"
+                                        ? "positive-indicator"
+                                        : getSign() === "-"
+                                          ? "negative-indicator"
+                                          : "neutral-indicator"
+                                }`}
+                            ></span>
                         </div>
                     )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell__amount">
+                    <div className="table__cell__amount">
                         {PrecisionNumbers({
                             amount: auth.userBalanceData.TC.balance,
                             token: settings.tokens.TC[0],
@@ -355,15 +342,11 @@ export default function PortfolioTable(props) {
                             i18n: i18n,
                             ns: ns,
                         })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
+                        <div>
+                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}
                         </div>
                     </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__usdBalance">
+                    <div className="table__cell__usdBalance">
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -375,9 +358,7 @@ export default function PortfolioTable(props) {
                                   ns: ns,
                                   skipContractConvert: true,
                               })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
+                        <div className="table__cell__unit">USD</div>
                     </div>
                 </div>
             ),
@@ -428,15 +409,15 @@ export default function PortfolioTable(props) {
 
             const itemIndex = count;
 
-            // Add TP token data to usdPriceTokensData array
+            // Add TP token data to tokensData array
 
-            usdPriceTokensData.push({
+            tokensData.push({
                 key: itemIndex,
                 renderRow: (
                     <div className="table__row">
                         {/* Token icon, name and ticker */}
                         <div className="table__cell__name">
-                            <div className="icon-token-tp_0 token__icon"></div>
+                            <div className="icon-token-tp_0 token__icon"></div>{" "}
                             <span className="token__name">
                                 {t(
                                     `portfolio.tokens.CA.rows.${itemIndex}.title`,
@@ -454,8 +435,7 @@ export default function PortfolioTable(props) {
                                 )}
                             </span>
                         </div>
-                        {/* Token price */}
-                        <div className="table__cell table__cell__price">
+                        <div className="table__cell__price">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
                                 : PrecisionNumbers({
@@ -468,37 +448,23 @@ export default function PortfolioTable(props) {
                                       i18n: i18n,
                                       ns: ns,
                                       skipContractConvert: true,
-                                  })}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
-                            </div>
+                                  })}
+                            <div className="table__cell__unit">USD</div>
                         </div>
-                        {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
+                        {!auth.contractStatusData.canOperate ? (
+                            "--"
                         ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    <NumericLabel {...{ params }}>
-                                        {0}
-                                    </NumericLabel>
-                                    {" %"}
-                                    <span
-                                        className={
-                                            "variation-indicator neutral-indicator"
-                                        }
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
+                            <div className="table__cell__variation">
+                                <NumericLabel {...{ params }}>{0}</NumericLabel>
+                                {" %"}
+                                <span
+                                    className={
+                                        "variation-indicator neutral-indicator"
+                                    }
+                                ></span>
                             </div>
                         )}
-                        <div className="table__cell table__cell__amount">
-                            {/* Token balance */}
+                        <div className="table__cell__amount">
                             {PrecisionNumbers({
                                 amount: auth.userBalanceData.TP[dataItem.key]
                                     .balance,
@@ -508,17 +474,9 @@ export default function PortfolioTable(props) {
                                 i18n: i18n,
                                 ns: ns,
                             })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${itemIndex}.symbol`
-                                )}{" "}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
+                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}
                         </div>
-                        {/* Token balance in USD */}
-                        <div className="table__cell table__cell__usdBalance">
+                        <div className="table__cell__usdBalance">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
                                 : PrecisionNumbers({
@@ -529,10 +487,8 @@ export default function PortfolioTable(props) {
                                       i18n: i18n,
                                       ns: ns,
                                       skipContractConvert: true,
-                                  })}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
+                                  })}
+                            <div className="table__cell__unit">USD</div>
                         </div>
                     </div>
                 ),
@@ -597,8 +553,8 @@ export default function PortfolioTable(props) {
             groupSeparator: ",",
         });
 
-        // Add TF token data to usdPriceTokensData array
-        usdPriceTokensData.push({
+        // Add TF token data to tokensData array
+        tokensData.push({
             key: itemIndex,
             renderRow: (
                 <div className="table__row">
@@ -616,8 +572,7 @@ export default function PortfolioTable(props) {
                             })}
                         </span>
                     </div>
-                    {/* Token price */}
-                    <div className="table__cell table__cell__price">
+                    <div className="table__cell__price">
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -631,41 +586,29 @@ export default function PortfolioTable(props) {
                                   ns: ns,
                                   skipContractConvert: true,
                               })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
+                        <div className="table__cell__unit">USD</div>
                     </div>
-                    {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
+                    {!auth.contractStatusData.canOperate ? (
+                        "--"
                     ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
+                        <div className="table__cell__variation">
+                            {`${getSign()} `}
+                            <NumericLabel {...{ params }}>
+                                {variationFormat}
+                            </NumericLabel>
+                            {" %"}
+                            <span
+                                className={`variation-indicator ${
+                                    getSign() === "+"
+                                        ? "positive-indicator"
+                                        : getSign() === "-"
+                                          ? "negative-indicator"
+                                          : "neutral-indicator"
+                                }`}
+                            ></span>
                         </div>
                     )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell__amount">
+                    <div className="table__cell__amount">
                         {PrecisionNumbers({
                             amount: auth.userBalanceData.FeeToken.balance,
                             token: settings.tokens.TF[0],
@@ -674,15 +617,9 @@ export default function PortfolioTable(props) {
                             i18n: i18n,
                             ns: ns,
                         })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
-                        </div>
+                        {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}
                     </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__usdBalance">
+                    <div className="table__cell__usdBalance">
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -694,9 +631,7 @@ export default function PortfolioTable(props) {
                                   ns: ns,
                                   skipContractConvert: true,
                               })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
+                        <div className="table__cell__unit">USD</div>
                     </div>
                 </div>
             ),
@@ -759,14 +694,14 @@ export default function PortfolioTable(props) {
             decimalSeparator: ".",
             groupSeparator: ",",
         });
-        // Add Coinbase token data to usdPriceTokensData array if conditions are met
 
-        usdPriceTokensData.push({
+        // Add Coinbase token data to tokensData array if conditions are met
+        tokensData.push({
             key: itemIndex,
             rowData: (
                 <div className="table__row">
                     {/* Token icon, name and ticker */}
-                    <div className="table__cell__name">
+                    <div className="table__cell__price">
                         <div className="icon-token-coinbase token__icon"></div>
                         <span className="token__name">
                             {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
@@ -778,8 +713,8 @@ export default function PortfolioTable(props) {
                                 ns: ns,
                             })}
                         </span>
-                    </div>
-                    <div className="table__cell table__cell__price">
+                    </div>{" "}
+                    <div>
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -792,41 +727,28 @@ export default function PortfolioTable(props) {
                                   i18n: i18n,
                                   ns: ns,
                               })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
                     </div>
-                    {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
+                    {!auth.contractStatusData.canOperate ? (
+                        "--"
                     ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
+                        <div className="table__cell__variation">
+                            {`${getSign()} `}
+                            <NumericLabel {...{ params }}>
+                                {variationFormat}
+                            </NumericLabel>
+                            {" %"}
+                            <span
+                                className={`variation-indicator ${
+                                    getSign() === "+"
+                                        ? "positive-indicator"
+                                        : getSign() === "-"
+                                          ? "negative-indicator"
+                                          : "neutral-indicator"
+                                }`}
+                            ></span>
                         </div>
                     )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell_amount">
+                    <div className="table__cell_amount">
                         {PrecisionNumbers({
                             amount: auth.userBalanceData.coinbase,
                             token: settings.tokens.COINBASE[0],
@@ -837,15 +759,8 @@ export default function PortfolioTable(props) {
                             i18n: i18n,
                             ns: ns,
                         })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
-                        </div>
                     </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__price">
+                    <div className="table__cell__price">
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
@@ -857,9 +772,7 @@ export default function PortfolioTable(props) {
                                   ns: ns,
                                   skipContractConvert: true,
                               })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
+                        <div className="table__cell__unit">USD</div>
                     </div>
                 </div>
             ),
@@ -868,7 +781,6 @@ export default function PortfolioTable(props) {
     // Non USD pegged tokens START
 
     // Rows
-
     auth.contractStatusData &&
         auth.userBalanceData &&
         settings.tokens.TP.forEach(function (dataItem) {
@@ -928,12 +840,11 @@ export default function PortfolioTable(props) {
                 decimalSeparator: ".",
                 groupSeparator: ",",
             });
-            // Add token data to nonUSDPriceTokensData array
-            nonUSDpriceTokensData.push({
+
+            tokensData.push({
                 key: dataItem.key,
                 renderRow: (
                     <div className="table__row">
-                        {/* Token icon, name and ticker */}
                         <div className="table__cell__name">
                             <div
                                 className={`icon-token-tp_${dataItem.key} token__icon`}
@@ -955,8 +866,7 @@ export default function PortfolioTable(props) {
                                 )}
                             </div>
                         </div>
-                        {/* Token price */}
-                        <div className="table__cell table__cell__price">
+                        <div className="table__cell__price">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
                                 : PrecisionNumbers({
@@ -968,37 +878,27 @@ export default function PortfolioTable(props) {
                                       ns: ns,
                                       skipContractConvert: true,
                                   })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
+                            <div className="table__cell__unit">
+                                Tokens per USD
                             </div>
                         </div>
-                        {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
+                        {!auth.contractStatusData.canOperate ? (
+                            "--"
                         ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    {`${getSign()} ${variationFormat} %`}
-                                    <span
-                                        className={`variation-indicator ${
-                                            getSign() === "+"
-                                                ? "positive-indicator"
-                                                : getSign() === "-"
-                                                  ? "negative-indicator"
-                                                  : "neutral-indicator"
-                                        }`}
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
+                            <div className="table__cell__variation">
+                                {`${getSign()} ${variationFormat} %`}
+                                <span
+                                    className={`variation-indicator ${
+                                        getSign() === "+"
+                                            ? "positive-indicator"
+                                            : getSign() === "-"
+                                              ? "negative-indicator"
+                                              : "neutral-indicator"
+                                    }`}
+                                ></span>
                             </div>
-                        )}
-                        {/* Token balance */}
-                        <div className="table__cell table__cell__amount">
+                        )}{" "}
+                        <div className="table__cell__amount">
                             {PrecisionNumbers({
                                 amount: balance,
                                 token: settings.tokens.TP[dataItem.key],
@@ -1008,16 +908,10 @@ export default function PortfolioTable(props) {
                                 ns: ns,
                                 skipContractConvert: true,
                             })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.TP.rows.${dataItem.key}.symbol`
-                                )}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
+                            {t(
+                                `portfolio.tokens.TP.rows.${dataItem.key}.symbol`
+                            )}
                         </div>
-                        {/* Token balance in USD */}
                         <div className="table__cell__usdBalance">
                             {!auth.contractStatusData.canOperate
                                 ? "--"
@@ -1030,9 +924,7 @@ export default function PortfolioTable(props) {
                                       ns: ns,
                                       skipContractConvert: true,
                                   })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
+                            <div className="table__cell__unit">USD</div>
                         </div>
                     </div>
                 ),
@@ -1042,65 +934,21 @@ export default function PortfolioTable(props) {
     //  Non USD pegged tokens END
 
     return ready ? (
-        <div className="portfolio-table">
-            {/* Display header and body for regular tokens */}
+        <div>
             <div className="table__header">
-                <div className="table__cell__name">
-                    {t("portfolio.tokens.CA.columns.name")}
-                </div>
-                <div className="table__cell__price">
-                    {t("portfolio.tokens.CA.columns.price")}
-                </div>
-                <div className="table__cell__variation">
-                    {!settings.showPriceVariation
-                        ? null
-                        : t("portfolio.tokens.CA.columns.variation")}
-                </div>
-                <div className="table__cell__amount">
-                    {t("portfolio.tokens.CA.columns.balance")}
-                </div>
-                <div className="table__cell__usdBalance">
-                    {t("portfolio.tokens.CA.columns.usd")}
-                </div>
+                <div className="table__cell__name">Token</div>
+                <div className="table__cell__price">Price</div>
+                <div className="table__cell__variation">Variation 24h</div>
+                <div className="table__cell__amount">Balance</div>
+                <div className="table__cell__usdBalance">USD</div>
             </div>
-            <div className="table__body">
-                {usdPriceTokensData.map((item) => (
-                    <div key={item.key} className="token-row">
-                        {item.renderRow}
-                    </div>
-                ))}
-            </div>
-            {/* If non USD pegged CA tokens are available, display them header & body for them */}
-            {nonUSDpriceTokensData.length > 0 && (
-                <>
-                    <div className="table__header">
-                        <div className="table__cell__name">
-                            {t("portfolio.tokens.TP.columns.name")}
-                        </div>
-                        <div className="table__cell__price">
-                            {t("portfolio.tokens.TP.columns.price")}
-                        </div>
-                        <div className="table__cell__variation">
-                            {!settings.showPriceVariation
-                                ? null
-                                : t("portfolio.tokens.TP.columns.variation")}
-                        </div>
-                        <div className="table__cell__amount">
-                            {t("portfolio.tokens.TP.columns.balance")}
-                        </div>
-                        <div className="table__cell__usdBalance">
-                            {t("portfolio.tokens.TP.columns.usd")}
-                        </div>
-                    </div>
-                    <div className="table__body">
-                        {nonUSDpriceTokensData.map((item) => (
-                            <div key={item.key} className="token-row">
-                                {item.renderRow}
-                            </div>
-                        ))}
-                    </div>
-                </>
-            )}
+            <Table
+                showHeader={false}
+                columns={columnsData}
+                dataSource={tokensData}
+                pagination={false}
+                scroll={undefined}
+            />
         </div>
     ) : (
         <Skeleton active />

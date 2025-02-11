@@ -59,7 +59,7 @@ export default function Withdraw(props) {
                             <div className="item-data withdraw__amount">
                                 {PrecisionNumbers({
                                     amount: withdrawal.amount,
-                                    token: settings.tokens.TG,
+                                    token: settings.tokens.TG[0],
                                     decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
@@ -172,14 +172,14 @@ export default function Withdraw(props) {
                                     amount: userInfoStaking[
                                         "totalPendingExpiration"
                                     ],
-                                    token: settings.tokens.TG,
+                                    token: settings.tokens.TG[0],
                                     decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
                                     skipContractConvert: true,
                                 })}{" "}
-                                {`${settings.tokens.TG.name}`}
+                                {`${settings.tokens.TG[0].name}`}
                             </div>
                             <div className="withdraw-header-balance-title">
                                 {t("staking.withdraw.processing_unstake")}
@@ -193,14 +193,14 @@ export default function Withdraw(props) {
                                     amount: userInfoStaking[
                                         "totalAvailableToWithdraw"
                                     ],
-                                    token: settings.tokens.TG,
+                                    token: settings.tokens.TG[0],
                                     decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
                                     skipContractConvert: true,
                                 })}{" "}
-                                {`${settings.tokens.TG.name}`}
+                                {`${settings.tokens.TG[0].name}`}
                             </div>
                             <div className="withdraw-header-balance-title">
                                 {t("staking.withdraw.ready_to_withdraw")}

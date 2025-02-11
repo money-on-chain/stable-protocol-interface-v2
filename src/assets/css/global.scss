@@ -478,10 +478,10 @@ h2 {
     margin-top: 24px;
 }
 .mobile-only {
-    display: none;
+    display: none !important;
 }
 .desktop-only {
-    display: block;
+    display: block !important;
 }
 .ShowTokenMigration {
     margin-top: 24px;
