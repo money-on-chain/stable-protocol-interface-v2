@@ -212,13 +212,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.TC.balance,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceCA = new BigNumber(
@@ -234,7 +234,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         ).times(priceCA);
 
@@ -286,7 +286,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: price,
-                              token: settings.tokens.TC,
+                              token: settings.tokens.TC[0],
                               decimals: t(
                                   `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                               ),
@@ -321,7 +321,7 @@ export default function Tokens(props) {
                 <div>
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.TC.balance,
-                        token: settings.tokens.TC,
+                        token: settings.tokens.TC[0],
                         decimals: t(
                             `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
                         ),
@@ -337,7 +337,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
-                              token: settings.tokens.TC,
+                              token: settings.tokens.TC[0],
                               decimals: 2,
                               t: t,
                               i18n: i18n,
@@ -476,13 +476,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_FeeToken,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         const priceCA = new BigNumber(
@@ -497,7 +497,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.PP_FeeToken,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -550,7 +550,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: price.times(priceCA),
-                              token: settings.tokens.TF,
+                              token: settings.tokens.TF[0],
                               decimals: t(
                                   `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                               ),
@@ -585,7 +585,7 @@ export default function Tokens(props) {
                 <div>
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.FeeToken.balance,
-                        token: settings.tokens.TF,
+                        token: settings.tokens.TF[0],
                         decimals: 2,
                         t: t,
                         i18n: i18n,
@@ -599,7 +599,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
-                              token: settings.tokens.TF,
+                              token: settings.tokens.TF[0],
                               decimals: 2,
                               t: t,
                               i18n: i18n,
@@ -623,13 +623,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_COINBASE,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         balanceUSD = balance.times(price);
@@ -638,7 +638,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.PP_COINBASE,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -691,7 +691,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: auth.contractStatusData.PP_COINBASE,
-                              token: settings.tokens.COINBASE,
+                              token: settings.tokens.COINBASE[0],
                               decimals: t(
                                   `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                               ),
@@ -725,7 +725,7 @@ export default function Tokens(props) {
                 <div>
                     {PrecisionNumbers({
                         amount: auth.userBalanceData.coinbase,
-                        token: settings.tokens.COINBASE,
+                        token: settings.tokens.COINBASE[0],
                         decimals: t(
                             `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
                         ),
@@ -741,7 +741,7 @@ export default function Tokens(props) {
                         ? "--"
                         : PrecisionNumbers({
                               amount: balanceUSD,
-                              token: settings.tokens.COINBASE,
+                              token: settings.tokens.COINBASE[0],
                               decimals: 2,
                               t: t,
                               i18n: i18n,

@@ -710,7 +710,7 @@ export default function Vesting(props) {
                                                 ? "0"
                                                 : auth.userBalanceData
                                                       .incentiveV2.userBalance,
-                                            token: settings.tokens.TG,
+                                            token: settings.tokens.TG[0],
                                             decimals: t(
                                                 "staking.display_decimals"
                                             ),
@@ -966,7 +966,7 @@ export default function Vesting(props) {
                                                 : auth.userBalanceData
                                                       .vestingmachine
                                                       .getAvailable,
-                                            token: settings.tokens.TG,
+                                            token: settings.tokens.TG[0],
                                             decimals: t(
                                                 "staking.display_decimals"
                                             ),
@@ -1003,7 +1003,7 @@ export default function Vesting(props) {
                                         amount: !auth.userBalanceData
                                             ? "0"
                                             : vestingTotals["vested"],
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,
@@ -1038,7 +1038,7 @@ export default function Vesting(props) {
                                             : auth.userBalanceData
                                                   .vestingmachine.staking
                                                   .balance,
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,
@@ -1059,7 +1059,7 @@ export default function Vesting(props) {
                                             ? "0"
                                             : auth.userBalanceData
                                                   .vestingmachine.delay.balance,
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,
@@ -1089,7 +1089,7 @@ export default function Vesting(props) {
                                             ? "0"
                                             : auth.userBalanceData
                                                   .vestingmachine.getTotal,
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,

@@ -1,13 +1,12 @@
-import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
+import BigNumber from "bignumber.js";
+import Web3 from "web3";
 
-import settings from '../../settings/settings.json';
+import settings from "../../settings/settings.json";
 import {
     toContractPrecisionDecimals,
     getGasPrice,
-    fromContractPrecisionDecimals
-} from './utils';
-
+    fromContractPrecisionDecimals,
+} from "./utils";
 
 const mintTC = async (
     interfaceContext,
@@ -22,14 +21,14 @@ const mintTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
 
     // User have sufficient reserve to pay?
     console.log(
         `To mint ${qTC} ${
-            settings.tokens.TC.name
+            settings.tokens.TC[0].name
         } you need > ${limitAmount.toString()} ${
             settings.tokens.CA[caIndex].name
         } in your balance`
@@ -48,7 +47,7 @@ const mintTC = async (
     // Allowance    reserveAllowance
     console.log(
         `Allowance: To mint ${qTC} ${
-            settings.tokens.TC.name
+            settings.tokens.TC[0].name
         } you need > ${limitAmount.toString()} ${
             settings.tokens.CA[caIndex].name
         } in your spendable balance`
@@ -66,14 +65,14 @@ const mintTC = async (
         );
     */
 
-    const valueToSend = contractStatusData.tcMintExecFee
+    const valueToSend = contractStatusData.tcMintExecFee;
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             toContractPrecisionDecimals(
                 limitAmount,
@@ -88,7 +87,7 @@ const mintTC = async (
         .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             toContractPrecisionDecimals(
                 limitAmount,
@@ -102,10 +101,10 @@ const mintTC = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };
@@ -124,22 +123,24 @@ const redeemTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
 
     // User have sufficient TC in balance?
     console.log(
-        `Redeeming ${qTC} ${settings.tokens.TC.name} ... getting approx limit down to: ${limitAmount} ${settings.tokens.CA[caIndex].name}... `
+        `Redeeming ${qTC} ${settings.tokens.TC[0].name} ... getting approx limit down to: ${limitAmount} ${settings.tokens.CA[caIndex].name}... `
     );
     const userTCBalance = new BigNumber(
         fromContractPrecisionDecimals(
             userBalanceData.TC.balance,
-            settings.tokens.TC.decimals
+            settings.tokens.TC[0].decimals
         )
     );
     if (new BigNumber(qTC).gt(userTCBalance))
-        throw new Error(`Insufficient ${settings.tokens.TC.name} user balance`);
+        throw new Error(
+            `Insufficient ${settings.tokens.TC[0].name} user balance`
+        );
 
     // There are sufficient TC in the contracts to redeem?
     const tcAvailableToRedeem = new BigNumber(
@@ -147,7 +148,7 @@ const redeemTC = async (
     );
     if (new BigNumber(qTC).gt(tcAvailableToRedeem))
         throw new Error(
-            `Insufficient ${settings.tokens.TC.name}available to redeem in contract`
+            `Insufficient ${settings.tokens.TC[0].name}available to redeem in contract`
         );
 
     // There are sufficient CA in the contract
@@ -162,14 +163,14 @@ const redeemTC = async (
             `Insufficient ${settings.tokens.CA[caIndex].name} in the contract. Balance: ${caBalance} ${settings.tokens.CA[caIndex].name}`
         );
 
-    const valueToSend = contractStatusData.tcRedeemExecFee
+    const valueToSend = contractStatusData.tcRedeemExecFee;
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .redeemTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             toContractPrecisionDecimals(
                 limitAmount,
@@ -185,7 +186,7 @@ const redeemTC = async (
         .redeemTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             toContractPrecisionDecimals(
                 limitAmount,
@@ -199,10 +200,10 @@ const redeemTC = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };
@@ -222,8 +223,8 @@ const mintTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
 
     // Verifications
     // User have sufficient reserve to pay?
@@ -280,8 +281,8 @@ const mintTP = async (
             `Insufficient ${settings.tokens.TP[tpIndex].name} available to mint`
         );
 
-    const valueToSend = contractStatusData.tpMintExecFee
-    
+    const valueToSend = contractStatusData.tpMintExecFee;
+
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTP(
@@ -319,10 +320,10 @@ const mintTP = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };
@@ -342,8 +343,8 @@ const redeemTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
 
     // Verifications
 
@@ -383,7 +384,7 @@ const redeemTP = async (
             `Insufficient ${settings.tokens.CA[caIndex].name} in the contract. Balance: ${caBalance} ${settings.tokens.CA[caIndex].name}`
         );
 
-    const valueToSend = contractStatusData.tpRedeemExecFee
+    const valueToSend = contractStatusData.tpRedeemExecFee;
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
@@ -422,10 +423,10 @@ const redeemTP = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };

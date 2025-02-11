@@ -9,7 +9,6 @@ import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import NumericLabel from "react-pretty-numbers";
 
-
 export default function Tokens(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
@@ -239,13 +238,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.TC.balance,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         );
         const priceCA = new BigNumber(
@@ -261,7 +260,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.getPTCac,
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             )
         ).times(priceCA);
 
@@ -314,7 +313,7 @@ export default function Tokens(props) {
                                     ? "--"
                                     : PrecisionNumbers({
                                           amount: price,
-                                          token: settings.tokens.TC,
+                                          token: settings.tokens.TC[0],
                                           decimals: t(
                                               `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                                           ),
@@ -356,7 +355,7 @@ export default function Tokens(props) {
                             <div className="token__data__big right">
                                 {PrecisionNumbers({
                                     amount: auth.userBalanceData.TC.balance,
-                                    token: settings.tokens.TC,
+                                    token: settings.tokens.TC[0],
                                     decimals: t(
                                         `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
                                     ),
@@ -373,7 +372,7 @@ export default function Tokens(props) {
                                     ? "--"
                                     : PrecisionNumbers({
                                           amount: balanceUSD,
-                                          token: settings.tokens.TC,
+                                          token: settings.tokens.TC[0],
                                           decimals: 2,
                                           t: t,
                                           i18n: i18n,
@@ -399,138 +398,154 @@ export default function Tokens(props) {
     const TokensTP = settings.tokens.TP;
     // Iterate tokens TP
     auth.contractStatusData &&
-    auth.userBalanceData &&
-    TokensTP.forEach(function (dataItem) {
+        auth.userBalanceData &&
+        TokensTP.forEach(function (dataItem) {
+            // If it's not pegged to 1:1 USD not display in this table
+            if (!dataItem.peggedUSD) return;
 
-        // If it's not pegged to 1:1 USD not display in this table
-        if (!dataItem.peggedUSD) return
+            balance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.userBalanceData.TP[dataItem.key].balance,
+                    settings.tokens.TP[dataItem.key].decimals
+                )
+            );
+            price = new BigNumber(1);
+            balanceUSD = balance.times(price);
+            console.log(balanceUSD);
+            // variation
+            const priceHistory = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.historic.PP_TP[dataItem.key],
+                    settings.tokens.TP[dataItem.key].decimals
+                )
+            );
+            const priceDelta = price.minus(priceHistory);
+            const variation = priceDelta.abs().div(priceHistory).times(100);
 
-        balance = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.userBalanceData.TP[dataItem.key].balance,
-                settings.tokens.TP[dataItem.key].decimals
-            )
-        );
-        price = new BigNumber(1);
-        balanceUSD = balance.times(price);
-        console.log(balanceUSD);
-        // variation
-        const priceHistory = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_TP[dataItem.key],
-                settings.tokens.TP[dataItem.key].decimals
-            )
-        );
-        const priceDelta = price.minus(priceHistory);
-        const variation = priceDelta.abs().div(priceHistory).times(100);
+            const priceDeltaFormat = priceDelta.toFormat(
+                2,
+                BigNumber.ROUND_UP,
+                {
+                    decimalSeparator: ".",
+                    groupSeparator: ",",
+                }
+            );
+            const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
+                decimalSeparator: ".",
+                groupSeparator: ",",
+            });
 
-        const priceDeltaFormat = priceDelta.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: ".",
-            groupSeparator: ",",
-        });
-        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: ".",
-            groupSeparator: ",",
-        });
+            const itemIndex = count;
 
-        const itemIndex = count;
-
-        tokensData.push({
-            key: itemIndex,
-            details: (
-                <div className="token__contents">
-                    <div className="token">
-                        <div className="icon-token-tp_0 token__icon"></div>{" "}
-                        <span className="token__name">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                                ns: ns,
-                            })}
-                        </span>
-                        <span className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                                ns: ns,
-                            })}
-                        </span>
-                    </div>
-                    <div className="token__details">
-                        <div className="token__details__token">
-                            <div className="token__data__small">
-                                {!auth.contractStatusData.canOperate
-                                    ? "--"
-                                    : PrecisionNumbers({
-                                        amount: price,
-                                        token: settings.tokens.TP[dataItem.key],
-                                        decimals: t(
-                                            `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                        ),
-                                        t: t,
-                                        i18n: i18n,
+            tokensData.push({
+                key: itemIndex,
+                details: (
+                    <div className="token__contents">
+                        <div className="token">
+                            <div className="icon-token-tp_0 token__icon"></div>{" "}
+                            <span className="token__name">
+                                {t(
+                                    `portfolio.tokens.CA.rows.${itemIndex}.title`,
+                                    {
                                         ns: ns,
-                                        skipContractConvert: true,
-                                    })}
-                                <div className="token__label">price in usd</div>
-                            </div>
-                            <div className="token__data__small">
-                                {!auth.contractStatusData.canOperate ? (
-                                    "--"
-                                ) : (
-                                    <div>
-                                        <NumericLabel {...{ params }}>
-                                            {0}
-                                        </NumericLabel>
-                                        {" %"}
-                                        <span
-                                            className={
-                                                "variation-indicator neutral-indicator"
-                                            }
-                                        ></span>
-                                    </div>
+                                    }
                                 )}
-                                <div className="token__label">
-                                    Price Variation
+                            </span>
+                            <span className="token__ticker">
+                                {t(
+                                    `portfolio.tokens.CA.rows.${itemIndex}.symbol`,
+                                    {
+                                        ns: ns,
+                                    }
+                                )}
+                            </span>
+                        </div>
+                        <div className="token__details">
+                            <div className="token__details__token">
+                                <div className="token__data__small">
+                                    {!auth.contractStatusData.canOperate
+                                        ? "--"
+                                        : PrecisionNumbers({
+                                              amount: price,
+                                              token: settings.tokens.TP[
+                                                  dataItem.key
+                                              ],
+                                              decimals: t(
+                                                  `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
+                                              ),
+                                              t: t,
+                                              i18n: i18n,
+                                              ns: ns,
+                                              skipContractConvert: true,
+                                          })}
+                                    <div className="token__label">
+                                        price in usd
+                                    </div>
+                                </div>
+                                <div className="token__data__small">
+                                    {!auth.contractStatusData.canOperate ? (
+                                        "--"
+                                    ) : (
+                                        <div>
+                                            <NumericLabel {...{ params }}>
+                                                {0}
+                                            </NumericLabel>
+                                            {" %"}
+                                            <span
+                                                className={
+                                                    "variation-indicator neutral-indicator"
+                                                }
+                                            ></span>
+                                        </div>
+                                    )}
+                                    <div className="token__label">
+                                        Price Variation
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="token__details__account">
-                            {" "}
-                            <div className="token__data__big right">
-                                {PrecisionNumbers({
-                                    amount: auth.userBalanceData.TP[dataItem.key].balance,
-                                    token: settings.tokens.TP[dataItem.key],
-                                    decimals: 2,
-                                    t: t,
-                                    i18n: i18n,
-                                    ns: ns,
-                                })}
-                                <div className="token__label right">
-                                    Balance
-                                </div>
-                            </div>{" "}
-                            <div className="token__data__small right">
-                                {!auth.contractStatusData.canOperate
-                                    ? "--"
-                                    : PrecisionNumbers({
-                                        amount: balanceUSD,
+                            <div className="token__details__account">
+                                {" "}
+                                <div className="token__data__big right">
+                                    {PrecisionNumbers({
+                                        amount: auth.userBalanceData.TP[
+                                            dataItem.key
+                                        ].balance,
                                         token: settings.tokens.TP[dataItem.key],
                                         decimals: 2,
                                         t: t,
                                         i18n: i18n,
                                         ns: ns,
-                                        skipContractConvert: true,
                                     })}
-                                <div className="token__label right">
-                                    balance in usd
+                                    <div className="token__label right">
+                                        Balance
+                                    </div>
+                                </div>{" "}
+                                <div className="token__data__small right">
+                                    {!auth.contractStatusData.canOperate
+                                        ? "--"
+                                        : PrecisionNumbers({
+                                              amount: balanceUSD,
+                                              token: settings.tokens.TP[
+                                                  dataItem.key
+                                              ],
+                                              decimals: 2,
+                                              t: t,
+                                              i18n: i18n,
+                                              ns: ns,
+                                              skipContractConvert: true,
+                                          })}
+                                    <div className="token__label right">
+                                        balance in usd
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ),
+                ),
+            });
+
+            count += 1;
         });
-
-        count += 1;
-
-    })
     // #endregion TOKEN TP - ONLY FOR ROC
 
     // #region TF
@@ -538,13 +553,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_FeeToken,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         balanceUSD = balance.times(price);
@@ -553,7 +568,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.PP_FeeToken,
-                settings.tokens.TF.decimals
+                settings.tokens.TF[0].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -608,7 +623,7 @@ export default function Tokens(props) {
                                     : PrecisionNumbers({
                                           amount: auth.contractStatusData
                                               .PP_FeeToken,
-                                          token: settings.tokens.TF,
+                                          token: settings.tokens.TF[0],
                                           decimals: t(
                                               `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                                           ),
@@ -649,7 +664,7 @@ export default function Tokens(props) {
                                 {PrecisionNumbers({
                                     amount: auth.userBalanceData.FeeToken
                                         .balance,
-                                    token: settings.tokens.TF,
+                                    token: settings.tokens.TF[0],
                                     decimals: 2,
                                     t: t,
                                     i18n: i18n,
@@ -664,7 +679,7 @@ export default function Tokens(props) {
                                     ? "--"
                                     : PrecisionNumbers({
                                           amount: balanceUSD,
-                                          token: settings.tokens.TF,
+                                          token: settings.tokens.TF[0],
                                           decimals: 2,
                                           t: t,
                                           i18n: i18n,
@@ -689,13 +704,13 @@ export default function Tokens(props) {
         balance = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.userBalanceData.coinbase,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         price = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.PP_COINBASE,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         balanceUSD = balance.times(price);
@@ -704,7 +719,7 @@ export default function Tokens(props) {
         const priceHistory = new BigNumber(
             fromContractPrecisionDecimals(
                 auth.contractStatusData.historic.PP_COINBASE,
-                settings.tokens.COINBASE.decimals
+                settings.tokens.COINBASE[0].decimals
             )
         );
         const priceDelta = price.minus(priceHistory);
@@ -759,7 +774,7 @@ export default function Tokens(props) {
                                     : PrecisionNumbers({
                                           amount: auth.contractStatusData
                                               .PP_COINBASE,
-                                          token: settings.tokens.COINBASE,
+                                          token: settings.tokens.COINBASE[0],
                                           decimals: t(
                                               `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
                                           ),
@@ -800,7 +815,7 @@ export default function Tokens(props) {
                             <div className="token__data__big right">
                                 {PrecisionNumbers({
                                     amount: auth.userBalanceData.coinbase,
-                                    token: settings.tokens.COINBASE,
+                                    token: settings.tokens.COINBASE[0],
                                     decimals: t(
                                         `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
                                     ),
@@ -817,7 +832,7 @@ export default function Tokens(props) {
                                     ? "--"
                                     : PrecisionNumbers({
                                           amount: balanceUSD,
-                                          token: settings.tokens.COINBASE,
+                                          token: settings.tokens.COINBASE[0],
                                           decimals: 2,
                                           t: t,
                                           i18n: i18n,

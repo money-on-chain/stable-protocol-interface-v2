@@ -1,12 +1,13 @@
 {
     "collateral": "coinbase",
     "project": "moc",
+    "showPriceVariation":true,
     "tokens": {
-        "COINBASE": {
+        "COINBASE": [{
             "name": "RBTC",
             "decimals": 18,
             "visibleDecimals": 6
-        },
+        }],
         "CA": [
             {
                 "key": 0,
@@ -24,20 +25,20 @@
                 "peggedUSD": true
             }
         ],
-        "TC": {
+        "TC": [{
             "name": "BitPRO",
             "decimals": 18,
             "visibleDecimals": 6
-        },
-        "TF": {
+        }],
+        "TF": [{
             "name": "MOC",
             "decimals": 18,
             "visibleDecimals": 6
-        },
-        "TG": {
+        }],
+        "TG": [{
             "name": "MOC",
             "decimals": 18,
             "visibleDecimals": 6
-        }
+        }]
     }
 }

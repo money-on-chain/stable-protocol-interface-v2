@@ -1,9 +1,11 @@
-import settings from '../../settings/settings.json';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals, getGasPrice, toContractPrecisionDecimals } from './utils';
+import settings from "../../settings/settings.json";
+import BigNumber from "bignumber.js";
 import {
-    redeemTC as redeemTC_, redeemTP as redeemTP_
-} from './moc-core.js'
+    fromContractPrecisionDecimals,
+    getGasPrice,
+    toContractPrecisionDecimals,
+} from "./utils";
+import { redeemTC as redeemTC_, redeemTP as redeemTP_ } from "./moc-core.js";
 
 const mintTC = async (
     interfaceContext,
@@ -18,13 +20,13 @@ const mintTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
     // User have sufficient reserve to pay?
     console.log(
         `To mint ${qTC} ${
-            settings.tokens.TC.name
+            settings.tokens.TC[0].name
         } you need > ${limitAmount.toString()} ${
             settings.tokens.CA[caIndex].name
         } in your balance`
@@ -43,7 +45,7 @@ const mintTC = async (
     // Allowance    reserveAllowance
     console.log(
         `Allowance: To mint ${qTC} ${
-            settings.tokens.TC.name
+            settings.tokens.TC[0].name
         } you need > ${limitAmount.toString()} ${
             settings.tokens.CA[caIndex].name
         } in your spendable balance`
@@ -61,15 +63,23 @@ const mintTC = async (
         );
     */
 
-    let valueToSend = new BigNumber(fromContractPrecisionDecimals(contractStatusData.tcMintExecFee, settings.tokens.CA[caIndex].decimals)).plus(limitAmount)
-    valueToSend = toContractPrecisionDecimals(valueToSend, settings.tokens.CA[caIndex].decimals)
+    let valueToSend = new BigNumber(
+        fromContractPrecisionDecimals(
+            contractStatusData.tcMintExecFee,
+            settings.tokens.CA[caIndex].decimals
+        )
+    ).plus(limitAmount);
+    valueToSend = toContractPrecisionDecimals(
+        valueToSend,
+        settings.tokens.CA[caIndex].decimals
+    );
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
         .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             account,
             vendorAddress
@@ -80,7 +90,7 @@ const mintTC = async (
         .mintTC(
             toContractPrecisionDecimals(
                 new BigNumber(qTC),
-                settings.tokens.TC.decimals
+                settings.tokens.TC[0].decimals
             ),
             account,
             vendorAddress
@@ -90,14 +100,13 @@ const mintTC = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };
-
 
 const redeemTC = async (
     interfaceContext,
@@ -114,9 +123,8 @@ const redeemTC = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
-
+    );
+};
 
 const mintTP = async (
     interfaceContext,
@@ -133,11 +141,11 @@ const mintTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = process.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
-    console.log('tpAddress', tpAddress);
-    console.log('contractStatusData', contractStatusData);
-    console.log('vendor address is ', vendorAddress);
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
+    console.log("tpAddress", tpAddress);
+    console.log("contractStatusData", contractStatusData);
+    console.log("vendor address is ", vendorAddress);
     // Verifications
 
     // User have sufficient reserve to pay?
@@ -195,8 +203,16 @@ const mintTP = async (
         );
 
     //const valueToSend = contractStatusData.tpMintExecFee
-    let valueToSend = new BigNumber(fromContractPrecisionDecimals(contractStatusData.tpMintExecFee, settings.tokens.CA[caIndex].decimals)).plus(limitAmount)
-    valueToSend = toContractPrecisionDecimals(valueToSend, settings.tokens.CA[caIndex].decimals)
+    let valueToSend = new BigNumber(
+        fromContractPrecisionDecimals(
+            contractStatusData.tpMintExecFee,
+            settings.tokens.CA[caIndex].decimals
+        )
+    ).plus(limitAmount);
+    valueToSend = toContractPrecisionDecimals(
+        valueToSend,
+        settings.tokens.CA[caIndex].decimals
+    );
 
     // Calculate estimate gas cost
     const estimateGas = await MoCContract.methods
@@ -227,10 +243,10 @@ const mintTP = async (
             value: valueToSend,
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
-            gasLimit: estimateGas
+            gasLimit: estimateGas,
         })
-        .on('transactionHash', onTransaction)
-        .on('receipt', onReceipt);
+        .on("transactionHash", onTransaction)
+        .on("receipt", onReceipt);
 
     return receipt;
 };
@@ -252,9 +268,7 @@ const redeemTP = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
-
-
+    );
+};
 
 export { mintTC, redeemTC, mintTP, redeemTP };
