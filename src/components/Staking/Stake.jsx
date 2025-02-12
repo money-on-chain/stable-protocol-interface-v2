@@ -201,7 +201,7 @@ const Stake = (props) => {
                 {t('staking.staking.stakedAmount')}:{' '}
                 {PrecisionNumbers({
                     amount: new BigNumber(stakedBalance),
-                    token: settings.tokens.TG,
+                    token: settings.tokens.TG[0],
                     decimals: t('staking.display_decimals'),
                     t: t,
                     i18n: i18n,
@@ -221,7 +221,7 @@ const Stake = (props) => {
                                 ? ""
                                 : PrecisionNumbers({
                                       amount: new BigNumber(amountToUnstake),
-                                      token: settings.tokens.TG,
+                                      token: settings.tokens.TG[0],
                                       decimals: t("staking.display_decimals"),
                                       t: t,
                                       i18n: i18n,
@@ -232,7 +232,7 @@ const Stake = (props) => {
                               ? ""
                               : PrecisionNumbers({
                                     amount: new BigNumber(amountToStake),
-                                    token: settings.tokens.TG,
+                                    token: settings.tokens.TG[0],
                                     decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,

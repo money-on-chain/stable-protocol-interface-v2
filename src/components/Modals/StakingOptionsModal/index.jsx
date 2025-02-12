@@ -373,7 +373,7 @@ export default function StakingOptionsModal(props) {
                                         <div className="tx-amount">
                                             {PrecisionNumbers({
                                                 amount: new BigNumber(amount),
-                                                token: settings.tokens.TG,
+                                                token: settings.tokens.TG[0],
                                                 decimals: t(
                                                     "staking.display_decimals"
                                                 ),
@@ -462,7 +462,7 @@ export default function StakingOptionsModal(props) {
                             <div className="tx-amount">
                                 {PrecisionNumbers({
                                     amount: new BigNumber(amount),
-                                    token: settings.tokens.TG,
+                                    token: settings.tokens.TG[0],
                                     decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
@@ -521,7 +521,7 @@ export default function StakingOptionsModal(props) {
                                 <div className="tx-amount">
                                     {PrecisionNumbers({
                                         amount: amount,
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,
@@ -585,7 +585,7 @@ export default function StakingOptionsModal(props) {
                                 <div className="tx-amount">
                                     {PrecisionNumbers({
                                         amount: amount,
-                                        token: settings.tokens.TG,
+                                        token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
                                         t: t,
                                         i18n: i18n,

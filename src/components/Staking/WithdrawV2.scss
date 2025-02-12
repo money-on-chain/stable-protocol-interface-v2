@@ -1,0 +1,234 @@
+// Variables
+$breakpoint-mobile: 600px;
+
+.withdraw-header-balance {
+    display: flex;
+    flex-grow: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    padding: 0px;
+    width: 100%;
+    height: 49px;
+}
+
+.withdraw-header-balance-number {
+    flex: none;
+    flex-grow: 0;
+    order: 0;
+    width: 170px;
+    height: 24px;
+    color: var(--color-txt-primary);
+    font-weight: 600;
+    font-size: 18px;
+    font-family: var(--brand-font);
+    text-align: right;
+}
+
+.withdraw-header-balance-title {
+    flex: none;
+    flex-grow: 0;
+    order: 1;
+    width: 170px;
+    height: 21px;
+    color: (var(--color-txt-secondary));
+    font-style: normal;
+    font-style: SemiBold;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    font-family: var(--main-font);
+    letter-spacing: 1.2px;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.card-withdraw {
+    box-shadow: var(--surface-shadow-1);
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-1);
+    padding: var(--card-padding);
+    width: 576px !important;
+    // height: 430px;
+
+    .ant-table-body .ant-table-cell {
+        border-color: transparent !important;
+    }
+    .ant-table-cell {
+        padding: 16px 0px 0px 0px !important;
+        height: auto !important;
+    }
+    .ant-pagination {
+        display: none;
+    }
+
+    .ant-table-body::-webkit-scrollbar {
+        width: 0px; /* Hide vertical scrollbar with WebKit */
+    }
+
+    .ant-table-body {
+        -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+        scrollbar-width: none; /* Hide scrollbar in Firefox */
+    }
+}
+.withdraw__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: var(--card-border-radius);
+    background-color: var(--surface-color-2);
+    padding: 16px 0px 16px 0px;
+    height: 66px;
+    .withdraw__first__column {
+        // width: 100%;
+        display: flex;
+        gap: 32px;
+        // justify-content: space-between;
+    }
+}
+
+.item-data {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    font-family: var(--main-font);
+    letter-spacing: 0.61px;
+}
+
+.withdraw__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    margin-left: auto;
+    width: 124px;
+    color: var(--color-btn-tertiary-txt-default);
+
+    .cta__button {
+        display: flex;
+        align-items: center;
+        background-color: var(--color-btn-tertiary-background-default);
+        padding-left: 16px;
+        height: 32px;
+    }
+    .cta__button--disabled {
+        display: flex;
+        align-items: center;
+        background-color: var(--color-btn-tertiary-background-disabled);
+        padding-left: 16px;
+        height: 32px;
+        color: var(--color-btn-tertiary-txt-disabled);
+    }
+    .restake {
+        border-radius: 0px 8px 0px 0px;
+    }
+    .withdraw {
+        border-radius: 0px 0px 8px 0px;
+    }
+    .action__description {
+        margin-right: 8px;
+        width: 200px;
+    }
+    .action__description--disabled {
+        margin-right: 8px;
+        width: 200px;
+    }
+}
+
+// TABLE
+
+.withdraw__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+    margin: 0px;
+    margin-top: 32px;
+    height: 20px;
+    color: var(--color-txt-secondary);
+    font-weight: 600;
+    font-size: 14px;
+    .withdraw__first__column {
+        display: flex;
+        gap: 32px;
+    }
+}
+.withdraw__date {
+    width: 200px;
+}
+.withdraw__amount {
+    width: 200px;
+    text-align: right;
+}
+.withdraw__status {
+    text-align: left;
+}
+
+/* #region MOBILE */
+@media (max-width: 768px) {
+    .card-withdraw {
+        height: auto;
+    }
+    .withdraw-header-balance {
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+        height: 98px;
+    }
+    .withdraw__header {
+        .withdraw__first__column {
+            width: 100%;
+        }
+        .withdraw__date {
+        }
+        .withdraw__amount {
+            width: auto;
+            margin-left: auto;
+        }
+        .withdraw__status,
+        .withdraw__cta {
+            display: none;
+        }
+    }
+    .withdraw__row {
+        flex-direction: column;
+        gap: 0px;
+        height: 120px;
+        .withdraw__first__column {
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 4px;
+        }
+        .withdraw__date {
+            font-size: 12px;
+        }
+        .withdraw__amount {
+            width: 220px;
+
+            width: 88px;
+        }
+        .withdraw__status {
+            flex-basis: 100%;
+            width: 120px;
+            font-size: 12px;
+        }
+        .withdraw__cta {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            margin-top: 16px;
+        }
+        .restake {
+            flex: 1;
+            width: 50%;
+            border-radius: 8px 0px 0px 8px;
+        }
+        .withdraw {
+            flex: 1;
+            width: 50%;
+            border-radius: 0px 8px 8px 0px;
+        }
+    }
+}

@@ -1,12 +1,13 @@
 {
     "collateral": "coinbase",
     "project": "stablex",
+    "showPriceVariation": true,
     "tokens": {
-        "COINBASE": {
+        "COINBASE": [{
             "name": "ETH",
             "decimals": 18,
             "visibleDecimals": 6
-        },
+        }],
         "CA": [
             {
                 "key": 0,
@@ -24,20 +25,20 @@
                 "peggedUSD": true
             }
         ],
-        "TC": {
+        "TC": [{
             "name": "XETH",
             "decimals": 18,
             "visibleDecimals": 6
-        },
-        "TF": {
+        }],
+        "TF": [{
             "name": "XSTA",
             "decimals": 18,
             "visibleDecimals": 6
-        },
-        "TG": {
+        }],
+        "TG": [{
             "name": "XSTA",
             "decimals": 18,
             "visibleDecimals": 6
-        }
+        }]
     }
 }

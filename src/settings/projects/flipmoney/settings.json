@@ -1,12 +1,13 @@
 {
     "collateral": "rc20",
      "project": "flipmoney",
+     "showPriceVariation":true,
     "tokens": {
-        "COINBASE": {
+        "COINBASE": [{
             "name": "RBTC",
             "decimals": 18,
             "visibleDecimals": 8
-        },
+        }],
         "CA": [
             {
                 "key": 0,
@@ -31,20 +32,20 @@
                 "peggedUSD": false
             }
         ],
-        "TC": {
+        "TC": [{
             "name": "BPROX",
             "decimals": 18,
             "visibleDecimals": 8
-        },
-        "TF": {
+        }],
+        "TF": [{
             "name": "FLIP",
             "decimals": 18,
             "visibleDecimals": 8
-        },
-        "TG": {
+        }],
+        "TG": [{
             "name": "FLIP",
             "decimals": 18,
             "visibleDecimals": 8
-        }
+        }]
     }
 }

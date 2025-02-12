@@ -1,19 +1,19 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useContext } from 'react';
-import { Skeleton } from 'antd';
+import React, { Fragment, useState, useEffect } from "react";
+import { useContext } from "react";
+import { Skeleton } from "antd";
 
-import { AuthenticateContext } from '../../context/Auth';
-import Staking from '../../components/Staking';
-import { useProjectTranslation } from '../../helpers/translations';
-import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
+import { AuthenticateContext } from "../../context/Auth";
+import Staking from "../../components/Staking";
+import { useProjectTranslation } from "../../helpers/translations";
+import UseVestingAlert from "../../components/Notification/UsingVestingAlert";
 
-import './Styles.scss';
+import "./Styles.scss";
 
 function SectionStaking(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
-    const [usingVestingAddress, setUsingVestingAddress] = useState('');
+    const [usingVestingAddress, setUsingVestingAddress] = useState("");
     useEffect(() => {
         if (auth.contractStatusData) {
             setReady(true);
@@ -21,7 +21,7 @@ function SectionStaking(props) {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
             setUsingVestingAddress(auth.vestingAddress());
         } else {
-            setUsingVestingAddress('');
+            setUsingVestingAddress("");
         }
     }, [auth]);
 
@@ -29,7 +29,7 @@ function SectionStaking(props) {
         <Fragment>
             <div className="section-container">
                 <div className="sectionStaking">
-                    {usingVestingAddress !== '' && (
+                    {usingVestingAddress !== "" && (
                         <UseVestingAlert address={usingVestingAddress} />
                     )}
                     {ready ? <Staking /> : <Skeleton active />}
