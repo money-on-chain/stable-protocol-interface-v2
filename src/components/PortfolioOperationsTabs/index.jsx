@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 import Portfolio from "../../components/Dashboards/Portfolio";
-import ListOperationsMobile from "../../components/Tables/ListOperationsMobile";
+import ListOperationsMobile from "../Tables/LastOperations";
 
 import "./Styles.scss";
 
