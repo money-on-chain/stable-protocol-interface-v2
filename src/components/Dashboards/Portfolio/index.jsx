@@ -1,10 +1,6 @@
 import React, { useContext, useState, useEffect, useTransition } from "react";
 
 import { useProjectTranslation } from "../../../helpers/translations";
-import TokensCA from "../../Tables/TokensCA";
-import TokensCAmobile from "../../Tables/TokensCAmobile";
-import TokensTP from "../../Tables/TokensTP";
-import TokensTPmobile from "../../Tables/TokensTPmobile";
 import { AuthenticateContext } from "../../../context/Auth";
 import settings from "../../../settings/settings.json";
 import BigNumber from "bignumber.js";
@@ -158,17 +154,7 @@ export default function Portfolio() {
                     </div>
                 </div>
                 <div className="tokens-list-table">
-                    <div className="mobile-only">
-                        <PortfolioTable />
-
-                        {/* <TokensCAmobile /> */}
-                        {/* {hasNonUSDPeggedTokens() && <TokensTPmobile />} */}
-                    </div>
-                    <div className="desktop-only">
-                        <PortfolioTable />
-                        {/* <TokensCA /> */}
-                        {/* {hasNonUSDPeggedTokens() && <TokensTP />} */}
-                    </div>
+                    <PortfolioTable />
                 </div>
             </div>
         </div>

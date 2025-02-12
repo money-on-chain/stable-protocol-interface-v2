@@ -17,7 +17,7 @@ import { TokenSettings } from "../../../helpers/currencies";
 import AboutQueue from "../../Modals/AboutQueue";
 import "./Styles.scss";
 
-export default function ListOperations(props) {
+export default function LastOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
     const [t, i18n, ns] = useProjectTranslation();

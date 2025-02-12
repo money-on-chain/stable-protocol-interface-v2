@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState, useContext } from "react";
-import ListOperationsMobile from "../../components/Tables/ListOperationsMobile";
+import LastOperations from "../../components/Tables/LastOperations";
 import { AuthenticateContext } from "../../context/Auth";
 import Portfolio from "../../components/Dashboards/Portfolio";
 import HomeTabs from "../../components/PortfolioOperationsTabs";
@@ -25,7 +25,7 @@ function Home(props) {
 
     const Tab2 = () => (
         <div className="content-last-operations">
-            <ListOperationsMobile token={"all"}></ListOperationsMobile>
+            <LastOperations token={"all"}></LastOperations>
         </div>
     );
 
@@ -44,9 +44,7 @@ function Home(props) {
                 <div className="section-container desktop-only">
                     <Portfolio />
                     <div className="content-last-operations">
-                        <ListOperationsMobile
-                            token={"all"}
-                        ></ListOperationsMobile>
+                        <LastOperations token={"all"}></LastOperations>
                     </div>
                 </div>
             )}
