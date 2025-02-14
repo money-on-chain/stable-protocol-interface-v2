@@ -342,7 +342,13 @@ export default function LastOperations(props) {
                 return t("operations.errors.lowCoverage");
             case "Invalid Flux Capacitor Operation":
                 return t("operations.errors.fluxCapacitor");
-            case null || undefined || "" || " " || 0 || "null":
+            case "":
+                return t("operations.errors.noMessage");
+            case " ":
+                return t("operations.errors.noMessage");
+            case 0:
+                return t("operations.errors.noMessage");
+            case "null":
                 return t("operations.errors.noMessage");
             default:
                 return error;
