@@ -2,12 +2,14 @@ import { Modal, Button, Spin, notification, Checkbox } from "antd";
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Web3 from "web3";
+import PropTypes from 'prop-types';
 
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import BigNumber from "bignumber.js";
 import settings from "../../../settings/settings.json";
+
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
@@ -658,3 +660,13 @@ export default function StakingOptionsModal(props) {
         </Modal>
     );
 }
+
+
+StakingOptionsModal.propTypes = {
+    mode: PropTypes.string,
+    onClose: PropTypes.func,
+    visible: PropTypes.bool,
+    amount: PropTypes.number,
+    onConfirm: PropTypes.func,
+    withdrawalId: PropTypes.number
+};

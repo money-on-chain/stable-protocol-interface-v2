@@ -1,10 +1,12 @@
 import React, { /*useContext,*/ useState } from "react";
 import { Modal, Button } from "antd";
+import PropTypes from 'prop-types';
 
 import { getCurrenciesDetail } from "../../helpers/currencies";
 //import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
+
 
 export default function CurrencyPopUp(props) {
     const { value, onChange, currencyOptions, disabled, action, title } = props;
@@ -110,3 +112,13 @@ export default function CurrencyPopUp(props) {
         </div>
     );
 }
+
+
+CurrencyPopUp.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    currencyOptions: PropTypes.array,
+    disabled: PropTypes.bool,
+    action: PropTypes.string,
+    title: PropTypes.string
+};

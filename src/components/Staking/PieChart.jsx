@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart } from "@opd/g2plot-react";
 import BigNumber from "bignumber.js";
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { PrecisionNumbers } from "../PrecisionNumbers";
@@ -194,3 +195,8 @@ const PieChartComponent = (props) => {
 };
 
 export default PieChartComponent;
+
+
+PieChartComponent.propTypes = {
+    userInfoStaking: PropTypes.object
+};

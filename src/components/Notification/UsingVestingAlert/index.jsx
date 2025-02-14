@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { Alert, Button } from 'antd';
+import PropTypes from 'prop-types';
+
 import { useProjectTranslation } from '../../../helpers/translations';
 import { AuthenticateContext } from '../../../context/Auth';
 import './Styles.scss';
+
 
 export default function UseVestingAlert(props) {
     const {t} = useProjectTranslation();
@@ -49,3 +52,8 @@ export default function UseVestingAlert(props) {
         />
     );
 }
+
+
+UseVestingAlert.propTypes = {
+    address: PropTypes.string
+};

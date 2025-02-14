@@ -1,5 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
@@ -56,3 +57,10 @@ function ProposalStats(props) {
     );
 }
 export default ProposalStats;
+
+
+ProposalStats.propTypes = {
+    amount: PropTypes.bigint,
+    percentage: PropTypes.bigint,
+    label: PropTypes.string
+};

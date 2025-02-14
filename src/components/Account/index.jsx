@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { notification, Switch, Select, Input } from "antd";
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
@@ -29,6 +30,7 @@ function removeAllItem(arr, value) {
     }
     return arr;
 }
+
 
 export default function AccountDialog(props) {
     const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
@@ -448,3 +450,10 @@ export default function AccountDialog(props) {
         </div>
     );
 }
+
+AccountDialog.propTypes = {
+    onCloseModal: PropTypes.func,
+    truncatedAddress: PropTypes.string,
+    vestingOn: PropTypes.bool,
+    setVestingOn: PropTypes.func
+};

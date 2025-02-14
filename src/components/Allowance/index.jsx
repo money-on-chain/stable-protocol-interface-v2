@@ -1,9 +1,11 @@
 import BigNumber from 'bignumber.js';
 import React, { useContext, useState } from 'react';
 import { Checkbox } from 'antd';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
+//import AccountDialog from '../Account';
 
 
 export default function AllowanceDialog(props) {
@@ -198,3 +200,12 @@ export default function AllowanceDialog(props) {
         </div>
     );
 }
+
+AllowanceDialog.propTypes = {
+    onCloseModal: PropTypes.func,
+    currencyYouExchange: PropTypes.string,
+    currencyYouReceive: PropTypes.string,
+    amountYouExchangeLimit: PropTypes.number,
+    onRealSendTransaction: PropTypes.func,
+    disAllowance: PropTypes.bool
+};

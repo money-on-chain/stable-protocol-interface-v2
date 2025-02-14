@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
@@ -38,6 +39,24 @@ function CreateBarGraph(props) {
         />
     );
 }
+
+CreateBarGraph.propTypes = {
+    id: PropTypes.number,
+    description: PropTypes.string,
+    percentage: PropTypes.number,
+    needed: PropTypes.number,
+    type: PropTypes.number,
+    label1: PropTypes.number,
+    amount1: PropTypes.number,
+    percentage1: PropTypes.number,
+    label2: PropTypes.number,
+    amount2: PropTypes.number,
+    percentage2: PropTypes.number,
+    label3: PropTypes.number,
+    amount3: PropTypes.number,
+    percentage3: PropTypes.number
+};
+
 
 function Vote(props) {
     const { infoVoting, infoUser } = props;
@@ -553,3 +572,9 @@ function Vote(props) {
 }
 
 export default Vote;
+
+
+Vote.propTypes = {
+    infoVoting: PropTypes.object,
+    infoUser: PropTypes.object,
+};

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 import { Button } from 'antd';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import ConfirmOperation from '../../ConfirmOperation';
@@ -53,3 +54,7 @@ export default function ModalConfirmOperation(props) {
         </div>
     );
 }
+
+ModalConfirmOperation.propTypes = {
+    inputValidationError: PropTypes.bool
+};

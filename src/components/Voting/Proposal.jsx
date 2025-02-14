@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import BigNumber from 'bignumber.js';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
-import BigNumber from 'bignumber.js';
 import ProposalStats from './ProposalStats';
 
 
@@ -35,6 +36,24 @@ function CreateBarGraph(props) {
     );
 }
 
+CreateBarGraph.propTypes = {
+    id: PropTypes.number,
+    description: PropTypes.string,
+    percentage: PropTypes.number,
+    needed: PropTypes.number,
+    type: PropTypes.number,
+    label1: PropTypes.number,
+    amount1: PropTypes.number,
+    percentage1: PropTypes.number,
+    label2: PropTypes.number,
+    amount2: PropTypes.number,
+    percentage2: PropTypes.number,
+    label3: PropTypes.number,
+    amount3: PropTypes.number,
+    percentage3: PropTypes.number
+};
+
+
 function CreateStats(props) {
     return (
         <ProposalStats
@@ -45,6 +64,14 @@ function CreateStats(props) {
         />
     );
 }
+
+CreateStats.propTypes = {
+    id: PropTypes.number,
+    label: PropTypes.string,
+    amount: PropTypes.number,
+    percentage: PropTypes.number
+};
+
 
 function Proposal(props) {
     const { proposal, onViewProposal, infoVoting, onRunPreVoteStep } = props;
@@ -187,3 +214,11 @@ function Proposal(props) {
 }
 
 export default Proposal;
+
+
+Proposal.propTypes = {
+    proposal: PropTypes.string,
+    onViewProposal: PropTypes.func,
+    infoVoting: PropTypes.object,
+    onRunPreVoteStep: PropTypes.func
+};

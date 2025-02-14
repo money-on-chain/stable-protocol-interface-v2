@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Skeleton, Table } from "antd";
 import Moment from "react-moment";
 import moment from "moment-timezone";
+import PropTypes from 'prop-types';
 
 import date from "../../helpers/date";
 import { useProjectTranslation } from "../../helpers/translations";
@@ -267,3 +268,8 @@ export default function Withdraw(props) {
         </div>
     );
 }
+
+
+Withdraw.propTypes = {
+    userInfoStaking: PropTypes.object
+};

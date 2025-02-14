@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import { Input } from 'antd';
 import Web3 from 'web3';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import Proposal from './Proposal';
@@ -11,6 +12,7 @@ import { formatTimestamp } from '../../helpers/staking';
 import PreVote from './PreVote';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
+
 
 function Proposals(props) {
     const { infoVoting, infoUser } = props;
@@ -618,3 +620,9 @@ function Proposals(props) {
 }
 
 export default Proposals;
+
+
+Proposals.propTypes = {
+    infoVoting: PropTypes.object,
+    infoUser: PropTypes.object
+};

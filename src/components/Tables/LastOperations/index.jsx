@@ -3,6 +3,7 @@ import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 import { Table, Skeleton, Modal } from "antd";
 import Moment from "react-moment";
 import BigNumber from "bignumber.js";
+import PropTypes from 'prop-types';
 
 import RowDetailMobile from "../RowDetailMobile";
 import api from "../../../services/api";
@@ -92,6 +93,11 @@ export default function LastOperations(props) {
             {expanded ? <UpCircleOutlined /> : <DownCircleOutlined />}
         </div>
     );
+
+    ExpandIcon.propTypes = {
+        expanded: PropTypes.bool,
+        onClick: PropTypes.func
+    };
 
     // #endsection Operation detail custom expand function
 
@@ -949,3 +955,11 @@ export default function LastOperations(props) {
         </>
     );
 }
+
+
+LastOperations.propTypes = {
+    token: PropTypes.object,
+    /*expanded: PropTypes.bool,
+    onClick: PropTypes.func,*/
+
+};

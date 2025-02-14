@@ -1,6 +1,7 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { useProjectTranslation } from '../../../helpers/translations';
+
 
 export default function AboutQueue(props) {
     const {t} = useProjectTranslation();
@@ -66,3 +67,8 @@ export default function AboutQueue(props) {
         </div>
     );
 }
+
+
+AboutQueue.propTypes = {
+    hideModal: PropTypes.func
+};

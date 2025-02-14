@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Styles.scss';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { TokenSettings } from '../../../helpers/currencies';
 import { useProjectTranslation } from '../../../helpers/translations';
+
 
 function BalanceBar(props) {
     const {i18n} = useProjectTranslation();
@@ -49,3 +52,11 @@ function BalanceBar(props) {
 }
 
 export default BalanceBar;
+
+
+BalanceBar.propTypes = {
+    againstVotes: PropTypes.bigint,
+    against: PropTypes.number,
+    infavorVotes: PropTypes.bigint,
+    infavor: PropTypes.number
+};

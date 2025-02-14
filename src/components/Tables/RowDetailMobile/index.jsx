@@ -1,7 +1,9 @@
 import React from 'react';
-import { useProjectTranslation } from '../../../helpers/translations';
+import PropTypes from 'prop-types';
 
+import { useProjectTranslation } from '../../../helpers/translations';
 import './Styles.scss';
+
 
 
 function ItemData(props) {
@@ -116,3 +118,13 @@ function RowDetail(props) {
 }
 
 export default RowDetail;
+
+
+RowDetail.propTypes = {
+    detail: PropTypes.object
+};
+
+ItemData.propTypes = {
+    label: PropTypes.string,
+    data: PropTypes.string
+};

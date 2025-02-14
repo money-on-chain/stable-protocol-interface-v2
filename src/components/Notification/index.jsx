@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React /*, { useEffect }*/ from 'react';
+import PropTypes from 'prop-types';
+
 import { useProjectTranslation } from '../../helpers/translations';
 import './Styles.scss';
+
 
 export default function NotificationBody(props) {
     const {t} = useProjectTranslation();
     //const [visible, setVisible] = useState(false);
     const { notifStatus } = props;
+
+    /*
     useEffect(() => {
         console.log('props', props.notifStatus);
-    }, [props]);
+    }, [props]);*/
 
     /*
     const showModal = () => {
@@ -40,3 +45,8 @@ export default function NotificationBody(props) {
         </div>
     );
 }
+
+NotificationBody.propTypes = {
+    notifStatus: PropTypes.object
+};
+

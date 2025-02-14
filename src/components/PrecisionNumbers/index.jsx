@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import { Tooltip } from 'antd';
 import NumericLabel from 'react-pretty-numbers';
 import BigNumber from 'bignumber.js';
+import PropTypes from 'prop-types';
+
 
 
 const fromContractPrecisionDecimals = (amount, decimals) => {
@@ -37,6 +39,7 @@ const formatLargeNumber = (numberBig, decimals) => {
         });
     }
 };
+
 
 const PrecisionNumbers = ({
     amount,
@@ -97,3 +100,14 @@ const PrecisionNumbers = ({
 };
 
 export { PrecisionNumbers };
+
+
+PrecisionNumbers.propTypes = {
+    amount: PropTypes.bigint,
+    token: PropTypes.object,
+    decimals: PropTypes.number,
+    numericLabelParams: PropTypes.object,
+    i18n: PropTypes.object,
+    skipContractConvert: PropTypes.bool,
+    isUSD: PropTypes.bool
+};

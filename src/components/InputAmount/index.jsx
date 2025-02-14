@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
+import PropTypes from 'prop-types';
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
+
 
 const InputAmount = (props) => {
     const {t} = useProjectTranslation();
@@ -99,3 +101,14 @@ const InputAmount = (props) => {
 };
 
 export default InputAmount;
+
+InputAmount.propTypes = {
+    balanceText: PropTypes.string,
+    action: PropTypes.string,
+    balance: PropTypes.number,
+    placeholder: PropTypes.string,
+    inputValue: PropTypes.string,
+    onValueChange: PropTypes.func,
+    setAddTotalAvailable: PropTypes.func,
+    validateError: PropTypes.bool
+};

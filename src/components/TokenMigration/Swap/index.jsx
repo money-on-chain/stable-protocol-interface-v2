@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button } from "antd";
 import BigNumber from "bignumber.js";
 import Web3 from "web3";
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from "../../../helpers/translations";
 import { AuthenticateContext } from "../../../context/Auth";
@@ -438,3 +439,8 @@ const SwapToken = (props) => {
 };
 
 export default SwapToken;
+
+
+SwapToken.propTypes = {
+    onCloseModal: PropTypes.func
+};

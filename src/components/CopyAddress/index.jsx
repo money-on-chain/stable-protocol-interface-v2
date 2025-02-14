@@ -1,5 +1,7 @@
 import { notification } from 'antd';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { useProjectTranslation } from '../../helpers/translations';
 
 
@@ -58,3 +60,9 @@ export default function CopyAddress(props) {
         </>
     );
 }
+
+
+CopyAddress.propTypes = {
+    address: PropTypes.string,
+    type: PropTypes.string
+};

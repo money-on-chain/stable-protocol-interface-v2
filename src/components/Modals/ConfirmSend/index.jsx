@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import ConfirmSend from '../../ConfirmSend';
 import { Button } from 'antd';
+
 
 export default function ModalConfirmSend(props) {
     const { /*onClear,*/ inputValidationError } = props;
@@ -48,3 +50,8 @@ export default function ModalConfirmSend(props) {
         </div>
     );
 }
+
+
+ModalConfirmSend.propTypes = {
+    inputValidationError: PropTypes.bool
+};

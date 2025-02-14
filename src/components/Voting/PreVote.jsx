@@ -7,6 +7,7 @@ import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
+import PropTypes from 'prop-types';
 
 
 function CreateBarGraph(props) {
@@ -346,3 +347,31 @@ function PreVote(props) {
 }
 
 export default PreVote;
+
+
+CreateBarGraph.propTypes = {
+    id: PropTypes.number,
+    description: PropTypes.string,
+    percentage: PropTypes.number,
+    needed: PropTypes.number,
+    type: PropTypes.number,
+    label1: PropTypes.number,
+    amount1: PropTypes.number,
+    percentage1: PropTypes.number,
+    label2: PropTypes.number,
+    amount2: PropTypes.number,
+    percentage2: PropTypes.number,
+    label3: PropTypes.number,
+    amount3: PropTypes.number,
+    percentage3: PropTypes.number
+};
+
+
+PreVote.propTypes = {
+    proposal: PropTypes.string,
+    onBack: PropTypes.func,
+    infoVoting: PropTypes.object,
+    infoUser: PropTypes.object,
+    onUnRegisterProposal: PropTypes.func,
+    onRunPreVoteStep: PropTypes.func
+};

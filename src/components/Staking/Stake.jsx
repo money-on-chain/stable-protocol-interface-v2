@@ -1,6 +1,7 @@
 import React, { useState, useContext, Fragment, useEffect } from "react";
 import BigNumber from "bignumber.js";
 import { Button } from "antd";
+import PropTypes from 'prop-types';
 
 import { AuthenticateContext } from "../../context/Auth";
 import { TokenSettings, AmountToVisibleValue } from "../../helpers/currencies";
@@ -283,3 +284,10 @@ const Stake = (props) => {
 };
 
 export default Stake;
+
+
+Stake.propTypes = {
+    activeTab: PropTypes.number,
+    userInfoStaking: PropTypes.object
+};
+

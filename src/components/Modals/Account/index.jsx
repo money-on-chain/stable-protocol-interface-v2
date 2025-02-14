@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import Modal from 'antd/lib/modal/Modal';
-
+import PropTypes from 'prop-types';
 
 import Account from '../../Account';
+
 
 export default function ModalAccount(props) {
     const { truncatedAddress, show, onShow, onHide, vestingOn, setVestingOn } = props;
@@ -28,3 +29,12 @@ export default function ModalAccount(props) {
         </Fragment>
     );
 }
+
+ModalAccount.propTypes = {
+    truncatedAddress: PropTypes.string,
+    show: PropTypes.bool,
+    onShow: PropTypes.func,
+    onHide: PropTypes.func,
+    vestingOn: PropTypes.bool,
+    setVestingOn: PropTypes.func
+};

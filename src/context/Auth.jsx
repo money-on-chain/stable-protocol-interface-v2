@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import getRLogin from "../lib/rLogin";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
+import PropTypes from 'prop-types';
 
 import {
     ApproveTokenContract,
@@ -185,6 +186,7 @@ const AuthenticateContext = createContext({
     onShowModalAccount: () => {},
     onShowModalAccountVesting: () => {},
 });
+
 
 const AuthenticateProvider = ({ children }) => {
     const [contractStatusData, setContractStatusData] = useState(null);
@@ -947,3 +949,8 @@ const AuthenticateProvider = ({ children }) => {
 };
 
 export { AuthenticateContext, AuthenticateProvider };
+
+
+AuthenticateProvider.propTypes = {
+    children: PropTypes.object
+};

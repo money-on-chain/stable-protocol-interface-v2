@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Styles.scss';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { TokenSettings } from '../../../helpers/currencies';
 import { useProjectTranslation } from '../../../helpers/translations';
+
 
 function CompletedBar(props) {
     const {i18n} = useProjectTranslation();
@@ -163,3 +165,20 @@ function CompletedBar(props) {
 }
 
 export default CompletedBar;
+
+
+CompletedBar.propTypes = {
+    description: PropTypes.string,
+    type: PropTypes.number,
+    percentage: PropTypes.number,
+    needed: PropTypes.number,
+    label1: PropTypes.number,
+    amount1: PropTypes.number,
+    percentage1: PropTypes.number,
+    label2: PropTypes.number,
+    amount2: PropTypes.number,
+    percentage2: PropTypes.number,
+    label3: PropTypes.number,
+    amount3: PropTypes.number,
+    percentage3: PropTypes.number
+};

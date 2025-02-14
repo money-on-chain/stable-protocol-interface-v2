@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Collapse, Slider } from "antd";
 import axios from "axios";
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
@@ -15,7 +16,9 @@ import CopyAddress from "../CopyAddress";
 import TXStatus from "./TXStatus";
 import { decodeEvents } from '../../lib/backend/transaction';
 
+
 const { Panel } = Collapse;
+
 
 export default function ConfirmOperation(props) {
     const {
@@ -792,3 +795,21 @@ export default function ConfirmOperation(props) {
         </div>
     );
 }
+
+
+ConfirmOperation.propTypes = {
+    currencyYouExchange: PropTypes.string,
+    currencyYouReceive: PropTypes.string,
+    exchangingUSD: PropTypes.number,
+    commission: PropTypes.number,
+    commissionUSD: PropTypes.number,
+    commissionPercent: PropTypes.number,
+    inputAmountYouExchange: PropTypes.number,
+    amountYouReceive: PropTypes.number,
+    onCloseModal: PropTypes.func,
+    executionFee: PropTypes.number,
+    commissionFeeToken: PropTypes.number,
+    commissionFeeTokenUSD: PropTypes.number,
+    commissionPercentFeeToken: PropTypes.number,
+    radioSelectFee: PropTypes.number
+};

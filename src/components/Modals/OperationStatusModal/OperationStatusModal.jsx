@@ -1,8 +1,10 @@
 import Modal from "antd/lib/modal/Modal";
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { useProjectTranslation } from "../../../helpers/translations";
 import CopyAddress from "../../CopyAddress";
+
 
 const OperationStatusModal = ({
     className,
@@ -95,3 +97,12 @@ const OperationStatusModal = ({
 };
 
 export default OperationStatusModal;
+
+OperationStatusModal.propTypes = {
+    className: PropTypes.string,
+    visible: PropTypes.bool,
+    onCancel: PropTypes.func,
+    title: PropTypes.string,
+    operationStatus: PropTypes.string,
+    txHash: PropTypes.string
+};

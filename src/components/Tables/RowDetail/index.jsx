@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { useProjectTranslation } from '../../../helpers/translations';
+
 
 
 function RowDetail(props) {
@@ -223,3 +226,8 @@ function RowDetail(props) {
 }
 
 export default RowDetail;
+
+
+RowDetail.propTypes = {
+    detail: PropTypes.object
+};
