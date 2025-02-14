@@ -12,6 +12,7 @@ import ActionIcon from "../../assets/icons/Action.svg";
 import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
 
+
 export default function Withdraw(props) {
     const { userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();

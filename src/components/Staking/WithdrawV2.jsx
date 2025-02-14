@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { Skeleton, Table } from "antd";
 import Moment from "react-moment";
 import moment from "moment-timezone";
-import "./WithdrawV2.scss";
 
 import date from "../../helpers/date";
 import { useProjectTranslation } from "../../helpers/translations";
@@ -11,6 +10,8 @@ import { AuthenticateContext } from "../../context/Auth";
 import settings from "../../settings/settings.json";
 import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
+import "./WithdrawV2.scss";
+
 
 export default function Withdraw(props) {
     const { userInfoStaking } = props;

@@ -13,8 +13,8 @@ import {
 } from "../../helpers/vesting";
 
 import VestingMachine from "../../contracts/omoc/VestingMachine.json";
-import { withSuccess } from "antd/lib/modal/confirm";
-import settings from "../../settings/settings.json";
+//import { withSuccess } from "antd/lib/modal/confirm";
+//import settings from "../../settings/settings.json";
 
 const { Option } = Select;
 
@@ -33,7 +33,7 @@ function removeAllItem(arr, value) {
 export default function AccountDialog(props) {
     const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [qrValue, setQrValue] = useState(null);
     const [actionVesting, setActionVesting] = useState("select");
@@ -84,8 +84,8 @@ export default function AccountDialog(props) {
 
     const onCopy = (e) => {
         e.stopPropagation();
-        navigator.clipboard.writeText(address);
-        showNotificationCopiedAddress(address);
+        /*navigator.clipboard.writeText(address);
+        showNotificationCopiedAddress(address);*/
     };
 
     const onCopyVesting = (e) => {
@@ -264,7 +264,7 @@ export default function AccountDialog(props) {
             auth.userBalanceData.vestingmachine = undefined;
 
             // Refresh status
-            auth.loadContractsStatusAndUserBalance().then((value) => {
+            auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                 console.log("Refresh user balance OK!");
             });
         }

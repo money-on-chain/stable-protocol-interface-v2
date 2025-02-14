@@ -3,13 +3,12 @@ import { useContext } from 'react';
 import { Skeleton } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
-import { useProjectTranslation } from '../../helpers/translations';
 import Voting from '../../components/Voting';
 import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
 import './Styles.scss';
 
-function SectionVoting(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+
+function SectionVoting() {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     const [usingVestingAddress, setUsingVestingAddress] = useState('');

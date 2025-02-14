@@ -64,7 +64,7 @@ export default function Copy(props) {
                             fontweight: "bold",
                         }}
                         href={url_set}
-                        target="_blank"
+                        target="_blank" rel="noreferrer"
                     >
                         {textToShow}
                     </a>

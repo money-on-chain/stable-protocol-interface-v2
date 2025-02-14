@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
 
 const InputAmount = (props) => {
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
 
     const inputRef = useRef(null);
-    const [value, setValue] = useState("");
+    //const [value, setValue] = useState("");
     const {
         balanceText,
         action,

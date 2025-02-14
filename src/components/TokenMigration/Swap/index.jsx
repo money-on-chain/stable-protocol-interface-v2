@@ -1,15 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useProjectTranslation } from "../../../helpers/translations";
+import React, { useContext, useState } from "react";
 import { Button } from "antd";
-import "./style.scss";
-import { AuthenticateContext } from "../../../context/Auth";
-
-import TokenMigratePNG from "./../../../assets/icons/tokenmigrate.png";
-import Copy from "../../Copy";
 import BigNumber from "bignumber.js";
 import Web3 from "web3";
+
+import { useProjectTranslation } from "../../../helpers/translations";
+import { AuthenticateContext } from "../../../context/Auth";
+import TokenMigratePNG from "./../../../assets/icons/tokenmigrate.png";
+import Copy from "../../Copy";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { TokenSettings } from "../../../helpers/currencies";
+import "./style.scss";
+
 
 const SwapToken = (props) => {
     const { onCloseModal } = props;
@@ -51,10 +52,10 @@ const SwapToken = (props) => {
             onReceiptTokenMigration,
             onErrorTokenMigration
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 onSuccess();
             })
-            .catch((response) => {
+            .catch((/*response*/) => {
                 onClose();
             });
     };
@@ -114,10 +115,10 @@ const SwapToken = (props) => {
                 onReceiptAuthorize,
                 onErrorAuthorize
             )
-                .then((value) => {
+                .then((/*value*/) => {
                     onTokenMigration();
                 })
-                .catch((response) => {
+                .catch((/*response*/) => {
                     onClose();
                 });
         }

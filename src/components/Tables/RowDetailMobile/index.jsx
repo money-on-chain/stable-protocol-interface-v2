@@ -5,7 +5,6 @@ import './Styles.scss';
 
 
 function ItemData(props) {
-    const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <div className="LastOp__expanded__item">
@@ -74,7 +73,7 @@ function RowDetail(props) {
                     <a
                         className="ant-descriptions-a"
                         href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
-                        target="_blank"
+                        target="_blank" rel="noreferrer"
                     >
                         <span>{props.detail.executed_tx_hash_truncate} </span>
                     </a>
@@ -94,7 +93,7 @@ function RowDetail(props) {
                     <a
                         className="ant-descriptions-a"
                         href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
-                        target="_blank"
+                        target="_blank" rel="noreferrer"
                     >
                         <span>{props.detail.tx_hash_truncate} </span>
                     </a>

@@ -1,8 +1,10 @@
-import { useProjectTranslation } from '../../helpers/translations';
 import React from 'react';
+
+import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BigNumber from 'bignumber.js';
 import ProposalStats from './ProposalStats';
+
 
 function CreateBarGraph(props) {
     return (
@@ -47,7 +49,7 @@ function CreateStats(props) {
 function Proposal(props) {
     const { proposal, onViewProposal, infoVoting, onRunPreVoteStep } = props;
     const [t, i18n, ns] = useProjectTranslation();
-    const space = '\u00A0';
+    //const space = '\u00A0';
 
     const preVotingGraphs = [
         {

@@ -41,7 +41,7 @@ const loadVesting = async (auth, vAddress) => {
         loaded = true;
 
         auth.loadContractsStatusAndUserBalance().then(
-            (value) => {
+            (/*value*/) => {
                 console.log('Refresh user balance OK!');
             }
         );

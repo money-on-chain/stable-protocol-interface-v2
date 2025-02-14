@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Input } from "antd";
+import BigNumber from "bignumber.js";
+
 import VestingSchedule from "../../components/Tables/VestingSchedule";
 import settings from "../../settings/settings.json";
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
 import { PrecisionNumbers } from "../PrecisionNumbers";
-import BigNumber from "bignumber.js";
 import { formatTimestamp } from "../../helpers/staking";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
 import UseVestingAlert from "../Notification/UsingVestingAlert";
@@ -22,7 +23,7 @@ import "./Styles.scss";
 const { TextArea } = Input;
 const space = "\u00A0";
 
-export default function Vesting(props) {
+export default function Vesting() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
@@ -60,13 +61,14 @@ export default function Vesting(props) {
         onValidateClaimCode();
     }, [claimCode]);
 
+    /*
     const truncateAddress = (address) => {
         return (
             address.substring(0, 6) +
             "..." +
             address.substring(address.length - 4, address.length)
         );
-    };
+    };*/
 
     const onValidateWithdraw = () => {
         if (!getIsHolderVesting()) {
@@ -151,8 +153,8 @@ export default function Vesting(props) {
             }
         }
 
-        let vestedAmount = new BigNumber(0);
-        let releasedAmount = new BigNumber(0);
+        //let vestedAmount = new BigNumber(0);
+        //let releasedAmount = new BigNumber(0);
         let daysToRelease = 0;
         let countVested = 0;
 
@@ -175,13 +177,13 @@ export default function Vesting(props) {
                 }
 
                 if (dayLefts > 0) {
-                    vestedAmount = amount;
+                    //vestedAmount = amount;
                     if (countVested === 0) {
                         daysToRelease = dayLefts;
                         countVested += 1;
                     }
                 } else {
-                    releasedAmount = amount;
+                    //releasedAmount = amount;
                 }
             });
 
@@ -221,9 +223,9 @@ export default function Vesting(props) {
 
         await auth
             .interfaceVestingWithdraw(onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
             })
@@ -257,9 +259,9 @@ export default function Vesting(props) {
 
         await auth
             .interfaceVestingVerify(onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
             })
@@ -358,7 +360,7 @@ export default function Vesting(props) {
 
                         // Add vesting address to storage
                         addVesting(vNewAddress)
-                            .then((results) => {})
+                            .then((/*results*/) => {})
                             .catch((error) => {
                                 console.log(error);
                             });
@@ -410,7 +412,7 @@ export default function Vesting(props) {
                 onReceipt,
                 onError
             )
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
                 /*auth.loadContractsStatusAndUserBalance().then(
                     (value) => {
@@ -454,7 +456,7 @@ export default function Vesting(props) {
             .then(() => {
                 // console.log('Copied to clipboard', address);
             })
-            .catch((err) => {
+            .catch((/*err*/) => {
                 // console.error('Error copying to clipboard', err);
             });
     };
@@ -872,7 +874,7 @@ export default function Vesting(props) {
                                     </button>
                                     <button
                                         className="button"
-                                        onClick={onClickAddVesting}
+                                        onClick={/*onClickAddVesting*/}
                                         disabled={newVestingAddress === ""}
                                     >
                                         {t(

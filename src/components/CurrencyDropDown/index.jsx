@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Select } from "antd";
 
 import { getCurrenciesDetail } from "../../helpers/currencies";
-import { AuthenticateContext } from "../../context/Auth";
+//import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 
 const { Option } = Select;
 
+
 export default function CurrencyDropDown(props) {
     const { value, onChange, currencyOptions, disabled, action } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t, ns] = useProjectTranslation();
 
     const options = getCurrenciesDetail().map((it) => ({
         value: it.value,
@@ -21,7 +22,7 @@ export default function CurrencyDropDown(props) {
     const optionsFiltered = options.filter((it) =>
         currencyOptions.includes(it.value)
     );
-    const auth = useContext(AuthenticateContext);
+    //const auth = useContext(AuthenticateContext);
     return (
         <div className={`SelectCurrency ${disabled ? "disabled" : ""}`}>
             <Select

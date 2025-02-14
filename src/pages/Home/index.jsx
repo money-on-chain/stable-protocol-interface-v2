@@ -1,20 +1,12 @@
-import React, { Fragment, useEffect, useState, useContext } from "react";
+import React, { Fragment } from "react";
 import LastOperations from "../../components/Tables/LastOperations";
-import { AuthenticateContext } from "../../context/Auth";
 import Portfolio from "../../components/Dashboards/Portfolio";
 import HomeTabs from "../../components/PortfolioOperationsTabs";
 
 import "./Styles.scss";
 
-function Home(props) {
+function Home() {
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const auth = useContext(AuthenticateContext);
-    const [ready, setReady] = useState(false);
-    useEffect(() => {
-        if (auth.contractStatusData) {
-            setReady(true);
-        }
-    }, [auth]);
 
     // Tabs for mobile
     const Tab1 = () => (

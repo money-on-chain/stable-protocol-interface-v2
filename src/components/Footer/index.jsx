@@ -3,6 +3,7 @@ import ThemeMode from "../ThemeMode";
 import DappVersion from "../DappVersion";
 import "./Styles.scss";
 
+
 export default function DappFooter() {
     return (
         <>

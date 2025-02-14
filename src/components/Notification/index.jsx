@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import './Styles.scss';
 
 export default function NotificationBody(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const [visible, setVisible] = useState(false);
+    const [t] = useProjectTranslation();
+    //const [visible, setVisible] = useState(false);
     const { notifStatus } = props;
     useEffect(() => {
         console.log('props', props.notifStatus);
     }, [props]);
 
+    /*
     const showModal = () => {
         setVisible(true);
-    };
+    };*/
 
     const hideModal = () => {
-        setVisible(false);
+        //setVisible(false);
     };
 
     return (

@@ -1,13 +1,14 @@
 import React from 'react';
-import { useProjectTranslation } from '../../../helpers/translations';
 import BigNumber from 'bignumber.js';
+
+import { useProjectTranslation } from '../../../helpers/translations';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { TokenSettings } from '../../../helpers/currencies';
 import './Styles.scss';
 
+
 function ProposalStats(props) {
     const [t, i18n, ns] = useProjectTranslation();
-    const space = '\u00A0';
 
     // Check that amount and percentage are an instance of BigNumber
     const amountBig =
@@ -21,7 +22,7 @@ function ProposalStats(props) {
 
     // Convert data for display compatibility
     const amountDisplay = amountBig.toNumber();
-    const percentageDisplay = percentageBig.toNumber();
+    //const percentageDisplay = percentageBig.toNumber();
 
     return (
         <>

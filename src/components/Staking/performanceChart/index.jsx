@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import './Styles.scss';
 
 
-export default function PerformanceChart(props) {
+export default function PerformanceChart() {
     const [percent, setPercent] = useState(0);
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
 
     let height = percent && percent > 0 ? (percent * 190) / 100 : 0;
     fetch(

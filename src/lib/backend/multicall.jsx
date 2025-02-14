@@ -106,7 +106,6 @@ class Multicall {
 const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
 
-    const collateral = settings.collateral
     const vendorAddress = `${import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS}`.toLowerCase()
 
     console.log('Reading contract status ...');
@@ -327,8 +326,6 @@ const contractStatus = async (web3, dContracts) => {
 
 const userBalance = async (web3, dContracts, userAddress) => {
     if (!dContracts) return;
-
-    const collateral = settings.collateral
 
     const multicall = dContracts.contracts.multicall
     const CollateralToken = dContracts.contracts.CollateralToken

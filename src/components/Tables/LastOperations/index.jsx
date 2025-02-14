@@ -2,9 +2,10 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 import { Table, Skeleton, Modal } from "antd";
 import Moment from "react-moment";
+import BigNumber from "bignumber.js";
+
 import RowDetailMobile from "../RowDetailMobile";
 import api from "../../../services/api";
-
 import Copy from "../../Copy";
 import date from "../../../helpers/date";
 import { AuthenticateContext } from "../../../context/Auth";
@@ -12,10 +13,10 @@ import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import BigNumber from "bignumber.js";
 import { TokenSettings } from "../../../helpers/currencies";
 import AboutQueue from "../../Modals/AboutQueue";
 import "./Styles.scss";
+
 
 export default function LastOperations(props) {
     const { token } = props;
@@ -33,7 +34,7 @@ export default function LastOperations(props) {
     const [dataJson, setDataJson] = useState([]);
     const [totalTable, setTotalTable] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [loadingSke, setLoadingSke] = useState(true);
+    //const [loadingSke, setLoadingSke] = useState(true);
     const [queueModal, setQueueModal] = useState(false);
     const lastOperationsHeight = getComputedStyle(
         document.querySelector(":root")
@@ -41,18 +42,18 @@ export default function LastOperations(props) {
         .getPropertyValue("--lastOperationsHeight")
         .split('"')
         .join("");
-    const timeSke = 1500;
+    /*const timeSke = 1500;*/
     var data = [];
     const received_row = [];
     var txList = [];
-    const transactionsList = (skip) => {
+    const transactionsList = (/*skip*/) => {
         if (auth.isLoggedIn) {
             console.log("Loading table…");
-            const datas = {
+            /*const datas = {
                 address: accountData.Owner,
                 limit: 10,
                 skip: (skip - 1 + (skip - 1)) * 10,
-            };
+            };*/
             setTimeout(() => {
                 const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
                 const queryParams = new URLSearchParams({
@@ -626,9 +627,9 @@ export default function LastOperations(props) {
 
     data_row(current);
     const tableColumns = columns.map((item) => ({ ...item }));
-    useEffect(() => {
+    /*useEffect(() => {
         setTimeout(() => setLoadingSke(false), timeSke);
-    }, [auth]);
+    }, [auth]);*/
     function TruncatedAddress(address, length = 6) {
         if (!address) return "";
 

@@ -14,11 +14,11 @@ import "./Styles.scss";
 
 const { Header } = Layout;
 
-export default function SectionHeader(props) {
+export default function SectionHeader() {
     const navigate = useNavigate();
     const location = useLocation();
     const auth = useContext(AuthenticateContext);
-    const [css_disable, setCssDisable] = useState("disable-nav-item");
+    //const [css_disable, setCssDisable] = useState("disable-nav-item");
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 
@@ -110,7 +110,7 @@ export default function SectionHeader(props) {
                     {mainMenuOptions.map((option) => (
                         <a
                             onClick={() => handleOptionClick(option.path)}
-                            className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
+                            className={`menu-nav-item disable-nav-item ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
                             key={option.path}
                         >
                             <div
@@ -139,7 +139,7 @@ export default function SectionHeader(props) {
                                             onClick={() =>
                                                 handleOptionClick(option.path)
                                             }
-                                            className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
+                                            className={`menu-nav-item disable-nav-item ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
                                             key={option.path}
                                         >
                                             <i
@@ -185,6 +185,7 @@ export default function SectionHeader(props) {
                                             onClick={() =>
                                                 pickLanguage(option.code)
                                             }
+                                            key={option.code}
                                         >
                                             <span>{option.name}</span>
                                             {lang === option.code && (

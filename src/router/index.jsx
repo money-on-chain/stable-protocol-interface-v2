@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const RouterFlipmoney = React.lazy(() => import('./projects/flipmoney'));
 const RouterRoc = React.lazy(() => import('./projects/roc'));

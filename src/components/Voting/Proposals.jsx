@@ -192,7 +192,7 @@ function Proposals(props) {
         const valid = onValidateAddressProposal() && onValidateSubmitProposal();
         if (valid) {
             onSendAddProposal()
-                .then((res) => {})
+                .then((/*res*/) => {})
                 .catch((e) => {
                     console.error(e);
                 });
@@ -213,7 +213,7 @@ function Proposals(props) {
         setActionProposal('LIST');
     };
 
-    const onSendAddProposal = async (e) => {
+    const onSendAddProposal = async (/*e*/) => {
         setModalTitle('Adding proposal');
 
         setOperationStatus('sign');
@@ -224,7 +224,7 @@ function Proposals(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction add proposal mined!...');
             setOperationStatus('success');
             /*
@@ -257,9 +257,9 @@ function Proposals(props) {
                 onReceipt,
                 onError
             )
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })
@@ -291,7 +291,7 @@ function Proposals(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction unregister proposal mined!...');
             setOperationStatus('success');
             /*
@@ -325,7 +325,7 @@ function Proposals(props) {
             )
             .then((res) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })
@@ -354,7 +354,7 @@ function Proposals(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction pre vote step mined!...');
             setOperationStatus('success');
             /*
@@ -383,7 +383,7 @@ function Proposals(props) {
             .interfaceVotingPreVoteStep(onTransaction, onReceipt, onError)
             .then((res) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })

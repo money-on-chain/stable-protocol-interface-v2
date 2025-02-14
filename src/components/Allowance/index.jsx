@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Checkbox } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { AuthenticateContext } from '../../context/Auth';
+
 
 export default function AllowanceDialog(props) {
     const {
@@ -11,12 +12,12 @@ export default function AllowanceDialog(props) {
         currencyYouExchange,
         currencyYouReceive,
         amountYouExchangeLimit,
-        amountYouReceiveLimit,
+        //amountYouReceiveLimit,
         onRealSendTransaction,
         disAllowance
     } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');
@@ -84,11 +85,11 @@ export default function AllowanceDialog(props) {
             onTransaction,
             onReceipt
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 onClose();
             })
             .catch((error) => {
-                console.log('ERROR');
+                console.log(error);
                 setStatus('ERROR');
             });
     };

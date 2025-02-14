@@ -188,7 +188,7 @@ const AuthenticateContext = createContext({
 
 const AuthenticateProvider = ({ children }) => {
     const [contractStatusData, setContractStatusData] = useState(null);
-    const [provider, setProvider] = useState(null);
+    //const [provider, setProvider] = useState(null);
     const [web3, setWeb3] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [account, setAccount] = useState(null);
@@ -253,10 +253,10 @@ const AuthenticateProvider = ({ children }) => {
             .connect()
             .then((rLoginResponse) => {
                 const { provider, disconnect } = rLoginResponse;
-                setProvider(provider);
+                //setProvider(provider);
 
                 const web3 = new Web3(provider);
-                provider.on("accountsChanged", function (accounts) {
+                provider.on("accountsChanged", function (/*accounts*/) {
                     disconnect();
                     window.location.reload();
                     /*if ( accounts.length==0 ){
@@ -264,7 +264,7 @@ const AuthenticateProvider = ({ children }) => {
                     window.location.reload()
                 }*/
                 });
-                provider.on("chainChanged", function (accounts) {
+                provider.on("chainChanged", function (/*accounts*/) {
                     disconnect();
                     window.location.reload();
                 });
@@ -286,7 +286,7 @@ const AuthenticateProvider = ({ children }) => {
 
     const disconnect = async () => {
         await disconnect;
-        setProvider(null);
+        //setProvider(null);
         setAccount(null);
         setAccountData({
             Wallet: "",

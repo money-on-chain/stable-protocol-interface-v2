@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './Styles.scss';
 import { PrecisionNumbers } from '../../PrecisionNumbers';
 import { TokenSettings } from '../../../helpers/currencies';

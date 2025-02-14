@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 
 export default function AboutQueue(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
 
     function setStatusIcon(status) {
         switch (status) {

@@ -7,8 +7,8 @@ import { useProjectTranslation } from "../../helpers/translations";
 import Exchange from "../../components/Exchange";
 import "./Styles.scss";
 
-function SectionExchange(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+function SectionExchange() {
+    const [t] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {

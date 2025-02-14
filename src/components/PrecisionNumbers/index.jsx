@@ -1,7 +1,8 @@
+import React, { Fragment } from 'react';
 import { Tooltip } from 'antd';
 import NumericLabel from 'react-pretty-numbers';
 import BigNumber from 'bignumber.js';
-import { Fragment } from 'react';
+
 
 const fromContractPrecisionDecimals = (amount, decimals) => {
     return new BigNumber(amount).div(

@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import BigNumber from 'bignumber.js';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
-import BigNumber from 'bignumber.js';
+
 
 export default function CollateralAssets() {
     const [t, i18n, ns] = useProjectTranslation();

@@ -59,7 +59,7 @@ function loadTokenMap() {
     return tMap
 }
 
-const VERY_HIGH_NUMBER = 100000000000;
+//const VERY_HIGH_NUMBER = 100000000000;
 
 const tokenMap = loadTokenMap()
 const tokenExchange = () => Object.keys(tokenMap);
@@ -105,7 +105,7 @@ function isMintOperation(tokenExchange, tokenReceive) {
 
 function TokenAllowance(auth, tokenExchange) {
     // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC, COINBASE, TF
-    const tokenExchangeSettings = TokenSettings(tokenExchange);
+    //const tokenExchangeSettings = TokenSettings(tokenExchange);
     const aTokenExchange = tokenExchange.split('_')
     let allowance = 0;
     switch (aTokenExchange[0]) {
@@ -234,7 +234,7 @@ function exchangeMethod(
     onTransaction,
     onReceipt
 ) {
-    let caIndex = 0;
+    //let caIndex = 0;
     let tpIndex = 0;
 
     const aTokenExchange = tokenExchange.split('_')
@@ -245,7 +245,7 @@ function exchangeMethod(
     console.log('aTokenMap', aTokenMap);
     switch (aTokenMap) {
         case 'CA,TC':
-            caIndex = parseInt(aTokenExchange[1]);
+            //caIndex = parseInt(aTokenExchange[1]);
             if (settings.collateral === 'coinbase') {
                 return mintTC_coinbase(
                     interfaceContext,
@@ -264,7 +264,7 @@ function exchangeMethod(
                 );
             }
         case 'TC,CA':
-            caIndex = parseInt(aTokenReceive[1]);
+            //caIndex = parseInt(aTokenReceive[1]);
             if (settings.collateral === 'coinbase') {
                 return redeemTC_coinbase(
                     interfaceContext,
@@ -284,7 +284,7 @@ function exchangeMethod(
             }
 
         case 'CA,TP':
-            caIndex = parseInt(aTokenExchange[1]);
+            //caIndex = parseInt(aTokenExchange[1]);
             tpIndex = parseInt(aTokenReceive[1]);
             if (settings.collateral === 'coinbase') {
                 return mintTP_coinbase(
@@ -307,7 +307,7 @@ function exchangeMethod(
             }
         case 'TP,CA':
             tpIndex = parseInt(aTokenExchange[1]);
-            caIndex = parseInt(aTokenReceive[1]);
+            //caIndex = parseInt(aTokenReceive[1]);
 
             if (settings.collateral === 'coinbase') {
                 return redeemTP_coinbase(

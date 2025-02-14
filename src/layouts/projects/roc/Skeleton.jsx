@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js';
 import Web3 from 'web3';
 
 import { AuthenticateContext } from '../../../context/Auth';
-import { useProjectTranslation } from '../../../helpers/translations';
 import SectionHeader from '../../../components/Header';
 import ModalTokenMigration from '../../../components/TokenMigration/Modal';
 import NotificationBody from '../../../components/Notification';
@@ -13,10 +12,11 @@ import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
 import W3ErrorAlert from '../../../components/Notification/W3ErrorAlert';
 
+
 const { Content, Footer } = Layout;
 
+
 export default function Skeleton() {
-    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
     const [canSwap, setCanSwap] = useState(false);

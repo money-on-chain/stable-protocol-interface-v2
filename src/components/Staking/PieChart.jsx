@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useProjectTranslation } from "../../helpers/translations";
 import { PieChart } from "@opd/g2plot-react";
 import BigNumber from "bignumber.js";
+
+import { useProjectTranslation } from "../../helpers/translations";
 import { PrecisionNumbers } from "../PrecisionNumbers";
 import settings from "../../settings/settings.json";
+
 
 const PieChartComponent = (props) => {
     const [t, i18n, ns] = useProjectTranslation();

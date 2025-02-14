@@ -1,11 +1,13 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import BigNumber from 'bignumber.js';
+
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import { PrecisionNumbers } from '../PrecisionNumbers';
-import BigNumber from 'bignumber.js';
 import { TokenSettings } from '../../helpers/currencies';
 import { AuthenticateContext } from '../../context/Auth';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
+
 
 function CreateBarGraph(props) {
     return (
@@ -103,7 +105,7 @@ function PreVote(props) {
         }
     ];
 
-    const onVoteInFavor = async (e) => {
+    const onVoteInFavor = async (/*e*/) => {
         setModalTitle(`Voting proposal`);
         setShowProposalModal(true);
 
@@ -118,7 +120,7 @@ function PreVote(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction voting in favor proposal mined!...');
             setOperationStatus('success');
             /*
@@ -153,9 +155,9 @@ function PreVote(props) {
                 onReceipt,
                 onError
             )
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })

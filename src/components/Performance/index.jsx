@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import BigNumber from "bignumber.js";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
@@ -7,13 +8,12 @@ import { TokenSettings } from "../../helpers/currencies";
 import CollateralAssets from "./collateral";
 import TokensPegged from "./tokenspegged";
 import TokensPeggedMobile from "./tokenspeggedmobile";
-import BigNumber from "bignumber.js";
 import CheckStatus from "../../helpers/checkStatus";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import settings from "../../settings/settings.json";
 
-export default function Performance(props) {
-    const [isValid, setIsValid] = useState(true);
+export default function Performance() {
+    //const [isValid, setIsValid] = useState(true);
     const [statusIcon, setStatusIcon] = useState("");
     const [statusLabel, setStatusLabel] = useState("--");
     const [statusText, setStatusText] = useState("--");
@@ -22,9 +22,9 @@ export default function Performance(props) {
     const { checkerStatus } = CheckStatus();
     useEffect(() => {
         if ((auth.contractStatusData, auth.userBalanceData)) {
-            const { isValid, statusIcon, statusLabel, statusText } =
+            const { statusIcon, statusLabel, statusText } =
                 checkerStatus();
-            setIsValid(isValid);
+            //setIsValid(isValid);
             setStatusIcon(statusIcon);
             setStatusLabel(statusLabel);
             setStatusText(statusText);

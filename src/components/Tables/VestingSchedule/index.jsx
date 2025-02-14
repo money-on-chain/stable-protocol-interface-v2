@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Table } from 'antd';
 import BigNumber from 'bignumber.js';
 
@@ -18,7 +18,7 @@ const formatVisibleValue = (amount, decimals) => {
         });
 };
 
-export default function VestingSchedule(props) {
+export default function VestingSchedule() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 

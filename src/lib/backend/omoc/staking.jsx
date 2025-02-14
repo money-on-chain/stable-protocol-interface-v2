@@ -3,7 +3,6 @@ import Web3 from "web3";
 
 import {
     getGasPrice,
-    toContractPrecision,
     toContractPrecisionDecimals,
 } from "../utils";
 import settings from "../../../settings/settings.json";

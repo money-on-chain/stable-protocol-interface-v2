@@ -1,3 +1,6 @@
+import React from 'react';
+import BigNumber from 'bignumber.js';
+
 import LogoIconCA_0 from '../assets/tokens/ca_0.svg?react';
 import LogoIconCA_1 from '../assets/tokens/ca_1.svg?react';
 import LogoIconCOINBASE from '../assets/tokens/coinbase.svg?react';
@@ -6,7 +9,6 @@ import LogoIconTP_0 from '../assets/tokens/tp_0.svg?react';
 import LogoIconTP_1 from '../assets/tokens/tp_1.svg?react';
 import LogoIconTG_0 from '../assets/tokens/tg_0.svg?react';
 import settings from '../settings/settings.json';
-import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from './Formats';
 
 const currencies = [
@@ -250,8 +252,8 @@ function ConvertAmount(
     return cAmount;
 }
 
-const precision = (contractDecimals) =>
-    new BigNumber(10).exponentiatedBy(contractDecimals);
+//const precision = (contractDecimals) =>
+//    new BigNumber(10).exponentiatedBy(contractDecimals);
 
 const AmountToVisibleValue = (
     rawAmount,
@@ -301,7 +303,7 @@ function CalcCommission(
 
     let feeParam;
 
-    const tokenMap = `${tokenExchange},${tokenReceive}`;
+    //const tokenMap = `${tokenExchange},${tokenReceive}`;
     const aTokenExchange = tokenExchange.split("_");
     const aTokenReceive = tokenReceive.split("_");
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;

@@ -139,7 +139,7 @@ function RowDetail(props) {
                         <a
                             className="ant-descriptions-a"
                             href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
-                            target="_blank"
+                            target="_blank" rel="noreferrer"
                         >
                             <span>
                                 {props.detail.executed_tx_hash_truncate}{' '}
@@ -171,7 +171,7 @@ function RowDetail(props) {
                         <a
                             className="ant-descriptions-a"
                             href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
-                            target="_blank"
+                            target="_blank" rel="noreferrer"
                         >
                             <span>{props.detail.tx_hash_truncate} </span>
                         </a>

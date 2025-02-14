@@ -11,7 +11,7 @@ import { AuthenticateContext } from "../../context/Auth";
 import { isMintOperation, UserTokenAllowance } from "../../helpers/exchange";
 import ModalAllowanceOperation from "../Modals/Allowance";
 import CopyAddress from "../CopyAddress";
-import settings from "../../settings/settings.json";
+//import settings from "../../settings/settings.json";
 import TXStatus from "./TXStatus";
 import { decodeEvents } from '../../lib/backend/transaction';
 
@@ -35,7 +35,7 @@ export default function ConfirmOperation(props) {
         radioSelectFee,
     } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("SUBMIT");
@@ -223,7 +223,7 @@ export default function ConfirmOperation(props) {
             onTransaction,
             onReceipt
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 console.log("DONE!");
             })
             .catch((error) => {
@@ -270,13 +270,13 @@ export default function ConfirmOperation(props) {
 
                         // Refresh user balance
                         auth.loadContractsStatusAndUserBalance().then(
-                            (value) => {
+                            (/*value*/) => {
                                 console.log("Refresh user balance OK!");
                             }
                         );
 
                         console.log("Operation Status: OK Executed.");
-                    } else if (response.data.status === 1) {
+                    } else  {
                         setStatus("ERROR");
 
                         // Remove Op ID
@@ -355,7 +355,7 @@ export default function ConfirmOperation(props) {
         ERROR: t("exchange.confirm.error"),
         DEFAULT: t("exchange.confirm.default"),
     };
-    let sentIcon = "";
+    /*let sentIcon = "";
     let statusLabel = "";
     switch (status) {
         case "SUBMIT":
@@ -389,7 +389,7 @@ export default function ConfirmOperation(props) {
         default:
             sentIcon = "icon-tx-waiting";
             statusLabel = t("exchange.confirm.default");
-    }
+    }*/
 
     const markStyle = {
         style: {

@@ -34,7 +34,7 @@ export default function ConfirmSend(props) {
                 onTransaction,
                 onReceipt
             )
-                .then((value) => {
+                .then((/*value*/) => {
                     console.log("DONE!");
                 })
                 .catch((error) => {
@@ -50,7 +50,7 @@ export default function ConfirmSend(props) {
                 onTransaction,
                 onReceipt
             )
-                .then((value) => {
+                .then((/*value*/) => {
                     console.log("DONE!");
                 })
                 .catch((error) => {
@@ -92,7 +92,7 @@ export default function ConfirmSend(props) {
         setStatus('SUCCESS');
 
         // Refresh user balance
-        auth.loadContractsStatusAndUserBalance().then((value) => {
+        auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
             console.log("Refresh user balance OK!");
         });
     };

@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import { Row, Table } from 'antd';
+import React from 'react';
+import { Table } from 'antd';
 
-import { AuthenticateContext } from '../../../context/Auth';
+//import { AuthenticateContext } from '../../../context/Auth';
 import { useProjectTranslation } from '../../../helpers/translations';
 import './Styles.scss';
 
 
-export default function LiquidityMiningClaims(props) {
+export default function LiquidityMiningClaims() {
     const [t] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
+    //const auth = useContext(AuthenticateContext);
 
     const tableColumns = [
         {

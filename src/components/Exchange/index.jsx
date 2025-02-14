@@ -45,8 +45,8 @@ export default function Exchange() {
     );
     const [amountYouReceive, setAmountYouReceive] = useState(new BigNumber(0));
 
-    const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
-    const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
+    //const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
+    //const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
 
     const [commission, setCommission] = useState("0.0");
     const [commissionUSD, setCommissionUSD] = useState("0.0");
@@ -574,7 +574,7 @@ export default function Exchange() {
                             placeholder={"0.0"}
                             onValueChange={onChangeAmountYouReceive}
                             validateError={false}
-                            isDirty={isDirtyYouReceive}
+                            isDirty={false}
                             balance={
                                 !auth.contractStatusData?.canOperate
                                     ? "--"

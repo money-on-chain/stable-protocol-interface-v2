@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import { useContext } from 'react';
 import { BigNumber } from 'bignumber.js';
 
 import { useProjectTranslation } from './translations';
-
 import { AuthenticateContext } from '../context/Auth';
 import { fromContractPrecisionDecimals } from './Formats';
 import settings from '../settings/settings.json';
 
+
 export default function CheckStatus() {
-  const [t, i18n, ns] = useProjectTranslation();
+  const [t] = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   const checkerStatus  = () => {
     let isValid = true;

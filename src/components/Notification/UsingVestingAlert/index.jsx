@@ -5,7 +5,7 @@ import { AuthenticateContext } from '../../../context/Auth';
 import './Styles.scss';
 
 export default function UseVestingAlert(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const truncateAddress = (address) => {

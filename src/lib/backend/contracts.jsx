@@ -14,7 +14,7 @@ import IRegistry from "../../contracts/omoc/IRegistry.json";
 import StakingMachine from "../../contracts/omoc/StakingMachine.json";
 import DelayMachine from "../../contracts/omoc/DelayMachine.json";
 import Supporters from "../../contracts/omoc/Supporters.json";
-import VestingMachine from "../../contracts/omoc/VestingMachine.json";
+//import VestingMachine from "../../contracts/omoc/VestingMachine.json";
 import VotingMachine from "../../contracts/omoc/VotingMachine.json";
 import VestingFactory from "../../contracts/omoc/VestingFactory.json";
 import IERC20 from "../../contracts/omoc/IERC20.json";
@@ -107,6 +107,7 @@ const readContracts = async (web3) => {
             tpAddresses.push(tpAddress);
             tpAddressesProviders.push(tpItem.priceProvider);
         } catch (e) {
+            console.error(e);
             break;
         }
     }

@@ -3,13 +3,11 @@ import { useContext } from 'react';
 import { Skeleton } from 'antd';
 
 import { AuthenticateContext } from '../../context/Auth';
-import { useProjectTranslation } from '../../helpers/translations';
 import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
 import LiquidityMiningClaim from '../../components/LiquidityMiningClaim';
 import './Styles.scss';
 
-function SectionLiquidityMining(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+function SectionLiquidityMining() {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     const [usingVestingAddress, setUsingVestingAddress] = useState('');

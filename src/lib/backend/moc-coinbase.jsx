@@ -1,8 +1,15 @@
 import settings from "../../settings/settings.json";
 import BigNumber from "bignumber.js";
+
+import {
+    toContractPrecisionDecimals,
+    getGasPrice,
+    fromContractPrecisionDecimals,
+} from "./utils";
 import {
     redeemTC as redeemTC_, redeemTP as redeemTP_
 } from './moc-core.jsx'
+
 
 const mintTC = async (
     interfaceContext,

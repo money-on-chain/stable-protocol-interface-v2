@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
 import { useProjectTranslation } from '../../../helpers/translations';
@@ -6,9 +6,9 @@ import ConfirmSend from '../../ConfirmSend';
 import { Button } from 'antd';
 
 export default function ModalConfirmSend(props) {
-    const { onClear, inputValidationError } = props;
+    const { /*onClear,*/ inputValidationError } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {

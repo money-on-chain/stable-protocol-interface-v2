@@ -1,21 +1,23 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
-import { AuthenticateContext } from "../../context/Auth";
+import React, { Fragment, /*useContext, useEffect,*/ useState } from "react";
+
+//import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 import Portfolio from "../../components/Dashboards/Portfolio";
 import ListOperationsMobile from "../Tables/LastOperations";
-
 import "./Styles.scss";
 
-export default function HomeTabs({ props }) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-    const [ready, setReady] = useState(false);
 
+export default function HomeTabs() {
+    const [t] = useProjectTranslation();
+    //const auth = useContext(AuthenticateContext);
+    //const [ready, setReady] = useState(false);
+
+    /*
     useEffect(() => {
         if (auth.contractStatusData) {
             setReady(true);
         }
-    }, [auth]);
+    }, [auth]);*/
 
     // Tabs for mobile
     const tabs = [

@@ -2,8 +2,9 @@ import { notification } from 'antd';
 import React from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 
+
 export default function CopyAddress(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
 
     const { address = '', type = '' } = props;
 
@@ -46,7 +47,7 @@ export default function CopyAddress(props) {
         <>
             <div className="address-section">
                 <span className="address tx-id-address">
-                    <a href={urlExplorer} target="_blank">
+                    <a href={urlExplorer} target="_blank" rel="noreferrer">
                         {truncateAddress(address)}
                     </a>
                 </span>

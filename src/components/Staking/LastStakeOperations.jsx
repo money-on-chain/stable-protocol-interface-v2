@@ -1,15 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Image, Skeleton, Table } from 'antd';
+import React from 'react';
+import { Skeleton, Table } from 'antd';
 
 import { useProjectTranslation } from '../../helpers/translations';
-import { AuthenticateContext } from '../../context/Auth';
+//import { AuthenticateContext } from '../../context/Auth';
 
 
-export default function LastStakeOperations(props) {
-    const { userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-    const [totalTable, setTotalTable] = useState(null);
+export default function LastStakeOperations() {
+    //const { userInfoStaking } = props;
+    const [t] = useProjectTranslation();
+    //const auth = useContext(AuthenticateContext);
+    //const [totalTable, setTotalTable] = useState(null);
+    /*
     const [data, setData] = useState(null);
     const [modalMode, setModalMode] = useState(null);
     const [withdrawalId, setWithdrawalId] = useState('0');
@@ -17,6 +18,7 @@ export default function LastStakeOperations(props) {
     const [operationModalInfo, setOperationModalInfo] = useState({});
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
+     */
 
     const tableColumns = [{ title: 'Token', dataIndex: 'details' }];
     // hay que agregar los encabezados como html?
@@ -78,7 +80,7 @@ export default function LastStakeOperations(props) {
                         {t('staking.history.columnOperation')}
                     </div>
                 </div>
-                {tableData || true ? (
+                {tableData ? (
                     <>
                         <div className="divider-horizontal"></div>
                         <Table
@@ -89,7 +91,7 @@ export default function LastStakeOperations(props) {
                                 pageSize: 1000,
                                 position: ['none', 'bottomRight'],
                                 defaultCurrent: 1,
-                                total: totalTable
+                                total: null
                             }}
                             // scroll={{ y: 200 }}
                         />

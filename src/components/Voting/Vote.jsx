@@ -1,4 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import BigNumber from 'bignumber.js';
+
 import { useProjectTranslation } from '../../helpers/translations';
 import CompletedBar from './CompletedBar';
 import BalanceBar from './BalanceBar';
@@ -6,7 +8,7 @@ import { AuthenticateContext } from '../../context/Auth';
 import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { TokenSettings } from '../../helpers/currencies';
-import BigNumber from 'bignumber.js';
+
 
 function CreateBarGraph(props) {
     return (

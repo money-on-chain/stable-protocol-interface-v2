@@ -1,13 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Table } from 'antd';
+import BigNumber from 'bignumber.js';
 
 import { useProjectTranslation } from '../../helpers/translations';
 import { PrecisionNumbers } from '../PrecisionNumbers';
 import { AuthenticateContext } from '../../context/Auth';
 import settings from '../../settings/settings.json';
-import BigNumber from 'bignumber.js';
 import { fromContractPrecisionDecimals } from '../../helpers/Formats';
 import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
+
 
 export default function TokensPeggedMobile() {
     const [t, i18n, ns] = useProjectTranslation();
@@ -24,7 +25,7 @@ export default function TokensPeggedMobile() {
     ];
 
     // Columns
-    ProvideColumnsTP.forEach(function (dataItem) {
+    ProvideColumnsTP.forEach(function (/*dataItem*/) {
         columnsData.push({
             render: (text, record) => (
                 <>

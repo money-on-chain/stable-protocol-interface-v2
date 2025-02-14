@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
-import { AuthenticateContext } from '../../../context/Auth';
-import { useProjectTranslation } from '../../../helpers/translations';
 
+import { AuthenticateContext } from '../../../context/Auth';
 import SectionHeader from '../../../components/Header';
 import NotificationBody from '../../../components/Notification';
 import CheckStatus from '../../../helpers/checkStatus';
 import DappFooter from '../../../components/Footer/index';
 import W3ErrorAlert from '../../../components/Notification/W3ErrorAlert';
 
+
 const { Content, Footer } = Layout;
 
+
 export default function Skeleton() {
-    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
     const { checkerStatus } = CheckStatus();

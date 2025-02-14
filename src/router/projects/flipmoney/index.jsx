@@ -12,9 +12,7 @@ const Performance = React.lazy(
 const Staking = React.lazy(() => import('../../../pages/Staking/index'));
 const Vesting = React.lazy(() => import('../../../pages/Vesting/index'));
 const Voting = React.lazy(() => import('../../../pages/Voting/index'));
-const LiquidityMining = React.lazy(
-    () => import('../../../pages/LiquidityMining/index')
-);
+
 
 export default function Router() {
     return useRoutes([

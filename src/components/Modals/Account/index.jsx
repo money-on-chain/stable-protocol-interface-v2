@@ -1,13 +1,11 @@
 import React, { Fragment } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 
-import { useProjectTranslation } from '../../../helpers/translations';
+
 import Account from '../../Account';
 
 export default function ModalAccount(props) {
     const { truncatedAddress, show, onShow, onHide, vestingOn, setVestingOn } = props;
-
-    const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <Fragment>

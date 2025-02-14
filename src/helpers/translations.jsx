@@ -4,5 +4,5 @@ export const useProjectTranslation = () => {
     const ns = 'translation';
     const [t, i18n] = useTranslation();
 
-    return [t, i18n, ns];
+    return { t, i18n, ns };
 };

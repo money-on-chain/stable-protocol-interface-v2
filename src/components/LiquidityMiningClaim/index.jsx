@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { useProjectTranslation } from '../../helpers/translations';
 import { Button } from 'antd';
 import PerformanceChart from '../Staking/performanceChart';
-import { AuthenticateContext } from '../../context/Auth';
+//import { AuthenticateContext } from '../../context/Auth';
 import LiquidityMiningClaims from '../Tables/LiquidityMiningClaims';
 import './Styles.scss';
 
-export default function LiquidityMiningClaim(props) {
-    const auth = useContext(AuthenticateContext);
+export default function LiquidityMiningClaim() {
+    //const auth = useContext(AuthenticateContext);
     const [t] = useProjectTranslation();
     const space = '\u00A0';
 

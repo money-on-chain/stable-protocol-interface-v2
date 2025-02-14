@@ -1,13 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { /*useContext,*/ useState } from "react";
 import { Modal, Button } from "antd";
+
 import { getCurrenciesDetail } from "../../helpers/currencies";
-import { AuthenticateContext } from "../../context/Auth";
+//import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
 
 export default function CurrencyPopUp(props) {
     const { value, onChange, currencyOptions, disabled, action, title } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t, ns] = useProjectTranslation();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     // Retrieve currency options with details
@@ -20,7 +21,7 @@ export default function CurrencyPopUp(props) {
 
     // Remove duplicated items, except on action exchange & coinbase
     const arrayAdded = []
-    const optionsFiltered = options.filter(function (item, index, array) {
+    const optionsFiltered = options.filter(function (item, /*index, array*/) {
         if (!arrayAdded.includes(item.abbreviation)) {
             if (!(action==="exchange" && item.value==="COINBASE")) arrayAdded.push(item.abbreviation);
             return item
@@ -37,7 +38,7 @@ export default function CurrencyPopUp(props) {
         currencyOptions.includes(currency.value)
     );
 
-    const auth = useContext(AuthenticateContext);
+    //const auth = useContext(AuthenticateContext);
 
     // Function to open the modal
     const openModal = () => {

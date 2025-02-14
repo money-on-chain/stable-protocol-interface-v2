@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import BigNumber from "bignumber.js";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import settings from "../../../settings/settings.json";
@@ -11,22 +11,23 @@ const withdrawalStatus = {
     pending: "PENDING",
     available: "AVAILABLE",
 };
-const Dashboard = (props) => {
+
+const Dashboard = () => {
     const auth = useContext(AuthenticateContext);
     const [t, i18n, ns] = useProjectTranslation();
-    const [activeTab, setActiveTab] = useState("tab1");
+    //const [activeTab, setActiveTab] = useState("tab1");
     const [tgBalance, setTgBalance] = useState("0");
-    const [lockedBalance, setLockedBalance] = useState("0");
+    //const [lockedBalance, setLockedBalance] = useState("0");
     const [stakedBalance, setStakedBalance] = useState("0");
-    const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
+    //const [pendingWithdrawals, setPendingWithdrawals] = useState(null);
     const [totalPendingExpiration, setTotalPendingExpiration] = useState("0");
     const [totalAvailableToWithdraw, setTotalAvailableToWithdraw] =
         useState("0");
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (auth.accountData && auth.userBalanceData) {
-            setLoading(false);
+            //setLoading(false);
             setStakingBalances();
         }
     }, [auth]);
@@ -43,17 +44,14 @@ const Dashboard = (props) => {
                 setTgBalance(auth.userBalanceData.vestingmachine.tgBalance);
                 _stakedBalance =
                     auth.userBalanceData.vestingmachine.staking.balance;
-                _lockedBalance =
-                    auth.userBalanceData.vestingmachine.staking
-                        .getLockedBalance;
+                //_lockedBalance = auth.userBalanceData.vestingmachine.staking.getLockedBalance;
                 _pendingWithdrawals = pendingWithdrawalsFormat(
                     auth.userBalanceData.vestingmachine.delay
                 );
             } else {
                 setTgBalance(auth.userBalanceData.TG.balance);
                 _stakedBalance = auth.userBalanceData.stakingmachine.getBalance;
-                _lockedBalance =
-                    auth.userBalanceData.stakingmachine.getLockedBalance;
+                //_lockedBalance = auth.userBalanceData.stakingmachine.getLockedBalance;
                 _pendingWithdrawals = pendingWithdrawalsFormat(
                     auth.userBalanceData.delaymachine
                 );
@@ -88,14 +86,16 @@ const Dashboard = (props) => {
                 ).toFixed(0);
             }
         });
+        /*
         const arrayDes = pendingWithdrawalsFormatted.sort(function (a, b) {
             return b.id.toString() - a.id.toString();
         });
-        setLockedBalance(_lockedBalance);
+         */
+        //setLockedBalance(_lockedBalance);
         setStakedBalance(_stakedBalance);
         setTotalPendingExpiration(pendingExpirationAmount);
         setTotalAvailableToWithdraw(readyToWithdrawAmount);
-        setPendingWithdrawals(arrayDes);
+        //setPendingWithdrawals(arrayDes);
         //} catch (error) {
         //console.log('Error getting staking balances', error);
         //}

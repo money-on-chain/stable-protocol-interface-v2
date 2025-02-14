@@ -13,6 +13,7 @@ import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatus
 import InputAmount from "../InputAmount";
 import settings from "../../settings/settings.json";
 
+
 const Stake = (props) => {
     const { activeTab, userInfoStaking } = props;
     const [t, i18n, ns] = useProjectTranslation();
@@ -27,7 +28,7 @@ const Stake = (props) => {
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
     const [inputValidationError, setInputValidationError] = useState(true);
-    const [cleanInputCount, setUntouchCount] = useState(0);
+    //const [cleanInputCount, setUntouchCount] = useState(0);
 
     const [amountToStake, setAmountToStake] = useState("");
     const [amountToUnstake, setAmountToUnstake] = useState("");
@@ -89,7 +90,7 @@ const Stake = (props) => {
         setInputValidationError(amountInputError);
     };
 
-    const onChangeCurrency = (newCurrency) => {
+    const onChangeCurrency = (/*newCurrency*/) => {
         onClear();
     };
 
@@ -134,7 +135,7 @@ const Stake = (props) => {
         //setStakingBalances();
         setAmountToStake("");
         setAmountToUnstake("");
-        setUntouchCount((prev) => prev + 1);
+        //setUntouchCount((prev) => prev + 1);
     };
     const onStakingModalConfirm = (operationStatus, txHash) => {
         const operationInfo = {

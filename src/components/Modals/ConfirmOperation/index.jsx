@@ -1,23 +1,25 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
+import { Button } from 'antd';
 
 import { useProjectTranslation } from '../../../helpers/translations';
 import ConfirmOperation from '../../ConfirmOperation';
-import { Button } from 'antd';
+
 
 export default function ModalConfirmOperation(props) {
-    const { onClear, inputValidationError } = props;
+    const { /*onClear,*/ inputValidationError } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const [t] = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {
         setVisible(true);
     };
 
+    /*
     const clear = () => {
         onClear();
-    };
+    };*/
 
     const hideModal = () => {
         setVisible(false);

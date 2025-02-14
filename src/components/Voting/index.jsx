@@ -9,8 +9,8 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 import './Styles.scss';
 
-export default function Voting(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+export default function Voting() {
+    const [t] = useProjectTranslation();
 
     const auth = useContext(AuthenticateContext);
 
