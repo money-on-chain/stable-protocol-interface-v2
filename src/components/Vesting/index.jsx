@@ -169,12 +169,12 @@ export default function Vesting() {
                     timeDifference / (1000 * 3600 * 24)
                 );
 
-                let amount = new BigNumber(0);
+                /*let amount = new BigNumber(0);
                 if (total && !new BigNumber(total).isZero()) {
                     amount = new BigNumber(percent)
                         .times(total)
                         .div(percentMultiplier);
-                }
+                }*/
 
                 if (dayLefts > 0) {
                     //vestedAmount = amount;
@@ -872,7 +872,6 @@ export default function Vesting() {
                                     </button>
                                     <button
                                         className="button"
-                                        onClick={/*onClickAddVesting*/}
                                         disabled={newVestingAddress === ""}
                                     >
                                         {t(

@@ -314,6 +314,8 @@ export default function Exchange() {
         let infoFee;
         let amountExchangeFee;
         let amountReceiveFee;
+        let amountFormattedReceive;
+        let amountFormattedExchange;
         switch (source) {
             case "exchange":
                 infoFee = CalcCommission(
@@ -325,7 +327,7 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange;
                 amountReceiveFee = amountReceive.minus(infoFee.fee);
-                const amountFormattedReceive = AmountToVisibleValue(
+                amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
                     amountReceiveFee.lt(0.00000001) ? 12 : 8,
@@ -347,7 +349,7 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange.plus(infoFee.fee);
                 amountReceiveFee = amountReceive;
-                const amountFormattedExchange = AmountToVisibleValue(
+                amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
                     amountExchangeFee.lte(0.00000001) ? 12 : 8,
