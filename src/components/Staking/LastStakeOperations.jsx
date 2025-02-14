@@ -7,7 +7,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 export default function LastStakeOperations() {
     //const { userInfoStaking } = props;
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     //const auth = useContext(AuthenticateContext);
     //const [totalTable, setTotalTable] = useState(null);
     /*

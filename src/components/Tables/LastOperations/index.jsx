@@ -726,6 +726,7 @@ export default function LastOperations(props) {
             return t("operations.actions.origin");
         }
     }
+    /*
     function truncateAddress(address) {
         if (address === "") return "";
         return (
@@ -733,7 +734,7 @@ export default function LastOperations(props) {
             "..." +
             address.substring(address.length - 4, address.length)
         );
-    }
+    }*/
     function getTransferAddress(row_operation) {
         if (
             row_operation["params"]["sender"].toLowerCase() ===

@@ -17,7 +17,7 @@ export default function AllowanceDialog(props) {
         disAllowance
     } = props;
 
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState('SUBMIT');

@@ -3,7 +3,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 import './Styles.scss';
 
 export default function NotificationBody(props) {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     //const [visible, setVisible] = useState(false);
     const { notifStatus } = props;
     useEffect(() => {

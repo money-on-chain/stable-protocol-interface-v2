@@ -19,7 +19,7 @@ const formatVisibleValue = (amount, decimals) => {
 };
 
 export default function VestingSchedule() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const vestingColumns = [

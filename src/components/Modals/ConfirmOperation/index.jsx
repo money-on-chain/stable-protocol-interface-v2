@@ -9,7 +9,7 @@ import ConfirmOperation from '../../ConfirmOperation';
 export default function ModalConfirmOperation(props) {
     const { /*onClear,*/ inputValidationError } = props;
 
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {

@@ -11,7 +11,7 @@ import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
 
 
 export default function TokensPeggedMobile() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const tokensData = [];
     const columnsData = [];

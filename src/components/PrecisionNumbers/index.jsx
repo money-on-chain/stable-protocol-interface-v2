@@ -43,9 +43,7 @@ const PrecisionNumbers = ({
     token,
     decimals,
     numericLabelParams,
-    t,
     i18n,
-    ns,
     skipContractConvert,
     isUSD = false
 }) => {

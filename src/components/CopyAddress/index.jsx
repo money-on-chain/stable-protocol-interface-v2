@@ -4,7 +4,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 
 
 export default function CopyAddress(props) {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     const { address = '', type = '' } = props;
 

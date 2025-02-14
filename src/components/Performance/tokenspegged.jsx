@@ -11,7 +11,7 @@ import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
 
 
 export default function TokensPegged() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const tokensData = [];
     const columnsData = [];
@@ -112,9 +112,7 @@ export default function TokensPegged() {
                                       amount: price,
                                       token: settings.tokens.TP[dataItem.key],
                                       decimals: 3,
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       skipContractConvert: true
                                   })
                           }
@@ -130,9 +128,7 @@ export default function TokensPegged() {
                                   ],
                                   token: settings.tokens.TP[dataItem.key],
                                   decimals: 2,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: false
                               })}
                     </div>

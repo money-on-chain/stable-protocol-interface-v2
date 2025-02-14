@@ -6,7 +6,7 @@ import { TokenSettings } from '../../../helpers/currencies';
 import { useProjectTranslation } from '../../../helpers/translations';
 
 function CompletedBar(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {i18n} = useProjectTranslation();
     const space = '\u00A0';
 
     return (
@@ -35,9 +35,7 @@ function CompletedBar(props) {
                             amount: props.amount1,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         {space}(
@@ -45,9 +43,7 @@ function CompletedBar(props) {
                             amount: props.percentage1,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         %)
@@ -60,9 +56,7 @@ function CompletedBar(props) {
                             amount: props.amount2,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         {space}(
@@ -70,9 +64,7 @@ function CompletedBar(props) {
                             amount: props.percentage2,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         %)
@@ -85,9 +77,7 @@ function CompletedBar(props) {
                             amount: props.amount3,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         {space}(
@@ -95,9 +85,7 @@ function CompletedBar(props) {
                             amount: props.percentage3,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         %)

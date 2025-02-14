@@ -8,7 +8,7 @@ import { Button } from 'antd';
 export default function ModalConfirmSend(props) {
     const { /*onClear,*/ inputValidationError } = props;
 
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {

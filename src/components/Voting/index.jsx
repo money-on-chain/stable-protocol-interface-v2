@@ -10,7 +10,7 @@ import { useProjectTranslation } from '../../helpers/translations';
 import './Styles.scss';
 
 export default function Voting() {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     const auth = useContext(AuthenticateContext);
 

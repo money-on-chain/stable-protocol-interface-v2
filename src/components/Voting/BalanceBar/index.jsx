@@ -5,7 +5,7 @@ import { TokenSettings } from '../../../helpers/currencies';
 import { useProjectTranslation } from '../../../helpers/translations';
 
 function BalanceBar(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {i18n} = useProjectTranslation();
     const space = '\u00A0';
 
     return (
@@ -16,9 +16,7 @@ function BalanceBar(props) {
                         amount: props.againstVotes,
                         token: TokenSettings('TG'),
                         decimals: 2,
-                        t: t,
                         i18n: i18n,
-                        ns: ns,
                         skipContractConvert: true
                     })}
                     {space}({props.against}) against
@@ -28,9 +26,7 @@ function BalanceBar(props) {
                         amount: props.infavorVotes,
                         token: TokenSettings('TG'),
                         decimals: 2,
-                        t: t,
                         i18n: i18n,
-                        ns: ns,
                         skipContractConvert: true
                     })}
                     {space}({props.infavor}) in favor

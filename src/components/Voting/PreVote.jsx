@@ -47,7 +47,7 @@ function PreVote(props) {
         onUnRegisterProposal,
         onRunPreVoteStep
     } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const space = '\u00A0';
     const auth = useContext(AuthenticateContext);
 
@@ -263,9 +263,7 @@ function PreVote(props) {
                                                     ],
                                                     token: TokenSettings('TG'),
                                                     decimals: 2,
-                                                    t: t,
                                                     i18n: i18n,
-                                                    ns: ns,
                                                     skipContractConvert: true
                                                 })}
                                                 {t('staking.tokens.TG.abbr', {
@@ -278,9 +276,7 @@ function PreVote(props) {
                                                     ],
                                                     token: TokenSettings('TG'),
                                                     decimals: 2,
-                                                    t: t,
                                                     i18n: i18n,
-                                                    ns: ns,
                                                     skipContractConvert: true
                                                 })}
                                                 %)

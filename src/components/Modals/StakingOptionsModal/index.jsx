@@ -11,7 +11,7 @@ import settings from "../../../settings/settings.json";
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const { accountData = {} } = auth;
     const { mode, onClose, visible, amount, onConfirm, withdrawalId } = props;
 

@@ -15,7 +15,7 @@ const VotingStatusModal = ({
     votingInFavor,
     showProposal,
 }) => {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     let sentIcon = "";
     let statusLabel = "";

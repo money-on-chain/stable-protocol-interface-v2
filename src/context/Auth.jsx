@@ -33,7 +33,7 @@ import {
     delayMachineWithdraw as delayMachineWithdrawVesting,
     delayMachineCancelWithdraw as delayMachineCancelWithdrawVesting,
     approve as approveVesting,
-    withdraw,
+    //withdraw,
     withdrawAll,
     vestingVerify,
     preVote as preVoteVesting,
@@ -71,114 +71,114 @@ const AuthenticateContext = createContext({
     web3Error: false,
     connect: () => {},
     interfaceAllowanceAmount: async (
-        currencyYouExchange,
+        /*currencyYouExchange,
         currencyYouReceive,
         amountAllowance,
         onTransaction,
-        onReceipt
+        onReceipt*/
     ) => {},
     interfaceTransferToken: async (
-        currencyYouExchange,
+        /*currencyYouExchange,
         amount,
         destinationAddress,
         onTransaction,
-        onReceipt
+        onReceipt*/
     ) => {},
     interfaceTransferCoinbase: async (
-        amount,
+        /*amount,
         destinationAddress,
         onTransaction,
-        onReceipt
+        onReceipt*/
     ) => {},
     interfaceExchangeMethod: async (
-        currencyYouExchange,
+        /*currencyYouExchange,
         currencyYouReceive,
         tokenAmount,
         limitAmount,
         onTransaction,
-        onReceipt
+        onReceipt*/
     ) => {},
     disconnect: () => {},
-    getTransactionReceipt: (hash) => {},
-    getSpendableBalance: async (address) => {},
-    loadContractsStatusAndUserBalance: async (address) => {},
-    getReserveAllowance: async (address) => {},
+    getTransactionReceipt: (/*hash*/) => {},
+    //getSpendableBalance: async (address) => {},
+    loadContractsStatusAndUserBalance: async (/*address*/) => {},
+    //getReserveAllowance: async (address) => {},
     interfaceAllowUseTokenMigrator: async (
-        amount,
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
-    interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
+    interfaceMigrateToken: async (/*onTransaction, onReceipt, onError*/) => {},
     //OMOC methods
     interfaceStakingAddStake: async (
-        amount,
+        /*amount,
         address,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceStakingUnStake: async (
-        amount,
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceStakingDelayMachineWithdraw: async (
-        idWithdraw,
+        /*idWithdraw,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceStakingDelayMachineCancelWithdraw: async (
-        idWithdraw,
+        /*idWithdraw,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceStakingApprove: async (
-        amount,
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceVestingWithdraw: async (
-        amount,
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
-    interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
+    interfaceVestingVerify: async (/*onTransaction, onReceipt, onError*/) => {},
     interfaceIncentiveV2Claim: async (
-        signDataResponse,
+        /*signDataResponse,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     interfaceVotingPreVote: async (
+        /*changeContractAddress,
+        onTransaction,
+        onReceipt,
+        onError*/
+    ) => {},
+    /*interfaceVotingUnregister: async (
         changeContractAddress,
         onTransaction,
         onReceipt,
         onError
-    ) => {},
-    interfaceVotingUnregister: async (
-        changeContractAddress,
-        onTransaction,
-        onReceipt,
-        onError
-    ) => {},
+    ) => {},*/
     interfaceVotingVote: async (
-        inFavorAgainst,
+        /*inFavorAgainst,
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
-    interfaceVotingPreVoteStep: async (onTransaction, onReceipt, onError) => {},
-    interfaceVotingVoteStep: async (onTransaction, onReceipt, onError) => {},
-    interfaceVotingAcceptedStep: async (
+    interfaceVotingPreVoteStep: async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingVoteStep: async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingAcceptedStep: async (/*
         onTransaction,
         onReceipt,
-        onError
+        onError*/
     ) => {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
@@ -280,8 +280,9 @@ const AuthenticateProvider = ({ children }) => {
                         setIsLoggedIn(true);
                     });
             })
-            .catch((error) => {
+            .catch((e) => {
                 disconnect();
+                console.error(e);
             });
 
     const disconnect = async () => {
@@ -572,7 +573,7 @@ const AuthenticateProvider = ({ children }) => {
         return await web3.eth.getBalance(from);
     };
 
-    const getTransactionReceipt = async (hash, callback) => {
+    const getTransactionReceipt = async (hash/*, callback*/) => {
         //const web3 = new Web3(provider);
         let transactionReceipt = false;
         let transaction = await web3.eth.getTransactionReceipt(hash);

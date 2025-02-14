@@ -12,7 +12,7 @@ const OperationStatusModal = ({
     operationStatus,
     txHash,
 }) => {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     let sentIcon = "";
     let statusLabel = "";

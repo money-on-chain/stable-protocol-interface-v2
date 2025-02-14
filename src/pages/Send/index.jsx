@@ -9,7 +9,7 @@ import Send from "../../components/Send";
 import "./Styles.scss";
 
 function SectionSend() {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {

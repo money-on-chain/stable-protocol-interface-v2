@@ -17,7 +17,7 @@ export default function ConfirmSend(props) {
         onCloseModal,
     } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("SUBMIT");
@@ -141,9 +141,7 @@ export default function ConfirmSend(props) {
                                 amount: new BigNumber(amountYouExchange),
                                 token: TokenSettings(currencyYouExchange),
                                 decimals: 8,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </div>
@@ -181,9 +179,7 @@ export default function ConfirmSend(props) {
                                     amount: exchangingUSD,
                                     token: TokenSettings("CA_0"),
                                     decimals: 8,
-                                    t: t,
                                     i18n: i18n,
-                                    ns: ns,
                                     skipContractConvert: true,
                                 })}
                             </div>

@@ -8,7 +8,7 @@ import settings from '../settings/settings.json';
 
 
 export default function CheckStatus() {
-  const [t] = useProjectTranslation();
+  const {t} = useProjectTranslation();
   const auth = useContext(AuthenticateContext);
   const checkerStatus  = () => {
     let isValid = true;

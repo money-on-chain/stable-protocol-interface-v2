@@ -8,7 +8,7 @@ import "./Styles.scss";
 
 
 export default function HomeTabs() {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     //const auth = useContext(AuthenticateContext);
     //const [ready, setReady] = useState(false);
 

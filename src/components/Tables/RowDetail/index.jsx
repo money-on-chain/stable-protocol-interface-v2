@@ -3,7 +3,7 @@ import { useProjectTranslation } from '../../../helpers/translations';
 
 
 function RowDetail(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, ns} = useProjectTranslation();
 
     return (
         <table>

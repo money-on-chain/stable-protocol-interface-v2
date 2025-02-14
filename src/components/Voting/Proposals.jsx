@@ -32,7 +32,7 @@ function Proposals(props) {
     const [modalTitle, setModalTitle] = useState('Proposal');
     const [proposalsData, setProposalsData] = useState([]);
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
@@ -323,7 +323,7 @@ function Proposals(props) {
                 onReceipt,
                 onError
             )
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
@@ -337,7 +337,7 @@ function Proposals(props) {
 
     const onUnRegisterProposal = (proposalAddress) => {
         onSendUnRegister(proposalAddress)
-            .then((res) => {})
+            .then((/*res*/) => {})
             .catch((e) => {
                 console.error(e);
             });
@@ -381,7 +381,7 @@ function Proposals(props) {
 
         await auth
             .interfaceVotingPreVoteStep(onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
@@ -527,9 +527,7 @@ function Proposals(props) {
                                             amount: infoVoting['MIN_STAKE'],
                                             token: TokenSettings('TG'),
                                             decimals: 2,
-                                            t: t,
                                             i18n: i18n,
-                                            ns: ns,
                                             skipContractConvert: true
                                         })}
                                         {space}{' '}
@@ -547,9 +545,7 @@ function Proposals(props) {
                                                 ],
                                                 token: TokenSettings('TG'),
                                                 decimals: 2,
-                                                t: t,
                                                 i18n: i18n,
-                                                ns: ns,
                                                 skipContractConvert: true
                                             })}
                                             {space}

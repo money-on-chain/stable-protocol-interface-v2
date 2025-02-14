@@ -474,9 +474,7 @@ export default function ConfirmOperation(props) {
                                 decimals: amountYouExchangeLimit.lt(0.0000001)
                                     ? 12
                                     : 8,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </div>
@@ -508,9 +506,7 @@ export default function ConfirmOperation(props) {
                                 decimals: amountYouReceive.lt(0.0000001)
                                     ? 12
                                     : 8,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </div>
@@ -533,9 +529,7 @@ export default function ConfirmOperation(props) {
                                             currencyYouReceive
                                         ),
                                         decimals: 4,
-                                        t: t,
                                         i18n: i18n,
-                                        ns: ns,
                                         skipContractConvert: true,
                                     })}
                                 </div>
@@ -555,9 +549,7 @@ export default function ConfirmOperation(props) {
                                 amount: new BigNumber(commissionPercentPAY),
                                 token: commissionSettings,
                                 decimals: 2,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                             %)
@@ -567,9 +559,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(commissionPAY),
                                 token: commissionSettings,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </span>
@@ -585,9 +575,7 @@ export default function ConfirmOperation(props) {
                                       amount: new BigNumber(commissionPAYUSD),
                                       decimals: 2,
                                       token: TokenSettings("CA_0"),
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       isUSD: true,
                                       skipContractConvert: true,
                                   })}
@@ -607,9 +595,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: executionFee,
                                 token: TokenSettings("COINBASE"),
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </span>
@@ -683,9 +669,7 @@ export default function ConfirmOperation(props) {
                                         amount: exchangingUSD,
                                         token: TokenSettings("CA_0"),
                                         decimals: 4,
-                                        t: t,
                                         i18n: i18n,
-                                        ns: ns,
                                         skipContractConvert: true,
                                         isUSD: true,
                                     })}

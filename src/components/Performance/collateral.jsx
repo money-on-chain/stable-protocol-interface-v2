@@ -9,7 +9,7 @@ import settings from '../../settings/settings.json';
 
 
 export default function CollateralAssets() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     return (
@@ -30,9 +30,7 @@ export default function CollateralAssets() {
                                     amount: auth.contractStatusData ? auth.contractStatusData.getACBalance[i] : new BigNumber(0),
                                     token: TokenSettings(`CA_${i}`),
                                     decimals: 2,
-                                    t: t,
                                     i18n: i18n,
-                                    ns: ns,
                                     skipContractConvert: false
                                 })}
                             </div>

@@ -912,8 +912,8 @@ export default function PortfolioTable() {
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);
 
-            let signPriceDelta = "";
-            if (priceDelta.gt(0)) signPriceDelta = "+";
+            //let signPriceDelta = "";
+            //if (priceDelta.gt(0)) signPriceDelta = "+";
 
             /*
             const priceDeltaFormat = priceDelta.toFormat(

@@ -3,7 +3,7 @@ import React from 'react';
 import { useProjectTranslation } from '../../../helpers/translations';
 
 export default function AboutQueue(props) {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     function setStatusIcon(status) {
         switch (status) {

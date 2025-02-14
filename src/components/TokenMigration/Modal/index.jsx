@@ -17,7 +17,7 @@ export default function ModalTokenMigration(props) {
         setVisible(false);
     };
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     return (
         <div className="ShowTokenMigration">

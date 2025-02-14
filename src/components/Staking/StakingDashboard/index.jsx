@@ -7,7 +7,7 @@ import { useProjectTranslation } from "../../../helpers/translations";
 import "./Styles.scss";
 
 const Dashboard = (props) => {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const { userInfoStaking } = props;
 
     return (

@@ -48,7 +48,7 @@ function CreateStats(props) {
 
 function Proposal(props) {
     const { proposal, onViewProposal, infoVoting, onRunPreVoteStep } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     //const space = '\u00A0';
 
     const preVotingGraphs = [

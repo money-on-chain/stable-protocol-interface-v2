@@ -19,7 +19,7 @@ import ModalConfirmSend from "../Modals/ConfirmSend";
 
 
 export default function Send() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const tokenSend = tokenExchange();
@@ -211,9 +211,7 @@ export default function Send() {
                                 decimals:
                                     TokenSettings(currencyYouSend)
                                         .visibleDecimals,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
+                                i18n: i18n
                             })}
                             setAddTotalAvailable={setAddTotalAvailable}
                             action={t("send.labelSending")}
@@ -261,9 +259,7 @@ export default function Send() {
                                     amount: sendingUSD,
                                     token: TokenSettings("CA_0"),
                                     decimals: 2,
-                                    t: t,
                                     i18n: i18n,
-                                    ns: ns,
                                     skipContractConvert: true,
                                 })}
                             </span>

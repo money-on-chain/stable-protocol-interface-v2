@@ -54,7 +54,7 @@ function Vote(props) {
     const [votingFinish, setVotingFinish] = useState(false);
     const [votingFinishReason, setVotingFinishReason] = useState(0);
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const space = '\u00A0';
 
@@ -153,7 +153,7 @@ function Vote(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction in Favor proposal mined!...');
             setOperationStatus('success');
             /*
@@ -180,9 +180,9 @@ function Vote(props) {
 
         await auth
             .interfaceVotingVote(inFavor, onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })
@@ -204,7 +204,7 @@ function Vote(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction vote step mined!...');
             setOperationStatus('success');
             /*
@@ -231,9 +231,9 @@ function Vote(props) {
 
         await auth
             .interfaceVotingVoteStep(onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })
@@ -255,7 +255,7 @@ function Vote(props) {
             setTxHash(txHash);
             setOperationStatus('pending');
         };
-        const onReceipt = (receipt) => {
+        const onReceipt = (/*receipt*/) => {
             console.log('Transaction accepted step mined!...');
             setOperationStatus('success');
             /*
@@ -282,9 +282,9 @@ function Vote(props) {
 
         await auth
             .interfaceVotingAcceptedStep(onTransaction, onReceipt, onError)
-            .then((res) => {
+            .then((/*res*/) => {
                 // Refresh status
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log('Refresh user balance OK!');
                 });
             })
@@ -450,9 +450,7 @@ function Vote(props) {
                                                 ],
                                                 token: TokenSettings('TG'),
                                                 decimals: 2,
-                                                t: t,
                                                 i18n: i18n,
-                                                ns: ns,
                                                 skipContractConvert: true
                                             })}
                                             {t('staking.tokens.TG.abbr', {
@@ -465,9 +463,7 @@ function Vote(props) {
                                                 ],
                                                 token: TokenSettings('TG'),
                                                 decimals: 4,
-                                                t: t,
                                                 i18n: i18n,
-                                                ns: ns,
                                                 skipContractConvert: true
                                             })}
                                             %)

@@ -8,7 +8,7 @@ import settings from "../../settings/settings.json";
 
 
 const PieChartComponent = (props) => {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n} = useProjectTranslation();
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(new BigNumber(0));
     const { userInfoStaking } = props;
@@ -163,9 +163,7 @@ const PieChartComponent = (props) => {
                         amount: total,
                         token: settings.tokens.TG[0],
                         decimals: 2,
-                        t: t,
                         i18n: i18n,
-                        ns: ns,
                         skipContractConvert: true,
                     })}
                     {space}

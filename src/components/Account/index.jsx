@@ -33,7 +33,7 @@ function removeAllItem(arr, value) {
 export default function AccountDialog(props) {
     const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
 
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [qrValue, setQrValue] = useState(null);
     const [actionVesting, setActionVesting] = useState("select");

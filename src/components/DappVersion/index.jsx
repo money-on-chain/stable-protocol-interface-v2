@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useProjectTranslation } from "../../helpers/translations";
 
 export default function DappVersion() {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     return (
         <>

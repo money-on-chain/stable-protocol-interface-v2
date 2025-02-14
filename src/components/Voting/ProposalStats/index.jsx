@@ -8,7 +8,7 @@ import './Styles.scss';
 
 
 function ProposalStats(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {i18n} = useProjectTranslation();
 
     // Check that amount and percentage are an instance of BigNumber
     const amountBig =
@@ -35,9 +35,7 @@ function ProposalStats(props) {
                             amount: amountBig,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                     </div>
@@ -47,9 +45,7 @@ function ProposalStats(props) {
                             amount: percentageBig,
                             token: TokenSettings('TG'),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
                             skipContractConvert: true
                         })}
                         %)

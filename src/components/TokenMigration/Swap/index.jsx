@@ -20,7 +20,7 @@ const SwapToken = (props) => {
         "0x0000000000000000000000000000000000000000"
     );
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const onClose = () => {
@@ -247,9 +247,7 @@ const SwapToken = (props) => {
                                                 .tpLegacy.balance,
                                             token: TokenSettings("TP_0"),
                                             decimals: 4,
-                                            t: t,
                                             i18n: i18n,
-                                            ns: ns,
                                             skipContractConvert: false,
                                         })}
                                     </div>
@@ -267,9 +265,7 @@ const SwapToken = (props) => {
                                                 .tpLegacy.balance,
                                             token: TokenSettings("TP_0"),
                                             decimals: 4,
-                                            t: t,
                                             i18n: i18n,
-                                            ns: ns,
                                             skipContractConvert: false,
                                         })}
                                     </div>

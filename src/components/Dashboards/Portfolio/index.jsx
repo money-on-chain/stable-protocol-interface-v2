@@ -11,7 +11,7 @@ import PortfolioTable from "../../Tables/PortfolioTable";
 
 export default function Portfolio() {
     const space = "\u00A0";
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     let balance;
@@ -139,9 +139,7 @@ export default function Portfolio() {
                                       amount: totalUSD,
                                       token: settings.tokens.COINBASE[0],
                                       decimals: 2,
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       skipContractConvert: true,
                                   })}
                             {space}

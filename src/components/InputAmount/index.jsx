@@ -3,7 +3,7 @@ import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
 
 const InputAmount = (props) => {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
 
     const inputRef = useRef(null);
     //const [value, setValue] = useState("");

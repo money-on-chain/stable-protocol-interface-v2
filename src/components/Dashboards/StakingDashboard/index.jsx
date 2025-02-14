@@ -14,7 +14,7 @@ const withdrawalStatus = {
 
 const Dashboard = () => {
     const auth = useContext(AuthenticateContext);
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     //const [activeTab, setActiveTab] = useState("tab1");
     const [tgBalance, setTgBalance] = useState("0");
     //const [lockedBalance, setLockedBalance] = useState("0");
@@ -34,8 +34,7 @@ const Dashboard = () => {
 
     const setStakingBalances = async () => {
         //try {
-        let [_stakedBalance, _lockedBalance, _pendingWithdrawals] = [
-            "0",
+        let [_stakedBalance, _pendingWithdrawals] = [
             "0",
             [],
         ];

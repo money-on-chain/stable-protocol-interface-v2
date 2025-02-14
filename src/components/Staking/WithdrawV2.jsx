@@ -15,7 +15,7 @@ import "./WithdrawV2.scss";
 
 export default function Withdraw(props) {
     const { userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, i18n, ns} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);

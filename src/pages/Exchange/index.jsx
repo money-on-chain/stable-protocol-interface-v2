@@ -8,7 +8,7 @@ import Exchange from "../../components/Exchange";
 import "./Styles.scss";
 
 function SectionExchange() {
-    const [t] = useProjectTranslation();
+    const {t} = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {

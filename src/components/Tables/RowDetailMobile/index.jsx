@@ -15,7 +15,7 @@ function ItemData(props) {
 }
 
 function RowDetail(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const {t, ns} = useProjectTranslation();
 
     return (
         <div className="LastOp__expanded__container">
