@@ -1,16 +1,16 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useContext } from 'react';
-import { Skeleton } from 'antd';
+import React, { Fragment, useState, useEffect } from "react";
+import { useContext } from "react";
+import { Skeleton } from "antd";
 
-import { AuthenticateContext } from '../../context/Auth';
-import UseVestingAlert from '../../components/Notification/UsingVestingAlert';
-import LiquidityMiningClaim from '../../components/LiquidityMiningClaim';
-import './Styles.scss';
+import { AuthenticateContext } from "../../context/Auth";
+import UseVestingAlert from "../../components/Notification/UsingVestingAlert";
+import LiquidityMiningClaim from "../../components/LiquidityMiningClaim";
+import "./Styles.scss";
 
 function SectionLiquidityMining() {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
-    const [usingVestingAddress, setUsingVestingAddress] = useState('');
+    const [usingVestingAddress, setUsingVestingAddress] = useState("");
     useEffect(() => {
         if (auth.contractStatusData) {
             setReady(true);
@@ -18,7 +18,7 @@ function SectionLiquidityMining() {
         if (auth.userBalanceData && auth.isVestingLoaded()) {
             setUsingVestingAddress(auth.vestingAddress());
         } else {
-            setUsingVestingAddress('');
+            setUsingVestingAddress("");
         }
     }, [auth]);
 
@@ -26,7 +26,7 @@ function SectionLiquidityMining() {
         <Fragment>
             <div className="section-container">
                 <div className="sectionClaim">
-                    {usingVestingAddress !== '' && (
+                    {usingVestingAddress !== "" && (
                         <UseVestingAlert address={usingVestingAddress} />
                     )}
                     {ready ? <LiquidityMiningClaim /> : <Skeleton active />}

@@ -1,14 +1,13 @@
 import BigNumber from "bignumber.js";
 import React, { useContext, useState } from "react";
 import { Button } from "antd";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { PrecisionNumbers } from "../PrecisionNumbers";
 import { TokenSettings } from "../../helpers/currencies";
 import { AuthenticateContext } from "../../context/Auth";
 import CopyAddress from "../CopyAddress";
-
 
 export default function ConfirmSend(props) {
     const {
@@ -19,7 +18,7 @@ export default function ConfirmSend(props) {
         onCloseModal,
     } = props;
 
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("SUBMIT");
@@ -72,7 +71,7 @@ export default function ConfirmSend(props) {
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok
-        console.log('On receipt: ', receipt);
+        console.log("On receipt: ", receipt);
 
         /*
         // Events name list
@@ -91,7 +90,7 @@ export default function ConfirmSend(props) {
         const filteredEvents = decodeEvents(txRcp, contractName, filter);
          */
 
-        setStatus('SUCCESS');
+        setStatus("SUCCESS");
 
         // Refresh user balance
         auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
@@ -197,8 +196,8 @@ export default function ConfirmSend(props) {
                             type="secondary"
                             className={
                                 import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
-                                    ? 'button secondary'
-                                    : 'button secondary'
+                                    ? "button secondary"
+                                    : "button secondary"
                             }
                             onClick={onClose}
                         >
@@ -275,5 +274,5 @@ ConfirmSend.propTypes = {
     exchangingUSD: PropTypes.number,
     amountYouExchange: PropTypes.number,
     destinationAddress: PropTypes.string,
-    onCloseModal: PropTypes.func
+    onCloseModal: PropTypes.func,
 };

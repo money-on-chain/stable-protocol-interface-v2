@@ -1,9 +1,8 @@
-import React from 'react';
-import Modal from 'antd/lib/modal/Modal';
-import PropTypes from 'prop-types';
+import React from "react";
+import Modal from "antd/lib/modal/Modal";
+import PropTypes from "prop-types";
 
-import Allowance from '../../Allowance';
-
+import Allowance from "../../Allowance";
 
 export default function ModalAllowanceOperation(props) {
     const { visible, onHideModalAllowance, title } = props;
@@ -20,7 +19,7 @@ export default function ModalAllowanceOperation(props) {
                 className="ModalAllowance"
                 centered={true}
                 maskClosable={false}
-                maskStyle={{  }}
+                maskStyle={{}}
             >
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>
@@ -28,9 +27,8 @@ export default function ModalAllowanceOperation(props) {
     );
 }
 
-
 ModalAllowanceOperation.propTypes = {
     visible: PropTypes.bool,
     onHideModalAllowance: PropTypes.func,
-    title: PropTypes.string
+    title: PropTypes.string,
 };

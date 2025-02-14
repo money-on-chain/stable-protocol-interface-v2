@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Skeleton, Table } from "antd";
 import Moment from "react-moment";
 import moment from "moment-timezone";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import date from "../../helpers/date";
 import { useProjectTranslation } from "../../helpers/translations";
@@ -13,10 +13,9 @@ import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
 import "./WithdrawV2.scss";
 
-
 export default function Withdraw(props) {
     const { userInfoStaking } = props;
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);
@@ -269,7 +268,6 @@ export default function Withdraw(props) {
     );
 }
 
-
 Withdraw.propTypes = {
-    userInfoStaking: PropTypes.object
+    userInfoStaking: PropTypes.object,
 };

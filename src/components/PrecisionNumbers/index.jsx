@@ -1,10 +1,8 @@
-import React, { Fragment } from 'react';
-import { Tooltip } from 'antd';
-import NumericLabel from 'react-pretty-numbers';
-import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
-
-
+import React, { Fragment } from "react";
+import { Tooltip } from "antd";
+import NumericLabel from "react-pretty-numbers";
+import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
 
 const fromContractPrecisionDecimals = (amount, decimals) => {
     return new BigNumber(amount).div(
@@ -20,26 +18,25 @@ const formatLargeNumber = (numberBig, decimals) => {
         const billions = numberBig.div(billion);
         return (
             billions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
-                decimalSeparator: '.',
-                groupSeparator: ','
-            }) + ' B '
+                decimalSeparator: ".",
+                groupSeparator: ",",
+            }) + " B "
         );
     } else if (numberBig.gte(million)) {
         const millions = numberBig.div(million);
         return (
             millions.toFormat(decimals, BigNumber.ROUND_HALF_EVEN, {
-                decimalSeparator: '.',
-                groupSeparator: ','
-            }) + ' M '
+                decimalSeparator: ".",
+                groupSeparator: ",",
+            }) + " M "
         );
     } else {
         return numberBig.toFormat(decimals, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
     }
 };
-
 
 const PrecisionNumbers = ({
     amount,
@@ -48,7 +45,7 @@ const PrecisionNumbers = ({
     numericLabelParams,
     i18n,
     skipContractConvert,
-    isUSD = false
+    isUSD = false,
 }) => {
     let amountBig;
     if (skipContractConvert) {
@@ -63,8 +60,8 @@ const PrecisionNumbers = ({
     let amountFormat;
     if (!isUSD) {
         amountFormat = amountBig.toFormat(decimals, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
     } else {
         amountFormat = formatLargeNumber(amountBig, decimals);
@@ -73,14 +70,14 @@ const PrecisionNumbers = ({
     const params = Object.assign(
         {
             shortFormat: !isUSD,
-            justification: 'L',
+            justification: "L",
             locales: i18n.languages[0],
             shortFormatMinValue: 1000000,
             commafy: true,
             shortFormatPrecision: decimals,
             precision: decimals,
-            title: '',
-            cssClass: ['display-inline']
+            title: "",
+            cssClass: ["display-inline"],
         },
         numericLabelParams
     );
@@ -92,7 +89,7 @@ const PrecisionNumbers = ({
         return isUSD ? (
             <Fragment>{amountFormat}</Fragment>
         ) : (
-            <Tooltip title={amountBig.eq(0) ? '0' : amountBig}>
+            <Tooltip title={amountBig.eq(0) ? "0" : amountBig}>
                 <NumericLabel {...{ params }}>{amountFormat}</NumericLabel>
             </Tooltip>
         );
@@ -101,7 +98,6 @@ const PrecisionNumbers = ({
 
 export { PrecisionNumbers };
 
-
 PrecisionNumbers.propTypes = {
     amount: PropTypes.bigint,
     token: PropTypes.object,
@@ -109,5 +105,5 @@ PrecisionNumbers.propTypes = {
     numericLabelParams: PropTypes.object,
     i18n: PropTypes.object,
     skipContractConvert: PropTypes.bool,
-    isUSD: PropTypes.bool
+    isUSD: PropTypes.bool,
 };

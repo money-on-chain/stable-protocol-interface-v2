@@ -1,10 +1,9 @@
 import Modal from "antd/lib/modal/Modal";
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../../helpers/translations";
 import CopyAddress from "../../CopyAddress";
-
 
 const OperationStatusModal = ({
     className,
@@ -14,7 +13,7 @@ const OperationStatusModal = ({
     operationStatus,
     txHash,
 }) => {
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     let sentIcon = "";
     let statusLabel = "";
@@ -104,5 +103,5 @@ OperationStatusModal.propTypes = {
     onCancel: PropTypes.func,
     title: PropTypes.string,
     operationStatus: PropTypes.string,
-    txHash: PropTypes.string
+    txHash: PropTypes.string,
 };

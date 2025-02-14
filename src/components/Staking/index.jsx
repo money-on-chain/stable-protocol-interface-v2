@@ -28,7 +28,7 @@ const formatBigNumber = (amount) => {
 
 export default function Staking() {
     const auth = useContext(AuthenticateContext);
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const [activeTab, setActiveTab] = useState("tab1");
 
     const defaultUserInfoStaking = {

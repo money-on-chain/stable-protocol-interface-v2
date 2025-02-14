@@ -1,13 +1,12 @@
-import React from 'react';
-import { Skeleton, Table } from 'antd';
+import React from "react";
+import { Skeleton, Table } from "antd";
 
-import { useProjectTranslation } from '../../helpers/translations';
+import { useProjectTranslation } from "../../helpers/translations";
 //import { AuthenticateContext } from '../../context/Auth';
-
 
 export default function LastStakeOperations() {
     //const { userInfoStaking } = props;
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
     //const auth = useContext(AuthenticateContext);
     //const [totalTable, setTotalTable] = useState(null);
     /*
@@ -20,27 +19,27 @@ export default function LastStakeOperations() {
         useState(false);
      */
 
-    const tableColumns = [{ title: 'Token', dataIndex: 'details' }];
+    const tableColumns = [{ title: "Token", dataIndex: "details" }];
     // hay que agregar los encabezados como html?
     // hay que incrementar un contador en el foreach?
     const tableData = [];
     const stakingData = [
-        { key: 1, date: '10/04/2024', amount: 223423.34, operation: 'Stake' },
-        { key: 2, date: '15/15/2024', amount: 223423.34, operation: 'Stake' },
+        { key: 1, date: "10/04/2024", amount: 223423.34, operation: "Stake" },
+        { key: 2, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
         {
             key: 3,
-            date: '15/15/2024',
+            date: "15/15/2024",
             amount: 223423.34,
-            operation: 'Withdraw'
+            operation: "Withdraw",
         },
         {
             key: 4,
-            date: '2024-07-31 10:04:17',
+            date: "2024-07-31 10:04:17",
             amount: 223423.34,
-            operation: 'Unstake'
+            operation: "Unstake",
         },
-        { key: 5, date: '15/15/2024', amount: 223423.34, operation: 'Stake' },
-        { key: 6, date: '15/15/2024', amount: 223423.34, operation: 'Stake' }
+        { key: 5, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
+        { key: 6, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
     ];
 
     // Columns
@@ -59,25 +58,25 @@ export default function LastStakeOperations() {
                         {dataItem.operation}
                     </div>
                 </div>
-            )
+            ),
         });
     });
 
     return (
         <div className="section__innerCard card-stakingData">
             <div className="layout-card-title">
-                <h1>{t('staking.history.title')}</h1>
+                <h1>{t("staking.history.title")}</h1>
             </div>
             <div className="table__stakingData">
                 <div className="table__header">
                     <div className="stakingTableData__date">
-                        {t('staking.history.columnDate')}
+                        {t("staking.history.columnDate")}
                     </div>
                     <div className="stakingTableData__amount">
-                        {t('staking.history.columnAmount')}
+                        {t("staking.history.columnAmount")}
                     </div>
                     <div className="stakingTableData__operation">
-                        {t('staking.history.columnOperation')}
+                        {t("staking.history.columnOperation")}
                     </div>
                 </div>
                 {tableData ? (
@@ -89,9 +88,9 @@ export default function LastStakeOperations() {
                             showHeader={false}
                             pagination={{
                                 pageSize: 1000,
-                                position: ['none', 'bottomRight'],
+                                position: ["none", "bottomRight"],
                                 defaultCurrent: 1,
-                                total: null
+                                total: null,
                             }}
                             // scroll={{ y: 200 }}
                         />

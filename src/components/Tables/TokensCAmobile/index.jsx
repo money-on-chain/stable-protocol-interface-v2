@@ -9,7 +9,6 @@ import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 
-
 export default function Tokens() {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);

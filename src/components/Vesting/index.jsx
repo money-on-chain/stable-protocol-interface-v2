@@ -17,14 +17,14 @@ import {
     saveVestingAddressesToLocalStorage,
     onValidateVestingAddress,
 } from "../../helpers/vesting";
-import { decodeEvents } from '../../lib/backend/transaction';
+import { decodeEvents } from "../../lib/backend/transaction";
 import "./Styles.scss";
 
 const { TextArea } = Input;
 const space = "\u00A0";
 
 export default function Vesting() {
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("STEP_1");
@@ -368,7 +368,6 @@ export default function Vesting() {
                 }
             }
         });
-
     };
 
     const onSendCreateVM = async (e) => {
@@ -388,11 +387,9 @@ export default function Vesting() {
             console.log("Transaction create VM mined!...");
             setOperationStatus("success");
             // Events name list
-            const filter = [
-                'VestingCreated'
-            ];
+            const filter = ["VestingCreated"];
 
-            const contractName = 'VestingFactory';
+            const contractName = "VestingFactory";
 
             const txRcp = await auth.web3.eth.getTransactionReceipt(
                 receipt.transactionHash
@@ -722,7 +719,7 @@ export default function Vesting() {
                                             decimals: t(
                                                 "staking.display_decimals"
                                             ),
-                                            i18n: i18n
+                                            i18n: i18n,
                                         })}
                                         {t("staking.governanceToken")}
                                     </div>
@@ -975,7 +972,7 @@ export default function Vesting() {
                                             decimals: t(
                                                 "staking.display_decimals"
                                             ),
-                                            i18n: i18n
+                                            i18n: i18n,
                                         })}
                                     </div>
                                     <div className="vesting__label">
@@ -1008,7 +1005,7 @@ export default function Vesting() {
                                             : vestingTotals["vested"],
                                         token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
-                                        i18n: i18n
+                                        i18n: i18n,
                                     })}
                                 </div>
                                 <div className="vesting__label">
@@ -1041,7 +1038,7 @@ export default function Vesting() {
                                                   .balance,
                                         token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
-                                        i18n: i18n
+                                        i18n: i18n,
                                     })}{" "}
                                 </div>
                                 <div className="vesting__label">
@@ -1060,7 +1057,7 @@ export default function Vesting() {
                                                   .vestingmachine.delay.balance,
                                         token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
-                                        i18n: i18n
+                                        i18n: i18n,
                                     })}
                                 </div>
                                 <div className="vesting__label">
@@ -1088,7 +1085,7 @@ export default function Vesting() {
                                                   .vestingmachine.getTotal,
                                         token: settings.tokens.TG[0],
                                         decimals: t("staking.display_decimals"),
-                                        i18n: i18n
+                                        i18n: i18n,
                                     })}
                                     {space}
                                     {t("staking.tokens.TG.abbr", { ns: ns })}

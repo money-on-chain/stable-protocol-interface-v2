@@ -3,7 +3,7 @@ import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 import { Table, Skeleton, Modal } from "antd";
 import Moment from "react-moment";
 import BigNumber from "bignumber.js";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import RowDetailMobile from "../RowDetailMobile";
 import api from "../../../services/api";
@@ -17,7 +17,6 @@ import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { TokenSettings } from "../../../helpers/currencies";
 import AboutQueue from "../../Modals/AboutQueue";
 import "./Styles.scss";
-
 
 export default function LastOperations(props) {
     const { token } = props;
@@ -96,7 +95,7 @@ export default function LastOperations(props) {
 
     ExpandIcon.propTypes = {
         expanded: PropTypes.bool,
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
     };
 
     // #endsection Operation detail custom expand function
@@ -962,10 +961,8 @@ export default function LastOperations(props) {
     );
 }
 
-
 LastOperations.propTypes = {
     token: PropTypes.object,
     /*expanded: PropTypes.bool,
     onClick: PropTypes.func,*/
-
 };

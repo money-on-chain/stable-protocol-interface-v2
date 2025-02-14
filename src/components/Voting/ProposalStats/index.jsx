@@ -1,15 +1,14 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
+import React from "react";
+import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import { TokenSettings } from '../../../helpers/currencies';
-import './Styles.scss';
-
+import { useProjectTranslation } from "../../../helpers/translations";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
+import { TokenSettings } from "../../../helpers/currencies";
+import "./Styles.scss";
 
 function ProposalStats(props) {
-    const {i18n} = useProjectTranslation();
+    const { i18n } = useProjectTranslation();
 
     // Check that amount and percentage are an instance of BigNumber
     const amountBig =
@@ -34,20 +33,20 @@ function ProposalStats(props) {
                     <div className="statAmount">
                         {PrecisionNumbers({
                             amount: amountBig,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
                             i18n: i18n,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                     </div>
                     <div className="statPercentage">
                         (
                         {PrecisionNumbers({
                             amount: percentageBig,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
                             i18n: i18n,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         %)
                     </div>
@@ -58,9 +57,8 @@ function ProposalStats(props) {
 }
 export default ProposalStats;
 
-
 ProposalStats.propTypes = {
     amount: PropTypes.bigint,
     percentage: PropTypes.bigint,
-    label: PropTypes.string
+    label: PropTypes.string,
 };

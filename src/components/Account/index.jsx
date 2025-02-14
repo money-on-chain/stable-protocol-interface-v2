@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { notification, Switch, Select, Input } from "antd";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
@@ -31,11 +31,10 @@ function removeAllItem(arr, value) {
     return arr;
 }
 
-
 export default function AccountDialog(props) {
     const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
 
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [qrValue, setQrValue] = useState(null);
     const [actionVesting, setActionVesting] = useState("select");
@@ -328,7 +327,8 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            {typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined' && (
+            {typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !==
+                "undefined" && (
                 <div className="switch switch__vesting">
                     <Switch
                         checked={vestingOn}
@@ -455,5 +455,5 @@ AccountDialog.propTypes = {
     onCloseModal: PropTypes.func,
     truncatedAddress: PropTypes.string,
     vestingOn: PropTypes.bool,
-    setVestingOn: PropTypes.func
+    setVestingOn: PropTypes.func,
 };

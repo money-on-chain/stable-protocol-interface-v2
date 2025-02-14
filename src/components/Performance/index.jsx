@@ -17,13 +17,12 @@ export default function Performance() {
     const [statusIcon, setStatusIcon] = useState("");
     const [statusLabel, setStatusLabel] = useState("--");
     const [statusText, setStatusText] = useState("--");
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const { checkerStatus } = CheckStatus();
     useEffect(() => {
         if ((auth.contractStatusData, auth.userBalanceData)) {
-            const { statusIcon, statusLabel, statusText } =
-                checkerStatus();
+            const { statusIcon, statusLabel, statusText } = checkerStatus();
             //setIsValid(isValid);
             setStatusIcon(statusIcon);
             setStatusLabel(statusLabel);

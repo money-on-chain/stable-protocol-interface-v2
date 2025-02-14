@@ -1,15 +1,15 @@
-import React from 'react';
-import BigNumber from 'bignumber.js';
+import React from "react";
+import BigNumber from "bignumber.js";
 
-import LogoIconCA_0 from '../assets/tokens/ca_0.svg?react';
-import LogoIconCA_1 from '../assets/tokens/ca_1.svg?react';
-import LogoIconCOINBASE from '../assets/tokens/coinbase.svg?react';
-import LogoIconTC from '../assets/tokens/tc.svg?react';
-import LogoIconTP_0 from '../assets/tokens/tp_0.svg?react';
-import LogoIconTP_1 from '../assets/tokens/tp_1.svg?react';
-import LogoIconTG_0 from '../assets/tokens/tg_0.svg?react';
-import settings from '../settings/settings.json';
-import { fromContractPrecisionDecimals } from './Formats';
+import LogoIconCA_0 from "../assets/tokens/ca_0.svg?react";
+import LogoIconCA_1 from "../assets/tokens/ca_1.svg?react";
+import LogoIconCOINBASE from "../assets/tokens/coinbase.svg?react";
+import LogoIconTC from "../assets/tokens/tc.svg?react";
+import LogoIconTP_0 from "../assets/tokens/tp_0.svg?react";
+import LogoIconTP_1 from "../assets/tokens/tp_1.svg?react";
+import LogoIconTG_0 from "../assets/tokens/tg_0.svg?react";
+import settings from "../settings/settings.json";
+import { fromContractPrecisionDecimals } from "./Formats";
 
 const currencies = [
     {

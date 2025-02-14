@@ -1,14 +1,13 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import BigNumber from 'bignumber.js';
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import BigNumber from "bignumber.js";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import CompletedBar from './CompletedBar';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { TokenSettings } from '../../helpers/currencies';
-import { AuthenticateContext } from '../../context/Auth';
-import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
-import PropTypes from 'prop-types';
-
+import { useProjectTranslation } from "../../helpers/translations";
+import CompletedBar from "./CompletedBar";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { TokenSettings } from "../../helpers/currencies";
+import { AuthenticateContext } from "../../context/Auth";
+import VotingStatusModal from "../Modals/VotingStatusModal/VotingStatusModal";
+import PropTypes from "prop-types";
 
 function CreateBarGraph(props) {
     return (
@@ -46,31 +45,31 @@ function PreVote(props) {
         infoVoting,
         infoUser,
         onUnRegisterProposal,
-        onRunPreVoteStep
+        onRunPreVoteStep,
     } = props;
-    const {t, i18n, ns} = useProjectTranslation();
-    const space = '\u00A0';
+    const { t, i18n, ns } = useProjectTranslation();
+    const space = "\u00A0";
     const auth = useContext(AuthenticateContext);
 
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
-    const [txHash, setTxHash] = useState('');
-    const [operationStatus, setOperationStatus] = useState('sign');
-    const [modalTitle, setModalTitle] = useState('Voting in favor');
+    const [txHash, setTxHash] = useState("");
+    const [operationStatus, setOperationStatus] = useState("sign");
+    const [modalTitle, setModalTitle] = useState("Voting in favor");
     const [votingInFavorError, setVotingInFavorError] = useState(false);
     const [showProposalModal, setShowProposalModal] = useState(false);
 
     useEffect(() => {
         onValidateVotingInFavor();
-    }, [infoUser['Voting_Power'], proposal['canVote']]);
+    }, [infoUser["Voting_Power"], proposal["canVote"]]);
 
     const onValidateVotingInFavor = () => {
-        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+        if (infoUser["Voting_Power"].lte(new BigNumber(0))) {
             // You need at least voting power > 0
             setVotingInFavorError(true);
             return false;
         }
-        if (!proposal['canVote']) {
+        if (!proposal["canVote"]) {
             setVotingInFavorError(true);
             return false;
         }
@@ -81,49 +80,49 @@ function PreVote(props) {
     const preVotingGraphs = [
         {
             id: 0,
-            description: 'votes need to advance to next step',
+            description: "votes need to advance to next step",
             percentage: `${proposal.votesPositivePCT}%`,
             needed: `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
-            type: 'brand',
-            labelCurrent: 'Votes',
-            labelNeedIt: 'Quorum',
-            labelTotal: 'Total circulating tokens',
+            type: "brand",
+            labelCurrent: "Votes",
+            labelNeedIt: "Quorum",
+            labelTotal: "Total circulating tokens",
             valueCurrent: proposal.votesPositive,
-            valueNeedIt: infoVoting['PRE_VOTE_MIN_TO_WIN'],
-            valueTotal: infoVoting['totalSupply'],
+            valueNeedIt: infoVoting["PRE_VOTE_MIN_TO_WIN"],
+            valueTotal: infoVoting["totalSupply"],
             pctCurrent: proposal.votesPositivePCT,
-            pctNeedIt: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']),
+            pctNeedIt: new BigNumber(infoVoting["PRE_VOTE_MIN_PCT_TO_WIN"]),
 
-            label1: 'Votes received',
+            label1: "Votes received",
             amount1: proposal.votesPositive,
             percentage1: proposal.votesPositivePCT,
-            label2: 'Votes needed for Quroum',
-            amount2: infoVoting['PRE_VOTE_MIN_TO_WIN'],
-            percentage2: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']),
-            label3: 'Total circulating tokens',
-            amount3: infoVoting['totalSupply'],
-            percentage3: new BigNumber(100)
-        }
+            label2: "Votes needed for Quroum",
+            amount2: infoVoting["PRE_VOTE_MIN_TO_WIN"],
+            percentage2: new BigNumber(infoVoting["PRE_VOTE_MIN_PCT_TO_WIN"]),
+            label3: "Total circulating tokens",
+            amount3: infoVoting["totalSupply"],
+            percentage3: new BigNumber(100),
+        },
     ];
 
     const onVoteInFavor = async (/*e*/) => {
         setModalTitle(`Voting proposal`);
         setShowProposalModal(true);
 
-        setOperationStatus('sign');
+        setOperationStatus("sign");
         setIsOperationModalVisible(true);
 
         const onTransaction = (txHash) => {
             console.log(
-                'Sent transaction voting in favor proposal...: ',
+                "Sent transaction voting in favor proposal...: ",
                 txHash
             );
             setTxHash(txHash);
-            setOperationStatus('pending');
+            setOperationStatus("pending");
         };
         const onReceipt = (/*receipt*/) => {
-            console.log('Transaction voting in favor proposal mined!...');
-            setOperationStatus('success');
+            console.log("Transaction voting in favor proposal mined!...");
+            setOperationStatus("success");
             /*
             // Events name list
             const filter = [
@@ -143,10 +142,10 @@ function PreVote(props) {
         };
         const onError = (error) => {
             console.log(
-                'Transaction voting in favor proposal error!...:',
+                "Transaction voting in favor proposal error!...:",
                 error
             );
-            setOperationStatus('error');
+            setOperationStatus("error");
         };
 
         await auth
@@ -159,12 +158,12 @@ function PreVote(props) {
             .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
-                    console.log('Refresh user balance OK!');
+                    console.log("Refresh user balance OK!");
                 });
             })
             .catch((e) => {
                 console.error(e);
-                setOperationStatus('error');
+                setOperationStatus("error");
             });
     };
 
@@ -174,24 +173,24 @@ function PreVote(props) {
             <div className="votingStatus">
                 <div className="votingStatus__round">
                     <div className="votingStatus__title">
-                        {t('voting.status.title')}
+                        {t("voting.status.title")}
                     </div>
                 </div>
                 {!proposal.canVote && (
                     <div className="proposal-period">
-                        {t('voting.status.firstStageClosed')}
+                        {t("voting.status.firstStageClosed")}
                     </div>
                 )}
 
                 {proposal.canVote && (
                     <div className="proposal-period">
-                        {t('voting.status.firstStageActive')}
+                        {t("voting.status.firstStageActive")}
                     </div>
                 )}
             </div>
             <div className="proposal__wrapper">
-                <div className={'title'}>
-                    <h1>{t('voting.cardTitle.proposalDetails')}</h1>
+                <div className={"title"}>
+                    <h1>{t("voting.cardTitle.proposalDetails")}</h1>
                 </div>
                 <div className="title">{proposal.changeContract}</div>
                 <div className="proposal__content">
@@ -203,7 +202,7 @@ function PreVote(props) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                {t('voting.info.searchForum')}
+                                {t("voting.info.searchForum")}
                                 <div className="icon-external-link"></div>
                             </a>
                         </div>
@@ -214,13 +213,13 @@ function PreVote(props) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                {t('voting.info.changeContract')} {space}
+                                {t("voting.info.changeContract")} {space}
                                 {proposal.changeContract}
                                 <span className="icon-external-link"></span>
                             </a>
                         </div>
                         <p>
-                            {t('voting.info.stateAs')}
+                            {t("voting.info.stateAs")}
                             <span>{proposal.expirationTimeStampFormat}</span>
                         </p>
                         {/* <div className="voting__status__container"> */}
@@ -255,30 +254,30 @@ function PreVote(props) {
                                                 <div className="voting__status__votingInfo">
                                                     <div className="votingInfo__item"> */}
                                             {/* <div className="label"> */}
-                                            {t('voting.userPower.votingPower')}
+                                            {t("voting.userPower.votingPower")}
                                             {/* </div> */}
                                             <div className="votingPowerData">
                                                 {PrecisionNumbers({
                                                     amount: infoUser[
-                                                        'Voting_Power'
+                                                        "Voting_Power"
                                                     ],
-                                                    token: TokenSettings('TG'),
+                                                    token: TokenSettings("TG"),
                                                     decimals: 2,
                                                     i18n: i18n,
-                                                    skipContractConvert: true
+                                                    skipContractConvert: true,
                                                 })}
-                                                {t('staking.tokens.TG.abbr', {
-                                                    ns: ns
+                                                {t("staking.tokens.TG.abbr", {
+                                                    ns: ns,
                                                 })}
                                                 (
                                                 {PrecisionNumbers({
                                                     amount: infoUser[
-                                                        'Voting_Power_PCT'
+                                                        "Voting_Power_PCT"
                                                     ],
-                                                    token: TokenSettings('TG'),
+                                                    token: TokenSettings("TG"),
                                                     decimals: 2,
                                                     i18n: i18n,
-                                                    skipContractConvert: true
+                                                    skipContractConvert: true,
                                                 })}
                                                 %)
                                             </div>
@@ -296,7 +295,7 @@ function PreVote(props) {
                                             disabled={votingInFavorError}
                                         >
                                             <div className="icon icon__vote__infavor"></div>
-                                            {t('voting.votingOptions.inFavor')}
+                                            {t("voting.votingOptions.inFavor")}
                                         </button>
                                     )}
                                     {proposal.canRunStep && (
@@ -348,7 +347,6 @@ function PreVote(props) {
 
 export default PreVote;
 
-
 CreateBarGraph.propTypes = {
     id: PropTypes.number,
     description: PropTypes.string,
@@ -363,9 +361,8 @@ CreateBarGraph.propTypes = {
     percentage2: PropTypes.number,
     label3: PropTypes.number,
     amount3: PropTypes.number,
-    percentage3: PropTypes.number
+    percentage3: PropTypes.number,
 };
-
 
 PreVote.propTypes = {
     proposal: PropTypes.string,
@@ -373,5 +370,5 @@ PreVote.propTypes = {
     infoVoting: PropTypes.object,
     infoUser: PropTypes.object,
     onUnRegisterProposal: PropTypes.func,
-    onRunPreVoteStep: PropTypes.func
+    onRunPreVoteStep: PropTypes.func,
 };

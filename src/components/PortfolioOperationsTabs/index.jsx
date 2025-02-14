@@ -6,9 +6,8 @@ import Portfolio from "../../components/Dashboards/Portfolio";
 import ListOperationsMobile from "../Tables/LastOperations";
 import "./Styles.scss";
 
-
 export default function HomeTabs() {
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
     //const auth = useContext(AuthenticateContext);
     //const [ready, setReady] = useState(false);
 

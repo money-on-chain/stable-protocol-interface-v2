@@ -1,14 +1,12 @@
 import React from "react";
 import { Select } from "antd";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { getCurrenciesDetail } from "../../helpers/currencies";
 //import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 
-
 const { Option } = Select;
-
 
 export default function CurrencyDropDown(props) {
     const { value, onChange, currencyOptions, disabled, action } = props;
@@ -60,5 +58,5 @@ CurrencyDropDown.propTypes = {
     onChange: PropTypes.func,
     currencyOptions: PropTypes.array,
     disabled: PropTypes.bool,
-    action: PropTypes.string
+    action: PropTypes.string,
 };

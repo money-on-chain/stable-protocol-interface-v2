@@ -1,20 +1,19 @@
-import { notification } from 'antd';
-import React from 'react';
-import PropTypes from 'prop-types';
+import { notification } from "antd";
+import React from "react";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../helpers/translations';
-
+import { useProjectTranslation } from "../../helpers/translations";
 
 export default function CopyAddress(props) {
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
-    const { address = '', type = '' } = props;
+    const { address = "", type = "" } = props;
 
     const truncateAddress = (address) => {
-        if (address === '') return '';
+        if (address === "") return "";
         return (
             address.substring(0, 6) +
-            '...' +
+            "..." +
             address.substring(address.length - 4, address.length)
         );
     };
@@ -22,23 +21,25 @@ export default function CopyAddress(props) {
     const onClick = () => {
         navigator.clipboard.writeText(address);
         notification.open({
-            message: t('feedback.clipboardCopy'),
-            description: `${address} ` + t('feedback.clipboardTo'),
-            placement: 'bottomRight',
+            message: t("feedback.clipboardCopy"),
+            description: `${address} ` + t("feedback.clipboardTo"),
+            placement: "bottomRight",
             onClose: () => {
                 // Destruye el contenedor cuando se cierra la notificación
                 notification.destroy();
-            }
+            },
         });
     };
 
     let urlExplorer =
-        import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL + '/address/' + address;
+        import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
+        "/address/" +
+        address;
     switch (type) {
-        case 'tx':
+        case "tx":
             urlExplorer =
                 import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL +
-                '/tx/' +
+                "/tx/" +
                 address;
             break;
         default:
@@ -61,8 +62,7 @@ export default function CopyAddress(props) {
     );
 }
 
-
 CopyAddress.propTypes = {
     address: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
 };

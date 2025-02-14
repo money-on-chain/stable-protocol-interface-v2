@@ -1,11 +1,9 @@
- 
-
-import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
+import BigNumber from "bignumber.js";
+import Web3 from "web3";
 
 BigNumber.config({
     ROUNDING_MODE: BigNumber.ROUND_DOWN,
-    FORMAT: { decimalSeparator: '.', groupSeparator: ',' }
+    FORMAT: { decimalSeparator: ".", groupSeparator: "," },
 });
 
 const getGasPrice = async (web3) => {
@@ -21,7 +19,7 @@ const getGasPrice = async (web3) => {
 const toContractPrecision = (amount) => {
     return Web3.utils.toWei(
         BigNumber(amount).toFormat(18, BigNumber.ROUND_DOWN),
-        'ether'
+        "ether"
     );
 };
 
@@ -45,5 +43,5 @@ export {
     getGasPrice,
     toContractPrecision,
     toContractPrecisionDecimals,
-    fromContractPrecisionDecimals
+    fromContractPrecisionDecimals,
 };

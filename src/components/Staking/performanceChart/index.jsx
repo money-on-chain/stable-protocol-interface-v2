@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import './Styles.scss';
-
+import { useProjectTranslation } from "../../../helpers/translations";
+import "./Styles.scss";
 
 export default function PerformanceChart() {
     const [percent, setPercent] = useState(0);
@@ -10,7 +9,7 @@ export default function PerformanceChart() {
 
     let height = percent && percent > 0 ? (percent * 190) / 100 : 0;
     fetch(
-        'https://api.moneyonchain.com/api/calculated/moc_last_block_performance'
+        "https://api.moneyonchain.com/api/calculated/moc_last_block_performance"
     )
         .then(async (response) => {
             const data = await response.json();
@@ -26,25 +25,25 @@ export default function PerformanceChart() {
             <div className="ChartText">
                 <div className="percent">{percent > 0 && `${percent}%`}</div>
                 <div className="percent-note">
-                    {t('staking.performance.bar.description')}
+                    {t("staking.performance.bar.description")}
                 </div>
             </div>
             <div className="ChartGraphic">
                 <div className="ChartColumn">
                     <div className="Bar Percent Hidden" style={{ height }} />
                     <div className="Bar">
-                        <div>{t('staking.performance.bar.base')}</div>
+                        <div>{t("staking.performance.bar.base")}</div>
                     </div>
                 </div>
                 <div className="ChartColumn">
                     <div className="Bar Percent Gray" style={{ height }} />
                     <div className="Bar">
                         <div>
-                            {t('staking.performance.bar.base')}
+                            {t("staking.performance.bar.base")}
                             <br />
-                            {t('staking.performance.bar.sign')}
+                            {t("staking.performance.bar.sign")}
                             <br />
-                            {t('staking.performance.bar.staking')}
+                            {t("staking.performance.bar.staking")}
                         </div>
                     </div>
                 </div>

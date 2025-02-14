@@ -21,7 +21,7 @@ const mintTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
 
@@ -123,7 +123,7 @@ const redeemTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
 
@@ -223,8 +223,8 @@ const mintTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
 
     // Verifications
     // User have sufficient reserve to pay?
@@ -343,8 +343,8 @@ const redeemTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
 
     // Verifications
 

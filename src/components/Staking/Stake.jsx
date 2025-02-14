@@ -1,7 +1,7 @@
 import React, { useState, useContext, Fragment, useEffect } from "react";
 import BigNumber from "bignumber.js";
 import { Button } from "antd";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { AuthenticateContext } from "../../context/Auth";
 import { TokenSettings, AmountToVisibleValue } from "../../helpers/currencies";
@@ -13,7 +13,6 @@ import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
 import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
 import InputAmount from "../InputAmount";
 import settings from "../../settings/settings.json";
-
 
 const Stake = (props) => {
     const { activeTab, userInfoStaking } = props;
@@ -285,9 +284,7 @@ const Stake = (props) => {
 
 export default Stake;
 
-
 Stake.propTypes = {
     activeTab: PropTypes.number,
-    userInfoStaking: PropTypes.object
+    userInfoStaking: PropTypes.object,
 };
-

@@ -1,15 +1,14 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import BigNumber from 'bignumber.js';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import CompletedBar from './CompletedBar';
-import BalanceBar from './BalanceBar';
-import { AuthenticateContext } from '../../context/Auth';
-import VotingStatusModal from '../Modals/VotingStatusModal/VotingStatusModal';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { TokenSettings } from '../../helpers/currencies';
-
+import { useProjectTranslation } from "../../helpers/translations";
+import CompletedBar from "./CompletedBar";
+import BalanceBar from "./BalanceBar";
+import { AuthenticateContext } from "../../context/Auth";
+import VotingStatusModal from "../Modals/VotingStatusModal/VotingStatusModal";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { TokenSettings } from "../../helpers/currencies";
 
 function CreateBarGraph(props) {
     return (
@@ -54,17 +53,16 @@ CreateBarGraph.propTypes = {
     percentage2: PropTypes.number,
     label3: PropTypes.number,
     amount3: PropTypes.number,
-    percentage3: PropTypes.number
+    percentage3: PropTypes.number,
 };
-
 
 function Vote(props) {
     const { infoVoting, infoUser } = props;
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
-    const [txHash, setTxHash] = useState('');
-    const [operationStatus, setOperationStatus] = useState('sign');
-    const [modalTitle, setModalTitle] = useState('Voting Proposal');
+    const [txHash, setTxHash] = useState("");
+    const [operationStatus, setOperationStatus] = useState("sign");
+    const [modalTitle, setModalTitle] = useState("Voting Proposal");
     const [votingInFavorOrAgainstError, setVotingInFavorOrAgainstError] =
         useState(false);
     const [voteInFavor, setVoteInFavor] = useState(true);
@@ -73,20 +71,20 @@ function Vote(props) {
     const [votingFinish, setVotingFinish] = useState(false);
     const [votingFinishReason, setVotingFinishReason] = useState(0);
 
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const space = '\u00A0';
+    const space = "\u00A0";
 
     useEffect(() => {
         onValidateVotingInFavorOrAgainst();
-    }, [infoUser['Voting_Power']]);
+    }, [infoUser["Voting_Power"]]);
 
     useEffect(() => {
         refreshVotingFinish();
     }, [
-        infoVoting['votingData']['expired'],
-        infoVoting['votingData']['totalVoted'],
-        infoVoting['votingData']['againstVotesPCT']
+        infoVoting["votingData"]["expired"],
+        infoVoting["votingData"]["totalVoted"],
+        infoVoting["votingData"]["againstVotesPCT"],
     ]);
 
     const refreshVotingFinish = () => {
@@ -96,18 +94,18 @@ function Vote(props) {
         /* 2 - No Quorum */
         /* 3 - Proposal rejected by votes against */
 
-        if (infoVoting['votingData']['expired']) {
+        if (infoVoting["votingData"]["expired"]) {
             setVotingFinish(true);
             setVotingInFavorOrAgainstError(true);
             if (
-                infoVoting['votingData']['totalVoted'].lt(
-                    infoVoting['MIN_FOR_QUORUM']
+                infoVoting["votingData"]["totalVoted"].lt(
+                    infoVoting["MIN_FOR_QUORUM"]
                 )
             ) {
                 setVotingFinishReason(2);
             } else if (
-                infoVoting['votingData']['againstVotesPCT'].gte(
-                    infoVoting['votingData']['VOTE_MIN_TO_VETO']
+                infoVoting["votingData"]["againstVotesPCT"].gte(
+                    infoVoting["votingData"]["VOTE_MIN_TO_VETO"]
                 )
             ) {
                 setVotingFinishReason(3);
@@ -120,61 +118,61 @@ function Vote(props) {
     const votingGraphs = [
         {
             id: 1,
-            description: t('voting.statusGraph.castOverCirculation'),
-            percentage: `${infoVoting['votingData']['totalVotedPCT']}%`,
-            needed: `${new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM'])}%`,
-            type: 'brand',
-            label1: 'Votes casted',
-            amount1: infoVoting['votingData']['totalVoted'],
-            percentage1: infoVoting['votingData']['totalVotedPCT'],
-            label2: 'Votes needed for Quroum',
-            amount2: infoVoting['MIN_FOR_QUORUM'],
-            percentage2: new BigNumber(infoVoting['MIN_PCT_FOR_QUORUM']),
-            label3: 'Total circulating tokens',
-            amount3: infoVoting['totalSupply'],
-            percentage3: new BigNumber(100)
+            description: t("voting.statusGraph.castOverCirculation"),
+            percentage: `${infoVoting["votingData"]["totalVotedPCT"]}%`,
+            needed: `${new BigNumber(infoVoting["MIN_PCT_FOR_QUORUM"])}%`,
+            type: "brand",
+            label1: "Votes casted",
+            amount1: infoVoting["votingData"]["totalVoted"],
+            percentage1: infoVoting["votingData"]["totalVotedPCT"],
+            label2: "Votes needed for Quroum",
+            amount2: infoVoting["MIN_FOR_QUORUM"],
+            percentage2: new BigNumber(infoVoting["MIN_PCT_FOR_QUORUM"]),
+            label3: "Total circulating tokens",
+            amount3: infoVoting["totalSupply"],
+            percentage3: new BigNumber(100),
         },
         {
             id: 2,
-            description: t('voting.statusGraph.negativeOverCirculation'),
-            percentage: `${infoVoting['votingData']['againstVotesTotalSupplyPCT']}%`,
-            needed: `${new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])}%`,
-            type: 'negative',
-            label1: 'Votes Against',
-            amount1: infoVoting['votingData']['againstVotes'],
-            percentage1: infoVoting['votingData']['againstVotesTotalSupplyPCT'],
-            label2: 'Votes needed to reject proposal',
-            amount2: infoVoting['VOTE_MIN_TO_VETO'],
-            percentage2: new BigNumber(infoVoting['VOTE_MIN_PCT_TO_VETO'])
+            description: t("voting.statusGraph.negativeOverCirculation"),
+            percentage: `${infoVoting["votingData"]["againstVotesTotalSupplyPCT"]}%`,
+            needed: `${new BigNumber(infoVoting["VOTE_MIN_PCT_TO_VETO"])}%`,
+            type: "negative",
+            label1: "Votes Against",
+            amount1: infoVoting["votingData"]["againstVotes"],
+            percentage1: infoVoting["votingData"]["againstVotesTotalSupplyPCT"],
+            label2: "Votes needed to reject proposal",
+            amount2: infoVoting["VOTE_MIN_TO_VETO"],
+            percentage2: new BigNumber(infoVoting["VOTE_MIN_PCT_TO_VETO"]),
         },
         {
             id: 3,
-            description: t('voting.statusGraph.positiveOverCirculation'),
-            percentage: `${infoVoting['votingData']['inFavorVotesTotalSupplyPCT']}%`,
+            description: t("voting.statusGraph.positiveOverCirculation"),
+            percentage: `${infoVoting["votingData"]["inFavorVotesTotalSupplyPCT"]}%`,
             needed: `0%`,
-            type: 'positive',
-            label1: 'Votes in favor',
-            amount1: infoVoting['votingData']['inFavorVotes'],
-            percentage1: infoVoting['votingData']['inFavorVotesTotalSupplyPCT']
-        }
+            type: "positive",
+            label1: "Votes in favor",
+            amount1: infoVoting["votingData"]["inFavorVotes"],
+            percentage1: infoVoting["votingData"]["inFavorVotesTotalSupplyPCT"],
+        },
     ];
 
     const onVote = async (inFavor) => {
-        setModalTitle('Vote proposal');
+        setModalTitle("Vote proposal");
         setVoteInFavor(inFavor);
         setShowProposalModal(true);
 
-        setOperationStatus('sign');
+        setOperationStatus("sign");
         setIsOperationModalVisible(true);
 
         const onTransaction = (txHash) => {
-            console.log('Sent transaction in Favor proposal...: ', txHash);
+            console.log("Sent transaction in Favor proposal...: ", txHash);
             setTxHash(txHash);
-            setOperationStatus('pending');
+            setOperationStatus("pending");
         };
         const onReceipt = (/*receipt*/) => {
-            console.log('Transaction in Favor proposal mined!...');
-            setOperationStatus('success');
+            console.log("Transaction in Favor proposal mined!...");
+            setOperationStatus("success");
             /*
             // Events name list
             const filter = [
@@ -193,8 +191,8 @@ function Vote(props) {
              */
         };
         const onError = (error) => {
-            console.log('Transaction in Favor proposal error!...:', error);
-            setOperationStatus('error');
+            console.log("Transaction in Favor proposal error!...:", error);
+            setOperationStatus("error");
         };
 
         await auth
@@ -202,30 +200,30 @@ function Vote(props) {
             .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
-                    console.log('Refresh user balance OK!');
+                    console.log("Refresh user balance OK!");
                 });
             })
             .catch((e) => {
                 console.error(e);
-                setOperationStatus('error');
+                setOperationStatus("error");
             });
     };
 
     const onRunVoteStep = async () => {
-        setModalTitle('Vote Step');
+        setModalTitle("Vote Step");
         setShowProposalModal(false);
 
-        setOperationStatus('sign');
+        setOperationStatus("sign");
         setIsOperationModalVisible(true);
 
         const onTransaction = (txHash) => {
-            console.log('Sent transaction vote step ...: ', txHash);
+            console.log("Sent transaction vote step ...: ", txHash);
             setTxHash(txHash);
-            setOperationStatus('pending');
+            setOperationStatus("pending");
         };
         const onReceipt = (/*receipt*/) => {
-            console.log('Transaction vote step mined!...');
-            setOperationStatus('success');
+            console.log("Transaction vote step mined!...");
+            setOperationStatus("success");
             /*
             // Events name list
             const filter = [
@@ -244,8 +242,8 @@ function Vote(props) {
              */
         };
         const onError = (error) => {
-            console.log('Transaction vote step error!...:', error);
-            setOperationStatus('error');
+            console.log("Transaction vote step error!...:", error);
+            setOperationStatus("error");
         };
 
         await auth
@@ -253,30 +251,30 @@ function Vote(props) {
             .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
-                    console.log('Refresh user balance OK!');
+                    console.log("Refresh user balance OK!");
                 });
             })
             .catch((e) => {
                 console.error(e);
-                setOperationStatus('error');
+                setOperationStatus("error");
             });
     };
 
     const onRunAcceptedStep = async () => {
-        setModalTitle('Accepted Step');
+        setModalTitle("Accepted Step");
         setShowProposalModal(false);
 
-        setOperationStatus('sign');
+        setOperationStatus("sign");
         setIsOperationModalVisible(true);
 
         const onTransaction = (txHash) => {
-            console.log('Sent transaction accepted step ...: ', txHash);
+            console.log("Sent transaction accepted step ...: ", txHash);
             setTxHash(txHash);
-            setOperationStatus('pending');
+            setOperationStatus("pending");
         };
         const onReceipt = (/*receipt*/) => {
-            console.log('Transaction accepted step mined!...');
-            setOperationStatus('success');
+            console.log("Transaction accepted step mined!...");
+            setOperationStatus("success");
             /*
             // Events name list
             const filter = [
@@ -295,8 +293,8 @@ function Vote(props) {
              */
         };
         const onError = (error) => {
-            console.log('Transaction accepted step error!...:', error);
-            setOperationStatus('error');
+            console.log("Transaction accepted step error!...:", error);
+            setOperationStatus("error");
         };
 
         await auth
@@ -304,17 +302,17 @@ function Vote(props) {
             .then((/*res*/) => {
                 // Refresh status
                 auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
-                    console.log('Refresh user balance OK!');
+                    console.log("Refresh user balance OK!");
                 });
             })
             .catch((e) => {
                 console.error(e);
-                setOperationStatus('error');
+                setOperationStatus("error");
             });
     };
 
     const onValidateVotingInFavorOrAgainst = () => {
-        if (infoUser['Voting_Power'].lte(new BigNumber(0))) {
+        if (infoUser["Voting_Power"].lte(new BigNumber(0))) {
             // You need at least voting power > 0
             setVotingInFavorOrAgainstError(true);
             return false;
@@ -327,48 +325,48 @@ function Vote(props) {
             <div className="votingStatus">
                 <div className="votingStatus__round">
                     <div className="votingStatus__title">
-                        {t('voting.status.title')}
+                        {t("voting.status.title")}
                     </div>
                 </div>
 
                 {votingFinish && (
                     <div className="voting-finish">
-                        {t('voting.status.finished')}
+                        {t("voting.status.finished")}
                     </div>
                 )}
 
                 {!votingFinish && (
                     <div className="voting-in-progress">
-                        {t('voting.status.ongoing')}
+                        {t("voting.status.ongoing")}
                     </div>
                 )}
 
                 {votingFinishReason === 1 && (
                     <div className="voting-status">
-                        {t('voting.status.approved')}
+                        {t("voting.status.approved")}
                     </div>
                 )}
 
                 {votingFinishReason === 2 && (
                     <div className="voting-status">
-                        {t('voting.status.noQuorum')}
+                        {t("voting.status.noQuorum")}
                     </div>
                 )}
 
                 {votingFinishReason === 3 && (
                     <div className="voting-status">
-                        {t('voting.status.rejected')}
+                        {t("voting.status.rejected")}
                     </div>
                 )}
             </div>
             <div className="votingDetails__wrapper">
-                <div className={'layout-card-title'}>
-                    <h1>{t('voting.cardTitle.votingStage')}</h1>
+                <div className={"layout-card-title"}>
+                    <h1>{t("voting.cardTitle.votingStage")}</h1>
                 </div>
 
                 <div className="details">
                     <div className="title">
-                        {infoVoting.votingData['winnerProposal']}
+                        {infoVoting.votingData["winnerProposal"]}
                     </div>
                     {/* <div className="change-contract">
                         {infoVoting.votingData['winnerProposal']}
@@ -407,11 +405,11 @@ function Vote(props) {
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://forum.moneyonchain.com/search?q=${infoVoting.votingData['winnerProposal']}`}
+                            href={`https://forum.moneyonchain.com/search?q=${infoVoting.votingData["winnerProposal"]}`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {t('voting.info.searchForum')}
+                            {t("voting.info.searchForum")}
                             <div className="icon-external-link"></div>
                         </a>
                     </div>
@@ -419,11 +417,11 @@ function Vote(props) {
                     <div className="externalLink">
                         <a
                             className="forumLink"
-                            href={`https://rootstock.blockscout.com/address/${infoVoting.votingData['winnerProposal']}?tab=contract`}
+                            href={`https://rootstock.blockscout.com/address/${infoVoting.votingData["winnerProposal"]}?tab=contract`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {t('voting.info.changeContract')}
+                            {t("voting.info.changeContract")}
                             <span className="icon-external-link"></span>
                         </a>
                     </div>
@@ -431,24 +429,24 @@ function Vote(props) {
                 <div className="voting__status__container">
                     <div className="graphs">
                         <p className="voting__status">
-                            {t('voting.info.stateAs')}
+                            {t("voting.info.stateAs")}
                             <span>
                                 {
-                                    infoVoting['votingData'][
-                                        'votingExpirationTimeFormat'
+                                    infoVoting["votingData"][
+                                        "votingExpirationTimeFormat"
                                     ]
                                 }
                             </span>
                         </p>
                         <BalanceBar
                             key="1"
-                            infavor={`${infoVoting['votingData']['inFavorVotesPCT'].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: '.', groupSeparator: ',' })}%`}
-                            against={`${infoVoting['votingData']['againstVotesPCT'].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: '.', groupSeparator: ',' })}%`}
+                            infavor={`${infoVoting["votingData"]["inFavorVotesPCT"].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: ".", groupSeparator: "," })}%`}
+                            against={`${infoVoting["votingData"]["againstVotesPCT"].toFormat(2, BigNumber.ROUND_UP, { decimalSeparator: ".", groupSeparator: "," })}%`}
                             infavorVotes={
-                                infoVoting['votingData']['inFavorVotes']
+                                infoVoting["votingData"]["inFavorVotes"]
                             }
                             againstVotes={
-                                infoVoting['votingData']['againstVotes']
+                                infoVoting["votingData"]["againstVotes"]
                             }
                         />
                         <div className="voting__status__graphs">
@@ -457,33 +455,33 @@ function Vote(props) {
                     </div>
                     <div className="cta">
                         <div className="cta-container">
-                            {infoVoting['readyToVoteStep'] === 0 && (
+                            {infoVoting["readyToVoteStep"] === 0 && (
                                 <>
                                     <div className="cta-info-group">
                                         <div className="cta-info-summary">
-                                            {t('voting.userPower.votingPower')}
+                                            {t("voting.userPower.votingPower")}
                                             {space}
                                             {PrecisionNumbers({
                                                 amount: infoUser[
-                                                    'Voting_Power'
+                                                    "Voting_Power"
                                                 ],
-                                                token: TokenSettings('TG'),
+                                                token: TokenSettings("TG"),
                                                 decimals: 2,
                                                 i18n: i18n,
-                                                skipContractConvert: true
+                                                skipContractConvert: true,
                                             })}
-                                            {t('staking.tokens.TG.abbr', {
-                                                ns: ns
+                                            {t("staking.tokens.TG.abbr", {
+                                                ns: ns,
                                             })}
                                             {space} {space}(
                                             {PrecisionNumbers({
                                                 amount: infoUser[
-                                                    'Voting_Power_PCT'
+                                                    "Voting_Power_PCT"
                                                 ],
-                                                token: TokenSettings('TG'),
+                                                token: TokenSettings("TG"),
                                                 decimals: 4,
                                                 i18n: i18n,
-                                                skipContractConvert: true
+                                                skipContractConvert: true,
                                             })}
                                             %)
                                         </div>
@@ -497,7 +495,7 @@ function Vote(props) {
                                             }
                                         >
                                             <div className="icon icon__vote__against"></div>
-                                            {t('voting.votingOptions.against')}
+                                            {t("voting.votingOptions.against")}
                                         </button>
                                         <button
                                             className="button infavor"
@@ -507,17 +505,17 @@ function Vote(props) {
                                             }
                                         >
                                             <div className="icon icon__vote__infavor"></div>
-                                            {t('voting.votingOptions.inFavor')}
+                                            {t("voting.votingOptions.inFavor")}
                                         </button>
                                     </div>
                                 </>
                             )}
-                            {infoVoting['readyToVoteStep'] === 1 &&
-                                infoVoting['state'] !== 2 && (
+                            {infoVoting["readyToVoteStep"] === 1 &&
+                                infoVoting["state"] !== 2 && (
                                     <>
                                         <div className="cta-info-group center">
                                             <div className="cta-info-detail">
-                                                {t('voting.cta.infoAdvance')}
+                                                {t("voting.cta.infoAdvance")}
                                             </div>
                                             <div className="cta-info-summary "></div>
                                             <div className="cta-options-group">
@@ -526,24 +524,24 @@ function Vote(props) {
                                                     onClick={onRunVoteStep}
                                                 >
                                                     {t(
-                                                        'voting.cta.btnPushNextStep'
+                                                        "voting.cta.btnPushNextStep"
                                                     )}
                                                 </button>
                                             </div>
                                         </div>
                                     </>
                                 )}
-                            {infoVoting['state'] === 2 && (
+                            {infoVoting["state"] === 2 && (
                                 <div className="final-step-section">
                                     <div className="vote-info">
-                                        {t('voting.cta.infoApplyChanges')}
+                                        {t("voting.cta.infoApplyChanges")}
                                     </div>
                                     <button
                                         className="button secondary"
                                         onClick={onRunAcceptedStep}
                                     >
                                         {t(
-                                            'voting.cta.btnApplyChangesToContracts'
+                                            "voting.cta.btnApplyChangesToContracts"
                                         )}
                                     </button>
                                 </div>
@@ -560,7 +558,7 @@ function Vote(props) {
                         operationStatus={operationStatus}
                         txHash={txHash}
                         proposalChanger={
-                            infoVoting.votingData['winnerProposal']
+                            infoVoting.votingData["winnerProposal"]
                         }
                         votingInFavor={voteInFavor}
                         showProposal={showProposalModal}
@@ -572,7 +570,6 @@ function Vote(props) {
 }
 
 export default Vote;
-
 
 Vote.propTypes = {
     infoVoting: PropTypes.object,

@@ -26,7 +26,7 @@ export default function SectionHeader() {
     const [showLanguageSubmenu, setShowLanguageSubmenu] = useState(false);
     const menuRef = useRef(null);
 
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const [lang, setLang] = useState("en");
 
     const MAX_MAIN_MENU_ITEMS = 5;

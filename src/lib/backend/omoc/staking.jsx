@@ -1,10 +1,7 @@
 import BigNumber from "bignumber.js";
 import Web3 from "web3";
 
-import {
-    getGasPrice,
-    toContractPrecisionDecimals,
-} from "../utils";
+import { getGasPrice, toContractPrecisionDecimals } from "../utils";
 import settings from "../../../settings/settings.json";
 
 const addStake = async (

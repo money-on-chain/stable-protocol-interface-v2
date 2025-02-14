@@ -1,12 +1,11 @@
 import React, { /*useContext,*/ useState } from "react";
 import { Modal, Button } from "antd";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { getCurrenciesDetail } from "../../helpers/currencies";
 //import { AuthenticateContext } from "../../context/Auth";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
-
 
 export default function CurrencyPopUp(props) {
     const { value, onChange, currencyOptions, disabled, action, title } = props;
@@ -22,11 +21,12 @@ export default function CurrencyPopUp(props) {
     }));
 
     // Remove duplicated items, except on action exchange & coinbase
-    const arrayAdded = []
-    const optionsFiltered = options.filter(function (item, /*index, array*/) {
+    const arrayAdded = [];
+    const optionsFiltered = options.filter(function (item /*index, array*/) {
         if (!arrayAdded.includes(item.abbreviation)) {
-            if (!(action==="exchange" && item.value==="COINBASE")) arrayAdded.push(item.abbreviation);
-            return item
+            if (!(action === "exchange" && item.value === "COINBASE"))
+                arrayAdded.push(item.abbreviation);
+            return item;
         }
     });
 
@@ -113,12 +113,11 @@ export default function CurrencyPopUp(props) {
     );
 }
 
-
 CurrencyPopUp.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
     currencyOptions: PropTypes.array,
     disabled: PropTypes.bool,
     action: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
 };

@@ -3,7 +3,7 @@ import { useProjectTranslation } from "../../helpers/translations";
 import useTheme from "../UseTheme";
 
 export default function ThemeMode() {
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const { theme, toggleTheme } = useTheme();
 
     return (

@@ -1,14 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useContext } from 'react';
-import { Skeleton } from 'antd';
+import React, { Fragment, useEffect, useState } from "react";
+import { useContext } from "react";
+import { Skeleton } from "antd";
 
-import { AuthenticateContext } from '../../context/Auth';
-import Performance from '../../components/Performance';
-import './Styles.scss';
-
+import { AuthenticateContext } from "../../context/Auth";
+import Performance from "../../components/Performance";
+import "./Styles.scss";
 
 function SectionPerformance() {
-
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {
@@ -21,7 +19,7 @@ function SectionPerformance() {
         <Fragment>
             <div className="section-container">
                 <div className="content-page">
-                    <div className={'content-performance layout-card-title'}>
+                    <div className={"content-performance layout-card-title"}>
                         {ready ? <Performance /> : <Skeleton active />}
                     </div>
                 </div>

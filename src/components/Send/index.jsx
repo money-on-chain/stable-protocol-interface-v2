@@ -17,9 +17,8 @@ import InputAmount from "../InputAmount";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import ModalConfirmSend from "../Modals/ConfirmSend";
 
-
 export default function Send() {
-    const {t, i18n} = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const tokenSend = tokenExchange();
@@ -211,7 +210,7 @@ export default function Send() {
                                 decimals:
                                     TokenSettings(currencyYouSend)
                                         .visibleDecimals,
-                                i18n: i18n
+                                i18n: i18n,
                             })}
                             setAddTotalAvailable={setAddTotalAvailable}
                             action={t("send.labelSending")}

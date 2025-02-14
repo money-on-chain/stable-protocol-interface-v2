@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 const useTheme = () => {
-
     const [theme, setTheme] = useState(() => {
         // Verificar si el tema está guardado en localStorage
         const defaulTheme = getComputedStyle(document.querySelector(":root"))

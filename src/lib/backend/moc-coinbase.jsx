@@ -6,10 +6,7 @@ import {
     getGasPrice,
     fromContractPrecisionDecimals,
 } from "./utils";
-import {
-    redeemTC as redeemTC_, redeemTP as redeemTP_
-} from './moc-core.jsx'
-
+import { redeemTC as redeemTC_, redeemTP as redeemTP_ } from "./moc-core.jsx";
 
 const mintTC = async (
     interfaceContext,
@@ -24,7 +21,7 @@ const mintTC = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
+    const MoCContract = dContracts.contracts.Moc;
 
     // Verifications
     // User have sufficient reserve to pay?
@@ -145,11 +142,11 @@ const mintTP = async (
         interfaceContext;
     const dContracts = window.dContracts;
     const vendorAddress = import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS;
-    const MoCContract = dContracts.contracts.Moc
-    const tpAddress = dContracts.contracts.TP[tpIndex].options.address
-    console.log('tpAddress', tpAddress);
-    console.log('contractStatusData', contractStatusData);
-    console.log('vendor address is ', vendorAddress);
+    const MoCContract = dContracts.contracts.Moc;
+    const tpAddress = dContracts.contracts.TP[tpIndex].options.address;
+    console.log("tpAddress", tpAddress);
+    console.log("contractStatusData", contractStatusData);
+    console.log("vendor address is ", vendorAddress);
     // Verifications
 
     // User have sufficient reserve to pay?

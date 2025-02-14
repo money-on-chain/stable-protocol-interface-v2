@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Table } from 'antd';
-import BigNumber from 'bignumber.js';
+import React, { useContext } from "react";
+import { Table } from "antd";
+import BigNumber from "bignumber.js";
 
-import { AuthenticateContext } from '../../../context/Auth';
-import { useProjectTranslation } from '../../../helpers/translations';
-import { formatTimestamp } from '../../../helpers/staking';
+import { AuthenticateContext } from "../../../context/Auth";
+import { useProjectTranslation } from "../../../helpers/translations";
+import { formatTimestamp } from "../../../helpers/staking";
 
 const precision = (contractDecimals) =>
     new BigNumber(10).exponentiatedBy(contractDecimals);
@@ -13,19 +13,19 @@ const formatVisibleValue = (amount, decimals) => {
     return BigNumber(amount)
         .div(precision(18))
         .toFormat(decimals, BigNumber.ROUND_UP, {
-            decimalSeparator: '.',
-            groupSeparator: ','
+            decimalSeparator: ".",
+            groupSeparator: ",",
         });
 };
 
 export default function VestingSchedule() {
-    const {t, i18n} = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const vestingColumns = [
         {
-            dataIndex: 'renderRow'
-        }
+            dataIndex: "renderRow",
+        },
     ];
     const vestingData = [];
 
@@ -73,7 +73,7 @@ export default function VestingSchedule() {
     auth.userBalanceData &&
         getParameters &&
         percents.forEach(function (percent, itemIndex) {
-            let strTotal = '';
+            let strTotal = "";
             if (total && !new BigNumber(total).isZero()) {
                 strTotal = new BigNumber(percent)
                     .times(total)
@@ -104,13 +104,13 @@ export default function VestingSchedule() {
                             </div>
                             <div className="status">
                                 {dayLefts > 0
-                                    ? 'Vested'
+                                    ? "Vested"
                                     : tgeFormat === dates[itemIndex]
-                                      ? 'TGE'
-                                      : 'Released'}
+                                      ? "TGE"
+                                      : "Released"}
                             </div>
                         </div>
-                    )
+                    ),
                 });
             }
         });
@@ -119,26 +119,26 @@ export default function VestingSchedule() {
         <>
             <div className="renderHeader">
                 <div className="releaseDate">
-                    {t('vesting.vestingScheduleColumns.date')}
+                    {t("vesting.vestingScheduleColumns.date")}
                 </div>
                 <div className="daysToRelease">
-                    {t('vesting.vestingScheduleColumns.daysLeft')}
+                    {t("vesting.vestingScheduleColumns.daysLeft")}
                 </div>
                 <div className="percentage">
-                    {t('vesting.vestingScheduleColumns.percent')}
+                    {t("vesting.vestingScheduleColumns.percent")}
                 </div>
                 <div className="amount">
-                    {t('vesting.vestingScheduleColumns.amount')}
+                    {t("vesting.vestingScheduleColumns.amount")}
                 </div>
                 <div className="status">
-                    {t('vesting.vestingScheduleColumns.status')}
+                    {t("vesting.vestingScheduleColumns.status")}
                 </div>
             </div>
             <Table
                 columns={vestingColumns}
                 dataSource={vestingData}
                 pagination={false}
-                scroll={{ y: 'auto' }}
+                scroll={{ y: "auto" }}
             />
         </>
     );

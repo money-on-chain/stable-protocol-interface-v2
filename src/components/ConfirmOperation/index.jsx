@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Collapse, Slider } from "antd";
 import axios from "axios";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
@@ -14,11 +14,9 @@ import ModalAllowanceOperation from "../Modals/Allowance";
 import CopyAddress from "../CopyAddress";
 //import settings from "../../settings/settings.json";
 import TXStatus from "./TXStatus";
-import { decodeEvents } from '../../lib/backend/transaction';
-
+import { decodeEvents } from "../../lib/backend/transaction";
 
 const { Panel } = Collapse;
-
 
 export default function ConfirmOperation(props) {
     const {
@@ -38,7 +36,7 @@ export default function ConfirmOperation(props) {
         radioSelectFee,
     } = props;
 
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("SUBMIT");
@@ -279,7 +277,7 @@ export default function ConfirmOperation(props) {
                         );
 
                         console.log("Operation Status: OK Executed.");
-                    } else  {
+                    } else {
                         setStatus("ERROR");
 
                         // Remove Op ID
@@ -332,13 +330,13 @@ export default function ConfirmOperation(props) {
 
         // Events name list
         const filter = [
-            'OperationError',
-            'UnhandledError',
-            'OperationQueued',
-            'OperationExecuted'
+            "OperationError",
+            "UnhandledError",
+            "OperationQueued",
+            "OperationExecuted",
         ];
 
-        const contractName = 'MocQueue';
+        const contractName = "MocQueue";
 
         const txRcp = await auth.web3.eth.getTransactionReceipt(
             receipt.transactionHash
@@ -796,7 +794,6 @@ export default function ConfirmOperation(props) {
     );
 }
 
-
 ConfirmOperation.propTypes = {
     currencyYouExchange: PropTypes.string,
     currencyYouReceive: PropTypes.string,
@@ -811,5 +808,5 @@ ConfirmOperation.propTypes = {
     commissionFeeToken: PropTypes.number,
     commissionFeeTokenUSD: PropTypes.number,
     commissionPercentFeeToken: PropTypes.number,
-    radioSelectFee: PropTypes.number
+    radioSelectFee: PropTypes.number,
 };

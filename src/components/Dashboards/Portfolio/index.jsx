@@ -8,10 +8,9 @@ import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import PortfolioTable from "../../Tables/PortfolioTable";
 
-
 export default function Portfolio() {
     const space = "\u00A0";
-    const {t, i18n} = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     let balance;

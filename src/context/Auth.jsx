@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import getRLogin from "../lib/rLogin";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {
     ApproveTokenContract,
@@ -59,7 +59,6 @@ import {
     unRegister,
 } from "../lib/backend/omoc/voting";
 
-
 BigNumber.config({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
 const AuthenticateContext = createContext({
@@ -71,122 +70,124 @@ const AuthenticateContext = createContext({
     showModalAccount: false,
     web3Error: false,
     connect: () => {},
-    interfaceAllowanceAmount: async (
+    interfaceAllowanceAmount: async () =>
         /*currencyYouExchange,
         currencyYouReceive,
         amountAllowance,
         onTransaction,
         onReceipt*/
-    ) => {},
-    interfaceTransferToken: async (
+        {},
+    interfaceTransferToken: async () =>
         /*currencyYouExchange,
         amount,
         destinationAddress,
         onTransaction,
         onReceipt*/
-    ) => {},
-    interfaceTransferCoinbase: async (
+        {},
+    interfaceTransferCoinbase: async () =>
         /*amount,
         destinationAddress,
         onTransaction,
         onReceipt*/
-    ) => {},
-    interfaceExchangeMethod: async (
+        {},
+    interfaceExchangeMethod: async () =>
         /*currencyYouExchange,
         currencyYouReceive,
         tokenAmount,
         limitAmount,
         onTransaction,
         onReceipt*/
-    ) => {},
+        {},
     disconnect: () => {},
     getTransactionReceipt: (/*hash*/) => {},
     //getSpendableBalance: async (address) => {},
     loadContractsStatusAndUserBalance: async (/*address*/) => {},
     //getReserveAllowance: async (address) => {},
-    interfaceAllowUseTokenMigrator: async (
+    interfaceAllowUseTokenMigrator: async () =>
         /*amount,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
+        {},
     interfaceMigrateToken: async (/*onTransaction, onReceipt, onError*/) => {},
     //OMOC methods
-    interfaceStakingAddStake: async (
+    interfaceStakingAddStake: async () =>
         /*amount,
         address,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceStakingUnStake: async (
+        {},
+    interfaceStakingUnStake: async () =>
         /*amount,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceStakingDelayMachineWithdraw: async (
+        {},
+    interfaceStakingDelayMachineWithdraw: async () =>
         /*idWithdraw,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceStakingDelayMachineCancelWithdraw: async (
+        {},
+    interfaceStakingDelayMachineCancelWithdraw: async () =>
         /*idWithdraw,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceStakingApprove: async (
+        {},
+    interfaceStakingApprove: async () =>
         /*amount,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceVestingWithdraw: async (
+        {},
+    interfaceVestingWithdraw: async () =>
         /*amount,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
+        {},
     interfaceVestingVerify: async (/*onTransaction, onReceipt, onError*/) => {},
-    interfaceIncentiveV2Claim: async (
+    interfaceIncentiveV2Claim: async () =>
         /*signDataResponse,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceVotingPreVote: async (
+        {},
+    interfaceVotingPreVote: async () =>
         /*changeContractAddress,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
+        {},
     /*interfaceVotingUnregister: async (
         changeContractAddress,
         onTransaction,
         onReceipt,
         onError
     ) => {},*/
-    interfaceVotingVote: async (
+    interfaceVotingVote: async () =>
         /*inFavorAgainst,
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
-    interfaceVotingPreVoteStep: async (/*onTransaction, onReceipt, onError*/) => {},
-    interfaceVotingVoteStep: async (/*onTransaction, onReceipt, onError*/) => {},
-    interfaceVotingAcceptedStep: async (/*
+        {},
+    interfaceVotingPreVoteStep:
+        async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingVoteStep:
+        async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingAcceptedStep: async () =>
+        /*
         onTransaction,
         onReceipt,
         onError*/
-    ) => {},
+        {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
     onShowModalAccount: () => {},
     onShowModalAccountVesting: () => {},
 });
-
 
 const AuthenticateProvider = ({ children }) => {
     const [contractStatusData, setContractStatusData] = useState(null);
@@ -242,11 +243,14 @@ const AuthenticateProvider = ({ children }) => {
     }, [account]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (account) {
-                loadContractsStatusAndUserBalance();
-            }
-        }, import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
+        const interval = setInterval(
+            () => {
+                if (account) {
+                    loadContractsStatusAndUserBalance();
+                }
+            },
+            import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN
+        );
         return () => clearInterval(interval);
     }, [account]);
 
@@ -575,7 +579,7 @@ const AuthenticateProvider = ({ children }) => {
         return await web3.eth.getBalance(from);
     };
 
-    const getTransactionReceipt = async (hash/*, callback*/) => {
+    const getTransactionReceipt = async (hash /*, callback*/) => {
         //const web3 = new Web3(provider);
         let transactionReceipt = false;
         let transaction = await web3.eth.getTransactionReceipt(hash);
@@ -950,7 +954,6 @@ const AuthenticateProvider = ({ children }) => {
 
 export { AuthenticateContext, AuthenticateProvider };
 
-
 AuthenticateProvider.propTypes = {
-    children: PropTypes.object
+    children: PropTypes.object,
 };

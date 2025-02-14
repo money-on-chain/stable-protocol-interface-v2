@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
 
-
 const InputAmount = (props) => {
-    const {t} = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     const inputRef = useRef(null);
     //const [value, setValue] = useState("");
@@ -110,5 +109,5 @@ InputAmount.propTypes = {
     inputValue: PropTypes.string,
     onValueChange: PropTypes.func,
     setAddTotalAvailable: PropTypes.func,
-    validateError: PropTypes.bool
+    validateError: PropTypes.bool,
 };

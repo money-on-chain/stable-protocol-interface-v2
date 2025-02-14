@@ -29,7 +29,7 @@ import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import CheckStatus from "../../helpers/checkStatus";
 
 export default function Exchange() {
-    const {t, i18n, ns} = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const defaultTokenExchange = tokenExchange()[0];
@@ -544,7 +544,7 @@ export default function Exchange() {
                                               currencyYouExchange
                                           ),
                                           decimals: 8,
-                                          i18n: i18n
+                                          i18n: i18n,
                                       })
                             }
                             setAddTotalAvailable={setAddTotalAvailable}
