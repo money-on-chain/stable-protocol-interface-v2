@@ -104,7 +104,7 @@ export default InputAmount;
 InputAmount.propTypes = {
     balanceText: PropTypes.string,
     action: PropTypes.string,
-    balance: PropTypes.number,
+    balance: PropTypes.object,
     placeholder: PropTypes.string,
     inputValue: PropTypes.string,
     onValueChange: PropTypes.func,

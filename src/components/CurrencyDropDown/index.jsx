@@ -10,7 +10,7 @@ const { Option } = Select;
 
 export default function CurrencyDropDown(props) {
     const { value, onChange, currencyOptions, disabled, action } = props;
-    const [t, ns] = useProjectTranslation();
+    const { t, ns } = useProjectTranslation();
 
     const options = getCurrenciesDetail().map((it) => ({
         value: it.value,

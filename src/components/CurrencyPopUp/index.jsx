@@ -9,7 +9,7 @@ import "./Styles.scss";
 
 export default function CurrencyPopUp(props) {
     const { value, onChange, currencyOptions, disabled, action, title } = props;
-    const [t, ns] = useProjectTranslation();
+    const { t, ns } = useProjectTranslation();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     // Retrieve currency options with details

@@ -16,7 +16,8 @@ import settings from "../../settings/settings.json";
 
 const Stake = (props) => {
     const { activeTab, userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
+
     const auth = useContext(AuthenticateContext);
     const defaultTokenStake = tokenStake()[0];
     const [isUnstaking, setIsUnstaking] = useState(false);
@@ -285,6 +286,6 @@ const Stake = (props) => {
 export default Stake;
 
 Stake.propTypes = {
-    activeTab: PropTypes.number,
+    activeTab: PropTypes.string,
     userInfoStaking: PropTypes.object,
 };

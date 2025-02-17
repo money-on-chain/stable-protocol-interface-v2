@@ -8,7 +8,8 @@ import "./Styles.scss";
 
 export default function LiquidityMiningClaim() {
     //const auth = useContext(AuthenticateContext);
-    const [t] = useProjectTranslation();
+    const { t } = useProjectTranslation();
+
     const space = "\u00A0";
 
     return (

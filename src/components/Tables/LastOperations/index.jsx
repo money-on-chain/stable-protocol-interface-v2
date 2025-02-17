@@ -21,7 +21,7 @@ import "./Styles.scss";
 export default function LastOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     /*useEffect(() => {
@@ -962,7 +962,7 @@ export default function LastOperations(props) {
 }
 
 LastOperations.propTypes = {
-    token: PropTypes.object,
+    token: PropTypes.string,
     /*expanded: PropTypes.bool,
     onClick: PropTypes.func,*/
 };

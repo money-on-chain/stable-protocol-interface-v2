@@ -12,7 +12,7 @@ import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import "./Styles.scss";
 
 export default function PortfolioTable() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
 

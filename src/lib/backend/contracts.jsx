@@ -72,7 +72,6 @@ const readContracts = async (web3) => {
 
     // Read contracts addresses from MoC
     const mocAddr = await mocAddresses(web3, dContracts);
-
     dContracts.contracts.CA = [];
 
     if (settings.collateral !== "coinbase") {
@@ -97,7 +96,7 @@ const readContracts = async (web3) => {
     for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
         try {
             tpAddress = mocAddr["tpTokens"][i];
-            if (!tpAddress) continue;
+            if (!tpAddress || tpAddress === '0x') continue;
             tpIndex = await dContracts.contracts.Moc.methods
                 .peggedTokenIndex(tpAddress)
                 .call();
