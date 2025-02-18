@@ -204,7 +204,7 @@ AllowanceDialog.propTypes = {
     onCloseModal: PropTypes.func,
     currencyYouExchange: PropTypes.string,
     currencyYouReceive: PropTypes.string,
-    amountYouExchangeLimit: PropTypes.number,
+    amountYouExchangeLimit: PropTypes.object,
     onRealSendTransaction: PropTypes.func,
     disAllowance: PropTypes.bool,
 };
