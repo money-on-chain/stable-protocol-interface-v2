@@ -124,5 +124,5 @@ RowDetail.propTypes = {
 
 ItemData.propTypes = {
     label: PropTypes.string,
-    data: PropTypes.string,
+    data: PropTypes.object,
 };
