@@ -8,8 +8,8 @@ import { useProjectTranslation } from "../../helpers/translations";
 import Send from "../../components/Send";
 import "./Styles.scss";
 
-function SectionSend(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+function SectionSend() {
+    const { t } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {

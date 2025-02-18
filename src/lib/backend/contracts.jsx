@@ -14,14 +14,14 @@ import IRegistry from "../../contracts/omoc/IRegistry.json";
 import StakingMachine from "../../contracts/omoc/StakingMachine.json";
 import DelayMachine from "../../contracts/omoc/DelayMachine.json";
 import Supporters from "../../contracts/omoc/Supporters.json";
-import VestingMachine from "../../contracts/omoc/VestingMachine.json";
+//import VestingMachine from "../../contracts/omoc/VestingMachine.json";
 import VotingMachine from "../../contracts/omoc/VotingMachine.json";
 import VestingFactory from "../../contracts/omoc/VestingFactory.json";
 import IERC20 from "../../contracts/omoc/IERC20.json";
 import IncentiveV2 from "../../contracts/omoc/IncentiveV2.json";
 
-import { registryAddresses, mocAddresses } from './multicall';
-import settings from '../../settings/settings.json';
+import { registryAddresses, mocAddresses } from "./multicall";
+import settings from "../../settings/settings.json";
 
 const readContracts = async (web3) => {
     // Store contracts to later use
@@ -31,7 +31,7 @@ const readContracts = async (web3) => {
     dContracts.contractsAddresses = {};
 
     console.log(
-        'Reading Multicall2 Contract... address: ',
+        "Reading Multicall2 Contract... address: ",
         import.meta.env.REACT_APP_CONTRACT_MULTICALL2
     );
     dContracts.contracts.multicall = new web3.eth.Contract(
@@ -39,8 +39,9 @@ const readContracts = async (web3) => {
         import.meta.env.REACT_APP_CONTRACT_MULTICALL2
     );
 
-    dContracts.contracts.PP_CA = []
-    const contractPPCA = import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",")
+    dContracts.contracts.PP_CA = [];
+    const contractPPCA =
+        import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",");
     for (let i = 0; i < settings.tokens.CA.length; i++) {
         console.log(
             `Reading Price Provider ${settings.tokens.CA[i].name} Tokens Contract... address: `,
@@ -61,7 +62,7 @@ const readContracts = async (web3) => {
     );
 
     console.log(
-        'Reading Moc Contract... address: ',
+        "Reading Moc Contract... address: ",
         import.meta.env.REACT_APP_CONTRACT_MOC
     );
     dContracts.contracts.Moc = new web3.eth.Contract(
@@ -71,7 +72,6 @@ const readContracts = async (web3) => {
 
     // Read contracts addresses from MoC
     const mocAddr = await mocAddresses(web3, dContracts);
-
     dContracts.contracts.CA = [];
 
     if (settings.collateral !== "coinbase") {
@@ -96,7 +96,7 @@ const readContracts = async (web3) => {
     for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
         try {
             tpAddress = mocAddr["tpTokens"][i];
-            if (!tpAddress) continue;
+            if (!tpAddress || tpAddress === '0x') continue;
             tpIndex = await dContracts.contracts.Moc.methods
                 .peggedTokenIndex(tpAddress)
                 .call();
@@ -107,6 +107,7 @@ const readContracts = async (web3) => {
             tpAddresses.push(tpAddress);
             tpAddressesProviders.push(tpItem.priceProvider);
         } catch (e) {
+            console.error(e);
             break;
         }
     }
@@ -190,10 +191,9 @@ const readContracts = async (web3) => {
         mocAddr["maxOpDiffProvider"]
     );
 
-    if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined') {
-
+    if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== "undefined") {
         console.log(
-            'Reading IRegistry Contract... address: ',
+            "Reading IRegistry Contract... address: ",
             import.meta.env.REACT_APP_CONTRACT_IREGISTRY
         );
         dContracts.contracts.IRegistry = new web3.eth.Contract(
@@ -241,9 +241,12 @@ const readContracts = async (web3) => {
         );
 
         // reading Incentive V2 from environment address
-        if (typeof import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2 !== 'undefined') {
+        if (
+            typeof import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2 !==
+            "undefined"
+        ) {
             console.log(
-                'Reading Incentive V2 Contract... address: ',
+                "Reading Incentive V2 Contract... address: ",
                 import.meta.env.REACT_APP_CONTRACT_INCENTIVE_V2
             );
             dContracts.contracts.IncentiveV2 = new web3.eth.Contract(
@@ -273,13 +276,20 @@ const readContracts = async (web3) => {
 
     // Token migrator & Legacy token
     if (import.meta.env.REACT_APP_CONTRACT_LEGACY_TP) {
-        const tpLegacy = new web3.eth.Contract(TokenPegged.abi, import.meta.env.REACT_APP_CONTRACT_LEGACY_TP)
-        dContracts.contracts.tp_legacy = tpLegacy
+        const tpLegacy = new web3.eth.Contract(
+            TokenPegged.abi,
+            import.meta.env.REACT_APP_CONTRACT_LEGACY_TP
+        );
+        dContracts.contracts.tp_legacy = tpLegacy;
 
-        if (!import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR) console.log("Error: Please set token migrator address!")
+        if (!import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
+            console.log("Error: Please set token migrator address!");
 
-        const tokenMigrator = new web3.eth.Contract(TokenMigrator.abi, import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
-        dContracts.contracts.token_migrator = tokenMigrator
+        const tokenMigrator = new web3.eth.Contract(
+            TokenMigrator.abi,
+            import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR
+        );
+        dContracts.contracts.token_migrator = tokenMigrator;
     }
 
     return dContracts;

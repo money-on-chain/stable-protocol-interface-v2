@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { useProjectTranslation } from "../../helpers/translations";
 
 export default function DappVersion() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     return (
         <>

@@ -1,18 +1,16 @@
-import React, { useContext, useState, useEffect, useTransition } from "react";
+import React, { useContext } from "react";
+import BigNumber from "bignumber.js";
 
 import { useProjectTranslation } from "../../../helpers/translations";
 import { AuthenticateContext } from "../../../context/Auth";
 import settings from "../../../settings/settings.json";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
-import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
-
 import PortfolioTable from "../../Tables/PortfolioTable";
 
 export default function Portfolio() {
     const space = "\u00A0";
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     let balance;
@@ -140,9 +138,7 @@ export default function Portfolio() {
                                       amount: totalUSD,
                                       token: settings.tokens.COINBASE[0],
                                       decimals: 2,
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       skipContractConvert: true,
                                   })}
                             {space}

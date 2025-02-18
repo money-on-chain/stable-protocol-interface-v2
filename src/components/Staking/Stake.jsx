@@ -1,6 +1,7 @@
 import React, { useState, useContext, Fragment, useEffect } from "react";
 import BigNumber from "bignumber.js";
 import { Button } from "antd";
+import PropTypes from "prop-types";
 
 import { AuthenticateContext } from "../../context/Auth";
 import { TokenSettings, AmountToVisibleValue } from "../../helpers/currencies";
@@ -15,7 +16,8 @@ import settings from "../../settings/settings.json";
 
 const Stake = (props) => {
     const { activeTab, userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
+
     const auth = useContext(AuthenticateContext);
     const defaultTokenStake = tokenStake()[0];
     const [isUnstaking, setIsUnstaking] = useState(false);
@@ -27,7 +29,7 @@ const Stake = (props) => {
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
     const [inputValidationError, setInputValidationError] = useState(true);
-    const [cleanInputCount, setUntouchCount] = useState(0);
+    //const [cleanInputCount, setUntouchCount] = useState(0);
 
     const [amountToStake, setAmountToStake] = useState("");
     const [amountToUnstake, setAmountToUnstake] = useState("");
@@ -89,7 +91,7 @@ const Stake = (props) => {
         setInputValidationError(amountInputError);
     };
 
-    const onChangeCurrency = (newCurrency) => {
+    const onChangeCurrency = (/*newCurrency*/) => {
         onClear();
     };
 
@@ -134,7 +136,7 @@ const Stake = (props) => {
         //setStakingBalances();
         setAmountToStake("");
         setAmountToUnstake("");
-        setUntouchCount((prev) => prev + 1);
+        //setUntouchCount((prev) => prev + 1);
     };
     const onStakingModalConfirm = (operationStatus, txHash) => {
         const operationInfo = {
@@ -282,3 +284,8 @@ const Stake = (props) => {
 };
 
 export default Stake;
+
+Stake.propTypes = {
+    activeTab: PropTypes.string,
+    userInfoStaking: PropTypes.object,
+};

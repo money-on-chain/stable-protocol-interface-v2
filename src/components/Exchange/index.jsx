@@ -29,7 +29,7 @@ import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import CheckStatus from "../../helpers/checkStatus";
 
 export default function Exchange() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const defaultTokenExchange = tokenExchange()[0];
@@ -45,8 +45,8 @@ export default function Exchange() {
     );
     const [amountYouReceive, setAmountYouReceive] = useState(new BigNumber(0));
 
-    const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
-    const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
+    //const [isDirtyYouExchange, setIsDirtyYouExchange] = useState(false);
+    //const [isDirtyYouReceive, setIsDirtyYouReceive] = useState(false);
 
     const [commission, setCommission] = useState("0.0");
     const [commissionUSD, setCommissionUSD] = useState("0.0");
@@ -314,6 +314,8 @@ export default function Exchange() {
         let infoFee;
         let amountExchangeFee;
         let amountReceiveFee;
+        let amountFormattedReceive;
+        let amountFormattedExchange;
         switch (source) {
             case "exchange":
                 infoFee = CalcCommission(
@@ -325,7 +327,7 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange;
                 amountReceiveFee = amountReceive.minus(infoFee.fee);
-                const amountFormattedReceive = AmountToVisibleValue(
+                amountFormattedReceive = AmountToVisibleValue(
                     amountReceiveFee,
                     currencyYouReceive,
                     amountReceiveFee.lt(0.00000001) ? 12 : 8,
@@ -347,7 +349,7 @@ export default function Exchange() {
                 );
                 amountExchangeFee = amountExchange.plus(infoFee.fee);
                 amountReceiveFee = amountReceive;
-                const amountFormattedExchange = AmountToVisibleValue(
+                amountFormattedExchange = AmountToVisibleValue(
                     amountExchangeFee,
                     currencyYouExchange,
                     amountExchangeFee.lte(0.00000001) ? 12 : 8,
@@ -542,9 +544,7 @@ export default function Exchange() {
                                               currencyYouExchange
                                           ),
                                           decimals: 8,
-                                          t: t,
                                           i18n: i18n,
-                                          ns: ns,
                                       })
                             }
                             setAddTotalAvailable={setAddTotalAvailable}
@@ -574,7 +574,7 @@ export default function Exchange() {
                             placeholder={"0.0"}
                             onValueChange={onChangeAmountYouReceive}
                             validateError={false}
-                            isDirty={isDirtyYouReceive}
+                            isDirty={false}
                             balance={
                                 !auth.contractStatusData?.canOperate
                                     ? "--"
@@ -588,9 +588,7 @@ export default function Exchange() {
                                               currencyYouReceive
                                           ),
                                           decimals: 8,
-                                          t: t,
                                           i18n: i18n,
-                                          ns: ns,
                                           skipContractConvert: true,
                                       })
                             }
@@ -631,9 +629,7 @@ export default function Exchange() {
                                                   token: TokenSettings(
                                                       currencyYouReceive
                                                   ),
-                                                  t: t,
                                                   i18n: i18n,
-                                                  ns: ns,
                                                   skipContractConvert: true,
                                               })}
                                     </span>
@@ -672,9 +668,7 @@ export default function Exchange() {
                                                   token: TokenSettings(
                                                       currencyYouExchange
                                                   ),
-                                                  t: t,
                                                   i18n: i18n,
-                                                  ns: ns,
                                                   skipContractConvert: true,
                                               })}
                                     </span>
@@ -712,9 +706,7 @@ export default function Exchange() {
                                                                   currencyYouExchange
                                                               ),
                                                               decimals: 2,
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               skipContractConvert: true,
                                                           })}
                                                     %)
@@ -731,9 +723,7 @@ export default function Exchange() {
                                                               token: TokenSettings(
                                                                   "CA_0"
                                                               ),
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               skipContractConvert: true,
                                                           })}
                                                 </span>
@@ -762,9 +752,7 @@ export default function Exchange() {
                                                               token: TokenSettings(
                                                                   "CA_0"
                                                               ),
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               isUSD: true,
                                                               skipContractConvert: true,
                                                           })}
@@ -796,9 +784,7 @@ export default function Exchange() {
                                                                   currencyYouExchange
                                                               ),
                                                               decimals: 2,
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               skipContractConvert: true,
                                                           })}
                                                     %)
@@ -815,9 +801,7 @@ export default function Exchange() {
                                                               token: TokenSettings(
                                                                   "TF"
                                                               ),
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               skipContractConvert: true,
                                                           })}
                                                 </span>
@@ -841,9 +825,7 @@ export default function Exchange() {
                                                               token: TokenSettings(
                                                                   "CA_0"
                                                               ),
-                                                              t: t,
                                                               i18n: i18n,
-                                                              ns: ns,
                                                               isUSD: true,
                                                               skipContractConvert: true,
                                                           })}
@@ -882,9 +864,7 @@ export default function Exchange() {
                                           amount: exchangingUSD,
                                           token: TokenSettings("CA_0"),
                                           decimals: 2,
-                                          t: t,
                                           i18n: i18n,
-                                          ns: ns,
                                           skipContractConvert: true,
                                           isUSD: true,
                                       })}

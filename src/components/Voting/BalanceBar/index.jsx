@@ -1,12 +1,14 @@
-import React from 'react';
-import './Styles.scss';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import { TokenSettings } from '../../../helpers/currencies';
-import { useProjectTranslation } from '../../../helpers/translations';
+import React from "react";
+import PropTypes from "prop-types";
+
+import "./Styles.scss";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
+import { TokenSettings } from "../../../helpers/currencies";
+import { useProjectTranslation } from "../../../helpers/translations";
 
 function BalanceBar(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const space = '\u00A0';
+    const { i18n } = useProjectTranslation();
+    const space = "\u00A0";
 
     return (
         <div className="balanceBar">
@@ -14,37 +16,33 @@ function BalanceBar(props) {
                 <div className="label">
                     {PrecisionNumbers({
                         amount: props.againstVotes,
-                        token: TokenSettings('TG'),
+                        token: TokenSettings("TG"),
                         decimals: 2,
-                        t: t,
                         i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
+                        skipContractConvert: true,
                     })}
                     {space}({props.against}) against
                 </div>
                 <div className="label">
                     {PrecisionNumbers({
                         amount: props.infavorVotes,
-                        token: TokenSettings('TG'),
+                        token: TokenSettings("TG"),
                         decimals: 2,
-                        t: t,
                         i18n: i18n,
-                        ns: ns,
-                        skipContractConvert: true
+                        skipContractConvert: true,
                     })}
                     {space}({props.infavor}) in favor
                 </div>
             </div>
             <div className="balanceBar__wrapper">
                 <div
-                    className={`against ${props.against === '100%' ? ' maxvalue' : ''}`}
+                    className={`against ${props.against === "100%" ? " maxvalue" : ""}`}
                     style={{ width: props.against }}
                 ></div>
 
                 <div className="graphDivider"></div>
                 <div
-                    className={`infavor ${props.infavor === '100%' ? ' maxvalue' : ''}`}
+                    className={`infavor ${props.infavor === "100%" ? " maxvalue" : ""}`}
                     style={{ width: props.infavor }}
                 ></div>
             </div>
@@ -53,3 +51,10 @@ function BalanceBar(props) {
 }
 
 export default BalanceBar;
+
+BalanceBar.propTypes = {
+    againstVotes: PropTypes.bigint,
+    against: PropTypes.number,
+    infavorVotes: PropTypes.bigint,
+    infavor: PropTypes.number,
+};

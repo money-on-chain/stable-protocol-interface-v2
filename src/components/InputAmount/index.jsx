@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useProjectTranslation } from "../../helpers/translations";
 import "./Styles.scss";
 
 const InputAmount = (props) => {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     const inputRef = useRef(null);
-    const [value, setValue] = useState("");
+    //const [value, setValue] = useState("");
     const {
         balanceText,
         action,
@@ -99,3 +100,14 @@ const InputAmount = (props) => {
 };
 
 export default InputAmount;
+
+InputAmount.propTypes = {
+    balanceText: PropTypes.string,
+    action: PropTypes.string,
+    balance: PropTypes.object,
+    placeholder: PropTypes.string,
+    inputValue: PropTypes.string,
+    onValueChange: PropTypes.func,
+    setAddTotalAvailable: PropTypes.func,
+    validateError: PropTypes.bool,
+};

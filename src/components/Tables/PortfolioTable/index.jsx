@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Skeleton } from "antd";
+import { Skeleton } from "antd";
+import BigNumber from "bignumber.js";
+import NumericLabel from "react-pretty-numbers";
 
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import NumericLabel from "react-pretty-numbers";
 import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import "./Styles.scss";
 
-export default function PortfolioTable(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+export default function PortfolioTable() {
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
 
@@ -76,6 +76,7 @@ export default function PortfolioTable(props) {
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);
 
+            /*
             const priceDeltaFormat = priceDelta.toFormat(
                 t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
                 BigNumber.ROUND_UP,
@@ -83,7 +84,7 @@ export default function PortfolioTable(props) {
                     decimalSeparator: ".",
                     groupSeparator: ",",
                 }
-            );
+            );*/
             const getSign = () => {
                 if (priceDelta.isZero()) {
                     return "";
@@ -404,15 +405,16 @@ export default function PortfolioTable(props) {
             balanceUSD = balance.times(price);
 
             // variation
-            const priceHistory = new BigNumber(
+            /*const priceHistory = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData.historic.PP_TP[dataItem.key],
                     settings.tokens.TP[dataItem.key].decimals
                 )
-            );
-            const priceDelta = price.minus(priceHistory);
-            const variation = priceDelta.abs().div(priceHistory).times(100);
+            );*/
+            //const priceDelta = price.minus(priceHistory);
+            //const variation = priceDelta.abs().div(priceHistory).times(100);
 
+            /*
             const priceDeltaFormat = priceDelta.toFormat(
                 2,
                 BigNumber.ROUND_UP,
@@ -424,7 +426,7 @@ export default function PortfolioTable(props) {
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: ".",
                 groupSeparator: ",",
-            });
+            });*/
 
             const itemIndex = count;
 
@@ -575,6 +577,7 @@ export default function PortfolioTable(props) {
 
         const itemIndex = count;
 
+        /*
         const priceDeltaFormat = priceDelta.toFormat(
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
@@ -582,7 +585,7 @@ export default function PortfolioTable(props) {
                 decimalSeparator: ".",
                 groupSeparator: ",",
             }
-        );
+        );*/
         const getSign = () => {
             if (priceDelta.isZero()) {
                 return "";
@@ -738,6 +741,7 @@ export default function PortfolioTable(props) {
 
         const itemIndex = count;
 
+        /*
         const priceDeltaFormat = priceDelta.toFormat(
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
@@ -745,7 +749,7 @@ export default function PortfolioTable(props) {
                 decimalSeparator: ".",
                 groupSeparator: ",",
             }
-        );
+        );*/
         const getSign = () => {
             if (priceDelta.isZero()) {
                 return "";
@@ -907,14 +911,15 @@ export default function PortfolioTable(props) {
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);
 
-            let signPriceDelta = "";
-            if (priceDelta.gt(0)) signPriceDelta = "+";
+            //let signPriceDelta = "";
+            //if (priceDelta.gt(0)) signPriceDelta = "+";
 
+            /*
             const priceDeltaFormat = priceDelta.toFormat(
                 2,
                 BigNumber.ROUND_UP,
                 { decimalSeparator: ".", groupSeparator: "," }
-            );
+            );*/
             const getSign = () => {
                 if (priceDelta.isZero()) {
                     return "";

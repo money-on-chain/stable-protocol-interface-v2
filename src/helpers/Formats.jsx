@@ -1,27 +1,25 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
 const formatLocalMap = {
     es: {
-        decimalSeparator: ',',
-        groupSeparator: '.'
+        decimalSeparator: ",",
+        groupSeparator: ".",
     },
     en: {
-        decimalSeparator: '.',
-        groupSeparator: ','
-    }
+        decimalSeparator: ".",
+        groupSeparator: ",",
+    },
 };
 
 // default format
 BigNumber.config({
-    FORMAT: formatLocalMap.en
+    FORMAT: formatLocalMap.en,
 });
 
 const fromContractPrecisionDecimals = (amount, decimals) => {
-    return new BigNumber(amount).div(new BigNumber(10).exponentiatedBy(decimals));
+    return new BigNumber(amount).div(
+        new BigNumber(10).exponentiatedBy(decimals)
+    );
 };
 
-
-export { 
-    formatLocalMap, 
-    fromContractPrecisionDecimals
-};
+export { formatLocalMap, fromContractPrecisionDecimals };

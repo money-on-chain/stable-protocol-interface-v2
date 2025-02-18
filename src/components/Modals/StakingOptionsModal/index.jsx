@@ -2,6 +2,7 @@ import { Modal, Button, Spin, notification, Checkbox } from "antd";
 import React, { useEffect, useState, useContext, Fragment } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Web3 from "web3";
+import PropTypes from "prop-types";
 
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
@@ -11,7 +12,7 @@ import settings from "../../../settings/settings.json";
 
 export default function StakingOptionsModal(props) {
     const auth = useContext(AuthenticateContext);
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const { accountData = {} } = auth;
     const { mode, onClose, visible, amount, onConfirm, withdrawalId } = props;
 
@@ -69,7 +70,7 @@ export default function StakingOptionsModal(props) {
                 onReceipt,
                 onError
             )
-            .then((res) => {
+            .then((/*res*/) => {
                 setStep(3);
                 return null;
             })
@@ -109,13 +110,13 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? "success" : "error";
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
 
                 return null;
             })
-            .catch((e) => {
+            .catch((/*e*/) => {
                 notification["error"]({
                     message: t("global.RewardsError_Title"),
                     description: t("global.RewardsError_Message"),
@@ -149,7 +150,7 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? "success" : "error";
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
 
@@ -185,7 +186,7 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? "success" : "error";
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
 
@@ -226,7 +227,7 @@ export default function StakingOptionsModal(props) {
                 const status = res.status ? "success" : "error";
                 onConfirm(status, res.transactionHash);
 
-                auth.loadContractsStatusAndUserBalance().then((value) => {
+                auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                     console.log("Refresh user balance OK!");
                 });
 
@@ -658,3 +659,12 @@ export default function StakingOptionsModal(props) {
         </Modal>
     );
 }
+
+StakingOptionsModal.propTypes = {
+    mode: PropTypes.string,
+    onClose: PropTypes.func,
+    visible: PropTypes.bool,
+    amount: PropTypes.bigint,
+    onConfirm: PropTypes.func,
+    withdrawalId: PropTypes.string,
+};

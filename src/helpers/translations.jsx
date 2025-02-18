@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const useProjectTranslation = () => {
-    const ns = 'translation';
+    const ns = "translation";
     const [t, i18n] = useTranslation();
 
-    return [t, i18n, ns];
+    return { t, i18n, ns };
 };

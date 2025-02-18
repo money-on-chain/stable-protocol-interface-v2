@@ -4,7 +4,7 @@ import Web3 from "web3";
 import settings from "../../../settings/settings.json";
 
 const vestingVerify = async (interfaceContext, onTransaction, onReceipt) => {
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
 
     const VestingMachine = dContracts.contracts.VestingMachine;
@@ -56,7 +56,7 @@ const approve = async (interfaceContext, amount, onTransaction, onReceipt) => {
 };
 
 const deposit = async (interfaceContext, amount, onTransaction, onReceipt) => {
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
     const tokenDecimals = settings.tokens.TG[0].decimals;
     const VestingMachine = dContracts.contracts.VestingMachine;
@@ -110,7 +110,7 @@ const withdraw = async (interfaceContext, amount, onTransaction, onReceipt) => {
 };
 
 const withdrawAll = async (interfaceContext, onTransaction, onReceipt) => {
-    const { web3, account, userBalanceData } = interfaceContext;
+    const { web3, account } = interfaceContext;
     const dContracts = window.dContracts;
 
     const VestingMachine = dContracts.contracts.VestingMachine;

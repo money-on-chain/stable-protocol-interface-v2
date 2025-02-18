@@ -1,15 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useProjectTranslation } from "../../../helpers/translations";
+import React, { useContext, useState } from "react";
 import { Button } from "antd";
-import "./style.scss";
-import { AuthenticateContext } from "../../../context/Auth";
-
-import TokenMigratePNG from "./../../../assets/icons/tokenmigrate.png";
-import Copy from "../../Copy";
 import BigNumber from "bignumber.js";
 import Web3 from "web3";
+import PropTypes from "prop-types";
+
+import { useProjectTranslation } from "../../../helpers/translations";
+import { AuthenticateContext } from "../../../context/Auth";
+import TokenMigratePNG from "./../../../assets/icons/tokenmigrate.png";
+import Copy from "../../Copy";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { TokenSettings } from "../../../helpers/currencies";
+import "./style.scss";
 
 const SwapToken = (props) => {
     const { onCloseModal } = props;
@@ -19,7 +20,7 @@ const SwapToken = (props) => {
         "0x0000000000000000000000000000000000000000"
     );
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const onClose = () => {
@@ -51,10 +52,10 @@ const SwapToken = (props) => {
             onReceiptTokenMigration,
             onErrorTokenMigration
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 onSuccess();
             })
-            .catch((response) => {
+            .catch((/*response*/) => {
                 onClose();
             });
     };
@@ -114,10 +115,10 @@ const SwapToken = (props) => {
                 onReceiptAuthorize,
                 onErrorAuthorize
             )
-                .then((value) => {
+                .then((/*value*/) => {
                     onTokenMigration();
                 })
-                .catch((response) => {
+                .catch((/*response*/) => {
                     onClose();
                 });
         }
@@ -176,6 +177,9 @@ const SwapToken = (props) => {
     let title;
     let btnLabel = t("swapModal.buttonConfirm");
     let btnDisable = false;
+    const tpLegacyBalance = new BigNumber(
+        Web3.utils.fromWei(auth.userBalanceData.tpLegacy.balance, "ether")
+    );
     switch (status) {
         case "SUBMIT":
             title = t("swapModal.modalTitle1");
@@ -184,12 +188,6 @@ const SwapToken = (props) => {
         case "CONFIRM":
             title = t("swapModal.modalTitle2");
             btnLabel = t("defaultCTA.buttonExchange");
-            const tpLegacyBalance = new BigNumber(
-                Web3.utils.fromWei(
-                    auth.userBalanceData.tpLegacy.balance,
-                    "ether"
-                )
-            );
             if (tpLegacyBalance.eq(0)) btnDisable = true;
             break;
         case "ALLOWANCE-SIGN":
@@ -246,9 +244,7 @@ const SwapToken = (props) => {
                                                 .tpLegacy.balance,
                                             token: TokenSettings("TP_0"),
                                             decimals: 4,
-                                            t: t,
                                             i18n: i18n,
-                                            ns: ns,
                                             skipContractConvert: false,
                                         })}
                                     </div>
@@ -266,9 +262,7 @@ const SwapToken = (props) => {
                                                 .tpLegacy.balance,
                                             token: TokenSettings("TP_0"),
                                             decimals: 4,
-                                            t: t,
                                             i18n: i18n,
-                                            ns: ns,
                                             skipContractConvert: false,
                                         })}
                                     </div>
@@ -441,3 +435,7 @@ const SwapToken = (props) => {
 };
 
 export default SwapToken;
+
+SwapToken.propTypes = {
+    onCloseModal: PropTypes.func,
+};

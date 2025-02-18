@@ -2,9 +2,11 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 import { Table, Skeleton, Modal } from "antd";
 import Moment from "react-moment";
+import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
+
 import RowDetailMobile from "../RowDetailMobile";
 import api from "../../../services/api";
-
 import Copy from "../../Copy";
 import date from "../../../helpers/date";
 import { AuthenticateContext } from "../../../context/Auth";
@@ -12,7 +14,6 @@ import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import BigNumber from "bignumber.js";
 import { TokenSettings } from "../../../helpers/currencies";
 import AboutQueue from "../../Modals/AboutQueue";
 import "./Styles.scss";
@@ -20,7 +21,7 @@ import "./Styles.scss";
 export default function LastOperations(props) {
     const { token } = props;
     const [current, setCurrent] = useState(1);
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     /*useEffect(() => {
@@ -33,7 +34,7 @@ export default function LastOperations(props) {
     const [dataJson, setDataJson] = useState([]);
     const [totalTable, setTotalTable] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [loadingSke, setLoadingSke] = useState(true);
+    //const [loadingSke, setLoadingSke] = useState(true);
     const [queueModal, setQueueModal] = useState(false);
     const lastOperationsHeight = getComputedStyle(
         document.querySelector(":root")
@@ -41,18 +42,18 @@ export default function LastOperations(props) {
         .getPropertyValue("--lastOperationsHeight")
         .split('"')
         .join("");
-    const timeSke = 1500;
+    /*const timeSke = 1500;*/
     var data = [];
     const received_row = [];
     var txList = [];
-    const transactionsList = (skip) => {
+    const transactionsList = (/*skip*/) => {
         if (auth.isLoggedIn) {
             console.log("Loading table…");
-            const datas = {
+            /*const datas = {
                 address: accountData.Owner,
                 limit: 10,
                 skip: (skip - 1 + (skip - 1)) * 10,
-            };
+            };*/
             setTimeout(() => {
                 const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
                 const queryParams = new URLSearchParams({
@@ -91,6 +92,11 @@ export default function LastOperations(props) {
             {expanded ? <UpCircleOutlined /> : <DownCircleOutlined />}
         </div>
     );
+
+    ExpandIcon.propTypes = {
+        expanded: PropTypes.bool,
+        onClick: PropTypes.func,
+    };
 
     // #endsection Operation detail custom expand function
 
@@ -335,7 +341,13 @@ export default function LastOperations(props) {
                 return t("operations.errors.lowCoverage");
             case "Invalid Flux Capacitor Operation":
                 return t("operations.errors.fluxCapacitor");
-            case null || undefined || "" || " " || 0 || "null":
+            case "":
+                return t("operations.errors.noMessage");
+            case " ":
+                return t("operations.errors.noMessage");
+            case 0:
+                return t("operations.errors.noMessage");
+            case "null":
                 return t("operations.errors.noMessage");
             default:
                 return error;
@@ -626,9 +638,9 @@ export default function LastOperations(props) {
 
     data_row(current);
     const tableColumns = columns.map((item) => ({ ...item }));
-    useEffect(() => {
+    /*useEffect(() => {
         setTimeout(() => setLoadingSke(false), timeSke);
-    }, [auth]);
+    }, [auth]);*/
     function TruncatedAddress(address, length = 6) {
         if (!address) return "";
 
@@ -725,6 +737,7 @@ export default function LastOperations(props) {
             return t("operations.actions.origin");
         }
     }
+    /*
     function truncateAddress(address) {
         if (address === "") return "";
         return (
@@ -732,7 +745,7 @@ export default function LastOperations(props) {
             "..." +
             address.substring(address.length - 4, address.length)
         );
-    }
+    }*/
     function getTransferAddress(row_operation) {
         if (
             row_operation["params"]["sender"].toLowerCase() ===
@@ -947,3 +960,9 @@ export default function LastOperations(props) {
         </>
     );
 }
+
+LastOperations.propTypes = {
+    token: PropTypes.string,
+    /*expanded: PropTypes.bool,
+    onClick: PropTypes.func,*/
+};

@@ -4,13 +4,11 @@ import { Skeleton } from "antd";
 
 import { AuthenticateContext } from "../../context/Auth";
 import Staking from "../../components/Staking";
-import { useProjectTranslation } from "../../helpers/translations";
 import UseVestingAlert from "../../components/Notification/UsingVestingAlert";
 
 import "./Styles.scss";
 
-function SectionStaking(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+function SectionStaking() {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     const [usingVestingAddress, setUsingVestingAddress] = useState("");

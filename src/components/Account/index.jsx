@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { notification, Switch, Select, Input } from "antd";
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
@@ -13,8 +14,8 @@ import {
 } from "../../helpers/vesting";
 
 import VestingMachine from "../../contracts/omoc/VestingMachine.json";
-import { withSuccess } from "antd/lib/modal/confirm";
-import settings from "../../settings/settings.json";
+//import { withSuccess } from "antd/lib/modal/confirm";
+//import settings from "../../settings/settings.json";
 
 const { Option } = Select;
 
@@ -33,7 +34,7 @@ function removeAllItem(arr, value) {
 export default function AccountDialog(props) {
     const { onCloseModal, truncatedAddress, vestingOn, setVestingOn } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [qrValue, setQrValue] = useState(null);
     const [actionVesting, setActionVesting] = useState("select");
@@ -84,8 +85,8 @@ export default function AccountDialog(props) {
 
     const onCopy = (e) => {
         e.stopPropagation();
-        navigator.clipboard.writeText(address);
-        showNotificationCopiedAddress(address);
+        /*navigator.clipboard.writeText(address);
+        showNotificationCopiedAddress(address);*/
     };
 
     const onCopyVesting = (e) => {
@@ -264,7 +265,7 @@ export default function AccountDialog(props) {
             auth.userBalanceData.vestingmachine = undefined;
 
             // Refresh status
-            auth.loadContractsStatusAndUserBalance().then((value) => {
+            auth.loadContractsStatusAndUserBalance().then((/*value*/) => {
                 console.log("Refresh user balance OK!");
             });
         }
@@ -326,7 +327,8 @@ export default function AccountDialog(props) {
                 </div>
             </div>
 
-            {typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== 'undefined' && (
+            {typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !==
+                "undefined" && (
                 <div className="switch switch__vesting">
                     <Switch
                         checked={vestingOn}
@@ -448,3 +450,10 @@ export default function AccountDialog(props) {
         </div>
     );
 }
+
+AccountDialog.propTypes = {
+    onCloseModal: PropTypes.func,
+    truncatedAddress: PropTypes.string,
+    vestingOn: PropTypes.bool,
+    setVestingOn: PropTypes.func,
+};

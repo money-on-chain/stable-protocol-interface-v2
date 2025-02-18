@@ -1,9 +1,9 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { useProjectTranslation } from "../../helpers/translations";
 import useTheme from "../UseTheme";
 
 export default function ThemeMode() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const { theme, toggleTheme } = useTheme();
 
     return (

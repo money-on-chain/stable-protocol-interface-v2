@@ -1,6 +1,9 @@
 import {
-    mintTC as mintTC_, redeemTC as redeemTC_, mintTP as mintTP_, redeemTP as redeemTP_
-} from './moc-core.jsx'
+    mintTC as mintTC_,
+    redeemTC as redeemTC_,
+    mintTP as mintTP_,
+    redeemTP as redeemTP_,
+} from "./moc-core.jsx";
 
 const mintTC = async (
     interfaceContext,
@@ -17,8 +20,8 @@ const mintTC = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
+    );
+};
 
 const redeemTC = async (
     interfaceContext,
@@ -35,8 +38,8 @@ const redeemTC = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
+    );
+};
 
 const mintTP = async (
     interfaceContext,
@@ -55,8 +58,8 @@ const mintTP = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
+    );
+};
 
 const redeemTP = async (
     interfaceContext,
@@ -75,12 +78,7 @@ const redeemTP = async (
         limitAmount,
         onTransaction,
         onReceipt
-    )
-}
+    );
+};
 
-export {
-    mintTC,
-    redeemTC,
-    mintTP,
-    redeemTP
-}
+export { mintTC, redeemTC, mintTP, redeemTP };

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
 
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import settings from "../../../settings/settings.json";
@@ -7,7 +8,7 @@ import { useProjectTranslation } from "../../../helpers/translations";
 import "./Styles.scss";
 
 const Dashboard = (props) => {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const { userInfoStaking } = props;
 
     return (
@@ -141,3 +142,7 @@ const Dashboard = (props) => {
 };
 
 export default Dashboard;
+
+Dashboard.propTypes = {
+    userInfoStaking: PropTypes.object,
+};

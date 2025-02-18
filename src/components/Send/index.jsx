@@ -1,9 +1,9 @@
-import { Button, Input } from "antd";
+import { Input } from "antd";
 import React, { useContext, useState, useEffect } from "react";
+import BigNumber from "bignumber.js";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import CurrencyPopUp from "../CurrencyPopUp";
-
 import {
     TokenSettings,
     TokenBalance,
@@ -13,14 +13,12 @@ import { tokenExchange } from "../../helpers/exchange";
 import settings from "../../settings/settings.json";
 import { PrecisionNumbers } from "../PrecisionNumbers";
 import { AuthenticateContext } from "../../context/Auth";
-
 import InputAmount from "../InputAmount";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import ModalConfirmSend from "../Modals/ConfirmSend";
 
 export default function Send() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const tokenSend = tokenExchange();
@@ -37,7 +35,7 @@ export default function Send() {
 
     const [sendingUSD, setSendingUSD] = useState(new BigNumber(0));
 
-    const [isDirtyYouSend, setIsDirtyYouSend] = useState(false);
+    //const [isDirtyYouSend, setIsDirtyYouSend] = useState(false);
 
     const [inputValidationErrorText, setInputValidationErrorText] =
         useState("");
@@ -69,7 +67,7 @@ export default function Send() {
     };
 
     const onClear = () => {
-        setIsDirtyYouSend(false);
+        //setIsDirtyYouSend(false);
         setAmountYouSend("");
     };
 
@@ -130,7 +128,7 @@ export default function Send() {
     const onChangeAmountYouSend = (newAmount, isPriceOnly = false) => {
         const newAmountBig = new BigNumber(newAmount);
         if (!isPriceOnly) {
-            setIsDirtyYouSend(true);
+            //setIsDirtyYouSend(true);
             setAmountYouSend(newAmount);
         }
 
@@ -168,7 +166,7 @@ export default function Send() {
     };
 
     const setAddTotalAvailable = () => {
-        setIsDirtyYouSend(false);
+        //setIsDirtyYouSend(false);
 
         const tokenSettings = TokenSettings(currencyYouSend);
         const totalYouSend = new BigNumber(
@@ -212,9 +210,7 @@ export default function Send() {
                                 decimals:
                                     TokenSettings(currencyYouSend)
                                         .visibleDecimals,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                             })}
                             setAddTotalAvailable={setAddTotalAvailable}
                             action={t("send.labelSending")}
@@ -262,9 +258,7 @@ export default function Send() {
                                     amount: sendingUSD,
                                     token: TokenSettings("CA_0"),
                                     decimals: 2,
-                                    t: t,
                                     i18n: i18n,
-                                    ns: ns,
                                     skipContractConvert: true,
                                 })}
                             </span>

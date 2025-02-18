@@ -1,9 +1,11 @@
-import BigNumber from 'bignumber.js';
-import React, { useContext, useState, useEffect } from 'react';
-import { Checkbox } from 'antd';
+import BigNumber from "bignumber.js";
+import React, { useContext, useState } from "react";
+import { Checkbox } from "antd";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import { AuthenticateContext } from '../../context/Auth';
+import { useProjectTranslation } from "../../helpers/translations";
+import { AuthenticateContext } from "../../context/Auth";
+//import AccountDialog from '../Account';
 
 export default function AllowanceDialog(props) {
     const {
@@ -11,39 +13,39 @@ export default function AllowanceDialog(props) {
         currencyYouExchange,
         currencyYouReceive,
         amountYouExchangeLimit,
-        amountYouReceiveLimit,
+        //amountYouReceiveLimit,
         onRealSendTransaction,
-        disAllowance
+        disAllowance,
     } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
-    const [status, setStatus] = useState('SUBMIT');
+    const [status, setStatus] = useState("SUBMIT");
     let infinityAllowance = false;
 
-    let sentIcon = '';
-    let statusLabel = '';
+    let sentIcon = "";
+    let statusLabel = "";
     switch (status) {
-        case 'SUBMIT':
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('allowance.feedback.submit');
+        case "SUBMIT":
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("allowance.feedback.submit");
             break;
-        case 'SIGN':
-            sentIcon = 'icon-tx-signWallet';
-            statusLabel = t('allowance.feedback.sign');
+        case "SIGN":
+            sentIcon = "icon-tx-signWallet";
+            statusLabel = t("allowance.feedback.sign");
             break;
-        case 'WAITING':
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('allowance.feedback.waiting');
+        case "WAITING":
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("allowance.feedback.waiting");
             break;
-        case 'ERROR':
-            sentIcon = 'icon-tx-error';
-            statusLabel = t('allowance.feedback.error');
+        case "ERROR":
+            sentIcon = "icon-tx-error";
+            statusLabel = t("allowance.feedback.error");
             break;
         default:
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('allowance.feedback.default');
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("allowance.feedback.default");
     }
 
     const onChange = (e) => {
@@ -52,7 +54,7 @@ export default function AllowanceDialog(props) {
     };
 
     const reset = () => {
-        setStatus('SUBMIT');
+        setStatus("SUBMIT");
         infinityAllowance = false;
     };
 
@@ -76,7 +78,7 @@ export default function AllowanceDialog(props) {
             amountAllowance = new BigNumber(0);
         }
 
-        setStatus('SIGN');
+        setStatus("SIGN");
         auth.interfaceAllowanceAmount(
             currencyYouExchange,
             currencyYouReceive,
@@ -84,24 +86,24 @@ export default function AllowanceDialog(props) {
             onTransaction,
             onReceipt
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 onClose();
             })
             .catch((error) => {
-                console.log('ERROR');
-                setStatus('ERROR');
+                console.log(error);
+                setStatus("ERROR");
             });
     };
 
     const onTransaction = (transactionHash) => {
         // Tx receipt detected change status to waiting
-        setStatus('WAITING');
-        console.log('On transaction: ', transactionHash);
+        setStatus("WAITING");
+        console.log("On transaction: ", transactionHash);
     };
 
     const onReceipt = async (receipt) => {
         // Tx is mined ok proceed with operation transaction
-        console.log('On receipt: ', receipt);
+        console.log("On receipt: ", receipt);
         /*
         // Events name list
         const filter = [
@@ -124,17 +126,17 @@ export default function AllowanceDialog(props) {
     return (
         <div className="AllowanceDialog">
             <div className="tx-amount-group">
-                {status === 'SUBMIT' && (
+                {status === "SUBMIT" && (
                     <div className="tx-feedback-container">
                         {disAllowance ? (
                             <div className="tx-feedback-text">
-                                {t('allowance.statusDisallowanceText')}
+                                {t("allowance.statusDisallowanceText")}
                             </div>
                         ) : (
                             <div className="tx-feedback-text">
-                                {t('allowance.statusText1')}
+                                {t("allowance.statusText1")}
                                 <br />
-                                {t('allowance.statusText2')}
+                                {t("allowance.statusText2")}
                             </div>
                         )}
                         <div className="option-checkbox">
@@ -143,7 +145,7 @@ export default function AllowanceDialog(props) {
                                     className="check-unlimited"
                                     onChange={onChange}
                                 >
-                                    {t('allowance.setUnlimited')}
+                                    {t("allowance.setUnlimited")}
                                 </Checkbox>
                             )}
                         </div>
@@ -154,23 +156,23 @@ export default function AllowanceDialog(props) {
                                     className="button secondary"
                                     onClick={onClose}
                                 >
-                                    {t('allowance.confirm.cancel')}
+                                    {t("allowance.confirm.cancel")}
                                 </button>
                                 <button
                                     type="primary"
                                     className="button"
                                     onClick={onAuthorize}
                                 >
-                                    {t('allowance.confirm.authorize')}
+                                    {t("allowance.confirm.authorize")}
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
 
-                {(status === 'SIGN' ||
-                    status === 'WAITING' ||
-                    status === 'ERROR') && (
+                {(status === "SIGN" ||
+                    status === "WAITING" ||
+                    status === "ERROR") && (
                     <div className="tx-amount-group">
                         <div className="tx-feedback-container">
                             <div className="tx-feedback-text">
@@ -187,13 +189,22 @@ export default function AllowanceDialog(props) {
                                     className="button secondary"
                                     onClick={onClose}
                                 >
-                                    {t('allowance.confirm.cancel')}
+                                    {t("allowance.confirm.cancel")}
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
-            </div>{' '}
+            </div>{" "}
         </div>
     );
 }
+
+AllowanceDialog.propTypes = {
+    onCloseModal: PropTypes.func,
+    currencyYouExchange: PropTypes.string,
+    currencyYouReceive: PropTypes.string,
+    amountYouExchangeLimit: PropTypes.object,
+    onRealSendTransaction: PropTypes.func,
+    disAllowance: PropTypes.bool,
+};

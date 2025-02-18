@@ -2,6 +2,7 @@ import BigNumber from "bignumber.js";
 import React, { useContext, useState, useEffect } from "react";
 import { Button, Collapse, Slider } from "antd";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
@@ -11,9 +12,9 @@ import { AuthenticateContext } from "../../context/Auth";
 import { isMintOperation, UserTokenAllowance } from "../../helpers/exchange";
 import ModalAllowanceOperation from "../Modals/Allowance";
 import CopyAddress from "../CopyAddress";
-import settings from "../../settings/settings.json";
+//import settings from "../../settings/settings.json";
 import TXStatus from "./TXStatus";
-import { decodeEvents } from '../../lib/backend/transaction';
+import { decodeEvents } from "../../lib/backend/transaction";
 
 const { Panel } = Collapse;
 
@@ -35,7 +36,7 @@ export default function ConfirmOperation(props) {
         radioSelectFee,
     } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     const [status, setStatus] = useState("SUBMIT");
@@ -223,7 +224,7 @@ export default function ConfirmOperation(props) {
             onTransaction,
             onReceipt
         )
-            .then((value) => {
+            .then((/*value*/) => {
                 console.log("DONE!");
             })
             .catch((error) => {
@@ -270,13 +271,13 @@ export default function ConfirmOperation(props) {
 
                         // Refresh user balance
                         auth.loadContractsStatusAndUserBalance().then(
-                            (value) => {
+                            (/*value*/) => {
                                 console.log("Refresh user balance OK!");
                             }
                         );
 
                         console.log("Operation Status: OK Executed.");
-                    } else if (response.data.status === 1) {
+                    } else {
                         setStatus("ERROR");
 
                         // Remove Op ID
@@ -329,13 +330,13 @@ export default function ConfirmOperation(props) {
 
         // Events name list
         const filter = [
-            'OperationError',
-            'UnhandledError',
-            'OperationQueued',
-            'OperationExecuted'
+            "OperationError",
+            "UnhandledError",
+            "OperationQueued",
+            "OperationExecuted",
         ];
 
-        const contractName = 'MocQueue';
+        const contractName = "MocQueue";
 
         const txRcp = await auth.web3.eth.getTransactionReceipt(
             receipt.transactionHash
@@ -355,7 +356,7 @@ export default function ConfirmOperation(props) {
         ERROR: t("exchange.confirm.error"),
         DEFAULT: t("exchange.confirm.default"),
     };
-    let sentIcon = "";
+    /*let sentIcon = "";
     let statusLabel = "";
     switch (status) {
         case "SUBMIT":
@@ -389,7 +390,7 @@ export default function ConfirmOperation(props) {
         default:
             sentIcon = "icon-tx-waiting";
             statusLabel = t("exchange.confirm.default");
-    }
+    }*/
 
     const markStyle = {
         style: {
@@ -474,9 +475,7 @@ export default function ConfirmOperation(props) {
                                 decimals: amountYouExchangeLimit.lt(0.0000001)
                                     ? 12
                                     : 8,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </div>
@@ -508,9 +507,7 @@ export default function ConfirmOperation(props) {
                                 decimals: amountYouReceive.lt(0.0000001)
                                     ? 12
                                     : 8,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </div>
@@ -533,9 +530,7 @@ export default function ConfirmOperation(props) {
                                             currencyYouReceive
                                         ),
                                         decimals: 4,
-                                        t: t,
                                         i18n: i18n,
-                                        ns: ns,
                                         skipContractConvert: true,
                                     })}
                                 </div>
@@ -555,9 +550,7 @@ export default function ConfirmOperation(props) {
                                 amount: new BigNumber(commissionPercentPAY),
                                 token: commissionSettings,
                                 decimals: 2,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                             %)
@@ -567,9 +560,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: new BigNumber(commissionPAY),
                                 token: commissionSettings,
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </span>
@@ -585,9 +576,7 @@ export default function ConfirmOperation(props) {
                                       amount: new BigNumber(commissionPAYUSD),
                                       decimals: 2,
                                       token: TokenSettings("CA_0"),
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       isUSD: true,
                                       skipContractConvert: true,
                                   })}
@@ -607,9 +596,7 @@ export default function ConfirmOperation(props) {
                             {PrecisionNumbers({
                                 amount: executionFee,
                                 token: TokenSettings("COINBASE"),
-                                t: t,
                                 i18n: i18n,
-                                ns: ns,
                                 skipContractConvert: true,
                             })}
                         </span>
@@ -683,9 +670,7 @@ export default function ConfirmOperation(props) {
                                         amount: exchangingUSD,
                                         token: TokenSettings("CA_0"),
                                         decimals: 4,
-                                        t: t,
                                         i18n: i18n,
-                                        ns: ns,
                                         skipContractConvert: true,
                                         isUSD: true,
                                     })}
@@ -808,3 +793,20 @@ export default function ConfirmOperation(props) {
         </div>
     );
 }
+
+ConfirmOperation.propTypes = {
+    currencyYouExchange: PropTypes.string,
+    currencyYouReceive: PropTypes.string,
+    exchangingUSD: PropTypes.object,
+    commission: PropTypes.object,
+    commissionUSD: PropTypes.object,
+    commissionPercent: PropTypes.object,
+    inputAmountYouExchange: PropTypes.object,
+    amountYouReceive: PropTypes.object,
+    onCloseModal: PropTypes.func,
+    executionFee: PropTypes.object,
+    commissionFeeToken: PropTypes.object,
+    commissionFeeTokenUSD: PropTypes.object,
+    commissionPercentFeeToken: PropTypes.object,
+    radioSelectFee: PropTypes.number,
+};

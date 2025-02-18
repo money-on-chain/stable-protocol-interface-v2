@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Skeleton, Table } from "antd";
+import BigNumber from "bignumber.js";
+import NumericLabel from "react-pretty-numbers";
 
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import NumericLabel from "react-pretty-numbers";
 
-export default function Tokens(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+export default function Tokens() {
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {
@@ -19,14 +19,16 @@ export default function Tokens(props) {
         }
     }, [auth]);
 
-    const portfTableHeight = getComputedStyle(document.querySelector(":root"))
+    /*const portfTableHeight = getComputedStyle(document.querySelector(":root"))
         .getPropertyValue("--portfolioTokenHeight")
         .split('"')
         .join("");
-    const portfPeggedHeight = getComputedStyle(document.querySelector(":root"))
+     */
+    /*const portfPeggedHeight = getComputedStyle(document.querySelector(":root"))
         .getPropertyValue("--portfolioPeggedHeight")
         .split('"')
         .join("");
+     */
     const tokensData = [];
     const columnsData = [{ title: "Token", dataIndex: "details" }];
     const params = Object.assign({
@@ -90,14 +92,14 @@ export default function Tokens(props) {
             const priceDelta = price.minus(priceHistory);
             const variation = priceDelta.abs().div(priceHistory).times(100);
 
-            const priceDeltaFormat = priceDelta.toFormat(
+            /*const priceDeltaFormat = priceDelta.toFormat(
                 t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
                 BigNumber.ROUND_UP,
                 {
                     decimalSeparator: ".",
                     groupSeparator: ",",
                 }
-            );
+            );*/
             const getSign = () => {
                 if (priceDelta.isZero()) {
                     return "";
@@ -402,24 +404,25 @@ export default function Tokens(props) {
             // If it's not pegged to 1:1 USD not display in this table
             if (!dataItem.peggedUSD) return;
 
-        balance = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.userBalanceData.TP[dataItem.key].balance,
-                settings.tokens.TP[dataItem.key].decimals
-            )
-        );
-        price = new BigNumber(1);
-        balanceUSD = balance.times(price);
-        // variation
-        const priceHistory = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_TP[dataItem.key],
-                settings.tokens.TP[dataItem.key].decimals
-            )
-        );
-        const priceDelta = price.minus(priceHistory);
-        const variation = priceDelta.abs().div(priceHistory).times(100);
+            balance = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.userBalanceData.TP[dataItem.key].balance,
+                    settings.tokens.TP[dataItem.key].decimals
+                )
+            );
+            price = new BigNumber(1);
+            balanceUSD = balance.times(price);
+            // variation
+            /*const priceHistory = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.historic.PP_TP[dataItem.key],
+                    settings.tokens.TP[dataItem.key].decimals
+                )
+            );*/
+            //const priceDelta = price.minus(priceHistory);
+            //const variation = priceDelta.abs().div(priceHistory).times(100);
 
+            /*
             const priceDeltaFormat = priceDelta.toFormat(
                 2,
                 BigNumber.ROUND_UP,
@@ -431,7 +434,7 @@ export default function Tokens(props) {
             const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
                 decimalSeparator: ".",
                 groupSeparator: ",",
-            });
+            });*/
 
             const itemIndex = count;
 
@@ -574,14 +577,14 @@ export default function Tokens(props) {
 
         const itemIndex = count;
 
-        const priceDeltaFormat = priceDelta.toFormat(
+        /*const priceDeltaFormat = priceDelta.toFormat(
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
             {
                 decimalSeparator: ".",
                 groupSeparator: ",",
             }
-        );
+        );*/
         const getSign = () => {
             if (priceDelta.isZero()) {
                 return "";
@@ -725,6 +728,7 @@ export default function Tokens(props) {
 
         const itemIndex = count;
 
+        /*
         const priceDeltaFormat = priceDelta.toFormat(
             t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
             BigNumber.ROUND_UP,
@@ -732,7 +736,7 @@ export default function Tokens(props) {
                 decimalSeparator: ".",
                 groupSeparator: ",",
             }
-        );
+        );*/
         const getSign = () => {
             if (priceDelta.isZero()) {
                 return "";

@@ -1,13 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Modal from 'antd/lib/modal/Modal';
+import React from "react";
+import Modal from "antd/lib/modal/Modal";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import Allowance from '../../Allowance';
+import Allowance from "../../Allowance";
 
 export default function ModalAllowanceOperation(props) {
     const { visible, onHideModalAllowance, title } = props;
-
-    const [t, i18n, ns] = useProjectTranslation();
 
     return (
         <div className="ShowModalAllowance">
@@ -21,10 +19,16 @@ export default function ModalAllowanceOperation(props) {
                 className="ModalAllowance"
                 centered={true}
                 maskClosable={false}
-                maskStyle={{  }}
+                maskStyle={{}}
             >
                 <Allowance {...props} onCloseModal={onHideModalAllowance} />
             </Modal>
         </div>
     );
 }
+
+ModalAllowanceOperation.propTypes = {
+    visible: PropTypes.bool,
+    onHideModalAllowance: PropTypes.func,
+    title: PropTypes.string,
+};

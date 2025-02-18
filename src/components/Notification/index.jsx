@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
-import './Styles.scss';
+import React /*, { useEffect }*/ from "react";
+import PropTypes from "prop-types";
+
+import { useProjectTranslation } from "../../helpers/translations";
+import "./Styles.scss";
 
 export default function NotificationBody(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const [visible, setVisible] = useState(false);
+    const { t } = useProjectTranslation();
+    //const [visible, setVisible] = useState(false);
     const { notifStatus } = props;
+
+    /*
     useEffect(() => {
         console.log('props', props.notifStatus);
-    }, [props]);
+    }, [props]);*/
 
+    /*
     const showModal = () => {
         setVisible(true);
-    };
+    };*/
 
     const hideModal = () => {
-        setVisible(false);
+        //setVisible(false);
     };
 
     return (
@@ -31,7 +36,7 @@ export default function NotificationBody(props) {
                 {notifStatus.isDismisable && (
                     <div className="action">
                         <button onClick={hideModal}>
-                            {t('notification.dismiss')}
+                            {t("notification.dismiss")}
                         </button>
                     </div>
                 )}
@@ -39,3 +44,7 @@ export default function NotificationBody(props) {
         </div>
     );
 }
+
+NotificationBody.propTypes = {
+    notifStatus: PropTypes.object,
+};

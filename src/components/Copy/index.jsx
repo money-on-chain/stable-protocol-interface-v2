@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import React from "react";
+import PropTypes from "prop-types";
 
 import IconCopy from "./../../assets/icons/CopyOutline.svg";
 
@@ -65,6 +66,7 @@ export default function Copy(props) {
                         }}
                         href={url_set}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         {textToShow}
                     </a>
@@ -73,3 +75,10 @@ export default function Copy(props) {
         </>
     );
 }
+
+Copy.propTypes = {
+    textToShow: PropTypes.string,
+    textToCopy: PropTypes.string,
+    fastBTC: PropTypes.bool,
+    typeUrl: PropTypes.string,
+};

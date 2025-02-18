@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import BigNumber from "bignumber.js";
 
 import { useProjectTranslation } from "../../helpers/translations";
 import { AuthenticateContext } from "../../context/Auth";
@@ -7,24 +8,22 @@ import { TokenSettings } from "../../helpers/currencies";
 import CollateralAssets from "./collateral";
 import TokensPegged from "./tokenspegged";
 import TokensPeggedMobile from "./tokenspeggedmobile";
-import BigNumber from "bignumber.js";
 import CheckStatus from "../../helpers/checkStatus";
 import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import settings from "../../settings/settings.json";
 
-export default function Performance(props) {
-    const [isValid, setIsValid] = useState(true);
+export default function Performance() {
+    //const [isValid, setIsValid] = useState(true);
     const [statusIcon, setStatusIcon] = useState("");
     const [statusLabel, setStatusLabel] = useState("--");
     const [statusText, setStatusText] = useState("--");
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const { checkerStatus } = CheckStatus();
     useEffect(() => {
         if ((auth.contractStatusData, auth.userBalanceData)) {
-            const { isValid, statusIcon, statusLabel, statusText } =
-                checkerStatus();
-            setIsValid(isValid);
+            const { statusIcon, statusLabel, statusText } = checkerStatus();
+            //setIsValid(isValid);
             setStatusIcon(statusIcon);
             setStatusLabel(statusLabel);
             setStatusText(statusText);
@@ -103,9 +102,7 @@ export default function Performance(props) {
                                       : new BigNumber(0),
                                   token: TokenSettings("CA_0"),
                                   decimals: 2,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: true,
                               })}
                     </div>
@@ -131,9 +128,7 @@ export default function Performance(props) {
                                   amount: price,
                                   token: settings.tokens.TC[0],
                                   decimals: 8,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: true,
                               })}
                         <div className="caption">
@@ -149,9 +144,7 @@ export default function Performance(props) {
                                       : new BigNumber(0),
                                   token: TokenSettings("TC"),
                                   decimals: 8,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: false,
                               })}
                         <div className="caption">
@@ -167,9 +160,7 @@ export default function Performance(props) {
                                       : new BigNumber(0),
                                   token: TokenSettings("TC"),
                                   decimals: 2,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: false,
                               })}
                         <div className="caption">
@@ -186,9 +177,7 @@ export default function Performance(props) {
                                       : new BigNumber(0),
                                   token: TokenSettings("TC"),
                                   decimals: 2,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
                                   skipContractConvert: false,
                               })}{" "}
                         <div className="caption">
@@ -214,9 +203,7 @@ export default function Performance(props) {
                                           : new BigNumber(0),
                                       token: TokenSettings("CA_0"),
                                       decimals: 2,
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       skipContractConvert: true,
                                   })}
                             <div className="caption">
@@ -232,9 +219,7 @@ export default function Performance(props) {
                                           : new BigNumber(0),
                                       token: TokenSettings("CA_0"),
                                       decimals: 6,
-                                      t: t,
                                       i18n: i18n,
-                                      ns: ns,
                                       skipContractConvert: false,
                                   })}{" "}
                             <div className="caption">

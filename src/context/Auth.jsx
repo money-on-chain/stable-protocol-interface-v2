@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import getRLogin from "../lib/rLogin";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
+import PropTypes from "prop-types";
 
 import {
     ApproveTokenContract,
@@ -33,7 +34,7 @@ import {
     delayMachineWithdraw as delayMachineWithdrawVesting,
     delayMachineCancelWithdraw as delayMachineCancelWithdrawVesting,
     approve as approveVesting,
-    withdraw,
+    //withdraw,
     withdrawAll,
     vestingVerify,
     preVote as preVoteVesting,
@@ -58,7 +59,6 @@ import {
     unRegister,
 } from "../lib/backend/omoc/voting";
 
-
 BigNumber.config({ ROUNDING_MODE: BigNumber.ROUND_DOWN });
 
 const AuthenticateContext = createContext({
@@ -70,116 +70,119 @@ const AuthenticateContext = createContext({
     showModalAccount: false,
     web3Error: false,
     connect: () => {},
-    interfaceAllowanceAmount: async (
-        currencyYouExchange,
+    interfaceAllowanceAmount: async () =>
+        /*currencyYouExchange,
         currencyYouReceive,
         amountAllowance,
         onTransaction,
-        onReceipt
-    ) => {},
-    interfaceTransferToken: async (
-        currencyYouExchange,
+        onReceipt*/
+        {},
+    interfaceTransferToken: async () =>
+        /*currencyYouExchange,
         amount,
         destinationAddress,
         onTransaction,
-        onReceipt
-    ) => {},
-    interfaceTransferCoinbase: async (
-        amount,
+        onReceipt*/
+        {},
+    interfaceTransferCoinbase: async () =>
+        /*amount,
         destinationAddress,
         onTransaction,
-        onReceipt
-    ) => {},
-    interfaceExchangeMethod: async (
-        currencyYouExchange,
+        onReceipt*/
+        {},
+    interfaceExchangeMethod: async () =>
+        /*currencyYouExchange,
         currencyYouReceive,
         tokenAmount,
         limitAmount,
         onTransaction,
-        onReceipt
-    ) => {},
+        onReceipt*/
+        {},
     disconnect: () => {},
-    getTransactionReceipt: (hash) => {},
-    getSpendableBalance: async (address) => {},
-    loadContractsStatusAndUserBalance: async (address) => {},
-    getReserveAllowance: async (address) => {},
-    interfaceAllowUseTokenMigrator: async (
-        amount,
+    getTransactionReceipt: (/*hash*/) => {},
+    //getSpendableBalance: async (address) => {},
+    loadContractsStatusAndUserBalance: async (/*address*/) => {},
+    //getReserveAllowance: async (address) => {},
+    interfaceAllowUseTokenMigrator: async () =>
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceMigrateToken: async (onTransaction, onReceipt, onError) => {},
+        onError*/
+        {},
+    interfaceMigrateToken: async (/*onTransaction, onReceipt, onError*/) => {},
     //OMOC methods
-    interfaceStakingAddStake: async (
-        amount,
+    interfaceStakingAddStake: async () =>
+        /*amount,
         address,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceStakingUnStake: async (
-        amount,
+        onError*/
+        {},
+    interfaceStakingUnStake: async () =>
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceStakingDelayMachineWithdraw: async (
-        idWithdraw,
+        onError*/
+        {},
+    interfaceStakingDelayMachineWithdraw: async () =>
+        /*idWithdraw,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceStakingDelayMachineCancelWithdraw: async (
-        idWithdraw,
+        onError*/
+        {},
+    interfaceStakingDelayMachineCancelWithdraw: async () =>
+        /*idWithdraw,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceStakingApprove: async (
-        amount,
+        onError*/
+        {},
+    interfaceStakingApprove: async () =>
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceVestingWithdraw: async (
-        amount,
+        onError*/
+        {},
+    interfaceVestingWithdraw: async () =>
+        /*amount,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceVestingVerify: async (onTransaction, onReceipt, onError) => {},
-    interfaceIncentiveV2Claim: async (
-        signDataResponse,
+        onError*/
+        {},
+    interfaceVestingVerify: async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceIncentiveV2Claim: async () =>
+        /*signDataResponse,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceVotingPreVote: async (
+        onError*/
+        {},
+    interfaceVotingPreVote: async () =>
+        /*changeContractAddress,
+        onTransaction,
+        onReceipt,
+        onError*/
+        {},
+    /*interfaceVotingUnregister: async (
         changeContractAddress,
         onTransaction,
         onReceipt,
         onError
-    ) => {},
-    interfaceVotingUnregister: async (
-        changeContractAddress,
+    ) => {},*/
+    interfaceVotingVote: async () =>
+        /*inFavorAgainst,
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceVotingVote: async (
-        inFavorAgainst,
+        onError*/
+        {},
+    interfaceVotingPreVoteStep:
+        async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingVoteStep:
+        async (/*onTransaction, onReceipt, onError*/) => {},
+    interfaceVotingAcceptedStep: async () =>
+        /*
         onTransaction,
         onReceipt,
-        onError
-    ) => {},
-    interfaceVotingPreVoteStep: async (onTransaction, onReceipt, onError) => {},
-    interfaceVotingVoteStep: async (onTransaction, onReceipt, onError) => {},
-    interfaceVotingAcceptedStep: async (
-        onTransaction,
-        onReceipt,
-        onError
-    ) => {},
+        onError*/
+        {},
     isVestingLoaded: () => {},
     vestingAddress: () => {},
     onShowModalAccount: () => {},
@@ -188,7 +191,7 @@ const AuthenticateContext = createContext({
 
 const AuthenticateProvider = ({ children }) => {
     const [contractStatusData, setContractStatusData] = useState(null);
-    const [provider, setProvider] = useState(null);
+    //const [provider, setProvider] = useState(null);
     const [web3, setWeb3] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [account, setAccount] = useState(null);
@@ -240,11 +243,14 @@ const AuthenticateProvider = ({ children }) => {
     }, [account]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (account) {
-                loadContractsStatusAndUserBalance();
-            }
-        }, import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN);
+        const interval = setInterval(
+            () => {
+                if (account) {
+                    loadContractsStatusAndUserBalance();
+                }
+            },
+            import.meta.env.REACT_APP_WAIT_REFRESH_BLOCKCHAIN
+        );
         return () => clearInterval(interval);
     }, [account]);
 
@@ -253,10 +259,10 @@ const AuthenticateProvider = ({ children }) => {
             .connect()
             .then((rLoginResponse) => {
                 const { provider, disconnect } = rLoginResponse;
-                setProvider(provider);
+                //setProvider(provider);
 
                 const web3 = new Web3(provider);
-                provider.on("accountsChanged", function (accounts) {
+                provider.on("accountsChanged", function (/*accounts*/) {
                     disconnect();
                     window.location.reload();
                     /*if ( accounts.length==0 ){
@@ -264,7 +270,7 @@ const AuthenticateProvider = ({ children }) => {
                     window.location.reload()
                 }*/
                 });
-                provider.on("chainChanged", function (accounts) {
+                provider.on("chainChanged", function (/*accounts*/) {
                     disconnect();
                     window.location.reload();
                 });
@@ -280,13 +286,14 @@ const AuthenticateProvider = ({ children }) => {
                         setIsLoggedIn(true);
                     });
             })
-            .catch((error) => {
+            .catch((e) => {
                 disconnect();
+                console.error(e);
             });
 
     const disconnect = async () => {
         await disconnect;
-        setProvider(null);
+        //setProvider(null);
         setAccount(null);
         setAccountData({
             Wallet: "",
@@ -572,7 +579,7 @@ const AuthenticateProvider = ({ children }) => {
         return await web3.eth.getBalance(from);
     };
 
-    const getTransactionReceipt = async (hash, callback) => {
+    const getTransactionReceipt = async (hash /*, callback*/) => {
         //const web3 = new Web3(provider);
         let transactionReceipt = false;
         let transaction = await web3.eth.getTransactionReceipt(hash);
@@ -946,3 +953,7 @@ const AuthenticateProvider = ({ children }) => {
 };
 
 export { AuthenticateContext, AuthenticateProvider };
+
+AuthenticateProvider.propTypes = {
+    children: PropTypes.object,
+};

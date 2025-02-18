@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Layout } from 'antd';
+import React, { useContext, useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { Layout } from "antd";
 
-import { AuthenticateContext } from '../../../context/Auth';
-import { useProjectTranslation } from '../../../helpers/translations';
-import SectionHeader from '../../../components/Header';
-import NotificationBody from '../../../components/Notification';
-import CheckStatus from '../../../helpers/checkStatus';
-import DappFooter from '../../../components/Footer/index';
-import W3ErrorAlert from '../../../components/Notification/W3ErrorAlert';
+import { AuthenticateContext } from "../../../context/Auth";
+import SectionHeader from "../../../components/Header";
+import NotificationBody from "../../../components/Notification";
+import CheckStatus from "../../../helpers/checkStatus";
+import DappFooter from "../../../components/Footer/index";
+import W3ErrorAlert from "../../../components/Notification/W3ErrorAlert";
 
 const { Content, Footer } = Layout;
 
 export default function Skeleton() {
-    const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [notifStatus, setNotifStatus] = useState(null);
     const { checkerStatus } = CheckStatus();
@@ -27,15 +25,15 @@ export default function Skeleton() {
         const { isValid, statusIcon, statusLabel, statusText } =
             checkerStatus();
         if (!isValid) {
-            console.log('is not valid');
+            console.log("is not valid");
             setNotifStatus({
                 id: -1,
                 title: `Warning, protocol status is ${statusLabel}`,
                 textContent: statusText,
-                notifClass: 'warning',
+                notifClass: "warning",
                 iconLeft: statusIcon,
                 isDismisable: false,
-                dismissTime: 0
+                dismissTime: 0,
             });
         } else {
             setNotifStatus(null);
@@ -49,12 +47,9 @@ export default function Skeleton() {
                 {/* TODO load an array of notifStatus items, and load a mapping for showing notifs here in this section , interact with a React Context */}
                 {notifStatus && <NotificationBody notifStatus={notifStatus} />}
 
-                {auth.web3Error && (
-                    <W3ErrorAlert />
-                )}
+                {auth.web3Error && <W3ErrorAlert />}
 
-                {(!auth.web3Error && auth.isLoggedIn) && <Outlet />}
-
+                {!auth.web3Error && auth.isLoggedIn && <Outlet />}
             </Content>
             <Footer>
                 <div className="footer-container">

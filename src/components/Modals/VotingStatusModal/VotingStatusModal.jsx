@@ -1,5 +1,6 @@
 import Modal, { Fragment } from "antd/lib/modal/Modal";
 import React from "react";
+import PropTypes from "prop-types";
 
 import { useProjectTranslation } from "../../../helpers/translations";
 import CopyAddress from "../../CopyAddress";
@@ -15,7 +16,7 @@ const VotingStatusModal = ({
     votingInFavor,
     showProposal,
 }) => {
-    const [t] = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     let sentIcon = "";
     let statusLabel = "";
@@ -139,3 +140,15 @@ const VotingStatusModal = ({
 };
 
 export default VotingStatusModal;
+
+VotingStatusModal.propTypes = {
+    className: PropTypes.string,
+    visible: PropTypes.bool,
+    onCancel: PropTypes.func,
+    title: PropTypes.string,
+    operationStatus: PropTypes.string,
+    txHash: PropTypes.string,
+    proposalChanger: PropTypes.string,
+    votingInFavor: PropTypes.number,
+    showProposal: PropTypes.bool,
+};

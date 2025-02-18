@@ -1,10 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Modal from 'antd/lib/modal/Modal';
+import React, { useState } from "react";
+import Modal from "antd/lib/modal/Modal";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import Swap from '../Swap';
-import './style.scss';
-
+import { useProjectTranslation } from "../../../helpers/translations";
+import Swap from "../Swap";
+import "./style.scss";
 
 export default function ModalTokenMigration(props) {
     const [visible, setVisible] = useState(false);
@@ -17,19 +16,19 @@ export default function ModalTokenMigration(props) {
         setVisible(false);
     };
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
     return (
         <div className="ShowTokenMigration">
             <div className="NotificationMigration">
                 <div className="Information">
-                    {t('swapModal.text1')}
+                    {t("swapModal.text1")}
                     <span
                         className="swapNow"
                         onClick={showModal}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                     >
-                        {t('swapModal.text2')}
+                        {t("swapModal.text2")}
                     </span>
                 </div>
                 <div className="cta-options-group">
@@ -38,7 +37,7 @@ export default function ModalTokenMigration(props) {
                         className="button"
                         onClick={showModal}
                     >
-                        {t('swapModal.button')}
+                        {t("swapModal.button")}
                     </button>
                 </div>
             </div>
@@ -52,8 +51,8 @@ export default function ModalTokenMigration(props) {
                     className="ModalTokenMigration"
                     centered={true}
                     maskStyle={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                        backdropFilter: 'blur(2px)'
+                        backgroundColor: "rgba(0, 0, 0, 0.08)",
+                        backdropFilter: "blur(2px)",
                     }}
                 >
                     <Swap {...props} onCloseModal={hideModal} />

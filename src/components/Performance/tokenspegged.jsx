@@ -1,63 +1,63 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Table } from 'antd';
+import React, { useContext } from "react";
+import { Table } from "antd";
+import BigNumber from "bignumber.js";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { AuthenticateContext } from '../../context/Auth';
-import settings from '../../settings/settings.json';
-import BigNumber from 'bignumber.js';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import { ConvertPeggedTokenPrice } from '../../helpers/currencies';
+import { useProjectTranslation } from "../../helpers/translations";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { AuthenticateContext } from "../../context/Auth";
+import settings from "../../settings/settings.json";
+import { fromContractPrecisionDecimals } from "../../helpers/Formats";
+import { ConvertPeggedTokenPrice } from "../../helpers/currencies";
 
 export default function TokensPegged() {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const tokensData = [];
     const columnsData = [];
 
     const ProvideColumnsTP = [
         {
-            title: t('performance.pegged.colName'),
-            dataIndex: 'name',
-            align: 'left',
-            width: 210
+            title: t("performance.pegged.colName"),
+            dataIndex: "name",
+            align: "left",
+            width: 210,
         },
         {
-            title: t('performance.pegged.colTokensPer'),
-            dataIndex: 'tokens_per_usd',
-            align: 'right',
-            width: 160
+            title: t("performance.pegged.colTokensPer"),
+            dataIndex: "tokens_per_usd",
+            align: "right",
+            width: 160,
         },
         {
-            title: t('performance.pegged.colMinted'),
-            dataIndex: 'minted',
-            align: 'right',
-            width: 140
+            title: t("performance.pegged.colMinted"),
+            dataIndex: "minted",
+            align: "right",
+            width: 140,
         },
         {
-            title: t('performance.pegged.colMintable'),
-            dataIndex: 'mintable',
-            align: 'right',
-            width: 160
+            title: t("performance.pegged.colMintable"),
+            dataIndex: "mintable",
+            align: "right",
+            width: 160,
         },
         {
-            title: t('performance.pegged.colTargetCoverage'),
-            dataIndex: 'coverage',
-            align: 'right',
-            width: 140
+            title: t("performance.pegged.colTargetCoverage"),
+            dataIndex: "coverage",
+            align: "right",
+            width: 140,
         },
         {
-            title: t('performance.pegged.colEMA'),
-            dataIndex: 'ema',
-            align: 'right',
-            width: 100
+            title: t("performance.pegged.colEMA"),
+            dataIndex: "ema",
+            align: "right",
+            width: 100,
         },
         {
-            title: t('performance.pegged.colTargetEMA'),
-            dataIndex: 'ctargema',
-            align: 'right',
-            width: 140
-        }
+            title: t("performance.pegged.colTargetEMA"),
+            dataIndex: "ctargema",
+            align: "right",
+            width: 140,
+        },
     ];
 
     // Columns
@@ -66,7 +66,7 @@ export default function TokensPegged() {
             title: dataItem.title,
             dataIndex: dataItem.dataIndex,
             align: dataItem.align,
-            width: dataItem.width
+            width: dataItem.width,
         });
     });
 
@@ -82,7 +82,7 @@ export default function TokensPegged() {
 
             price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
 
-            if (dataItem.peggedUSD) price = new BigNumber(1)
+            if (dataItem.peggedUSD) price = new BigNumber(1);
 
             tokensData.push({
                 key: dataItem.key,
@@ -90,15 +90,15 @@ export default function TokensPegged() {
                     <div className="token">
                         <div
                             className={`icon-token-tp_${dataItem.key} token__icon`}
-                        ></div>{' '}
+                        ></div>{" "}
                         <span className="token__name">
                             {t(`exchange.tokens.TP_${dataItem.key}.label`, {
-                                ns: ns
+                                ns: ns,
                             })}
                         </span>
                         <span className="token__ticker">
                             {t(`exchange.tokens.TP_${dataItem.key}.abbr`, {
-                                ns: ns
+                                ns: ns,
                             })}
                         </span>
                     </div>
@@ -106,40 +106,35 @@ export default function TokensPegged() {
                 tokens_per_usd: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                                ? '--'
-                                : PrecisionNumbers({
-                                      amount: price,
-                                      token: settings.tokens.TP[dataItem.key],
-                                      decimals: 3,
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true
-                                  })
-                          }
+                            ? "--"
+                            : PrecisionNumbers({
+                                  amount: price,
+                                  token: settings.tokens.TP[dataItem.key],
+                                  decimals: 3,
+                                  i18n: i18n,
+                                  skipContractConvert: true,
+                              })}
                     </div>
                 ),
                 minted: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData.pegContainer[
                                       dataItem.key
                                   ],
                                   token: settings.tokens.TP[dataItem.key],
                                   decimals: 2,
-                                  t: t,
                                   i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                     </div>
                 ),
                 mintable: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
                                       .getTPAvailableToMint[dataItem.key],
@@ -148,14 +143,14 @@ export default function TokensPegged() {
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                     </div>
                 ),
                 coverage: (
                     <div className="item-usd">
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData.tpCtarg[
                                       dataItem.key
@@ -165,14 +160,14 @@ export default function TokensPegged() {
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                     </div>
                 ),
                 ema: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData.tpEma[
                                       dataItem.key
@@ -182,14 +177,14 @@ export default function TokensPegged() {
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                     </div>
                 ),
                 ctargema: (
                     <div>
                         {!auth.contractStatusData.canOperate
-                            ? '--'
+                            ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
                                       .calcCtargemaCA,
@@ -198,17 +193,17 @@ export default function TokensPegged() {
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false
+                                  skipContractConvert: false,
                               })}
                     </div>
-                )
+                ),
             });
         });
 
     return (
         <div className="card-tps">
             <div className="layout-card-title">
-                <h1>{t('performance.pegged.cardTitle')}</h1>
+                <h1>{t("performance.pegged.cardTitle")}</h1>
             </div>
 
             <Table
