@@ -85,7 +85,7 @@ export default function CurrencyPopUp(props) {
             {/* Ant Design Modal */}
             <Modal
                 title={title && title.trim() !== "" ? title : "Select a Token"} // Custom title support
-                visible={isModalVisible}
+                open={isModalVisible}
                 onCancel={closeModal}
                 footer={null}
                 centered

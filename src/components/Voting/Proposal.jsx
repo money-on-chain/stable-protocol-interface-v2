@@ -213,7 +213,7 @@ function Proposal(props) {
 export default Proposal;
 
 Proposal.propTypes = {
-    proposal: PropTypes.string,
+    proposal: PropTypes.object,
     onViewProposal: PropTypes.func,
     infoVoting: PropTypes.object,
     onRunPreVoteStep: PropTypes.func,

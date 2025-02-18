@@ -664,7 +664,7 @@ StakingOptionsModal.propTypes = {
     mode: PropTypes.string,
     onClose: PropTypes.func,
     visible: PropTypes.bool,
-    amount: PropTypes.number,
+    amount: PropTypes.bigint,
     onConfirm: PropTypes.func,
-    withdrawalId: PropTypes.number,
+    withdrawalId: PropTypes.string,
 };
