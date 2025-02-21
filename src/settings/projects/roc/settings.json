@@ -3,11 +3,7 @@
     "project": "roc",
     "showPriceVariation":true,
     "tokens": {
-        "COINBASE": [{
-            "name": "RBTC",
-            "decimals": 18,
-            "visibleDecimals": 6
-        }],
+        
         "CA": [
             {
                 "key": 0,
@@ -16,20 +12,22 @@
                 "visibleDecimals": 6
             }
         ],
+        "TC": [{
+            "name": "RIFP",
+            "fullName": "RIFPro",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }],
         "TP": [
             {
                 "key": 0,
                 "name": "USDRIF",
+                "fullName": "RIF USD Dollar",
                 "decimals": 18,
                 "visibleDecimals": 6,
                 "peggedUSD": true
             }
         ],
-        "TC": [{
-            "name": "RIF PRO",
-            "decimals": 18,
-            "visibleDecimals": 6
-        }],
         "TF": [{
             "name": "MOC",
             "decimals": 18,
@@ -37,6 +35,11 @@
         }],
         "TG": [{
             "name": "MOC",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }], "COINBASE": [{
+            "name": "RBTC",
+            "fullName": "Smart Bitcoin",
             "decimals": 18,
             "visibleDecimals": 6
         }]

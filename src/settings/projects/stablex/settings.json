@@ -4,41 +4,55 @@
     "showPriceVariation": true,
     "tokens": {
         "COINBASE": [{
+            "key": 0,
             "name": "ETH",
+            "fullName": "Ethereum",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 6,
+            "peggedUSD": false
         }],
         "CA": [
             {
                 "key": 0,
                 "name": "ETH",
+                "fullName": "Ethereum",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 6,
+                "peggedUSD": false
             }
         ],
         "TP": [
             {
                 "key": 0,
                 "name": "USDX",
+                "fullName": "USDX",
                 "decimals": 18,
                 "visibleDecimals": 6,
                 "peggedUSD": true
             }
         ],
         "TC": [{
+            "key": 0,
             "name": "XETH",
+            "fullName": "XETH",
             "decimals": 18,
             "visibleDecimals": 6
         }],
         "TF": [{
+            "key": 0,
             "name": "XSTA",
+            "fullName": "StableX",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 6,
+            "peggedUSD": false
         }],
         "TG": [{
+            "key": 0,
             "name": "XSTA",
+            "fullName": "StableX",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 6,
+            "peggedUSD": false
         }]
     }
 }
