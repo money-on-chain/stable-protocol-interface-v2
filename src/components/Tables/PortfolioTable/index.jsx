@@ -9,12 +9,23 @@ import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import NumericLabel from "react-pretty-numbers";
 import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
+import { generateTokenRow } from "./renderHelpers";
+
 import "./Styles.scss";
 
 export default function PortfolioTable(props) {
     const [t, i18n, ns] = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
+
+    // Default values for all tokens
+    let label = {
+        price: t("portfolio.tokensTable.name"),
+        price: t("portfolio.tokensTable.priceInUSD"),
+        variation: t("portfolio.tokensTable.variation"),
+        balance: t("portfolio.tokensTable.balance"),
+        usdBalance: t("portfolio.tokensTable.usdBalance"),
+    };
 
     useEffect(() => {
         // Set component ready when contract status data is available
@@ -23,9 +34,51 @@ export default function PortfolioTable(props) {
         }
     }, [auth]);
 
+    const createAllTheTokens = (settings) => {
+        let uniqueKeyCounter = 0;
+        let allTheTokens = [];
+        let tfTokenNames = new Set(); // Track TF token names
+
+        // Step 1: Collect all tokens
+        Object.entries(settings.tokens).forEach(([type, tokens]) => {
+            tokens.forEach((token, index) => {
+                allTheTokens.push({
+                    uniqueKey: uniqueKeyCounter++,
+                    key: token.key !== undefined ? token.key : index, // Fallback if key is missing
+                    type,
+                    name: token.name,
+                    fullName: token.fullName || token.name, // Use name if fullName is missing
+                    decimals: token.decimals,
+                    visibleDecimals: token.visibleDecimals,
+                    peggedUSD:
+                        token.peggedUSD !== undefined ? token.peggedUSD : false, // Default to false
+                });
+                // Store TF token names for filtering TG later in Step 2
+                if (type === "TF") {
+                    tfTokenNames.add(token.name);
+                }
+            });
+        });
+        // Step 2: Remove TG tokens if a TF token with the same name exists
+        allTheTokens = allTheTokens.filter(
+            (token) => !(token.type === "TG" && tfTokenNames.has(token.name))
+        );
+        return allTheTokens;
+    };
+    const allTheTokens = createAllTheTokens(settings);
+    console.log("allTheTokens -> ", allTheTokens);
+
     // Initialize arrays for token and column data
-    const usdPriceTokensData = [];
-    const nonUSDpriceTokensData = [];
+    const [usdPriceTokensData, setUsdPriceTokensData] = useState([]);
+    const [nonUSDpriceTokensData, setNonUSDPriceTokensData] = useState([]);
+    const addUsdPriceToken = (tokenData) => {
+        setUsdPriceTokensData((prevData) => [...prevData, tokenData]);
+    };
+
+    const addNonUSDPriceToken = (tokenData) => {
+        setNonUSDPriceTokensData((prevData) => [...prevData, tokenData]);
+    };
+    let rowNumber = 0;
 
     // Setup parameters for numeric formatting
     const params = Object.assign({
@@ -40,1006 +93,330 @@ export default function PortfolioTable(props) {
         cssClass: ["display-inline"],
     });
 
-    // Tokens CA
-    const TokensCA = settings.tokens.CA;
-    let balance;
-    let price;
-    let balanceUSD;
-
-    // Iterate Tokens CA
-    let count = 0;
-    auth.contractStatusData &&
-        auth.userBalanceData &&
-        TokensCA.forEach(function (dataItem) {
-            // Convert balance to BigNumber with correct decimal precision
-            balance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.userBalanceData.CA[dataItem.key].balance,
-                    settings.tokens.CA[dataItem.key].decimals
-                )
+    const processTokens = (allTheTokens, settings, t) => {
+        if (!auth?.contractStatusData) {
+            console.warn(
+                "⚠️ auth.contractStatusData is missing, skipping processTokens."
             );
-            price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_CA[dataItem.key],
-                    settings.tokens.CA[dataItem.key].decimals
-                )
-            );
-            balanceUSD = balance.times(price);
+            return;
+        }
+        let newNonUSDpeggedTokenRows = []; // ✅ Store all updated rows
+        let newUSDpeggedTokenRows = []; // ✅ Store all updated rows
 
-            // variation
-            const priceHistory = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.historic.PP_CA[dataItem.key],
-                    settings.tokens.CA[dataItem.key].decimals
-                )
-            );
-            const priceDelta = price.minus(priceHistory);
-            const variation = priceDelta.abs().div(priceHistory).times(100);
+        let count = 0;
 
-            const priceDeltaFormat = priceDelta.toFormat(
-                t(`portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`),
-                BigNumber.ROUND_UP,
-                {
-                    decimalSeparator: ".",
-                    groupSeparator: ",",
-                }
-            );
-            const getSign = () => {
-                if (priceDelta.isZero()) {
-                    return "";
-                }
-                if (priceDelta.isPositive()) {
-                    return "+";
-                }
-                return "-";
-            };
+        allTheTokens.forEach((token) => {
+            let balance = new BigNumber(0);
+            let price = new BigNumber(0);
+            let priceTEC = new BigNumber(0);
+            let priceCA = new BigNumber(0);
+            let balanceUSD = new BigNumber(0);
+            let priceDelta = new BigNumber(0);
+            let variation = new BigNumber(0);
+            let priceHistory = new BigNumber(0);
+            let tokenIcon = "";
 
-            const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: t("numberFormat.decimalSeparator"),
-                groupSeparator: t("numberFormat.thousandsSeparator"),
-            });
+            switch (token.type) {
+                case "COINBASE":
+                    // CALCULATE COINBASE DATA
 
-            // Add token data to usdPriceTokensData array
-            usdPriceTokensData.push({
-                key: dataItem.key,
-                renderRow: (
-                    <div className="table__row">
-                        {/* Token icon, name and ticker */}
-                        <div className="table__cell__name">
-                            <div
-                                className={`icon-token-ca_${dataItem.key} token__icon`}
-                            ></div>
-                            <span className="token__name">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${dataItem.key}.title`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </span>
-                            <span className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${dataItem.key}.symbol`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </span>
-                        </div>
-                        {/* Token price */}
-                        <div className="table__cell table__cell__price">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: auth.contractStatusData.PP_CA[
-                                          dataItem.key
-                                      ],
-                                      token: settings.tokens.CA[dataItem.key],
-                                      decimals: t(
-                                          `portfolio.tokens.CA.rows.${dataItem.key}.price_decimals`
-                                      ),
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                  })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
-                            </div>
-                        </div>
-                        {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
-                        ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    {`${getSign()} `}
-                                    <NumericLabel {...{ params }}>
-                                        {variationFormat}
-                                    </NumericLabel>
-                                    {" %"}
-                                    <span
-                                        className={`variation-indicator ${
-                                            getSign() === "+"
-                                                ? "positive-indicator"
-                                                : getSign() === "-"
-                                                  ? "negative-indicator"
-                                                  : "neutral-indicator"
-                                        }`}
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
-                            </div>
-                        )}
-                        {/* Token balance */}
-                        <div className="table__cell table__cell__amount">
-                            {PrecisionNumbers({
-                                amount: auth.userBalanceData.CA[dataItem.key]
-                                    .balance,
-                                token: settings.tokens.CA[dataItem.key],
-                                decimals: t(
-                                    `portfolio.tokens.CA.rows.${dataItem.key}.balance_decimals`
-                                ),
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                            })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${dataItem.key}.symbol`
-                                )}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
-                        </div>
-                        {/* Token balance in USD */}
-                        <div className="table__cell table__cell__usdBalance">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: balanceUSD,
-                                      token: settings.tokens.CA[dataItem.key],
-                                      decimals: 2,
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true,
-                                  })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
-                        </div>
-                    </div>
-                ),
-            });
-            count += 1;
-        });
+                    if (
+                        auth.contractStatusData &&
+                        auth.userBalanceData &&
+                        settings.collateral !== "coinbase"
+                    ) {
+                        tokenIcon = "icon-token-" + token.type.toLowerCase();
 
-    // Token TC
-    if (auth.contractStatusData && auth.userBalanceData) {
-        balance = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.userBalanceData.TC.balance,
-                settings.tokens.TC[0].decimals
-            )
-        );
-        const priceTEC = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.getPTCac,
-                settings.tokens.TC[0].decimals
-            )
-        );
-        const priceCA = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
-                settings.tokens.CA[0].decimals
-            )
-        );
-        price = priceTEC.times(priceCA);
-        balanceUSD = balance.times(price);
+                        balance = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.userBalanceData.coinbase,
+                                token.decimals
+                            )
+                        );
 
-        // variation
-        const priceHistory = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.getPTCac,
-                settings.tokens.TC[0].decimals
-            )
-        ).times(priceCA);
+                        price = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.PP_COINBASE,
+                                token.decimals
+                            )
+                        );
+                        balanceUSD = balance.times(price);
 
-        const priceDelta = price.minus(priceHistory);
+                        // variation
+                        priceHistory = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.historic.PP_COINBASE,
+                                token.decimals
+                            )
+                        );
+                        priceDelta = price.minus(priceHistory);
+                        variation = priceDelta
+                            .abs()
+                            .div(priceHistory)
+                            .times(100);
+                    }
 
-        const variation = price
-            .minus(priceHistory)
-            .div(priceHistory)
-            .times(100);
+                    break;
+                case "CA":
+                    // CALCULATE TOKENS CA DATA
 
-        const itemIndex = count;
+                    tokenIcon =
+                        "icon-token-" +
+                        token.type.toLowerCase() +
+                        "_" +
+                        token.key;
 
-        const getSign = () => {
-            if (priceDelta.isZero()) {
-                return "";
+                    // Convert balance to BigNumber with correct decimal precision
+                    balance = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.userBalanceData.CA[token.key].balance,
+                            token.decimals
+                        )
+                    );
+                    price = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_CA[token.key],
+                            token.decimals
+                        )
+                    );
+
+                    balanceUSD = balance.times(price);
+
+                    // variation
+                    priceHistory = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.historic.PP_CA[token.key],
+                            token.decimals
+                        )
+                    );
+                    priceDelta = price.minus(priceHistory);
+                    variation = priceDelta.abs().div(priceHistory).times(100);
+
+                    break;
+                case "TP":
+                    tokenIcon =
+                        "icon-token-" +
+                        token.type.toLowerCase() +
+                        "_" +
+                        token.key;
+
+                    if (token.peggedUSD) {
+                        // CALCULATE TOKENS TP USD-Pegged Tokens DATA
+
+                        balance = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.userBalanceData.TP[token.key].balance,
+                                token.decimals
+                            )
+                        );
+                        // price = new BigNumber(1);
+                        balanceUSD = balance.times(price);
+
+                        // variation
+                        priceHistory = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.historic.PP_CA[
+                                    token.key
+                                ],
+                                token.decimals
+                            )
+                        );
+                        priceDelta = price.minus(priceHistory);
+                        // priceDelta = new BigNumber(0);
+                        const variation = priceDelta
+                            .abs()
+                            .div(priceHistory)
+                            .times(100);
+                        console.log("TOKEN KEY ", token.key);
+
+                        console.log("PRICE ", price);
+                        console.log("PRICE HISTORY", priceHistory);
+                        console.log("PRICE DELTA", priceDelta);
+                    } else {
+                        // CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
+
+                        const balance = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.userBalanceData.TP[token.key].balance,
+                                token.decimals
+                            )
+                        );
+
+                        let price = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.PP_TP[token.key],
+                                token.decimals
+                            )
+                        );
+                        price = ConvertPeggedTokenPrice(auth, token.key, price);
+                        const balanceUSD = balance.div(price);
+
+                        // variation
+                        let priceHistory = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.historic.PP_TP[
+                                    token.key
+                                ],
+                                token.decimals
+                            )
+                        );
+                        priceHistory = ConvertPeggedTokenPrice(
+                            auth,
+                            token.key,
+                            priceHistory
+                        );
+
+                        const priceDelta = price.minus(priceHistory);
+                        const variation = priceDelta
+                            .abs()
+                            .div(priceHistory)
+                            .times(100);
+
+                        let signPriceDelta = "";
+                        if (priceDelta.gt(0)) signPriceDelta = "+";
+                    }
+                    break;
+                case "TC":
+                    // CALCULATE TOKENS TC DATA
+
+                    tokenIcon = "icon-token-" + token.type.toLowerCase();
+
+                    balance = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.userBalanceData.TC.balance,
+                            token.decimals
+                        )
+                    );
+
+                    priceTEC = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.getPTCac,
+                            token.decimals
+                        )
+                    );
+                    priceCA = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_CA[0],
+                            token.decimals
+                        )
+                    );
+                    price = priceTEC.times(priceCA);
+                    balanceUSD = balance.times(price);
+
+                    // variation
+                    priceHistory = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.historic.getPTCac,
+                            token.decimals
+                        )
+                    ).times(priceCA);
+
+                    priceDelta = price.minus(priceHistory);
+                    variation = price
+                        .minus(priceHistory)
+                        .div(priceHistory)
+                        .times(100);
+                    break;
+                case "TF":
+                    // CALCULATE TOKENS TF DATA
+
+                    tokenIcon = "icon-token-" + token.type.toLowerCase();
+                    balance = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.userBalanceData.FeeToken.balance,
+                            token.decimals
+                        )
+                    );
+                    price = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_FeeToken,
+                            token.decimals
+                        )
+                    );
+                    priceCA = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_CA[0],
+                            token.decimals
+                        )
+                    );
+                    balanceUSD = balance.times(price).times(priceCA);
+
+                    // variation
+                    priceHistory = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.historic.PP_FeeToken,
+                            token.decimals
+                        )
+                    );
+                    priceDelta = price.minus(priceHistory);
+                    variation = priceDelta.abs().div(priceHistory).times(100);
+
+                    break;
+                case "TG":
+                    console.log(`Processing ${token.name} (TG)`);
+                    // CALCULATE TOKENS TG DATA
+
+                    // CHECK if THERE IS A TF WITH SAME NAME. IF TRUE, SKIP.
+
+                    break;
+                default:
+                    console.log(`Unknown token type for ${token.name}`);
+                    break;
             }
-            if (priceDelta.isPositive()) {
-                return "+";
-            }
-            return "-";
-        };
-        const variationFormat = variation
-            .abs()
-            .toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: ".",
-                groupSeparator: ",",
-            });
+            const label = token.fullName || token.name;
+            const tokenName = token.fullName || token.name;
+            const tokenTicker = token.name;
+            const decimals = token.decimals;
 
-        // Add TC token data to usdPriceTokensData array
-        usdPriceTokensData.push({
-            key: itemIndex,
-            renderRow: (
-                <div className="table__row">
-                    {/* Token icon, name and ticker */}
-                    <div className="table__cell__name">
-                        <div className="icon-token-tc token__icon"></div>
-                        <span className="token__name">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                                ns: ns,
-                            })}
-                        </span>
-                        <span className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                                ns: ns,
-                            })}
-                        </span>
-                    </div>
-                    {/* Token price */}
-                    <div className="table__cell table__cell__price">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: price,
-                                  token: settings.tokens.TC[0],
-                                  decimals: t(
-                                      `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                  ),
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: true,
-                              })}{" "}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
-                    </div>
-                    {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
-                    ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
-                        </div>
-                    )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell__amount">
-                        {PrecisionNumbers({
-                            amount: auth.userBalanceData.TC.balance,
-                            token: settings.tokens.TC[0],
-                            decimals: t(
-                                `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
-                            ),
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                        })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
-                        </div>
-                    </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__usdBalance">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: balanceUSD,
-                                  token: settings.tokens.TC[0],
-                                  decimals: 2,
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: true,
-                              })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
-                    </div>
-                </div>
-            ),
-        });
+            count++;
 
-        count += 1;
-    }
+            // remove condition after DEBUGING
 
-    const TokensTP = settings.tokens.TP;
-    // Iterate tokens TP
-    auth.contractStatusData &&
-        auth.userBalanceData &&
-        TokensTP.forEach(function (dataItem) {
-            // Skip token if not pegged to 1:1 USD
-            if (!dataItem.peggedUSD) return;
-
-            balance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.userBalanceData.TP[dataItem.key].balance,
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            price = new BigNumber(1);
-            balanceUSD = balance.times(price);
-
-            // variation
-            const priceHistory = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.historic.PP_TP[dataItem.key],
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            const priceDelta = price.minus(priceHistory);
-            const variation = priceDelta.abs().div(priceHistory).times(100);
-
-            const priceDeltaFormat = priceDelta.toFormat(
-                2,
-                BigNumber.ROUND_UP,
-                {
-                    decimalSeparator: ".",
-                    groupSeparator: ",",
-                }
-            );
-            const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: ".",
-                groupSeparator: ",",
-            });
-
-            const itemIndex = count;
-
-            // Add TP token data to usdPriceTokensData array
-
-            usdPriceTokensData.push({
-                key: itemIndex,
-                renderRow: (
-                    <div className="table__row">
-                        {/* Token icon, name and ticker */}
-                        <div className="table__cell__name">
-                            <div className="icon-token-tp_0 token__icon"></div>
-                            <span className="token__name">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${itemIndex}.title`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </span>
-                            <span className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${itemIndex}.symbol`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </span>
-                        </div>
-                        {/* Token price */}
-                        <div className="table__cell table__cell__price">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: price,
-                                      token: settings.tokens.TP[dataItem.key],
-                                      decimals: t(
-                                          `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                      ),
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true,
-                                  })}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
-                            </div>
-                        </div>
-                        {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
-                        ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    <NumericLabel {...{ params }}>
-                                        {0}
-                                    </NumericLabel>
-                                    {" %"}
-                                    <span
-                                        className={
-                                            "variation-indicator neutral-indicator"
-                                        }
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
-                            </div>
-                        )}
-                        <div className="table__cell table__cell__amount">
-                            {/* Token balance */}
-                            {PrecisionNumbers({
-                                amount: auth.userBalanceData.TP[dataItem.key]
-                                    .balance,
-                                token: settings.tokens.TP[dataItem.key],
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                            })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.CA.rows.${itemIndex}.symbol`
-                                )}{" "}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
-                        </div>
-                        {/* Token balance in USD */}
-                        <div className="table__cell table__cell__usdBalance">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: balanceUSD,
-                                      token: settings.tokens.TP[dataItem.key],
-                                      decimals: 2,
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true,
-                                  })}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
-                        </div>
-                    </div>
-                ),
-            });
-
-            count += 1;
-        });
-
-    // TF
-    if (auth.contractStatusData && auth.userBalanceData) {
-        balance = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.userBalanceData.FeeToken.balance,
-                settings.tokens.TF[0].decimals
-            )
-        );
-        price = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_FeeToken,
-                settings.tokens.TF[0].decimals
-            )
-        );
-        const priceCA = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
-                settings.tokens.CA[0].decimals
-            )
-        );
-        balanceUSD = balance.times(price).times(priceCA);
-
-        // variation
-        const priceHistory = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_FeeToken,
-                settings.tokens.TF[0].decimals
-            )
-        );
-        const priceDelta = price.minus(priceHistory);
-        const variation = priceDelta.abs().div(priceHistory).times(100);
-
-        const itemIndex = count;
-
-        const priceDeltaFormat = priceDelta.toFormat(
-            t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
-            BigNumber.ROUND_UP,
-            {
-                decimalSeparator: ".",
-                groupSeparator: ",",
-            }
-        );
-        const getSign = () => {
-            if (priceDelta.isZero()) {
-                return "";
-            }
-            if (priceDelta.isPositive()) {
-                return "+";
-            }
-            return "-";
-        };
-        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: ".",
-            groupSeparator: ",",
-        });
-
-        // Add TF token data to usdPriceTokensData array
-        usdPriceTokensData.push({
-            key: itemIndex,
-            renderRow: (
-                <div className="table__row">
-                    {/* Token icon, name and ticker */}
-                    <div className="table__cell__name">
-                        <div className="icon-token-tf token__icon"></div>
-                        <span className="token__name">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                                ns: ns,
-                            })}
-                        </span>
-                        <span className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                                ns: ns,
-                            })}
-                        </span>
-                    </div>
-                    {/* Token price */}
-                    <div className="table__cell table__cell__price">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: price.times(priceCA),
-                                  token: settings.tokens.TF[0],
-                                  decimals: t(
-                                      `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                  ),
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: true,
-                              })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
-                    </div>
-                    {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
-                    ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
-                        </div>
-                    )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell__amount">
-                        {PrecisionNumbers({
-                            amount: auth.userBalanceData.FeeToken.balance,
-                            token: settings.tokens.TF[0],
-                            decimals: 2,
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                        })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}{" "}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
-                        </div>
-                    </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__usdBalance">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: balanceUSD,
-                                  token: settings.tokens.TF[0],
-                                  decimals: 2,
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: true,
-                              })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
-                    </div>
-                </div>
-            ),
-        });
-        count += 1;
-    } else {
-        count += 1;
-    }
-
-    // Coinbase
-    if (
-        auth.contractStatusData &&
-        auth.userBalanceData &&
-        settings.collateral !== "coinbase"
-    ) {
-        balance = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.userBalanceData.coinbase,
-                settings.tokens.COINBASE[0].decimals
-            )
-        );
-        price = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_COINBASE,
-                settings.tokens.COINBASE[0].decimals
-            )
-        );
-        balanceUSD = balance.times(price);
-
-        // variation
-        const priceHistory = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData.historic.PP_COINBASE,
-                settings.tokens.COINBASE[0].decimals
-            )
-        );
-        const priceDelta = price.minus(priceHistory);
-        const variation = priceDelta.abs().div(priceHistory).times(100);
-
-        const itemIndex = count;
-
-        const priceDeltaFormat = priceDelta.toFormat(
-            t(`portfolio.tokens.CA.rows.${itemIndex}.price_decimals`),
-            BigNumber.ROUND_UP,
-            {
-                decimalSeparator: ".",
-                groupSeparator: ",",
-            }
-        );
-        const getSign = () => {
-            if (priceDelta.isZero()) {
-                return "";
-            }
-            if (priceDelta.isPositive()) {
-                return "+";
-            }
-            return "-";
-        };
-        const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-            decimalSeparator: ".",
-            groupSeparator: ",",
-        });
-        // Add Coinbase token data to usdPriceTokensData array if conditions are met
-
-        usdPriceTokensData.push({
-            key: itemIndex,
-            rowData: (
-                <div className="table__row">
-                    {/* Token icon, name and ticker */}
-                    <div className="table__cell__name">
-                        <div className="icon-token-coinbase token__icon"></div>
-                        <span className="token__name">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.title`, {
-                                ns: ns,
-                            })}
-                        </span>
-                        <span className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`, {
-                                ns: ns,
-                            })}
-                        </span>
-                    </div>
-                    <div className="table__cell table__cell__price">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: auth.contractStatusData.PP_COINBASE,
-                                  token: settings.tokens.COINBASE[0],
-                                  decimals: t(
-                                      `portfolio.tokens.CA.rows.${itemIndex}.price_decimals`
-                                  ),
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                              })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.price")}
-                        </div>
-                    </div>
-                    {/* Token 24h variation (if enabled) */}
-                    {!settings.showPriceVariation ||
-                    !auth.contractStatusData.canOperate ? (
-                        <div className="table__cell">
-                            <div className="table__cell__variation"></div>
-                        </div>
-                    ) : (
-                        <div className="table__cell">
-                            <div className="table__cell__variation">
-                                {`${getSign()} `}
-                                <NumericLabel {...{ params }}>
-                                    {variationFormat}
-                                </NumericLabel>
-                                {" %"}
-                                <span
-                                    className={`variation-indicator ${
-                                        getSign() === "+"
-                                            ? "positive-indicator"
-                                            : getSign() === "-"
-                                              ? "negative-indicator"
-                                              : "neutral-indicator"
-                                    }`}
-                                ></span>
-                            </div>
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.variation")}
-                            </div>
-                        </div>
-                    )}
-                    {/* Token balance */}
-                    <div className="table__cell table__cell_amount">
-                        {PrecisionNumbers({
-                            amount: auth.userBalanceData.coinbase,
-                            token: settings.tokens.COINBASE[0],
-                            decimals: t(
-                                `portfolio.tokens.CA.rows.${itemIndex}.balance_decimals`
-                            ),
-                            t: t,
-                            i18n: i18n,
-                            ns: ns,
-                        })}
-                        <div className="token__ticker">
-                            {t(`portfolio.tokens.CA.rows.${itemIndex}.symbol`)}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.balance")}
-                            </div>
-                        </div>
-                    </div>
-                    {/* Token balance in USD */}
-                    <div className="table__cell table__cell__price">
-                        {!auth.contractStatusData.canOperate
-                            ? "--"
-                            : PrecisionNumbers({
-                                  amount: balanceUSD,
-                                  token: settings.tokens.COINBASE[0],
-                                  decimals: 2,
-                                  t: t,
-                                  i18n: i18n,
-                                  ns: ns,
-                                  skipContractConvert: true,
-                              })}
-                        <div className="table__cell__label">
-                            {t("portfolio.tokens.CA.columns.usd")}
-                        </div>
-                    </div>
-                </div>
-            ),
-        });
-    }
-    // Non USD pegged tokens START
-
-    // Rows
-
-    auth.contractStatusData &&
-        auth.userBalanceData &&
-        settings.tokens.TP.forEach(function (dataItem) {
-            // If it's pegged to 1:1 USD not display in this table
-            if (dataItem.peggedUSD) return;
-
-            const balance = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.userBalanceData.TP[dataItem.key].balance,
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-
-            let price = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_TP[dataItem.key],
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
-            const balanceUSD = balance.div(price);
-
-            // variation
-            let priceHistory = new BigNumber(
-                fromContractPrecisionDecimals(
-                    auth.contractStatusData.historic.PP_TP[dataItem.key],
-                    settings.tokens.TP[dataItem.key].decimals
-                )
-            );
-            priceHistory = ConvertPeggedTokenPrice(
+            const tokenRow = generateTokenRow({
+                key: token.uniqueKey,
+                label,
+                tokenIcon,
+                tokenName,
+                tokenTicker,
+                balance: balance.toFormat(
+                    token.visibleDecimals,
+                    BigNumber.ROUND_UP
+                ), // ✅ Convert to string
+                price: price.toFormat(
+                    token.visibleDecimals,
+                    BigNumber.ROUND_UP
+                ), // ✅ Convert to string
+                balanceUSD: balanceUSD.toFormat(
+                    token.visibleDecimals,
+                    BigNumber.ROUND_UP
+                ), // ✅ Convert to string
+                priceDelta,
+                variation,
+                decimals: token.visibleDecimals,
                 auth,
-                dataItem.key,
-                priceHistory
-            );
-
-            const priceDelta = price.minus(priceHistory);
-            const variation = priceDelta.abs().div(priceHistory).times(100);
-
-            let signPriceDelta = "";
-            if (priceDelta.gt(0)) signPriceDelta = "+";
-
-            const priceDeltaFormat = priceDelta.toFormat(
-                2,
-                BigNumber.ROUND_UP,
-                { decimalSeparator: ".", groupSeparator: "," }
-            );
-            const getSign = () => {
-                if (priceDelta.isZero()) {
-                    return "";
-                }
-                if (priceDelta.isPositive()) {
-                    return "+";
-                }
-                return "-";
-            };
-            const variationFormat = variation.toFormat(2, BigNumber.ROUND_UP, {
-                decimalSeparator: ".",
-                groupSeparator: ",",
+                t,
+                i18n,
+                ns,
+                params,
             });
-            // Add token data to nonUSDPriceTokensData array
-            nonUSDpriceTokensData.push({
-                key: dataItem.key,
-                renderRow: (
-                    <div className="table__row">
-                        {/* Token icon, name and ticker */}
-                        <div className="table__cell__name">
-                            <div
-                                className={`icon-token-tp_${dataItem.key} token__icon`}
-                            ></div>
-                            <div className="token__name">
-                                {t(
-                                    `portfolio.tokens.TP.rows.${dataItem.key}.title`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </div>
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.TP.rows.${dataItem.key}.symbol`,
-                                    {
-                                        ns: ns,
-                                    }
-                                )}
-                            </div>
-                        </div>
-                        {/* Token price */}
-                        <div className="table__cell table__cell__price">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: price,
-                                      token: settings.tokens.TP[dataItem.key],
-                                      decimals: 2,
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true,
-                                  })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.price")}
-                            </div>
-                        </div>
-                        {/* Token 24h variation (if enabled) */}
-                        {!settings.showPriceVariation ||
-                        !auth.contractStatusData.canOperate ? (
-                            <div className="table__cell">
-                                <div className="table__cell__variation"></div>
-                            </div>
-                        ) : (
-                            <div className="table__cell">
-                                <div className="table__cell__variation">
-                                    {`${getSign()} ${variationFormat} %`}
-                                    <span
-                                        className={`variation-indicator ${
-                                            getSign() === "+"
-                                                ? "positive-indicator"
-                                                : getSign() === "-"
-                                                  ? "negative-indicator"
-                                                  : "neutral-indicator"
-                                        }`}
-                                    ></span>
-                                </div>
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.variation")}
-                                </div>
-                            </div>
-                        )}
-                        {/* Token balance */}
-                        <div className="table__cell table__cell__amount">
-                            {PrecisionNumbers({
-                                amount: balance,
-                                token: settings.tokens.TP[dataItem.key],
-                                decimals: 2,
-                                t: t,
-                                i18n: i18n,
-                                ns: ns,
-                                skipContractConvert: true,
-                            })}
-                            <div className="token__ticker">
-                                {t(
-                                    `portfolio.tokens.TP.rows.${dataItem.key}.symbol`
-                                )}
-                                <div className="table__cell__label">
-                                    {t("portfolio.tokens.CA.columns.balance")}
-                                </div>
-                            </div>
-                        </div>
-                        {/* Token balance in USD */}
-                        <div className="table__cell__usdBalance">
-                            {!auth.contractStatusData.canOperate
-                                ? "--"
-                                : PrecisionNumbers({
-                                      amount: balanceUSD,
-                                      token: settings.tokens.TP[dataItem.key],
-                                      decimals: 3,
-                                      t: t,
-                                      i18n: i18n,
-                                      ns: ns,
-                                      skipContractConvert: true,
-                                  })}
-                            <div className="table__cell__label">
-                                {t("portfolio.tokens.CA.columns.usd")}
-                            </div>
-                        </div>
-                    </div>
-                ),
-            });
+
+            if (settings.collateral !== token.type.toLowerCase()) {
+                // Skip coinbase token when collateral is coinbase
+                if (token.type === "TP" && token.peggedUSD === false) {
+                    newNonUSDpeggedTokenRows.push(tokenRow); // ✅ Store updated token Rows for nonUSDpegged
+                } else {
+                    newUSDpeggedTokenRows.push(tokenRow); // ✅ Store updated token Rows for USDpegged
+                }
+            }
         });
-
-    //  Non USD pegged tokens END
+        setUsdPriceTokensData(newUSDpeggedTokenRows); // ✅ Overwrite the state instead of appending
+        setNonUSDPriceTokensData(newNonUSDpeggedTokenRows); // ✅ Overwrite the state instead of appending
+    };
+    useEffect(() => {
+        if (ready && auth?.contractStatusData) {
+            processTokens(allTheTokens, settings, t);
+        }
+    }, [ready, auth]); // Runs only when `ready` or `auth` changes
 
     return ready ? (
         <div className="portfolio-table">

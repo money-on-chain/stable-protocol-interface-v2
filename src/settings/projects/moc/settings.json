@@ -5,6 +5,7 @@
     "tokens": {
         "COINBASE": [{
             "name": "RBTC",
+            "fullName": "Smart Bitcoin",
             "decimals": 18,
             "visibleDecimals": 6
         }],
@@ -12,24 +13,28 @@
             {
                 "key": 0,
                 "name": "RBTC",
+                "fullName": "Smart Bitcoin",
                 "decimals": 18,
                 "visibleDecimals": 6
             }
-        ],
+        ], 
+        "TC": [{
+            "name": "BPRO",
+            "fullName": "Bpro",
+            "decimals": 18,
+            "visibleDecimals": 6
+        }],
         "TP": [
             {
                 "key": 0,
                 "name": "DOC",
+                "fullName": "Dollar On Chain",
                 "decimals": 18,
-                "visibleDecimals": 6,
+                "visibleDecimals": 2,
                 "peggedUSD": true
             }
         ],
-        "TC": [{
-            "name": "BitPRO",
-            "decimals": 18,
-            "visibleDecimals": 6
-        }],
+
         "TF": [{
             "name": "MOC",
             "decimals": 18,
@@ -37,6 +42,7 @@
         }],
         "TG": [{
             "name": "MOC",
+            "fullName": "MOC",
             "decimals": 18,
             "visibleDecimals": 6
         }]

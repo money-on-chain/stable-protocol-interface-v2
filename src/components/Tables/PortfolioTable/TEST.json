@@ -1,0 +1,62 @@
+{
+    "tokens": [
+        {
+            "key": 0,
+            "tokenKey": 0,
+            "type": "COINBASE",
+            "fullName": "Ethereum",
+            "name": "ETH",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "peggedUSD": false
+        },
+        {
+            "key": 1,
+            "tokenKey": 0,
+            "type": "CA",
+            "title": "Ethereum",
+            "name": "ETH",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "peggedUSD": false
+        },
+        {
+            "key": 2,
+            "tokenKey": 0,
+            "type": "TP",
+            "title": "USDX",
+            "name": "USDX",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "peggedUSD": true
+        },
+        {
+            "key": 3,
+            "tokenKey": 0,
+            "type": "TC",
+            "title": "XETH",
+            "name": "XETH",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "peggedUSD": false
+        },
+        {
+            "key": 4,
+            "tokenKey": 0,
+            "type": "TF",
+            "title": "Ethereum",
+            "name": "ETH",
+            "peggedUSD": false
+        },
+        {
+            "key": 5,
+            "tokenKey": 0,
+            "type": "TG",
+            "title": "StableX",
+            "name": "XSTA",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "peggedUSD": false
+        }
+    ]
+}

@@ -173,6 +173,46 @@
         }
     },
     "portfolio": {
+        "tokensTable": {
+            "tokenName": "Token Name",
+            "variation": "Variation 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance in USD",
+            "priceInUSD": "Price in USD",
+            "tokensPerUSD": "Tokens per USD"
+        },
+        "displayTokens": {
+            "ETH": {
+                "title": "Ethereum",
+                "symbol": "(ETH)",
+                "price_decimals": 4,
+                "balance_decimals": 4
+            },
+            "XETH": {
+                "title": "XETH",
+                "symbol": "(XETH)",
+                "price_decimals": 4,
+                "balance_decimals": 4
+            },
+            "USDX": {
+                "title": "USDX",
+                "symbol": "(USDX)",
+                "price_decimals": 2,
+                "balance_decimals": 2
+            },
+            "XSTA": {
+                "title": "StableX",
+                "symbol": "(XSTA)",
+                "price_decimals": 2,
+                "balance_decimals": 2
+            },
+            "RBTC": {
+                "title": "rBTC",
+                "symbol": "(RBTC)",
+                "price_decimals": 2,
+                "balance_decimals": 8
+            }
+        },
         "tokens": {
             "CA": {
                 "columns": {
