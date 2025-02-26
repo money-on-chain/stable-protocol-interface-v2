@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Skeleton } from "antd";
-
+import { Skeleton } from "antd";
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
-import { PrecisionNumbers } from "../../PrecisionNumbers";
 import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import NumericLabel from "react-pretty-numbers";
 import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import { generateTokenRow } from "./renderHelpers";
 
@@ -20,7 +17,7 @@ export default function PortfolioTable(props) {
 
     // Default values for all tokens
     let label = {
-        price: t("portfolio.tokensTable.name"),
+        name: t("portfolio.tokensTable.name"),
         price: t("portfolio.tokensTable.priceInUSD"),
         variation: t("portfolio.tokensTable.variation"),
         balance: t("portfolio.tokensTable.balance"),
@@ -49,7 +46,9 @@ export default function PortfolioTable(props) {
                     name: token.name,
                     fullName: token.fullName || token.name, // Use name if fullName is missing
                     decimals: token.decimals,
-                    visibleDecimals: token.visibleDecimals,
+                    visiblePriceDecimals: token.visiblePriceDecimals,
+                    visibleBalanceDecimals: token.visibleBalanceDecimals,
+                    visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
                     peggedUSD:
                         token.peggedUSD !== undefined ? token.peggedUSD : false, // Default to false
                 });
@@ -66,32 +65,11 @@ export default function PortfolioTable(props) {
         return allTheTokens;
     };
     const allTheTokens = createAllTheTokens(settings);
-    console.log("allTheTokens -> ", allTheTokens);
+    // console.log("allTheTokens -> ", allTheTokens);
 
     // Initialize arrays for token and column data
     const [usdPriceTokensData, setUsdPriceTokensData] = useState([]);
     const [nonUSDpriceTokensData, setNonUSDPriceTokensData] = useState([]);
-    const addUsdPriceToken = (tokenData) => {
-        setUsdPriceTokensData((prevData) => [...prevData, tokenData]);
-    };
-
-    const addNonUSDPriceToken = (tokenData) => {
-        setNonUSDPriceTokensData((prevData) => [...prevData, tokenData]);
-    };
-    let rowNumber = 0;
-
-    // Setup parameters for numeric formatting
-    const params = Object.assign({
-        shortFormat: true,
-        justification: "L",
-        locales: i18n.languages[0],
-        shortFormatMinValue: 1000000,
-        commafy: true,
-        shortFormatPrecision: 2,
-        precision: 2,
-        title: "",
-        cssClass: ["display-inline"],
-    });
 
     const processTokens = (allTheTokens, settings, t) => {
         if (!auth?.contractStatusData) {
@@ -209,7 +187,9 @@ export default function PortfolioTable(props) {
                                 token.decimals
                             )
                         );
-                        // price = new BigNumber(1);
+
+                        price = new BigNumber(1);
+
                         balanceUSD = balance.times(price);
 
                         // variation
@@ -222,16 +202,12 @@ export default function PortfolioTable(props) {
                             )
                         );
                         priceDelta = price.minus(priceHistory);
-                        // priceDelta = new BigNumber(0);
+                        priceDelta = new BigNumber(0);
+
                         const variation = priceDelta
                             .abs()
                             .div(priceHistory)
                             .times(100);
-                        console.log("TOKEN KEY ", token.key);
-
-                        console.log("PRICE ", price);
-                        console.log("PRICE HISTORY", priceHistory);
-                        console.log("PRICE DELTA", priceDelta);
                     } else {
                         // CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
 
@@ -272,8 +248,8 @@ export default function PortfolioTable(props) {
                             .div(priceHistory)
                             .times(100);
 
-                        let signPriceDelta = "";
-                        if (priceDelta.gt(0)) signPriceDelta = "+";
+                        // let signPriceDelta = "";
+                        // if (priceDelta.gt(0)) signPriceDelta = "+";
                     }
                     break;
                 case "TC":
@@ -327,12 +303,15 @@ export default function PortfolioTable(props) {
                             token.decimals
                         )
                     );
+
+                    // RAW price for balance and variation calculation
                     price = new BigNumber(
                         fromContractPrecisionDecimals(
                             auth.contractStatusData.PP_FeeToken,
                             token.decimals
                         )
                     );
+
                     priceCA = new BigNumber(
                         fromContractPrecisionDecimals(
                             auth.contractStatusData.PP_CA[0],
@@ -351,26 +330,28 @@ export default function PortfolioTable(props) {
                     priceDelta = price.minus(priceHistory);
                     variation = priceDelta.abs().div(priceHistory).times(100);
 
+                    // Now that balance and variation is calculated, is multiplied for priceCA for price final value
+                    price = price.times(priceCA);
+
                     break;
                 case "TG":
-                    console.log(`Processing ${token.name} (TG)`);
+                    // console.log(`Processing ${token.name} (TG)`);
                     // CALCULATE TOKENS TG DATA
-
-                    // CHECK if THERE IS A TF WITH SAME NAME. IF TRUE, SKIP.
 
                     break;
                 default:
-                    console.log(`Unknown token type for ${token.name}`);
+                    // console.log(`Unknown token type for ${token.name}`);
                     break;
             }
-            const label = token.fullName || token.name;
+            // const label = token.fullName || token.name;
             const tokenName = token.fullName || token.name;
             const tokenTicker = token.name;
-            const decimals = token.decimals;
-
             count++;
 
-            // remove condition after DEBUGING
+            if (token.type === "TP" && token.peggedUSD === false) {
+                // Change Price in USD for Tokens per USD for !peggedUSD pegged tokens.
+                label.price = t("portfolio.tokensTable.tokensPerUSD");
+            }
 
             const tokenRow = generateTokenRow({
                 key: token.uniqueKey,
@@ -378,26 +359,19 @@ export default function PortfolioTable(props) {
                 tokenIcon,
                 tokenName,
                 tokenTicker,
-                balance: balance.toFormat(
-                    token.visibleDecimals,
-                    BigNumber.ROUND_UP
-                ), // ✅ Convert to string
-                price: price.toFormat(
-                    token.visibleDecimals,
-                    BigNumber.ROUND_UP
-                ), // ✅ Convert to string
-                balanceUSD: balanceUSD.toFormat(
-                    token.visibleDecimals,
-                    BigNumber.ROUND_UP
-                ), // ✅ Convert to string
+                price,
+                balance,
+                balanceUSD,
                 priceDelta,
                 variation,
-                decimals: token.visibleDecimals,
+                decimals: token.decimals,
+                visiblePriceDecimals: token.visiblePriceDecimals,
+                visibleBalanceDecimals: token.visibleBalanceDecimals,
+                visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
                 auth,
                 t,
                 i18n,
                 ns,
-                params,
             });
 
             if (settings.collateral !== token.type.toLowerCase()) {
@@ -423,21 +397,21 @@ export default function PortfolioTable(props) {
             {/* Display header and body for regular tokens */}
             <div className="table__header">
                 <div className="table__cell__name">
-                    {t("portfolio.tokens.CA.columns.name")}
+                    {t("portfolio.tokensTable.tokenName")}
                 </div>
                 <div className="table__cell__price">
-                    {t("portfolio.tokens.CA.columns.price")}
+                    {t("portfolio.tokensTable.priceInUSD")}
                 </div>
                 <div className="table__cell__variation">
                     {!settings.showPriceVariation
                         ? null
-                        : t("portfolio.tokens.CA.columns.variation")}
+                        : t("portfolio.tokensTable.variation")}
                 </div>
                 <div className="table__cell__amount">
-                    {t("portfolio.tokens.CA.columns.balance")}
+                    {t("portfolio.tokensTable.balance")}
                 </div>
                 <div className="table__cell__usdBalance">
-                    {t("portfolio.tokens.CA.columns.usd")}
+                    {t("portfolio.tokensTable.usdBalance")}
                 </div>
             </div>
             <div className="table__body">
@@ -452,21 +426,21 @@ export default function PortfolioTable(props) {
                 <>
                     <div className="table__header">
                         <div className="table__cell__name">
-                            {t("portfolio.tokens.TP.columns.name")}
+                            {t("portfolio.tokensTable.tokenName")}
                         </div>
                         <div className="table__cell__price">
-                            {t("portfolio.tokens.TP.columns.price")}
+                            {t("portfolio.tokensTable.tokensPerUSD")}
                         </div>
                         <div className="table__cell__variation">
                             {!settings.showPriceVariation
                                 ? null
-                                : t("portfolio.tokens.TP.columns.variation")}
+                                : t("portfolio.tokensTable.variation")}
                         </div>
                         <div className="table__cell__amount">
-                            {t("portfolio.tokens.TP.columns.balance")}
+                            {t("portfolio.tokensTable.balance")}
                         </div>
                         <div className="table__cell__usdBalance">
-                            {t("portfolio.tokens.TP.columns.usd")}
+                            {t("portfolio.tokensTable.usdBalance")}
                         </div>
                     </div>
                     <div className="table__body">
