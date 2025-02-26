@@ -9,6 +9,9 @@
             "fullName": "Ethereum",
             "decimals": 18,
             "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2,
             "peggedUSD": false
         }],
         "CA": [
@@ -18,17 +21,10 @@
                 "fullName": "Ethereum",
                 "decimals": 18,
                 "visibleDecimals": 6,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 8,
+                "visibleBalanceUSDDecimals": 2,
                 "peggedUSD": false
-            }
-        ],
-        "TP": [
-            {
-                "key": 0,
-                "name": "USDX",
-                "fullName": "USDX",
-                "decimals": 18,
-                "visibleDecimals": 6,
-                "peggedUSD": true
             }
         ],
         "TC": [{
@@ -36,14 +32,33 @@
             "name": "XETH",
             "fullName": "XETH",
             "decimals": 18,
-            "visibleDecimals": 6
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2
         }],
+        "TP": [
+            {
+                "key": 0,
+                "name": "USDX",
+                "fullName": "USDX",
+                "decimals": 18,
+                "visibleDecimals": 6,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 2,
+                "visibleBalanceUSDDecimals": 2,
+                "peggedUSD": true
+            }
+        ],
         "TF": [{
             "key": 0,
             "name": "XSTA",
             "fullName": "StableX",
             "decimals": 18,
             "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 4,
+            "visibleBalanceUSDDecimals": 2,
             "peggedUSD": false
         }],
         "TG": [{
@@ -52,6 +67,9 @@
             "fullName": "StableX",
             "decimals": 18,
             "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2,
             "peggedUSD": false
         }]
     }

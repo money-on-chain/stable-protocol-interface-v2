@@ -1,8 +1,6 @@
 import BigNumber from "bignumber.js";
-// import { PrecisionNumbers } from "../../PrecisionNumbers";
-import NumericLabel from "react-pretty-numbers";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
 import settings from "../../../settings/settings.json";
-// import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 
 export const generateTokenRow = ({
     key,
@@ -10,18 +8,19 @@ export const generateTokenRow = ({
     tokenIcon,
     tokenName,
     tokenTicker,
-    balance,
     price,
+    balance,
     balanceUSD,
     priceDelta,
     variation,
     decimals,
-    // settings,
+    visiblePriceDecimals,
+    visibleBalanceDecimals,
+    visibleBalanceUSDDecimals,
     auth,
     t,
     i18n,
     ns,
-    params,
 }) => {
     const getSign = () => {
         if (priceDelta.isZero()) return "";
@@ -47,41 +46,88 @@ export const generateTokenRow = ({
                 </div>
                 {/* Token price */}
                 <div className="table__cell table__cell__price">
-                    <NumericLabel {...{ params }}>{price}</NumericLabel>
+                    {console.log(
+                        "ASI LLEGA EL PRICE ",
+                        tokenName,
+                        "   ",
+                        price
+                    )}
+                    {auth.contractStatusData.canOperate ? (
+                        <PrecisionNumbers
+                            amount={price}
+                            token={{
+                                decimals: { visiblePriceDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
+                                visibleDecimals: { visiblePriceDecimals }, // Define que queremos mostrar 4 decimales
+                            }}
+                            decimals={visiblePriceDecimals} // Asegura que se rendericen 4 decimales
+                            t={t}
+                            i18n={i18n}
+                            ns={ns}
+                            skipContractConvert={true}
+                        />
+                    ) : (
+                        <>--</>
+                    )}
                     <div className="table__cell__label">{label.price}</div>
                 </div>
+
                 {/* Token 24h variation */}
-                {!settings.showPriceVariation ||
-                !auth.contractStatusData.canOperate ? (
+                {settings.showPriceVariation ? (
                     <div className="table__cell">
-                        <div className="table__cell__variation"></div>
+                        {auth.contractStatusData.canOperate ? (
+                            <div className="table__cell__variation">
+                                {`${getSign()} `}
+                                <PrecisionNumbers
+                                    amount={variation.abs()}
+                                    token={{
+                                        decimals: 2,
+                                        visibleDecimals: 2,
+                                    }}
+                                    decimals={2}
+                                    t={t}
+                                    i18n={i18n}
+                                    ns={ns}
+                                    skipContractConvert={true}
+                                />
+                                {" %"}
+                                <span
+                                    className={`variation-indicator ${
+                                        getSign() === "+"
+                                            ? "positive-indicator"
+                                            : getSign() === "-"
+                                              ? "negative-indicator"
+                                              : "neutral-indicator"
+                                    }`}
+                                ></span>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="table__cell__variation">--</div>
+                                <div className="table__cell__label">
+                                    {label.variation}
+                                </div>
+                            </>
+                        )}
                     </div>
                 ) : (
                     <div className="table__cell">
-                        <div className="table__cell__variation">
-                            {`${getSign()} `}
-                            <NumericLabel {...{ params }}>
-                                {variationFormat}
-                            </NumericLabel>
-                            {" %"}
-                            <span
-                                className={`variation-indicator ${
-                                    getSign() === "+"
-                                        ? "positive-indicator"
-                                        : getSign() === "-"
-                                          ? "negative-indicator"
-                                          : "neutral-indicator"
-                                }`}
-                            ></span>
-                        </div>
-                        <div className="table__cell__label">
-                            {label.variation}
-                        </div>
+                        <div className="table__cell table__cell__price"></div>
                     </div>
                 )}
                 {/* Token balance */}
                 <div className="table__cell table__cell__amount">
-                    <NumericLabel {...{ params }}>{balance}</NumericLabel>{" "}
+                    <PrecisionNumbers
+                        amount={balance}
+                        token={{
+                            decimals: { visibleBalanceDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
+                            visibleDecimals: { visibleBalanceDecimals }, // Define que queremos mostrar 4 decimales
+                        }}
+                        decimals={visibleBalanceDecimals} // Asegura que se rendericen 4 decimales
+                        t={t}
+                        i18n={i18n}
+                        ns={ns}
+                        skipContractConvert={true}
+                    />{" "}
                     <div className="token__ticker">
                         {/* {tokenTicker}  */}
                         {/* show token ticker after balance */}
@@ -92,7 +138,22 @@ export const generateTokenRow = ({
                 </div>
                 {/* Token balance in USD */}
                 <div className="table__cell table__cell__usdBalance">
-                    <NumericLabel {...{ params }}>{balanceUSD}</NumericLabel>
+                    {auth.contractStatusData.canOperate ? (
+                        <PrecisionNumbers
+                            amount={balanceUSD}
+                            token={{
+                                decimals: { visibleBalanceUSDDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
+                                visibleDecimals: { visibleBalanceUSDDecimals }, // Define que queremos mostrar 4 decimales
+                            }}
+                            decimals={visibleBalanceUSDDecimals} // Asegura que se rendericen 4 decimales
+                            t={t}
+                            i18n={i18n}
+                            ns={ns}
+                            skipContractConvert={true}
+                        />
+                    ) : (
+                        <>--</>
+                    )}
                     <div className="table__cell__label">{label.usdBalance}</div>
                 </div>
             </div>
