@@ -1,6 +1,8 @@
-import BigNumber from "bignumber.js";
+import PropTypes from 'prop-types';
+
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import settings from "../../../settings/settings.json";
+
 
 export const generateTokenRow = ({
     key,
@@ -13,24 +15,16 @@ export const generateTokenRow = ({
     balanceUSD,
     priceDelta,
     variation,
-    decimals,
     visiblePriceDecimals,
     visibleBalanceDecimals,
     visibleBalanceUSDDecimals,
     auth,
-    t,
-    i18n,
-    ns,
+    i18n
 }) => {
     const getSign = () => {
         if (priceDelta.isZero()) return "";
         return priceDelta.isPositive() ? "+" : "-";
     };
-
-    const variationFormat = variation.toFormat(decimals, BigNumber.ROUND_UP, {
-        decimalSeparator: t("numberFormat.decimalSeparator"),
-        groupSeparator: t("numberFormat.thousandsSeparator"),
-    });
 
     return {
         key,
@@ -46,12 +40,12 @@ export const generateTokenRow = ({
                 </div>
                 {/* Token price */}
                 <div className="table__cell table__cell__price">
-                    {console.log(
+                    {/*console.log(
                         "ASI LLEGA EL PRICE ",
                         tokenName,
                         "   ",
                         price
-                    )}
+                    )*/}
                     {auth.contractStatusData.canOperate ? (
                         <PrecisionNumbers
                             amount={price}
@@ -60,9 +54,7 @@ export const generateTokenRow = ({
                                 visibleDecimals: { visiblePriceDecimals }, // Define que queremos mostrar 4 decimales
                             }}
                             decimals={visiblePriceDecimals} // Asegura que se rendericen 4 decimales
-                            t={t}
                             i18n={i18n}
-                            ns={ns}
                             skipContractConvert={true}
                         />
                     ) : (
@@ -84,9 +76,7 @@ export const generateTokenRow = ({
                                         visibleDecimals: 2,
                                     }}
                                     decimals={2}
-                                    t={t}
                                     i18n={i18n}
-                                    ns={ns}
                                     skipContractConvert={true}
                                 />
                                 {" %"}
@@ -123,9 +113,7 @@ export const generateTokenRow = ({
                             visibleDecimals: { visibleBalanceDecimals }, // Define que queremos mostrar 4 decimales
                         }}
                         decimals={visibleBalanceDecimals} // Asegura que se rendericen 4 decimales
-                        t={t}
                         i18n={i18n}
-                        ns={ns}
                         skipContractConvert={true}
                     />{" "}
                     <div className="token__ticker">
@@ -146,9 +134,7 @@ export const generateTokenRow = ({
                                 visibleDecimals: { visibleBalanceUSDDecimals }, // Define que queremos mostrar 4 decimales
                             }}
                             decimals={visibleBalanceUSDDecimals} // Asegura que se rendericen 4 decimales
-                            t={t}
                             i18n={i18n}
-                            ns={ns}
                             skipContractConvert={true}
                         />
                     ) : (
@@ -159,4 +145,22 @@ export const generateTokenRow = ({
             </div>
         ),
     };
+};
+
+generateTokenRow.propTypes = {
+    key: PropTypes.string,
+    label: PropTypes.string,
+    tokenIcon: PropTypes.string,
+    tokenName: PropTypes.string,
+    tokenTicker: PropTypes.string,
+    price: PropTypes.bigint,
+    balance: PropTypes.bigint,
+    balanceUSD: PropTypes.bigint,
+    priceDelta: PropTypes.bigint,
+    variation: PropTypes.bigint,
+    visiblePriceDecimals: PropTypes.number,
+    visibleBalanceDecimals: PropTypes.number,
+    visibleBalanceUSDDecimals: PropTypes.number,
+    auth: PropTypes.object,
+    i18n: PropTypes.object
 };

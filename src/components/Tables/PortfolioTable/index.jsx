@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Skeleton } from "antd";
+import BigNumber from "bignumber.js";
+
 import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import { generateTokenRow } from "./renderHelpers";
 
 import "./Styles.scss";
 
+
 export default function PortfolioTable() {
-    const { t, i18n, ns } = useProjectTranslation();
+    const { t, i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
 
@@ -353,6 +355,9 @@ export default function PortfolioTable() {
                 label.price = t("portfolio.tokensTable.tokensPerUSD");
             }
 
+            console.log("DEBUG>>")
+            console.log(price)
+
             const tokenRow = generateTokenRow({
                 key: token.uniqueKey,
                 label,
@@ -369,9 +374,7 @@ export default function PortfolioTable() {
                 visibleBalanceDecimals: token.visibleBalanceDecimals,
                 visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
                 auth,
-                t,
-                i18n,
-                ns,
+                i18n
             });
 
             if (settings.collateral !== token.type.toLowerCase()) {
