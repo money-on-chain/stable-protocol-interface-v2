@@ -40,20 +40,14 @@ export const generateTokenRow = ({
                 </div>
                 {/* Token price */}
                 <div className="table__cell table__cell__price">
-                    {/*console.log(
-                        "ASI LLEGA EL PRICE ",
-                        tokenName,
-                        "   ",
-                        price
-                    )*/}
                     {auth.contractStatusData.canOperate ? (
                         <PrecisionNumbers
                             amount={price}
                             token={{
-                                decimals: { visiblePriceDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
-                                visibleDecimals: { visiblePriceDecimals }, // Define que queremos mostrar 4 decimales
+                                decimals: { visiblePriceDecimals },
+                                visibleDecimals: { visiblePriceDecimals },
                             }}
-                            decimals={visiblePriceDecimals} // Asegura que se rendericen 4 decimales
+                            decimals={visiblePriceDecimals}
                             i18n={i18n}
                             skipContractConvert={true}
                         />
@@ -109,10 +103,10 @@ export const generateTokenRow = ({
                     <PrecisionNumbers
                         amount={balance}
                         token={{
-                            decimals: { visibleBalanceDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
-                            visibleDecimals: { visibleBalanceDecimals }, // Define que queremos mostrar 4 decimales
+                            decimals: { visibleBalanceDecimals },
+                            visibleDecimals: { visibleBalanceDecimals },
                         }}
-                        decimals={visibleBalanceDecimals} // Asegura que se rendericen 4 decimales
+                        decimals={visibleBalanceDecimals}
                         i18n={i18n}
                         skipContractConvert={true}
                     />{" "}
@@ -130,10 +124,10 @@ export const generateTokenRow = ({
                         <PrecisionNumbers
                             amount={balanceUSD}
                             token={{
-                                decimals: { visibleBalanceUSDDecimals }, // Precisión en el contrato (aunque aquí no importa mucho)
-                                visibleDecimals: { visibleBalanceUSDDecimals }, // Define que queremos mostrar 4 decimales
+                                decimals: { visibleBalanceUSDDecimals },
+                                visibleDecimals: { visibleBalanceUSDDecimals },
                             }}
-                            decimals={visibleBalanceUSDDecimals} // Asegura que se rendericen 4 decimales
+                            decimals={visibleBalanceUSDDecimals}
                             i18n={i18n}
                             skipContractConvert={true}
                         />

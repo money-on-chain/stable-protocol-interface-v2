@@ -5,15 +5,25 @@
     "tokens": {
         "COINBASE": [{
             "name": "RBTC",
+            "fullName": "Smart Bitcoin",
             "decimals": 18,
-            "visibleDecimals": 8
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2,
+            "peggedUSD": false
         }],
         "CA": [
             {
                 "key": 0,
                 "name": "BPRO",
+                "fullName": "BPro",
                 "decimals": 18,
-                "visibleDecimals": 8
+                "visibleDecimals": 6,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 8,
+                "visibleBalanceUSDDecimals": 2,
+                "peggedUSD": false
             }
         ],
         "TP": [
@@ -22,6 +32,9 @@
                 "name": "ArsFlip",
                 "decimals": 18,
                 "visibleDecimals": 2,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 2,
+                "visibleBalanceUSDDecimals": 2,
                 "peggedUSD": false
             },
             {
@@ -29,23 +42,37 @@
                 "name": "CopFlip",
                 "decimals": 18,
                 "visibleDecimals": 2,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 2,
+                "visibleBalanceUSDDecimals": 2,
                 "peggedUSD": false
             }
         ],
         "TC": [{
             "name": "BPROX",
             "decimals": 18,
-            "visibleDecimals": 8
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2
         }],
         "TF": [{
             "name": "FLIP",
             "decimals": 18,
-            "visibleDecimals": 8
+            "visibleDecimals": 8,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 4,
+            "visibleBalanceUSDDecimals": 2,
+            "peggedUSD": false
         }],
         "TG": [{
             "name": "FLIP",
             "decimals": 18,
-            "visibleDecimals": 8
+            "visibleDecimals": 8,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 4,
+            "visibleBalanceUSDDecimals": 2,
+            "peggedUSD": false
         }]
     }
 }
