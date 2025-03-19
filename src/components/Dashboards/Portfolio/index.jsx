@@ -4,7 +4,6 @@ import BigNumber from "bignumber.js";
 import { useProjectTranslation } from "../../../helpers/translations";
 import { AuthenticateContext } from "../../../context/Auth";
 import settings from "../../../settings/settings.json";
-import BigNumber from "bignumber.js";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
