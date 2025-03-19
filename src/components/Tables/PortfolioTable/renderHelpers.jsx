@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import React from "react";
 
 import { PrecisionNumbers } from "../../PrecisionNumbers";
 import settings from "../../../settings/settings.json";
-
 
 export const generateTokenRow = ({
     key,
@@ -19,7 +19,7 @@ export const generateTokenRow = ({
     visibleBalanceDecimals,
     visibleBalanceUSDDecimals,
     auth,
-    i18n
+    i18n,
 }) => {
     const getSign = () => {
         if (priceDelta.isZero()) return "";
@@ -162,5 +162,5 @@ generateTokenRow.propTypes = {
     visibleBalanceDecimals: PropTypes.number,
     visibleBalanceUSDDecimals: PropTypes.number,
     auth: PropTypes.object,
-    i18n: PropTypes.object
+    i18n: PropTypes.object,
 };

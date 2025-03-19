@@ -96,7 +96,7 @@ const readContracts = async (web3) => {
     for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
         try {
             tpAddress = mocAddr["tpTokens"][i];
-            if (!tpAddress || tpAddress === '0x') continue;
+            if (!tpAddress || tpAddress === "0x") continue;
             tpIndex = await dContracts.contracts.Moc.methods
                 .peggedTokenIndex(tpAddress)
                 .call();

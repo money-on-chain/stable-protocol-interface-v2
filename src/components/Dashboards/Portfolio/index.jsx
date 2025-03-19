@@ -6,8 +6,6 @@ import { AuthenticateContext } from "../../../context/Auth";
 import settings from "../../../settings/settings.json";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
 import { PrecisionNumbers } from "../../PrecisionNumbers";
-import { hasNonUSDPeggedTokens } from "../../../helpers/currencies";
-
 import PortfolioTable from "../../Tables/PortfolioTable";
 
 export default function Portfolio() {

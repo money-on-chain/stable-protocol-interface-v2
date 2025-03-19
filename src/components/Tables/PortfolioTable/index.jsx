@@ -6,11 +6,10 @@ import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
+//import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import { generateTokenRow } from "./renderHelpers";
 
 import "./Styles.scss";
-
 
 export default function PortfolioTable() {
     const { t, i18n } = useProjectTranslation();
@@ -82,8 +81,6 @@ export default function PortfolioTable() {
         }
         let newNonUSDpeggedTokenRows = []; // ✅ Store all updated rows
         let newUSDpeggedTokenRows = []; // ✅ Store all updated rows
-
-        let count = 0;
 
         allTheTokens.forEach((token) => {
             let balance = new BigNumber(0);
@@ -206,50 +203,45 @@ export default function PortfolioTable() {
                         priceDelta = price.minus(priceHistory);
                         priceDelta = new BigNumber(0);
 
-                        const variation = priceDelta
-                            .abs()
-                            .div(priceHistory)
-                            .times(100);
+                        // const variation = priceDelta
+                        //     .abs()
+                        //     .div(priceHistory)
+                        //     .times(100);
                     } else {
                         // CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
-
-                        const balance = new BigNumber(
-                            fromContractPrecisionDecimals(
-                                auth.userBalanceData.TP[token.key].balance,
-                                token.decimals
-                            )
-                        );
-
-                        let price = new BigNumber(
-                            fromContractPrecisionDecimals(
-                                auth.contractStatusData.PP_TP[token.key],
-                                token.decimals
-                            )
-                        );
-                        price = ConvertPeggedTokenPrice(auth, token.key, price);
-                        const balanceUSD = balance.div(price);
-
+                        // const balance = new BigNumber(
+                        //     fromContractPrecisionDecimals(
+                        //         auth.userBalanceData.TP[token.key].balance,
+                        //         token.decimals
+                        //     )
+                        // );
+                        // let price = new BigNumber(
+                        //     fromContractPrecisionDecimals(
+                        //         auth.contractStatusData.PP_TP[token.key],
+                        //         token.decimals
+                        //     )
+                        // );
+                        //price = ConvertPeggedTokenPrice(auth, token.key, price);
+                        //const balanceUSD = balance.div(price);
                         // variation
-                        let priceHistory = new BigNumber(
-                            fromContractPrecisionDecimals(
-                                auth.contractStatusData.historic.PP_TP[
-                                    token.key
-                                ],
-                                token.decimals
-                            )
-                        );
-                        priceHistory = ConvertPeggedTokenPrice(
-                            auth,
-                            token.key,
-                            priceHistory
-                        );
-
-                        const priceDelta = price.minus(priceHistory);
-                        const variation = priceDelta
-                            .abs()
-                            .div(priceHistory)
-                            .times(100);
-
+                        // let priceHistory = new BigNumber(
+                        //     fromContractPrecisionDecimals(
+                        //         auth.contractStatusData.historic.PP_TP[
+                        //             token.key
+                        //         ],
+                        //         token.decimals
+                        //     )
+                        // );
+                        // priceHistory = ConvertPeggedTokenPrice(
+                        //     auth,
+                        //     token.key,
+                        //     priceHistory
+                        // );
+                        //const priceDelta = price.minus(priceHistory);
+                        // const variation = priceDelta
+                        //     .abs()
+                        //     .div(priceHistory)
+                        //     .times(100);
                         // let signPriceDelta = "";
                         // if (priceDelta.gt(0)) signPriceDelta = "+";
                     }
@@ -348,7 +340,6 @@ export default function PortfolioTable() {
             // const label = token.fullName || token.name;
             const tokenName = token.fullName || token.name;
             const tokenTicker = token.name;
-            count++;
 
             if (token.type === "TP" && token.peggedUSD === false) {
                 // Change Price in USD for Tokens per USD for !peggedUSD pegged tokens.
@@ -371,7 +362,7 @@ export default function PortfolioTable() {
                 visibleBalanceDecimals: token.visibleBalanceDecimals,
                 visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
                 auth,
-                i18n
+                i18n,
             });
 
             if (settings.collateral !== token.type.toLowerCase()) {
