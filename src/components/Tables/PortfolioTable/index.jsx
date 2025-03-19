@@ -355,9 +355,6 @@ export default function PortfolioTable() {
                 label.price = t("portfolio.tokensTable.tokensPerUSD");
             }
 
-            console.log("DEBUG>>")
-            console.log(price)
-
             const tokenRow = generateTokenRow({
                 key: token.uniqueKey,
                 label,
