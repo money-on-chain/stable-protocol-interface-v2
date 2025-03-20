@@ -8,7 +8,7 @@ import { AuthenticateContext } from "../../context/Auth";
 import settings from "../../settings/settings.json";
 
 export default function CollateralAssets() {
-    const { t, i18n, ns } = useProjectTranslation();
+    const { i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     return (
