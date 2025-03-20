@@ -3,6 +3,32 @@ import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import settings from "../../settings/settings.json";
 import omoc from "../../settings/omoc/omoc.json";
 
+const createListOrDictStorage = (storage, keyName) => {
+    if (keyName === parseInt(keyName, 10)) {
+        storage[keyName] = [];
+    } else {
+        storage[keyName] = {};
+    }
+    return storage;
+};
+
+const onErrorLeverage = () => {
+    const value = new BigNumber(
+        115792089237316200000000000000000000000000000000000000
+    );
+    console.warn("WARN: Leverage too high!");
+    return { value, canOperate: true };
+};
+
+const onErrorProposal = () => {
+    console.warn("Proposal not exist");
+    return { value: null, canOperate: true };
+};
+
+const onErrorTP = () => {
+    return { value: null, canOperate: true };
+};
+
 class Multicall {
     constructor(multicall, web3) {
         this.multicall = multicall;
@@ -13,7 +39,15 @@ class Multicall {
     clear() {
         this.calls = [];
     }
-    aggregate(contract, encodeABI, resultType, keyName, keyIndex, keySubIndex) {
+    aggregate(
+        contract,
+        encodeABI,
+        resultType,
+        keyName,
+        keyIndex,
+        keySubIndex,
+        onError
+    ) {
         this.calls.push([
             contract.options.address,
             encodeABI,
@@ -21,6 +55,7 @@ class Multicall {
             keyName,
             keyIndex,
             keySubIndex,
+            onError,
         ]);
     }
     async tryBlockAndAggregate(blockNumber) {
@@ -44,35 +79,19 @@ class Multicall {
             const keyName = calls[itemIndex][3];
             const keyIndex = calls[itemIndex][4];
             const keySubIndex = calls[itemIndex][5];
+            const onError = calls[itemIndex][6];
 
-            // Ok success
+            // ON success
             if (item.success) {
-                if (typeof resultType === "string") {
-                    value = web3.eth.abi.decodeParameter(
-                        resultType,
-                        item.returnData
-                    );
-                } else {
-                    value = web3.eth.abi.decodeParameters(
-                        resultType,
-                        item.returnData
-                    );
-                }
+                value = web3.eth.abi.decodeParameter(
+                    resultType,
+                    item.returnData
+                );
             } else {
-                // Exceptions
-                // getLeverageTC this is an exception
-                if (keyName === "getLeverageTC") {
-                    // When there are an exception here is because leverage is infinity
-                    // very big number (infinity+)
-                    value = new BigNumber(
-                        115792089237316200000000000000000000000000000000000000
-                    );
-                    console.warn("WARN: Leverage too high!");
-                } else if (
-                    keyName === "votingmachine" &&
-                    keyIndex === "getProposalByIndex"
-                ) {
-                    value = null;
+                if (onError !== undefined) {
+                    const resError = onError();
+                    value = resError["value"];
+                    canOperate = resError["canOperate"];
                 } else {
                     // Not Ok Error on calling
                     if (resultType === "uint256") {
@@ -93,19 +112,24 @@ class Multicall {
 
             if (keyIndex != null && keySubIndex != null) {
                 if (!storage[keyName]) {
-                    storage[keyName] = {};
+                    storage[keyName] = createListOrDictStorage(
+                        storage,
+                        keyName
+                    );
                 }
                 if (!storage[keyName][keyIndex]) {
-                    storage[keyName][keyIndex] = {};
+                    storage[keyName][keyIndex] = createListOrDictStorage(
+                        storage[keyName],
+                        keyIndex
+                    );
                 }
                 storage[keyName][keyIndex][keySubIndex] = value;
             } else if (keyIndex != null) {
                 if (!storage[keyName]) {
-                    if (keyIndex === parseInt(keyIndex, 10)) {
-                        storage[keyName] = [];
-                    } else {
-                        storage[keyName] = {};
-                    }
+                    storage[keyName] = createListOrDictStorage(
+                        storage,
+                        keyName
+                    );
                 }
                 storage[keyName][keyIndex] = value;
             } else {
@@ -309,7 +333,10 @@ const contractStatus = async (web3, dContracts) => {
         Moc,
         Moc.methods.getLeverageTC().encodeABI(),
         "uint256",
-        "getLeverageTC"
+        "getLeverageTC",
+        null,
+        null,
+        onErrorLeverage
     );
     multiCallRequest.aggregate(
         Moc,
@@ -743,7 +770,8 @@ const contractStatus = async (web3, dContracts) => {
                     ],
                     "votingmachine",
                     "getProposalByIndex",
-                    indexProp
+                    indexProp,
+                    onErrorProposal
                 );
             }
         }
@@ -1593,7 +1621,9 @@ const mocAddresses = async (web3, dContracts) => {
             moc.methods.tpTokens(i).encodeABI(),
             "address",
             "tpTokens",
-            i
+            i,
+            null,
+            onErrorTP
         );
     }
 
