@@ -3,14 +3,6 @@ import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import settings from "../../settings/settings.json";
 import omoc from "../../settings/omoc/omoc.json";
 
-const createListOrDictStorage = (storage, keyName) => {
-    if (keyName === parseInt(keyName, 10)) {
-        storage[keyName] = [];
-    } else {
-        storage[keyName] = {};
-    }
-    return storage;
-};
 
 const onErrorLeverage = () => {
     const value = new BigNumber(
@@ -119,24 +111,27 @@ class Multicall {
 
             if (keyIndex != null && keySubIndex != null) {
                 if (!storage[keyName]) {
-                    storage[keyName] = createListOrDictStorage(
-                        storage,
-                        keyName
-                    );
+                    if (keyName === parseInt(keyName, 10)) {
+                        storage[keyName] = [];
+                    } else {
+                        storage[keyName] = {};
+                    }
                 }
                 if (!storage[keyName][keyIndex]) {
-                    storage[keyName][keyIndex] = createListOrDictStorage(
-                        storage[keyName],
-                        keyIndex
-                    );
+                    if (keyIndex === parseInt(keyIndex, 10)) {
+                        storage[keyName][keyIndex] = [];
+                    } else {
+                        storage[keyName][keyIndex] = {};
+                    }
                 }
                 storage[keyName][keyIndex][keySubIndex] = value;
             } else if (keyIndex != null) {
                 if (!storage[keyName]) {
-                    storage[keyName] = createListOrDictStorage(
-                        storage,
-                        keyName
-                    );
+                    if (keyName === parseInt(keyName, 10)) {
+                        storage[keyName] = [];
+                    } else {
+                        storage[keyName] = {};
+                    }
                 }
                 storage[keyName][keyIndex] = value;
             } else {
@@ -1481,7 +1476,6 @@ const userBalance = async (web3, dContracts, userAddress) => {
             });
         }
     }
-
     userBalance.CA = CA;
 
     // Vesting machine added address
