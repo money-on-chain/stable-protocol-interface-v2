@@ -113,8 +113,8 @@
                 "abbr": "RBTC"
             },
             "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
 
@@ -173,60 +173,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Price in USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "3": {
-                        "title": "MOC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "4": {
-                        "title": "rBTC",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Tokens per USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {}
-            }
+        "tokensTable": {
+            "tokenName": "Token",
+            "variation": "Variation 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance in USD",
+            "priceInUSD": "Price in USD",
+            "tokensPerUSD": "Tokens per USD"
         },
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",
@@ -312,7 +265,8 @@
             "TF": {
                 "label": "MOC",
                 "abbr": "MOC"
-            }
+            },
+            "TG": { "label": "MOC", "abbr": "MOC" }
         },
         "cardTitle": "Send",
         "labelSending": "Sending",
@@ -430,8 +384,8 @@
         "cardTitle": "Staking",
         "governanceToken": "MOC",
         "dashLabels": {
-            "balance": "MOC Balance",
-            "staked": "MOC Staked",
+            "balance": "Balance",
+            "staked": "Flip Staked",
             "unstaking": "Unstaking",
             "ready": "Ready to Withdraw",
             "lockedVoting": "Locked while Voting"
@@ -454,7 +408,7 @@
             }
         },
         "distribution": {
-            "title": "MOC Distribution",
+            "title": "MoC Distribution",
             "graph": {
                 "balance": "Balance (free)",
                 "processingUnstake": "Processing unstake",
@@ -463,14 +417,14 @@
                 "totalLabel": "Total MOC tokens"
             },
             "bar": {
-                "desc": "MOC staking annualized performance"
+                "desc": "MoC staking annualized performance"
             }
         },
         "performance": {
             "title": "Staking Performance",
             "bar": {
-                "description": "MOC staking annualized performance",
-                "base": "MOC",
+                "description": "MoC staking annualized performance",
+                "base": "MoC",
                 "sign": "+",
                 "staking": "Stacking"
             }
@@ -494,10 +448,22 @@
                 "actions": "Acciones disponibles"
             }
         },
+        "history": {
+            "title": "Staking Last Operations",
+            "columnDate": "Date",
+            "columnAmount": "Amount",
+            "columnOperation": "Operation",
+            "operatons": {
+                "stake": "Stake",
+                "unstake": "Unstake",
+                "restake": "Restake",
+                "withdraw": "Withdraw"
+            }
+        },
         "tokens": {
             "TG": {
-                "label": "MOC",
-                "abbr": "MOC"
+                "label": "MoC",
+                "abbr": "MoC"
             }
         },
         "modal": {
@@ -525,7 +491,7 @@
             "StakingOptionsModal_Authorize": "Authorize",
             "StakingOptionsModal_AllowanceDescription": "Before continuing with the staking you must set the allowance so that the staking system can access the tokens. This has to be done only once and it doesn't lock any tokens from your wallet.",
             "StakingOptionsModal_ProccessingAllowance": "Processing Allowance, please wait.",
-            "StakingOptionsModal_StakingDescription": "Staked MOCs will receive rewards from the MOC Staking Rewards Program. You can unstake your MOC's whenever you want, the withdraw process will take 30 days",
+            "StakingOptionsModal_StakingDescription": "Staked MoCs will receive rewards from the MoC Staking Rewards Program. You can unstake your MoC's whenever you want, the withdraw process will take 30 days",
             "StakingOptionsModal_AmountToStake": "Amount to Stake",
             "StakingOptionsModal_Title": "Stake",
             "StakingOptionsModal_Comfirm": "Confirm",
@@ -533,15 +499,15 @@
 
             "StakingOptionsModal_UnstakeTitle": "Unstake",
             "StakingOptionsModal_AmountToUnstake": "Amount to Unstake",
-            "StakingOptionsModal_UnstakingDescription": "You will be able to withdraw your MOC Tokens to your wallet in 30 days. You can restake them anytime in this period.",
+            "StakingOptionsModal_UnstakingDescription": "You will be able to withdraw your MoC Tokens to your wallet in 30 days. You can restake them anytime in this period.",
 
             "StakingOptionsModal_WithdrawTitle": "Withdraw",
             "StakingOptionsModal_AmountToWithdraw": "Amount to Withdraw",
-            "StakingOptionsModal_WithdrawDescription": "After withdrawal your MOCs tokens will be available in your wallet",
+            "StakingOptionsModal_WithdrawDescription": "After withdrawal your MoCs tokens will be available in your wallet",
 
             "StakingOptionsModal_RestakeTitle": "Restake",
             "StakingOptionsModal_AmountToRestake": "Amount to Restake",
-            "StakingOptionsModal_RestakeDescription": "After confirming, this amount of MOC Tokens will be removed from the processing queue and staked again. They will immediately start receiving MOC Staking Rewards.",
+            "StakingOptionsModal_RestakeDescription": "After confirming, this amount of MoC Tokens will be removed from the processing queue and staked again. They will immediately start receiving MoC Staking Rewards.",
 
             "StatusModal_Modal_Title": "Operation details",
             "StatusModal_Modal_Close": "Close",
@@ -562,7 +528,7 @@
             "page1": {
                 "stepTitle": "You don’t have any Vesting Machine (VM) Loaded yet",
                 "explanation1": "If you have a VM address, please click 'Load VM' button to access it.",
-                "explanation2": "If you are a MOC staker with a claim code, congrats! Please click 'Use Claim Code' button to create the Vesting Machine for your MOC tokens.",
+                "explanation2": "If you are a MOC staker with a claim code, congrats! Please click 'Use Claim Code' button to create the Vesting Machine for your Flip tokens.",
                 "ctaPrimary": "Use Claim Code",
                 "ctaSecondary": "Load VM"
             },
@@ -590,7 +556,7 @@
             },
             "page4": {
                 "stepTitle": "Vesting Machine Created Successfully!",
-                "successMessage": "Congratulations! You have successfully claimed your MOC tokens and created a Vesting Machine (VM). Please, read carefully the information below and don't forget to save your vesting address as indicated.",
+                "successMessage": "Congratulations! You have successfully claimed your Flip tokens and created a Vesting Machine (VM). Please, read carefully the information below and don't forget to save your vesting address as indicated.",
                 "addressLabel": "Created Vesting Machine Address",
                 "buttonDownloadAddress": "Download Address",
                 "buttonCopyAddress": "Copy Address",
@@ -633,7 +599,6 @@
             "status": "Status"
         }
     },
-
     "voting": {
         "cardTitle": {
             "section": "Voting",
@@ -679,22 +644,20 @@
             "negativeOverCirculation": "negative votes over circulating for vetoing"
         },
         "labels": { "proposalChangerContract": "Proposal Changer Contract" },
-
         "votingOptions": {
             "against": "Vote Against",
             "inFavor": "Vote In Favor"
         },
         "userPower": {
             "votingPower": "Voting power:",
-            "totalMOC": "Total MOC in circulation:",
+            "totalMOC": "Total MoC in circulation:",
             "totalSupply": "Total Supply:"
         },
         "cta": {
             "viewProposal": "View Proposal",
             "infoAdvance": "Please run Step to advance to next voting stage",
             "btnPushNextStep": "Push to Next Step",
-            "infoApplyChanges": "Please run 'Change Contracts' to finish & apply the changes to contracts",
-            "btn": "Change Contracts",
+            "infoApplyChanges": "Please run 'accepted step' to finish & apply the changes to contracts",
             "btnApplyChangesToContracts": "Change Contracts",
             "addNewProposal": " Add New Proposal",
             "cancel": "Cancel",
@@ -711,10 +674,31 @@
         "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
-        "protocolName": "Money on Chain",
+        "protocolName": "Rif On Chain",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
+        }
+    },
+    "liquidityMining": {
+        "cardTitle": "Liquidity Mining",
+        "cta": {
+            "infoDetail": "Use the button below to claim your tokens from the MOC Liquidity Mining incentive program. You’ll only need to pay the gas fees for this on-chain transaction. Once the tokens are in your balance, you can stake them to earn even more rewards!",
+            "infoSummary": "MoC ready to claim",
+            "button": "Claim"
+        },
+        "stakingCTA": {
+            "button": "Go to Staking",
+            "explanation": "Stake MOC tokens — it’s quick and simple!"
+        },
+        "claimsTable": {
+            "date": "Date",
+            "asset": "Asset",
+            "amount": "Amount",
+            "event": "Event",
+            "status": "Status",
+            "statusReceived": "Received",
+            "statusInProgress": "In progress"
         }
     }
 }

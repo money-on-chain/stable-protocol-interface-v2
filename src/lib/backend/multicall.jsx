@@ -83,10 +83,11 @@ class Multicall {
 
             // ON success
             if (item.success) {
-                value = web3.eth.abi.decodeParameter(
-                    resultType,
-                    item.returnData
-                );
+                if (typeof resultType === 'string') {
+                    value = web3.eth.abi.decodeParameter(resultType, item.returnData)
+                } else {
+                    value = web3.eth.abi.decodeParameters(resultType, item.returnData)
+                }
             } else {
                 if (onError !== undefined) {
                     const resError = onError();
