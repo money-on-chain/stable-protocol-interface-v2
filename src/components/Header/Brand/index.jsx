@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './Styles.scss';
+import "./Styles.scss";
 
 export default function Brand() {
     return (

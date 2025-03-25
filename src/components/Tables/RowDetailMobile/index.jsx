@@ -1,12 +1,10 @@
-import React from 'react';
-import { useProjectTranslation } from '../../../helpers/translations';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import settings from '../../../settings/settings.json';
-import './Styles.scss';
+import React from "react";
+import PropTypes from "prop-types";
+
+import { useProjectTranslation } from "../../../helpers/translations";
+import "./Styles.scss";
 
 function ItemData(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-
     return (
         <div className="LastOp__expanded__item">
             <div className="LastOp__expanded__label">{props.label}</div>
@@ -16,7 +14,7 @@ function ItemData(props) {
 }
 
 function RowDetail(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, ns } = useProjectTranslation();
 
     return (
         <div className="LastOp__expanded__container">
@@ -38,43 +36,44 @@ function RowDetail(props) {
             />
             <ItemData
                 label={t(`operations.columns_detailed.confirmation`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.confirmation}
             />
             <ItemData
                 label={t(`operations.columns_detailed.recipient`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.recipient}
             />
             <ItemData
                 label={t(`operations.columns_detailed.status`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.status}
             />
             <ItemData
                 label={t(`operations.columns_detailed.error_code`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.error_code}
             />
             <ItemData
                 label={t(`operations.columns_detailed.block`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.block}
             />
             <ItemData
                 label={t(`operations.columns_detailed.executed_tx`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={
                     <a
                         className="ant-descriptions-a"
-                        href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
+                        href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         <span>{props.detail.executed_tx_hash_truncate} </span>
                     </a>
@@ -82,19 +81,20 @@ function RowDetail(props) {
             />
             <ItemData
                 label={t(`operations.columns_detailed.fee`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.fee}
             />
             <ItemData
                 label={t(`operations.columns_detailed.tx`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={
                     <a
                         className="ant-descriptions-a"
-                        href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
+                        href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         <span>{props.detail.tx_hash_truncate} </span>
                     </a>
@@ -102,13 +102,13 @@ function RowDetail(props) {
             />
             <ItemData
                 label={t(`operations.columns_detailed.msg`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.msg}
             />
             <ItemData
                 label={t(`operations.columns_detailed.reason`, {
-                    ns: ns
+                    ns: ns,
                 })}
                 data={props.detail.reason}
             />
@@ -117,3 +117,12 @@ function RowDetail(props) {
 }
 
 export default RowDetail;
+
+RowDetail.propTypes = {
+    detail: PropTypes.object,
+};
+
+ItemData.propTypes = {
+    label: PropTypes.string,
+    data: PropTypes.object,
+};

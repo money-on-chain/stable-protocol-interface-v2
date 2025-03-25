@@ -1,27 +1,27 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { AuthenticateContext } from '../../context/Auth';
-import { Skeleton } from 'antd';
-import { useProjectTranslation } from '../../helpers/translations';
-import Portfolio from '../../components/Dashboards/Portfolio';
-import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
+import React, { Fragment, /*useContext, useEffect,*/ useState } from "react";
 
-import './Styles.scss';
+//import { AuthenticateContext } from "../../context/Auth";
+import { useProjectTranslation } from "../../helpers/translations";
+import Portfolio from "../../components/Dashboards/Portfolio";
+import ListOperationsMobile from "../Tables/LastOperations";
+import "./Styles.scss";
 
-export default function HomeTabs({ props }) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-    const [ready, setReady] = useState(false);
+export default function HomeTabs() {
+    const { t } = useProjectTranslation();
+    //const auth = useContext(AuthenticateContext);
+    //const [ready, setReady] = useState(false);
 
+    /*
     useEffect(() => {
         if (auth.contractStatusData) {
             setReady(true);
         }
-    }, [auth]);
+    }, [auth]);*/
 
     // Tabs for mobile
     const tabs = [
         { id: 0, name: t(`portfolio.mobileTabs.portfolio`) },
-        { id: 1, name: t(`portfolio.mobileTabs.lastOperations`) }
+        { id: 1, name: t(`portfolio.mobileTabs.lastOperations`) },
     ];
 
     // Active tab status control
@@ -37,8 +37,8 @@ export default function HomeTabs({ props }) {
                         key={tab.id}
                         className={
                             activeTab === tab.id
-                                ? 'tab__button tab__selected'
-                                : 'tab__button'
+                                ? "tab__button tab__selected"
+                                : "tab__button"
                         }
                         onClick={() => setActiveTab(tab.id)}
                     >
@@ -50,13 +50,13 @@ export default function HomeTabs({ props }) {
             {/* Content based on selected tab */}
             <div>
                 {activeTab === tabs[0].id ? (
-                    <div className="dashboard-portfolio">
+                    <div className="section-container">
                         <Portfolio />
                     </div>
                 ) : (
                     <div className="content-last-operations">
                         <ListOperationsMobile
-                            token={'all'}
+                            token={"all"}
                         ></ListOperationsMobile>
                     </div>
                 )}

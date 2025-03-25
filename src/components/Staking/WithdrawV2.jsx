@@ -1,43 +1,44 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Image, Skeleton, Table } from 'antd';
-import Moment from 'react-moment';
-import moment from 'moment-timezone';
+import React, { useContext, useState, useEffect } from "react";
+import { Skeleton, Table } from "antd";
+import Moment from "react-moment";
+import moment from "moment-timezone";
+import PropTypes from "prop-types";
 
-import date from '../../helpers/date';
-import { useProjectTranslation } from '../../helpers/translations';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { AuthenticateContext } from '../../context/Auth';
-import settings from '../../settings/settings.json';
-import ActionIcon from '../../assets/icons/Action.svg';
-import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
-import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import date from "../../helpers/date";
+import { useProjectTranslation } from "../../helpers/translations";
+import { PrecisionNumbers } from "../PrecisionNumbers";
+import { AuthenticateContext } from "../../context/Auth";
+import settings from "../../settings/settings.json";
+import StakingOptionsModal from "../Modals/StakingOptionsModal/index";
+import OperationStatusModal from "../Modals/OperationStatusModal/OperationStatusModal";
+import "./WithdrawV2.scss";
 
 export default function Withdraw(props) {
     const { userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
     const [totalTable, setTotalTable] = useState(null);
     const [data, setData] = useState(null);
     const [modalMode, setModalMode] = useState(null);
-    const [withdrawalId, setWithdrawalId] = useState('0');
-    const [modalAmount, setModalAmount] = useState('0');
+    const [withdrawalId, setWithdrawalId] = useState("0");
+    const [modalAmount, setModalAmount] = useState("0");
     const [operationModalInfo, setOperationModalInfo] = useState({});
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
 
     const columnsData = [];
     const ProvideColumnsTG = [
-        { title: 'Unique Cell', dataIndex: 'rowContent' }
+        { title: "Unique Cell", dataIndex: "rowContent" },
     ];
     useEffect(() => {
-        if (auth && userInfoStaking['pendingWithdrawals']) {
+        if (auth && userInfoStaking["pendingWithdrawals"]) {
             getWithdrawals();
         }
-    }, [auth, userInfoStaking['pendingWithdrawals'], i18n.language]);
+    }, [auth, userInfoStaking["pendingWithdrawals"], i18n.language]);
 
     const getWithdrawals = () => {
-        setTotalTable(userInfoStaking['pendingWithdrawals'].length);
-        const tokensData = userInfoStaking['pendingWithdrawals'].map(
+        setTotalTable(userInfoStaking["pendingWithdrawals"].length);
+        const tokensData = userInfoStaking["pendingWithdrawals"].map(
             (withdrawal, index) => ({
                 key: index,
                 rowContent: (
@@ -46,7 +47,7 @@ export default function Withdraw(props) {
                             <div className="item-data withdraw__date">
                                 <Moment
                                     format={
-                                        i18n.language === 'en'
+                                        i18n.language === "en"
                                             ? date.DATE_EN
                                             : date.DATE_ES
                                     }
@@ -59,28 +60,31 @@ export default function Withdraw(props) {
                             <div className="item-data withdraw__amount">
                                 {PrecisionNumbers({
                                     amount: withdrawal.amount,
-                                    token: settings.tokens.TG,
-                                    decimals: t('staking.display_decimals'),
+                                    token: settings.tokens.TG[0],
+                                    decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
-                                    ns: ns
+                                    ns: ns,
                                 })}
+                            </div>{" "}
+                            <div className="item-data withdraw__status">
+                                {t(
+                                    `staking.withdraw.status.${withdrawal.status}`
+                                )}
                             </div>
                         </div>
-                        <div className="item-data withdraw__status">
-                            {t(`staking.withdraw.status.${withdrawal.status}`)}
-                        </div>
+
                         <div className="withdraw__cta">
                             <div
-                                className={`cta__button restake action__container${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? ' action__container--disabled' : ''}`}
+                                className={`cta__button restake action__container${withdrawal.status !== "PENDING" && withdrawal.status !== "AVAILABLE" ? " action__container--disabled" : ""}`}
                                 onClick={() =>
-                                    handleActionClick('restake', withdrawal)
+                                    handleActionClick("restake", withdrawal)
                                 }
                             >
                                 <span
-                                    className={`action__description${withdrawal.status !== 'PENDING' && withdrawal.status !== 'AVAILABLE' ? '--disabled' : ''}`}
+                                    className={`action__description${withdrawal.status !== "PENDING" && withdrawal.status !== "AVAILABLE" ? "--disabled" : ""}`}
                                 >
-                                    {t('staking.withdraw.buttons.restake')}
+                                    {t("staking.withdraw.buttons.restake")}
                                 </span>
                                 {/* <div className="action__icon">
                                 <Image
@@ -91,15 +95,15 @@ export default function Withdraw(props) {
                             </div> */}
                             </div>
                             <div
-                                className={`cta__button withdraw  action__container${withdrawal.status === 'PENDING' ? ' cta__button--disabled' : ''}`}
+                                className={`cta__button withdraw  action__container${withdrawal.status === "PENDING" ? " cta__button--disabled" : ""}`}
                                 onClick={() =>
-                                    handleActionClick('withdraw', withdrawal)
+                                    handleActionClick("withdraw", withdrawal)
                                 }
                             >
                                 <span
-                                    className={`action__description${withdrawal.status === 'PENDING' ? '--disabled' : ''}`}
+                                    className={`action__description${withdrawal.status === "PENDING" ? "--disabled" : ""}`}
                                 >
-                                    {t('staking.withdraw.buttons.withdraw')}
+                                    {t("staking.withdraw.buttons.withdraw")}
                                 </span>
                                 {/* <div className="action__icon">
                                 <Image
@@ -111,7 +115,7 @@ export default function Withdraw(props) {
                             </div>
                         </div>
                     </div>
-                )
+                ),
             })
         );
         setData(tokensData);
@@ -123,20 +127,20 @@ export default function Withdraw(props) {
             title: dataItem.title,
             dataIndex: dataItem.dataIndex,
             align: dataItem.align,
-            width: dataItem.width
+            width: dataItem.width,
         });
     });
 
     const onConfirm = (operationStatus, txHash) => {
         const operationInfo = {
             operationStatus,
-            txHash
+            txHash,
         };
 
         setOperationModalInfo(operationInfo);
         setIsOperationModalVisible(true);
 
-        if (operationStatus === 'success') {
+        if (operationStatus === "success") {
             // Update the withdrawal list
             getWithdrawals();
         }
@@ -144,11 +148,11 @@ export default function Withdraw(props) {
 
     const handleActionClick = (action, status) => {
         // if (status !== 'PENDING' && status !== 'AVAILABLE' && action === 'restake') return;
-        if (status === 'PENDING' && action === 'withdraw') return;
-        if (action === 'restake') {
-            setModalMode('restake');
+        if (status === "PENDING" && action === "withdraw") return;
+        if (action === "restake") {
+            setModalMode("restake");
         } else {
-            setModalMode('withdraw');
+            setModalMode("withdraw");
         }
         setWithdrawalId(status.id.toString());
         setModalAmount(status.amount);
@@ -160,47 +164,47 @@ export default function Withdraw(props) {
             className="section__innerCard--big card-withdraw"
         >
             <div className="layout-card-title">
-                <h1>{t('staking.withdraw.title')}</h1>
+                <h1>{t("staking.withdraw.title")}</h1>
                 <div className="withdraw-header-balance">
-                    {userInfoStaking['totalPendingExpiration'] && (
+                    {userInfoStaking["totalPendingExpiration"] && (
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
                                     amount: userInfoStaking[
-                                        'totalPendingExpiration'
+                                        "totalPendingExpiration"
                                     ],
-                                    token: settings.tokens.TG,
-                                    decimals: t('staking.display_decimals'),
+                                    token: settings.tokens.TG[0],
+                                    decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
-                                    skipContractConvert: true
-                                })}{' '}
-                                {`${settings.tokens.TG.name}`}
+                                    skipContractConvert: true,
+                                })}{" "}
+                                {`${settings.tokens.TG[0].name}`}
                             </div>
                             <div className="withdraw-header-balance-title">
-                                {t('staking.withdraw.processing_unstake')}
+                                {t("staking.withdraw.processing_unstake")}
                             </div>
                         </div>
                     )}
-                    {userInfoStaking['totalAvailableToWithdraw'] && (
+                    {userInfoStaking["totalAvailableToWithdraw"] && (
                         <div className="withdraw-header-group">
                             <div className="withdraw-header-balance-number">
                                 {PrecisionNumbers({
                                     amount: userInfoStaking[
-                                        'totalAvailableToWithdraw'
+                                        "totalAvailableToWithdraw"
                                     ],
-                                    token: settings.tokens.TG,
-                                    decimals: t('staking.display_decimals'),
+                                    token: settings.tokens.TG[0],
+                                    decimals: t("staking.display_decimals"),
                                     t: t,
                                     i18n: i18n,
                                     ns: ns,
-                                    skipContractConvert: true
-                                })}{' '}
-                                {`${settings.tokens.TG.name}`}
+                                    skipContractConvert: true,
+                                })}{" "}
+                                {`${settings.tokens.TG[0].name}`}
                             </div>
                             <div className="withdraw-header-balance-title">
-                                {t('staking.withdraw.ready_to_withdraw')}
+                                {t("staking.withdraw.ready_to_withdraw")}
                             </div>
                         </div>
                     )}
@@ -211,17 +215,18 @@ export default function Withdraw(props) {
                     <div className="withdraw__header ">
                         <div className="withdraw__first__column">
                             <div className="withdraw__date">
-                                {t('staking.withdraw.table.expiration')}
+                                {t("staking.withdraw.table.expiration")}
                             </div>
                             <div className="withdraw__amount">
-                                {t('staking.withdraw.table.amount')}
+                                {t("staking.withdraw.table.amount")}
+                            </div>{" "}
+                            <div className="withdraw__status">
+                                {t("staking.withdraw.table.status")}
                             </div>
                         </div>
-                        <div className="withdraw__status">
-                            {t('staking.withdraw.table.status')}
-                        </div>
+
                         <div className="withdraw__cta">
-                            {t('staking.withdraw.table.actions')}
+                            {t("staking.withdraw.table.actions")}
                         </div>
                     </div>
                     <div className="divider-horizontal"></div>
@@ -230,12 +235,12 @@ export default function Withdraw(props) {
                         dataSource={data}
                         pagination={{
                             pageSize: 1000,
-                            position: ['none', 'bottomRight'],
+                            position: ["none", "bottomRight"],
                             defaultCurrent: 1,
-                            total: totalTable
+                            total: totalTable,
                         }}
                         showHeader={false}
-                        scroll={{ y: 'auto' }}
+                        scroll={{ y: "auto" }}
                     />
                 </>
             ) : (
@@ -262,3 +267,7 @@ export default function Withdraw(props) {
         </div>
     );
 }
+
+Withdraw.propTypes = {
+    userInfoStaking: PropTypes.object,
+};

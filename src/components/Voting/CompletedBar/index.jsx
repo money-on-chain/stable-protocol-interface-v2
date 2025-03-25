@@ -1,27 +1,29 @@
-import React from 'react';
-import './Styles.scss';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import { TokenSettings } from '../../../helpers/currencies';
-import { useProjectTranslation } from '../../../helpers/translations';
+import React from "react";
+import PropTypes from "prop-types";
+
+import "./Styles.scss";
+import { PrecisionNumbers } from "../../PrecisionNumbers";
+import { TokenSettings } from "../../../helpers/currencies";
+import { useProjectTranslation } from "../../../helpers/translations";
 
 function CompletedBar(props) {
-    const [t, i18n, ns] = useProjectTranslation();
-    const space = '\u00A0';
+    const { i18n } = useProjectTranslation();
+    const space = "\u00A0";
 
     return (
         <div className="CompletedBar__wrapper">
             {props.description}
             <div className="CompletedBar__container">
                 <div
-                    className={`gauge ${props.type} ${props.percentage === '100%' ? ' maxvalue' : ''}`}
+                    className={`gauge ${props.type} ${props.percentage === "100%" ? " maxvalue" : ""}`}
                     style={{ width: props.percentage }}
                 ></div>
                 <div
-                    className={'needed ' + props.type}
+                    className={"needed " + props.type}
                     style={{
-                        position: 'absolute',
+                        position: "absolute",
                         width: props.needed,
-                        zPosition: 100
+                        zPosition: 100,
                     }}
                 ></div>
             </div>
@@ -32,22 +34,18 @@ function CompletedBar(props) {
                         {props.label1}:{space}
                         {PrecisionNumbers({
                             amount: props.amount1,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         {space}(
                         {PrecisionNumbers({
                             amount: props.percentage1,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         %)
                     </div>
@@ -57,22 +55,18 @@ function CompletedBar(props) {
                         {props.label2}:{space}
                         {PrecisionNumbers({
                             amount: props.amount2,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         {space}(
                         {PrecisionNumbers({
                             amount: props.percentage2,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         %)
                     </div>
@@ -82,22 +76,18 @@ function CompletedBar(props) {
                         {props.label3}:{space}
                         {PrecisionNumbers({
                             amount: props.amount3,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         {space}(
                         {PrecisionNumbers({
                             amount: props.percentage3,
-                            token: TokenSettings('TG'),
+                            token: TokenSettings("TG"),
                             decimals: 2,
-                            t: t,
                             i18n: i18n,
-                            ns: ns,
-                            skipContractConvert: true
+                            skipContractConvert: true,
                         })}
                         %)
                     </div>
@@ -174,3 +164,19 @@ function CompletedBar(props) {
 }
 
 export default CompletedBar;
+
+CompletedBar.propTypes = {
+    description: PropTypes.string,
+    type: PropTypes.string,
+    percentage: PropTypes.string,
+    needed: PropTypes.string,
+    label1: PropTypes.string,
+    amount1: PropTypes.object,
+    percentage1: PropTypes.object,
+    label2: PropTypes.string,
+    amount2: PropTypes.object,
+    percentage2: PropTypes.object,
+    label3: PropTypes.string,
+    amount3: PropTypes.object,
+    percentage3: PropTypes.object,
+};

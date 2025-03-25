@@ -1,13 +1,13 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
+import React, { Fragment } from "react";
+import { useProjectTranslation } from "../../helpers/translations";
 
-export default function ThemeMode() {
-    const [t, i18n, ns] = useProjectTranslation();
+export default function DappVersion() {
+    const { t } = useProjectTranslation();
 
     return (
         <>
             <div className="dappVersion">
-                {t('settings.protocolName')} {process.env.REACT_APP_VERSION}
+                {t("settings.protocolName")} {import.meta.env.REACT_APP_VERSION}
             </div>
         </>
     );

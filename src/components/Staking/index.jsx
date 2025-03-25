@@ -1,21 +1,20 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { useProjectTranslation } from '../../helpers/translations';
-import { pendingWithdrawalsFormat, tokenStake } from '../../helpers/staking';
-import BigNumber from 'bignumber.js';
-import Stake from './Stake';
-import PieChartComponent from './PieChart';
-import PerformanceChart from './performanceChart';
-import Withdraw from './WithdrawV2';
-import DashBoard from './StakingDashboard';
-import { AuthenticateContext } from '../../context/Auth';
-import Web3 from 'web3';
-import { fromContractPrecisionDecimals } from '../../helpers/Formats';
-import { TokenSettings } from '../../helpers/currencies';
-import LastStakeOperations from '../../components/Staking/LastStakeOperations';
+import React, { Fragment, useState, useEffect, useContext } from "react";
+import { useProjectTranslation } from "../../helpers/translations";
+import { pendingWithdrawalsFormat, tokenStake } from "../../helpers/staking";
+import BigNumber from "bignumber.js";
+import Stake from "./Stake";
+import PieChartComponent from "./PieChart";
+import PerformanceChart from "./performanceChart";
+import Withdraw from "./WithdrawV2";
+import DashBoard from "./StakingDashboard";
+import { AuthenticateContext } from "../../context/Auth";
+import Web3 from "web3";
+import { fromContractPrecisionDecimals } from "../../helpers/Formats";
+import { TokenSettings } from "../../helpers/currencies";
 
 const withdrawalStatus = {
-    pending: 'PENDING',
-    available: 'AVAILABLE'
+    pending: "PENDING",
+    available: "AVAILABLE",
 };
 
 const defaultTokenStake = tokenStake()[0];
@@ -27,10 +26,10 @@ const formatBigNumber = (amount) => {
     );
 };
 
-export default function Staking(props) {
+export default function Staking() {
     const auth = useContext(AuthenticateContext);
-    const [t] = useProjectTranslation();
-    const [activeTab, setActiveTab] = useState('tab1');
+    const { t } = useProjectTranslation();
+    const [activeTab, setActiveTab] = useState("tab1");
 
     const defaultUserInfoStaking = {
         tgBalance: new BigNumber(0),
@@ -39,7 +38,7 @@ export default function Staking(props) {
         pendingWithdrawals: [],
         totalPendingExpiration: new BigNumber(0),
         totalAvailableToWithdraw: new BigNumber(0),
-        lockedInVoting: new BigNumber(0)
+        lockedInVoting: new BigNumber(0),
     };
     const [userInfoStaking, setUserInfoStaking] = useState(
         defaultUserInfoStaking
@@ -57,13 +56,13 @@ export default function Staking(props) {
         let pendingWithdrawals = [];
         let vUsing;
         if (auth.isVestingLoaded()) {
-            cData['tgBalance'] = formatBigNumber(
+            cData["tgBalance"] = formatBigNumber(
                 auth.userBalanceData.vestingmachine.tgBalance
             );
-            cData['stakedBalance'] = formatBigNumber(
+            cData["stakedBalance"] = formatBigNumber(
                 auth.userBalanceData.vestingmachine.staking.balance
             );
-            cData['lockedBalance'] = formatBigNumber(
+            cData["lockedBalance"] = formatBigNumber(
                 auth.userBalanceData.vestingmachine.staking.getLockedBalance
             );
             pendingWithdrawals = pendingWithdrawalsFormat(
@@ -71,13 +70,13 @@ export default function Staking(props) {
             );
             vUsing = auth.userBalanceData.vestingmachine.staking;
         } else {
-            cData['tgBalance'] = formatBigNumber(
+            cData["tgBalance"] = formatBigNumber(
                 auth.userBalanceData.TG.balance
             );
-            cData['stakedBalance'] = formatBigNumber(
+            cData["stakedBalance"] = formatBigNumber(
                 auth.userBalanceData.stakingmachine.getBalance
             );
-            cData['lockedBalance'] = formatBigNumber(
+            cData["lockedBalance"] = formatBigNumber(
                 auth.userBalanceData.stakingmachine.getLockedBalance
             );
             pendingWithdrawals = pendingWithdrawalsFormat(
@@ -87,20 +86,20 @@ export default function Staking(props) {
         }
 
         const lockedAmount = new BigNumber(
-            Web3.utils.fromWei(vUsing.getLockingInfo.amount, 'ether')
+            Web3.utils.fromWei(vUsing.getLockingInfo.amount, "ether")
         );
         const lockedUntilTimestamp = new BigNumber(
             vUsing.getLockingInfo.untilTimestamp
         ).times(1000);
 
         if (lockedUntilTimestamp.gt(nowTimestamp)) {
-            cData['lockedInVoting'] = lockedAmount;
+            cData["lockedInVoting"] = lockedAmount;
         } else {
-            cData['lockedInVoting'] = new BigNumber(0);
+            cData["lockedInVoting"] = new BigNumber(0);
         }
 
-        cData['unstakeBalance'] = cData['stakedBalance'].minus(
-            cData['lockedInVoting']
+        cData["unstakeBalance"] = cData["stakedBalance"].minus(
+            cData["lockedInVoting"]
         );
 
         const pendingWithdrawalsFormatted = pendingWithdrawals
@@ -114,7 +113,7 @@ export default function Staking(props) {
 
                 return {
                     ...withdrawal,
-                    status
+                    status,
                 };
             });
         let pendingExpirationAmount = new BigNumber(0);
@@ -138,16 +137,16 @@ export default function Staking(props) {
             }
         );
 
-        cData['pendingWithdrawals'] = pendingWithdrawalsSort;
-        cData['totalPendingExpiration'] = pendingExpirationAmount;
-        cData['totalAvailableToWithdraw'] = readyToWithdrawAmount;
+        cData["pendingWithdrawals"] = pendingWithdrawalsSort;
+        cData["totalPendingExpiration"] = pendingExpirationAmount;
+        cData["totalAvailableToWithdraw"] = readyToWithdrawAmount;
 
         setUserInfoStaking(cData);
     };
 
     return (
         <div>
-            <div className={'section-layout'}>
+            <div className={"section-layout"}>
                 <DashBoard userInfoStaking={userInfoStaking} />
             </div>
             <div className="cards-container sectionStaking">
@@ -156,20 +155,20 @@ export default function Staking(props) {
                         <div className="firstCardsGroup">
                             <div id="stakingCard" className="layout-card">
                                 <div className="layout-card-title">
-                                    <h1>{t('staking.cardTitle')}</h1>
+                                    <h1>{t("staking.cardTitle")}</h1>
                                 </div>
                                 <div className="tabs">
                                     <button
-                                        onClick={() => setActiveTab('tab1')}
-                                        className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
+                                        onClick={() => setActiveTab("tab1")}
+                                        className={`tab-button ${activeTab === "tab1" ? "active" : ""}`}
                                     >
-                                        {t('staking.staking.tabStake')}
+                                        {t("staking.staking.tabStake")}
                                     </button>
                                     <button
-                                        onClick={() => setActiveTab('tab2')}
-                                        className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
+                                        onClick={() => setActiveTab("tab2")}
+                                        className={`tab-button ${activeTab === "tab2" ? "active" : ""}`}
                                     >
-                                        {t('staking.staking.tabUnstake')}
+                                        {t("staking.staking.tabUnstake")}
                                     </button>
                                 </div>
                                 <div className="tab-divider"></div>
@@ -188,7 +187,7 @@ export default function Staking(props) {
                                 >
                                     <div className="layout-card-title">
                                         <h1>
-                                            {t('staking.distribution.title')}
+                                            {t("staking.distribution.title")}
                                         </h1>
                                     </div>
                                     <div className="tab-content">
@@ -200,7 +199,7 @@ export default function Staking(props) {
                             </div>
                             <div id="performanceCard" className="layout-card">
                                 <div className="layout-card-title">
-                                    <h1>{t('staking.performance.title')}</h1>
+                                    <h1>{t("staking.performance.title")}</h1>
                                 </div>
                                 <div className="tab-content">
                                     <PerformanceChart />
@@ -208,17 +207,7 @@ export default function Staking(props) {
                             </div>
                         </div>
                         <div className="SecondCardsGroup">
-                            <div>
-                                <Withdraw userInfoStaking={userInfoStaking} />
-                            </div>
-                            {/*<div*/}
-                            {/*    id="lastStakingOperations"*/}
-                            {/*    className="section__innerCard"*/}
-                            {/*>*/}
-                            {/*    <LastStakeOperations*/}
-                            {/*        userInfoStaking={userInfoStaking}*/}
-                            {/*    />*/}
-                            {/*</div>*/}
+                            <Withdraw userInfoStaking={userInfoStaking} />
                         </div>
                     </div>
                 </Fragment>

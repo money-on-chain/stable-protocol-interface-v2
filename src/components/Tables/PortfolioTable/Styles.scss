@@ -1,0 +1,198 @@
+// Variables
+$breakpoint-mobile: 600px;
+
+.ant-table-body {
+    // ver como esconder el scroll bar area, que genera el margen derecho
+}
+.portfolio-table {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+    color: var(--color-txt-secondary);
+    font-weight: 600;
+    font-size: 14px;
+}
+.table__row,
+.table__header {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    max-width: 100%;
+}
+.table__header {
+    border-bottom: 1px solid var(--dividers);
+    padding-bottom: 4px;
+}
+.table__body {
+    // padding: 16px 0px 0px 0px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    // outline: 1px dashed red;
+    color: var(--color-txt-primary);
+}
+.table__cell__label {
+    display: none;
+}
+.table__cell__name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    // outline: 1px dashed red;
+    width: 290px;
+    text-align: left;
+}
+.table__cell__price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    // outline: 1px dashed blue;
+    width: 240px;
+}
+.table__cell__unit {
+    opacity: 0.7;
+    margin-top: 2px;
+    width: 60px;
+    font-size: 12px;
+    // outline: 1px dashed green;
+    // width: 180px;
+    line-height: 1.1;
+    text-align: left;
+}
+
+.table__cell__variation {
+    // outline: 1px dashed purple;
+    width: 160px;
+    text-align: right;
+}
+.table__cell__amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    // outline: 1px dashed orange;
+    width: 200px;
+    text-align: right;
+    .token__ticker {
+        font-size: 12px;
+    }
+}
+.token__ticker {
+    // display: none;
+}
+.table__cell__usdBalance {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding-right: 8px;
+    // outline: 1px dashed green;
+    width: 180px;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .table__header {
+        display: none;
+    }
+
+    /* Adjust breakpoint as needed */
+    .table__row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 16px;
+    }
+    .table__cell {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        order: 3;
+        gap: 0px;
+        margin-bottom: 8px;
+        width: 50%; /* Left-aligned */
+        color: var(--color-txt-primary);
+        font-weight: 600;
+        font-size: 16px;
+        font-family: var(--main-font);
+        text-align: right; /* ✅ Ensures text aligns right */
+        margin-bottom: 12px;
+    }
+    .table__cell__label {
+        display: block;
+        color: var(--color-txt-secondary);
+        font-weight: 600;
+        font-size: 10px;
+        letter-spacing: 1.1px;
+        text-transform: uppercase;
+    }
+    /* First row: Name takes full width */
+    .table__cell__name {
+        margin: 0;
+        width: 100%; /* Ensures it spans full width */
+        margin-bottom: 12px;
+    }
+
+    /* Second row: Price (left) and Amount (right) */
+    .table__cell__price {
+        order: 1; /* Ensures it stays in position */
+        width: 50%; /* Forces it to take half of the row */
+    }
+
+    .table__cell__amount {
+        display: flex;
+        justify-content: flex-end; /* ✅ Forces content to align to the right */
+        align-items: flex-end;
+        order: 2;
+        width: 50%;
+        color: var(--color-txt-primary);
+        font-weight: 600;
+        font-size: 16px;
+        font-family: var(--main-font);
+        // text-align: right; /* ✅ Ensures text aligns right */
+        .token__ticker {
+            display: flex;
+            justify-content: right;
+            gap: 4px;
+            width: 100%;
+            color: var(--color-txt-secondary);
+            font-weight: 600;
+            font-size: 10px;
+            letter-spacing: 1.1px;
+            text-align: right;
+            text-transform: uppercase;
+        }
+    }
+
+    /* Third row: Variation (left) and USD Balance (right) */
+    .table__cell__variation {
+        display: flex;
+        align-content: flex-start;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .table__cell__usdBalance {
+        display: flex;
+        justify-content: flex-end; /* ✅ Forces content to align to the right */
+        align-items: flex-end;
+        order: 4;
+        padding-right: 0;
+        width: 50%;
+        color: var(--color-txt-primary);
+        font-weight: 600;
+        font-size: 16px;
+        font-family: var(--main-font);
+    }
+}

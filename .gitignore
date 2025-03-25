@@ -3,13 +3,20 @@ node_modules
 build
 .DS_Store
 public/*.*
+index.html
 # assets
-src/assets/icons
-src/assets/img
+src/assets/branding/logo-app.svg
+src/assets/branding/logo-app-dark.svg
+src/assets/branding/logo-app-small.svg
+src/assets/branding/logo-app-small-dark.svg
 src/assets/css/customization.scss
+src/assets/css/customize1Defaults.scss
+src/assets/css/customize2Light.scss
+src/assets/css/customize3Dark.scss
+src/assets/css/customize4Overwrites.scss
 src/assets/css/logout.scss
 src/assets/css/pages.scss
-src/assets/img/Oval.svg
+src/assets/tokens/*.svg
 # settings
 src/settings/locale/en_US.json
 src/settings/locale/es_ES.json

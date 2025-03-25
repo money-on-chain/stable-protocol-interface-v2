@@ -1,14 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useContext } from 'react';
-import { Skeleton } from 'antd';
+import React, { Fragment, useEffect, useState } from "react";
+import { useContext } from "react";
+import { Skeleton } from "antd";
 
-import { AuthenticateContext } from '../../context/Auth';
-import { useProjectTranslation } from '../../helpers/translations';
-import Vesting from '../../components/Vesting';
-import './Styles.scss';
+import { AuthenticateContext } from "../../context/Auth";
+import Vesting from "../../components/Vesting";
+import "./Styles.scss";
 
-function SectionVesting(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+function SectionVesting() {
     const auth = useContext(AuthenticateContext);
     const [ready, setReady] = useState(false);
     useEffect(() => {
@@ -20,7 +18,7 @@ function SectionVesting(props) {
     return (
         <Fragment>
             <div className="section-container">
-                <div className={'content-vesting'}>
+                <div className={"content-vesting"}>
                     {ready ? <Vesting /> : <Skeleton active />}
                 </div>
             </div>

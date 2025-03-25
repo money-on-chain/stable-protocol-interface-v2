@@ -1,42 +1,68 @@
 {
-    "collateral": "rc20",
+    "collateral": "coinbase",
     "project": "moc",
+    "showPriceVariation":true,
     "tokens": {
-        "COINBASE": {
+        "COINBASE": [{
             "name": "RBTC",
+            "fullName": "Smart Bitcoin",
             "decimals": 18,
-            "visibleDecimals": 6
-        },
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2
+        }],
         "CA": [
             {
                 "key": 0,
-                "name": "RIF",
+                "name": "RBTC",
+                "fullName": "Smart Bitcoin",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 6,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 8,
+                "visibleBalanceUSDDecimals": 2
             }
-        ],
+        ], 
+        "TC": [{
+            "name": "BPRO",
+            "fullName": "Bpro",
+            "decimals": 18,
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2
+        }],
         "TP": [
             {
                 "key": 0,
-                "name": "USDRIF",
+                "name": "DOC",
+                "fullName": "Dollar On Chain",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visibleDecimals": 2,
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 2,
+                "visibleBalanceUSDDecimals": 2,
+                "peggedUSD": true
             }
         ],
-        "TC": {
-            "name": "RIF PRO",
-            "decimals": 18,
-            "visibleDecimals": 6
-        },
-        "TF": {
+
+        "TF": [{
             "name": "MOC",
             "decimals": 18,
-            "visibleDecimals": 6
-        },
-        "TG": {
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 2,
+            "visibleBalanceUSDDecimals": 2
+        }],
+        "TG": [{
             "name": "MOC",
+            "fullName": "MOC",
             "decimals": 18,
-            "visibleDecimals": 6
-        }
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 4,
+            "visibleBalanceDecimals": 2,
+            "visibleBalanceUSDDecimals": 2
+        }]
     }
 }

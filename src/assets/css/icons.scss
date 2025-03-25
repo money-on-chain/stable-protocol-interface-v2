@@ -5,7 +5,16 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-copy {
     width: 22px;
     height: 22px;
-    background-image: url('../icons/CopyOutline.svg');
+    background-image: url("../icons/CopyOutline.svg");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    display: block;
+    filter: var(--color-icon-link-filter);
+}
+.icon-checked {
+    width: 22px;
+    height: 22px;
+    background-image: url("../icons/checked.svg");
     background-size: 22px 22px;
     background-repeat: no-repeat;
     display: block;
@@ -15,18 +24,45 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-external-link {
     width: 22px;
     height: 22px;
-    background-image: url('../icons/ExternalLink.svg');
+    background-image: url("../icons/ExternalLink.svg");
     background-size: 22px 22px;
     background-repeat: no-repeat;
     display: block;
     filter: var(--color-icon-primary);
+}
+.icon-tx-inProgress {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackInProgress.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
+.icon-tx-checkUnchecked {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackCheckUnchecked.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
+}
+.icon-tx-checkChecked {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../icons/feedback-icons/feedbackCheckChecked.svg");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    filter: var(--filter-semantic-neutral);
 }
 
 .icon-tx-signWallet {
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../ui/feedbackSignWallet.svg');
+    background-image: url("../icons/feedback-icons/feedbackSignWallet.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-neutral);
@@ -36,7 +72,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../ui/feedbackWaiting.svg');
+    background-image: url("../icons/feedback-icons/feedbackWaiting.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-neutral);
@@ -45,7 +81,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-tx-success {
     width: 32px;
     height: 32px;
-    background-image: url('../ui/feedbackSuccess.svg');
+    background-image: url("../icons/feedback-icons/feedbackSuccess.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
@@ -55,7 +91,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../ui/feedbackError.svg');
+    background-image: url("../icons/feedback-icons/feedbackError.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
@@ -65,7 +101,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../ui/feedbackWaiting.svg');
+    background-image: url("../icons/feedback-icons/feedbackWaiting.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     filter: var(--color-icon-link-filter);
@@ -75,7 +111,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Queuing.svg');
+    background-image: url("../icons/StatusOperation-Queuing.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -84,7 +120,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Queued.svg');
+    background-image: url("../icons/StatusOperation-Queued.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -93,7 +129,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Confirming.svg');
+    background-image: url("../icons/StatusOperation-Confirming.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -102,7 +138,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Confirmed.svg');
+    background-image: url("../icons/StatusOperation-Confirmed.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -111,7 +147,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/status-operation/Failed.svg');
+    background-image: url("../icons/StatusOperation-Failed.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -120,7 +156,7 @@ icons.css contains all the css code for Icons across the Dapp
     width: 32px;
     height: 32px;
     display: block;
-    background-image: url('../icons/SwapArrow.svg');
+    background-image: url("../icons/SwapArrow.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -129,15 +165,15 @@ icons.css contains all the css code for Icons across the Dapp
     width: 32px;
     height: 32px;
     display: block;
-    background-image: url('../icons/Swap.svg');
+    background-image: url("../icons/Swap.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
 
-.icon-wheel {
+.icon-preferences {
     width: 16px;
     height: 16px;
-    background-image: url('../icons/Wheel.svg');
+    background-image: url("../icons/Preferences.svg");
     background-size: 16px 16px;
     background-repeat: no-repeat;
 }
@@ -145,7 +181,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-arrow-down {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/ArrowDown.svg');
+    background-image: url("../icons/ArrowDown.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     display: block;
@@ -155,7 +191,7 @@ icons.css contains all the css code for Icons across the Dapp
     display: block;
     width: 32px;
     height: 32px;
-    background-image: url('../icons/Signifier.svg');
+    background-image: url("../icons/Signifier.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
 }
@@ -166,7 +202,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-coinbase {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/coinbase.svg');
+    background-image: url("../tokens/coinbase.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -174,7 +210,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-ca_0 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/ca_0.svg');
+    background-image: url("../tokens/ca_0.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -182,7 +218,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-ca_1 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/ca_1.svg');
+    background-image: url("../tokens/ca_1.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -190,7 +226,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tc {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tc.svg');
+    background-image: url("../tokens/tc.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -198,7 +234,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tf {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tf.svg');
+    background-image: url("../tokens/tf.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -206,7 +242,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tp_0 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tp_0.svg');
+    background-image: url("../tokens/tp_0.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -214,7 +250,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tp_1 {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tp_1.svg');
+    background-image: url("../tokens/tp_1.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -222,7 +258,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-token-tx {
     width: var(--icon-token-size);
     height: var(--icon-token-size);
-    background-image: url('../icons/tokens/tx.svg');
+    background-image: url("../tokens/tx.svg");
     background-size: var(--icon-token-size) var(--icon-token-size);
     background-repeat: no-repeat;
 }
@@ -230,7 +266,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-status-success {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/SuccessOutline.svg');
+    background-image: url("../icons/SuccessOutline.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-positive);
@@ -239,7 +275,7 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-status-warning {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/WarningOutline.svg');
+    background-image: url("../icons/WarningOutline.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
@@ -248,15 +284,15 @@ icons.css contains all the css code for Icons across the Dapp
 .icon-status-alert {
     width: 24px;
     height: 24px;
-    background-image: url('../icons/AttentionOutline.svg');
+    background-image: url("../icons/AttentionOutline.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     filter: var(--filter-semantic-negative);
 }
 
 .icon__govBalance {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/govBalance.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../icons/govBalance.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
@@ -264,69 +300,100 @@ icons.css contains all the css code for Icons across the Dapp
 }
 
 .icon__govStaked {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/govStaked.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../icons/govStaked.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__govUnstaking {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/govUnstaking.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../icons/govUnstaking.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__govReadyWithdraw {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/govReadyWithdraw.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../icons/govReadyWithdraw.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__govLockedTokensVoting {
-    filter: var(--color-navigation-icon-filter-default);
-    background-image: url('../icons/govLockedVoting.svg');
+    filter: var(--color-nav-icon-filter-default);
+    background-image: url("../icons/govLockedVoting.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__close__menu {
-    background-image: url('../icons/icon__close__menu.svg');
+    background-image: url("../icons/icon__close__menu.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__vote__against {
-    background-image: url('../icons/VotingAgainstOutline.svg');
+    background-image: url("../icons/VotingAgainstOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__vote__infavor {
-    background-image: url('../icons/VotingInfavorOutline.svg');
+    background-image: url("../icons/VotingInfavorOutline.svg");
     background-size: 32px 32px;
     background-repeat: no-repeat;
     width: 32px;
     height: 32px;
 }
 .icon__button__arrow {
-    background-image: url('../icons/ArrowCircledRightOutline.svg');
+    background-image: url("../icons/ArrowCircledRightOutline.svg");
     background-size: 16px 16px;
     background-repeat: no-repeat;
     width: 16px;
     height: 16px;
 }
 .icon__addProposal {
-    background-image: url('../icons/AddProposalOutline.svg');
+    background-image: url("../icons/AddProposalOutline.svg");
     background-size: 48px 48px;
     background-repeat: no-repeat;
     width: 48px;
     height: 48px;
+}
+.icon__addProposal {
+    background-image: url("../icons/AddProposalOutline.svg");
+    background-size: 48px 48px;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.icon__toggle__collapse {
+    background-image: url("../icons/IconToggleCollapse.svg");
+    filter: var(--color-icon-link-secondary-filter);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+.icon__toggle__expand {
+    background-image: url("../icons/IconToggleExpand.svg");
+    filter: var(--color-icon-link-secondary-filter);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+.icon__selected {
+    background-image: url("../icons/Selected.svg");
+    filter: var(--color-icon-link-secondary-filter);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
 }

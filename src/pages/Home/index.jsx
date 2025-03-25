@@ -1,20 +1,12 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react';
-import ListOperationsMobile from '../../components/Tables/ListOperationsMobile';
-import { AuthenticateContext } from '../../context/Auth';
-import Portfolio from '../../components/Dashboards/Portfolio';
-import HomeTabs from '../../components/PortfolioOperationsTabs';
+import React, { Fragment } from "react";
+import LastOperations from "../../components/Tables/LastOperations";
+import Portfolio from "../../components/Dashboards/Portfolio";
+import HomeTabs from "../../components/PortfolioOperationsTabs";
 
-import './Styles.scss';
+import "./Styles.scss";
 
-function Home(props) {
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const auth = useContext(AuthenticateContext);
-    const [ready, setReady] = useState(false);
-    useEffect(() => {
-        if (auth.contractStatusData) {
-            setReady(true);
-        }
-    }, [auth]);
+function Home() {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
     // Tabs for mobile
     const Tab1 = () => (
@@ -25,13 +17,13 @@ function Home(props) {
 
     const Tab2 = () => (
         <div className="content-last-operations">
-            <ListOperationsMobile token={'all'}></ListOperationsMobile>
+            <LastOperations token={"all"}></LastOperations>
         </div>
     );
 
     const tabs = [
-        { name: 'Portfolio', content: <Tab1 /> },
-        { name: 'Last Operations', content: <Tab2 /> }
+        { name: "Portfolio", content: <Tab1 /> },
+        { name: "Last Operations", content: <Tab2 /> },
     ];
 
     return (
@@ -44,9 +36,7 @@ function Home(props) {
                 <div className="section-container desktop-only">
                     <Portfolio />
                     <div className="content-last-operations">
-                        <ListOperationsMobile
-                            token={'all'}
-                        ></ListOperationsMobile>
+                        <LastOperations token={"all"}></LastOperations>
                     </div>
                 </div>
             )}

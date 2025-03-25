@@ -97,19 +97,19 @@
     "exchange": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIF Pro",
-                "abbr": "RIFP"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
             },
             "COINBASE": {
-                "label": "rBTC",
+                "label": "Smart Bitcoin",
                 "abbr": "RBTC"
             },
             "TF": {
@@ -127,7 +127,7 @@
             "submit": "Espera la confirmación de la transacción",
             "sign": "Firma la transacción en tu billetera",
             "queuing": "Encolando la transacción…",
-            "queued": "Operación encolada. Esperando ejecución…",
+            "queued": "Operación encolada. La ejecución puede tomar unos minutos.",
             "confirming": "Operación en confirmación",
             "confirmed": "Operación confirmada",
             "success": "Operación exitosa",
@@ -173,60 +173,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Precio en USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "3": {
-                        "title": "MoC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "4": {
-                        "title": "rBTC",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Tokens por USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {}
-            }
+        "tokensTable": {
+            "tokenName": "Token",
+            "variation": "Variación 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance en USD",
+            "priceInUSD": "Precio en USD",
+            "tokensPerUSD": "Tokens por USD"
         },
         "sectionTitle": "Portafolio",
         "totalCurrency": "USD",
@@ -280,7 +233,7 @@
         },
 
         "pegged": {
-            "cardTitle": "Rendimiento del USDRIF",
+            "cardTitle": "Dollar On Chain",
             "colName": "Nombre",
             "colTokensPer": "Tokens por USD",
             "colMinted": "Minteados",
@@ -294,24 +247,24 @@
     "send": {
         "tokens": {
             "CA_0": {
-                "label": "RIF",
-                "abbr": "RIF"
+                "label": "Smart Bitcoin",
+                "abbr": "RBTC"
             },
             "TC": {
-                "label": "RIFPro",
-                "abbr": "RIFP"
+                "label": "BPro",
+                "abbr": "BPRO"
             },
             "TP_0": {
-                "label": "RIF US Dollar",
-                "abbr": "USDRIF"
+                "label": "Dollar on Chain",
+                "abbr": "DOC"
+            },
+            "TG": {
+                "label": "MOC",
+                "abbr": "MOC"
             },
             "COINBASE": {
                 "label": "Smart Bitcoin",
                 "abbr": "RBTC"
-            },
-            "TF": {
-                "label": "MOC",
-                "abbr": "MOC"
             }
         },
         "cardTitle": "Enviar",
@@ -376,7 +329,7 @@
         "portfolio": "Portafolio",
         "send": "Enviar",
         "exchange": "Cambiar",
-        "performance": "Rendimiento",
+        "performance": "Métricas",
         "staking": "Staking",
         "liquidityMining": "Liquidity Mining",
         "vesting": "Bloqueo",

@@ -1,22 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Image, Skeleton, Table } from 'antd';
-import Moment from 'react-moment';
-import moment from 'moment-timezone';
+import React from "react";
+import { Skeleton, Table } from "antd";
 
-import date from '../../helpers/date';
-import { useProjectTranslation } from '../../helpers/translations';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { AuthenticateContext } from '../../context/Auth';
-import settings from '../../settings/settings.json';
-import ActionIcon from '../../assets/icons/Action.svg';
-import StakingOptionsModal from '../Modals/StakingOptionsModal/index';
-import OperationStatusModal from '../Modals/OperationStatusModal/OperationStatusModal';
+import { useProjectTranslation } from "../../helpers/translations";
+//import { AuthenticateContext } from '../../context/Auth';
 
-export default function LastStakeOperations(props) {
-    const { userInfoStaking } = props;
-    const [t, i18n, ns] = useProjectTranslation();
-    const auth = useContext(AuthenticateContext);
-    const [totalTable, setTotalTable] = useState(null);
+export default function LastStakeOperations() {
+    //const { userInfoStaking } = props;
+    const { t } = useProjectTranslation();
+    //const auth = useContext(AuthenticateContext);
+    //const [totalTable, setTotalTable] = useState(null);
+    /*
     const [data, setData] = useState(null);
     const [modalMode, setModalMode] = useState(null);
     const [withdrawalId, setWithdrawalId] = useState('0');
@@ -24,28 +17,29 @@ export default function LastStakeOperations(props) {
     const [operationModalInfo, setOperationModalInfo] = useState({});
     const [isOperationModalVisible, setIsOperationModalVisible] =
         useState(false);
+     */
 
-    const tableColumns = [{ title: 'Token', dataIndex: 'details' }];
+    const tableColumns = [{ title: "Token", dataIndex: "details" }];
     // hay que agregar los encabezados como html?
     // hay que incrementar un contador en el foreach?
     const tableData = [];
     const stakingData = [
-        { key: 1, date: '10/04/2024', amount: 223423.34, operation: 'Stake' },
-        { key: 2, date: '15/15/2024', amount: 223423.34, operation: 'Stake' },
+        { key: 1, date: "10/04/2024", amount: 223423.34, operation: "Stake" },
+        { key: 2, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
         {
             key: 3,
-            date: '15/15/2024',
+            date: "15/15/2024",
             amount: 223423.34,
-            operation: 'Withdraw'
+            operation: "Withdraw",
         },
         {
             key: 4,
-            date: '2024-07-31 10:04:17',
+            date: "2024-07-31 10:04:17",
             amount: 223423.34,
-            operation: 'Unstake'
+            operation: "Unstake",
         },
-        { key: 5, date: '15/15/2024', amount: 223423.34, operation: 'Stake' },
-        { key: 6, date: '15/15/2024', amount: 223423.34, operation: 'Stake' }
+        { key: 5, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
+        { key: 6, date: "15/15/2024", amount: 223423.34, operation: "Stake" },
     ];
 
     // Columns
@@ -64,28 +58,28 @@ export default function LastStakeOperations(props) {
                         {dataItem.operation}
                     </div>
                 </div>
-            )
+            ),
         });
     });
 
     return (
         <div className="section__innerCard card-stakingData">
             <div className="layout-card-title">
-                <h1>{t('staking.history.title')}</h1>
+                <h1>{t("staking.history.title")}</h1>
             </div>
             <div className="table__stakingData">
                 <div className="table__header">
                     <div className="stakingTableData__date">
-                        {t('staking.history.columnDate')}
+                        {t("staking.history.columnDate")}
                     </div>
                     <div className="stakingTableData__amount">
-                        {t('staking.history.columnAmount')}
+                        {t("staking.history.columnAmount")}
                     </div>
                     <div className="stakingTableData__operation">
-                        {t('staking.history.columnOperation')}
+                        {t("staking.history.columnOperation")}
                     </div>
                 </div>
-                {tableData || true ? (
+                {tableData ? (
                     <>
                         <div className="divider-horizontal"></div>
                         <Table
@@ -94,9 +88,9 @@ export default function LastStakeOperations(props) {
                             showHeader={false}
                             pagination={{
                                 pageSize: 1000,
-                                position: ['none', 'bottomRight'],
+                                position: ["none", "bottomRight"],
                                 defaultCurrent: 1,
-                                total: totalTable
+                                total: null,
                             }}
                             // scroll={{ y: 200 }}
                         />

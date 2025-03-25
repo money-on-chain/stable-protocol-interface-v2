@@ -1,10 +1,10 @@
-import React from 'react';
-import { useProjectTranslation } from '../../../helpers/translations';
-import { PrecisionNumbers } from '../../PrecisionNumbers';
-import settings from '../../../settings/settings.json';
+import React from "react";
+import PropTypes from "prop-types";
+
+import { useProjectTranslation } from "../../../helpers/translations";
 
 function RowDetail(props) {
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t, ns } = useProjectTranslation();
 
     return (
         <table>
@@ -65,14 +65,14 @@ function RowDetail(props) {
                         colSpan="1"
                     >
                         {t(`operations.columns_detailed.confirmation`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </th>
                     <td
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {props.detail.confirmation}{' '}
+                        {props.detail.confirmation}{" "}
                     </td>
                     <th
                         className="ant-descriptions-item-label-th ant-descriptions-border-bottom"
@@ -84,7 +84,7 @@ function RowDetail(props) {
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {props.detail.recipient}{' '}
+                        {props.detail.recipient}{" "}
                     </td>
                 </tr>
                 <tr className="ant-descriptions-row">
@@ -105,7 +105,7 @@ function RowDetail(props) {
                         colSpan="1"
                     >
                         {t(`operations.columns_detailed.error_code`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </th>
                     <td className="ant-descriptions-item-content" colSpan="1">
@@ -121,7 +121,7 @@ function RowDetail(props) {
                         className="ant-descriptions-item-content ant-descriptions-border-bottom"
                         colSpan="1"
                     >
-                        {props.detail.block}{' '}
+                        {props.detail.block}{" "}
                     </td>
                 </tr>
                 <tr className="ant-descriptions-row">
@@ -130,7 +130,7 @@ function RowDetail(props) {
                         colSpan="1"
                     >
                         {t(`operations.columns_detailed.executed_tx`, {
-                            ns: ns
+                            ns: ns,
                         })}
                     </th>
                     <td
@@ -139,11 +139,12 @@ function RowDetail(props) {
                     >
                         <a
                             className="ant-descriptions-a"
-                            href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
+                            href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.executed_tx_hash}`}
                             target="_blank"
+                            rel="noreferrer"
                         >
                             <span>
-                                {props.detail.executed_tx_hash_truncate}{' '}
+                                {props.detail.executed_tx_hash_truncate}{" "}
                             </span>
                         </a>
                     </td>
@@ -171,8 +172,9 @@ function RowDetail(props) {
                     >
                         <a
                             className="ant-descriptions-a"
-                            href={`${process.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
+                            href={`${import.meta.env.REACT_APP_ENVIRONMENT_EXPLORER_URL}/tx/${props.detail.tx_hash}`}
                             target="_blank"
+                            rel="noreferrer"
                         >
                             <span>{props.detail.tx_hash_truncate} </span>
                         </a>
@@ -224,3 +226,7 @@ function RowDetail(props) {
 }
 
 export default RowDetail;
+
+RowDetail.propTypes = {
+    detail: PropTypes.object,
+};

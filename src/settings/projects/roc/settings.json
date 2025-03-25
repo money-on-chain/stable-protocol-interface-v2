@@ -1,42 +1,63 @@
 {
     "collateral": "rc20",
     "project": "roc",
+    "showPriceVariation":true,
     "tokens": {
-        "COINBASE": {
-            "name": "RBTC",
-            "decimals": 18,
-            "visibleDecimals": 6
-        },
+        
         "CA": [
             {
                 "key": 0,
                 "name": "RIF",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visiblePriceDecimals": 4,
+                "visibleBalanceDecimals": 4,
+                "visibleBalanceUSDDecimals": 2
+
             }
         ],
+        "TC": [{
+            "name": "RIFP",
+            "fullName": "RIFPro",
+            "decimals": 18,
+            "visiblePriceDecimals": 4,
+            "visibleBalanceDecimals": 4,
+            "visibleBalanceUSDDecimals": 2
+        }],
         "TP": [
             {
                 "key": 0,
                 "name": "USDRIF",
+                "fullName": "RIF USD Dollar",
                 "decimals": 18,
-                "visibleDecimals": 6
+                "visiblePriceDecimals": 2,
+                "visibleBalanceDecimals": 2,
+                "visibleBalanceUSDDecimals": 2,
+                "peggedUSD": true
             }
         ],
-        "TC": {
-            "name": "RIF PRO",
-            "decimals": 18,
-            "visibleDecimals": 6
-        },
-        "TF": {
+        "TF": [{
             "name": "MOC",
             "decimals": 18,
-            "visibleDecimals": 6
-        },
-        "TG": {
+            "visibleDecimals": 6,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 2,
+            "visibleBalanceUSDDecimals": 2
+        }],
+        "TG": [{
             "name": "MOC",
             "decimals": 18,
-            "visibleDecimals": 6
-        }
+            "visibleDecimals": 2,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 2,
+            "visibleBalanceUSDDecimals": 2
+             }],
+        "COINBASE": [{
+            "name": "RBTC",
+            "fullName": "Smart Bitcoin",
+            "decimals": 18,
+            "visiblePriceDecimals": 2,
+            "visibleBalanceDecimals": 8,
+            "visibleBalanceUSDDecimals": 2
+        }]
     }
 }

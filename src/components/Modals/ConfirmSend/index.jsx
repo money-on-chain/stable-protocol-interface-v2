@@ -1,14 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Modal from 'antd/lib/modal/Modal';
+import React, { useState } from "react";
+import Modal from "antd/lib/modal/Modal";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import ConfirmSend from '../../ConfirmSend';
-import { Button } from 'antd';
+import { useProjectTranslation } from "../../../helpers/translations";
+import ConfirmSend from "../../ConfirmSend";
+import { Button } from "antd";
 
 export default function ModalConfirmSend(props) {
-    const { onClear, inputValidationError } = props;
+    const { /*onClear,*/ inputValidationError } = props;
 
-    const [t, i18n, ns] = useProjectTranslation();
+    const { t } = useProjectTranslation();
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {
@@ -23,15 +24,19 @@ export default function ModalConfirmSend(props) {
         <div className="ShowModalConfirmOperation">
             <Button
                 type="primary"
-                className={process.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase() ? 'button' : 'button'}
+                className={
+                    import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()
+                        ? "button"
+                        : "button"
+                }
                 onClick={showModal}
-                disabled={inputValidationError ? 'disabled' : null}
+                disabled={inputValidationError ? "disabled" : null}
             >
-                {t('send.buttonPrimary')}
+                {t("send.buttonPrimary")}
             </Button>
             {visible && (
                 <Modal
-                    title={t('send.modalTitle')}
+                    title={t("send.modalTitle")}
                     width={505}
                     open={visible}
                     onCancel={hideModal}
@@ -48,3 +53,7 @@ export default function ModalConfirmSend(props) {
         </div>
     );
 }
+
+ModalConfirmSend.propTypes = {
+    inputValidationError: PropTypes.bool,
+};

@@ -131,7 +131,7 @@
             "submit": "Espera la confirmación de la transacción",
             "sign": "Firma la transacción en tu billetera",
             "queuing": "Encolando la transacción…",
-            "queued": "Operación encolada. Esperando ejecución…",
+            "queued": "Operación encolada. La ejecución puede tomar unos minutos.",
             "confirming": "Operación en confirmación",
             "confirmed": "Operación confirmada",
             "success": "Operación exitosa",
@@ -177,65 +177,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Precio en USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "1": {
-                        "title": "BPro Max",
-                        "symbol": " (BPROX)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "2": {
-                        "title": "Flip",
-                        "symbol": " (FLIP)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "3": {
-                        "title": "Smart Bitcoin",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Tokens por USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "ARS",
-                        "symbol": " (ArsFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "1": {
-                        "title": "COP",
-                        "symbol": " (CopFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    }
-                }
-            }
+        "tokensTable": {
+            "tokenName": "Token",
+            "variation": "Variación 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance en USD",
+            "priceInUSD": "Precio en USD",
+            "tokensPerUSD": "Tokens por USD"
         },
         "sectionTitle": "Portafolio",
         "totalCurrency": "USD",
@@ -390,7 +338,7 @@
         "portfolio": "Portafolio",
         "send": "Enviar",
         "exchange": "Cambiar",
-        "performance": "Rendimiento",
+        "performance": "Métricas",
         "staking": "Staking",
         "liquidityMining": "Liquidity Mining",
         "vesting": "Bloqueo",

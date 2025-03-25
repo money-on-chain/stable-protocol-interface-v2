@@ -1,24 +1,24 @@
-import { Layout } from 'antd';
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Layout } from "antd";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import { useProjectTranslation } from '../../helpers/translations';
-import { AuthenticateContext } from '../../context/Auth';
-import DappVersion from '../DappVersion';
-import iconArrow from '../../assets/icons/arrow-sm-down.svg';
-import ThemeMode from '../ThemeMode';
-import settings from '../../settings/settings.json';
-import Brand from './Brand';
+import { useProjectTranslation } from "../../helpers/translations";
+import { AuthenticateContext } from "../../context/Auth";
+import DappVersion from "../DappVersion";
+import ThemeMode from "../ThemeMode";
+import settings from "../../settings/settings.json";
+import menuOptionsData from "./menuOptions.json";
+import Brand from "./Brand";
 
-import './Styles.scss';
+import "./Styles.scss";
 
 const { Header } = Layout;
 
-export default function SectionHeader(props) {
+export default function SectionHeader() {
     const navigate = useNavigate();
     const location = useLocation();
     const auth = useContext(AuthenticateContext);
-    const [css_disable, setCssDisable] = useState('disable-nav-item');
+    //const [css_disable, setCssDisable] = useState("disable-nav-item");
     const [showMoreDropdown, setShowMoreDropdown] = useState(false);
     const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 
@@ -26,62 +26,16 @@ export default function SectionHeader(props) {
     const [showLanguageSubmenu, setShowLanguageSubmenu] = useState(false);
     const menuRef = useRef(null);
 
-    const [t, i18n, ns] = useProjectTranslation();
-    const [lang, setLang] = useState('en');
+    const { t, i18n, ns } = useProjectTranslation();
+    const [lang, setLang] = useState("en");
 
     const MAX_MAIN_MENU_ITEMS = 5;
 
-    const menuOptions = [
-        {
-            name: () => t('menuOptions.portfolio'),
-            className: 'logo-portfolio',
-            path: '/',
-            allowedProjects: ['flipmoney', 'roc']
-        },
-
-        {
-            name: () => t('menuOptions.send'),
-            className: 'logo-send',
-            path: '/send',
-            allowedProjects: ['flipmoney', 'roc']
-        },
-        {
-            name: () => t('menuOptions.exchange'),
-            className: 'logo-exchange',
-            path: '/exchange',
-            allowedProjects: ['flipmoney', 'roc']
-        },
-        {
-            name: () => t('menuOptions.staking'),
-            className: 'logo-staking',
-            path: '/staking',
-            allowedProjects: ['moc', 'flipmoney']
-        },
-        {
-            name: () => t('menuOptions.performance'),
-            className: 'logo-performance',
-            path: '/performance',
-            allowedProjects: ['flipmoney', 'roc']
-        },
-        {
-            name: () => t('menuOptions.vesting'),
-            className: 'logo-vesting',
-            path: '/vesting',
-            allowedProjects: ['flipmoney', 'moc']
-        },
-        {
-            name: () => t('menuOptions.liquidityMining'),
-            className: 'logo-liquidity-mining',
-            path: '/liquidity-mining',
-            allowedProjects: ['moc']
-        },
-        {
-            name: () => t('menuOptions.voting'),
-            className: 'logo-voting',
-            path: '/voting',
-            allowedProjects: ['moc']
-        }
-    ];
+    // Process JSON for navigation menu
+    const menuOptions = menuOptionsData.map((option) => ({
+        ...option,
+        name: () => t(option.nameKey), // Traducimos el nombre dinámicamente
+    }));
 
     // Filter options based on project and language changes
     const [displayOptions, setDisplayOptions] = useState([]);
@@ -91,11 +45,11 @@ export default function SectionHeader(props) {
             .filter(
                 (option) =>
                     option.allowedProjects.includes(currentProject) ||
-                    option.allowedProjects.includes('all')
+                    option.allowedProjects.includes("all")
             )
             .map((option) => ({
                 ...option,
-                name: option.name // No ejecutamos name() aquí, mantenemos la función
+                name: option.name, // No ejecutamos name() aquí, mantenemos la función
             }));
         setDisplayOptions(filteredOptions);
     }, [currentProject, lang, t]);
@@ -135,16 +89,16 @@ export default function SectionHeader(props) {
         i18n.changeLanguage(code);
         setLang(code);
         setShowLanguageMenu(false);
-        localStorage.setItem('PreferredLang', code);
+        localStorage.setItem("PreferredLang", code);
     };
 
     const languageOptions = [
-        { name: t('language.en', { ns: ns }), code: 'en' },
-        { name: t('language.es', { ns: ns }), code: 'es' }
+        { name: t("language.en", { ns: ns }), code: "en" },
+        { name: t("language.es", { ns: ns }), code: "es" },
     ];
 
     useEffect(() => {
-        const preferredLanguage = localStorage.getItem('PreferredLang') || 'en';
+        const preferredLanguage = localStorage.getItem("PreferredLang") || "en";
         pickLanguage(preferredLanguage);
     }, []);
 
@@ -156,11 +110,11 @@ export default function SectionHeader(props) {
                     {mainMenuOptions.map((option) => (
                         <a
                             onClick={() => handleOptionClick(option.path)}
-                            className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? 'menu-nav-item-selected' : ''}`}
+                            className={`menu-nav-item disable-nav-item ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
                             key={option.path}
                         >
                             <div
-                                className={`${option.className}${location.pathname === option.path ? '-selected' : ''}`}
+                                className={`${option.className}${location.pathname === option.path ? "-selected" : ""}`}
                             ></div>
                             <span className="menu-nav-item-title">
                                 {option.name()}
@@ -176,29 +130,29 @@ export default function SectionHeader(props) {
                         >
                             <div className="logo-more"></div>
                             <span className="menu-nav-item-title-more">
-                                {t('menuOptions.more')}
-                            </span>
+                                {t("menuOptions.more")}
+                            </span>{" "}
+                            {showMoreDropdown && (
+                                <div className="dropdown-menu show">
+                                    {moreMenuOptions.map((option) => (
+                                        <a
+                                            onClick={() =>
+                                                handleOptionClick(option.path)
+                                            }
+                                            className={`menu-nav-item disable-nav-item ${location.pathname === option.path ? "menu-nav-item-selected" : ""}`}
+                                            key={option.path}
+                                        >
+                                            <i
+                                                className={`${option.className}${location.pathname === option.path ? "-selected" : ""}`}
+                                            ></i>
+                                            <span className="menu-nav-item-title">
+                                                {option.name()}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
                         </a>
-                    )}
-                    {showMoreDropdown && (
-                        <div className="dropdown-menu show">
-                            {moreMenuOptions.map((option) => (
-                                <a
-                                    onClick={() =>
-                                        handleOptionClick(option.path)
-                                    }
-                                    className={`menu-nav-item ${css_disable} ${location.pathname === option.path ? 'menu-nav-item-selected' : ''}`}
-                                    key={option.path}
-                                >
-                                    <i
-                                        className={`${option.className}${location.pathname === option.path ? '-selected' : ''}`}
-                                    ></i>
-                                    <span className="menu-nav-item-title">
-                                        {option.name()}
-                                    </span>
-                                </a>
-                            ))}
-                        </div>
                     )}
                 </div>
                 <div className="wallet-user">
@@ -219,7 +173,7 @@ export default function SectionHeader(props) {
                         <a onClick={auth.onShowModalAccount}>
                             {auth.accountData.truncatedAddress}
                         </a>
-                        <i className="logo-wallet"></i>
+                        <div className="logo-wallet"></div>
                     </div>
                     {showLanguageMenu && (
                         <div className="language-menu">
@@ -227,17 +181,15 @@ export default function SectionHeader(props) {
                                 {languageOptions.map((option) => {
                                     return (
                                         <div
-                                            className={`menu-item${lang === option.code ? '-selected' : ''}`}
+                                            className={`menu-item${lang === option.code ? "-selected" : ""}`}
                                             onClick={() =>
                                                 pickLanguage(option.code)
                                             }
+                                            key={option.code}
                                         >
                                             <span>{option.name}</span>
                                             {lang === option.code && (
-                                                <img
-                                                    src={iconArrow}
-                                                    alt={'ArrowUp'}
-                                                />
+                                                <div className="icon-checked"></div>
                                             )}
                                         </div>
                                     );
@@ -251,9 +203,9 @@ export default function SectionHeader(props) {
                     className="mobile__menu__button"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    <i
-                        className={`mobile-menu-icon ${isMobileMenuOpen ? 'open' : ''}`}
-                    ></i>
+                    <div
+                        className={`mobile-menu-icon ${isMobileMenuOpen ? "open" : ""}`}
+                    ></div>
                 </div>
                 {/* Overlay & Mobile Menu*/}
                 {isMobileMenuOpen && (
@@ -279,7 +231,7 @@ export default function SectionHeader(props) {
                                         <div
                                             className={`${option.className} mobile__menu__icon`}
                                         ></div>
-                                        <div>{option.name()}</div>{' '}
+                                        <div>{option.name()}</div>{" "}
                                         {/* Ahora option.name() debería funcionar */}
                                     </a>
                                 ))}
@@ -305,7 +257,7 @@ export default function SectionHeader(props) {
                                                     (option) => (
                                                         <div
                                                             key={option.code}
-                                                            className={`mobile-menu-item${lang === option.code ? '-selected' : ''}`}
+                                                            className={`mobile-menu-item${lang === option.code ? "-selected" : ""}`}
                                                             onClick={() =>
                                                                 pickLanguage(
                                                                     option.code

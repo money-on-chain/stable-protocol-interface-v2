@@ -1,8 +1,9 @@
-import Modal, { Fragment } from 'antd/lib/modal/Modal';
-import React from 'react';
+import Modal, { Fragment } from "antd/lib/modal/Modal";
+import React from "react";
+import PropTypes from "prop-types";
 
-import { useProjectTranslation } from '../../../helpers/translations';
-import CopyAddress from '../../CopyAddress';
+import { useProjectTranslation } from "../../../helpers/translations";
+import CopyAddress from "../../CopyAddress";
 
 const VotingStatusModal = ({
     className,
@@ -13,43 +14,43 @@ const VotingStatusModal = ({
     txHash,
     proposalChanger,
     votingInFavor,
-    showProposal
+    showProposal,
 }) => {
-    const [t] = useProjectTranslation();
+    const { t } = useProjectTranslation();
 
-    let sentIcon = '';
-    let statusLabel = '';
+    let sentIcon = "";
+    let statusLabel = "";
     switch (operationStatus) {
-        case 'sign':
-            sentIcon = 'icon-signifier';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+        case "sign":
+            sentIcon = "icon-tx-signWallet";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_sign");
             break;
-        case 'pending':
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_pending');
+        case "pending":
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_pending");
             break;
-        case 'success':
-            sentIcon = 'icon-tx-success';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_success');
+        case "success":
+            sentIcon = "icon-tx-success";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_success");
             break;
-        case 'error':
-            sentIcon = 'icon-tx-error';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_failed');
+        case "error":
+            sentIcon = "icon-tx-error";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_failed");
             break;
         default:
-            sentIcon = 'icon-tx-waiting';
-            statusLabel = t('staking.modal.StatusModal_Modal_TxStatus_sign');
+            sentIcon = "icon-tx-waiting";
+            statusLabel = t("staking.modal.StatusModal_Modal_TxStatus_sign");
     }
 
     return (
         <Modal
-            className={'OperationStatusModal ' + className || ''}
+            className={"OperationStatusModal " + className || ""}
             footer={null}
             open={visible}
             onCancel={onCancel}
         >
-            <h1 className={'StakingOptionsModal_Title'}>
-                {title || t('staking.modal.StatusModal_Modal_Title')}
+            <h1 className={"StakingOptionsModal_Title"}>
+                {title || t("staking.modal.StatusModal_Modal_Title")}
             </h1>
 
             <div className="ProposalVoteModal">
@@ -57,7 +58,7 @@ const VotingStatusModal = ({
                     <div className="proposalChanger__container">
                         <div className="proposalChanger__details">
                             <div className="proposalChanger__label">
-                                {t('voting.confirmationModal.changerAddress')}
+                                {t("voting.confirmationModal.changerAddress")}
                             </div>
                             <div className="proposalChanger__data">
                                 {proposalChanger}
@@ -71,7 +72,7 @@ const VotingStatusModal = ({
                                         <div className="icon__vote__infavor icon"></div>
                                         <div className="whatIsVoging__text">
                                             {t(
-                                                'voting.confirmationModal.votingInFavor'
+                                                "voting.confirmationModal.votingInFavor"
                                             )}
                                         </div>
                                     </div>
@@ -84,7 +85,7 @@ const VotingStatusModal = ({
                                         <div className="icon__vote__against icon"></div>
                                         <div className="whatIsVoging__text">
                                             {t(
-                                                'voting.confirmationModal.votingAgainst'
+                                                "voting.confirmationModal.votingAgainst"
                                             )}
                                         </div>
                                     </div>
@@ -98,16 +99,16 @@ const VotingStatusModal = ({
             <div className="tx-amount-group">
                 <div className="tx-id-container">
                     <div className="tx-id-data">
-                        {(operationStatus === 'pending' ||
-                            operationStatus === 'success') && (
+                        {(operationStatus === "pending" ||
+                            operationStatus === "success") && (
                             <div className="transaction-id tx-id-container">
                                 <div className="tx-id-label">
-                                    {t('txFeedback.txIdLabel')}
+                                    {t("txFeedback.txIdLabel")}
                                 </div>
                                 <div className="tx-id-address">
                                     <CopyAddress
                                         address={txHash}
-                                        type={'tx'}
+                                        type={"tx"}
                                     ></CopyAddress>
                                     {/*<span className="address">*/}
                                     {/*    {truncateTxId(txID)}*/}
@@ -130,7 +131,7 @@ const VotingStatusModal = ({
                         className="button secondary"
                         onClick={onCancel}
                     >
-                        {t('staking.modal.StatusModal_Modal_Close')}
+                        {t("staking.modal.StatusModal_Modal_Close")}
                     </button>
                 </div>
             </div>
@@ -139,3 +140,15 @@ const VotingStatusModal = ({
 };
 
 export default VotingStatusModal;
+
+VotingStatusModal.propTypes = {
+    className: PropTypes.string,
+    visible: PropTypes.bool,
+    onCancel: PropTypes.func,
+    title: PropTypes.string,
+    operationStatus: PropTypes.string,
+    txHash: PropTypes.string,
+    proposalChanger: PropTypes.string,
+    votingInFavor: PropTypes.number,
+    showProposal: PropTypes.bool,
+};

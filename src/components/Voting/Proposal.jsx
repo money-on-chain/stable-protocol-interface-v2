@@ -1,10 +1,10 @@
-import { useProjectTranslation } from '../../helpers/translations';
-import React from 'react';
-import CompletedBar from './CompletedBar';
-import BigNumber from 'bignumber.js';
-import { PrecisionNumbers } from '../PrecisionNumbers';
-import { TokenSettings } from '../../helpers/currencies';
-import ProposalStats from './ProposalStats';
+import React from "react";
+import PropTypes from "prop-types";
+import BigNumber from "bignumber.js";
+
+import { useProjectTranslation } from "../../helpers/translations";
+import CompletedBar from "./CompletedBar";
+import ProposalStats from "./ProposalStats";
 
 function CreateBarGraph(props) {
     return (
@@ -35,6 +35,23 @@ function CreateBarGraph(props) {
     );
 }
 
+CreateBarGraph.propTypes = {
+    id: PropTypes.number,
+    description: PropTypes.string,
+    percentage: PropTypes.number,
+    needed: PropTypes.number,
+    type: PropTypes.number,
+    label1: PropTypes.number,
+    amount1: PropTypes.number,
+    percentage1: PropTypes.number,
+    label2: PropTypes.number,
+    amount2: PropTypes.number,
+    percentage2: PropTypes.number,
+    label3: PropTypes.number,
+    amount3: PropTypes.number,
+    percentage3: PropTypes.number,
+};
+
 function CreateStats(props) {
     return (
         <ProposalStats
@@ -46,18 +63,25 @@ function CreateStats(props) {
     );
 }
 
+CreateStats.propTypes = {
+    id: PropTypes.number,
+    label: PropTypes.string,
+    amount: PropTypes.number,
+    percentage: PropTypes.number,
+};
+
 function Proposal(props) {
     const { proposal, onViewProposal, infoVoting, onRunPreVoteStep } = props;
-    const [t, i18n, ns] = useProjectTranslation();
-    const space = '\u00A0';
+    const { t } = useProjectTranslation();
+    //const space = '\u00A0';
 
     const preVotingGraphs = [
         {
             id: 0,
-            description: 'Votes required to move to the next stage',
+            description: "Votes required to move to the next stage",
             percentage: `${proposal.votesPositivePCT}%`,
             needed: `${infoVoting.PRE_VOTE_MIN_PCT_TO_WIN}%`,
-            type: 'brand',
+            type: "brand",
             // labelCurrent: 'Votes',
             // labelNeedIt: 'Quorum',
             // labelTotal: 'Total circulating tokens',
@@ -67,37 +91,37 @@ function Proposal(props) {
             // pctCurrent: proposal.votesPositivePCT,
             // pctNeedIt: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']),
 
-            label1: 'Votes received',
+            label1: "Votes received",
             amount1: proposal.votesPositive,
             percentage1: proposal.votesPositivePCT,
-            label2: 'Votes needed for Quroum',
-            amount2: infoVoting['PRE_VOTE_MIN_TO_WIN'],
-            percentage2: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN']),
-            label3: 'Total circulating tokens',
-            amount3: infoVoting['totalSupply'],
-            percentage3: new BigNumber(100)
-        }
+            label2: "Votes needed for Quroum",
+            amount2: infoVoting["PRE_VOTE_MIN_TO_WIN"],
+            percentage2: new BigNumber(infoVoting["PRE_VOTE_MIN_PCT_TO_WIN"]),
+            label3: "Total circulating tokens",
+            amount3: infoVoting["totalSupply"],
+            percentage3: new BigNumber(100),
+        },
     ];
 
     const preVotingStats = [
         {
             id: 0,
-            label: 'Votes received',
+            label: "Votes received",
             amount: proposal.votesPositive,
-            percentage: proposal.votesPositivePCT
+            percentage: proposal.votesPositivePCT,
         },
         {
             id: 1,
-            label: 'Requiered Quorum',
-            amount: infoVoting['PRE_VOTE_MIN_TO_WIN'],
-            percentage: new BigNumber(infoVoting['PRE_VOTE_MIN_PCT_TO_WIN'])
+            label: "Requiered Quorum",
+            amount: infoVoting["PRE_VOTE_MIN_TO_WIN"],
+            percentage: new BigNumber(infoVoting["PRE_VOTE_MIN_PCT_TO_WIN"]),
         },
         {
             id: 2,
-            label: 'Total circulating Tokens',
-            amount: infoVoting['totalSupply'],
-            percentage: 100
-        }
+            label: "Total circulating Tokens",
+            amount: infoVoting["totalSupply"],
+            percentage: 100,
+        },
     ];
 
     return (
@@ -120,7 +144,7 @@ function Proposal(props) {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {t('voting.info.searchForum')}
+                            {t("voting.info.searchForum")}
                             <div className="icon-external-link"></div>
                         </a>
                     </div>
@@ -132,13 +156,13 @@ function Proposal(props) {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {t('voting.info.changeContract')}{' '}
+                            {t("voting.info.changeContract")}{" "}
                             {proposal.changeContract}
                             <span className="icon-external-link"></span>
                         </a>
                     </div>
                     <p>
-                        {t('voting.info.stateAs')}
+                        {t("voting.info.stateAs")}
                         <span>{proposal.expirationTimeStampFormat} </span>
                     </p>
 
@@ -176,7 +200,7 @@ function Proposal(props) {
                                     onViewProposal(proposal.changeContract)
                                 }
                             >
-                                {t('View Proposal')}
+                                {t("View Proposal")}
                             </button>
                         </div>
                     </div>
@@ -187,3 +211,10 @@ function Proposal(props) {
 }
 
 export default Proposal;
+
+Proposal.propTypes = {
+    proposal: PropTypes.object,
+    onViewProposal: PropTypes.func,
+    infoVoting: PropTypes.object,
+    onRunPreVoteStep: PropTypes.func,
+};
