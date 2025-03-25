@@ -933,7 +933,7 @@ const contractStatus = async (web3, dContracts) => {
         multiCallRequest.aggregate(
             Moc,
             Moc.methods.getTPAvailableToMint(tpAddress).encodeABI(),
-            "uint256",
+            "int256",
             "getTPAvailableToMint",
             i
         );
