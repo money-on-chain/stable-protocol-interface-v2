@@ -271,8 +271,8 @@ export default function ConfirmSend(props) {
 
 ConfirmSend.propTypes = {
     currencyYouExchange: PropTypes.string,
-    exchangingUSD: PropTypes.number,
-    amountYouExchange: PropTypes.number,
+    exchangingUSD: PropTypes.object,
+    amountYouExchange: PropTypes.string,
     destinationAddress: PropTypes.string,
     onCloseModal: PropTypes.func,
 };

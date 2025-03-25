@@ -8,7 +8,7 @@ import { AuthenticateContext } from "../../context/Auth";
 import settings from "../../settings/settings.json";
 
 export default function CollateralAssets() {
-    const { t, i18n, ns } = useProjectTranslation();
+    const { i18n } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
 
     return (
@@ -22,10 +22,8 @@ export default function CollateralAssets() {
                                     className={`icon-token-ca_${i} token__icon`}
                                 ></div>
                                 <div className="token__name">
-                                    {" "}
-                                    {t(`portfolio.tokens.CA.rows.${i}.title`, {
-                                        ns: ns,
-                                    })}
+                                    {settings.tokens.TC?.[i]?.fullName ??
+                                        settings.tokens.TC?.[i]?.name}
                                 </div>
                             </div>
                         </div>

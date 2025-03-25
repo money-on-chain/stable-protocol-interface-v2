@@ -173,60 +173,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Precio en USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "RIF",
-                        "symbol": " (RIF)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "1": {
-                        "title": "RIFPro",
-                        "symbol": " (RIFP)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "2": {
-                        "title": "RIF US Dollar",
-                        "symbol": " (USDRIF)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "3": {
-                        "title": "MoC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "4": {
-                        "title": "rBTC",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Nombre",
-                    "price": "Tokens por USD",
-                    "variation": "Variación 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {}
-            }
+        "tokensTable": {
+            "tokenName": "Token",
+            "variation": "Variación 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance en USD",
+            "priceInUSD": "Precio en USD",
+            "tokensPerUSD": "Tokens por USD"
         },
         "sectionTitle": "Portafolio",
         "totalCurrency": "USD",
@@ -312,7 +265,8 @@
             "TF": {
                 "label": "MOC",
                 "abbr": "MOC"
-            }
+            },
+            "TG": { "label": "MOC", "abbr": "MOC" }
         },
         "cardTitle": "Enviar",
         "labelSending": "enviando",
@@ -501,6 +455,7 @@
             }
         },
         "modal": {
+            "StakingOptions_AvailableToWithdraw": "Listo para hacer Withdraw",
             "options": {
                 "availableToWithdraw": "Ready to Withdraw",
                 "unstaking": "Processing unstake",
@@ -520,8 +475,8 @@
                 "cta": "Authorize"
             },
             "StakingOptionsModal_SetAllowance": "Autorizar Allowance",
-            "StakingOptionsModal_ReviewYour": "Billetera",
-            "WalletDescription": "Por favor revise su billetera",
+            "StakingOptionsModal_Authorize": "Autorizar",
+            "StakingOptionsModal_ReviewYourWalletDescription": "Por favor revise su billetera",
             "StakingOptionsModal_Authorize": "Authorize",
             "StakingOptionsModal_AllowanceDescription": "Antes de continuar con el staking deberás permitir el \"allowance\" para que el sistema pueda acceder a los tokens. Esto solo debe hacerse la primera vez y no bloquea ningún token de tu billetera.",
             "StakingOptionsModal_ProccessingAllowance": "Procesando Allowance, por favor espera",
@@ -590,7 +545,7 @@
             },
             "page4": {
                 "stepTitle": "¡Vesting Machine creada con éxito!",
-                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens MOC y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
+                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens Flip y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
                 "addressLabel": "Dirección de la Vesting Machine creada",
                 "buttonDownloadAddress": "Descargar Dirección",
                 "buttonCopyAddress": "Copiar Dirección",
@@ -608,7 +563,6 @@
         "cardTitle": "Vesting Machine",
         "status": {
             "verified": "Vesting Machine verificada",
-            "verifyCTA": "Verificar ahroa!",
             "notVerified": "Esta Vesting Machine aún no fue verificada",
             "notFromThisUser": "Esta Vesting Machine no pertenece a esta cuenta"
         },
@@ -626,11 +580,11 @@
             "scheduled": "Programados (bloqueados + liberados)"
         },
         "vestingScheduleColumns": {
-            "date": "Release date",
-            "daysLeft": "Days to release",
-            "percent": "Percent",
-            "amount": "Amount",
-            "status": "Status"
+            "date": "Fecha de Liberación",
+            "daysLeft": "Días restantes",
+            "percent": "Porcentaje",
+            "amount": "Cantidad",
+            "status": "Estado"
         }
     },
     "voting": {
@@ -710,10 +664,31 @@
         "walletNotConnected": "¡Billetera no conectada!"
     },
     "settings": {
-        "protocolName": "Money on Chain",
+        "protocolName": "Rif On Chain",
         "themeMode": {
             "light": "Modo claro",
             "dark": "Modo oscuro"
         }
+    },
+    "liquidityMining": {
+        "cardTitle": "Liquidity Mining",
+        "cta": {
+            "infoDetail": "Usa el botón de abajo para reclamar tus tokens del programa de incentivos de Liquidity Mining de MOC. Solo necesitarás pagar las tarifas de gas para esta transacción en cadena. Una vez que los tokens estén en tu balance, puedes apostarlos para ganar aún más recompensas.",
+            "infoSummary": "MoC listos para reclamar",
+            "button": "Reclamar"
+        },
+        "stakingCTA": {
+            "button": "Ir a Staking",
+            "explanation": "Stakea tokens MOC — ¡es rápido y sencillo!"
+        }
+    },
+    "claimsTable": {
+        "date": "Fecha",
+        "asset": "Token",
+        "amount": "Cantidad",
+        "event": "Evento",
+        "status": "Estado",
+        "statusReceived": "Recibido",
+        "statusInProgress": "En progreso"
     }
 }

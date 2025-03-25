@@ -53,8 +53,8 @@ function BalanceBar(props) {
 export default BalanceBar;
 
 BalanceBar.propTypes = {
-    againstVotes: PropTypes.bigint,
-    against: PropTypes.number,
-    infavorVotes: PropTypes.bigint,
-    infavor: PropTypes.number,
+    againstVotes: PropTypes.object,
+    against: PropTypes.string,
+    infavorVotes: PropTypes.object,
+    infavor: PropTypes.string,
 };

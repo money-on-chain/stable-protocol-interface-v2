@@ -173,60 +173,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Price in USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "Smart Bitcoin",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "1": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
-                        "price_decimals": 4,
-                        "balance_decimals": 4
-                    },
-                    "2": {
-                        "title": "Dollar on Chain",
-                        "symbol": " (DOC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "3": {
-                        "title": "MOC",
-                        "symbol": " (MOC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "4": {
-                        "title": "Smart Bitcoin",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Tokens per USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "rif": "RIF",
-                    "usd": "USD"
-                },
-                "rows": {}
-            }
+        "tokensTable": {
+            "tokenName": "Token",
+            "variation": "Variation 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance in USD",
+            "priceInUSD": "Price in USD",
+            "tokensPerUSD": "Tokens per USD"
         },
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",

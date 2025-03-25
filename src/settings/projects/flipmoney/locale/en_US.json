@@ -183,65 +183,13 @@
         }
     },
     "portfolio": {
-        "tokens": {
-            "CA": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Price in USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "BPro",
-                        "symbol": " (BPRO)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "1": {
-                        "title": "BPro Max",
-                        "symbol": " (BPROX)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "2": {
-                        "title": "Flip",
-                        "symbol": " (FLIP)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    },
-                    "3": {
-                        "title": "Smart Bitcoin",
-                        "symbol": " (RBTC)",
-                        "price_decimals": 2,
-                        "balance_decimals": 8
-                    }
-                }
-            },
-            "TP": {
-                "columns": {
-                    "name": "Name",
-                    "price": "Tokens per USD",
-                    "variation": "Variation 24hs",
-                    "balance": "Balance",
-                    "usd": "USD"
-                },
-                "rows": {
-                    "0": {
-                        "title": "ARS",
-                        "symbol": " (ArsFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    },
-                    "1": {
-                        "title": "COP",
-                        "symbol": " (CopFlip)",
-                        "price_decimals": 2,
-                        "balance_decimals": 2
-                    }
-                }
-            }
+        "tokensTable": {
+            "tokenName": "Token Name",
+            "variation": "Variation 24hs",
+            "balance": "Balance",
+            "usdBalance": "Balance in USD",
+            "priceInUSD": "Price in USD",
+            "tokensPerUSD": "Tokens per USD"
         },
         "sectionTitle": "Portfolio",
         "totalCurrency": "USD",

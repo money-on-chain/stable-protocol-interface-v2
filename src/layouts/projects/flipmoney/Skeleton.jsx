@@ -25,7 +25,6 @@ export default function Skeleton() {
         const { isValid, statusIcon, statusLabel, statusText } =
             checkerStatus();
         if (!isValid) {
-            console.log("is not valid");
             setNotifStatus({
                 id: -1,
                 title: `Warning, protocol status is ${statusLabel}`,

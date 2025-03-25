@@ -99,7 +99,7 @@ const PrecisionNumbers = ({
 export { PrecisionNumbers };
 
 PrecisionNumbers.propTypes = {
-    amount: PropTypes.bigint,
+    amount: PropTypes.object,
     token: PropTypes.object,
     decimals: PropTypes.number,
     numericLabelParams: PropTypes.object,
