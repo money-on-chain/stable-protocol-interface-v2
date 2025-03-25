@@ -101,6 +101,17 @@ export default function TokensPeggedMobile() {
             );
             price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
 
+            if (dataItem.peggedUSD) price = new BigNumber(1);
+
+            let tpAvailableToMint = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData.getTPAvailableToMint[dataItem.key],
+                    settings.tokens.TP[dataItem.key].decimals
+                )
+            );
+
+            if (tpAvailableToMint.lt(0)) tpAvailableToMint = new BigNumber(0)
+
             tokensData.push({
                 key: dataItem.key,
                 name: (
@@ -157,14 +168,13 @@ export default function TokensPeggedMobile() {
                         {!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
-                                  amount: auth.contractStatusData
-                                      .getTPAvailableToMint[dataItem.key],
+                                  amount: tpAvailableToMint,
                                   token: settings.tokens.TP[dataItem.key],
                                   decimals: 2,
                                   t: t,
                                   i18n: i18n,
                                   ns: ns,
-                                  skipContractConvert: false,
+                                  skipContractConvert: true,
                               })}
                     </div>
                 ),
