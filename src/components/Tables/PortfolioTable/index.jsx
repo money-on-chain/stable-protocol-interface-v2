@@ -6,7 +6,7 @@ import { AuthenticateContext } from "../../../context/Auth";
 import { useProjectTranslation } from "../../../helpers/translations";
 import settings from "../../../settings/settings.json";
 import { fromContractPrecisionDecimals } from "../../../helpers/Formats";
-//import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
+import { ConvertPeggedTokenPrice } from "../../../helpers/currencies";
 import { generateTokenRow } from "./renderHelpers";
 
 import "./Styles.scss";
@@ -208,42 +208,43 @@ export default function PortfolioTable() {
                         //     .div(priceHistory)
                         //     .times(100);
                     } else {
-                        // CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
-                        // const balance = new BigNumber(
-                        //     fromContractPrecisionDecimals(
-                        //         auth.userBalanceData.TP[token.key].balance,
-                        //         token.decimals
-                        //     )
-                        // );
-                        // let price = new BigNumber(
-                        //     fromContractPrecisionDecimals(
-                        //         auth.contractStatusData.PP_TP[token.key],
-                        //         token.decimals
-                        //     )
-                        // );
-                        //price = ConvertPeggedTokenPrice(auth, token.key, price);
-                        //const balanceUSD = balance.div(price);
-                        // variation
-                        // let priceHistory = new BigNumber(
-                        //     fromContractPrecisionDecimals(
-                        //         auth.contractStatusData.historic.PP_TP[
-                        //             token.key
-                        //         ],
-                        //         token.decimals
-                        //     )
-                        // );
-                        // priceHistory = ConvertPeggedTokenPrice(
-                        //     auth,
-                        //     token.key,
-                        //     priceHistory
-                        // );
-                        //const priceDelta = price.minus(priceHistory);
-                        // const variation = priceDelta
-                        //     .abs()
-                        //     .div(priceHistory)
-                        //     .times(100);
-                        // let signPriceDelta = "";
-                        // if (priceDelta.gt(0)) signPriceDelta = "+";
+                        //CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
+                        balance = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.userBalanceData.TP[token.key].balance,
+                                token.decimals
+                            )
+                        );
+                        price = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.PP_TP[token.key],
+                                token.decimals
+                            )
+                        );
+                        price = ConvertPeggedTokenPrice(auth, token.key, price);
+                        balanceUSD = balance.div(price);
+
+                        //variation
+                        priceHistory = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData.historic.PP_TP[
+                                    token.key
+                                ],
+                                token.decimals
+                            )
+                        );
+                        priceHistory = ConvertPeggedTokenPrice(
+                            auth,
+                            token.key,
+                            priceHistory
+                        );
+                        priceDelta = price.minus(priceHistory);
+                        variation = priceDelta
+                            .abs()
+                            .div(priceHistory)
+                            .times(100);
+                        //let signPriceDelta = "";
+                        //if (priceDelta.gt(0)) signPriceDelta = "+";
                     }
                     break;
                 case "TC":

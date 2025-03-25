@@ -91,7 +91,7 @@ export default function TokensPegged() {
                 )
             );
 
-            if (tpAvailableToMint.lt(0)) tpAvailableToMint = new BigNumber(0)
+            if (tpAvailableToMint.lt(0)) tpAvailableToMint = new BigNumber(0);
 
             tokensData.push({
                 key: dataItem.key,
