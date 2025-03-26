@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PieChart } from "@opd/g2plot-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import BigNumber from "bignumber.js";
 import PropTypes from "prop-types";
 
@@ -75,13 +75,13 @@ const PieChartComponent = (props) => {
             },
         ];
         // START TEST
-        /*
-        const _data = [
-            { type: 'See code', value: 5 },
-            { type: 'Uncomment', value: 20 },
-            { type: 'And remove', value: 30 },
-            { type: 'Placeholder _data', value: 45 }
-        ];*/
+
+        // const _data = [
+        //     { type: "See code", value: 5 },
+        //     { type: "Uncomment", value: 20 },
+        //     { type: "And remove", value: 30 },
+        //     { type: "Placeholder _data", value: 45 },
+        // ];
         // END TEST
         setData(_data);
         setTotal(total);
@@ -98,6 +98,8 @@ const PieChartComponent = (props) => {
             userInfoStaking["lockedInVoting"]
         );
     };
+
+    // Retrieve CSS color variables
     const colorBalance = getComputedStyle(
         document.querySelector(":root")
     ).getPropertyValue("--brand-color-darker");
@@ -114,6 +116,7 @@ const PieChartComponent = (props) => {
         document.querySelector(":root")
     ).getPropertyValue("--brand-color-lighter");
 
+    // Custom color palette for the pie chart
     const pieColorPalette = [
         colorBalance,
         colorProcessing,
@@ -121,39 +124,6 @@ const PieChartComponent = (props) => {
         colorStaked,
         colorStakedInVoting,
     ];
-    const config = {
-        title: {
-            visible: false,
-            text: "Pie Chart",
-        },
-        description: {
-            visible: false,
-            text: "This is a pie chart",
-        },
-        radius: 1,
-        innerRadius: 0,
-        padding: 0,
-        data,
-        angleField: "value",
-        colorField: "type",
-        label: false,
-        interactions: [
-            { type: "element-selected" },
-            { type: "element-active" },
-        ],
-        legend: {
-            visible: false,
-            position: "bottom",
-        },
-        height: 230,
-        forceFit: true,
-        color: pieColorPalette,
-        pieStyle: {
-            lineWidth: 2,
-            stroke: "none",
-            strokeOpacity: 0.2,
-        },
-    };
 
     return (
         <div>
@@ -174,7 +144,31 @@ const PieChartComponent = (props) => {
                 </div>
             </div>
             <div className="pie-chart-container">
-                <PieChart {...config} />
+                {/* ResponsiveContainer ensures the chart fits the container */}
+                <ResponsiveContainer width="100%" height={230}>
+                    <PieChart>
+                        <Pie
+                            data={data}
+                            dataKey="value"
+                            nameKey="type"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={100}
+                        >
+                            {data.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={
+                                        pieColorPalette[
+                                            index % pieColorPalette.length
+                                        ]
+                                    }
+                                />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                    </PieChart>
+                </ResponsiveContainer>
             </div>
             <div className="dataContainer">
                 <div className="dataLabels">
