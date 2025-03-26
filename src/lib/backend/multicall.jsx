@@ -3,7 +3,6 @@ import { fromContractPrecisionDecimals } from "../../helpers/Formats";
 import settings from "../../settings/settings.json";
 import omoc from "../../settings/omoc/omoc.json";
 
-
 const onErrorLeverage = () => {
     const value = new BigNumber(
         115792089237316200000000000000000000000000000000000000
