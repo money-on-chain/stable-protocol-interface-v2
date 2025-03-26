@@ -1,4 +1,4 @@
-name: MoC-Manager-Testnet
+name: Voting-Mainnet
 on:
   workflow_dispatch:
 
@@ -48,21 +48,21 @@ jobs:
       - name: Install setup
         run: npm ci
 
-      # Target Testnet
+      # Target Mainnet
 
-      - name: Build setup Testnet
-        run: CI=false npm run build:moc-testnet
+      - name: Build setup Mainnet
+        run: CI=false npm run build:voting-mainnet
 
-      - name: Pin to IPFS Testnet
+      - name: Pin to IPFS Mainnet
         id: upload
         uses: anantaramdas/ipfs-pinata-deploy-action@39bbda1ce1fe24c69c6f57861b8038278d53688d
         with:
-          pin-name: MoC Manager Testnet ${{ needs.bump_version.outputs.new_tag }}
+          pin-name: Voting Mainnet ${{ needs.bump_version.outputs.new_tag }}
           path: './dist'
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_API_SECRET_KEY }}
 
-      - name: Convert CIDv0 to CIDv1 Testnet
+      - name: Convert CIDv0 to CIDv1 Mainnet
         id: convert_cidv0
         uses: money-on-chain/convert-cidv0-cidv1@v1.0.0
         with:
@@ -76,12 +76,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           tag_name: ${{ needs.bump_version.outputs.new_tag }}
-          release_name: MoC Manager Testnet ${{ needs.bump_version.outputs.new_tag }}
+          release_name: Voting Mainnet ${{ needs.bump_version.outputs.new_tag }}
           prerelease: true
           body: |
             **IMPORTANT:** This is a pre-release!, please use at your own RISK... is for testing purpose!
 
-            **MoC Manager Testnet gateways**:
+            **Mainnet gateways**:
             - CIDv0: `${{ steps.upload.outputs.hash }}`
             - CIDv1: `${{ steps.convert_cidv0.outputs.cidv1 }}`
             - https://moneyonchain.mypinata.cloud/ipfs/${{ steps.upload.outputs.hash }}
