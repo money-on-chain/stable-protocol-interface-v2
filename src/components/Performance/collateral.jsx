@@ -22,8 +22,8 @@ export default function CollateralAssets() {
                                     className={`icon-token-ca_${i} token__icon`}
                                 ></div>
                                 <div className="token__name">
-                                    {settings.tokens.TC?.[i]?.fullName ??
-                                        settings.tokens.TC?.[i]?.name}
+                                    {settings.tokens.CA?.[i]?.fullName ??
+                                        settings.tokens.CA?.[i]?.name}
                                 </div>
                             </div>
                         </div>
