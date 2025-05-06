@@ -26,27 +26,27 @@ export default function CheckStatus() {
             };
         const globalCoverage = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.getCglb,
+                auth.contractStatusData[0].getCglb,
                 settings.tokens.CA[0].decimals
             )
         );
         const calcCtargemaCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.calcCtargemaCA,
+                auth.contractStatusData[0].calcCtargemaCA,
                 settings.tokens.CA[0].decimals
             )
         );
 
         const liqThrld = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.liqThrld,
+                auth.contractStatusData[0].liqThrld,
                 settings.tokens.CA[0].decimals
             )
         );
 
         const protThrld = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.protThrld,
+                auth.contractStatusData[0].protThrld,
                 settings.tokens.CA[0].decimals
             )
         );

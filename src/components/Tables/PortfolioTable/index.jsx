@@ -113,7 +113,7 @@ export default function PortfolioTable() {
 
                         price = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.PP_COINBASE,
+                                auth.contractStatusData.PP_COINBASE[0],
                                 token.decimals
                             )
                         );
@@ -122,7 +122,7 @@ export default function PortfolioTable() {
                         // variation
                         priceHistory = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.historic.PP_COINBASE,
+                                auth.contractStatusData.historic.PP_COINBASE[0],
                                 token.decimals
                             )
                         );
@@ -152,7 +152,7 @@ export default function PortfolioTable() {
                     );
                     price = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[token.key],
+                            auth.contractStatusData[token.key].PP_CA[0],
                             token.decimals
                         )
                     );
@@ -162,7 +162,7 @@ export default function PortfolioTable() {
                     // variation
                     priceHistory = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.historic.PP_CA[token.key],
+                            auth.contractStatusData.historic[token.key].PP_CA[0],
                             token.decimals
                         )
                     );
@@ -182,7 +182,7 @@ export default function PortfolioTable() {
 
                         balance = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.userBalanceData.TP[token.key].balance,
+                                auth.userBalanceData.TP[0][token.key].balance,
                                 token.decimals
                             )
                         );
@@ -194,9 +194,9 @@ export default function PortfolioTable() {
                         // variation
                         priceHistory = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.historic.PP_CA[
+                                auth.contractStatusData.historic[
                                     token.key
-                                ],
+                                    ].PP_CA[0],
                                 token.decimals
                             )
                         );
@@ -211,13 +211,13 @@ export default function PortfolioTable() {
                         //CALCULATE TOKENS TP NON-USD-Pegged Tokens DATA
                         balance = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.userBalanceData.TP[token.key].balance,
+                                auth.userBalanceData.TP[0][token.key].balance,
                                 token.decimals
                             )
                         );
                         price = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.PP_TP[token.key],
+                                auth.contractStatusData.PP_TP[token.key][0],
                                 token.decimals
                             )
                         );
@@ -229,7 +229,7 @@ export default function PortfolioTable() {
                             fromContractPrecisionDecimals(
                                 auth.contractStatusData.historic.PP_TP[
                                     token.key
-                                ],
+                                ][0],
                                 token.decimals
                             )
                         );
@@ -254,20 +254,20 @@ export default function PortfolioTable() {
 
                     balance = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.userBalanceData.TC.balance,
+                            auth.userBalanceData[token.key].TC.balance,
                             token.decimals
                         )
                     );
 
                     priceTEC = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.getPTCac,
+                            auth.contractStatusData[token.key].getPTCac,
                             token.decimals
                         )
                     );
                     priceCA = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
+                            auth.contractStatusData[token.key].PP_CA[0],
                             token.decimals
                         )
                     );
@@ -277,7 +277,7 @@ export default function PortfolioTable() {
                     // variation
                     priceHistory = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.historic.getPTCac,
+                            auth.contractStatusData.historic[token.key].getPTCac,
                             token.decimals
                         )
                     ).times(priceCA);
@@ -294,7 +294,7 @@ export default function PortfolioTable() {
                     tokenIcon = "icon-token-" + token.type.toLowerCase();
                     balance = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.userBalanceData.FeeToken.balance,
+                            auth.userBalanceData[token.key].FeeToken.balance,
                             token.decimals
                         )
                     );
@@ -302,14 +302,14 @@ export default function PortfolioTable() {
                     // RAW price for balance and variation calculation
                     price = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_FeeToken,
+                            auth.contractStatusData[0].PP_FeeToken,
                             token.decimals
                         )
                     );
 
                     priceCA = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.PP_CA[0],
+                            auth.contractStatusData[token.key].PP_CA[0],
                             token.decimals
                         )
                     );
@@ -318,7 +318,7 @@ export default function PortfolioTable() {
                     // variation
                     priceHistory = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData.historic.PP_FeeToken,
+                            auth.contractStatusData.historic.PP_FeeToken[0],
                             token.decimals
                         )
                     );

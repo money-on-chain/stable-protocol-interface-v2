@@ -116,10 +116,10 @@ function TokenAllowance(auth, tokenExchange) {
                 auth.userBalanceData.TP[parseInt(aTokenExchange[1])].allowance;
             break;
         case "TC":
-            allowance = auth.userBalanceData.TC.allowance;
+            allowance = auth.userBalanceData[0].TC.allowance;
             break;
         case "TF":
-            allowance = auth.userBalanceData.FeeToken.allowance;
+            allowance = auth.userBalanceData[0].FeeToken.allowance;
             break;
         default:
             throw new Error("Invalid token name");
@@ -152,25 +152,25 @@ function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {
         case "CA,TP":
             return {
                 token: dContracts.contracts.CA[parseInt(aTokenExchange[1])],
-                contractAllow: dContracts.contracts.Moc,
+                contractAllow: dContracts.contracts.Moc[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TC,CA":
             return {
-                token: dContracts.contracts.CollateralToken,
-                contractAllow: dContracts.contracts.Moc,
+                token: dContracts.contracts.CollateralToken[0],
+                contractAllow: dContracts.contracts.Moc[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TP,CA":
             return {
                 token: dContracts.contracts.TP[parseInt(aTokenExchange[1])],
-                contractAllow: dContracts.contracts.Moc,
+                contractAllow: dContracts.contracts.Moc[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TF,TF":
             return {
-                token: dContracts.contracts.FeeToken,
-                contractAllow: dContracts.contracts.Moc,
+                token: dContracts.contracts.FeeToken[0],
+                contractAllow: dContracts.contracts.Moc[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TG,ST": // Token Govern, Allow on Staking Machine
@@ -203,12 +203,12 @@ function TokenContract(dContracts, tokenExchange) {
             };
         case "TC":
             return {
-                token: dContracts.contracts.CollateralToken,
+                token: dContracts.contracts.CollateralToken[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TF":
             return {
-                token: dContracts.contracts.FeeToken,
+                token: dContracts.contracts.FeeToken[0],
                 decimals: tokenExchangeSettings.decimals,
             };
         case "TG":
@@ -335,13 +335,13 @@ function executionFeeMap(tokenExchange, tokenReceive, auth) {
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
     switch (aTokenMap) {
         case "CA,TC":
-            return auth.contractStatusData.tcMintExecFee;
+            return auth.contractStatusData[0].tcMintExecCost;
         case "CA,TP":
-            return auth.contractStatusData.tpMintExecFee;
+            return auth.contractStatusData[0].tpMintExecCost;
         case "TP,CA":
-            return auth.contractStatusData.tpRedeemExecFee;
+            return auth.contractStatusData[0].tpRedeemExecCost;
         case "TC,CA":
-            return auth.contractStatusData.tcRedeemExecFee;
+            return auth.contractStatusData[0].tcRedeemExecCost;
         default:
             throw new Error("Invalid token name");
     }

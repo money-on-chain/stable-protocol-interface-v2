@@ -74,13 +74,13 @@ function TokenBalance(auth, tokenName) {
             balance = auth.userBalanceData.TP[parseInt(aTokenName[1])].balance;
             break;
         case "TC":
-            balance = auth.userBalanceData.TC.balance;
+            balance = auth.userBalanceData.TC[0].balance;
             break;
         case "COINBASE":
             balance = auth.userBalanceData.coinbase;
             break;
         case "TF":
-            balance = auth.userBalanceData.FeeToken.balance;
+            balance = auth.userBalanceData[0].FeeToken.balance;
             break;
         case "TG":
             balance = auth.userBalanceData.TG.balance;
@@ -98,7 +98,7 @@ function ConvertPeggedTokenPrice(auth, tpIndex, price) {
     } else {
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
+                auth.contractStatusData[0].PP_CA[0],
                 settings.tokens.CA[0].decimals
             )
         );
@@ -124,19 +124,19 @@ function TokenPrice(auth, tokenName) {
     const aTokenName = tokenName.split("_");
     switch (aTokenName[0]) {
         case "CA":
-            price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])];
+            price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])][0];
             break;
         case "TP":
-            price = auth.contractStatusData.PP_TP[parseInt(aTokenName[1])];
+            price = auth.contractStatusData.PP_TP[parseInt(aTokenName[1])][0];
             break;
         case "TC":
-            price = auth.contractStatusData.getPTCac;
+            price = auth.contractStatusData[0].getPTCac;
             break;
         case "COINBASE":
-            price = auth.contractStatusData.PP_COINBASE;
+            price = auth.contractStatusData.PP_COINBASE[0];
             break;
         case "TG":
-            price = auth.contractStatusData.PP_FeeToken;
+            price = auth.contractStatusData[0].PP_FeeToken[0];
             break;
 
         default:
@@ -313,7 +313,7 @@ function CalcCommission(
             // Mint TC
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tcMintFee,
+                    auth.contractStatusData[0].tcMintFee,
                     tokenReceiveSettings.decimals
                 )
             );
@@ -322,7 +322,7 @@ function CalcCommission(
             // Redeem TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpRedeemFees[
+                    auth.contractStatusData[0].tpRedeemFees[
                         parseInt(aTokenExchange[1])
                     ],
                     tokenReceiveSettings.decimals
@@ -333,7 +333,7 @@ function CalcCommission(
             // Mint TP
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tpMintFees[
+                    auth.contractStatusData[0].tpMintFees[
                         parseInt(aTokenReceive[1])
                     ],
                     tokenReceiveSettings.decimals
@@ -344,7 +344,7 @@ function CalcCommission(
             // Redeem TC
             feeParam = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.tcRedeemFee,
+                    auth.contractStatusData[0].tcRedeemFee,
                     tokenReceiveSettings.decimals
                 )
             );
@@ -356,19 +356,19 @@ function CalcCommission(
     // Fee Paying with Token
     const feeTokenPrice = new BigNumber(
         fromContractPrecisionDecimals(
-            auth.contractStatusData.PP_FeeToken,
+            auth.contractStatusData[0].PP_FeeToken,
             tokenReceiveSettings.decimals
         )
     );
     const feeTokenPct = new BigNumber(
         fromContractPrecisionDecimals(
-            auth.contractStatusData.feeTokenPct,
+            auth.contractStatusData[0].feeTokenPct,
             tokenReceiveSettings.decimals
         )
     );
     const priceCA = new BigNumber(
         fromContractPrecisionDecimals(
-            auth.contractStatusData.PP_CA[0],
+            auth.contractStatusData[0].PP_CA[0],
             settings.tokens.CA[0].decimals
         )
     );
@@ -377,7 +377,7 @@ function CalcCommission(
     // Markup Vendors
     const vendorMarkup = new BigNumber(
         fromContractPrecisionDecimals(
-            auth.contractStatusData.vendorMarkup,
+            auth.contractStatusData[0].vendorMarkup,
             tokenReceiveSettings.decimals
         )
     );

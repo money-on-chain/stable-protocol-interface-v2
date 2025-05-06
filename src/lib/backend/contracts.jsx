@@ -3,7 +3,10 @@ import CollateralAsset from "../../contracts/CollateralAsset.json";
 import TokenPegged from "../../contracts/TokenPegged.json";
 import CollateralToken from "../../contracts/CollateralToken.json";
 import IPriceProvider from "../../contracts/IPriceProvider.json";
-import Moc from "../../contracts/Moc.json";
+import IDataProvider from "../../contracts/IDataProvider.json";
+import MocMultiCollateralGuard from "../../contracts/MocMultiCollateralGuard.json";
+import MocCACoinbase from "../../contracts/MocCACoinbase.json";
+import MocCARC20 from "../../contracts/MocCARC20.json";
 import MocVendors from "../../contracts/MocVendors.json";
 import FeeToken from "../../contracts/FeeToken.json";
 import MocQueue from "../../contracts/MocQueue.json";
@@ -22,6 +25,7 @@ import IncentiveV2 from "../../contracts/omoc/IncentiveV2.json";
 
 import { registryAddresses, mocAddresses } from "./multicall";
 import settings from "../../settings/settings.json";
+
 
 const readContracts = async (web3) => {
     // Store contracts to later use
@@ -62,54 +66,146 @@ const readContracts = async (web3) => {
     );
 
     console.log(
-        "Reading Moc Contract... address: ",
-        import.meta.env.REACT_APP_CONTRACT_MOC
+        "Reading MocMultiCollateralGuard Contract... address: ",
+        import.meta.env.REACT_APP_CONTRACT_MULTICOLLATERAL_GUARD
     );
-    dContracts.contracts.Moc = new web3.eth.Contract(
-        Moc.abi,
-        import.meta.env.REACT_APP_CONTRACT_MOC
+    dContracts.contracts.MocMultiCollateralGuard = new web3.eth.Contract(
+        MocMultiCollateralGuard.abi,
+        import.meta.env.REACT_APP_CONTRACT_MULTICOLLATERAL_GUARD
     );
 
-    // Read contracts addresses from MoC
-    const mocAddr = await mocAddresses(web3, dContracts);
-    dContracts.contracts.CA = [];
-
-    if (settings.collateral !== "coinbase") {
-        const contractCA = [mocAddr["acToken"]];
-        for (let i = 0; i < settings.tokens.CA.length; i++) {
-            console.log(
-                `Reading ${settings.tokens.CA[i].name} Token Contract... address: `,
-                contractCA[i]
-            );
-            dContracts.contracts.CA.push(
-                new web3.eth.Contract(CollateralAsset.abi, contractCA[i])
-            );
-        }
-    }
-
-    const MAX_LEN_ARRAY_TP = 4;
+    dContracts.contracts.Moc = []
+    dContracts.contracts.CA = []
+    dContracts.contracts.CollateralToken = []
+    dContracts.contracts.MocVendors = []
+    dContracts.contracts.MocQueue = []
+    dContracts.contracts.FeeToken = []
+    dContracts.contracts.PP_FeeToken = []
+    dContracts.contracts.FC_MAX_ABSOLUTE_OP_PROVIDER = []
+    dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER = []
+    let collateralMoCAbi = MocCARC20
+    let contractMocAddress;
+    let contractMoc
+    let contractMocType
+    let contractCA = []
     const tpAddresses = [];
-    let tpAddressesProviders = [];
-    let tpAddress;
-    let tpIndex;
-    let tpItem;
-    for (let i = 0; i < MAX_LEN_ARRAY_TP; i++) {
-        try {
-            tpAddress = mocAddr["tpTokens"][i];
-            if (!tpAddress || tpAddress === "0x") continue;
-            tpIndex = await dContracts.contracts.Moc.methods
-                .peggedTokenIndex(tpAddress)
-                .call();
-            if (!tpIndex.exists) continue;
-            tpItem = await dContracts.contracts.Moc.methods
-                .pegContainer(tpIndex.index)
-                .call();
-            tpAddresses.push(tpAddress);
-            tpAddressesProviders.push(tpItem.priceProvider);
-        } catch (e) {
-            console.error(e);
-            break;
+    const tpAddressesProviders = [];
+
+    for (let i = 0; i < settings.tokens.CA.length; i++) {
+
+        // Get MoC Bucket address from multi-collateral guard
+        contractMocAddress = await dContracts.contracts.MocMultiCollateralGuard.methods.buckets(i).call()
+        contractMocType = settings.tokens.CA[i].type
+        if (contractMocType === "coinbase") collateralMoCAbi = MocCACoinbase
+        console.log('Reading Moc Contract... address: ', contractMocAddress)
+
+        contractMoc = new web3.eth.Contract(
+            collateralMoCAbi.abi,
+            contractMocAddress
+        );
+
+        dContracts.contracts.Moc.push(contractMoc)
+
+        // Read contracts addresses from MoC
+        const mocAddr = await mocAddresses(web3, dContracts, contractMoc, contractMocType);
+
+        if (contractMocType !== 'coinbase') {
+
+            if (!contractCA.includes(mocAddr['acToken'])) {
+                console.log(
+                    `Reading ${settings.tokens.CA[i].name} Token Contract... address: `,
+                    mocAddr['acToken']
+                );
+                dContracts.contracts.CA.push(
+                    new web3.eth.Contract(CollateralAsset.abi, mocAddr['acToken'])
+                );
+                contractCA.push(mocAddr['acToken'])
+            }
         }
+
+        let tpAddress;
+        let tpIndex;
+        let tpItem;
+        for (let i = 0; i < settings.tokens.TP.length; i++) {
+            try {
+                tpAddress = mocAddr["tpTokens"][i];
+                if (!tpAddress || tpAddress === "0x") continue;
+                tpIndex = await contractMoc.methods
+                    .peggedTokenIndex(tpAddress)
+                    .call();
+                if (!tpIndex.exists) continue;
+                tpItem = await contractMoc.methods
+                    .pegContainer(tpIndex.index)
+                    .call();
+
+                if (!tpAddresses.includes(tpAddress)) {
+                    tpAddresses.push(tpAddress);
+                    tpAddressesProviders.push(tpItem.priceProvider);
+                }
+
+            } catch (e) {
+                console.error(e);
+                break;
+            }
+        }
+
+        console.log(
+            "Reading Collateral Token Contract... address: ",
+            mocAddr["tcToken"]
+        );
+        dContracts.contracts.CollateralToken.push(new web3.eth.Contract(
+            CollateralToken.abi,
+            mocAddr["tcToken"]
+        ));
+
+        console.log(
+            "Reading Moc Vendors Contract... address: ",
+            mocAddr["mocVendors"]
+        );
+        dContracts.contracts.MocVendors.push(new web3.eth.Contract(
+            MocVendors.abi,
+            mocAddr["mocVendors"]
+        ));
+
+        console.log("Reading MocQueue Contract... address: ", mocAddr["mocQueue"]);
+        dContracts.contracts.MocQueue.push(new web3.eth.Contract(
+            MocQueue.abi,
+            mocAddr["mocQueue"]
+        ));
+
+        console.log("Reading FeeToken Contract... address: ", mocAddr["feeToken"]);
+        dContracts.contracts.FeeToken.push(new web3.eth.Contract(
+            FeeToken.abi,
+            mocAddr["feeToken"]
+        ));
+
+        console.log(
+            "Reading Fee Token PP Contract... address: ",
+            mocAddr["feeTokenPriceProvider"]
+        );
+        dContracts.contracts.PP_FeeToken.push(new web3.eth.Contract(
+            IPriceProvider.abi,
+            mocAddr["feeTokenPriceProvider"]
+        ));
+
+        console.log(
+            "Reading FC_MAX_ABSOLUTE_OP_PROVIDER Contract... address: ",
+            mocAddr["maxAbsoluteOpProvider"]
+        );
+        dContracts.contracts.FC_MAX_ABSOLUTE_OP_PROVIDER.push(new web3.eth.Contract(
+            IPriceProvider.abi,
+            mocAddr["maxAbsoluteOpProvider"]
+        ));
+
+        console.log(
+            "Reading FC_MAX_OP_DIFFERENCE_PROVIDER Contract... address: ",
+            mocAddr["maxOpDiffProvider"]
+        );
+        dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER.push(new web3.eth.Contract(
+            IPriceProvider.abi,
+            mocAddr["maxOpDiffProvider"]
+        ));
+
     }
 
     dContracts.contracts.TP = [];
@@ -134,62 +230,6 @@ const readContracts = async (web3) => {
         );
     }
 
-    console.log(
-        "Reading Collateral Token Contract... address: ",
-        mocAddr["tcToken"]
-    );
-    dContracts.contracts.CollateralToken = new web3.eth.Contract(
-        CollateralToken.abi,
-        mocAddr["tcToken"]
-    );
-
-    console.log(
-        "Reading Moc Vendors Contract... address: ",
-        mocAddr["mocVendors"]
-    );
-    dContracts.contracts.MocVendors = new web3.eth.Contract(
-        MocVendors.abi,
-        mocAddr["mocVendors"]
-    );
-
-    console.log("Reading MocQueue Contract... address: ", mocAddr["mocQueue"]);
-    dContracts.contracts.MocQueue = new web3.eth.Contract(
-        MocQueue.abi,
-        mocAddr["mocQueue"]
-    );
-
-    console.log("Reading FeeToken Contract... address: ", mocAddr["feeToken"]);
-    dContracts.contracts.FeeToken = new web3.eth.Contract(
-        FeeToken.abi,
-        mocAddr["feeToken"]
-    );
-
-    console.log(
-        "Reading Fee Token PP Contract... address: ",
-        mocAddr["feeTokenPriceProvider"]
-    );
-    dContracts.contracts.PP_FeeToken = new web3.eth.Contract(
-        IPriceProvider.abi,
-        mocAddr["feeTokenPriceProvider"]
-    );
-
-    console.log(
-        "Reading FC_MAX_ABSOLUTE_OP_PROVIDER Contract... address: ",
-        mocAddr["maxAbsoluteOpProvider"]
-    );
-    dContracts.contracts.FC_MAX_ABSOLUTE_OP_PROVIDER = new web3.eth.Contract(
-        IPriceProvider.abi,
-        mocAddr["maxAbsoluteOpProvider"]
-    );
-
-    console.log(
-        "Reading FC_MAX_OP_DIFFERENCE_PROVIDER Contract... address: ",
-        mocAddr["maxOpDiffProvider"]
-    );
-    dContracts.contracts.FC_MAX_OP_DIFFERENCE_PROVIDER = new web3.eth.Contract(
-        IPriceProvider.abi,
-        mocAddr["maxOpDiffProvider"]
-    );
 
     if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== "undefined") {
         console.log(
@@ -275,8 +315,10 @@ const readContracts = async (web3) => {
     }
 
     // Token migrator & Legacy token
+    let tpLegacy
+    let tokenMigrator
     if (import.meta.env.REACT_APP_CONTRACT_LEGACY_TP) {
-        const tpLegacy = new web3.eth.Contract(
+        tpLegacy = new web3.eth.Contract(
             TokenPegged.abi,
             import.meta.env.REACT_APP_CONTRACT_LEGACY_TP
         );
@@ -285,7 +327,7 @@ const readContracts = async (web3) => {
         if (!import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR)
             console.log("Error: Please set token migrator address!");
 
-        const tokenMigrator = new web3.eth.Contract(
+        tokenMigrator = new web3.eth.Contract(
             TokenMigrator.abi,
             import.meta.env.REACT_APP_CONTRACT_TOKEN_MIGRATOR
         );
