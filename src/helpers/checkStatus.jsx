@@ -77,7 +77,7 @@ export default function CheckStatus() {
             isValid = false;
         }
 
-        if (auth.contractStatusData.liquidated) {
+        if (auth.contractStatusData[0].liquidated) {
             statusIcon = "icon-status-warning";
             statusLabel = t("performance.status.statusTitleLiquidated");
             statusText = t("performance.status.statusDescriptionLiquidated");
@@ -85,7 +85,7 @@ export default function CheckStatus() {
             isValid = false;
         }
 
-        if (auth.contractStatusData.paused) {
+        if (auth.contractStatusData[0].paused) {
             statusIcon = "icon-status-warning";
             statusLabel = t("performance.status.statusTitlePaused");
             statusText = t("performance.status.statusDescriptionPaused");

@@ -133,7 +133,7 @@ const redeemTC = async (
     );
     const userTCBalance = new BigNumber(
         fromContractPrecisionDecimals(
-            userBalanceData.TC.balance,
+            userBalanceData[0].TC.balance,
             settings.tokens.TC[0].decimals
         )
     );

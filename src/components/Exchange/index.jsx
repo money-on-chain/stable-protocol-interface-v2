@@ -204,7 +204,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const tpAvailableToMint = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.getTPAvailableToMint[tIndex],
+                    auth.contractStatusData[0].getTPAvailableToMint[tIndex],
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -220,7 +220,7 @@ export default function Exchange() {
             // There are sufficient TC in the contracts to redeem?
             const tcAvailableToRedeem = new BigNumber(
                 Web3.utils.fromWei(
-                    auth.contractStatusData.getTCAvailableToRedeem,
+                    auth.contractStatusData[0].getTCAvailableToRedeem,
                     "ether"
                 )
             );
@@ -237,7 +237,7 @@ export default function Exchange() {
             // There are sufficient CA in the contract
             const caBalance = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.getACBalance[tIndex],
+                    auth.contractStatusData[0].getACBalance[tIndex],
                     settings.tokens.CA[tIndex].decimals
                 )
             );
@@ -251,7 +251,7 @@ export default function Exchange() {
         // 5. HAVE TO PAY COMMISSIONS WITH FEE TOKEN?
         const feeTokenBalance = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.userBalanceData.FeeToken.balance,
+                auth.userBalanceData[0].FeeToken.balance,
                 settings.tokens.TF[0].decimals
             )
         );
@@ -268,7 +268,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToMintTP = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.maxQACToMintTP,
+                    auth.contractStatusData[0].maxQACToMintTP,
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -287,7 +287,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToRedeemTP = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.maxQACToRedeemTP,
+                    auth.contractStatusData[0].maxQACToRedeemTP,
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -399,7 +399,7 @@ export default function Exchange() {
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
+                auth.contractStatusData[0].PP_CA[0],
                 settings.tokens.CA[0].decimals
             )
         );

@@ -142,7 +142,7 @@ export default function Send() {
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
+                auth.contractStatusData[0].PP_CA[0],
                 settings.tokens.CA[0].decimals
             )
         );

@@ -16,6 +16,11 @@ const onErrorProposal = () => {
     return { value: null, canOperate: true };
 };
 
+const onErrorFluxCapacitor = () => {
+    console.warn("Flux capacitor is disabled");
+    return { value: null, canOperate: true };
+};
+
 const onErrorTP = () => {
     return { value: null, canOperate: true };
 };
@@ -105,6 +110,9 @@ class Multicall {
                         "WARN: Cannot operate! Index query:",
                         itemIndex
                     );
+                    console.warn("keyName:", keyName)
+                    console.warn("keyIndex:", keyIndex)
+                    console.warn("keySubIndex:", keySubIndex)
                 }
             }
 
@@ -715,7 +723,9 @@ const contractStatus = async (web3, dContracts) => {
                 }
             ],
             ca,
-            "FC_MAX_ABSOLUTE_OP"
+            "FC_MAX_ABSOLUTE_OP",
+            null,
+            onErrorFluxCapacitor
         );
         multiCallRequest.aggregate(
             FC_MAX_OP_DIFFERENCE_PROVIDER,
@@ -733,7 +743,9 @@ const contractStatus = async (web3, dContracts) => {
                 }
             ],
             ca,
-            "FC_MAX_OP_DIFFERENCE"
+            "FC_MAX_OP_DIFFERENCE",
+            null,
+            onErrorFluxCapacitor
         );
         multiCallRequest.aggregate(
             Moc,
@@ -1206,13 +1218,18 @@ const contractStatus = async (web3, dContracts) => {
 
     const status = await multiCallRequest.tryBlockAndAggregate();
 
-    // If calcCtargemaCA is a big number cannot operate
-    const getCtargemaCA = new BigNumber(
-        fromContractPrecisionDecimals(status.getCtargemaCA, 18)
-    );
-    if (getCtargemaCA.gt(1000000)) {
-        status.canOperate = false;
+    let getCtargemaCA;
+    for (let ca = 0; ca < settings.tokens.CA.length; ca++) {
+        // If calcCtargemaCA is a huge number cannot operate
+        getCtargemaCA = new BigNumber(
+            fromContractPrecisionDecimals(status[ca].getCtargemaCA, 18)
+        );
+        if (getCtargemaCA.gt(100000000)) {
+            status.canOperate = false;
+            break;
+        }
     }
+
 
     // History Price (24hs ago)
     const d24BlockHeights = status.blockHeight - BigInt(2880);

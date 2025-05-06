@@ -35,14 +35,14 @@ export default function Performance() {
     if (auth.contractStatusData) {
         const priceTEC = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.getPTCac,
+                auth.contractStatusData[0].getPTCac,
                 settings.tokens.TC[0].decimals
             )
         );
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.PP_CA[0],
+                auth.contractStatusData[0].PP_CA[0],
                 settings.tokens.CA[0].decimals
             )
         );
@@ -50,7 +50,7 @@ export default function Performance() {
 
         const collateralTotal = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData.nACcb,
+                auth.contractStatusData[0].nACcb,
                 settings.tokens.TC[0].decimals
             )
         );
@@ -136,7 +136,7 @@ export default function Performance() {
                         </div>
                     </div>
                     <div className="amount">
-                        {!auth.contractStatusData.canOperate
+                        {/*!auth.contractStatusData.canOperate
                             ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
@@ -146,7 +146,7 @@ export default function Performance() {
                                   decimals: 8,
                                   i18n: i18n,
                                   skipContractConvert: false,
-                              })}
+                              })*/}
                         <div className="caption">
                             {t("performance.tc.currentLeverage")}
                         </div>
@@ -156,7 +156,7 @@ export default function Performance() {
                             ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
-                                      ? auth.contractStatusData.nTCcb
+                                      ? auth.contractStatusData[0].nTCcb
                                       : new BigNumber(0),
                                   token: TokenSettings("TC"),
                                   decimals: 2,
@@ -172,7 +172,7 @@ export default function Performance() {
                             ? "--"
                             : PrecisionNumbers({
                                   amount: auth.contractStatusData
-                                      ? auth.contractStatusData
+                                      ? auth.contractStatusData[0]
                                             .getTCAvailableToRedeem
                                       : new BigNumber(0),
                                   token: TokenSettings("TC"),
@@ -215,7 +215,7 @@ export default function Performance() {
                                 ? "--"
                                 : PrecisionNumbers({
                                       amount: auth.contractStatusData
-                                          ? auth.contractStatusData.getCglb
+                                          ? auth.contractStatusData[0].getCglb
                                           : new BigNumber(0),
                                       token: TokenSettings("CA_0"),
                                       decimals: 6,
