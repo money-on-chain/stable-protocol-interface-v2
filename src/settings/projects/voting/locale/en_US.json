@@ -385,7 +385,7 @@
         "governanceToken": "MOC",
         "dashLabels": {
             "balance": "Balance",
-            "staked": "Flip Staked",
+            "staked": "MoC Staked",
             "unstaking": "Unstaking",
             "ready": "Ready to Withdraw",
             "lockedVoting": "Locked while Voting"
@@ -528,7 +528,7 @@
             "page1": {
                 "stepTitle": "You don’t have any Vesting Machine (VM) Loaded yet",
                 "explanation1": "If you have a VM address, please click 'Load VM' button to access it.",
-                "explanation2": "If you are a MOC staker with a claim code, congrats! Please click 'Use Claim Code' button to create the Vesting Machine for your Flip tokens.",
+                "explanation2": "If you are a MOC staker with a claim code, congrats! Please click 'Use Claim Code' button to create the Vesting Machine for your MoC tokens.",
                 "ctaPrimary": "Use Claim Code",
                 "ctaSecondary": "Load VM"
             },
@@ -556,7 +556,7 @@
             },
             "page4": {
                 "stepTitle": "Vesting Machine Created Successfully!",
-                "successMessage": "Congratulations! You have successfully claimed your Flip tokens and created a Vesting Machine (VM). Please, read carefully the information below and don't forget to save your vesting address as indicated.",
+                "successMessage": "Congratulations! You have successfully claimed your MoC tokens and created a Vesting Machine (VM). Please, read carefully the information below and don't forget to save your vesting address as indicated.",
                 "addressLabel": "Created Vesting Machine Address",
                 "buttonDownloadAddress": "Download Address",
                 "buttonCopyAddress": "Copy Address",
@@ -674,7 +674,7 @@
         "walletNotConnected": "Wallet not connected!"
     },
     "settings": {
-        "protocolName": "Rif On Chain",
+        "protocolName": "MOC",
         "themeMode": {
             "light": "Light Mode",
             "dark": "Dark mode"
