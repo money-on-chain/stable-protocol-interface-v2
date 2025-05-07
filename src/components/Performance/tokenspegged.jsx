@@ -80,7 +80,7 @@ export default function TokensPegged() {
                 )
             );
 
-            price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
+            price = ConvertPeggedTokenPrice(auth, 0,dataItem.key, price);
 
             if (dataItem.peggedUSD) price = new BigNumber(1);
 

@@ -120,7 +120,7 @@ export default function Exchange() {
         if (!isValid && errorType === "1") {
             if (
                 !currencyYouExchange.startsWith("TP") &&
-                currencyYouReceive !== "TC"
+                !currencyYouReceive.startsWith("TC")
             ) {
                 setInputValidationErrorText(
                     t("exchange.errors.notOperational")
@@ -216,7 +216,8 @@ export default function Exchange() {
         }
 
         // 3. REDEEM TC
-        if (currencyYouExchange === "TC") {
+        let arrCurrencyYouExchange = currencyYouExchange.split("_");
+        if (arrCurrencyYouExchange[0] === "TC") {
             // There are sufficient TC in the contracts to redeem?
             const tcAvailableToRedeem = new BigNumber(
                 Web3.utils.fromWei(
@@ -282,7 +283,7 @@ export default function Exchange() {
         }
 
         // 7. Redeem TP. Flux capacitor maxQACToRedeemTP
-        const arrCurrencyYouExchange = currencyYouExchange.split("_");
+        arrCurrencyYouExchange = currencyYouExchange.split("_");
         if (arrCurrencyYouExchange[0] === "TP") {
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToRedeemTP = new BigNumber(
@@ -492,7 +493,9 @@ export default function Exchange() {
         setRadioSelectFee(e.target.value);
     };
     const calculateFinalAmountExchange = () => {
-        if (currencyYouExchange === "CA_0") {
+
+        let arrCurrencyYouExchange = currencyYouExchange.split("_");
+        if (arrCurrencyYouExchange[0] === "CA") {
             const tokenSettings = TokenSettings(currencyYouExchange);
             const totalbalance = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -799,7 +802,7 @@ export default function Exchange() {
                                                                   commissionFeeToken
                                                               ),
                                                               token: TokenSettings(
-                                                                  "TF"
+                                                                  "TF_0"
                                                               ),
                                                               i18n: i18n,
                                                               skipContractConvert: true,

@@ -52,6 +52,7 @@ export default function PortfolioTable() {
                     visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
                     peggedUSD:
                         token.peggedUSD !== undefined ? token.peggedUSD : false, // Default to false
+                    collateralType: token.collateralType,
                 });
                 // Store TF token names for filtering TG later in Step 2
                 if (type === "TF") {
@@ -100,7 +101,8 @@ export default function PortfolioTable() {
                     if (
                         auth.contractStatusData &&
                         auth.userBalanceData &&
-                        settings.collateral !== "coinbase"
+                        token.collateralType &&
+                        token.collateralType !== "coinbase"
                     ) {
                         tokenIcon = "icon-token-" + token.type.toLowerCase();
 
@@ -221,7 +223,7 @@ export default function PortfolioTable() {
                                 token.decimals
                             )
                         );
-                        price = ConvertPeggedTokenPrice(auth, token.key, price);
+                        price = ConvertPeggedTokenPrice(auth, 0,token.key, price);
                         balanceUSD = balance.div(price);
 
                         //variation
@@ -366,7 +368,7 @@ export default function PortfolioTable() {
                 i18n,
             });
 
-            if (settings.collateral !== token.type.toLowerCase()) {
+            if (token.collateralType !== 'coinbase') {
                 // Skip coinbase token when collateral is coinbase
                 if (token.type === "TP" && token.peggedUSD === false) {
                     newNonUSDpeggedTokenRows.push(tokenRow); // ✅ Store updated token Rows for nonUSDpegged

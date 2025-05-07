@@ -49,19 +49,19 @@ export default function Portfolio() {
             balance = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.userBalanceData[dataItem.key].TC.balance,
-                    settings.tokens.TC[0].decimals
+                    settings.tokens.TC[dataItem.key].decimals
                 )
             );
             const priceTEC = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData[dataItem.key].getPTCac,
-                    settings.tokens.TC[0].decimals
+                    settings.tokens.TC[dataItem.key].decimals
                 )
             );
             const priceCA = new BigNumber(
                 fromContractPrecisionDecimals(
                     auth.contractStatusData[dataItem.key].PP_CA[0],
-                    settings.tokens.CA[0].decimals
+                    settings.tokens.CA[dataItem.key].decimals
                 )
             );
 

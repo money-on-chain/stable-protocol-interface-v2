@@ -99,7 +99,7 @@ export default function TokensPeggedMobile() {
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );
-            price = ConvertPeggedTokenPrice(auth, dataItem.key, price);
+            price = ConvertPeggedTokenPrice(auth, 0,dataItem.key, price);
 
             if (dataItem.peggedUSD) price = new BigNumber(1);
 

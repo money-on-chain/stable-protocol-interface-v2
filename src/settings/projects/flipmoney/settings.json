@@ -1,7 +1,6 @@
 {
-    "collateral": "rc20",
-     "project": "flipmoney",
-     "showPriceVariation":true,
+    "project": "flipmoney",
+    "showPriceVariation":true,
     "tokens": {
         "COINBASE": [{
             "key": 0,
@@ -17,7 +16,7 @@
         "CA": [
             {
                 "key": 0,
-                "type": "rrc20",
+                "collateralType": "rc20",
                 "name": "BPRO",
                 "fullName": "BPro",
                 "decimals": 18,

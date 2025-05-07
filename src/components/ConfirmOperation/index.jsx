@@ -166,7 +166,7 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowanceFeeToken = () => {
-        const tokenAllowance = UserTokenAllowance(auth, "TF");
+        const tokenAllowance = UserTokenAllowance(auth, "TF_0");
 
         if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
             // if we select not to pay with fee token, please disallow to use Fee token
@@ -457,7 +457,7 @@ export default function ConfirmOperation(props) {
         commissionPAY = commissionFeeToken;
         commissionPAYUSD = commissionFeeTokenUSD;
         commissionPercentPAY = commissionPercentFeeToken;
-        commissionSettings = TokenSettings("TF");
+        commissionSettings = TokenSettings("TF_0");
         commissionTokenName = t(`exchange.tokens.TF.abbr`, {
             ns: ns,
         });
@@ -783,8 +783,8 @@ export default function ConfirmOperation(props) {
                 }
                 visible={showModalAllowanceFeeToken}
                 onHideModalAllowance={onHideModalAllowanceFeeToken}
-                currencyYouExchange={"TF"}
-                currencyYouReceive={"TF"}
+                currencyYouExchange={"TF_0"}
+                currencyYouReceive={"TF_0"}
                 amountYouExchangeLimit={commissionFeeToken}
                 amountYouReceiveLimit={commissionFeeToken}
                 onRealSendTransaction={onSendTransaction}
