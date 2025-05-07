@@ -385,7 +385,7 @@
         "governanceToken": "MOC",
         "dashLabels": {
             "balance": "Balance",
-            "staked": "MOC en Stake",
+            "staked": "MoC en Stake",
             "unstaking": "Sacando de Stake",
             "ready": "Listos para retirar",
             "lockedVoting": "Bloqueados por voto"
@@ -545,7 +545,7 @@
             },
             "page4": {
                 "stepTitle": "¡Vesting Machine creada con éxito!",
-                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens Flip y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
+                "successMessage": "¡Felicitaciones! Has hecho el claim de tus tokens MoC y has creado una Vesting Machine (VM). Por favor, lee cuidadosamente la información de abajo y no olivdes guardar la dirección de tu vesting como se indica.",
                 "addressLabel": "Dirección de la Vesting Machine creada",
                 "buttonDownloadAddress": "Descargar Dirección",
                 "buttonCopyAddress": "Copiar Dirección",
@@ -664,7 +664,7 @@
         "walletNotConnected": "¡Billetera no conectada!"
     },
     "settings": {
-        "protocolName": "Rif On Chain",
+        "protocolName": "MOC",
         "themeMode": {
             "light": "Modo claro",
             "dark": "Modo oscuro"
