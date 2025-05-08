@@ -73,10 +73,10 @@ function TokenBalance(auth, tokenName) {
             balance = auth.userBalanceData.CA[parseInt(aTokenName[1])].balance;
             break;
         case "TP":
-            balance = auth.userBalanceData.TP[parseInt(aTokenName[1])].balance;
+            balance = auth.userBalanceData.TP[0][parseInt(aTokenName[1])].balance;
             break;
         case "TC":
-            balance = auth.userBalanceData.TC[parseInt(aTokenName[1])].balance;
+            balance = auth.userBalanceData[parseInt(aTokenName[1])].TC.balance;
             break;
         case "COINBASE":
             balance = auth.userBalanceData.coinbase;
@@ -164,6 +164,7 @@ function ConvertAmount(
 ) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
     const tokenReceiveSettings = TokenSettings(tokenReceive);
+
     let price = new BigNumber(0);
 
     let amount;
@@ -295,13 +296,13 @@ const getCAIndex = (
             index = parseInt(aTokenExchange[1])
             break;
         case "TP,CA":
-            index = parseInt(tokenReceive[1])
+            index = parseInt(aTokenReceive[1])
             break;
         case "CA,TP":
             index = parseInt(aTokenExchange[1])
             break;
         case "TC,CA":
-            index = parseInt(tokenReceive[1])
+            index = parseInt(aTokenReceive[1])
             break;
         default:
             throw new Error("Invalid map getCAIndex");
@@ -449,4 +450,5 @@ export {
     CalcCommission,
     ConvertPeggedTokenPrice,
     hasNonUSDPeggedTokens,
+    getCAIndex
 };

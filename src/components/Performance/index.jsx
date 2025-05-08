@@ -33,28 +33,33 @@ export default function Performance() {
     let price;
     let collateralInUSD;
     if (auth.contractStatusData) {
-        const priceTEC = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData[0].getPTCac,
-                settings.tokens.TC[0].decimals
-            )
-        );
 
-        const priceCA = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData[0].PP_CA[0],
-                settings.tokens.CA[0].decimals
-            )
-        );
-        price = priceTEC.times(priceCA);
+        settings.tokens.CA.forEach(function (dataItem) {
 
-        const collateralTotal = new BigNumber(
-            fromContractPrecisionDecimals(
-                auth.contractStatusData[0].nACcb,
-                settings.tokens.TC[0].decimals
-            )
-        );
-        collateralInUSD = collateralTotal.times(priceCA);
+            const priceTEC = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData[dataItem.key].getPTCac,
+                    settings.tokens.TC[dataItem.key].decimals
+                )
+            );
+
+            const priceCA = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData[dataItem.key].PP_CA[0],
+                    settings.tokens.CA[dataItem.key].decimals
+                )
+            );
+            price = priceTEC.times(priceCA);
+
+            const collateralTotal = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData[dataItem.key].nACcb,
+                    settings.tokens.TC[dataItem.key].decimals
+                )
+            );
+            collateralInUSD = collateralTotal.times(priceCA);
+        })
+
     }
     return (
         <div className="section sectionPerformance">
@@ -116,7 +121,7 @@ export default function Performance() {
                 <div className="token">
                     <div className="icon-token-tc token__icon"></div>
                     <div className="token__name">
-                        {t(`exchange.tokens.TC.label`, { ns: ns })}
+                        {t(`exchange.tokens.TC_0.label`, { ns: ns })}
                     </div>
                 </div>
 
@@ -158,7 +163,7 @@ export default function Performance() {
                                   amount: auth.contractStatusData
                                       ? auth.contractStatusData[0].nTCcb
                                       : new BigNumber(0),
-                                  token: TokenSettings("TC"),
+                                  token: TokenSettings("TC_0"),
                                   decimals: 2,
                                   i18n: i18n,
                                   skipContractConvert: false,
@@ -175,7 +180,7 @@ export default function Performance() {
                                       ? auth.contractStatusData[0]
                                             .getTCAvailableToRedeem
                                       : new BigNumber(0),
-                                  token: TokenSettings("TC"),
+                                  token: TokenSettings("TC_0"),
                                   decimals: 2,
                                   i18n: i18n,
                                   skipContractConvert: false,

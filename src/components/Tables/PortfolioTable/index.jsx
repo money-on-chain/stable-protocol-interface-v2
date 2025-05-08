@@ -97,79 +97,77 @@ export default function PortfolioTable() {
             switch (token.type) {
                 case "COINBASE":
                     // CALCULATE COINBASE DATA
+                    tokenIcon = "icon-token-" + token.type.toLowerCase();
 
+                    balance = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.userBalanceData.coinbase,
+                            token.decimals
+                        )
+                    );
+
+                    price = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.PP_COINBASE[0],
+                            token.decimals
+                        )
+                    );
+                    balanceUSD = balance.times(price);
+
+                    // variation
+                    priceHistory = new BigNumber(
+                        fromContractPrecisionDecimals(
+                            auth.contractStatusData.historic.PP_COINBASE[0],
+                            token.decimals
+                        )
+                    );
+                    priceDelta = price.minus(priceHistory);
+                    variation = priceDelta
+                        .abs()
+                        .div(priceHistory)
+                        .times(100);
+
+                    break;
+                case "CA":
+                    // CALCULATE TOKENS CA DATA
                     if (
                         auth.contractStatusData &&
                         auth.userBalanceData &&
                         token.collateralType &&
                         token.collateralType !== "coinbase"
                     ) {
-                        tokenIcon = "icon-token-" + token.type.toLowerCase();
+                        tokenIcon =
+                            "icon-token-" +
+                            token.type.toLowerCase() +
+                            "_" +
+                            token.key;
 
+                        // Convert balance to BigNumber with correct decimal precision
                         balance = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.userBalanceData.coinbase,
+                                auth.userBalanceData.CA[token.key].balance,
+                                token.decimals
+                            )
+                        );
+                        price = new BigNumber(
+                            fromContractPrecisionDecimals(
+                                auth.contractStatusData[token.key].PP_CA[0],
                                 token.decimals
                             )
                         );
 
-                        price = new BigNumber(
-                            fromContractPrecisionDecimals(
-                                auth.contractStatusData.PP_COINBASE[0],
-                                token.decimals
-                            )
-                        );
                         balanceUSD = balance.times(price);
 
                         // variation
                         priceHistory = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.historic.PP_COINBASE[0],
+                                auth.contractStatusData.historic[token.key].PP_CA[0],
                                 token.decimals
                             )
                         );
                         priceDelta = price.minus(priceHistory);
-                        variation = priceDelta
-                            .abs()
-                            .div(priceHistory)
-                            .times(100);
+                        variation = priceDelta.abs().div(priceHistory).times(100);
                     }
-
-                    break;
-                case "CA":
-                    // CALCULATE TOKENS CA DATA
-
-                    tokenIcon =
-                        "icon-token-" +
-                        token.type.toLowerCase() +
-                        "_" +
-                        token.key;
-
-                    // Convert balance to BigNumber with correct decimal precision
-                    balance = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.userBalanceData.CA[token.key].balance,
-                            token.decimals
-                        )
-                    );
-                    price = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData[token.key].PP_CA[0],
-                            token.decimals
-                        )
-                    );
-
-                    balanceUSD = balance.times(price);
-
-                    // variation
-                    priceHistory = new BigNumber(
-                        fromContractPrecisionDecimals(
-                            auth.contractStatusData.historic[token.key].PP_CA[0],
-                            token.decimals
-                        )
-                    );
-                    priceDelta = price.minus(priceHistory);
-                    variation = priceDelta.abs().div(priceHistory).times(100);
 
                     break;
                 case "TP":
@@ -237,6 +235,7 @@ export default function PortfolioTable() {
                         );
                         priceHistory = ConvertPeggedTokenPrice(
                             auth,
+                            0,
                             token.key,
                             priceHistory
                         );

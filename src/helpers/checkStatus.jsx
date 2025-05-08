@@ -30,9 +30,9 @@ export default function CheckStatus() {
                 settings.tokens.CA[0].decimals
             )
         );
-        const calcCtargemaCA = new BigNumber(
+        const getCtargemaCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData[0].calcCtargemaCA,
+                auth.contractStatusData[0].getCtargemaCA,
                 settings.tokens.CA[0].decimals
             )
         );
@@ -51,7 +51,7 @@ export default function CheckStatus() {
             )
         );
 
-        if (globalCoverage.gt(calcCtargemaCA)) {
+        if (globalCoverage.gt(getCtargemaCA)) {
             statusIcon = "icon-status-success";
             statusLabel = t("performance.status.statusTitleFull");
             statusText = t("performance.status.statusDescriptionFull");
@@ -59,7 +59,7 @@ export default function CheckStatus() {
             isValid = true;
         } else if (
             globalCoverage.gt(protThrld) &&
-            globalCoverage.lte(calcCtargemaCA)
+            globalCoverage.lte(getCtargemaCA)
         ) {
             statusIcon = "icon-status-warning";
             statusLabel = t("performance.status.stuatusTitleWarning");

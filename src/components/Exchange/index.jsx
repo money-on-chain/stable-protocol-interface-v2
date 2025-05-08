@@ -12,6 +12,7 @@ import {
     ConvertAmount,
     AmountToVisibleValue,
     CalcCommission,
+    getCAIndex,
 } from "../../helpers/currencies";
 import {
     tokenExchange,
@@ -75,6 +76,7 @@ export default function Exchange() {
 
     const [valueExchange, setValueExchange] = useState("");
     const [valueReceive, setValueReceive] = useState("");
+    const [caIndex, setCAIndex] = useState(0);
 
     useEffect(() => {
         if (amountYouExchange && auth.contractStatusData) {
@@ -85,7 +87,9 @@ export default function Exchange() {
     const onChangeCurrencyYouExchange = (newCurrencyYouExchange) => {
         onClear();
         setCurrencyYouExchange(newCurrencyYouExchange);
-        setCurrencyYouReceive(tokenReceive(newCurrencyYouExchange)[0]);
+        const newCurrencyYouReceive = tokenReceive(newCurrencyYouExchange)[0]
+        setCurrencyYouReceive(newCurrencyYouReceive);
+        setCAIndex(getCAIndex(newCurrencyYouExchange, newCurrencyYouReceive));
     };
 
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
@@ -724,7 +728,7 @@ export default function Exchange() {
                                                                   commission
                                                               ),
                                                               token: TokenSettings(
-                                                                  "CA_0"
+                                                                  `CA_${caIndex}`
                                                               ),
                                                               i18n: i18n,
                                                               skipContractConvert: true,
@@ -753,7 +757,7 @@ export default function Exchange() {
                                                               ),
                                                               decimals: 2,
                                                               token: TokenSettings(
-                                                                  "CA_0"
+                                                                  `CA_${caIndex}`
                                                               ),
                                                               i18n: i18n,
                                                               isUSD: true,
@@ -802,7 +806,7 @@ export default function Exchange() {
                                                                   commissionFeeToken
                                                               ),
                                                               token: TokenSettings(
-                                                                  "TF_0"
+                                                                  `TF_${caIndex}`
                                                               ),
                                                               i18n: i18n,
                                                               skipContractConvert: true,
@@ -826,7 +830,7 @@ export default function Exchange() {
                                                               ),
                                                               decimals: 2,
                                                               token: TokenSettings(
-                                                                  "CA_0"
+                                                                  `CA_${caIndex}`
                                                               ),
                                                               i18n: i18n,
                                                               isUSD: true,
@@ -865,7 +869,7 @@ export default function Exchange() {
                                     ? "--"
                                     : PrecisionNumbers({
                                           amount: exchangingUSD,
-                                          token: TokenSettings("CA_0"),
+                                          token: TokenSettings(`CA_${caIndex}`),
                                           decimals: 2,
                                           i18n: i18n,
                                           skipContractConvert: true,
@@ -897,6 +901,7 @@ export default function Exchange() {
                         commissionFeeTokenUSD={commissionFeeTokenUSD}
                         commissionPercentFeeToken={commissionPercentFeeToken}
                         radioSelectFee={radioSelectFee}
+                        caIndex={caIndex}
                         //amountYouExchangeFee={amountYouExchangeFee}
                         //amountYouReceiveFee={amountYouReceiveFee}
                     />

@@ -135,7 +135,7 @@ export default function Send() {
         const convertAmount = ConvertAmount(
             auth,
             currencyYouSend,
-            "CA",
+            "CA_0",
             newAmountBig,
             false
         );

@@ -12,9 +12,10 @@ import {
 
 /*
 const tokenMap = {
-    CA_0: ['TC', 'TP_0', 'TP_1'],
-    CA_1: ['TC', 'TP_0', 'TP_1'],
-    TC: ['CA_0', 'CA_1'],
+    CA_0: ['TC_0', 'TP_0', 'TP_1'],
+    CA_1: ['TC_1', 'TP_0', 'TP_1'],
+    TC_0: ['CA_0'],
+    TC_1: ['CA_1'],
     TP_0: ['CA_0', 'CA_1'],
     TP_1: ['CA_0', 'CA_1']
 };*/
@@ -25,7 +26,7 @@ function loadTokenMap() {
 
     // Exchange CA
     for (let i = 0; i < settings.tokens.CA.length; i++) {
-        lReceive.push("TC");
+        lReceive.push(`TC_${i}`);
         // TP
         for (let t = 0; t < settings.tokens.TP.length; t++) {
             lReceive.push(`TP_${t}`);
@@ -34,11 +35,9 @@ function loadTokenMap() {
     }
 
     // Exchange TC
-    lReceive = [];
     for (let i = 0; i < settings.tokens.CA.length; i++) {
-        lReceive.push(`CA_${i}`);
+        tMap[`TC_${i}`] = [`CA_${i}`];
     }
-    tMap["TC"] = lReceive;
 
     // Exchange TP
     lReceive = [];
@@ -83,6 +82,7 @@ function isMintOperation(tokenExchange, tokenReceive) {
     const aTokenExchange = tokenExchange.split("_");
     const aTokenReceive = tokenReceive.split("_");
     const aTokenMap = `${aTokenExchange[0]},${aTokenReceive[0]}`;
+
     switch (aTokenMap) {
         case "CA,TC":
         case "CA,TP":
@@ -98,7 +98,7 @@ function isMintOperation(tokenExchange, tokenReceive) {
 }
 
 function TokenAllowance(auth, tokenExchange) {
-    // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC, COINBASE, TF_0, TF_1
+    // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC_0, TC_1, COINBASE, TF_0, TF_1
     //const tokenExchangeSettings = TokenSettings(tokenExchange);
     const aTokenExchange = tokenExchange.split("_");
     let allowance = 0;

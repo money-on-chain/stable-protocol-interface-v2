@@ -100,7 +100,7 @@
                 "label": "BPro",
                 "abbr": "BPRO"
             },
-            "TC": {
+            "TC_0": {
                 "label": "BPro Max",
                 "abbr": "BPROX"
             },
@@ -254,7 +254,7 @@
                 "label": "BPro",
                 "abbr": "BPRO"
             },
-            "TC": {
+            "TC_0": {
                 "label": "BPro Max",
                 "abbr": "BPROX"
             },
