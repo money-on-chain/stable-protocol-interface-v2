@@ -155,8 +155,6 @@ class Multicall {
 const contractStatus = async (web3, dContracts) => {
     if (!dContracts) return;
 
-    console.log("Reading contract status ...");
-
     const vendorAddress =
         `${import.meta.env.REACT_APP_ENVIRONMENT_VENDOR_ADDRESS}`.toLowerCase();
     const multicall = dContracts.contracts.multicall;
@@ -1217,6 +1215,7 @@ const contractStatus = async (web3, dContracts) => {
     }
 
     const status = await multiCallRequest.tryBlockAndAggregate();
+    console.log(`Reading contract status: OK!. Block: ${status.blockHeight}`);
 
     let getCtargemaCA;
     for (let ca = 0; ca < settings.tokens.CA.length; ca++) {
@@ -1322,6 +1321,7 @@ const contractStatus = async (web3, dContracts) => {
 
     const historic =
         await multiCallRequestHistory.tryBlockAndAggregate(d24BlockHeights);
+    console.log(`Reading contract status HISTORY: OK!. Block: ${historic.blockHeight}`);
     historic.blockHeight = d24BlockHeights;
     status.canHistoric = historic.canOperate;
     status.historic = historic;
@@ -1351,8 +1351,6 @@ const userBalance = async (web3, dContracts, userAddress) => {
         IncentiveV2 = dContracts.contracts.IncentiveV2;
         votingmachine = dContracts.contracts.VotingMachine;
     }
-
-    console.log(`Reading user balance ... account: ${userAddress}`);
 
     const multiCallRequest = new Multicall(multicall, web3);
     multiCallRequest.aggregate(
@@ -1761,6 +1759,7 @@ const userBalance = async (web3, dContracts, userAddress) => {
     }
 
     const userBalance = await multiCallRequest.tryBlockAndAggregate();
+    console.log(`Reading user balance: OK. Block: ${userBalance.blockHeight}`);
 
     let TPca = [];
     for (let ca = 0; ca < settings.tokens.CA.length; ca++) {

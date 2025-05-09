@@ -303,7 +303,7 @@ export default function PortfolioTable() {
                     // RAW price for balance and variation calculation
                     price = new BigNumber(
                         fromContractPrecisionDecimals(
-                            auth.contractStatusData[0].PP_FeeToken,
+                            auth.contractStatusData[0].PP_FeeToken[0],
                             token.decimals
                         )
                     );

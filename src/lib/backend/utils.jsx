@@ -18,7 +18,7 @@ const getGasPrice = async (web3) => {
 
 const getNetworkFromProject = () => {
     let network
-    switch (process.env.MOC_PROJECT) {
+    switch (import.meta.env.REACT_APP_ENVIRONMENT_APP_PROJECT.toLowerCase()) {
         case "flipmoney":
             network = "rsk"
             break;
@@ -33,7 +33,12 @@ const getNetworkFromProject = () => {
 
 
 const getExecutionFee = async (web3, execCost, slippage) => {
-    const lastBlock = await web3.eth.getBlock("latest")
+    //const lastBlock = await web3.eth.getBlock("latest")
+
+    const lastBlock = await web3.currentProvider.request({
+        method: "eth_getBlockByNumber",
+        params: ["latest", false]
+    });
 
     let latestBaseFee
     if (getNetworkFromProject()==="rsk") {
@@ -42,7 +47,7 @@ const getExecutionFee = async (web3, execCost, slippage) => {
         latestBaseFee = lastBlock.baseFeePerGas
     }
 
-    const execFee = execCost * latestBaseFee * ( 1 + slippage / 100)
+    const execFee = BigInt(execCost) * BigInt(latestBaseFee) * BigInt( 1 + slippage / 100)
     console.log(`Using Base Fee: ${latestBaseFee} * slippage ${slippage} % = ${execFee}`)
     return execFee;
 }

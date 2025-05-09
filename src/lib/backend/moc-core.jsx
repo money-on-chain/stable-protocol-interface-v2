@@ -292,7 +292,7 @@ const mintTP = async (
     // There are sufficient PEGGED in the contracts to mint?
     const tpAvailableToMint = new BigNumber(
         fromContractPrecisionDecimals(
-            contractStatusData.getTPAvailableToMint[tpIndex],
+            contractStatusData[caIndex].getTPAvailableToMint[tpIndex],
             settings.tokens.TP[tpIndex].decimals
         )
     );

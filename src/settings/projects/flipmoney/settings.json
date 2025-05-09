@@ -56,7 +56,8 @@
             "visibleDecimals": 6,
             "visiblePriceDecimals": 2,
             "visibleBalanceDecimals": 8,
-            "visibleBalanceUSDDecimals": 2
+            "visibleBalanceUSDDecimals": 2,
+            "peggedUSD": false
         }],
         "TF": [{
             "key": 0,
