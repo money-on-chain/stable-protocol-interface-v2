@@ -40,34 +40,29 @@ export default function PortfolioTable() {
         // Step 1: Collect all tokens
         Object.entries(settings.tokens).forEach(([type, tokens]) => {
             tokens.forEach((token, index) => {
-                allTheTokens.push({
-                    uniqueKey: uniqueKeyCounter++,
-                    key: token.key !== undefined ? token.key : index, // Fallback if key is missing
-                    type,
-                    name: token.name,
-                    fullName: token.fullName || token.name, // Use name if fullName is missing
-                    decimals: token.decimals,
-                    visiblePriceDecimals: token.visiblePriceDecimals,
-                    visibleBalanceDecimals: token.visibleBalanceDecimals,
-                    visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
-                    peggedUSD:
-                        token.peggedUSD !== undefined ? token.peggedUSD : false, // Default to false
-                    collateralType: token.collateralType,
-                });
-                // Store TF token names for filtering TG later in Step 2
-                if (type === "TF") {
+                // Remove duplicated token names
+                if (!tfTokenNames.has(token.name)) {
+                    allTheTokens.push({
+                        uniqueKey: uniqueKeyCounter++,
+                        key: token.key !== undefined ? token.key : index, // Fallback if key is missing
+                        type,
+                        name: token.name,
+                        fullName: token.fullName || token.name, // Use name if fullName is missing
+                        decimals: token.decimals,
+                        visiblePriceDecimals: token.visiblePriceDecimals,
+                        visibleBalanceDecimals: token.visibleBalanceDecimals,
+                        visibleBalanceUSDDecimals: token.visibleBalanceUSDDecimals,
+                        peggedUSD:
+                            token.peggedUSD !== undefined ? token.peggedUSD : false, // Default to false
+                        collateralType: token.collateralType,
+                    });
                     tfTokenNames.add(token.name);
                 }
             });
         });
-        // Step 2: Remove TG tokens if a TF token with the same name exists
-        allTheTokens = allTheTokens.filter(
-            (token) => !(token.type === "TG" && tfTokenNames.has(token.name))
-        );
         return allTheTokens;
     };
     const allTheTokens = createAllTheTokens(settings);
-    // console.log("allTheTokens -> ", allTheTokens);
 
     // Initialize arrays for token and column data
     const [usdPriceTokensData, setUsdPriceTokensData] = useState([]);
@@ -217,7 +212,7 @@ export default function PortfolioTable() {
                         );
                         price = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.PP_TP[token.key][0],
+                                auth.contractStatusData[0].PP_TP[token.key][0],
                                 token.decimals
                             )
                         );
@@ -227,7 +222,7 @@ export default function PortfolioTable() {
                         //variation
                         priceHistory = new BigNumber(
                             fromContractPrecisionDecimals(
-                                auth.contractStatusData.historic.PP_TP[
+                                auth.contractStatusData.historic[0].PP_TP[
                                     token.key
                                 ][0],
                                 token.decimals
@@ -250,8 +245,11 @@ export default function PortfolioTable() {
                     break;
                 case "TC":
                     // CALCULATE TOKENS TC DATA
-
-                    tokenIcon = "icon-token-" + token.type.toLowerCase();
+                    tokenIcon =
+                        "icon-token-" +
+                        token.type.toLowerCase() +
+                        "_" +
+                        token.key;
 
                     balance = new BigNumber(
                         fromContractPrecisionDecimals(

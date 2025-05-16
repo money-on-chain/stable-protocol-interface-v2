@@ -129,7 +129,7 @@ function TokenPrice(auth, tokenName) {
             price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])][0];
             break;
         case "TP":
-            price = auth.contractStatusData.PP_TP[parseInt(aTokenName[1])][0];
+            price = auth.contractStatusData[0].PP_TP[parseInt(aTokenName[1])][0];
             break;
         case "TC":
             price = auth.contractStatusData[parseInt(aTokenName[1])].getPTCac;
@@ -390,7 +390,7 @@ function CalcCommission(
     // Fee Paying with Token
     const feeTokenPrice = new BigNumber(
         fromContractPrecisionDecimals(
-            auth.contractStatusData[caIndex].PP_FeeToken,
+            auth.contractStatusData[caIndex].PP_FeeToken[0],
             tokenReceiveSettings.decimals
         )
     );

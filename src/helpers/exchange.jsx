@@ -18,6 +18,13 @@ const tokenMap = {
     TC_1: ['CA_1'],
     TP_0: ['CA_0', 'CA_1'],
     TP_1: ['CA_0', 'CA_1']
+
+    CA_0: ['TC_0', 'TP_0', 'TP_1']
+    CA_1: ['TC_1', 'TP_0', 'TP_1']
+    TC_0: ['CA_0']
+    TC_1: ['CA_1']
+    TP_0: ['CA_0', 'CA_1']
+    TP_1: ['CA_0', 'CA_1']
 };*/
 
 function loadTokenMap() {
@@ -26,6 +33,7 @@ function loadTokenMap() {
 
     // Exchange CA
     for (let i = 0; i < settings.tokens.CA.length; i++) {
+        lReceive = [];
         lReceive.push(`TC_${i}`);
         // TP
         for (let t = 0; t < settings.tokens.TP.length; t++) {
@@ -42,7 +50,7 @@ function loadTokenMap() {
     // Exchange TP
     lReceive = [];
     for (let i = 0; i < settings.tokens.TP.length; i++) {
-        // CA
+        lReceive = [];
         for (let a = 0; a < settings.tokens.CA.length; a++) {
             lReceive.push(`CA_${a}`);
         }

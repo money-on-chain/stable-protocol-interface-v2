@@ -95,7 +95,7 @@ export default function TokensPeggedMobile() {
         settings.tokens.TP.forEach(function (dataItem) {
             let price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData.PP_TP[dataItem.key][0],
+                    auth.contractStatusData[0].PP_TP[dataItem.key][0],
                     settings.tokens.TP[dataItem.key].decimals
                 )
             );

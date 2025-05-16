@@ -46,13 +46,13 @@ const readContracts = async (web3) => {
     dContracts.contracts.PP_CA = [];
     const contractPPCA =
         import.meta.env.REACT_APP_CONTRACT_PRICE_PROVIDER_CA.split(",");
-    for (let i = 0; i < settings.tokens.CA.length; i++) {
+    for (let ca = 0; ca < settings.tokens.CA.length; ca++) {
         console.log(
-            `Reading Price Provider ${settings.tokens.CA[i].name} Tokens Contract... address: `,
-            contractPPCA[i]
+            `Reading Price Provider Pair ${settings.tokens.CA[ca].name} /USD Tokens Contract... address: `,
+            contractPPCA[ca]
         );
         dContracts.contracts.PP_CA.push(
-            new web3.eth.Contract(IPriceProvider.abi, contractPPCA[i])
+            new web3.eth.Contract(IPriceProvider.abi, contractPPCA[ca])
         );
     }
 
@@ -89,13 +89,13 @@ const readContracts = async (web3) => {
     let contractMocType
     let contractCA = []
     const tpAddresses = [];
-    const tpAddressesProviders = [];
+    dContracts.contracts.PP_TP = {}
 
-    for (let i = 0; i < settings.tokens.CA.length; i++) {
+    for (let ca = 0; ca < settings.tokens.CA.length; ca++) {
 
         // Get MoC Bucket address from multi-collateral guard
-        contractMocAddress = await dContracts.contracts.MocMultiCollateralGuard.methods.buckets(i).call()
-        contractMocType = settings.tokens.CA[i].type
+        contractMocAddress = await dContracts.contracts.MocMultiCollateralGuard.methods.buckets(ca).call()
+        contractMocType = settings.tokens.CA[ca].type
         if (contractMocType === "coinbase") collateralMoCAbi = MocCACoinbase
         console.log('Reading Moc Contract... address: ', contractMocAddress)
 
@@ -110,10 +110,9 @@ const readContracts = async (web3) => {
         const mocAddr = await mocAddresses(web3, dContracts, contractMoc, contractMocType);
 
         if (contractMocType !== 'coinbase') {
-
             if (!contractCA.includes(mocAddr['acToken'])) {
                 console.log(
-                    `Reading ${settings.tokens.CA[i].name} Token Contract... address: `,
+                    `Reading ${settings.tokens.CA[ca].name} Token Contract... address: `,
                     mocAddr['acToken']
                 );
                 dContracts.contracts.CA.push(
@@ -126,27 +125,29 @@ const readContracts = async (web3) => {
         let tpAddress;
         let tpIndex;
         let tpItem;
-        for (let i = 0; i < settings.tokens.TP.length; i++) {
-            try {
-                tpAddress = mocAddr["tpTokens"][i];
-                if (!tpAddress || tpAddress === "0x") continue;
-                tpIndex = await contractMoc.methods
-                    .peggedTokenIndex(tpAddress)
-                    .call();
-                if (!tpIndex.exists) continue;
-                tpItem = await contractMoc.methods
-                    .pegContainer(tpIndex.index)
-                    .call();
+        for (let tp = 0; tp < settings.tokens.TP.length; tp++) {
+            tpAddress = mocAddr["tpTokens"][tp];
+            if (!tpAddress || tpAddress === "0x") continue;
+            tpIndex = await contractMoc.methods
+                .peggedTokenIndex(tpAddress)
+                .call();
+            if (!tpIndex.exists) continue;
+            tpItem = await contractMoc.methods
+                .pegContainer(tpIndex.index)
+                .call();
 
-                if (!tpAddresses.includes(tpAddress)) {
-                    tpAddresses.push(tpAddress);
-                    tpAddressesProviders.push(tpItem.priceProvider);
-                }
-
-            } catch (e) {
-                console.error(e);
-                break;
+            if (!tpAddresses.includes(tpAddress)) {
+                tpAddresses.push(tpAddress);
+                //tpAddressesProviders.push(tpItem.priceProvider);
             }
+
+            console.log(
+                `Reading Price Provider Pair ${settings.tokens.TP[tp].name}/${settings.tokens.CA[ca].name} Contract... address: `,
+                tpItem.priceProvider
+            );
+            if (!dContracts.contracts.PP_TP[ca]) dContracts.contracts.PP_TP[ca] = {}
+            dContracts.contracts.PP_TP[ca][tp] = new web3.eth.Contract(IPriceProvider.abi, tpItem.priceProvider);
+
         }
 
         console.log(
@@ -209,26 +210,27 @@ const readContracts = async (web3) => {
     }
 
     dContracts.contracts.TP = [];
-    for (let i = 0; i < settings.tokens.TP.length; i++) {
+    for (let tp = 0; tp < settings.tokens.TP.length; tp++) {
         console.log(
-            `Reading ${settings.tokens.TP[i].name} Token Contract... address: `,
-            tpAddresses[i]
+            `Reading ${settings.tokens.TP[tp].name} Token Contract... address: `,
+            tpAddresses[tp]
         );
         dContracts.contracts.TP.push(
-            new web3.eth.Contract(TokenPegged.abi, tpAddresses[i])
+            new web3.eth.Contract(TokenPegged.abi, tpAddresses[tp])
         );
     }
 
+    /*
     dContracts.contracts.PP_TP = [];
-    for (let i = 0; i < settings.tokens.TP.length; i++) {
+    for (let tp = 0; tp < settings.tokens.TP.length; tp++) {
         console.log(
-            `Reading Price Provider ${settings.tokens.TP[i].name} Contract... address: `,
-            tpAddressesProviders[i]
+            `Reading Price Provider ${settings.tokens.TP[tp].name} Contract... address: `,
+            tpAddressesProviders[tp]
         );
         dContracts.contracts.PP_TP.push(
-            new web3.eth.Contract(IPriceProvider.abi, tpAddressesProviders[i])
+            new web3.eth.Contract(IPriceProvider.abi, tpAddressesProviders[tp])
         );
-    }
+    }*/
 
 
     if (typeof import.meta.env.REACT_APP_CONTRACT_IREGISTRY !== "undefined") {
