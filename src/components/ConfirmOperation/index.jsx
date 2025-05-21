@@ -256,6 +256,7 @@ export default function ConfirmOperation(props) {
             .get(apiUrl, {
                 params: {
                     oper_id: opID,
+                    bucket_index: caIndex
                 },
                 timeout: 10000,
             })

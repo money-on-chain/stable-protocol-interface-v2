@@ -405,7 +405,7 @@ const redeemTP = async (
     // There are sufficient CA in the contract
     const caBalance = new BigNumber(
         fromContractPrecisionDecimals(
-            contractStatusData.getACBalance[caIndex],
+            contractStatusData[caIndex].getACBalance,
             settings.tokens.CA[caIndex].decimals
         )
     );
