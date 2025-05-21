@@ -117,39 +117,6 @@ function hasNonUSDPeggedTokens() {
     return has;
 }
 
-function TokenPrice(auth, tokenName) {
-    // Ex. tokenName = CA_0, CA_1, TP_0, TP_1, TC_0, TC_1, COINBASE
-    let price = 0;
-
-    if (!auth.contractStatusData) return 0;
-
-    const aTokenName = tokenName.split("_");
-    switch (aTokenName[0]) {
-        case "CA":
-            price = auth.contractStatusData.PP_CA[parseInt(aTokenName[1])][0];
-            break;
-        case "TP":
-            price = auth.contractStatusData[0].PP_TP[parseInt(aTokenName[1])][0];
-            break;
-        case "TC":
-            price = auth.contractStatusData[parseInt(aTokenName[1])].getPTCac;
-            break;
-        case "COINBASE":
-            price = auth.contractStatusData.PP_COINBASE[0];
-            break;
-        case "TG":
-            price = auth.contractStatusData[0].PP_FeeToken[0];
-            break;
-        case "TF":
-            price = auth.contractStatusData[parseInt(aTokenName[1])].PP_FeeToken[0];
-            break;
-        default:
-            throw new Error("Invalid token name");
-    }
-
-    return price;
-}
-
 function ConvertBalance(auth, tokenExchange, tokenReceive) {
     const rawAmount = TokenBalance(auth, tokenExchange);
     return ConvertAmount(auth, tokenExchange, tokenReceive, rawAmount);
@@ -162,6 +129,8 @@ function ConvertAmount(
     rawAmount,
     amountInWei = true
 ) {
+
+    const caIndex = getCAIndex(tokenExchange, tokenReceive)
     const tokenExchangeSettings = TokenSettings(tokenExchange);
     const tokenReceiveSettings = TokenSettings(tokenReceive);
 
@@ -191,7 +160,7 @@ function ConvertAmount(
         case "CA,TC":
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenReceive),
+                    auth.contractStatusData[caIndex].getPTCac,
                     tokenReceiveSettings.decimals
                 )
             );
@@ -201,7 +170,7 @@ function ConvertAmount(
             // Redeem Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
+                    auth.contractStatusData[caIndex].PP_TP[parseInt(aTokenExchange[1])][0],
                     tokenExchangeSettings.decimals
                 )
             );
@@ -211,7 +180,7 @@ function ConvertAmount(
             // Mint Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenReceive),
+                    auth.contractStatusData[caIndex].PP_TP[parseInt(aTokenReceive[1])][0],
                     tokenReceiveSettings.decimals
                 )
             );
@@ -221,7 +190,7 @@ function ConvertAmount(
             // Redeem Operation
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
+                    auth.contractStatusData[caIndex].getPTCac,
                     tokenExchangeSettings.decimals
                 )
             );
@@ -231,7 +200,7 @@ function ConvertAmount(
             // TG
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
+                    auth.contractStatusData[caIndex].PP_FeeToken[0],
                     tokenExchangeSettings.decimals
                 )
             );
@@ -241,7 +210,7 @@ function ConvertAmount(
             // COINBASE
             price = new BigNumber(
                 fromContractPrecisionDecimals(
-                    TokenPrice(auth, tokenExchange),
+                    auth.contractStatusData.PP_COINBASE[0],
                     tokenExchangeSettings.decimals
                 )
             );
@@ -443,7 +412,6 @@ export {
     getCurrenciesDetail,
     TokenSettings,
     TokenBalance,
-    TokenPrice,
     ConvertBalance,
     ConvertAmount,
     AmountToVisibleValue,

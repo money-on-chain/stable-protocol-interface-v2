@@ -404,8 +404,8 @@ export default function Exchange() {
 
         const priceCA = new BigNumber(
             fromContractPrecisionDecimals(
-                auth.contractStatusData[0].PP_CA[0],
-                settings.tokens.CA[0].decimals
+                auth.contractStatusData[caIndex].PP_CA[0],
+                settings.tokens.CA[caIndex].decimals
             )
         );
         convertAmountUSD = convertAmountUSD.times(priceCA);

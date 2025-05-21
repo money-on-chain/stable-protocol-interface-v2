@@ -304,7 +304,7 @@ const mintTP = async (
 
     let valueToSend
     if (getNetworkFromProject()==="rsk") {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpMintExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpMintExecCost, 2)
     } else {
         valueToSend = 0
     }
@@ -324,10 +324,10 @@ const mintTP = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: account, value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend.toString() });
 
     if (valueToSend === 0) {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpMintExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpMintExecCost, 2)
     }
 
     // Send tx
@@ -347,7 +347,7 @@ const mintTP = async (
         )
         .send({
             from: account,
-            value: valueToSend,
+            value: valueToSend.toString(),
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas,
