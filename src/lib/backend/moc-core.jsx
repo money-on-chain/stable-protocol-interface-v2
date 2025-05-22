@@ -70,7 +70,7 @@ const mintTC = async (
     // TODO: view functions returns baseFee == 0, if we use another value the estimateGas function will revert
     let valueToSend
     if (getNetworkFromProject()==="rsk") {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcMintExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcMintExecCost, 2)
     } else {
         valueToSend = 0
     }
@@ -89,10 +89,10 @@ const mintTC = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: account, value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend.toString() });
 
     if (valueToSend === 0) {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcMintExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcMintExecCost, 2)
     }
 
     const receipt = MoCContract.methods
@@ -110,7 +110,7 @@ const mintTC = async (
         )
         .send({
             from: account,
-            value: valueToSend,
+            value: valueToSend.toString(),
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas,
@@ -177,7 +177,7 @@ const redeemTC = async (
 
     let valueToSend
     if (getNetworkFromProject()==="rsk") {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcRedeemExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcRedeemExecCost, 2)
     } else {
         valueToSend = 0
     }
@@ -196,10 +196,10 @@ const redeemTC = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: account, value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend.toString() });
 
     if (valueToSend === 0) {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcRedeemExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tcRedeemExecCost, 2)
     }
 
     // Send tx
@@ -218,7 +218,7 @@ const redeemTC = async (
         )
         .send({
             from: account,
-            value: valueToSend,
+            value: valueToSend.toString(),
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas,
@@ -416,7 +416,7 @@ const redeemTP = async (
 
     let valueToSend
     if (getNetworkFromProject()==="rsk") {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpRedeemExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpRedeemExecCost, 4)
     } else {
         valueToSend = 0
     }
@@ -436,10 +436,10 @@ const redeemTP = async (
             account,
             vendorAddress
         )
-        .estimateGas({ from: account, value: valueToSend });
+        .estimateGas({ from: account, value: valueToSend.toString() });
 
     if (valueToSend === 0) {
-        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpRedeemExecCost, 0)
+        valueToSend = await getExecutionFee(web3, contractStatusData[caIndex].tpRedeemExecCost, 4)
     }
 
     // Send tx
@@ -459,7 +459,7 @@ const redeemTP = async (
         )
         .send({
             from: account,
-            value: valueToSend,
+            value: valueToSend.toString(),
             gasPrice: await getGasPrice(web3),
             gas: estimateGas,
             gasLimit: estimateGas,

@@ -72,11 +72,11 @@ export default function Exchange() {
     const [radioSelectFeeTokenDisabled, setRadioSelectFeeTokenDisabled] =
         useState(true);
 
-    const { checkerStatus } = CheckStatus();
-
     const [valueExchange, setValueExchange] = useState("");
     const [valueReceive, setValueReceive] = useState("");
     const [caIndex, setCAIndex] = useState(0);
+
+    const { checkerStatus } = CheckStatus({caIndex: 0});
 
     useEffect(() => {
         if (amountYouExchange && auth.contractStatusData) {
@@ -95,6 +95,7 @@ export default function Exchange() {
     const onChangeCurrencyYouReceive = (newCurrencyYouReceive) => {
         onClear();
         setCurrencyYouReceive(newCurrencyYouReceive);
+        setCAIndex(getCAIndex(currencyYouExchange, newCurrencyYouReceive));
     };
     const handleSwapCurrencies = () => {
         const tempCurrency = currencyYouExchange;
@@ -208,7 +209,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const tpAvailableToMint = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData[0].getTPAvailableToMint[tIndex],
+                    auth.contractStatusData[caIndex].getTPAvailableToMint[tIndex],
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -225,7 +226,7 @@ export default function Exchange() {
             // There are sufficient TC in the contracts to redeem?
             const tcAvailableToRedeem = new BigNumber(
                 Web3.utils.fromWei(
-                    auth.contractStatusData[0].getTCAvailableToRedeem,
+                    auth.contractStatusData[caIndex].getTCAvailableToRedeem,
                     "ether"
                 )
             );
@@ -242,7 +243,7 @@ export default function Exchange() {
             // There are sufficient CA in the contract
             const caBalance = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData[0].getACBalance[tIndex],
+                    auth.contractStatusData[caIndex].getACBalance[tIndex],
                     settings.tokens.CA[tIndex].decimals
                 )
             );
@@ -273,7 +274,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToMintTP = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData[0].maxQACToMintTP,
+                    auth.contractStatusData[caIndex].maxQACToMintTP,
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -292,7 +293,7 @@ export default function Exchange() {
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToRedeemTP = new BigNumber(
                 fromContractPrecisionDecimals(
-                    auth.contractStatusData[0].maxQACToRedeemTP,
+                    auth.contractStatusData[caIndex].maxQACToRedeemTP,
                     settings.tokens.TP[tIndex].decimals
                 )
             );
@@ -408,6 +409,7 @@ export default function Exchange() {
                 settings.tokens.CA[caIndex].decimals
             )
         );
+
         convertAmountUSD = convertAmountUSD.times(priceCA);
         setExchangingUSD(convertAmountUSD);
 

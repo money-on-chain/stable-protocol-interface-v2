@@ -105,7 +105,7 @@ function isMintOperation(tokenExchange, tokenReceive) {
     }
 }
 
-function TokenAllowance(auth, tokenExchange) {
+function TokenAllowance(auth, tokenExchange, caIndex) {
     // Ex. tokenExchange = CA_0, CA_1, TP_0, TP_1, TC_0, TC_1, COINBASE, TF_0, TF_1
     //const tokenExchangeSettings = TokenSettings(tokenExchange);
     const aTokenExchange = tokenExchange.split("_");
@@ -116,12 +116,8 @@ function TokenAllowance(auth, tokenExchange) {
                 auth.userBalanceData.CA[parseInt(aTokenExchange[1])].allowance;
             break;
         case "TP":
-            /*allowance = toContractPrecisionDecimals(
-                new BigNumber(VERY_HIGH_NUMBER),
-                tokenExchangeSettings.decimals
-            );*/
             allowance =
-                auth.userBalanceData.TP[parseInt(aTokenExchange[1])].allowance;
+                auth.userBalanceData.TP[caIndex][parseInt(aTokenExchange[1])].allowance;
             break;
         case "TC":
             allowance = auth.userBalanceData[parseInt(aTokenExchange[1])].TC.allowance;
@@ -136,16 +132,15 @@ function TokenAllowance(auth, tokenExchange) {
     return allowance;
 }
 
-function UserTokenAllowance(auth, tokenExchange) {
+function UserTokenAllowance(auth, tokenExchange, caIndex) {
     const tokenExchangeSettings = TokenSettings(tokenExchange);
 
-    const allowance = new BigNumber(
+    return new BigNumber(
         fromContractPrecisionDecimals(
-            TokenAllowance(auth, tokenExchange),
+            TokenAllowance(auth, tokenExchange, caIndex),
             tokenExchangeSettings.decimals
         )
     );
-    return allowance;
 }
 
 function ApproveTokenContract(dContracts, tokenExchange, tokenReceive) {

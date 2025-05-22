@@ -154,7 +154,7 @@ export default function ConfirmOperation(props) {
     };
 
     const showAllowance = () => {
-        const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange);
+        const tokenAllowance = UserTokenAllowance(auth, currencyYouExchange, caIndex);
         return !!amountYouExchangeLimit.gt(tokenAllowance);
     };
 
@@ -169,7 +169,7 @@ export default function ConfirmOperation(props) {
     const showAllowanceFeeToken = () => {
 
         //const caIndex = getCAIndex(currencyYouExchange, currencyYouReceive);
-        const tokenAllowance = UserTokenAllowance(auth, `TF_${caIndex}`);
+        const tokenAllowance = UserTokenAllowance(auth, `TF_${caIndex}`, caIndex);
 
         if (radioSelectFee === 0 && tokenAllowance.gte(commissionFeeToken)) {
             // if we select not to pay with fee token, please disallow to use Fee token

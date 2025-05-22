@@ -20,7 +20,7 @@ export default function Performance() {
     const [statusText, setStatusText] = useState("--");
     const { t, i18n, ns } = useProjectTranslation();
     const auth = useContext(AuthenticateContext);
-    const { checkerStatus } = CheckStatus();
+    const { checkerStatus } = CheckStatus({caIndex: 0});
     useEffect(() => {
         if ((auth.contractStatusData, auth.userBalanceData)) {
             const { statusIcon, statusLabel, statusText } = checkerStatus();
