@@ -273,6 +273,12 @@ const getCAIndex = (
         case "TC,CA":
             index = parseInt(aTokenReceive[1])
             break;
+        case "COINBASE,CA":
+            index = parseInt(aTokenReceive[1])
+            break;
+        case "CA,CA":
+            index = parseInt(aTokenReceive[1])
+            break;
         default:
             throw new Error("Invalid map getCAIndex");
     }

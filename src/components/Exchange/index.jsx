@@ -287,9 +287,11 @@ export default function Exchange() {
             }
         }
 
-        // 7. Redeem TP. Flux capacitor maxQACToRedeemTP
+        // Redeem TP
         arrCurrencyYouExchange = currencyYouExchange.split("_");
         if (arrCurrencyYouExchange[0] === "TP") {
+
+            // 7. Flux Capacitor
             tIndex = TokenSettings(currencyYouReceive).key;
             const maxQACToRedeemTP = new BigNumber(
                 fromContractPrecisionDecimals(
@@ -309,6 +311,23 @@ export default function Exchange() {
                 setInputValidationError(true);
                 return;
             }
+
+            // 8 Available TP to redeem
+            tIndex = TokenSettings(currencyYouExchange).key;
+            const maxAvailableTP = new BigNumber(
+                fromContractPrecisionDecimals(
+                    auth.contractStatusData[caIndex].pegContainer[tIndex],
+                    settings.tokens.TP[tIndex].decimals
+                )
+            );
+            if (new BigNumber(amountYouExchange).gt(maxAvailableTP)) {
+                setInputValidationErrorText(
+                    t("exchange.errors.insufficientTPinCA")
+                );
+                setInputValidationError(true);
+                return;
+            }
+
         }
 
         // No Validations Errors
