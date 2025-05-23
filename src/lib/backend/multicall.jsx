@@ -737,13 +737,13 @@ const contractStatus = async (web3, dContracts) => {
             ca,
             "paused"
         );
-        // multiCallRequest.aggregate(
-        //     MocMultiCollateralGuard,
-        //     MocMultiCollateralGuard.methods.getRealTCAvailableToRedeem(Moc.options.address).encodeABI(),
-        //     "uint256",
-        //     ca,
-        //     "getRealTCAvailableToRedeem"
-        // );
+        multiCallRequest.aggregate(
+            MocMultiCollateralGuard,
+            MocMultiCollateralGuard.methods.getRealTCAvailableToRedeem(Moc.options.address).encodeABI(),
+            "uint256",
+            ca,
+            "getRealTCAvailableToRedeem"
+        );
         // // only on coinbase mode
         // if (contractMocType === "coinbase") {
         //     multiCallRequest.aggregate(
@@ -842,14 +842,14 @@ const contractStatus = async (web3, dContracts) => {
                 "tpEma",
                 tp
             );
-            // multiCallRequest.aggregate(
-            //     MocMultiCollateralGuard,
-            //     MocMultiCollateralGuard.methods.getRealTPAvailableToMint(Moc.options.address, tpAddress).encodeABI(),
-            //     "uint256",
-            //     ca,
-            //     "getRealTPAvailableToMint",
-            //     tp
-            // );
+            multiCallRequest.aggregate(
+                MocMultiCollateralGuard,
+                MocMultiCollateralGuard.methods.getRealTPAvailableToMint(Moc.options.address, tpAddress).encodeABI(),
+                "uint256",
+                ca,
+                "getRealTPAvailableToMint",
+                tp
+            );
         }
 
     }
