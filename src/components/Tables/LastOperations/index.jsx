@@ -50,14 +50,14 @@ export default function LastOperations(props) {
         if (auth.isLoggedIn) {
             console.log("Loading table…");
             /*const datas = {
-                address: accountData.Owner,
+                address: auth.account,
                 limit: 10,
                 skip: (skip - 1 + (skip - 1)) * 10,
             };*/
             setTimeout(() => {
-                const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;
+                const baseUrl = `${import.meta.env.REACT_APP_ENVIRONMENT_API_OPERATIONS}operations/list/`;                
                 const queryParams = new URLSearchParams({
-                    recipient: accountData.Owner,
+                    recipient: auth.account,
                     limit: 1000,
                     skip: 0,
                 }).toString();
@@ -112,10 +112,10 @@ export default function LastOperations(props) {
             transactionsList(current);
         }, 3000);
         return () => clearInterval(interval);
-    }, [accountData.Owner]);
+    }, [auth.account]);
     useEffect(() => {
         transactionsList(current);
-    }, [accountData.Owner]);
+    }, [auth.account]);
     const onChange = (page) => {
         if (accountData !== undefined) {
             setCurrent(page);
@@ -383,7 +383,7 @@ export default function LastOperations(props) {
         data = [];
         txList.forEach((data) => {
             const token = tokenExchange(data);
-
+            
             const detail = {
                 event: data["operation"],
                 oper_id: data["operId_"],
@@ -418,7 +418,7 @@ export default function LastOperations(props) {
                     "--"
                 ),
                 recipient:
-                    data["params"]["recipient"] !== "--" ? (
+                    data["params"] != null && data["params"]["recipient"] != null && data["params"]["recipient"] !== "--" ? (
                         <Copy
                             textToShow={TruncatedAddress(
                                 data["params"]["recipient"]
@@ -440,9 +440,9 @@ export default function LastOperations(props) {
                     getErrorMessage(data["msg_"]) ||
                     t("operations.errors.noMessage"),
                 reason: data["reason_"] || "--",
-                executed_tx_hash_truncate:
-                    TruncatedAddress(data["params"]["hash"]) || "--",
-                executed_tx_hash: data["params"]["hash"] || "--",
+                executed_tx_hash_truncate: data["params"]
+                    != null && data["params"]["hash"] != null ? TruncatedAddress(data["params"]["hash"]) : "--",
+                executed_tx_hash: data["params"] != null && data["params"]["hash"] != null ? data["params"]["hash"] : "--",
                 status: getStatus(data) || "--",
                 fee: getFee(data) || "--",
             };
@@ -730,7 +730,7 @@ export default function LastOperations(props) {
     function getTransferAction(row_operation) {
         if (
             row_operation["params"]["sender"].toLowerCase() ===
-            accountData.Owner.toLowerCase()
+            auth.account.toLowerCase()
         ) {
             return t("operations.actions.destination");
         } else {
@@ -749,7 +749,7 @@ export default function LastOperations(props) {
     function getTransferAddress(row_operation) {
         if (
             row_operation["params"]["sender"].toLowerCase() ===
-            accountData.Owner.toLowerCase()
+            auth.account.toLowerCase()
         ) {
             // return truncateAddress(row_operation['params']['recipient'].toLowerCase())
             return row_operation["params"]["recipient"].toLowerCase();
